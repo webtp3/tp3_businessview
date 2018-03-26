@@ -1,306 +1,376 @@
 <?php
-
 namespace Tp3\Tp3Businessview\Tests\Unit\Domain\Model;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2015 Thomas Ruta <support@r-p-it.de>, tp3
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
- * Test case for class \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView.
- *
- * @copyright Copyright belongs to the respective authors
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * Test case.
  *
  * @author Thomas Ruta <support@r-p-it.de>
  */
-class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
-	/**
-	 * @var \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
-	 */
-	protected $subject = NULL;
+class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+{
+    /**
+     * @var \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
+     */
+    protected $subject = null;
 
-	protected function setUp() {
-		$this->subject = new \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView();
-	}
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->subject = new \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView();
+    }
 
-	protected function tearDown() {
-		unset($this->subject);
-	}
+    protected function tearDown()
+    {
+        parent::tearDown();
+    }
 
-	/**
-	 * @test
-	 */
-	public function getCreatedByReturnsInitialValueForString() {
-		$this->assertSame(
-			'',
-			$this->subject->getCreatedBy()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getCreatedByReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getCreatedBy()
+        );
 
-	/**
-	 * @test
-	 */
-	public function setCreatedByForStringSetsCreatedBy() {
-		$this->subject->setCreatedBy('Conceived at T3CON10');
+    }
 
-		$this->assertAttributeEquals(
-			'Conceived at T3CON10',
-			'createdBy',
-			$this->subject
-		);
-	}
+    /**
+     * @test
+     */
+    public function setCreatedByForStringSetsCreatedBy()
+    {
+        $this->subject->setCreatedBy('Conceived at T3CON10');
 
-	/**
-	 * @test
-	 */
-	public function getNameReturnsInitialValueForString() {
-		$this->assertSame(
-			'',
-			$this->subject->getName()
-		);
-	}
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'createdBy',
+            $this->subject
+        );
 
-	/**
-	 * @test
-	 */
-	public function setNameForStringSetsName() {
-		$this->subject->setName('Conceived at T3CON10');
+    }
 
-		$this->assertAttributeEquals(
-			'Conceived at T3CON10',
-			'name',
-			$this->subject
-		);
-	}
+    /**
+     * @test
+     */
+    public function getNameReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getName()
+        );
 
-	/**
-	 * @test
-	 */
-	public function getExternalLinksReturnsInitialValueForString() {
-		$this->assertSame(
-			'',
-			$this->subject->getExternalLinks()
-		);
-	}
+    }
 
-	/**
-	 * @test
-	 */
-	public function setExternalLinksForStringSetsExternalLinks() {
-		$this->subject->setExternalLinks('Conceived at T3CON10');
+    /**
+     * @test
+     */
+    public function setNameForStringSetsName()
+    {
+        $this->subject->setName('Conceived at T3CON10');
 
-		$this->assertAttributeEquals(
-			'Conceived at T3CON10',
-			'externalLinks',
-			$this->subject
-		);
-	}
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'name',
+            $this->subject
+        );
 
-	/**
-	 * @test
-	 */
-	public function getGalleryReturnsInitialValueForString() {
-		$this->assertSame(
-			'',
-			$this->subject->getGallery()
-		);
-	}
+    }
 
-	/**
-	 * @test
-	 */
-	public function setGalleryForStringSetsGallery() {
-		$this->subject->setGallery('Conceived at T3CON10');
+    /**
+     * @test
+     */
+    public function getExternalLinksReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getExternalLinks()
+        );
 
-		$this->assertAttributeEquals(
-			'Conceived at T3CON10',
-			'gallery',
-			$this->subject
-		);
-	}
+    }
 
-	/**
-	 * @test
-	 */
-	public function getIntroReturnsInitialValueForString() {
-		$this->assertSame(
-			'',
-			$this->subject->getIntro()
-		);
-	}
+    /**
+     * @test
+     */
+    public function setExternalLinksForStringSetsExternalLinks()
+    {
+        $this->subject->setExternalLinks('Conceived at T3CON10');
 
-	/**
-	 * @test
-	 */
-	public function setIntroForStringSetsIntro() {
-		$this->subject->setIntro('Conceived at T3CON10');
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'externalLinks',
+            $this->subject
+        );
 
-		$this->assertAttributeEquals(
-			'Conceived at T3CON10',
-			'intro',
-			$this->subject
-		);
-	}
+    }
 
-	/**
-	 * @test
-	 */
-	public function getPanoAnimationReturnsInitialValueForInteger() {
-		$this->assertSame(
-			0,
-			$this->subject->getPanoAnimation()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getGalleryReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getGallery()
+        );
 
-	/**
-	 * @test
-	 */
-	public function setPanoAnimationForIntegerSetsPanoAnimation() {
-		$this->subject->setPanoAnimation(12);
+    }
 
-		$this->assertAttributeEquals(
-			12,
-			'panoAnimation',
-			$this->subject
-		);
-	}
+    /**
+     * @test
+     */
+    public function setGalleryForStringSetsGallery()
+    {
+        $this->subject->setGallery('Conceived at T3CON10');
 
-	/**
-	 * @test
-	 */
-	public function getSocialGalleryReturnsInitialValueForString() {
-		$this->assertSame(
-			'',
-			$this->subject->getSocialGallery()
-		);
-	}
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'gallery',
+            $this->subject
+        );
 
-	/**
-	 * @test
-	 */
-	public function setSocialGalleryForStringSetsSocialGallery() {
-		$this->subject->setSocialGallery('Conceived at T3CON10');
+    }
 
-		$this->assertAttributeEquals(
-			'Conceived at T3CON10',
-			'socialGallery',
-			$this->subject
-		);
-	}
+    /**
+     * @test
+     */
+    public function getIntroReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getIntro()
+        );
 
-	/**
-	 * @test
-	 */
-	public function getPanoOptionsReturnsInitialValueForInteger() {
-		$this->assertSame(
-			0,
-			$this->subject->getPanoOptions()
-		);
-	}
+    }
 
-	/**
-	 * @test
-	 */
-	public function setPanoOptionsForIntegerSetsPanoOptions() {
-		$this->subject->setPanoOptions(12);
+    /**
+     * @test
+     */
+    public function setIntroForStringSetsIntro()
+    {
+        $this->subject->setIntro('Conceived at T3CON10');
 
-		$this->assertAttributeEquals(
-			12,
-			'panoOptions',
-			$this->subject
-		);
-	}
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'intro',
+            $this->subject
+        );
 
-	/**
-	 * @test
-	 */
-	public function getContactReturnsInitialValueForBusinessAdress() {
-		$this->assertEquals(
-			NULL,
-			$this->subject->getContact()
-		);
-	}
+    }
 
-	/**
-	 * @test
-	 */
-	public function setContactForBusinessAdressSetsContact() {
-		$contactFixture = new \Tp3\Tp3Businessview\Domain\Model\BusinessAdress();
-		$this->subject->setContact($contactFixture);
+    /**
+     * @test
+     */
+    public function getPanoAnimationReturnsInitialValueForInt()
+    {
+    }
 
-		$this->assertAttributeEquals(
-			$contactFixture,
-			'contact',
-			$this->subject
-		);
-	}
+    /**
+     * @test
+     */
+    public function setPanoAnimationForIntSetsPanoAnimation()
+    {
+    }
 
-	/**
-	 * @test
-	 */
-	public function getAppReturnsInitialValueForBusinessApp() {
-		$this->assertEquals(
-			NULL,
-			$this->subject->getApp()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getSocialGalleryReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getSocialGallery()
+        );
 
-	/**
-	 * @test
-	 */
-	public function setAppForBusinessAppSetsApp() {
-		$appFixture = new \Tp3\Tp3Businessview\Domain\Model\BusinessApp();
-		$this->subject->setApp($appFixture);
+    }
 
-		$this->assertAttributeEquals(
-			$appFixture,
-			'app',
-			$this->subject
-		);
-	}
+    /**
+     * @test
+     */
+    public function setSocialGalleryForStringSetsSocialGallery()
+    {
+        $this->subject->setSocialGallery('Conceived at T3CON10');
 
-	/**
-	 * @test
-	 */
-	public function getPanoramasReturnsInitialValueForPanoramas() {
-		$this->assertEquals(
-			NULL,
-			$this->subject->getPanoramas()
-		);
-	}
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'socialGallery',
+            $this->subject
+        );
 
-	/**
-	 * @test
-	 */
-	public function setPanoramasForPanoramasSetsPanoramas() {
-		$panoramasFixture = new \Tp3\Tp3Businessview\Domain\Model\Panoramas();
-		$this->subject->setPanoramas($panoramasFixture);
+    }
 
-		$this->assertAttributeEquals(
-			$panoramasFixture,
-			'panoramas',
-			$this->subject
-		);
-	}
+    /**
+     * @test
+     */
+    public function getPanoOptionsReturnsInitialValueForInt()
+    {
+    }
+
+    /**
+     * @test
+     */
+    public function setPanoOptionsForIntSetsPanoOptions()
+    {
+    }
+
+    /**
+     * @test
+     */
+    public function getContactReturnsInitialValueForBusinessAdress()
+    {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        self::assertEquals(
+            $newObjectStorage,
+            $this->subject->getContact()
+        );
+
+    }
+
+    /**
+     * @test
+     */
+    public function setContactForObjectStorageContainingBusinessAdressSetsContact()
+    {
+        $contact = new \Tp3\Tp3Businessview\Domain\Model\BusinessAdress();
+        $objectStorageHoldingExactlyOneContact = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneContact->attach($contact);
+        $this->subject->setContact($objectStorageHoldingExactlyOneContact);
+
+        self::assertAttributeEquals(
+            $objectStorageHoldingExactlyOneContact,
+            'contact',
+            $this->subject
+        );
+
+    }
+
+    /**
+     * @test
+     */
+    public function addContactToObjectStorageHoldingContact()
+    {
+        $contact = new \Tp3\Tp3Businessview\Domain\Model\BusinessAdress();
+        $contactObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->setMethods(['attach'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $contactObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($contact));
+        $this->inject($this->subject, 'contact', $contactObjectStorageMock);
+
+        $this->subject->addContact($contact);
+    }
+
+    /**
+     * @test
+     */
+    public function removeContactFromObjectStorageHoldingContact()
+    {
+        $contact = new \Tp3\Tp3Businessview\Domain\Model\BusinessAdress();
+        $contactObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->setMethods(['detach'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $contactObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($contact));
+        $this->inject($this->subject, 'contact', $contactObjectStorageMock);
+
+        $this->subject->removeContact($contact);
+
+    }
+
+    /**
+     * @test
+     */
+    public function getAppReturnsInitialValueForBusinessApp()
+    {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        self::assertEquals(
+            $newObjectStorage,
+            $this->subject->getApp()
+        );
+
+    }
+
+    /**
+     * @test
+     */
+    public function setAppForObjectStorageContainingBusinessAppSetsApp()
+    {
+        $app = new \Tp3\Tp3Businessview\Domain\Model\BusinessApp();
+        $objectStorageHoldingExactlyOneApp = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneApp->attach($app);
+        $this->subject->setApp($objectStorageHoldingExactlyOneApp);
+
+        self::assertAttributeEquals(
+            $objectStorageHoldingExactlyOneApp,
+            'app',
+            $this->subject
+        );
+
+    }
+
+    /**
+     * @test
+     */
+    public function addAppToObjectStorageHoldingApp()
+    {
+        $app = new \Tp3\Tp3Businessview\Domain\Model\BusinessApp();
+        $appObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->setMethods(['attach'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $appObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($app));
+        $this->inject($this->subject, 'app', $appObjectStorageMock);
+
+        $this->subject->addApp($app);
+    }
+
+    /**
+     * @test
+     */
+    public function removeAppFromObjectStorageHoldingApp()
+    {
+        $app = new \Tp3\Tp3Businessview\Domain\Model\BusinessApp();
+        $appObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->setMethods(['detach'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $appObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($app));
+        $this->inject($this->subject, 'app', $appObjectStorageMock);
+
+        $this->subject->removeApp($app);
+
+    }
+
+    /**
+     * @test
+     */
+    public function getPanoramasReturnsInitialValueForPanoramas()
+    {
+        self::assertEquals(
+            null,
+            $this->subject->getPanoramas()
+        );
+
+    }
+
+    /**
+     * @test
+     */
+    public function setPanoramasForPanoramasSetsPanoramas()
+    {
+        $panoramasFixture = new \Tp3\Tp3Businessview\Domain\Model\Panoramas();
+        $this->subject->setPanoramas($panoramasFixture);
+
+        self::assertAttributeEquals(
+            $panoramasFixture,
+            'panoramas',
+            $this->subject
+        );
+
+    }
 }

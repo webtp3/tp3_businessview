@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2015-12-01T20:17:57Z" product-name="tp3_businessview">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-03-27T00:56:15Z" product-name="tp3_businessview">
 		<header/>
 		<body>
+			<trans-unit id="tx_tp3_businessview_domain_model_tp3businessview">
+				<source>BusinessView</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3_businessview_domain_model_tp3businessview.description">
+				<source>google businessview für tp3</source>
+			</trans-unit>
 			<trans-unit id="created_by.description">
 				<source>createdBy</source>
 			</trans-unit>

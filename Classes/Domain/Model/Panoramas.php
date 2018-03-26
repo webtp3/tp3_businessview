@@ -1,7 +1,6 @@
 <?php
 namespace Tp3\Tp3Businessview\Domain\Model;
 
-
 /***************************************************************
  *
  *  Copyright notice
@@ -27,114 +26,132 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+/***
+ *
+ * This file is part of the "BusinsessView" Extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
+ *
+ ***/
+
 /**
  * Panoramas
  */
-class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+{
+    /**
+     * panoId
+     * 
+     * @var string
+     * @validate NotEmpty
+     */
+    protected $panoId = '';
 
-	/**
-	 * panoId
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $panoId = '';
+    /**
+     * heading
+     * 
+     * @var string
+     */
+    protected $heading = '';
 
-	/**
-	 * heading
-	 *
-	 * @var string
-	 */
-	protected $heading = '';
+    /**
+     * pitch
+     * 
+     * @var string
+     */
+    protected $pitch = '';
 
-	/**
-	 * pitch
-	 *
-	 * @var string
-	 */
-	protected $pitch = '';
+    /**
+     * zoom
+     * 
+     * @var string
+     */
+    protected $zoom = '';
 
-	/**
-	 * zoom
-	 *
-	 * @var string
-	 */
-	protected $zoom = '';
+    /**
+     * Returns the panoId
+     * 
+     * @return string $panoId
+     */
+    public function getPanoId()
+    {
+        return $this->panoId;
+    }
 
-	/**
-	 * Returns the panoId
-	 *
-	 * @return string $panoId
-	 */
-	public function getPanoId() {
-		return $this->panoId;
-	}
+    /**
+     * Sets the panoId
+     * 
+     * @param string $panoId
+     * @return void
+     */
+    public function setPanoId($panoId)
+    {
+        $this->panoId = $panoId;
+    }
 
-	/**
-	 * Sets the panoId
-	 *
-	 * @param string $panoId
-	 * @return void
-	 */
-	public function setPanoId($panoId) {
-		$this->panoId = $panoId;
-	}
+    /**
+     * Returns the heading
+     * 
+     * @return string $heading
+     */
+    public function getHeading()
+    {
+        return $this->heading;
+    }
 
-	/**
-	 * Returns the heading
-	 *
-	 * @return string $heading
-	 */
-	public function getHeading() {
-		return $this->heading;
-	}
+    /**
+     * Sets the heading
+     * 
+     * @param string $heading
+     * @return void
+     */
+    public function setHeading($heading)
+    {
+        $this->heading = $heading;
+    }
 
-	/**
-	 * Sets the heading
-	 *
-	 * @param string $heading
-	 * @return void
-	 */
-	public function setHeading($heading) {
-		$this->heading = $heading;
-	}
+    /**
+     * Returns the pitch
+     * 
+     * @return string $pitch
+     */
+    public function getPitch()
+    {
+        return $this->pitch;
+    }
 
-	/**
-	 * Returns the pitch
-	 *
-	 * @return string $pitch
-	 */
-	public function getPitch() {
-		return $this->pitch;
-	}
+    /**
+     * Sets the pitch
+     * 
+     * @param string $pitch
+     * @return void
+     */
+    public function setPitch($pitch)
+    {
+        $this->pitch = $pitch;
+    }
 
-	/**
-	 * Sets the pitch
-	 *
-	 * @param string $pitch
-	 * @return void
-	 */
-	public function setPitch($pitch) {
-		$this->pitch = $pitch;
-	}
+    /**
+     * Returns the zoom
+     * 
+     * @return string $zoom
+     */
+    public function getZoom()
+    {
+        return $this->zoom;
+    }
 
-	/**
-	 * Returns the zoom
-	 *
-	 * @return string $zoom
-	 */
-	public function getZoom() {
-		return $this->zoom;
-	}
-
-	/**
-	 * Sets the zoom
-	 *
-	 * @param string $zoom
-	 * @return void
-	 */
-	public function setZoom($zoom) {
-		$this->zoom = $zoom;
-	}
-
+    /**
+     * Sets the zoom
+     * 
+     * @param string $zoom
+     * @return void
+     */
+    public function setZoom($zoom)
+    {
+        $this->zoom = $zoom;
+    }
 }

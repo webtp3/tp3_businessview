@@ -1,15 +1,15 @@
 
-config.tx_extbase{
-    persistence{
-        classes{
+config.tx_extbase {
+  persistence {
+    classes {
 
-            Tp3\Tp3Businessview\Domain\Model\BusinessAdress {
-                mapping {
-                    tableName = tt_address
-                    recordType = Tx_Tp3Businessview_BusinessAdress
-                }
-            }
-            
-    	}
+      Tp3\Tp3Businessview\Domain\Model\BusinessAdress {
+        mapping {
+          tableName = tt_address
+          recordType = Tx_Tp3Businessview_BusinessAdress
+        }
+      }
+
     }
+  }
 }

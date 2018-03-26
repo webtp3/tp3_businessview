@@ -3,8 +3,8 @@
         {
             "config": {
                 "position": [
-                    1441,
-                    366
+                    1294,
+                    329
                 ]
             },
             "name": "New Model Object",
@@ -121,32 +121,35 @@
                     "relations": [
                         {
                             "foreignRelationClass": "",
-                            "lazyLoading": false,
+                            "lazyLoading": true,
                             "propertyIsExcludeField": true,
                             "relationDescription": "",
                             "relationName": "contact",
-                            "relationType": "zeroToOne",
+                            "relationType": "zeroToMany",
                             "relationWire": "[wired]",
+                            "renderType": "inline",
                             "uid": "420639776843"
                         },
                         {
                             "foreignRelationClass": "",
-                            "lazyLoading": false,
+                            "lazyLoading": true,
                             "propertyIsExcludeField": true,
                             "relationDescription": "",
                             "relationName": "app",
-                            "relationType": "zeroToOne",
+                            "relationType": "zeroToMany",
                             "relationWire": "[wired]",
+                            "renderType": "inline",
                             "uid": "341525523923"
                         },
                         {
                             "foreignRelationClass": "",
-                            "lazyLoading": false,
+                            "lazyLoading": true,
                             "propertyIsExcludeField": true,
                             "relationDescription": "",
                             "relationName": "panoramas",
-                            "relationType": "zeroToOne",
+                            "relationType": "manyToOne",
                             "relationWire": "[wired]",
+                            "renderType": "selectSingle",
                             "uid": "392990472973"
                         }
                     ]
@@ -168,9 +171,7 @@
                     "_default2_new_create": false,
                     "_default3_edit_update": false,
                     "_default4_delete": false,
-                    "customActions": [
-
-                    ]
+                    "customActions": []
                 },
                 "name": "BusinessAdress",
                 "objectsettings": {
@@ -187,14 +188,10 @@
                     "uid": "1220067725483"
                 },
                 "propertyGroup": {
-                    "properties": [
-
-                    ]
+                    "properties": []
                 },
                 "relationGroup": {
-                    "relations": [
-
-                    ]
+                    "relations": []
                 }
             }
         },
@@ -213,9 +210,7 @@
                     "_default2_new_create": false,
                     "_default3_edit_update": false,
                     "_default4_delete": false,
-                    "customActions": [
-
-                    ]
+                    "customActions": []
                 },
                 "name": "BusinessApp",
                 "objectsettings": {
@@ -266,9 +261,7 @@
                     ]
                 },
                 "relationGroup": {
-                    "relations": [
-
-                    ]
+                    "relations": []
                 }
             }
         },
@@ -287,9 +280,7 @@
                     "_default2_new_create": false,
                     "_default3_edit_update": false,
                     "_default4_delete": false,
-                    "customActions": [
-
-                    ]
+                    "customActions": []
                 },
                 "name": "Panoramas",
                 "objectsettings": {
@@ -350,32 +341,41 @@
                     ]
                 },
                 "relationGroup": {
-                    "relations": [
-
-                    ]
+                    "relations": []
                 }
             }
         }
     ],
     "properties": {
         "backendModules": [
-
+            {
+                "actions": {
+                    "controllerActionCombinations": ""
+                },
+                "description": "Businessview",
+                "key": "tp3businessview",
+                "mainModule": "tools",
+                "name": "tp3 BusinessView",
+                "tabLabel": "tp3 BusinessView"
+            }
         ],
         "description": "google businessview f\u00fcr tp3",
         "emConf": {
             "category": "plugin",
             "custom_category": "",
-            "dependsOn": "typo3 => 6.2\n",
+            "dependsOn": "typo3 => 7.6.* - 8.9.99\n",
             "disableLocalization": false,
-            "disableVersioning": false,
+            "disableVersioning": true,
+            "skipGenerateDocumentationTemplate": false,
             "sourceLanguage": "en",
             "state": "alpha",
-            "targetVersion": "6.2",
-            "version": ""
+            "targetVersion": "7.6.0-7.6.99",
+            "version": "0.0.2"
         },
         "extensionKey": "tp3_businessview",
         "name": "BusinsessView",
         "originalExtensionKey": "tp3_businessview",
+        "originalVendorName": "Tp3",
         "persons": [
             {
                 "company": "tp3",
@@ -436,8 +436,8 @@
         }
     ],
     "log": {
-        "last_modified": "2015-12-01 08:17",
-        "extension_builder_version": "6.2.0",
-        "be_user": "r&p it consulting (5)"
+        "last_modified": "2018-03-27 12:56",
+        "extension_builder_version": "7.6.18",
+        "be_user": " (1)"
     }
 }

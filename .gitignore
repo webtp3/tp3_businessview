@@ -1,20 +1,47 @@
-## TYPO3 v6.2
-# Ignore several upload and file directories.
-/fileadmin/user_upload/
-/fileadmin/_temp_/
-/fileadmin/_processed_/
-/uploads/
-# Ignore cache
-/typo3conf/temp_CACHED*
-/typo3conf/temp_fieldInfo.php
-/typo3conf/deprecation_*.log
-/typo3conf/AdditionalConfiguration.php
-# Ignore system folders, you should have them symlinked.
-# If not comment out the following entries.
-/typo3
-/typo3_src
-/typo3_src-*
-/.htaccess
-/index.php
-# Ignore temp directory.
-/typo3temp/
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

@@ -1,7 +1,6 @@
 <?php
 namespace Tp3\Tp3Businessview\Domain\Model;
 
-
 /***************************************************************
  *
  *  Copyright notice
@@ -27,10 +26,20 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+/***
+ *
+ * This file is part of the "BusinsessView" Extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
+ *
+ ***/
+
 /**
  * BusinessAdress
  */
-class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-	
-}
+class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address
+{
+    }
