@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2015-12-01T19:31:30Z" product-name="tp3_businessview">
+		<header/>
+		<body>
+			<trans-unit id="created_by.description">
+				<source>createdBy</source>
+			</trans-unit>
+			<trans-unit id="name.description">
+				<source>name</source>
+			</trans-unit>
+			<trans-unit id="external_links.description">
+				<source>externalLinks</source>
+			</trans-unit>
+			<trans-unit id="gallery.description">
+				<source>gallery</source>
+			</trans-unit>
+			<trans-unit id="intro.description">
+				<source>intro</source>
+			</trans-unit>
+			<trans-unit id="pano_animation.description">
+				<source>panoAnimation</source>
+			</trans-unit>
+			<trans-unit id="social_gallery.description">
+				<source>socialGallery</source>
+			</trans-unit>
+			<trans-unit id="pano_options.description">
+				<source>panoOptions</source>
+			</trans-unit>
+			<trans-unit id="contact.description">
+				<source>contact</source>
+			</trans-unit>
+			<trans-unit id="app.description">
+				<source>app</source>
+			</trans-unit>
+			<trans-unit id="panoramas.description">
+				<source>panoramas</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

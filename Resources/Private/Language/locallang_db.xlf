@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-02-16T12:06:43Z" product-name="tp3_businessview">
+		<header/>
+		<body>
+			<trans-unit id="tx_tp3_businessview_domain_model_tp3businessview">
+				<source>BusinessView</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3_businessview_domain_model_tp3businessview.description">
+				<source>google businessview für tp3</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_tp3businessview">
+				<source>Tp3 Business View</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_tp3businessview.created_by">
+				<source>Created By</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_tp3businessview.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_tp3businessview.external_links">
+				<source>External Links</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_tp3businessview.gallery">
+				<source>Gallery</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_tp3businessview.intro">
+				<source>Intro</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_tp3businessview.pano_animation">
+				<source>Pano Animation</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_tp3businessview.social_gallery">
+				<source>Social Gallery</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_tp3businessview.pano_options">
+				<source>Pano Options</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_tp3businessview.contact">
+				<source>Contact</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_tp3businessview.app">
+				<source>App</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_tp3businessview.panoramas">
+				<source>Panoramas</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_businessadress">
+				<source>Business Adress</source>
+			</trans-unit>
+			<trans-unit id="tt_address.tx_extbase_type.Tx_Tp3Businessview_BusinessAdress">
+				<source>BusinsessView BusinessAdress</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_businessapp">
+				<source>Business App</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_businessapp.businessview_id">
+				<source>Businessview Id</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_businessapp.google_maps_java_script_api_key">
+				<source>Google Maps Java Script Api Key</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_businessapp.businessview_canvas_selector">
+				<source>Businessview Canvas Selector</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_panoramas">
+				<source>Panoramas</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_panoramas.pano_id">
+				<source>Pano Id</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_panoramas.heading">
+				<source>Heading</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_panoramas.pitch">
+				<source>Pitch</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3businessview_domain_model_panoramas.zoom">
+				<source>Zoom</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

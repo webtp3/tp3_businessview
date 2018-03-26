@@ -1,0 +1,432 @@
+{
+    "modules": [
+        {
+            "config": {
+                "position": [
+                    1441,
+                    366
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_list": false,
+                    "_default1_show": false,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
+                    "customActions": [
+                        "display"
+                    ]
+                },
+                "name": "Tp3BusinessView",
+                "objectsettings": {
+                    "addDeletedField": true,
+                    "addHiddenField": true,
+                    "addStarttimeEndtimeFields": true,
+                    "aggregateRoot": false,
+                    "categorizable": false,
+                    "description": "",
+                    "mapToTable": "",
+                    "parentClass": "",
+                    "sorting": false,
+                    "type": "Entity",
+                    "uid": "1209640174457"
+                },
+                "propertyGroup": {
+                    "properties": [
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "createdBy",
+                            "propertyType": "String",
+                            "uid": "1414953647651"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "name",
+                            "propertyType": "String",
+                            "uid": "1385417014727"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "externalLinks",
+                            "propertyType": "String",
+                            "uid": "974581577883"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "gallery",
+                            "propertyType": "String",
+                            "uid": "152655258433"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "intro",
+                            "propertyType": "String",
+                            "uid": "848648785293"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "panoAnimation",
+                            "propertyType": "Select",
+                            "uid": "1166624718822"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "socialGallery",
+                            "propertyType": "String",
+                            "uid": "949238146487"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "panoOptions",
+                            "propertyType": "Select",
+                            "uid": "1123390889364"
+                        }
+                    ]
+                },
+                "relationGroup": {
+                    "relations": [
+                        {
+                            "foreignRelationClass": "",
+                            "lazyLoading": false,
+                            "propertyIsExcludeField": true,
+                            "relationDescription": "",
+                            "relationName": "contact",
+                            "relationType": "zeroToOne",
+                            "relationWire": "[wired]",
+                            "renderType": "selectSingle",
+                            "uid": "420639776843"
+                        },
+                        {
+                            "foreignRelationClass": "",
+                            "lazyLoading": false,
+                            "propertyIsExcludeField": true,
+                            "relationDescription": "",
+                            "relationName": "app",
+                            "relationType": "zeroToOne",
+                            "relationWire": "[wired]",
+                            "renderType": "selectSingle",
+                            "uid": "341525523923"
+                        },
+                        {
+                            "foreignRelationClass": "",
+                            "lazyLoading": false,
+                            "propertyIsExcludeField": true,
+                            "relationDescription": "",
+                            "relationName": "panoramas",
+                            "relationType": "zeroToOne",
+                            "relationWire": "[wired]",
+                            "renderType": "selectSingle",
+                            "uid": "392990472973"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "config": {
+                "position": [
+                    616,
+                    113
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_list": false,
+                    "_default1_show": false,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
+                    "customActions": []
+                },
+                "name": "BusinessAdress",
+                "objectsettings": {
+                    "addDeletedField": true,
+                    "addHiddenField": true,
+                    "addStarttimeEndtimeFields": true,
+                    "aggregateRoot": false,
+                    "categorizable": false,
+                    "description": "",
+                    "mapToTable": "tt_address",
+                    "parentClass": "",
+                    "sorting": false,
+                    "type": "Entity",
+                    "uid": "1220067725483"
+                },
+                "propertyGroup": {
+                    "properties": []
+                },
+                "relationGroup": {
+                    "relations": []
+                }
+            }
+        },
+        {
+            "config": {
+                "position": [
+                    121,
+                    185
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_list": false,
+                    "_default1_show": false,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
+                    "customActions": []
+                },
+                "name": "BusinessApp",
+                "objectsettings": {
+                    "addDeletedField": true,
+                    "addHiddenField": true,
+                    "addStarttimeEndtimeFields": true,
+                    "aggregateRoot": false,
+                    "categorizable": false,
+                    "description": "",
+                    "mapToTable": "",
+                    "parentClass": "",
+                    "sorting": false,
+                    "type": "ValueObject",
+                    "uid": "1333161291"
+                },
+                "propertyGroup": {
+                    "properties": [
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "BusinessView ID",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": true,
+                            "propertyName": "businessviewId",
+                            "propertyType": "String",
+                            "uid": "655492566340"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "google maps api key",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": true,
+                            "propertyName": "googleMapsJavaScriptApiKey",
+                            "propertyType": "String",
+                            "uid": "1231612433776"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "Jquery Selector",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "businessviewCanvasSelector",
+                            "propertyType": "String",
+                            "uid": "13943707867"
+                        }
+                    ]
+                },
+                "relationGroup": {
+                    "relations": []
+                }
+            }
+        },
+        {
+            "config": {
+                "position": [
+                    542,
+                    684
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_list": false,
+                    "_default1_show": false,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
+                    "customActions": []
+                },
+                "name": "Panoramas",
+                "objectsettings": {
+                    "addDeletedField": true,
+                    "addHiddenField": true,
+                    "addStarttimeEndtimeFields": true,
+                    "aggregateRoot": false,
+                    "categorizable": false,
+                    "description": "",
+                    "mapToTable": "",
+                    "parentClass": "",
+                    "sorting": false,
+                    "type": "Entity",
+                    "uid": "1111731274164"
+                },
+                "propertyGroup": {
+                    "properties": [
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": true,
+                            "propertyName": "panoId",
+                            "propertyType": "String",
+                            "uid": "282330754878"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "heading",
+                            "propertyType": "String",
+                            "uid": "492957716498"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "pitch",
+                            "propertyType": "String",
+                            "uid": "455425473058"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "zoom",
+                            "propertyType": "String",
+                            "uid": "300518030663"
+                        }
+                    ]
+                },
+                "relationGroup": {
+                    "relations": []
+                }
+            }
+        }
+    ],
+    "properties": {
+        "backendModules": [],
+        "description": "google businessview f\u00fcr tp3",
+        "emConf": {
+            "category": "plugin",
+            "custom_category": "",
+            "dependsOn": "typo3 => 6.2\n",
+            "disableLocalization": false,
+            "disableVersioning": false,
+            "skipGenerateDocumentationTemplate": false,
+            "sourceLanguage": "en",
+            "state": "alpha",
+            "targetVersion": "7.6.0-7.6.99",
+            "version": "0.0.2"
+        },
+        "extensionKey": "tp3_businessview",
+        "name": "BusinsessView",
+        "originalExtensionKey": "tp3_businessview",
+        "originalVendorName": "Tp3",
+        "persons": [
+            {
+                "company": "tp3",
+                "email": "support@r-p-it.de",
+                "name": "Thomas Ruta",
+                "role": "Developer"
+            }
+        ],
+        "plugins": [
+            {
+                "actions": {
+                    "controllerActionCombinations": "",
+                    "noncacheableActions": "",
+                    "switchableActions": ""
+                },
+                "key": "tp3businessview",
+                "name": "BusinessView"
+            }
+        ],
+        "vendorName": "Tp3"
+    },
+    "wires": [
+        {
+            "src": {
+                "moduleId": 0,
+                "terminal": "relationWire_1",
+                "uid": "341525523923"
+            },
+            "tgt": {
+                "moduleId": 2,
+                "terminal": "SOURCES",
+                "uid": "1333161291"
+            }
+        },
+        {
+            "src": {
+                "moduleId": 0,
+                "terminal": "relationWire_0",
+                "uid": "420639776843"
+            },
+            "tgt": {
+                "moduleId": 1,
+                "terminal": "SOURCES",
+                "uid": "1220067725483"
+            }
+        },
+        {
+            "src": {
+                "moduleId": 0,
+                "terminal": "relationWire_2",
+                "uid": "392990472973"
+            },
+            "tgt": {
+                "moduleId": 3,
+                "terminal": "SOURCES",
+                "uid": "1111731274164"
+            }
+        }
+    ],
+    "log": {
+        "last_modified": "2018-02-16 12:06",
+        "extension_builder_version": "7.6.18",
+        "be_user": " (1)"
+    }
+}
