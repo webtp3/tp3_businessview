@@ -1,6 +1,7 @@
 <?php
 namespace Tp3\Tp3Businessview\Domain\Model;
 
+
 /***************************************************************
  *
  *  Copyright notice
@@ -26,105 +27,89 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/***
- *
- * This file is part of the "BusinsessView" Extension for TYPO3 CMS.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
- *
- ***/
-
 /**
  * BusinessApp
  */
-class BusinessApp extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
-{
-    /**
-     * BusinessView ID
-     * 
-     * @var string
-     * @validate NotEmpty
-     */
-    protected $businessviewId = '';
+class BusinessApp extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
-    /**
-     * google maps api key
-     * 
-     * @var string
-     * @validate NotEmpty
-     */
-    protected $googleMapsJavaScriptApiKey = '';
+	/**
+	 * BusinessView ID
+	 *
+	 * @var string
+	 * @validate NotEmpty
+	 */
+	protected $businessviewId = '';
 
-    /**
-     * Jquery Selector
-     * 
-     * @var string
-     */
-    protected $businessviewCanvasSelector = '';
+	/**
+	 * google maps api key
+	 *
+	 * @var string
+	 * @validate NotEmpty
+	 */
+	protected $googleMapsJavaScriptApiKey = '';
 
-    /**
-     * Returns the businessviewId
-     * 
-     * @return string $businessviewId
-     */
-    public function getBusinessviewId()
-    {
-        return $this->businessviewId;
-    }
+	/**
+	 * Jquery Selector
+	 *
+	 * @var string
+	 */
+	protected $businessviewCanvasSelector = '';
 
-    /**
-     * Sets the businessviewId
-     * 
-     * @param string $businessviewId
-     * @return void
-     */
-    public function setBusinessviewId($businessviewId)
-    {
-        $this->businessviewId = $businessviewId;
-    }
+	/**
+	 * Returns the businessviewId
+	 *
+	 * @return string $businessviewId
+	 */
+	public function getBusinessviewId() {
+		return $this->businessviewId;
+	}
 
-    /**
-     * Returns the googleMapsJavaScriptApiKey
-     * 
-     * @return string $googleMapsJavaScriptApiKey
-     */
-    public function getGoogleMapsJavaScriptApiKey()
-    {
-        return $this->googleMapsJavaScriptApiKey;
-    }
+	/**
+	 * Sets the businessviewId
+	 *
+	 * @param string $businessviewId
+	 * @return void
+	 */
+	public function setBusinessviewId($businessviewId) {
+		$this->businessviewId = $businessviewId;
+	}
 
-    /**
-     * Sets the googleMapsJavaScriptApiKey
-     * 
-     * @param string $googleMapsJavaScriptApiKey
-     * @return void
-     */
-    public function setGoogleMapsJavaScriptApiKey($googleMapsJavaScriptApiKey)
-    {
-        $this->googleMapsJavaScriptApiKey = $googleMapsJavaScriptApiKey;
-    }
+	/**
+	 * Returns the googleMapsJavaScriptApiKey
+	 *
+	 * @return string $googleMapsJavaScriptApiKey
+	 */
+	public function getGoogleMapsJavaScriptApiKey() {
+		return $this->googleMapsJavaScriptApiKey;
+	}
 
-    /**
-     * Returns the businessviewCanvasSelector
-     * 
-     * @return string $businessviewCanvasSelector
-     */
-    public function getBusinessviewCanvasSelector()
-    {
-        return $this->businessviewCanvasSelector;
-    }
+	/**
+	 * Sets the googleMapsJavaScriptApiKey
+	 *
+	 * @param string $googleMapsJavaScriptApiKey
+	 * @return void
+	 */
+	public function setGoogleMapsJavaScriptApiKey($googleMapsJavaScriptApiKey) {
+		$this->googleMapsJavaScriptApiKey = $googleMapsJavaScriptApiKey;
+	}
 
-    /**
-     * Sets the businessviewCanvasSelector
-     * 
-     * @param string $businessviewCanvasSelector
-     * @return void
-     */
-    public function setBusinessviewCanvasSelector($businessviewCanvasSelector)
-    {
-        $this->businessviewCanvasSelector = $businessviewCanvasSelector;
-    }
+	/**
+	 * Returns the businessviewCanvasSelector
+	 *
+	 * @return string $businessviewCanvasSelector
+	 */
+	public function getBusinessviewCanvasSelector() {
+		return $this->businessviewCanvasSelector;
+	}
+
+	/**
+	 * Sets the businessviewCanvasSelector
+	 *
+	 * @param string $businessviewCanvasSelector
+	 * @return void
+	 */
+	public function setBusinessviewCanvasSelector($businessviewCanvasSelector) {
+		$this->businessviewCanvasSelector = $businessviewCanvasSelector;
+	}
+
 }

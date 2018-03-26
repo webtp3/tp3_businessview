@@ -39,21 +39,22 @@
 		author@example.com
 
 	:Lizenz:
-		Dieses Dokument wird unter der Open Publication License, siehe
-		http://www.opencontent.org/openpub/ veröffentlicht.
+		Dieses Dokument wird unter der Open Content License, siehe
+		http://www.opencontent.org/opl.shtml veröffentlicht.
 
 	:Gerendert:
 		|today|
 
 	Der Inhalt dieses Dokuments bezieht sich auf TYPO3,
-	ein GNU/GPL CMS-Framework auf `www.typo3.org <https://typo3.org/>`__.
+	ein GNU/GPL CMS-Framework auf `www.typo3.org <http://www.typo3.org/>`_.
 
 
 	**Inhaltsverzeichnis**
 
 .. toctree::
-	:maxdepth: 3
+	:maxdepth: 5
 	:titlesonly:
+	:glob:
 
 ..	Introduction/Index
 ..	UserManual/Index

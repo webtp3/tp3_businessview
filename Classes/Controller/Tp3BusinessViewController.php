@@ -1,6 +1,7 @@
 <?php
 namespace Tp3\Tp3Businessview\Controller;
 
+
 /***************************************************************
  *
  *  Copyright notice
@@ -26,51 +27,18 @@ namespace Tp3\Tp3Businessview\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/***
- *
- * This file is part of the "BusinsessView" Extension for TYPO3 CMS.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
- *
- ***/
-
 /**
  * Tp3BusinessViewController
  */
-class Tp3BusinessViewController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
-{
-    /**
-     * action display
-     * 
-     * @return void
-     */
-    public function displayAction()
-    {
+class Tp3BusinessViewController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-    }
+	/**
+	 * action display
+	 *
+	 * @return void
+	 */
+	public function displayAction() {
+		
+	}
 
-    /**
-     * action list
-     * 
-     * @return void
-     */
-    public function listAction()
-    {
-        $tp3BusinessViews = $this->tp3BusinessViewRepository->findAll();
-        $this->view->assign('tp3BusinessViews', $tp3BusinessViews);
-    }
-
-    /**
-     * action show
-     * 
-     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3BusinessView
-     * @return void
-     */
-    public function showAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3BusinessView)
-    {
-        $this->view->assign('tp3BusinessView', $tp3BusinessView);
-    }
 }

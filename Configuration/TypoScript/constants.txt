@@ -12,14 +12,12 @@ plugin.tx_tp3businessview {
 		# cat=plugin.tx_tp3businessview//a; type=string; label=Default storage PID
 		storagePid =
 	}
-	businessview{
-	externalLinks = "status":true,"links":[{"icon":"undefined","url":"undefined","target":false,"visible":false},{"icon":"fa-facebook","url":"https:\/\/www.facebook.com\/thomas.ruta.1","target":false,"visible":true},{"icon":"fa-google-plus","url":"https:\/\/plus.google.com\/+ThomasRuta-apps\/about","target":false,"visible":true}]
-	contact = {"fields":{"name":{"value":"Thomas Ruta","visible":true},"street":{"value":"Berliner stra\u00dfe 63","visible":true},"zip":{"value":"65205","visible":true},"city":{"value":"Wiesbaden","visible":true},"phone":{"value":"06131 3272373-0","visible":true},"email":{"value":"email@thomasruta.de","visible":true},"website":{"value":"http:\/\/thomasruta.de","visible":true}}}
-	createdBy={"name":"Thomas Ruta, http:\/\/web.tp3.de","status":true}
-	panoEntry.id = "bVt4pm3ZWQ0AAAQpkDZ-rA"
-	socialGallery = {"networks":[{"disabled":[],"status":true,"webUrl":"https:\/\/www.facebook.com\/thomas.ruta.1","id":"tp3service","type":"facebookPage"}],"status":true}
-	}
-}
+	businessview
+	businessview.externalLinks = "status":true,"links":[{"icon":"undefined","url":"undefined","target":false,"visible":false},{"icon":"fa-facebook","url":"https:\/\/www.facebook.com\/thomas.ruta.1","target":false,"visible":true},{"icon":"fa-google-plus","url":"https:\/\/plus.google.com\/+ThomasRuta-apps\/about","target":false,"visible":true}]
+	businessview.contact = {"fields":{"name":{"value":"Thomas Ruta","visible":true},"street":{"value":"Berliner stra\u00dfe 63","visible":true},"zip":{"value":"65205","visible":true},"city":{"value":"Wiesbaden","visible":true},"phone":{"value":"06131 3272373-0","visible":true},"email":{"value":"email@thomasruta.de","visible":true},"website":{"value":"http:\/\/thomasruta.de","visible":true}}}
+	businessview.createdBy={"name":"Thomas Ruta, http:\/\/web.tp3.de","status":true}
+	businessview.panoEntry.id = "bVt4pm3ZWQ0AAAQpkDZ-rA"
+	businessview.socialGallery = {"networks":[{"disabled":[],"status":true,"webUrl":"https:\/\/www.facebook.com\/thomas.ruta.1","id":"tp3service","type":"facebookPage"}],"status":true}
 		
 
 

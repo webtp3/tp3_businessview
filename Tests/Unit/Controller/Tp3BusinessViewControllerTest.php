@@ -1,30 +1,47 @@
 <?php
 namespace Tp3\Tp3Businessview\Tests\Unit\Controller;
+/***************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2015 Thomas Ruta <support@r-p-it.de>, tp3
+ *  			
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 /**
- * Test case.
+ * Test case for class Tp3\Tp3Businessview\Controller\Tp3BusinessViewController.
  *
  * @author Thomas Ruta <support@r-p-it.de>
  */
-class Tp3BusinessViewControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
-{
-    /**
-     * @var \Tp3\Tp3Businessview\Controller\Tp3BusinessViewController
-     */
-    protected $subject = null;
+class Tp3BusinessViewControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->subject = $this->getMockBuilder(\Tp3\Tp3Businessview\Controller\Tp3BusinessViewController::class)
-            ->setMethods(['redirect', 'forward', 'addFlashMessage'])
-            ->disableOriginalConstructor()
-            ->getMock();
-    }
+	/**
+	 * @var \Tp3\Tp3Businessview\Controller\Tp3BusinessViewController
+	 */
+	protected $subject = NULL;
 
-    protected function tearDown()
-    {
-        parent::tearDown();
-    }
+	protected function setUp() {
+		$this->subject = $this->getMock('Tp3\\Tp3Businessview\\Controller\\Tp3BusinessViewController', array('redirect', 'forward', 'addFlashMessage'), array(), '', FALSE);
+	}
+
+	protected function tearDown() {
+		unset($this->subject);
+	}
 
 }

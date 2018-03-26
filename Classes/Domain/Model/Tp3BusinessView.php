@@ -1,6 +1,7 @@
 <?php
 namespace Tp3\Tp3Businessview\Domain\Model;
 
+
 /***************************************************************
  *
  *  Copyright notice
@@ -26,399 +27,295 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/***
- *
- * This file is part of the "BusinsessView" Extension for TYPO3 CMS.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
- *
- ***/
-
 /**
  * Tp3BusinessView
  */
-class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
-{
-    /**
-     * createdBy
-     * 
-     * @var string
-     */
-    protected $createdBy = '';
+class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
-    /**
-     * name
-     * 
-     * @var string
-     */
-    protected $name = '';
+	/**
+	 * createdBy
+	 *
+	 * @var string
+	 */
+	protected $createdBy = '';
 
-    /**
-     * externalLinks
-     * 
-     * @var string
-     */
-    protected $externalLinks = '';
+	/**
+	 * name
+	 *
+	 * @var string
+	 */
+	protected $name = '';
 
-    /**
-     * gallery
-     * 
-     * @var string
-     */
-    protected $gallery = '';
+	/**
+	 * externalLinks
+	 *
+	 * @var string
+	 */
+	protected $externalLinks = '';
 
-    /**
-     * intro
-     * 
-     * @var string
-     */
-    protected $intro = '';
+	/**
+	 * gallery
+	 *
+	 * @var string
+	 */
+	protected $gallery = '';
 
-    /**
-     * panoAnimation
-     * 
-     * @var int
-     */
-    protected $panoAnimation = 0;
+	/**
+	 * intro
+	 *
+	 * @var string
+	 */
+	protected $intro = '';
 
-    /**
-     * socialGallery
-     * 
-     * @var string
-     */
-    protected $socialGallery = '';
+	/**
+	 * panoAnimation
+	 *
+	 * @var integer
+	 */
+	protected $panoAnimation = 0;
 
-    /**
-     * panoOptions
-     * 
-     * @var int
-     */
-    protected $panoOptions = 0;
+	/**
+	 * socialGallery
+	 *
+	 * @var string
+	 */
+	protected $socialGallery = '';
 
-    /**
-     * panoramas
-     * 
-     * @var \Tp3\Tp3Businessview\Domain\Model\Panoramas
-     * @lazy
-     */
-    protected $panoramas = NULL;
+	/**
+	 * panoOptions
+	 *
+	 * @var integer
+	 */
+	protected $panoOptions = 0;
 
-    /**
-     * contact
-     * 
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessAdress>
-     * @cascade remove
-     * @lazy
-     */
-    protected $contact = null;
+	/**
+	 * contact
+	 *
+	 * @var \Tp3\Tp3Businessview\Domain\Model\BusinessAdress
+	 */
+	protected $contact = NULL;
 
-    /**
-     * app
-     * 
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessApp>
-     * @cascade remove
-     * @lazy
-     */
-    protected $app = null;
+	/**
+	 * app
+	 *
+	 * @var \Tp3\Tp3Businessview\Domain\Model\BusinessApp
+	 */
+	protected $app = NULL;
 
-    /**
-     * Returns the createdBy
-     * 
-     * @return string $createdBy
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
+	/**
+	 * panoramas
+	 *
+	 * @var \Tp3\Tp3Businessview\Domain\Model\Panoramas
+	 */
+	protected $panoramas = NULL;
 
-    /**
-     * Sets the createdBy
-     * 
-     * @param string $createdBy
-     * @return void
-     */
-    public function setCreatedBy($createdBy)
-    {
-        $this->createdBy = $createdBy;
-    }
+	/**
+	 * Returns the createdBy
+	 *
+	 * @return string $createdBy
+	 */
+	public function getCreatedBy() {
+		return $this->createdBy;
+	}
 
-    /**
-     * Returns the name
-     * 
-     * @return string $name
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+	/**
+	 * Sets the createdBy
+	 *
+	 * @param string $createdBy
+	 * @return void
+	 */
+	public function setCreatedBy($createdBy) {
+		$this->createdBy = $createdBy;
+	}
 
-    /**
-     * Sets the name
-     * 
-     * @param string $name
-     * @return void
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
+	/**
+	 * Returns the name
+	 *
+	 * @return string $name
+	 */
+	public function getName() {
+		return $this->name;
+	}
 
-    /**
-     * Returns the externalLinks
-     * 
-     * @return string $externalLinks
-     */
-    public function getExternalLinks()
-    {
-        return $this->externalLinks;
-    }
+	/**
+	 * Sets the name
+	 *
+	 * @param string $name
+	 * @return void
+	 */
+	public function setName($name) {
+		$this->name = $name;
+	}
 
-    /**
-     * Sets the externalLinks
-     * 
-     * @param string $externalLinks
-     * @return void
-     */
-    public function setExternalLinks($externalLinks)
-    {
-        $this->externalLinks = $externalLinks;
-    }
+	/**
+	 * Returns the externalLinks
+	 *
+	 * @return string $externalLinks
+	 */
+	public function getExternalLinks() {
+		return $this->externalLinks;
+	}
 
-    /**
-     * Returns the gallery
-     * 
-     * @return string $gallery
-     */
-    public function getGallery()
-    {
-        return $this->gallery;
-    }
+	/**
+	 * Sets the externalLinks
+	 *
+	 * @param string $externalLinks
+	 * @return void
+	 */
+	public function setExternalLinks($externalLinks) {
+		$this->externalLinks = $externalLinks;
+	}
 
-    /**
-     * Sets the gallery
-     * 
-     * @param string $gallery
-     * @return void
-     */
-    public function setGallery($gallery)
-    {
-        $this->gallery = $gallery;
-    }
+	/**
+	 * Returns the gallery
+	 *
+	 * @return string $gallery
+	 */
+	public function getGallery() {
+		return $this->gallery;
+	}
 
-    /**
-     * Returns the intro
-     * 
-     * @return string $intro
-     */
-    public function getIntro()
-    {
-        return $this->intro;
-    }
+	/**
+	 * Sets the gallery
+	 *
+	 * @param string $gallery
+	 * @return void
+	 */
+	public function setGallery($gallery) {
+		$this->gallery = $gallery;
+	}
 
-    /**
-     * Sets the intro
-     * 
-     * @param string $intro
-     * @return void
-     */
-    public function setIntro($intro)
-    {
-        $this->intro = $intro;
-    }
+	/**
+	 * Returns the intro
+	 *
+	 * @return string $intro
+	 */
+	public function getIntro() {
+		return $this->intro;
+	}
 
-    /**
-     * Returns the panoAnimation
-     * 
-     * @return integer $panoAnimation
-     */
-    public function getPanoAnimation()
-    {
-        return $this->panoAnimation;
-    }
+	/**
+	 * Sets the intro
+	 *
+	 * @param string $intro
+	 * @return void
+	 */
+	public function setIntro($intro) {
+		$this->intro = $intro;
+	}
 
-    /**
-     * Sets the panoAnimation
-     * 
-     * @param integer $panoAnimation
-     * @return void
-     */
-    public function setPanoAnimation($panoAnimation)
-    {
-        $this->panoAnimation = $panoAnimation;
-    }
+	/**
+	 * Returns the panoAnimation
+	 *
+	 * @return integer $panoAnimation
+	 */
+	public function getPanoAnimation() {
+		return $this->panoAnimation;
+	}
 
-    /**
-     * Returns the socialGallery
-     * 
-     * @return string $socialGallery
-     */
-    public function getSocialGallery()
-    {
-        return $this->socialGallery;
-    }
+	/**
+	 * Sets the panoAnimation
+	 *
+	 * @param integer $panoAnimation
+	 * @return void
+	 */
+	public function setPanoAnimation($panoAnimation) {
+		$this->panoAnimation = $panoAnimation;
+	}
 
-    /**
-     * Sets the socialGallery
-     * 
-     * @param string $socialGallery
-     * @return void
-     */
-    public function setSocialGallery($socialGallery)
-    {
-        $this->socialGallery = $socialGallery;
-    }
+	/**
+	 * Returns the socialGallery
+	 *
+	 * @return string $socialGallery
+	 */
+	public function getSocialGallery() {
+		return $this->socialGallery;
+	}
 
-    /**
-     * Returns the panoOptions
-     * 
-     * @return integer $panoOptions
-     */
-    public function getPanoOptions()
-    {
-        return $this->panoOptions;
-    }
+	/**
+	 * Sets the socialGallery
+	 *
+	 * @param string $socialGallery
+	 * @return void
+	 */
+	public function setSocialGallery($socialGallery) {
+		$this->socialGallery = $socialGallery;
+	}
 
-    /**
-     * Sets the panoOptions
-     * 
-     * @param integer $panoOptions
-     * @return void
-     */
-    public function setPanoOptions($panoOptions)
-    {
-        $this->panoOptions = $panoOptions;
-    }
+	/**
+	 * Returns the panoOptions
+	 *
+	 * @return integer $panoOptions
+	 */
+	public function getPanoOptions() {
+		return $this->panoOptions;
+	}
 
-    /**
-     * Returns the panoramas
-     * 
-     * @return \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas
-     */
-    public function getPanoramas()
-    {
-        return $this->panoramas;
-    }
+	/**
+	 * Sets the panoOptions
+	 *
+	 * @param integer $panoOptions
+	 * @return void
+	 */
+	public function setPanoOptions($panoOptions) {
+		$this->panoOptions = $panoOptions;
+	}
 
-    /**
-     * Sets the panoramas
-     * 
-     * @param \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas
-     * @return void
-     */
-    public function setPanoramas(\Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas)
-    {
-        $this->panoramas = $panoramas;
-    }
+	/**
+	 * Returns the contact
+	 *
+	 * @return \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact
+	 */
+	public function getContact() {
+		return $this->contact;
+	}
 
-    /**
-     * __construct
-     */
-    public function __construct()
-    {
-        //Do not remove the next line: It would break the functionality
-        $this->initStorageObjects();
-    }
+	/**
+	 * Sets the contact
+	 *
+	 * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact
+	 * @return void
+	 */
+	public function setContact(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact) {
+		$this->contact = $contact;
+	}
 
-    /**
-     * Initializes all ObjectStorage properties
-     * Do not modify this method!
-     * It will be rewritten on each save in the extension builder
-     * You may modify the constructor of this class instead
-     * 
-     * @return void
-     */
-    protected function initStorageObjects()
-    {
-        $this->contact = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->app = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-    }
+	/**
+	 * Returns the app
+	 *
+	 * @return \Tp3\Tp3Businessview\Domain\Model\BusinessApp $app
+	 */
+	public function getApp() {
+		return $this->app;
+	}
 
-    /**
-     * Adds a BusinessAdress
-     * 
-     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact
-     * @return void
-     */
-    public function addContact(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact)
-    {
-        $this->contact->attach($contact);
-    }
+	/**
+	 * Sets the app
+	 *
+	 * @param \Tp3\Tp3Businessview\Domain\Model\BusinessApp $app
+	 * @return void
+	 */
+	public function setApp(\Tp3\Tp3Businessview\Domain\Model\BusinessApp $app) {
+		$this->app = $app;
+	}
 
-    /**
-     * Removes a BusinessAdress
-     * 
-     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contactToRemove The BusinessAdress to be removed
-     * @return void
-     */
-    public function removeContact(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contactToRemove)
-    {
-        $this->contact->detach($contactToRemove);
-    }
+	/**
+	 * Returns the panoramas
+	 *
+	 * @return \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas
+	 */
+	public function getPanoramas() {
+		return $this->panoramas;
+	}
 
-    /**
-     * Returns the contact
-     * 
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessAdress> $contact
-     */
-    public function getContact()
-    {
-        return $this->contact;
-    }
+	/**
+	 * Sets the panoramas
+	 *
+	 * @param \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas
+	 * @return void
+	 */
+	public function setPanoramas(\Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas) {
+		$this->panoramas = $panoramas;
+	}
 
-    /**
-     * Sets the contact
-     * 
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessAdress> $contact
-     * @return void
-     */
-    public function setContact(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $contact)
-    {
-        $this->contact = $contact;
-    }
-
-    /**
-     * Adds a BusinessApp
-     * 
-     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessApp $app
-     * @return void
-     */
-    public function addApp(\Tp3\Tp3Businessview\Domain\Model\BusinessApp $app)
-    {
-        $this->app->attach($app);
-    }
-
-    /**
-     * Removes a BusinessApp
-     * 
-     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessApp $appToRemove The BusinessApp to be removed
-     * @return void
-     */
-    public function removeApp(\Tp3\Tp3Businessview\Domain\Model\BusinessApp $appToRemove)
-    {
-        $this->app->detach($appToRemove);
-    }
-
-    /**
-     * Returns the app
-     * 
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessApp> $app
-     */
-    public function getApp()
-    {
-        return $this->app;
-    }
-
-    /**
-     * Sets the app
-     * 
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessApp> $app
-     * @return void
-     */
-    public function setApp(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $app)
-    {
-        $this->app = $app;
-    }
 }

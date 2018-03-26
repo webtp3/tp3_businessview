@@ -29,7 +29,7 @@ BusinsessView
 		comma,separated,list,of,keywords
 
 	:Copyright:
-		2018
+		2015
 
 	:Author:
 		Thomas Ruta
@@ -50,8 +50,9 @@ BusinsessView
 	**Table of Contents**
 
 .. toctree::
-	:maxdepth: 3
+	:maxdepth: 5
 	:titlesonly:
+	:glob:
 
 	Introduction/Index
 	User/Index
@@ -61,4 +62,4 @@ BusinsessView
 	KnownProblems/Index
 	ToDoList/Index
 	ChangeLog/Index
-	Links
+	Targets
