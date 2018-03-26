@@ -219,8 +219,9 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getContactReturnsInitialValueForBusinessAdress()
     {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
-            null,
+            $newObjectStorage,
             $this->subject->getContact()
         );
 
@@ -229,13 +230,15 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setContactForBusinessAdressSetsContact()
+    public function setContactForObjectStorageContainingBusinessAdressSetsContact()
     {
-        $contactFixture = new \Tp3\Tp3Businessview\Domain\Model\BusinessAdress();
-        $this->subject->setContact($contactFixture);
+        $contact = new \Tp3\Tp3Businessview\Domain\Model\BusinessAdress();
+        $objectStorageHoldingExactlyOneContact = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneContact->attach($contact);
+        $this->subject->setContact($objectStorageHoldingExactlyOneContact);
 
         self::assertAttributeEquals(
-            $contactFixture,
+            $objectStorageHoldingExactlyOneContact,
             'contact',
             $this->subject
         );
@@ -245,10 +248,46 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
+    public function addContactToObjectStorageHoldingContact()
+    {
+        $contact = new \Tp3\Tp3Businessview\Domain\Model\BusinessAdress();
+        $contactObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->setMethods(['attach'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $contactObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($contact));
+        $this->inject($this->subject, 'contact', $contactObjectStorageMock);
+
+        $this->subject->addContact($contact);
+    }
+
+    /**
+     * @test
+     */
+    public function removeContactFromObjectStorageHoldingContact()
+    {
+        $contact = new \Tp3\Tp3Businessview\Domain\Model\BusinessAdress();
+        $contactObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->setMethods(['detach'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $contactObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($contact));
+        $this->inject($this->subject, 'contact', $contactObjectStorageMock);
+
+        $this->subject->removeContact($contact);
+
+    }
+
+    /**
+     * @test
+     */
     public function getAppReturnsInitialValueForBusinessApp()
     {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
-            null,
+            $newObjectStorage,
             $this->subject->getApp()
         );
 
@@ -257,16 +296,53 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setAppForBusinessAppSetsApp()
+    public function setAppForObjectStorageContainingBusinessAppSetsApp()
     {
-        $appFixture = new \Tp3\Tp3Businessview\Domain\Model\BusinessApp();
-        $this->subject->setApp($appFixture);
+        $app = new \Tp3\Tp3Businessview\Domain\Model\BusinessApp();
+        $objectStorageHoldingExactlyOneApp = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneApp->attach($app);
+        $this->subject->setApp($objectStorageHoldingExactlyOneApp);
 
         self::assertAttributeEquals(
-            $appFixture,
+            $objectStorageHoldingExactlyOneApp,
             'app',
             $this->subject
         );
+
+    }
+
+    /**
+     * @test
+     */
+    public function addAppToObjectStorageHoldingApp()
+    {
+        $app = new \Tp3\Tp3Businessview\Domain\Model\BusinessApp();
+        $appObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->setMethods(['attach'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $appObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($app));
+        $this->inject($this->subject, 'app', $appObjectStorageMock);
+
+        $this->subject->addApp($app);
+    }
+
+    /**
+     * @test
+     */
+    public function removeAppFromObjectStorageHoldingApp()
+    {
+        $app = new \Tp3\Tp3Businessview\Domain\Model\BusinessApp();
+        $appObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->setMethods(['detach'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $appObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($app));
+        $this->inject($this->subject, 'app', $appObjectStorageMock);
+
+        $this->subject->removeApp($app);
 
     }
 

@@ -3,8 +3,8 @@
         {
             "config": {
                 "position": [
-                    1441,
-                    366
+                    1294,
+                    329
                 ]
             },
             "name": "New Model Object",
@@ -121,33 +121,33 @@
                     "relations": [
                         {
                             "foreignRelationClass": "",
-                            "lazyLoading": false,
+                            "lazyLoading": true,
                             "propertyIsExcludeField": true,
                             "relationDescription": "",
                             "relationName": "contact",
-                            "relationType": "zeroToOne",
+                            "relationType": "zeroToMany",
                             "relationWire": "[wired]",
-                            "renderType": "selectSingle",
+                            "renderType": "inline",
                             "uid": "420639776843"
                         },
                         {
                             "foreignRelationClass": "",
-                            "lazyLoading": false,
+                            "lazyLoading": true,
                             "propertyIsExcludeField": true,
                             "relationDescription": "",
                             "relationName": "app",
-                            "relationType": "zeroToOne",
+                            "relationType": "zeroToMany",
                             "relationWire": "[wired]",
-                            "renderType": "selectSingle",
+                            "renderType": "inline",
                             "uid": "341525523923"
                         },
                         {
                             "foreignRelationClass": "",
-                            "lazyLoading": false,
+                            "lazyLoading": true,
                             "propertyIsExcludeField": true,
                             "relationDescription": "",
                             "relationName": "panoramas",
-                            "relationType": "zeroToOne",
+                            "relationType": "manyToOne",
                             "relationWire": "[wired]",
                             "renderType": "selectSingle",
                             "uid": "392990472973"
@@ -436,7 +436,7 @@
         }
     ],
     "log": {
-        "last_modified": "2018-03-27 12:33",
+        "last_modified": "2018-03-27 12:56",
         "extension_builder_version": "7.6.18",
         "be_user": " (1)"
     }

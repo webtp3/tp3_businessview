@@ -125,5 +125,10 @@ return [
 			    'eval' => 'trim'
 			],
 	    ],
+        'tp3businessview' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
     ],
 ];

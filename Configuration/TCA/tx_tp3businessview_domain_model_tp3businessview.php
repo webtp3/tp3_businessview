@@ -186,8 +186,8 @@ return [
 	        'config' => [
 			    'type' => 'inline',
 			    'foreign_table' => 'tt_address',
-			    'minitems' => 0,
-			    'maxitems' => 1,
+			    'foreign_field' => 'tp3businessview',
+			    'maxitems' => 9999,
 			    'appearance' => [
 			        'collapseAll' => 0,
 			        'levelLinksPosition' => 'top',
@@ -203,8 +203,8 @@ return [
 	        'config' => [
 			    'type' => 'inline',
 			    'foreign_table' => 'tx_tp3businessview_domain_model_businessapp',
-			    'minitems' => 0,
-			    'maxitems' => 1,
+			    'foreign_field' => 'tp3businessview',
+			    'maxitems' => 9999,
 			    'appearance' => [
 			        'collapseAll' => 0,
 			        'levelLinksPosition' => 'top',
@@ -218,17 +218,11 @@ return [
 	        'exclude' => true,
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.panoramas',
 	        'config' => [
-			    'type' => 'inline',
+			    'type' => 'select',
+			    'renderType' => 'selectSingle',
 			    'foreign_table' => 'tx_tp3businessview_domain_model_panoramas',
 			    'minitems' => 0,
 			    'maxitems' => 1,
-			    'appearance' => [
-			        'collapseAll' => 0,
-			        'levelLinksPosition' => 'top',
-			        'showSynchronizationLink' => 1,
-			        'showPossibleLocalizationRecords' => 1,
-			        'showAllLocalizationLink' => 1
-			    ],
 			],
 	    ],
     ],

@@ -99,25 +99,30 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $panoOptions = 0;
 
     /**
+     * panoramas
+     * 
+     * @var \Tp3\Tp3Businessview\Domain\Model\Panoramas
+     * @lazy
+     */
+    protected $panoramas = NULL;
+
+    /**
      * contact
      * 
-     * @var \Tp3\Tp3Businessview\Domain\Model\BusinessAdress
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessAdress>
+     * @cascade remove
+     * @lazy
      */
-    protected $contact = NULL;
+    protected $contact = null;
 
     /**
      * app
      * 
-     * @var \Tp3\Tp3Businessview\Domain\Model\BusinessApp
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessApp>
+     * @cascade remove
+     * @lazy
      */
-    protected $app = NULL;
-
-    /**
-     * panoramas
-     * 
-     * @var \Tp3\Tp3Businessview\Domain\Model\Panoramas
-     */
-    protected $panoramas = NULL;
+    protected $app = null;
 
     /**
      * Returns the createdBy
@@ -288,48 +293,6 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the contact
-     * 
-     * @return \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact
-     */
-    public function getContact()
-    {
-        return $this->contact;
-    }
-
-    /**
-     * Sets the contact
-     * 
-     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact
-     * @return void
-     */
-    public function setContact(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact)
-    {
-        $this->contact = $contact;
-    }
-
-    /**
-     * Returns the app
-     * 
-     * @return \Tp3\Tp3Businessview\Domain\Model\BusinessApp $app
-     */
-    public function getApp()
-    {
-        return $this->app;
-    }
-
-    /**
-     * Sets the app
-     * 
-     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessApp $app
-     * @return void
-     */
-    public function setApp(\Tp3\Tp3Businessview\Domain\Model\BusinessApp $app)
-    {
-        $this->app = $app;
-    }
-
-    /**
      * Returns the panoramas
      * 
      * @return \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas
@@ -348,5 +311,114 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setPanoramas(\Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas)
     {
         $this->panoramas = $panoramas;
+    }
+
+    /**
+     * __construct
+     */
+    public function __construct()
+    {
+        //Do not remove the next line: It would break the functionality
+        $this->initStorageObjects();
+    }
+
+    /**
+     * Initializes all ObjectStorage properties
+     * Do not modify this method!
+     * It will be rewritten on each save in the extension builder
+     * You may modify the constructor of this class instead
+     * 
+     * @return void
+     */
+    protected function initStorageObjects()
+    {
+        $this->contact = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->app = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
+    /**
+     * Adds a BusinessAdress
+     * 
+     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact
+     * @return void
+     */
+    public function addContact(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact)
+    {
+        $this->contact->attach($contact);
+    }
+
+    /**
+     * Removes a BusinessAdress
+     * 
+     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contactToRemove The BusinessAdress to be removed
+     * @return void
+     */
+    public function removeContact(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contactToRemove)
+    {
+        $this->contact->detach($contactToRemove);
+    }
+
+    /**
+     * Returns the contact
+     * 
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessAdress> $contact
+     */
+    public function getContact()
+    {
+        return $this->contact;
+    }
+
+    /**
+     * Sets the contact
+     * 
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessAdress> $contact
+     * @return void
+     */
+    public function setContact(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $contact)
+    {
+        $this->contact = $contact;
+    }
+
+    /**
+     * Adds a BusinessApp
+     * 
+     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessApp $app
+     * @return void
+     */
+    public function addApp(\Tp3\Tp3Businessview\Domain\Model\BusinessApp $app)
+    {
+        $this->app->attach($app);
+    }
+
+    /**
+     * Removes a BusinessApp
+     * 
+     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessApp $appToRemove The BusinessApp to be removed
+     * @return void
+     */
+    public function removeApp(\Tp3\Tp3Businessview\Domain\Model\BusinessApp $appToRemove)
+    {
+        $this->app->detach($appToRemove);
+    }
+
+    /**
+     * Returns the app
+     * 
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessApp> $app
+     */
+    public function getApp()
+    {
+        return $this->app;
+    }
+
+    /**
+     * Sets the app
+     * 
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessApp> $app
+     * @return void
+     */
+    public function setApp(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $app)
+    {
+        $this->app = $app;
     }
 }

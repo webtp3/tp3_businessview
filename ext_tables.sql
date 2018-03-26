@@ -14,8 +14,8 @@ CREATE TABLE tx_tp3businessview_domain_model_tp3businessview (
 	pano_animation int(11) DEFAULT '0' NOT NULL,
 	social_gallery varchar(255) DEFAULT '' NOT NULL,
 	pano_options int(11) DEFAULT '0' NOT NULL,
-	contact int(11) unsigned DEFAULT '0',
-	app int(11) unsigned DEFAULT '0',
+	contact int(11) unsigned DEFAULT '0' NOT NULL,
+	app int(11) unsigned DEFAULT '0' NOT NULL,
 	panoramas int(11) unsigned DEFAULT '0',
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -41,6 +41,8 @@ CREATE TABLE tx_tp3businessview_domain_model_tp3businessview (
 #
 CREATE TABLE tt_address (
 
+	tp3businessview int(11) unsigned DEFAULT '0' NOT NULL,
+
 );
 
 #
@@ -50,6 +52,8 @@ CREATE TABLE tx_tp3businessview_domain_model_businessapp (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
+
+	tp3businessview int(11) unsigned DEFAULT '0' NOT NULL,
 
 	businessview_id varchar(255) DEFAULT '' NOT NULL,
 	google_maps_java_script_api_key varchar(255) DEFAULT '' NOT NULL,
@@ -101,5 +105,23 @@ CREATE TABLE tx_tp3businessview_domain_model_panoramas (
 	PRIMARY KEY (uid),
 	KEY parent (pid),
 	KEY language (l10n_parent,sys_language_uid)
+
+);
+
+#
+# Table structure for table 'tt_address'
+#
+CREATE TABLE tt_address (
+
+	tp3businessview int(11) unsigned DEFAULT '0' NOT NULL,
+
+);
+
+#
+# Table structure for table 'tx_tp3businessview_domain_model_businessapp'
+#
+CREATE TABLE tx_tp3businessview_domain_model_businessapp (
+
+	tp3businessview int(11) unsigned DEFAULT '0' NOT NULL,
 
 );

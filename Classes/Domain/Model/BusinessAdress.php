@@ -42,6 +42,4 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  */
 class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address
 {
-
-
-}
+    }
