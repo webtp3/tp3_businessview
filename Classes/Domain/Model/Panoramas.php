@@ -44,7 +44,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
      * panoId
-     *
+     * 
      * @var string
      * @validate NotEmpty
      */
@@ -52,28 +52,28 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * heading
-     *
+     * 
      * @var string
      */
     protected $heading = '';
 
     /**
      * pitch
-     *
+     * 
      * @var string
      */
     protected $pitch = '';
 
     /**
      * zoom
-     *
+     * 
      * @var string
      */
     protected $zoom = '';
 
     /**
      * Returns the panoId
-     *
+     * 
      * @return string $panoId
      */
     public function getPanoId()
@@ -83,7 +83,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the panoId
-     *
+     * 
      * @param string $panoId
      * @return void
      */
@@ -94,7 +94,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the heading
-     *
+     * 
      * @return string $heading
      */
     public function getHeading()
@@ -104,7 +104,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the heading
-     *
+     * 
      * @param string $heading
      * @return void
      */
@@ -115,7 +115,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the pitch
-     *
+     * 
      * @return string $pitch
      */
     public function getPitch()
@@ -125,7 +125,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the pitch
-     *
+     * 
      * @param string $pitch
      * @return void
      */
@@ -136,7 +136,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the zoom
-     *
+     * 
      * @return string $zoom
      */
     public function getZoom()
@@ -146,7 +146,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the zoom
-     *
+     * 
      * @param string $zoom
      * @return void
      */

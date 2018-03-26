@@ -44,11 +44,33 @@ class Tp3BusinessViewController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
 {
     /**
      * action display
-     *
+     * 
      * @return void
      */
     public function displayAction()
     {
 
+    }
+
+    /**
+     * action list
+     * 
+     * @return void
+     */
+    public function listAction()
+    {
+        $tp3BusinessViews = $this->tp3BusinessViewRepository->findAll();
+        $this->view->assign('tp3BusinessViews', $tp3BusinessViews);
+    }
+
+    /**
+     * action show
+     * 
+     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3BusinessView
+     * @return void
+     */
+    public function showAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3BusinessView)
+    {
+        $this->view->assign('tp3BusinessView', $tp3BusinessView);
     }
 }

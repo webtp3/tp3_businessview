@@ -40,6 +40,8 @@ namespace Tp3\Tp3Businessview\Domain\Model;
 /**
  * BusinessAdress
  */
-class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address
 {
-    }
+
+
+}

@@ -44,7 +44,7 @@ class BusinessApp extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 {
     /**
      * BusinessView ID
-     *
+     * 
      * @var string
      * @validate NotEmpty
      */
@@ -52,7 +52,7 @@ class BusinessApp extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * google maps api key
-     *
+     * 
      * @var string
      * @validate NotEmpty
      */
@@ -60,14 +60,14 @@ class BusinessApp extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Jquery Selector
-     *
+     * 
      * @var string
      */
     protected $businessviewCanvasSelector = '';
 
     /**
      * Returns the businessviewId
-     *
+     * 
      * @return string $businessviewId
      */
     public function getBusinessviewId()
@@ -77,7 +77,7 @@ class BusinessApp extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Sets the businessviewId
-     *
+     * 
      * @param string $businessviewId
      * @return void
      */
@@ -88,7 +88,7 @@ class BusinessApp extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Returns the googleMapsJavaScriptApiKey
-     *
+     * 
      * @return string $googleMapsJavaScriptApiKey
      */
     public function getGoogleMapsJavaScriptApiKey()
@@ -98,7 +98,7 @@ class BusinessApp extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Sets the googleMapsJavaScriptApiKey
-     *
+     * 
      * @param string $googleMapsJavaScriptApiKey
      * @return void
      */
@@ -109,7 +109,7 @@ class BusinessApp extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Returns the businessviewCanvasSelector
-     *
+     * 
      * @return string $businessviewCanvasSelector
      */
     public function getBusinessviewCanvasSelector()
@@ -119,7 +119,7 @@ class BusinessApp extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Sets the businessviewCanvasSelector
-     *
+     * 
      * @param string $businessviewCanvasSelector
      * @return void
      */

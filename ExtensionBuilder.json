@@ -347,14 +347,25 @@
         }
     ],
     "properties": {
-        "backendModules": [],
+        "backendModules": [
+            {
+                "actions": {
+                    "controllerActionCombinations": ""
+                },
+                "description": "Businessview",
+                "key": "tp3businessview",
+                "mainModule": "tools",
+                "name": "tp3 BusinessView",
+                "tabLabel": "tp3 BusinessView"
+            }
+        ],
         "description": "google businessview f\u00fcr tp3",
         "emConf": {
             "category": "plugin",
             "custom_category": "",
-            "dependsOn": "typo3 => 6.2\n",
+            "dependsOn": "typo3 => 7.6.* - 8.9.99\n",
             "disableLocalization": false,
-            "disableVersioning": false,
+            "disableVersioning": true,
             "skipGenerateDocumentationTemplate": false,
             "sourceLanguage": "en",
             "state": "alpha",
@@ -425,7 +436,7 @@
         }
     ],
     "log": {
-        "last_modified": "2018-02-16 12:06",
+        "last_modified": "2018-03-27 12:33",
         "extension_builder_version": "7.6.18",
         "be_user": " (1)"
     }
