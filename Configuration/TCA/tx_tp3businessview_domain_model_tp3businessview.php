@@ -219,9 +219,10 @@ return [
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.panoramas',
 	        'config' => [
 			    'type' => 'select',
-			    'renderType' => 'selectSingle',
+			    'renderType' => 'selectMultipleSideBySide',
 			    'foreign_table' => 'tx_tp3businessview_domain_model_panoramas',
-			    'minitems' => 0,
+                'enableMultiSelectFilterTextfield' => true,
+                'minitems' => 0,
 			    'maxitems' => 1,
 			],
 	    ],

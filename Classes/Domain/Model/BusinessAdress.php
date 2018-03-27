@@ -42,4 +42,31 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  */
 class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address
 {
+    /**
+     * cid
+     * 
+     * @var string
+     */
+    protected $cid = '';
+
+    /**
+     * Returns the cid
+     * 
+     * @return string $cid
+     */
+    public function getCid()
+    {
+        return $this->cid;
     }
+
+    /**
+     * Sets the cid
+     * 
+     * @param string $cid
+     * @return void
+     */
+    public function setCid($cid)
+    {
+        $this->cid = $cid;
+    }
+}

@@ -43,6 +43,8 @@ CREATE TABLE tt_address (
 
 	tp3businessview int(11) unsigned DEFAULT '0' NOT NULL,
 
+	cid varchar(255) DEFAULT '' NOT NULL,
+
 );
 
 #

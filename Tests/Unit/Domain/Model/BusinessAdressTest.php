@@ -27,8 +27,27 @@ class BusinessAdressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function dummyTestToNotLeaveThisFileEmpty()
+    public function getCidReturnsInitialValueForString()
     {
-        self::markTestIncomplete();
+        self::assertSame(
+            '',
+            $this->subject->getCid()
+        );
+
+    }
+
+    /**
+     * @test
+     */
+    public function setCidForStringSetsCid()
+    {
+        $this->subject->setCid('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'cid',
+            $this->subject
+        );
+
     }
 }

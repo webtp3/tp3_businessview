@@ -32,6 +32,27 @@ if (!isset($GLOBALS['TCA']['tt_address']['ctrl']['type'])) {
     'after:' . $GLOBALS['TCA']['tt_address']['ctrl']['label']
 );
 
+$tmp_tp3_businessview_columns = [
+
+    'cid' => [
+        'exclude' => true,
+        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_businessadress.cid',
+        'config' => [
+		    'type' => 'input',
+		    'size' => 30,
+		    'eval' => 'trim'
+		],
+    ],
+];
+
+$tmp_tp3_businessview_columns['tp3businessview'] = [
+    'config' => [
+        'type' => 'passthrough',
+    ]
+];
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_address',$tmp_tp3_businessview_columns);
+
 /* inherit and extend the show items from the parent class */
 
 if (isset($GLOBALS['TCA']['tt_address']['types']['0']['showitem'])) {
@@ -44,7 +65,7 @@ if (isset($GLOBALS['TCA']['tt_address']['types']['0']['showitem'])) {
     $GLOBALS['TCA']['tt_address']['types']['Tx_Tp3Businessview_BusinessAdress']['showitem'] = '';
 }
 $GLOBALS['TCA']['tt_address']['types']['Tx_Tp3Businessview_BusinessAdress']['showitem'] .= ',--div--;LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_businessadress,';
-$GLOBALS['TCA']['tt_address']['types']['Tx_Tp3Businessview_BusinessAdress']['showitem'] .= '';
+$GLOBALS['TCA']['tt_address']['types']['Tx_Tp3Businessview_BusinessAdress']['showitem'] .= 'cid';
 
 $GLOBALS['TCA']['tt_address']['columns'][$GLOBALS['TCA']['tt_address']['ctrl']['type']]['config']['items'][] = ['LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tt_address.tx_extbase_type.Tx_Tp3Businessview_BusinessAdress','Tx_Tp3Businessview_BusinessAdress'];
 

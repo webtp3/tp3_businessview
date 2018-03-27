@@ -17,11 +17,11 @@ plugin.tx_tp3businessview_tp3businessview {
 module.tx_tp3businessview_tp3businessview {
   view {
     # cat=module.tx_tp3businessview_tp3businessview/file; type=string; label=Path to template root (BE)
-    templateRootPath = EXT:tp3_businessview/Resources/Private/Templates/Backend/
+    templateRootPath = EXT:tp3_businessview/Resources/Private/Backend/Templates/
     # cat=module.tx_tp3businessview_tp3businessview/file; type=string; label=Path to template partials (BE)
-    partialRootPath = EXT:tp3_businessview/Resources/Private/Partials/Backend/
+    partialRootPath = EXT:tp3_businessview/Resources/Private/Backend/Partials/
     # cat=module.tx_tp3businessview_tp3businessview/file; type=string; label=Path to template layouts (BE)
-    layoutRootPath = EXT:tp3_businessview/Resources/Private/Layouts/Backend/
+    layoutRootPath = EXT:tp3_businessview/Resources/Private/Backend/Layouts/
   }
   persistence {
     # cat=module.tx_tp3businessview_tp3businessview//a; type=string; label=Default storage PID

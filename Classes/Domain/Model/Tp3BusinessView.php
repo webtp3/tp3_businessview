@@ -99,14 +99,6 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $panoOptions = 0;
 
     /**
-     * panoramas
-     * 
-     * @var \Tp3\Tp3Businessview\Domain\Model\Panoramas
-     * @lazy
-     */
-    protected $panoramas = NULL;
-
-    /**
      * contact
      * 
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessAdress>
@@ -123,6 +115,14 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @lazy
      */
     protected $app = null;
+
+    /**
+     * panoramas
+     * 
+     * @var \Tp3\Tp3Businessview\Domain\Model\Panoramas
+     * @lazy
+     */
+    protected $panoramas = NULL;
 
     /**
      * Returns the createdBy

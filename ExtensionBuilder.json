@@ -3,7 +3,7 @@
         {
             "config": {
                 "position": [
-                    1294,
+                    1293,
                     329
                 ]
             },
@@ -159,7 +159,7 @@
         {
             "config": {
                 "position": [
-                    616,
+                    615,
                     113
                 ]
             },
@@ -188,7 +188,18 @@
                     "uid": "1220067725483"
                 },
                 "propertyGroup": {
-                    "properties": []
+                    "properties": [
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "cid",
+                            "propertyType": "String",
+                            "uid": "522153676202"
+                        }
+                    ]
                 },
                 "relationGroup": {
                     "relations": []
@@ -198,7 +209,7 @@
         {
             "config": {
                 "position": [
-                    121,
+                    120,
                     185
                 ]
             },
@@ -268,7 +279,7 @@
         {
             "config": {
                 "position": [
-                    542,
+                    541,
                     684
                 ]
             },
@@ -436,7 +447,7 @@
         }
     ],
     "log": {
-        "last_modified": "2018-03-27 12:56",
+        "last_modified": "2018-03-27 02:07",
         "extension_builder_version": "7.6.18",
         "be_user": " (1)"
     }

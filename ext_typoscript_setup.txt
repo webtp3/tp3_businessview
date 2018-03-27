@@ -7,6 +7,9 @@ config.tx_extbase {
         mapping {
           tableName = tt_address
           recordType = Tx_Tp3Businessview_BusinessAdress
+          columns {
+            cid.mapOnProperty = cid
+          }
         }
       }
 
