@@ -1,0 +1,15 @@
+
+# Module configuration
+module.tx_tp3businessview_tools_tp3businessview {
+  persistence {
+    storagePid = {$module.tx_tp3businessview_tp3businessview.persistence.storagePid}
+  }
+  view {
+    templateRootPaths.0 = EXT:tp3_businessview/Resources/Private/Templates/Backend/
+    templateRootPaths.1 = {$module.tx_tp3businessview_tp3businessview.view.templateRootPath}
+    partialRootPaths.0 = EXT:tp3_businessview/Resources/Private/Partials/Backend/
+    partialRootPaths.1 = {$module.tx_tp3businessview_tp3businessview.view.partialRootPath}
+    layoutRootPaths.0 = EXT:tp3_businessview/Resources/Private/Layouts/Backend/
+    layoutRootPaths.1 = {$module.tx_tp3businessview_tp3businessview.view.layoutRootPath}
+  }
+}

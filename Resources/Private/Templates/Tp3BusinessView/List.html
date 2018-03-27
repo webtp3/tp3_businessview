@@ -1,51 +1,40 @@
-&lt;html =&quot;http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers&quot; data-namespace-typo3-fluid=&quot;true&quot;>
-&lt;f:layout name=&quot;Default&quot; />
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
 
-This Template is responsible for creating a table of domain objects.
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        List.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
-
-&lt;f:section name=&quot;main&quot;>
+<f:section name="main">
 <h1>Listing for Tp3BusinessView</h1>
 
-&lt;f:flashMessages />
+<f:flashMessages />
 
-<table  class="tx_tp3businessview" >
-	&lt;tr>
-		&lt;th>&lt;f:translate key=&quot;tx_tp3businessview_domain_model_tp3businessview.created_by&quot; />&lt;/th>
-		&lt;th>&lt;f:translate key=&quot;tx_tp3businessview_domain_model_tp3businessview.name&quot; />&lt;/th>
-		&lt;th>&lt;f:translate key=&quot;tx_tp3businessview_domain_model_tp3businessview.external_links&quot; />&lt;/th>
-		&lt;th>&lt;f:translate key=&quot;tx_tp3businessview_domain_model_tp3businessview.gallery&quot; />&lt;/th>
-		&lt;th>&lt;f:translate key=&quot;tx_tp3businessview_domain_model_tp3businessview.intro&quot; />&lt;/th>
-		&lt;th>&lt;f:translate key=&quot;tx_tp3businessview_domain_model_tp3businessview.pano_animation&quot; />&lt;/th>
-		&lt;th>&lt;f:translate key=&quot;tx_tp3businessview_domain_model_tp3businessview.social_gallery&quot; />&lt;/th>
-		&lt;th>&lt;f:translate key=&quot;tx_tp3businessview_domain_model_tp3businessview.pano_options&quot; />&lt;/th>
-		&lt;th> &lt;/th>
-		&lt;th> &lt;/th>
-	&lt;/tr>
+	<table  class="tx_tp3businessview" >
+		<tr>
+			<th><f:translate key="tx_tp3businessview_domain_model_tp3businessview.created_by" /></th>
+			<th><f:translate key="tx_tp3businessview_domain_model_tp3businessview.name" /></th>
+			<th><f:translate key="tx_tp3businessview_domain_model_tp3businessview.external_links" /></th>
+			<th><f:translate key="tx_tp3businessview_domain_model_tp3businessview.gallery" /></th>
+			<th><f:translate key="tx_tp3businessview_domain_model_tp3businessview.intro" /></th>
+			<th><f:translate key="tx_tp3businessview_domain_model_tp3businessview.pano_animation" /></th>
+			<th><f:translate key="tx_tp3businessview_domain_model_tp3businessview.social_gallery" /></th>
+			<th><f:translate key="tx_tp3businessview_domain_model_tp3businessview.pano_options" /></th>
+			<th> </th>
+			<th> </th>
+		</tr>
 
-	&lt;f:for each=&quot;{tp3BusinessViews}&quot; as=&quot;tp3BusinessView&quot;>
-		&lt;tr>
-			&lt;td>&lt;f:link.action action=&quot;show&quot; arguments=&quot;{tp3BusinessView : tp3BusinessView}&quot;> {tp3BusinessView.createdBy}&lt;/td>
-			&lt;td>&lt;f:link.action action=&quot;show&quot; arguments=&quot;{tp3BusinessView : tp3BusinessView}&quot;> {tp3BusinessView.name}&lt;/td>
-			&lt;td>&lt;f:link.action action=&quot;show&quot; arguments=&quot;{tp3BusinessView : tp3BusinessView}&quot;> {tp3BusinessView.externalLinks}&lt;/td>
-			&lt;td>&lt;f:link.action action=&quot;show&quot; arguments=&quot;{tp3BusinessView : tp3BusinessView}&quot;> {tp3BusinessView.gallery}&lt;/td>
-			&lt;td>&lt;f:link.action action=&quot;show&quot; arguments=&quot;{tp3BusinessView : tp3BusinessView}&quot;> {tp3BusinessView.intro}&lt;/td>
-			&lt;td>&lt;f:link.action action=&quot;show&quot; arguments=&quot;{tp3BusinessView : tp3BusinessView}&quot;> {tp3BusinessView.panoAnimation}&lt;/td>
-			&lt;td>&lt;f:link.action action=&quot;show&quot; arguments=&quot;{tp3BusinessView : tp3BusinessView}&quot;> {tp3BusinessView.socialGallery}&lt;/td>
-			&lt;td>&lt;f:link.action action=&quot;show&quot; arguments=&quot;{tp3BusinessView : tp3BusinessView}&quot;> {tp3BusinessView.panoOptions}&lt;/td>
-			&lt;td>&lt;f:link.action action=&quot;edit&quot; arguments=&quot;{tp3BusinessView : tp3BusinessView}&quot;>Edit&lt;/td>
-			&lt;td>&lt;f:link.action action=&quot;delete&quot; arguments=&quot;{tp3BusinessView : tp3BusinessView}&quot;>Delete&lt;/td>
-		&lt;/tr>
-</table>
+		<f:for each="{tp3BusinessViews}" as="tp3BusinessView">
+			<tr>
+				<td><f:link.action action="show" arguments="{tp3BusinessView : tp3BusinessView}"> {tp3BusinessView.createdBy}</f:link.action></td>
+				<td><f:link.action action="show" arguments="{tp3BusinessView : tp3BusinessView}"> {tp3BusinessView.name}</f:link.action></td>
+				<td><f:link.action action="show" arguments="{tp3BusinessView : tp3BusinessView}"> {tp3BusinessView.externalLinks}</f:link.action></td>
+				<td><f:link.action action="show" arguments="{tp3BusinessView : tp3BusinessView}"> {tp3BusinessView.gallery}</f:link.action></td>
+				<td><f:link.action action="show" arguments="{tp3BusinessView : tp3BusinessView}"> {tp3BusinessView.intro}</f:link.action></td>
+				<td><f:link.action action="show" arguments="{tp3BusinessView : tp3BusinessView}"> {tp3BusinessView.panoAnimation}</f:link.action></td>
+				<td><f:link.action action="show" arguments="{tp3BusinessView : tp3BusinessView}"> {tp3BusinessView.socialGallery}</f:link.action></td>
+				<td><f:link.action action="show" arguments="{tp3BusinessView : tp3BusinessView}"> {tp3BusinessView.panoOptions}</f:link.action></td>
+				<td><f:link.action action="edit" arguments="{tp3BusinessView : tp3BusinessView}">Edit</f:link.action></td>
+				<td><f:link.action action="delete" arguments="{tp3BusinessView : tp3BusinessView}">Delete</f:link.action></td>
+			</tr>
+	</table>
 
-&lt;f:link.action action=&quot;new&quot;>New Tp3BusinessView
-
-&lt;/html>
+	<f:link.action action="new">New Tp3BusinessView</f:link.action>
+</f:section>
+</html>

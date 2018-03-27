@@ -62,6 +62,28 @@ class Tp3BusinessViewController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
         $tp3BusinessViews = $this->tp3BusinessViewRepository->findAll();
         $this->view->assign('tp3BusinessViews', $tp3BusinessViews);
     }
+    /**
+     * action index
+     *
+     * @return void
+     */
+    public function indexAction()
+    {
+        /*GeneralUtility::makeInstance(PageRenderer::class)
+            ->addRequireJsConfiguration([
+                'paths' => [
+                    'custom-lib' => '/typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js',
+                ],
+                'shim' => [
+                    'custom-lib' => ['jquery'],
+                ],
+            ]);*/
+       // $tp3BusinessViews = $this->tp3BusinessViewRepository->findAll();
+        $tp3BusinessViews = [
+            "apis" => ["jquery","maps"],
+        ];
+        $this->view->assign('tp3BusinessViews', $tp3BusinessViews);
+    }
 
     /**
      * action show

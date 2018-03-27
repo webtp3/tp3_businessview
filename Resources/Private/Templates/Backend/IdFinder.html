@@ -43,76 +43,11 @@
             border: 0px solid #999;
         }
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
 </head>
 <body>
-https://developers.google.com/maps/documentation/javascript/streetview?hl=de
-https://developers.google.com/maps/documentation/javascript/examples/streetview-custom-simple?hl=de
-<div id="pano"></div>
-<div id="floating-panel">
-    <table>
-        <tr>
-            <td><b>Position</b></td><td id="position-cell">&nbsp;</td>
-        </tr>
-        <tr>
-            <td><b>POV Heading</b></td><td id="heading-cell">270</td>
-        </tr>
-        <tr>
-            <td><b>POV Pitch</b></td><td id="pitch-cell">0.0</td>
-        </tr>
-        <tr>
-            <td><b>Pano ID</b></td><td id="pano-cell">&nbsp;</td>
-        </tr>
-        <table id="links_table"></table>
-    </table>
-</div>
+
 <script>
-    function initPano() {
-        var panorama = new google.maps.StreetViewPanorama(
-            document.getElementById('pano'), {
-                position: {lat: 37.869, lng: -122.255},
-                pov: {
-                    heading: 270,
-                    pitch: 0
-                },
-                visible: true
-            });
 
-        panorama.addListener('pano_changed', function() {
-            var panoCell = document.getElementById('pano-cell');
-            panoCell.innerHTML = panorama.getPano();
-        });
-
-        panorama.addListener('links_changed', function() {
-            var linksTable = document.getElementById('links_table');
-            while (linksTable.hasChildNodes()) {
-                linksTable.removeChild(linksTable.lastChild);
-            }
-            var links = panorama.getLinks();
-            for (var i in links) {
-                var row = document.createElement('tr');
-                linksTable.appendChild(row);
-                var labelCell = document.createElement('td');
-                labelCell.innerHTML = '<b>Link: ' + i + '</b>';
-                var valueCell = document.createElement('td');
-                valueCell.innerHTML = links[i].description;
-                linksTable.appendChild(labelCell);
-                linksTable.appendChild(valueCell);
-            }
-        });
-
-        panorama.addListener('position_changed', function() {
-            var positionCell = document.getElementById('position-cell');
-            positionCell.firstChild.nodeValue = panorama.getPosition() + '';
-        });
-
-        panorama.addListener('pov_changed', function() {
-            var headingCell = document.getElementById('heading-cell');
-            var pitchCell = document.getElementById('pitch-cell');
-            headingCell.firstChild.nodeValue = panorama.getPov().heading + '';
-            pitchCell.firstChild.nodeValue = panorama.getPov().pitch + '';
-        });
-    }
 </script>
 <script
         src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initPano"

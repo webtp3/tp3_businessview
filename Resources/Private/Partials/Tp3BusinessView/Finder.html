@@ -1,0 +1,61 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+        height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    #tp3businessview-floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+    }
+    #tp3businessview-pano {
+        width: 50%;
+        height: 100%;
+        float: left;
+    }
+    #tp3businessview-floating-panel {
+        width: 45%;
+        height: 100%;
+        float: right;
+        text-align: left;
+        overflow: auto;
+        position: static;
+        border: 0px solid #999;
+    }
+</style>
+https://developers.google.com/maps/documentation/javascript/streetview?hl=de
+https://developers.google.com/maps/documentation/javascript/examples/streetview-custom-simple?hl=de
+<div id="tp3businessview-pano"></div>
+<div id="tp3businessview-floating-panel">
+    <table>
+        <tr>
+            <td><b>Position</b></td><td id="position-cell">&nbsp;</td>
+        </tr>
+        <tr>
+            <td><b>POV Heading</b></td><td id="heading-cell">270</td>
+        </tr>
+        <tr>
+            <td><b>POV Pitch</b></td><td id="pitch-cell">0.0</td>
+        </tr>
+        <tr>
+            <td><b>Pano ID</b></td><td id="pano-cell">&nbsp;</td>
+        </tr>
+        <table id="links_table"></table>
+    </table>
+</div>
