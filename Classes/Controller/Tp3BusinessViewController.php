@@ -81,6 +81,7 @@ class Tp3BusinessViewController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
        // $tp3BusinessViews = $this->tp3BusinessViewRepository->findAll();
         $tp3BusinessViews = [
             "apis" => ["jquery","maps"],
+            "js" => ["Tp3App.js"],
         ];
         $this->view->assign('tp3BusinessViews', $tp3BusinessViews);
     }
