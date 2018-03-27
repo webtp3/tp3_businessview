@@ -9,10 +9,10 @@ defined('TYPO3_MODE') || die('Access denied.');
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
                 'Tp3.Tp3Businessview',
                 'tools', // Make module a submodule of 'tools'
-                'tp3businessview', // Submodule key
+                'Tp3Businessview', // Submodule key
                 '', // Position
                 [
-                    'Module' => 'index,display,explore,find',
+                    'Tp3BusinessView' => 'index,display,explore,find',
                 ],
                 [
                     'access' => 'user,group',

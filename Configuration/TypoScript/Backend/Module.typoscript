@@ -1,6 +1,6 @@
-
+#module.tx_tp3businessview_tp3businessview < plugin.tx_tp3businessview_tp3businessview
 # Module configuration
-module.tx_tp3businessview_tools_tp3businessview {
+module.tx_tp3businessview_tp3businessview{
   persistence {
     storagePid = {$module.tx_tp3businessview_tp3businessview.persistence.storagePid}
   }
@@ -13,3 +13,5 @@ module.tx_tp3businessview_tools_tp3businessview {
     layoutRootPaths.1 = {$module.tx_tp3businessview_tp3businessview.view.layoutRootPath}
   }
 }
+module.tx_tp3businessview < module.tx_tp3businessview_tp3businessview
+
