@@ -3,6 +3,7 @@ return [
     'ctrl' => [
         'title'	=> 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview',
         'label' => 'created_by',
+        'label_alt' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -135,41 +136,38 @@ return [
 	        'exclude' => true,
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.gallery',
 	        'config' => [
-			    'type' => 'input',
-			    'size' => 30,
-			    'eval' => 'trim'
+                'type' => 'check'
 			],
 	    ],
 	    'intro' => [
 	        'exclude' => true,
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.intro',
 	        'config' => [
-			    'type' => 'input',
-			    'size' => 30,
-			    'eval' => 'trim'
+                'type' => 'check'
+
 			],
 	    ],
 	    'pano_animation' => [
 	        'exclude' => true,
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.pano_animation',
 	        'config' => [
-			    'type' => 'select',
-			    'renderType' => 'selectSingle',
-			    'items' => [
-			        ['-- Label --', 0],
-			    ],
-			    'size' => 1,
-			    'maxitems' => 1,
-			    'eval' => ''
+                'type' => 'select',
+                'renderType' => 'selectCheckBox',
+                'items' => [
+                    [  "jumps" ,true,],
+                    [   "rotation", true,],
+
+
+                ],
+                'maxitems' => 99,
+                'eval' => ''
 			],
 	    ],
 	    'social_gallery' => [
 	        'exclude' => true,
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.social_gallery',
 	        'config' => [
-			    'type' => 'input',
-			    'size' => 30,
-			    'eval' => 'trim'
+                'type' => 'check'
 			],
 	    ],
 	    'pano_options' => [
@@ -177,12 +175,17 @@ return [
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.pano_options',
 	        'config' => [
 			    'type' => 'select',
-			    'renderType' => 'selectSingle',
+			    'renderType' => 'selectCheckBox',
 			    'items' => [
-			        ['-- Label --', 0],
-			    ],
-			    'size' => 1,
-			    'maxitems' => 1,
+                            [  "addressControl" ,true,],
+                            [   "disableDefaultUI", true,],
+                            [   "panControl" , true,],
+                            [   "scaleControl" , true,],
+                            [  "scrollwheel" , true,],
+                            [  "zoomControl", true],
+
+                    ],
+			    'maxitems' => 99,
 			    'eval' => ''
 			],
 	    ],

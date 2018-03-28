@@ -16,7 +16,11 @@ return [
             'endtime' => 'endtime',
         ],
 		'searchFields' => 'businessview_id,google_maps_java_script_api_key,businessview_canvas_selector',
-        'iconfile' => 'EXT:tp3_businessview/Resources/Public/Icons/tx_tp3businessview_domain_model_businessapp.gif'
+        'iconfile' => 'EXT:tp3_businessview/Resources/Public/Icons/tx_tp3businessview_domain_model_businessapp.gif',
+        'typeicon_classes' => [
+            'default' => 'ext-tp3_businessview-wizard-icon'
+        ],
+
     ],
     'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, businessview_id, google_maps_java_script_api_key, businessview_canvas_selector',
@@ -110,7 +114,7 @@ return [
 	        'config' => [
 			    'type' => 'input',
 			    'size' => 30,
-			    'eval' => 'trim,required'
+			    'eval' => 'trim'
 			],
 	    ],
 	    'google_maps_java_script_api_key' => [

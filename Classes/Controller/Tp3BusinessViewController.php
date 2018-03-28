@@ -189,7 +189,7 @@ class Tp3BusinessViewController extends ActionController
             "js" => ["Tp3App.js"],
         ];
         $panoramas = [];
-
+        $addresses = [];
 
         $res = $this->getDatabaseConnection()->sql_query(
             'SELECT *
@@ -202,17 +202,14 @@ class Tp3BusinessViewController extends ActionController
             $panoramas[] = $row;
         }
 
-        $res = $this->getDatabaseConnection()->sql_query(
+        $res2 = $this->getDatabaseConnection()->sql_query(
             'SELECT *
             FROM tt_address
-            WHERE `tt_address`.`hidden` = 0 '
-
-            . BackendUtility::deleteClause('tt_address')
-        );
-        while ($row = $this->getDatabaseConnection()->sql_fetch_assoc($res)) {
-            $addresses[] = $row;
+            WHERE `tt_address`.`hidden` = 0  AND `tt_address`.`deleted` = 0 '  );
+        while ($row2 = $this->getDatabaseConnection()->sql_fetch_assoc($res2)) {
+            $addresses[] = $row2;
         }
-        $addresses = [];
+
         $this->view->assign('panoramas', $panoramas);
         $this->view->assign('addresses', $addresses);
 

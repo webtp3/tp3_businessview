@@ -1,6 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <tr>
-    <td><b>Pano ID</b></td><td >
+    <td><b>name</b></td><td >
     <f:if condition="{editmode}">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text" name="tt_address[{address.uid}][name]" value="{address.name}"  class="formvalue"  >
@@ -11,7 +11,7 @@
 
 </td>
 
-    <td><b>POV Heading</b></td><td >
+    <td><b>google place_id</b></td><td >
     <f:if condition="{editmode}">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text" name="tt_address[{address.uid}][cid]"  value="{address.cid}"  class="formvalue"  >
@@ -22,7 +22,7 @@
 
 </td>
 
-    <td><b>POV Pitch</b></td><td >
+    <td><b>geo</b></td><td >
     <f:if condition="{editmode}">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text"  name="tt_address[{address.uid}][latitude]"  value="{address.latitude}"  class="formvalue"  >
@@ -30,31 +30,12 @@
             <f:form.textfield additionalAttributes=""  type="text"  name="tt_address[{address.uid}][longitude]"  value="{address.longitude}"  class="formvalue"  >
             </f:form.textfield>
         </f:then>
-        <f:else >{address.latitude}, {address.longitude}</f:else>
+        <f:else >{address.latitude}, {address.longitude}<br>
+            {address.address}<br> {address.zip} {address.city}
+        </f:else>
     </f:if>
 
 </td>
 
-    <td><b>zoom</b></td><td >
-    <f:if condition="{editmode}">
-        <f:then>
-            <f:form.textfield additionalAttributes=""  type="text" name="tt_address[{address.uid}][cid]"  value="{address.zoom}"  class="formvalue"  >
-            </f:form.textfield>
-        </f:then>
-        <f:else >{address.zoom}</f:else>
-    </f:if>
-
-</td>
-
-    <td><b>Position</b></td><td >
-    <f:if condition="{editmode}">
-        <f:then>
-            <f:form.textfield additionalAttributes=""  type="text" name="tt_address[{address.uid}][position]"  value="{address.position}"  class="formvalue"  >
-            </f:form.textfield>
-        </f:then>
-        <f:else >{address.position}</f:else>
-    </f:if>
-
-</td>
 </tr>
 </html>

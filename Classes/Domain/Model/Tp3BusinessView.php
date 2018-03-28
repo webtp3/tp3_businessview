@@ -82,7 +82,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * 
      * @var int
      */
-    protected $panoAnimation = 0;
+    protected $panoAnimation = ["jumps"=>false,"rotation"=>true];
 
     /**
      * socialGallery
@@ -96,7 +96,13 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * 
      * @var int
      */
-    protected $panoOptions = 0;
+    protected $panoOptions = ["addressControl" => false,
+                              "disableDefaultUI" => false,
+                              "panControl" => false,
+                              "scaleControl" => true,
+                              "scrollwheel" => true,
+                              "zoomControl" => false
+                            ];
 
     /**
      * contact
