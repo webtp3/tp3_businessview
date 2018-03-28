@@ -122,6 +122,7 @@ class Tp3BusinessViewController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
         }
 
         $this->registerDocheaderButtons();
+      //  $this->view->render();
     }
 
     protected function initializeAction()
@@ -144,11 +145,7 @@ class Tp3BusinessViewController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
             $this->pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         }
 
-        $publicResourcesPath = ExtensionManagementUtility::extRelPath('tp3_businessview') . 'Resources/Public/';
 
-        $this->pageRenderer->addCssFile(
-            $publicResourcesPath . 'Css/Backend/Tp3Backend.css'
-        );
     }
     /**
      * action display
@@ -177,16 +174,14 @@ class Tp3BusinessViewController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
      */
     public function indexAction()
     {
-        /*GeneralUtility::makeInstance(PageRenderer::class)
-            ->addRequireJsConfiguration([
-                'paths' => [
-                    'custom-lib' => '/typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js',
-                ],
-                'shim' => [
-                    'custom-lib' => ['jquery'],
-                ],
-            ]);*/
-       // $tp3BusinessViews = $this->tp3BusinessViewRepository->findAll();
+        $publicResourcesPath = ExtensionManagementUtility::extRelPath('tp3_businessview') . 'Resources/Public/';
+
+        $this->pageRenderer->addCssFile(
+            $publicResourcesPath . 'Css/Backend/Tp3Backend.css'
+        );
+        $this->pageRenderer->addJsFooterFile(
+            $publicResourcesPath . 'Css/JavaScript/Tp3App.js'
+        );
         $tp3BusinessViews = [
             "apis" => ["jquery","maps"],
             "js" => ["Tp3App.js"],

@@ -1,0 +1,73 @@
+/***************************************************************
+*  Copyright notice
+*
+* tp3
+* 10.12.2015 thomas ruta
+****************************************************************/
+/* Always set the map height explicitly to define the size of the div
+   * element that contains the map. */
+#map {
+    height: 100%;
+    width: 30%;
+    float:left;
+    min-height: 300px;
+}
+.tp3businessview-controls {
+    background-color: #fff;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    height: 29px;
+    margin-left: 17px;
+    margin-top: 10px;
+    outline: none;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 400px;
+}
+#tp3businessview-infowindow-content {
+    display: none;
+}
+.tp3businessview-controls:focus {
+    border-color: #4d90fe;
+}
+#tp3businessview-floating-panel {
+    position: absolute;
+    top: 10px;
+    right : 0;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+    float: right;
+}
+#tp3businessview-pano {
+    width: 50%;
+    height: 100%;
+    float: left;
+    min-height: 300px;
+
+}
+#tp3businessview-floating-panel {
+    width: 20%;
+    height: 100%;
+    float: right;
+    text-align: left;
+    overflow: auto;
+    position: static;
+    border: 0px solid #999;
+}
+.panoviewer{
+    width: 100%;
+}
+.panoviewer input.formvalue{
+    float:right;
+}
