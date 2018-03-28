@@ -1,0 +1,58 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<tr>
+    <td><b>Pano ID</b></td><td >
+    <f:if condition="{editmode}">
+        <f:then>
+            <f:form.textfield additionalAttributes=""  type="text" id="pano-cell"  value="{panorama.pano_id}"  class="formvalue"  >
+            </f:form.textfield>
+        </f:then>
+        <f:else >{panorama.pano_id}</f:else>
+    </f:if>
+
+</td>
+
+    <td><b>POV Heading</b></td><td >
+    <f:if condition="{editmode}">
+        <f:then>
+            <f:form.textfield additionalAttributes=""  type="text" id="heading-cell" value="{panorama.heading}"  class="formvalue"  >
+            </f:form.textfield>
+        </f:then>
+        <f:else >{panorama.heading}</f:else>
+    </f:if>
+
+</td>
+
+    <td><b>POV Pitch</b></td><td >
+    <f:if condition="{editmode}">
+        <f:then>
+            <f:form.textfield additionalAttributes=""  type="text" id="pitch-cell" value="{panorama.pitch}"  class="formvalue"  >
+            </f:form.textfield>
+        </f:then>
+        <f:else >{panorama.pitch}</f:else>
+    </f:if>
+
+</td>
+
+    <td><b>zoom</b></td><td >
+    <f:if condition="{editmode}">
+        <f:then>
+            <f:form.textfield additionalAttributes=""  type="text" id="zoom-cell"  value="{panorama.zoom}"  class="formvalue"  >
+            </f:form.textfield>
+        </f:then>
+        <f:else >{panorama.zoom}</f:else>
+    </f:if>
+
+</td>
+
+    <td><b>Position</b></td><td >
+    <f:if condition="{editmode}">
+        <f:then>
+            <f:form.textfield additionalAttributes=""  type="text" id="position-cell" value="{panorama.position}"  class="formvalue"  >
+            </f:form.textfield>
+        </f:then>
+        <f:else >{panorama.position}</f:else>
+    </f:if>
+
+</td>
+</tr>
+</html>

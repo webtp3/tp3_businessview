@@ -73,6 +73,6 @@ class PanoramasDatabaseRecordList extends DatabaseRecordList
             $urlParameters['tx_news_web_newstxnewsm2']['demand'] = $demand['demand'];
         }
 
-        return BackendUtility::getModuleUrl('web_NewsTxNewsM2', $urlParameters);
+        return BackendUtility::getModuleUrl('tools_Tp3BusinessViewTp3Businessview', $urlParameters);
     }
 }

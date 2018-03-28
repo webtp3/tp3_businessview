@@ -29,7 +29,7 @@
     text-overflow: ellipsis;
     width: 400px;
 }
-#tp3businessview-infowindow-content {
+#infowindow-content {
     display: none;
 }
 .tp3businessview-controls:focus {
@@ -70,4 +70,14 @@
 }
 .panoviewer input.formvalue{
     float:right;
+}
+.recordlists {
+    clear: both;
+    padding-top: 20px;
+}
+.addresslist,
+.panolist {
+    clear: both;
+    width:100%;
+    padding-top: 20px;
 }

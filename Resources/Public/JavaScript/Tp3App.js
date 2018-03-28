@@ -86,9 +86,9 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
 
 
 
-            document.getElementById('reversesubmit').addEventListener('click', function() {
+         /*   document.getElementById('reversesubmit').addEventListener('click', function() {
                 Tp3App.geocodePlaceId(geocoder, map, infowindow);
-            });
+            });*/
         }
     Tp3App.geocodePlaceId = function(geocoder, map, infowindow) {
         var placeId = document.getElementById('place-id').value;

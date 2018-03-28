@@ -116,7 +116,18 @@ CREATE TABLE tx_tp3businessview_domain_model_panoramas (
 CREATE TABLE tt_address (
 
 	tp3businessview int(11) unsigned DEFAULT '0' NOT NULL,
+  tx_extbase_type varchar(255) DEFAULT '' NOT NULL,
+  tx_cal_controller_latitude tinytext DEFAULT  '0'  NOT NULL,
+	tx_cal_controller_longitude tinytext DEFAULT  '0' NOT NULL,
+);
 
+#
+# Table structure for table 'pages'
+#
+CREATE TABLE pages (
+	tx_tp3businessview_onpage tinyint(4) DEFAULT '0' NOT NULL,
+	tx_tp3businessview_panorama int(11) DEFAULT NULL,
+	tx_tp3businessview_injetionpoint varchar(255) DEFAULT '' NOT NULL,
 );
 
 #

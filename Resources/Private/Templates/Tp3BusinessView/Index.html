@@ -6,5 +6,18 @@
 
 <f:flashMessages />
 <f:render partial="Tp3BusinessView/Finder" arguments="{tp3BusinessViews:tp3BusinessViews}" />
+    <br>
+    <div class="recordlists">
+        <table class="panolist">
+        <f:for each="{panoramas}" as="panorama">
+            <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama:panorama}" />
+        </f:for>
+        </table><br>
+        <table class="addresslist">
+            <f:for each="{addresses}" as="address">
+                <f:render partial="Tp3BusinessView/Address" arguments="{address:address}" />
+            </f:for>
+        </table>
+    </div>
 </f:section>
 </html>

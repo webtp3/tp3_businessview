@@ -6,19 +6,21 @@
 
 
         'tx_tp3businessview_onpage' => [
-            'label' => 'Display on page',
+            'label' => 'Display Businessview on page',
             'exclude' => true,
             'config' => [
                 'type' => 'check'
             ]
         ],
         'tx_tp3businessview_panorama' => [
-            'label' => 'Display on page',
+            'label' => 'Panorama',
             'exclude' => true,
             'config' => [
-                'type' => 'inline',
+                'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_tp3businessview_domain_model_panoramas',
-                'maxitems' => 9999,
+                'minitems' => 0,
+                'maxitems' => 1,
                 'appearance' => [
                     'collapseAll' => 0,
                     'levelLinksPosition' => 'top',
@@ -29,14 +31,23 @@
             ]
         ],
         'tx_tp3businessview_injetionpoint' => [
-            'label' => '',
+            'label' => 'Businessview  css selector',
             'exclude' => true,
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim'
             ]
         ],
     ]
 );
 
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+    'pages',
+    'visibility',
+    '
+    --linebreak--, tx_tp3businessview_onpage,
+    --linebreak--, tx_tp3businessview_panorama,
+    --linebreak--, tx_tp3businessview_injetionpoint,
+    '
+);

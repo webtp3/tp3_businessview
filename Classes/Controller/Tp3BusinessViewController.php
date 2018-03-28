@@ -50,11 +50,13 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+
 
 /**
  * Tp3BusinessViewController
  */
-class Tp3BusinessViewController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class Tp3BusinessViewController extends ActionController
 {
 
     /**
@@ -186,7 +188,34 @@ class Tp3BusinessViewController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
             "apis" => ["jquery","maps"],
             "js" => ["Tp3App.js"],
         ];
-        $this->view->assign('tp3BusinessViews', $tp3BusinessViews);
+        $panoramas = [];
+
+
+        $res = $this->getDatabaseConnection()->sql_query(
+            'SELECT *
+            FROM tx_tp3businessview_domain_model_panoramas
+            WHERE `tx_tp3businessview_domain_model_panoramas`.`hidden` = 0 '
+
+            . BackendUtility::deleteClause('tx_tp3businessview_domain_model_panoramas')
+        );
+        while ($row = $this->getDatabaseConnection()->sql_fetch_assoc($res)) {
+            $panoramas[] = $row;
+        }
+
+        $res = $this->getDatabaseConnection()->sql_query(
+            'SELECT *
+            FROM tt_address
+            WHERE `tt_address`.`hidden` = 0 '
+
+            . BackendUtility::deleteClause('tt_address')
+        );
+        while ($row = $this->getDatabaseConnection()->sql_fetch_assoc($res)) {
+            $addresses[] = $row;
+        }
+        $addresses = [];
+        $this->view->assign('panoramas', $panoramas);
+        $this->view->assign('addresses', $addresses);
+
     }
 
     /**
@@ -479,5 +508,11 @@ class Tp3BusinessViewController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
     {
         return $GLOBALS['BE_USER'];
     }
-
+    /**
+     * @return DatabaseConnection
+     */
+    protected function getDatabaseConnection()
+    {
+        return $GLOBALS['TYPO3_DB'];
+    }
 }

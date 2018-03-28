@@ -18,7 +18,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class RecordListConstraint
 {
-    const TABLE = 'tx_news_domain_model_news';
+    const TABLE = 'tx_tp3businessview_domain_model_panoramas';
 
     /**
      * Check if current module is the news administration module
