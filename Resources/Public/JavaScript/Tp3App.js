@@ -3,10 +3,32 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
     var Tp3App = Tp3App || {
         init:function(){
             console.log("tp3app Init");
-         //   Tp3App.scriptsload("//maps.googleapis.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg&")//callback=Tp3App.initPano
+         //   Tp3App.scriptsload("//maps.googleapis.com/maps/api/js?key=zzz&")//callback=Tp3App.initPano
             Tp3App.initPano();
             Tp3App.initMap();
+            geocoder = new google.maps.Geocoder;
+            infowindow = new google.maps.InfoWindow;
+            $('.panolist tr').hover(function() {
+                $(this).addClass('hover');
+            }, function() {
+                $(this).removeClass('hover');
+            }).click(function(){
+                panorama.setPano($(this).find('.pano_id').text());
+                panorama.setPov({
+                    heading: $(this).find('.heading').text(),
+                    pitch: $(this).find('.pitch').text()
+                });
+                panorama.setVisible(true);
+                $('#tp3businessview-floating-panel form').attr("name","updatepano")
+            });
+            $('.addresslist tr').hover(function() {
+                $(this).addClass('hover');
+            }, function() {
+                $(this).removeClass('hover');
+            }).click(function(){
+               if($(this).find('.place_id').text() != "") Tp3App.geocodePlaceId(geocoder, map, infowindow,  $(this).find('.place_id').text());
 
+            });
             return Tp3App;
         }
 
@@ -90,11 +112,10 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                 Tp3App.geocodePlaceId(geocoder, map, infowindow);
             });*/
         }
-    Tp3App.geocodePlaceId = function(geocoder, map, infowindow) {
-        var placeId = document.getElementById('place-id').value;
+    Tp3App.geocodePlaceId = function(geocoder, map, infowindow, placeId) {
+      //  if(!placeId) placeId = document.getElementById('place-id').value;
         // reverse lookup if user has placeid
-        geocoder = new google.maps.Geocoder;
-        infowindow = new google.maps.InfoWindow;
+
         geocoder.geocode({'placeId': placeId}, function(results, status) {
             if (status === 'OK') {
                 if (results[0]) {
@@ -128,6 +149,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
             panorama.addListener('pano_changed', function () {
                 var panoCell = document.getElementById('pano-cell');
                 panoCell.value = panorama.getPano();
+                $('#tp3businessview-floating-panel form').attr("name","updatepano");
             });
 
             panorama.addListener('links_changed', function () {

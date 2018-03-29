@@ -12,7 +12,7 @@ namespace Tp3\Tp3Businessview\Domain\Repository;
  *
  ***/
 
-class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class PanoramasRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
 
@@ -20,7 +20,7 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
      *
      *
      * @param integer $uid
-     * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
+     * @return \Tp3\Tp3Businessview\Domain\Model\Panoramas
      */
     public function findByUid($uid) {
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');

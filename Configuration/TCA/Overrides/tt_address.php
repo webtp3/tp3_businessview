@@ -43,6 +43,15 @@ $tmp_tp3_businessview_columns = [
 		    'eval' => 'trim'
 		],
     ],
+    'googleplus' => [
+        'exclude' => true,
+        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_businessadress.googleplus',
+        'config' => [
+            'type' => 'input',
+            'size' => 30,
+            'eval' => 'trim'
+        ],
+    ],
 ];
 
 $tmp_tp3_businessview_columns['tp3businessview'] = [

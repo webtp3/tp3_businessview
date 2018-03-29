@@ -72,8 +72,15 @@
     float:right;
 }
 .recordlists {
-    clear: both;
-    padding-top: 20px;
+     clear: both;
+     padding-top: 20px;
+ }
+.recordlists .hover {
+    background: rgba(23,23,23,0.3);
+}
+.recordlists td {
+    padding: 10px;
+    border: solid 0.5pt #222;
 }
 .addresslist,
 .panolist {

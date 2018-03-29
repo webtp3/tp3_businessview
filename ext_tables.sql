@@ -42,7 +42,7 @@ CREATE TABLE tx_tp3businessview_domain_model_tp3businessview (
 CREATE TABLE tt_address (
 
 	tp3businessview int(11) unsigned DEFAULT '0' NOT NULL,
-
+	googleplus varchar(255) DEFAULT '' NOT NULL,
 	cid varchar(255) DEFAULT '' NOT NULL,
 
 );

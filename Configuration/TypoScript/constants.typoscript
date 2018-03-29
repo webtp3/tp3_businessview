@@ -10,7 +10,19 @@ plugin.tx_tp3businessview_tp3businessview {
   }
   persistence {
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=Default storage PID
-    storagePid =
+    storagePid = 1563
+  }
+  settings{
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=google api key (FE)
+    googleMapsJavaScriptApiKey = AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay color
+    color=orange
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay backgroundColor
+    backgroundColor=#F0AD4E
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay textColor
+    textColor=#FFF
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay align
+    align=right
   }
 
 }
@@ -28,13 +40,9 @@ module.tx_tp3businessview_tp3businessview {
     # cat=module.tx_tp3businessview_tp3businessview//a; type=string; label=Default storage PID
     storagePid =
   }
-}
+  settings{
+    # cat=module.tx_tp3businessview_tp3businessview/file; type=string; label=Maps api key for (BE)
+    googleMapsJavaScriptApiKey = AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg
 
-businessview{
-  externalLinks = "status":true,"links":[{"icon":"undefined","url":"undefined","target":false,"visible":false},{"icon":"fa-facebook","url":"https:\/\/www.facebook.com\/thomas.ruta.1","target":false,"visible":true},{"icon":"fa-google-plus","url":"https:\/\/plus.google.com\/+ThomasRuta-apps\/about","target":false,"visible":true}]
-  contact = "fields":{"name":{"value":"Thomas Ruta","visible":true},"street":{"value":"Berliner stra\u00dfe 63","visible":true},"zip":{"value":"65205","visible":true},"city":{"value":"Wiesbaden","visible":true},"phone":{"value":"06131 3272373-0","visible":true},"email":{"value":"email@thomasruta.de","visible":true},"website":{"value":"http:\/\/thomasruta.de","visible":true}
-  createdBy={"name":"Thomas Ruta, http:\/\/web.tp3.de","status":true}
-  panoEntry.id = "CAoSLEFGMVFpcE81M3hTYjRraldGMlJYNGJSOGdhYm1WTUV0VnoxR0tkdHMtMEpx"
-  socialGallery = {"networks":[{"disabled":[],"status":true,"webUrl":"https:\/\/www.facebook.com\/thomas.ruta.1","id":"tp3service","type":"facebookPage"}],"status":true}
-
+  }
 }

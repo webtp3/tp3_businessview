@@ -2,77 +2,33 @@
 plugin.tx_tp3businessview_tp3businessview {
   view {
     templateRootPaths.0 = EXT:tp3_businessview/Resources/Private/Templates/
-    templateRootPaths.1 = plugin.tx_tp3businessview_tp3businessview.view.templateRootPath
+    templateRootPaths.1 = {$plugin.tx_tp3businessview_tp3businessview.view.templateRootPath}
     partialRootPaths.0 = EXT:tp3_businessview/Resources/Private/Partials/
-    partialRootPaths.1 = plugin.tx_tp3businessview_tp3businessview.view.partialRootPath
+    partialRootPaths.1 = {$plugin.tx_tp3businessview_tp3businessview.view.partialRootPath}
     layoutRootPaths.0 = EXT:tp3_businessview/Resources/Private/Layouts/
-    layoutRootPaths.1 = plugin.tx_tp3businessview_tp3businessview.view.layoutRootPath
+    layoutRootPaths.1 = {$plugin.tx_tp3businessview_tp3businessview.view.layoutRootPath}
   }
   persistence {
-    storagePid = plugin.tx_tp3businessview_tp3businessview.persistence.storagePid
-    #recursive = 1
+    storagePid = {$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
+    recursive = 1
+    enhancedLazyLoadingStrategy = 0
   }
   features {
     #skipDefaultArguments = 1
+  }
+  settings{
+    googleMapsJavaScriptApiKey = {$plugin.tx_tp3businessview_tp3businessview.settings.googleMapsJavaScriptApiKey}
+    color={$plugin.tx_tp3businessview_tp3businessview.settings.color}
+    backgroundColor={$plugin.tx_tp3businessview_tp3businessview.settings.backgroundColor}
+    textColor={$plugin.tx_tp3businessview_tp3businessview.settings.textColor}
+    align={$plugin.tx_tp3businessview_tp3businessview.settings.align}
   }
   mvc {
     #callDefaultActionIfActionCantBeResolved = 1
   }
 }
-
 plugin.tx_tp3businessview < plugin.tx_tp3businessview_tp3businessview
-page {
-  headerData {
-    171717 = TEXT
-    171717.value (
 
-<script type="text/javascript">
-    <!-- tp3 bussinessview -->
-    var businessviewJson = businessviewJson || {
-          details:{
-            actionOrder: [],
-            areaOrder: [],
-            editors: [],
-            googleMapsJavaScriptApiKey: "AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg",
-            legalNoticeUrl: "http://web.tp3.de",
-            location: {},
-            modules: {
-              contact:{},
-              custom: {},
-              externalLinks:{"status":true,"links":[{"icon":"undefined","url":"undefined","target":false,"visible":false},{"icon":"fa-facebook","url":"https:\/\/www.facebook.com\/tp3service","target":false,"visible":true},{"icon":"fa-google-plus","url":"https:\/\/plus.google.com\/+Tp3De\/about","target":false,"visible":true}]},
-              gallery: {},
-              intro: {},
-              openingHours: {},
-              opentable: {},
-              panoAnimation: {"jumps":false,"rotation":true},
-              socialGallery:{}
-
-            },
-              name: "tp3 - modular typo3 webservice",
-              panoEntry: {
-              heading: 0,
-              panoId: {$businessview.panoEntry.id},
-              pitch: 2,
-              zoom: 0,
-            },
-            panoOptions: {
-              addressControl: false,
-              disableDefaultUI: false,
-              panControl: false,
-              scaleControl: true,
-              scrollwheel: true,
-              zoomControl: false,
-            },
-            panoramas: [],
-            type: "businessview",
-          },
-          hasDetails: true
-      }
-</script>
-
-    )
-  }
-}
 plugin.tx_tp3businessview._CSS_DEFAULT_STYLE (
     textarea.f3-form-error {
         background-color:#FF9F9F;

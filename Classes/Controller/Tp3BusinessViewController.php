@@ -51,6 +51,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
+use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
+use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
+
 
 
 /**
@@ -59,6 +64,10 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 class Tp3BusinessViewController extends ActionController
 {
 
+    /**
+
+     */
+    protected $persistenceManager = null;
     /**
      * Backend Template Container.
      * Takes care of outer "docheader" and other stuff this module is embedded in.
@@ -104,6 +113,16 @@ class Tp3BusinessViewController extends ActionController
         'viewSettings' => array()
     );
 
+    /**
+     *
+     * @var \Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
+     */
+    public  $panoramasrepository = null;
+    /**
+     *
+     * @var \Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
+     */
+    public  $businessadressrepository = null;
     /**
      * @var Locales
      */
@@ -226,18 +245,112 @@ class Tp3BusinessViewController extends ActionController
         $this->view->assign('tp3BusinessView', $tp3BusinessView);
     }
     /**
+     * action new
+     *
      * @return void
      */
-    public function settingsAction()
+    public function newAction()
     {
-        $tmp = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow('uid', 'pages', 'deleted=0 AND hidden=0 AND is_siteroot=1');
-        $pageId = (int)$tmp['uid'];
 
-        $this->view->assign('pageId', $pageId);
+    }
+    /**
+     * action update
+     *
+     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview
+     * @return void
+     */
+    public function updateAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
+    {
+        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->iplogRepository->update($businessview);
+        $this->persistenceManager->persistAll();
+
+    }
+    /**
+     * action create
+     *
+     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView  $businessview
+     * @return void
+     */
+    public function createAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
+    {
+        $this->addFlashMessage('The object was created.', 'created', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->iplogRepository->add($businessview);
+
     }
 
-    public function premiumAction()
+
+    /**
+     * action updatepano
+     *
+     * @param \Tp3\Tp3Businessview\Domain\Model\Panoramas $businessview
+     * @return void
+     */
+    public function updatepanoAction(\Tp3\Tp3Businessview\Domain\Model\Panoramas $pano)
     {
+        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        if ($this->panoramasrepository === null) {
+            $this->panoramasrepository = $this->objectManager->get(PanoramasRepository::class);
+        }
+        $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->panoramasrepository->update($pano);
+        $this->persistenceManager->persistAll();
+
+    }
+
+    /**
+     * action create
+     *
+     * @param \Tp3\Tp3Businessview\Domain\Model\Panoramas  $pano
+     * @return void
+     */
+    public function createpanoAction(\Tp3\Tp3Businessview\Domain\Model\Panoramas $pano)
+    {
+        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        if ($this->panoramasrepository === null) {
+            $this->panoramasrepository = $this->objectManager->get(PanoramasRepository::class);
+        }
+        $this->addFlashMessage('The object was created.', 'created', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->panoramasrepository->add($pano);
+        $this->persistenceManager->persistAll();
+
+    }
+
+    /**
+     * action create
+     *
+     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress  $adress
+     * @return void
+     */
+    public function createadressAction(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $adress)
+    {
+        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        if ($this->businessadressrepository === null) {
+            $this->businessadressrepository = $this->objectManager->get(BusinessAdressRepository::class);
+        }
+        $this->addFlashMessage('The object was created.', 'created', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->businessadressrepository->add($adress);
+        $this->persistenceManager->persistAll();
+
+    }
+
+    /**
+     * action updatepano
+     *
+     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $adress
+     * @return void
+     */
+    public function updateadressAction(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $adress)
+    {
+        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        if ($this->businessadressrepository === null) {
+            $this->businessadressrepository = $this->objectManager->get(BusinessAdressRepository::class);
+        }
+        $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->businessadressrepository->update($adress);
+        $this->persistenceManager->persistAll();
+
     }
 
     public function saveSettingsAction()
@@ -250,99 +363,6 @@ class Tp3BusinessViewController extends ActionController
 
         $extraTableRecords = [];
 
-        if ($this->request->hasArgument('twitterImage')) {
-            $twitterImage = $this->request->getArgument('twitterImage');
-
-            if (($this->request->hasArgument('twitterDeleteImage') && !empty($this->request->getArgument('twitterDeleteImage'))) ||
-                (array_key_exists('tmp_name', $twitterImage) && !empty($twitterImage['tmp_name']))) {
-                $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-                    'sys_file_reference',
-                    'fieldname="tx_yoastseo_settings_twitter_image" AND uid_foreign=' . $pageId,
-                    ['deleted' => 1]
-                );
-            }
-            if (array_key_exists('tmp_name', $twitterImage) && !empty($twitterImage['tmp_name'])) {
-                $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
-                $storage = $resourceFactory->getDefaultStorage();
-
-                if ($storage instanceof ResourceStorage) {
-                    $newFile = $storage->addFile(
-                        $twitterImage['tmp_name'],
-                        $storage->getDefaultFolder(),
-                        $twitterImage['name']
-                    );
-
-                    $newId = 'NEW12345';
-                    $extraTableRecords['sys_file_reference'][$newId] = [
-                        'table_local' => 'sys_file',
-                        'uid_local' => $newFile->getUid(),
-                        'tablenames' => 'pages',
-                        'uid_foreign' => $pageId,
-                        'fieldname' => 'tx_yoastseo_settings_twitter_image',
-                        'pid' => $pageId
-                    ];
-                }
-            }
-        }
-
-        if ($this->request->hasArgument('facebookImage')) {
-            $facebookImage = $this->request->getArgument('facebookImage');
-            if (($this->request->hasArgument('facebookDeleteImage') && !empty($this->request->getArgument('facebookDeleteImage'))) ||
-                (array_key_exists('tmp_name', $facebookImage) && !empty($facebookImage['tmp_name']))) {
-                $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-                    'sys_file_reference',
-                    'fieldname="tx_yoastseo_settings_facebook_image" AND uid_foreign=' . $pageId,
-                    ['deleted' => 1]
-                );
-            }
-            if (array_key_exists('tmp_name', $facebookImage) && !empty($facebookImage['tmp_name'])) {
-                $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
-                $storage = $resourceFactory->getDefaultStorage();
-
-                if ($storage instanceof ResourceStorage) {
-                    $newFile = $storage->addFile(
-                        $facebookImage['tmp_name'],
-                        $storage->getDefaultFolder(),
-                        $facebookImage['name']
-                    );
-
-                    $newId = 'NEW54321';
-                    $extraTableRecords['sys_file_reference'][$newId] = [
-                        'table_local' => 'sys_file',
-                        'uid_local' => $newFile->getUid(),
-                        'tablenames' => 'pages',
-                        'uid_foreign' => $pageId,
-                        'fieldname' => 'tx_yoastseo_settings_facebook_image',
-                        'pid' => $pageId
-                    ];
-                }
-            }
-        }
-
-        $tce = GeneralUtility::makeInstance(DataHandler::class);
-        $tce->reverseOrder = 1;
-        $tce->start($extraTableRecords, array());
-        $tce->process_datamap();
-        $tce->clear_cacheCmd('pages');
-
-        $message = GeneralUtility::makeInstance(
-            FlashMessage::class,
-            $lang->sL('LLL:EXT:tp3_businessview/Resources/Private/Language/BackendModule.xlf:saved.description'),
-            $lang->sL('LLL:EXT:tp3_businessview/Resources/Private/Language/BackendModule.xlf:saved.title'),
-            FlashMessage::OK,
-            true
-        );
-
-        $flashMessageService = $this->objectManager->get(\TYPO3\CMS\Core\Messaging\FlashMessageService::class);
-        $messageQueue = $flashMessageService->getMessageQueueByIdentifier();
-        $messageQueue->addMessage($message);
-
-        $returnUrl = '';
-        if ($this->request->hasArgument('returnUrl')) {
-            $returnUrl = $this->request->getArgument('returnUrl');
-        }
-
-        $this->redirect('settings', null, null, array('id' => $pageId, 'language' => $languageId));
     }
     /**
      * Registers the Icons into the docheader
