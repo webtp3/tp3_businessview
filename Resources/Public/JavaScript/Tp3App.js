@@ -7,7 +7,33 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
             Tp3App.initPano();
             Tp3App.initMap();
             geocoder = new google.maps.Geocoder;
-            infowindow = new google.maps.InfoWindow;
+            infowindow = new google.maps.InfoWindow;$('#editform')
+            $('#editform').on("submit",function (e) {
+                $('<div class="loaderbg"><div class="loader"></div></div>').appendTo($(e.currentTarget).parents("body").first()).css({position:"absolute", width:"100%", height:"100%", top :0, "z-index": "999", background: "rgba(0, 0, 0, 0.5)"});
+                e.preventDefault(e);
+                $('.loader').css({position:"absolute", left:"40%", top : window.pageYOffset, "z-index": "999"});
+                var url = TYPO3.settings.ajaxUrls['tp3businessview_tp3businessview']; // the script where you handle the form input.
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data:     $('#editform').serialize(), // serializes the form's elements.
+                    success: function(data)
+                    {
+                        $('.loaderbg').remove();
+                        console.log(data); // show response from the php script.
+                        var result = $.parseJSON(data);
+
+
+                    }
+                });
+
+                e.preventDefault(e); // avoid to execute the actual submit of the form.
+                return false;
+            })
+            $('#submitEditform').on("click", function(e){
+
+            })
             $('.panolist tr').hover(function() {
                 $(this).addClass('hover');
             }, function() {
@@ -19,7 +45,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                     pitch: $(this).find('.pitch').text()
                 });
                 panorama.setVisible(true);
-                $('#tp3businessview-floating-panel form').attr("name","updatepano")
+               // $('#tp3businessview-floating-panel form').attr("name","updatepano")
             });
             $('.addresslist tr').hover(function() {
                 $(this).addClass('hover');
@@ -149,7 +175,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
             panorama.addListener('pano_changed', function () {
                 var panoCell = document.getElementById('pano-cell');
                 panoCell.value = panorama.getPano();
-                $('#tp3businessview-floating-panel form').attr("name","updatepano");
+               // $('#tp3businessview-floating-panel form').attr("name","updatepano");
             });
 
             panorama.addListener('links_changed', function () {

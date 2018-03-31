@@ -12,7 +12,7 @@ defined('TYPO3_MODE') || die('Access denied.');
                 'Tp3Businessview', // Submodule key
                 '', // Position
                 [
-                    'Tp3BusinessView' => 'index,display,new,create,update,updatepano,updateaddress,createpano',
+                    'Tp3BusinessView' => 'index,display,new,edit,create,update,updatepano,updateaddress,createpano',
                 ],
                 [
                     'access' => 'user,group',

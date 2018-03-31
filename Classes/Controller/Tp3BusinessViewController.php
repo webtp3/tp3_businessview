@@ -36,15 +36,23 @@ namespace Tp3\Tp3Businessview\Controller;
  *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
  *
  ***/
+use Exception;
+
+use Tp3\Tp3Businessview\Domain\Model\BusinessAdress;
+use Tp3\Tp3Businessview\Domain\Model\Panoramas;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Resource\ResourceStorage;
+use TYPO3\CMS\Core\Http\Response;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\DataHandling\DataHandler as DataHandlerCore;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -113,11 +121,33 @@ class Tp3BusinessViewController extends ActionController
         'viewSettings' => array()
     );
 
+    /* @var $dataMapper \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper */
+    protected $dataMapper;
+    /**
+     *
+     */
+    public $cObj = null;
+    /**
+     *
+     */
+    public  $panoramas = null;
+    /**
+     *
+
+     */
+    public  $businessadress = null;
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
      */
     public  $panoramasrepository = null;
+
+    /**
+     *
+     * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
+     */
+    public  $businessviewrepository = null;
+
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
@@ -156,6 +186,7 @@ class Tp3BusinessViewController extends ActionController
                 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tp3_businessview']
             );
         }
+        $this->cObj=  $this->configurationManager->getContentObject();
 
         parent::initializeAction();
 
@@ -166,8 +197,13 @@ class Tp3BusinessViewController extends ActionController
             $this->pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         }
 
+        if (!($this->dataMapper instanceof DataMapper)) {
+            $this->dataMapper = GeneralUtility::makeInstance(DataMapper::class);
+        }
 
     }
+
+
     /**
      * action display
      * 
@@ -244,6 +280,7 @@ class Tp3BusinessViewController extends ActionController
     {
         $this->view->assign('tp3BusinessView', $tp3BusinessView);
     }
+
     /**
      * action new
      *
@@ -254,6 +291,59 @@ class Tp3BusinessViewController extends ActionController
 
     }
     /**
+     * action edit
+
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface $response
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function editAction (ServerRequestInterface $request, Response $response) {
+
+        try {
+                 $item = GeneralUtility::_GP('tx_tp3businessview_tools_tp3businessviewtp3businessview') ? GeneralUtility::_GP('tx_tp3businessview_tools_tp3businessviewtp3businessview') : "";
+                 $pan = $item['tx_tp3businessview_domain_model_panoramas'];
+               if(is_array($pan)) {
+                   if($pan["uid"] == ""){
+                       $pan["pid"] = 1563;
+
+                           $tcemainData = [
+                               "tx_tp3businessview_domain_model_panoramas" => [
+                                   'NEW' => [
+                                       $pan
+                                   ]
+                               ]
+                           ];
+
+                           $dataHandler = GeneralUtility::makeInstance(DataHandlerCore::class);
+                           $dataHandler->start($tcemainData, []);
+                           $dataHandler->process_datamap();
+
+                           $pano = $dataHandler->substNEWwithIDs['NEW'];
+                           //$pano = $this->dataMapper->map(Panoramas::class,[$pan]);
+
+                    //     $content = $this->updatepanoAction($pano);
+                   }
+
+                    else{
+                        $pan["uid"] = 99;
+                        $pano = $this->dataMapper->map(Panoramas::class,[$pan]);
+                        $content = $this->createpanoAction($pano[0]);
+                    }
+
+               }
+
+            $response->getBody()->write(\GuzzleHttp\json_encode($item));
+            $response = $response->withHeader('Content-Type', 'text/json; charset=utf-8');
+            } catch (Exception $e) {
+            $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
+            throw new \RuntimeException($message);
+        }
+        return $response;
+
+    }
+
+    /**
      * action update
      *
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview
@@ -261,9 +351,10 @@ class Tp3BusinessViewController extends ActionController
      */
     public function updateAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
     {
+
         $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
         $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->iplogRepository->update($businessview);
+        $this->businessviewrepository->update($businessview);
         $this->persistenceManager->persistAll();
 
     }
@@ -276,7 +367,7 @@ class Tp3BusinessViewController extends ActionController
     public function createAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
     {
         $this->addFlashMessage('The object was created.', 'created', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->iplogRepository->add($businessview);
+        $this->businessvierepository->add($businessview);
 
     }
 
@@ -294,7 +385,8 @@ class Tp3BusinessViewController extends ActionController
             $this->panoramasrepository = $this->objectManager->get(PanoramasRepository::class);
         }
         $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->panoramasrepository->update($pano);
+        if($pano->getUid() < 1 || $pano->getUid() == "new")$this->panoramasrepository->add($pano);
+        else   $this->panoramasrepository->update($pano);
         $this->persistenceManager->persistAll();
 
     }
@@ -531,5 +623,14 @@ class Tp3BusinessViewController extends ActionController
     protected function getDatabaseConnection()
     {
         return $GLOBALS['TYPO3_DB'];
+    }
+    /**
+     * Inject the DataMapper
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper $dataMapper
+     */
+    public function injectDataMapper(\TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper $dataMapper)
+    {
+        $this->dataMapper = $dataMapper;
     }
 }
