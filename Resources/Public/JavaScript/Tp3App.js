@@ -8,7 +8,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
             Tp3App.initMap();
             geocoder = new google.maps.Geocoder;
             infowindow = new google.maps.InfoWindow;$('#editform')
-            $('#editform').on("submit",function (e) {
+        /*    $('#editform').on("submit",function (e) {
                 $('<div class="loaderbg"><div class="loader"></div></div>').appendTo($(e.currentTarget).parents("body").first()).css({position:"absolute", width:"100%", height:"100%", top :0, "z-index": "999", background: "rgba(0, 0, 0, 0.5)"});
                 e.preventDefault(e);
                 $('.loader').css({position:"absolute", left:"40%", top : window.pageYOffset, "z-index": "999"});
@@ -30,6 +30,13 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
 
                 e.preventDefault(e); // avoid to execute the actual submit of the form.
                 return false;
+            })*/
+            $('#submitNewform').on("click", function(e){
+                e.preventDefault(e);
+              //  $('#editform').attr("action", $('#editform').attr("action").replace("edit","new"))
+                $('#editform').find('input[name="tx_tp3businessview_tools_tp3businessviewtp3businessview[tx_tp3businessview_domain_model_panoramas][uid]"]').val("");
+                $('#editform').submit();
+
             })
             $('#submitEditform').on("click", function(e){
 
@@ -39,6 +46,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
             }, function() {
                 $(this).removeClass('hover');
             }).click(function(){
+                $('#editform').find('input[name="tx_tp3businessview_tools_tp3businessviewtp3businessview[tx_tp3businessview_domain_model_panoramas][uid]"]').val($(this).attr("id").split("_")[1]);
                 panorama.setPano($(this).find('.pano_id').text());
                 panorama.setPov({
                     heading: $(this).find('.heading').text(),

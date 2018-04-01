@@ -1,6 +1,8 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<tr>
-    <td><b>Pano ID</b></td><td class="pano_id">
+<tr id="pano_{panorama.uid}">
+    <td>
+        <b>Pano ID</b></td><td class="pano_id">
+
     <f:if condition="{editmode}">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text" name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][pano_id]"  value="{panorama.pano_id}"  class="formvalue"  >

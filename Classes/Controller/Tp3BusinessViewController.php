@@ -36,8 +36,6 @@ namespace Tp3\Tp3Businessview\Controller;
  *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
  *
  ***/
-use Exception;
-
 use Tp3\Tp3Businessview\Domain\Model\BusinessAdress;
 use Tp3\Tp3Businessview\Domain\Model\Panoramas;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
@@ -52,7 +50,7 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Resource\ResourceStorage;
 use TYPO3\CMS\Core\Http\Response;
 use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Core\DataHandling\DataHandler as DataHandlerCore;
+
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -127,6 +125,10 @@ class Tp3BusinessViewController extends ActionController
      *
      */
     public $cObj = null;
+    /**
+     *
+     */
+    public $conf = null;
     /**
      *
      */
@@ -288,61 +290,39 @@ class Tp3BusinessViewController extends ActionController
      */
     public function newAction()
     {
-
+        $this->redirect('edit');
     }
     /**
      * action edit
 
-     * @param \Psr\Http\Message\ServerRequestInterface $request
-     * @param \Psr\Http\Message\ResponseInterface $response
-     *
-     * @return \Psr\Http\Message\ResponseInterface
+
      */
-    public function editAction (ServerRequestInterface $request, Response $response) {
+    public function editAction () {
 
         try {
-                 $item = GeneralUtility::_GP('tx_tp3businessview_tools_tp3businessviewtp3businessview') ? GeneralUtility::_GP('tx_tp3businessview_tools_tp3businessviewtp3businessview') : "";
-                 $pan = $item['tx_tp3businessview_domain_model_panoramas'];
-               if(is_array($pan)) {
-                   if($pan["uid"] == ""){
-                       $pan["pid"] = 1563;
+          //  $this->conf = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
-                           $tcemainData = [
-                               "tx_tp3businessview_domain_model_panoramas" => [
-                                   'NEW' => [
-                                       $pan
-                                   ]
-                               ]
-                           ];
-
-                           $dataHandler = GeneralUtility::makeInstance(DataHandlerCore::class);
-                           $dataHandler->start($tcemainData, []);
-                           $dataHandler->process_datamap();
-
-                           $pano = $dataHandler->substNEWwithIDs['NEW'];
-                           //$pano = $this->dataMapper->map(Panoramas::class,[$pan]);
-
-                    //     $content = $this->updatepanoAction($pano);
-                   }
-
-                    else{
-                        $pan["uid"] = 99;
-                        $pano = $this->dataMapper->map(Panoramas::class,[$pan]);
-                        $content = $this->createpanoAction($pano[0]);
-                    }
-
+            $item = GeneralUtility::_GP('tx_tp3businessview_tools_tp3businessviewtp3businessview') ? GeneralUtility::_GP('tx_tp3businessview_tools_tp3businessviewtp3businessview') : "";
+               if(is_array($item['tx_tp3businessview_domain_model_panoramas'])) {
+                 //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
+                   $pano = $this->dataMapper->map(Panoramas::class,[$item['tx_tp3businessview_domain_model_panoramas']]);
+                   if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == "") $this->createpanoAction($pano[0]);
+                    else $this->updatepanoAction($pano[0]);
                }
+            if(is_array($item['tx_tp3businessview_domain_model_businessadress'])) {
+                //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
+                $address = $this->dataMapper->map(BusinessAdress::class,[$item['tx_tp3businessview_domain_model_businessadress']]);
+                if($item['tx_tp3businessview_domain_model_businessadress']["uid"] == "") $this->createadressAction($address[0]);
+                else $this->updateadressAction($address[0]);
+            }
 
-            $response->getBody()->write(\GuzzleHttp\json_encode($item));
-            $response = $response->withHeader('Content-Type', 'text/json; charset=utf-8');
             } catch (Exception $e) {
             $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
             throw new \RuntimeException($message);
         }
-        return $response;
+        $this->redirect('index');
 
     }
-
     /**
      * action update
      *
@@ -366,8 +346,10 @@ class Tp3BusinessViewController extends ActionController
      */
     public function createAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
     {
+        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
         $this->addFlashMessage('The object was created.', 'created', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->businessvierepository->add($businessview);
+        $this->persistenceManager->persistAll();
 
     }
 
@@ -378,7 +360,7 @@ class Tp3BusinessViewController extends ActionController
      * @param \Tp3\Tp3Businessview\Domain\Model\Panoramas $businessview
      * @return void
      */
-    public function updatepanoAction(\Tp3\Tp3Businessview\Domain\Model\Panoramas $pano)
+    public function updatepanoAction( $pano)
     {
         $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
         if ($this->panoramasrepository === null) {
