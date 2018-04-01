@@ -47,9 +47,6 @@ use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Resource\ResourceStorage;
-use TYPO3\CMS\Core\Http\Response;
-use Psr\Http\Message\ServerRequestInterface;
 
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -61,7 +58,6 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
 use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
 use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
-
 
 
 /**
@@ -128,10 +124,6 @@ class Tp3BusinessViewController extends ActionController
     /**
      *
      */
-    public $conf = null;
-    /**
-     *
-     */
     public  $panoramas = null;
     /**
      *
@@ -188,7 +180,7 @@ class Tp3BusinessViewController extends ActionController
                 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tp3_businessview']
             );
         }
-        $this->cObj=  $this->configurationManager->getContentObject();
+        //$this->cObj=  $this->configurationManager->getContentObject();
 
         parent::initializeAction();
 
@@ -290,7 +282,7 @@ class Tp3BusinessViewController extends ActionController
      */
     public function newAction()
     {
-        $this->redirect('edit');
+     //   $this->redirect('index');
     }
     /**
      * action edit
@@ -300,9 +292,7 @@ class Tp3BusinessViewController extends ActionController
     public function editAction () {
 
         try {
-          //  $this->conf = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-
-            $item = GeneralUtility::_GP('tx_tp3businessview_tools_tp3businessviewtp3businessview') ? GeneralUtility::_GP('tx_tp3businessview_tools_tp3businessviewtp3businessview') : "";
+                 $item = GeneralUtility::_GP('tx_tp3businessview_tools_tp3businessviewtp3businessview') ? GeneralUtility::_GP('tx_tp3businessview_tools_tp3businessviewtp3businessview') : "";
                if(is_array($item['tx_tp3businessview_domain_model_panoramas'])) {
                  //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
                    $pano = $this->dataMapper->map(Panoramas::class,[$item['tx_tp3businessview_domain_model_panoramas']]);

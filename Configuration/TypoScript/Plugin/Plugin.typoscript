@@ -63,4 +63,16 @@ plugin.tx_tp3businessview._CSS_DEFAULT_STYLE (
 )
 
 # Module configuration
-
+module.tx_tp3businessview_tools_tp3businessviewtp3businessview {
+  persistence {
+    storagePid = module.tx_tp3businessview_tp3businessview.persistence.storagePid
+  }
+  view {
+    templateRootPaths.0 = EXT:tp3_businessview/Resources/Private/Backend/Templates/
+    templateRootPaths.1 = module.tx_tp3businessview_tp3businessview.view.templateRootPath
+    partialRootPaths.0 = EXT:tp3_businessview/Resources/Private/Backend/Partials/
+    partialRootPaths.1 = module.tx_tp3businessview_tp3businessview.view.partialRootPath
+    layoutRootPaths.0 = EXT:tp3_businessview/Resources/Private/Backend/Layouts/
+    layoutRootPaths.1 = module.tx_tp3businessview_tp3businessview.view.layoutRootPath
+  }
+}
