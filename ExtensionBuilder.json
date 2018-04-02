@@ -365,7 +365,7 @@
                 },
                 "description": "Businessview",
                 "key": "tp3businessview",
-                "mainModule": "tools",
+                "mainModule": "web",
                 "name": "tp3 BusinessView",
                 "tabLabel": "tp3 BusinessView"
             }

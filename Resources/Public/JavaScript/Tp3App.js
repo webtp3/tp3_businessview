@@ -31,13 +31,13 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                 e.preventDefault(e); // avoid to execute the actual submit of the form.
                 return false;
             })*/
-         /*   $('#submitNewform').on("click", function(e){
+            $('#submitNewform').on("click", function(e){
                 e.preventDefault(e);
-              //  $('#editform').attr("action", $('#editform').attr("action").replace("edit","new"))
-                $('#editform').find('input[name="tx_tp3businessview_tools_tp3businessviewtp3businessview[tx_tp3businessview_domain_model_panoramas][uid]"]').val("");
+               $('#editform').attr("action", $('#editform').attr("action").replace("update","create"))
+                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewtp3businessview[panoramas][uid]"]').val("NEW");
                 $('#editform').submit();
 
-            })*/
+            })
             $('#submitEditform').on("click", function(e){
 
             })
@@ -46,8 +46,8 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
             }, function() {
                 $(this).removeClass('hover');
             }).click(function(){
-                $('#editform').find('input[name="tx_tp3businessview_tools_tp3businessviewtp3businessview[tx_tp3businessview_domain_model_panoramas][uid]"]').val($(this).attr("id").split("_")[1]);
-                $('#editform').find('input[name="tx_tp3businessview_tools_tp3businessviewtp3businessview[tx_tp3businessview_domain_model_panoramas][pid]"]').val($(this).attr("id").split("_")[2]);
+                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewtp3businessview[panoramas][uid]"]').val($(this).attr("id").split("_")[1]);
+                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewtp3businessview[panoramas][pid]"]').val($(this).attr("id").split("_")[2]);
                 panorama.setPano($(this).find('.pano_id').text());
                 panorama.setPov({
                     heading: $(this).find('.heading').text(),

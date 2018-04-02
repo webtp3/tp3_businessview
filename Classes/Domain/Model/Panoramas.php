@@ -43,8 +43,20 @@ namespace Tp3\Tp3Businessview\Domain\Model;
 class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
+     * uid
+     * @var integer
+     */
+    public $uid = '';
+
+    /**
+     * pid
+     * @var integer
+     */
+    public $pid = '';
+
+    /**
      * panoId
-     * 
+     *
      * @var string
      * @validate NotEmpty
      */
@@ -70,7 +82,33 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $zoom = '';
+    /**
+     * position
+     *
+     * @var string
+     */
+    protected $position = '';
 
+    /**
+     * Returns the position
+     *
+     * @return string $position
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * Sets the position
+     *
+     * @param string $position
+     * @return void
+     */
+    public function setPosition($position)
+    {
+        $this->position = position;
+    }
     /**
      * Returns the panoId
      * 
@@ -80,7 +118,24 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->panoId;
     }
-
+    /**
+     * Returns the uid
+     *
+     * @return string $uid
+     */
+    public function getUid()
+    {
+        return $this->uid;
+    }
+    /**
+     * sets the uid
+     *
+     * @param string $uid
+     */
+    public function SetUid($uid)
+    {
+        return $this->uid = $uid;
+    }
     /**
      * Sets the panoId
      * 

@@ -58,6 +58,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
 use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
 use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
+use TYPO3\CMS\Core\DataHandling\DataHandler as DataHandlerCore;
 
 
 /**
@@ -284,6 +285,65 @@ class Tp3BusinessViewController extends ActionController
     {
      //   $this->redirect('index');
     }
+
+    /**
+     * action update
+
+
+     */
+    public function updateAction () {
+
+        try {
+            $item = GeneralUtility::_GP('tx_tp3businessview_web_tp3businessviewtp3businessview') ? GeneralUtility::_GP('tx_tp3businessview_web_tp3businessviewtp3businessview') : "";
+            if(is_array($item['tx_tp3businessview_domain_model_panoramas'])) {
+                //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
+                $pano = $this->dataMapper->map(Panoramas::class,[$item['tx_tp3businessview_domain_model_panoramas']]);
+
+                $panorama = $this->objectManager->get('TYPO3\CMS\Extbase\Property\PropertyMapper')
+                    ->convert(
+                        $pano[0],
+                        Panoramas::class
+                    );
+                if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == ""){
+                    $tcemainData = [
+                        'tx_tp3businessview_domain_model_panoramas' => [
+                            'NEW' => [
+                                $panorama->_getCleanProperties()
+                            ]
+                        ]
+                    ];
+                }
+                else if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == ""){
+                    $tcemainData = [
+                        'tx_tp3businessview_domain_model_panoramas' => [
+                            'UPDATE' => [
+                                $panorama->_getCleanProperties()
+                            ]
+                        ]
+                    ];
+                }
+
+                $dataHandler = GeneralUtility::makeInstance(DataHandlerCore::class);
+                $dataHandler->start($tcemainData, []);
+                $dataHandler->process_datamap();
+
+                $pano = $dataHandler->substNEWwithIDs['NEW'];
+                return $pano;
+            }
+           /* if(is_array($item['tx_tp3businessview_domain_model_businessadress'])) {
+                //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
+                $address = $this->dataMapper->map(BusinessAdress::class,[$item['tx_tp3businessview_domain_model_businessadress']]);
+                if($item['tx_tp3businessview_domain_model_businessadress']["uid"] == "") $this->createadressAction($address[0]);
+                else $this->updateadressAction($address[0]);
+            }
+*/
+        } catch (Exception $e) {
+            $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
+            throw new \RuntimeException($message);
+        }
+        $this->redirect('index');
+
+    }
     /**
      * action edit
 
@@ -292,12 +352,41 @@ class Tp3BusinessViewController extends ActionController
     public function editAction () {
 
         try {
-                 $item = GeneralUtility::_GP('tx_tp3businessview_tools_tp3businessviewtp3businessview') ? GeneralUtility::_GP('tx_tp3businessview_tools_tp3businessviewtp3businessview') : "";
+                 $item = GeneralUtility::_GP('tx_tp3businessview_web_tp3businessviewtp3businessview') ? GeneralUtility::_GP('tx_tp3businessview_web_tp3businessviewtp3businessview') : "";
                if(is_array($item['tx_tp3businessview_domain_model_panoramas'])) {
                  //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
                    $pano = $this->dataMapper->map(Panoramas::class,[$item['tx_tp3businessview_domain_model_panoramas']]);
-                   if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == "") $this->createpanoAction($pano[0]);
-                    else $this->updatepanoAction($pano[0]);
+
+                   $panorama = $this->objectManager->get('TYPO3\CMS\Extbase\Property\PropertyMapper')
+                       ->convert(
+                           $pano[0],
+                           Panoramas::class
+                       );
+                   if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == ""){
+                       $tcemainData = [
+                           'tx_tp3businessview_domain_model_panoramas' => [
+                               'NEW' => [
+                                   $panorama->_getCleanProperties()
+                               ]
+                           ]
+                       ];
+                   }
+                   else if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == ""){
+                       $tcemainData = [
+                           'tx_tp3businessview_domain_model_panoramas' => [
+                               'UPDATE' => [
+                                   $panorama->_getCleanProperties()
+                               ]
+                           ]
+                       ];
+                   }
+
+                   $dataHandler = GeneralUtility::makeInstance(DataHandlerCore::class);
+                   $dataHandler->start($tcemainData, []);
+                   $dataHandler->process_datamap();
+
+                   $pano = $dataHandler->substNEWwithIDs['NEW'];
+                   return $pano;
                }
             if(is_array($item['tx_tp3businessview_domain_model_businessadress'])) {
                 //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
@@ -314,12 +403,12 @@ class Tp3BusinessViewController extends ActionController
 
     }
     /**
-     * action update
+     * action updateold
      *
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview
      * @return void
      */
-    public function updateAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
+    public function updateoldAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
     {
 
         $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
@@ -357,8 +446,8 @@ class Tp3BusinessViewController extends ActionController
             $this->panoramasrepository = $this->objectManager->get(PanoramasRepository::class);
         }
         $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        if($pano->getUid() < 1 || $pano->getUid() == "new")$this->panoramasrepository->add($pano);
-        else   $this->panoramasrepository->update($pano);
+        if($pano->getUid() < 1 || $pano->getUid() == "new")$this->persistenceManager->add($pano);
+        else   $this->persistenceManager->update($pano);
         $this->persistenceManager->persistAll();
 
     }
@@ -573,7 +662,7 @@ class Tp3BusinessViewController extends ActionController
      */
     protected function getToken($tokenOnly = false)
     {
-        $token = FormProtectionFactory::get()->generateToken('moduleCall', 'tools_Tp3BusinessviewTp3businessview');
+        $token = FormProtectionFactory::get()->generateToken('moduleCall', 'web_Tp3BusinessviewTp3businessview');
         if ($tokenOnly) {
             return $token;
         } else {

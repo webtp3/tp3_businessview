@@ -16,31 +16,33 @@ https://developers.google.com/maps/documentation/javascript/examples/streetview-
    <!-- if you have a place ID
     <input id="place-id" type="text" value="">
     <input id="reversesubmit" type="button" value="Reverse Geocode by Place ID">-->
-    <f:form action="edit" id="editform" name="edit">
-    <f:form.hidden   name="tx_tp3businessview_domain_model_panoramas[uid]" value="{panorama.uid}"  class="formvalue"  />
-    <f:form.hidden   name="tx_tp3businessview_domain_model_panoramas[pid]" value="{panorama.pid}"  class="formvalue"  />
+    <f:form action="update" id="editform" controller="Panoramas"  name="update" object="{panorama}" arguments="{panorama: panorama}">
+    <f:form.hidden   name="panoramas[uid]" value="{panorama.uid}"  class="formvalue"  />
+    <f:form.hidden   name="panoramas[pid]" value="{panorama.pid}"  class="formvalue"  />
+
+
 
     <table class="panoviewer">
         <tr>
-            <td><b>Position</b></td><td ><f:form.textfield additionalAttributes="" name="tx_tp3businessview_domain_model_panoramas[position]"  type="text" id="position-cell" value="{panorama.position-cell}"  class="formvalue"  >
+            <td><b>Position</b></td><td ><f:form.textfield additionalAttributes="" name="panoramas[position]"  type="text" id="position-cell" value="{panorama.position-cell}"  class="formvalue"  >
         </f:form.textfield>
             </td>
         </tr>
         <tr>
             <td><b>POV Heading</b></td><td >
-            <f:form.textfield additionalAttributes="" name="tx_tp3businessview_domain_model_panoramas[heading]"  type="text" id="heading-cell" value="{panorama.heading-cell}"  class="formvalue"  >
+            <f:form.textfield additionalAttributes="" name="panoramas[heading]"  type="text" id="heading-cell" value="{panorama.heading-cell}"  class="formvalue"  >
         </f:form.textfield>
         </td>
         </tr>
         <tr>
             <td><b>POV Pitch</b></td><td >
-            <f:form.textfield additionalAttributes="" name="tx_tp3businessview_domain_model_panoramas[pitch]"  type="text" id="pitch-cell" value="{panorama.pitch-cell}"  class="formvalue"  >
+            <f:form.textfield additionalAttributes="" name="panoramas[pitch]"  type="text" id="pitch-cell" value="{panorama.pitch-cell}"  class="formvalue"  >
         </f:form.textfield>
         </td>
         </tr>
         <tr>
             <td><b>Pano ID</b></td><td >
-            <f:form.textfield additionalAttributes="" name="tx_tp3businessview_domain_model_panoramas[pano_id]"  type="text" id="pano-cell"  value="{panorama.pano-cell}"  class="formvalue"  >
+            <f:form.textfield additionalAttributes="" name="panoramas[panoId]"  type="text" id="pano-cell"  value="{panorama.pano-cell}"  class="formvalue"  >
         </f:form.textfield>
         </td>
         </tr>

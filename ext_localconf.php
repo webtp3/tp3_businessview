@@ -7,11 +7,15 @@ defined('TYPO3_MODE') || die('Access denied.');
             'Tp3.Tp3Businessview',
             'Tp3businessview',
             [
-                'Tp3BusinessView' => 'list,show,new,update,updatepano,updateaddress,edit'
+                'Tp3BusinessView' => 'list,show,new,update,updatepano,updateaddress,edit',
+                'Panoramas' => 'index,new,edit,create,update,delete',
+                'BuisinessAdress' => 'index,new,edit,create,update,delete',
             ],
             // non-cacheable actions
             [
-                'Tp3BusinessView' => 'createpano,create'
+                'Tp3BusinessView' => 'createpano,create',
+                'Panoramas' => 'create',
+                'BuisinessAdress' => 'create',
             ]
         );
 
