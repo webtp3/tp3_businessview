@@ -1,23 +1,16 @@
 <?php
 defined('TYPO3_MODE') || die();
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
-    'tt_address',
-    $GLOBALS['TCA']['tt_address']['ctrl']['type'],
-    '',
-    'after:' . $GLOBALS['TCA']['tt_address']['ctrl']['label']
-);
-
 $tmp_tp3_businessview_columns = [
 
     'cid' => [
         'exclude' => true,
         'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_businessadress.cid',
         'config' => [
-		    'type' => 'input',
-		    'size' => 30,
-		    'eval' => 'trim'
-		],
+            'type' => 'input',
+            'size' => 30,
+            'eval' => 'trim'
+        ],
     ],
     'googleplus' => [
         'exclude' => true,
@@ -43,7 +36,6 @@ $tmp_tp3_businessview_columns['tp3businessview'] = [
 $GLOBALS['TCA']['tt_address']['types']['Tx_Tp3Businessview_BusinessAdress']['showitem'] .= ',--div--;LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_businessadress,';
 $GLOBALS['TCA']['tt_address']['types']['Tx_Tp3Businessview_BusinessAdress']['showitem'] .= 'cid';
 
-$GLOBALS['TCA']['tt_address']['columns'][$GLOBALS['TCA']['tt_address']['ctrl']['type']]['config']['items'][] = ['LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tt_address.tx_extbase_type.Tx_Tp3Businessview_BusinessAdress','Tx_Tp3Businessview_BusinessAdress'];
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
     '',
