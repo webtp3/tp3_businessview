@@ -22,11 +22,28 @@ $EM_CONF[$_EXTKEY] = [
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
     'version' => '0.0.5',
-    'constraints' => [
-        'depends' => [
-            'typo3' => '7.6.* - 8.9.99',
-        ],
-        'conflicts' => [],
-        'suggests' => [],
-    ],
+    'constraints' =>
+        array (
+            'depends' =>
+                array (
+                    'typo3' => '8.7.0-9.9.99',
+
+                ),
+            'conflicts' =>
+                array (
+
+                ),
+            'suggests' =>
+                array (
+                ),
+        ),
+    'autoload' =>
+        array (
+            'psr-4' =>
+                array (
+                    'Tp3\\Tp3Businessview\\' => 'Classes',
+                ),
+        ),
+    'clearcacheonload' => false,
+    'author_company' => 'tp3',
 ];

@@ -38,7 +38,7 @@ module.tx_tp3businessview_tp3businessview {
   }
   persistence {
     # cat=module.tx_tp3businessview_tp3businessview//a; type=string; label=Default storage PID
-    storagePid = {$plugin.tx_tp3businessview_tp3businessview.storagePid}
+    storagePid = {$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
   }
   settings{
     # cat=module.tx_tp3businessview_tp3businessview/file; type=string; label=Maps api key for (BE)

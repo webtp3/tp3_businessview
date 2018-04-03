@@ -1,17 +1,3 @@
-
-module.tx_tp3businessview_web_tp3businessviewtp3businessview {
-  persistence {
-    storagePid = 1563
-  }
-  view {
-    templateRootPaths.0 = EXT:tp3_businessview/Resources/Private/Templates/Backend/
-    templateRootPaths.1 = {$module.tx_tp3businessview_tp3businessview.view.templateRootPath}
-    partialRootPaths.0 = EXT:tp3_businessview/Resources/Private/Partials/Backend/
-    partialRootPaths.1 = {$module.tx_tp3businessview_tp3businessview.view.partialRootPath}
-    layoutRootPaths.0 = EXT:tp3_businessview/Resources/Private/Layouts/Backend/
-    layoutRootPaths.1 = {$module.tx_tp3businessview_tp3businessview.view.layoutRootPath}
-  }
-}
 config.tx_extbase{
   persistence {
     classes {

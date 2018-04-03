@@ -207,7 +207,7 @@ return [
 			    ],
 			],
 	    ],
-	   /* 'app' => [
+	   'app' => [
 	        'exclude' => true,
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.app',
 	        'config' => [
@@ -222,7 +222,7 @@ return [
 			        'showAllLocalizationLink' => 1
 			    ],
 			],
-	    ],*/
+	    ],
 	    'panoramas' => [
 	        'exclude' => true,
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.panoramas',

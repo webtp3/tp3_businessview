@@ -139,8 +139,7 @@ class Tp3BusinessViewController extends ActionController
 
     /**
      *
-     * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3tp3BusinessViewRepository;
-     * @inject
+     * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
      */
     public  $tp3BusinessViewRepository = null;
 

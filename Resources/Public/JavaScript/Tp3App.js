@@ -1,4 +1,4 @@
-define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg&libraries=places&sensor=true'], function ($) {
+define(['jquery','https://maps.google.com/maps/api/js?&libraries=places&sensor=true'], function ($) {
 
     var Tp3App = Tp3App || {
         init:function(){
@@ -215,12 +215,19 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                 var positionCell = document.getElementById('position-cell');
                 positionCell.value = panorama.getPosition() + '';
             });
+            panorama.addListener('zoom_changed', function () {
+                var zoomCell = document.getElementById('zoom-cell');
+                zoomCell.value = panorama.getZoomLevel() + '';
+            });
 
             panorama.addListener('pov_changed', function () {
                 var headingCell = document.getElementById('heading-cell');
                 var pitchCell = document.getElementById('pitch-cell');
+                var zoomCell = document.getElementById('zoom-cell');
                 headingCell.value = panorama.getPov().heading + '';
                 pitchCell.value = panorama.getPov().pitch + '';
+                zoomCell.value = panorama.getZoomLevel() + '';
+
             });
         };
     Tp3App.processSVData = function(data, status){

@@ -41,6 +41,7 @@ use TYPO3\CMS\Core\DataHandling\DataHandler as DataHandlerCore;
  */
 class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
+
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
      */
@@ -109,7 +110,6 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
-     * @inject
      */
     public  $panoramasRepository = null;
     /**
@@ -160,15 +160,16 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
                 $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
             }
 
-            /* $pano = $this->dataMapper->map(Panoramas::class,[$this->request->getArgument("tx_tp3businessview_domain_model_panoramas")]);
-
-             $panorama = $this->objectManager->get('TYPO3\CMS\Extbase\Property\PropertyMapper')
-                 ->convert(
-                     $pano[0],
-                     Panoramas::class
-                 );*/
             $this->request->SetArgument("panoramas",$this->request->getArgument("panoramas"));
         }
+        if ($this->cObj === null) {
+            $this->cObj = $this->configurationManager->getContentObject();
+        }
+        if ($this->conf === null) {
+            $this->conf = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+
+        }
+
     }
     /**
      * initialize create action
@@ -222,24 +223,7 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
      */
     public function updateAction(\Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas)
     {
-/*
-            $tcemainData = [
-                'tx_tp3businessview_domain_model_panoramas' => [
-                    $panoramas->getUid() => [
-                        $panoramas->_getCleanProperties()
-                    ]
-                ]
-            ];
 
-
-        $dataHandler = GeneralUtility::makeInstance(DataHandlerCore::class);
-        $dataHandler->start($tcemainData, []);
-        $dataHandler->process_datamap();
-        $dataHandler->process_cmdmap();
-
-        $pano = $dataHandler->substNEWwithIDs['NEW'];
-
-        */
         if($panoramas->uid == "NEW"){$this->redirect('create'); }
 
         if ($this->panoramasRepository === null) {

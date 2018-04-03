@@ -20,8 +20,6 @@ https://developers.google.com/maps/documentation/javascript/examples/streetview-
     <f:form.hidden   name="panoramas[uid]" value="{panorama.uid}"  class="formvalue"  />
     <f:form.hidden   name="panoramas[pid]" value="{panorama.pid}"  class="formvalue"  />
 
-
-
     <table class="panoviewer">
         <tr>
             <td><b>Position</b></td><td ><f:form.textfield additionalAttributes="" name="panoramas[position]"  type="text" id="position-cell" value="{panorama.position-cell}"  class="formvalue"  >
@@ -44,6 +42,12 @@ https://developers.google.com/maps/documentation/javascript/examples/streetview-
             <td><b>Pano ID</b></td><td >
             <f:form.textfield additionalAttributes="" name="panoramas[panoId]"  type="text" id="pano-cell"  value="{panorama.panoId}"  class="formvalue"  >
         </f:form.textfield>
+        </td>
+        </tr>
+        <tr>
+            <td><b>Zoom</b></td><td >
+            <f:form.textfield additionalAttributes="" name="panoramas[zoom]"  type="text" id="zoom-cell"  value="{panorama.zoom}"  class="formvalue"  >
+            </f:form.textfield>
         </td>
         </tr>
         <table id="links_table"></table>
