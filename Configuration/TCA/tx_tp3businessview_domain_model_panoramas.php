@@ -5,16 +5,18 @@ return [
         'label' => 'pano_id',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'rootLevel' => -1,
         'cruser_id' => 'cruser_id',
-		'delete' => 'deleted',
+        'delete' => 'deleted',
 		'enablecolumns' => [
             'disabled' => 'hidden',
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
 		'searchFields' => 'pano_id,heading,pitch,zoom',
-        'iconfile' => 'EXT:tp3_businessview/Resources/Public/Icons/tx_tp3businessview_domain_model_panoramas.gif'
+        'iconfile' => 'EXT:tp3_businessview/Resources/Public/Iconsuser_plugin_tp3businessview.svg',
+        'typeicon_classes' => [
+            'default' => 'ext-tp3_businessview-wizard-icon'
+        ],
     ],
     'interface' => [
 		'showRecordFieldList' => 'hidden, pano_id, heading, pitch, zoom, position',

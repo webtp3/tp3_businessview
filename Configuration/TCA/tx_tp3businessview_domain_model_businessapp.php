@@ -16,7 +16,7 @@ return [
             'endtime' => 'endtime',
         ],
 		'searchFields' => 'businessview_id,google_maps_java_script_api_key,businessview_canvas_selector',
-        'iconfile' => 'EXT:tp3_businessview/Resources/Public/Icons/tx_tp3businessview_domain_model_businessapp.gif',
+        'iconfile' => 'EXT:tp3_businessview/Resources/Public/Icons/user_plugin_tp3businessview.svg',
         'typeicon_classes' => [
             'default' => 'ext-tp3_businessview-wizard-icon'
         ],

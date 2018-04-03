@@ -136,6 +136,26 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->uid = $uid;
     }
+
+    /**
+     * Returns the pid
+     *
+     * @return string $pid
+     */
+    public function getPid()
+    {
+        return $this->pid;
+    }
+    /**
+     * sets the pid
+     *
+     * @param string $pid
+     */
+    public function SetPid($pid)
+    {
+        return $this->pid = $pid;
+    }
+
     /**
      * Sets the panoId
      * 

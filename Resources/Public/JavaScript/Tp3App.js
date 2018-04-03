@@ -91,7 +91,8 @@ define(['jquery','https://maps.google.com/maps/api/js?&libraries=places&sensor=t
                 zoom: 16,
                 streetViewControl: false
             });
-
+            var streetviewOverlay = new google['maps']['StreetViewCoverageLayer']();
+            streetviewOverlay.setMap(map);
             // Set the initial Street View camera to the center of the map
             sv.getPanorama({location: BusinessAdress, radius: 50}, Tp3App.processSVData);
 
@@ -217,7 +218,7 @@ define(['jquery','https://maps.google.com/maps/api/js?&libraries=places&sensor=t
             });
             panorama.addListener('zoom_changed', function () {
                 var zoomCell = document.getElementById('zoom-cell');
-                zoomCell.value = panorama.getZoomLevel() + '';
+                zoomCell.value = panorama.getZoom() + '';
             });
 
             panorama.addListener('pov_changed', function () {
@@ -226,7 +227,7 @@ define(['jquery','https://maps.google.com/maps/api/js?&libraries=places&sensor=t
                 var zoomCell = document.getElementById('zoom-cell');
                 headingCell.value = panorama.getPov().heading + '';
                 pitchCell.value = panorama.getPov().pitch + '';
-                zoomCell.value = panorama.getZoomLevel() + '';
+                zoomCell.value = panorama.getPov().zoom + '';
 
             });
         };
@@ -261,7 +262,7 @@ define(['jquery','https://maps.google.com/maps/api/js?&libraries=places&sensor=t
     };
     Tp3App.scriptsload = function(data){
         var data_txt = data;
-
+                return true;
 
 
 

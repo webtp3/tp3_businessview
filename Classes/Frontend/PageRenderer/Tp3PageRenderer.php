@@ -36,16 +36,7 @@ class Tp3PageRenderer implements SingletonInterface
      */
     public function render(array $parameters, &$pageRenderer)
     {
-        /**
-         * Check if `config.yoast_seo` is true before any rendering takes place
-         * next make sure `plugin.tx_tp3businessview` is properly configured
-         * `plugin.tx_tp3businessview.view` is used as configuration array for FLUIDTEMPLATE
-         *
-         * @see https://docs.typo3.org/typo3cms/TyposcriptReference/ContentObjects/Fluidtemplate/Index.html
-         *
-         * The content object renderer of TSFE is used to render FLUIDTEMPLATE
-         * after `plugin.tx_tp3businessview.settings` is merged with `plugin.tx_tp3businessview.view.settings`
-         */
+
         $config = isset($GLOBALS['TSFE']->tmpl->setup) ? $GLOBALS['TSFE']->tmpl->setup : [];
         if (is_array($config)
             && (bool)$GLOBALS['TSFE']->page['tx_tp3businessview_onpage']
