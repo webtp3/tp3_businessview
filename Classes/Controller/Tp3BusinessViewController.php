@@ -135,19 +135,20 @@ class Tp3BusinessViewController extends ActionController
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
      */
-    public  $panoramasrepository = null;
+    public  $panoramasRepository = null;
 
     /**
      *
-     * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
+     * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3tp3BusinessViewRepository;
+     * @inject
      */
-    public  $businessviewrepository = null;
+    public  $tp3BusinessViewRepository = null;
 
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
      */
-    public  $businessadressrepository = null;
+    public  $businessAdressRepository = null;
     /**
      * @var Locales
      */
@@ -195,6 +196,13 @@ class Tp3BusinessViewController extends ActionController
         if (!($this->dataMapper instanceof DataMapper)) {
             $this->dataMapper = GeneralUtility::makeInstance(DataMapper::class);
         }
+        if ($this->cObj === null) {
+            $this->cObj = $this->configurationManager->getContentObject();
+        }
+        if ($this->conf === null) {
+            $this->conf = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+
+        }
 
     }
 
@@ -240,7 +248,7 @@ class Tp3BusinessViewController extends ActionController
         ];
         $panoramas = [];
         $addresses = [];
-
+/*
         $res = $this->getDatabaseConnection()->sql_query(
             'SELECT *
             FROM tx_tp3businessview_domain_model_panoramas
@@ -259,9 +267,19 @@ class Tp3BusinessViewController extends ActionController
         while ($row2 = $this->getDatabaseConnection()->sql_fetch_assoc($res2)) {
             $addresses[] = $row2;
         }
+*/
+        if ($this->panoramasRepository === null) {
+            $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
+        }
+        if ($this->businessAdressRepository === null) {
+            $this->businessAdressRepository = $this->objectManager->get(BusinessAdressRepository::class);
+        }
+        $panoramas = $this->panoramasRepository->findAll();
+        $businessAdresses = $this->businessAdressRepository->findAll();
+
 
         $this->view->assign('panoramas', $panoramas);
-        $this->view->assign('addresses', $addresses);
+        $this->view->assign('addresses', $businessAdresses);
 
     }
 
@@ -286,64 +304,7 @@ class Tp3BusinessViewController extends ActionController
      //   $this->redirect('index');
     }
 
-    /**
-     * action update
 
-
-     */
-    public function updateAction () {
-
-        try {
-            $item = GeneralUtility::_GP('tx_tp3businessview_web_tp3businessviewtp3businessview') ? GeneralUtility::_GP('tx_tp3businessview_web_tp3businessviewtp3businessview') : "";
-            if(is_array($item['tx_tp3businessview_domain_model_panoramas'])) {
-                //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
-                $pano = $this->dataMapper->map(Panoramas::class,[$item['tx_tp3businessview_domain_model_panoramas']]);
-
-                $panorama = $this->objectManager->get('TYPO3\CMS\Extbase\Property\PropertyMapper')
-                    ->convert(
-                        $pano[0],
-                        Panoramas::class
-                    );
-                if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == ""){
-                    $tcemainData = [
-                        'tx_tp3businessview_domain_model_panoramas' => [
-                            'NEW' => [
-                                $panorama->_getCleanProperties()
-                            ]
-                        ]
-                    ];
-                }
-                else if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == ""){
-                    $tcemainData = [
-                        'tx_tp3businessview_domain_model_panoramas' => [
-                            'UPDATE' => [
-                                $panorama->_getCleanProperties()
-                            ]
-                        ]
-                    ];
-                }
-
-                $dataHandler = GeneralUtility::makeInstance(DataHandlerCore::class);
-                $dataHandler->start($tcemainData, []);
-                $dataHandler->process_datamap();
-
-                $pano = $dataHandler->substNEWwithIDs['NEW'];
-                return $pano;
-            }
-           /* if(is_array($item['tx_tp3businessview_domain_model_businessadress'])) {
-                //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
-                $address = $this->dataMapper->map(BusinessAdress::class,[$item['tx_tp3businessview_domain_model_businessadress']]);
-                if($item['tx_tp3businessview_domain_model_businessadress']["uid"] == "") $this->createadressAction($address[0]);
-                else $this->updateadressAction($address[0]);
-            }
-*/
-        } catch (Exception $e) {
-            $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
-            throw new \RuntimeException($message);
-        }
-        $this->redirect('index');
-
-    }
     /**
      * action edit
 
@@ -408,12 +369,12 @@ class Tp3BusinessViewController extends ActionController
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview
      * @return void
      */
-    public function updateoldAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
+    public function updateAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
     {
 
         $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
         $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->businessviewrepository->update($businessview);
+        $this->tp3BusinessViewRepository->update($businessview);
         $this->persistenceManager->persistAll();
 
     }
@@ -433,78 +394,6 @@ class Tp3BusinessViewController extends ActionController
     }
 
 
-    /**
-     * action updatepano
-     *
-     * @param \Tp3\Tp3Businessview\Domain\Model\Panoramas $businessview
-     * @return void
-     */
-    public function updatepanoAction( $pano)
-    {
-        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
-        if ($this->panoramasrepository === null) {
-            $this->panoramasrepository = $this->objectManager->get(PanoramasRepository::class);
-        }
-        $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        if($pano->getUid() < 1 || $pano->getUid() == "new")$this->persistenceManager->add($pano);
-        else   $this->persistenceManager->update($pano);
-        $this->persistenceManager->persistAll();
-
-    }
-
-    /**
-     * action create
-     *
-     * @param \Tp3\Tp3Businessview\Domain\Model\Panoramas  $pano
-     * @return void
-     */
-    public function createpanoAction(\Tp3\Tp3Businessview\Domain\Model\Panoramas $pano)
-    {
-        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
-        if ($this->panoramasrepository === null) {
-            $this->panoramasrepository = $this->objectManager->get(PanoramasRepository::class);
-        }
-        $this->addFlashMessage('The object was created.', 'created', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->panoramasrepository->add($pano);
-        $this->persistenceManager->persistAll();
-
-    }
-
-    /**
-     * action create
-     *
-     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress  $adress
-     * @return void
-     */
-    public function createadressAction(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $adress)
-    {
-        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
-        if ($this->businessadressrepository === null) {
-            $this->businessadressrepository = $this->objectManager->get(BusinessAdressRepository::class);
-        }
-        $this->addFlashMessage('The object was created.', 'created', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->businessadressrepository->add($adress);
-        $this->persistenceManager->persistAll();
-
-    }
-
-    /**
-     * action updatepano
-     *
-     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $adress
-     * @return void
-     */
-    public function updateadressAction(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $adress)
-    {
-        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
-        if ($this->businessadressrepository === null) {
-            $this->businessadressrepository = $this->objectManager->get(BusinessAdressRepository::class);
-        }
-        $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->businessadressrepository->update($adress);
-        $this->persistenceManager->persistAll();
-
-    }
 
     public function saveSettingsAction()
     {

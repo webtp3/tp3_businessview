@@ -37,6 +37,27 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
         );
         return $query->execute(true);
     }
+    /**
+     *
+     *
+     * @param integer $uid
+     * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
+     */
+    public function findByPanoramas($uid) {
+        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        $querySettings->setRespectStoragePage(false);
+
+        $this->setDefaultQuerySettings($querySettings);
+        $query = $this->createQuery();
+        $query->matching(
+            $query->equals('panoramas.uid', $uid),
+            $query->logicalAnd(
+                $query->equals('hidden', 0),
+                $query->equals('deleted', 0)
+            )
+        );
+        return $query->execute(true);
+    }
 
 
 }

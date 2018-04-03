@@ -105,17 +105,18 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
      */
     public  $businessadress = null;
+
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
+     * @inject
      */
-    public  $panoramasrepository = null;
-
+    public  $panoramasRepository = null;
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
      */
-    public  $businessviewrepository = null;
+    public  $tp3BusinessViewRepository = null;
 
     /**
      *
@@ -241,10 +242,10 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         */
         if($panoramas->uid == "NEW"){$this->redirect('create'); }
 
-        if ($this->panoramasrepository === null) {
-            $this->panoramasrepository = $this->objectManager->get(PanoramasRepository::class);
+        if ($this->panoramasRepository === null) {
+            $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
         }
-        $this->panoramasrepository->add($panoramas);
+        $this->panoramasRepository->add($panoramas);
         $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->persistenceManager->persistAll();
 
@@ -283,11 +284,11 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         $this->redirect('index','Tp3BusinessView');
         */
 
-        if ($this->panoramasrepository === null) {
-            $this->panoramasrepository = $this->objectManager->get(PanoramasRepository::class);
+        if ($this->panoramasRepository === null) {
+            $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
         }
         $this->addFlashMessage('The object was created.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->panoramasrepository->add($panoramas);
+        $this->panoramasRepository->add($panoramas);
         $this->persistenceManager->persistAll();
 
         $this->redirect('index','Tp3BusinessView');

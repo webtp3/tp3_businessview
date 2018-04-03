@@ -17,7 +17,7 @@ return [
         'iconfile' => 'EXT:tp3_businessview/Resources/Public/Icons/tx_tp3businessview_domain_model_panoramas.gif'
     ],
     'interface' => [
-		'showRecordFieldList' => 'hidden, pano_id, heading, pitch, zoom',
+		'showRecordFieldList' => 'hidden, pano_id, heading, pitch, zoom, position',
     ],
     'types' => [
 		'1' => ['showitem' => 'hidden, pano_id, heading, pitch, zoom, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
@@ -111,5 +111,20 @@ return [
                 'eval' => 'trim'
             ],
         ],
-    ],
+        'businessviews' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.panoramas',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'tx_tp3businessview_domain_model_tp3businessview',
+                'enableMultiSelectFilterTextfield' => true,
+                'MM' => 'tx_tp3businessview_domain_model_panoramas_mm',
+                'MM_opposite_field' => 'businessviews',
+                'minitems' => 0,
+                'maxitems' => 99,
+
+            ],
+        ],
+    ]
 ];

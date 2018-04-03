@@ -107,7 +107,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function setPosition($position)
     {
-        $this->position = position;
+        $this->position = $position;
     }
     /**
      * Returns the panoId

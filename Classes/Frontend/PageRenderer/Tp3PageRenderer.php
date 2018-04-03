@@ -57,10 +57,17 @@ class Tp3PageRenderer implements SingletonInterface
             if ($this->objectManager === null) {
                 $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
             }
+
+            if ($this->panoramasrepository === null ) {
+                $this->panoramasrepository = $this->objectManager->get(PanoramasRepository::class);
+
+            }
+            $panoramas= $this->panoramasrepository->findByUid(intval($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']));
             if ($this->tp3businessviewrepository === null) {
                 $this->tp3businessviewrepository = $this->objectManager->get(Tp3BusinessViewRepository::class);
             }
-            $businessview = $this->tp3businessviewrepository->findByUid(intval($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']))[0];
+            $businessview = $this->tp3businessviewrepository->findByPanoramas($panoramas[0]["uid"]);
+            $businessview['panoramas'] = $panoramas[0];
 
             // Social Gallery
             if ($this->businessadressrepository === null  && $businessview['contact'] > 0 ) {
@@ -71,11 +78,7 @@ class Tp3PageRenderer implements SingletonInterface
                     }
                     //#todo addess
             }
-            if ($this->panoramasrepository === null && $businessview['panoramas'] > 0) {
-                $this->panoramasrepository = $this->objectManager->get(PanoramasRepository::class);
-                $panoramas= $this->panoramasrepository->findByUid($businessview['panoramas']);
-                $businessview['panoramas'] = $panoramas[0];
-            }
+
             // app will be removed - to much to query -> tsconfig is enough
             /*
             if ($this->panoramasrepository === null && $businessview['app'] > 0) {

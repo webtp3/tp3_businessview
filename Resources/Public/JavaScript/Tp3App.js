@@ -34,7 +34,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
             $('#submitNewform').on("click", function(e){
                 e.preventDefault(e);
                $('#editform').attr("action", $('#editform').attr("action").replace("update","create"))
-                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewtp3businessview[panoramas][uid]"]').val("NEW");
+                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewtp3businessview[panoramas][uid]"]').val(null);
                 $('#editform').submit();
 
             })
@@ -48,10 +48,16 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
             }).click(function(){
                 $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewtp3businessview[panoramas][uid]"]').val($(this).attr("id").split("_")[1]);
                 $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewtp3businessview[panoramas][pid]"]').val($(this).attr("id").split("_")[2]);
-                panorama.setPano($(this).find('.pano_id').text());
+                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewtp3businessview[panoramas][pano_id]"]').val($.trim($(this).find('.pano_id').text()));
+                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewtp3businessview[panoramas][heading]"]').val($.trim($(this).find('.heading').text()));
+                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewtp3businessview[panoramas][pitch]"]').val($.trim($(this).find('.pitch').text()));
+                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewtp3businessview[panoramas][position]"]').val($.trim($(this).find('.position').text()));
+
+
+                panorama.setPano($.trim($(this).find('.pano_id').text()));
                 panorama.setPov({
-                    heading: $(this).find('.heading').text(),
-                    pitch: $(this).find('.pitch').text()
+                    heading: Number($.trim($(this).find('.heading').text())),
+                    pitch: Number($.trim($(this).find('.pitch').text()))
                 });
                 panorama.setVisible(true);
                // $('#tp3businessview-floating-panel form').attr("name","updatepano")

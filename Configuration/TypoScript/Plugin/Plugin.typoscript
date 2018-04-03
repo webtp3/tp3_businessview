@@ -68,6 +68,7 @@ module.tx_tp3businessview_web_tp3businessviewtp3businessview {
   persistence {
     storagePid = {$module.tx_tp3businessview_tp3businessview.persistence.storagePid}
   }
+  settings < plugin.tx_tp3businessview_tp3businessview.settings
   view {
     templateRootPaths.0 = EXT:tp3_businessview/Resources/Private/Templates/Backend/
     templateRootPaths.1 = {$module.tx_tp3businessview_tp3businessview.view.templateRootPath}

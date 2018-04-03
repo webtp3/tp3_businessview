@@ -3,9 +3,15 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2018-03-27T02:07:22Z" product-name="tp3_businessview">
 		<header/>
 		<body>
-			<trans-unit id="tx_tp3_businessview_domain_model_tp3businessview">
-				<source>BusinessView</source>
+			<trans-unit id="debugMode">
+				<source>DebugMode</source>
 			</trans-unit>
+            <trans-unit id="google_maps_javascript_apikey">
+                <source>Backend Api Key</source>
+            </trans-unit>
+            <trans-unit id="tx_tp3_businessview_domain_model_tp3businessview">
+                <source>BusinessView</source>
+            </trans-unit>
 			<trans-unit id="tx_tp3_businessview_domain_model_tp3businessview.description">
 				<source>google businessview für tp3</source>
 			</trans-unit>

@@ -1,0 +1,1 @@
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3_businessview/Configuration/TypoScript/constants.typoscript">

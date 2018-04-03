@@ -155,8 +155,8 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectCheckBox',
                 'items' => [
-                    [  "jumps" ,true,],
-                    [   "rotation", true,],
+                    [  "jumps" ,"jumps",],
+                    [   "rotation", "rotation",],
 
 
                 ],
@@ -178,12 +178,12 @@ return [
 			    'type' => 'select',
 			    'renderType' => 'selectCheckBox',
 			    'items' => [
-                            [  "addressControl" ,true,],
-                            [   "disableDefaultUI", true,],
-                            [   "panControl" , true,],
-                            [   "scaleControl" , true,],
-                            [  "scrollwheel" , true,],
-                            [  "zoomControl", true],
+                            [  "addressControl" ,"addressControl",],
+                            [   "disableDefaultUI", "disableDefaultUI",],
+                            [   "panControl" , "panControl",],
+                            [   "scaleControl" , "scaleControl",],
+                            [  "scrollwheel" , "scrollwheel",],
+                            [  "zoomControl", "zoomControl"],
 
                     ],
 			    'maxitems' => 99,
@@ -231,8 +231,10 @@ return [
 			    'renderType' => 'selectMultipleSideBySide',
 			    'foreign_table' => 'tx_tp3businessview_domain_model_panoramas',
                 'enableMultiSelectFilterTextfield' => true,
+                'MM' => 'tx_tp3businessview_domain_model_panoramas_mm',
                 'minitems' => 0,
 			    'maxitems' => 99,
+
 			],
 	    ],
     ],

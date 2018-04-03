@@ -11,12 +11,12 @@ CREATE TABLE tx_tp3businessview_domain_model_tp3businessview (
 	external_links varchar(255) DEFAULT '' NOT NULL,
 	gallery varchar(255) DEFAULT '' NOT NULL,
 	intro varchar(255) DEFAULT '' NOT NULL,
-	pano_animation int(11) DEFAULT '0' NOT NULL,
+	pano_animation varchar(255)   DEFAULT '0' NOT NULL,
 	social_gallery varchar(255) DEFAULT '' NOT NULL,
-	pano_options int(11) DEFAULT '0' NOT NULL,
+	pano_options varchar(255) DEFAULT '' NOT NULL,
 	contact int(11) unsigned DEFAULT '0' NOT NULL,
 	app int(11) unsigned DEFAULT '0' NOT NULL,
-	panoramas int(11) unsigned DEFAULT '0',
+	panoramas int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -92,6 +92,7 @@ CREATE TABLE tx_tp3businessview_domain_model_panoramas (
 	pitch varchar(255) DEFAULT '' NOT NULL,
 	zoom varchar(255) DEFAULT '' NOT NULL,
 	position varchar(255) DEFAULT '' NOT NULL,
+	tp3businessviews int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -132,10 +133,11 @@ CREATE TABLE pages (
 );
 
 #
-# Table structure for table 'tx_tp3businessview_domain_model_businessapp'
+# Table structure for table 'tx_tp3businessview_domain_model_panoramas_mm'
 #
-CREATE TABLE tx_tp3businessview_domain_model_businessapp (
-
-	tp3businessview int(11) unsigned DEFAULT '0' NOT NULL,
-
+CREATE TABLE `tx_tp3businessview_domain_model_panoramas_mm` (
+  `uid_local` int(11) NOT NULL,
+  `uid_foreign` int(11) NOT NULL,
+  `sorting` varchar(45) DEFAULT NULL,
+  KEY `uid` (`uid_local`,`uid_foreign`)
 );
