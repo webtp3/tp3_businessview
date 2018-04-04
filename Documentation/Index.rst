@@ -8,7 +8,7 @@
 .. _start:
 
 =============================================================
-BusinsessView
+tp3 Businessview
 =============================================================
 
 .. only:: html
@@ -23,19 +23,22 @@ BusinsessView
 		en
 
 	:Description:
-		google businessview für tp3
+		tp3 Businessview Social Plugins
 
 	:Keywords:
-		comma,separated,list,of,keywords
+		Businessview, Social, Plugins, FB, Api 2.12
 
 	:Copyright:
-		2018
+		tp3 `<https://web.tp3.de/>`_ 2018
 
 	:Author:
 		Thomas Ruta
 
 	:Email:
-		support@r-p-it.de
+		email@thomasruta.de
+
+    :Company:
+    	R&P IT Consulting
 
 	:License:
 		This document is published under the Open Content License
@@ -58,7 +61,6 @@ BusinsessView
 	Administrator/Index
 	Configuration/Index
 	Developer/Index
-	KnownProblems/Index
 	ToDoList/Index
 	ChangeLog/Index
 	Links

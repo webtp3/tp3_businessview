@@ -27,7 +27,7 @@
 				<TCEforms>
 					<label>css selector</label>
 					<config>
-						<type>string</type>
+						<type>input</type>
 						<internal_type>db</internal_type>
 						<size>1</size>
 					</config>
