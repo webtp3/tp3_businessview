@@ -1,7 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <tr id="pano_{panorama.uid}_{panorama.pid}">
-    <td>
-        <b>Pano ID</b></td><td class="pano_id">
+   <td class="pano_id">
 
     <f:if condition="{editmode}">
         <f:then>
@@ -13,7 +12,7 @@
 
 </td>
 
-    <td><b>POV Heading</b></td><td class="heading">
+   <td class="heading">
     <f:if condition="{editmode}">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text" name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][heading]" value="{panorama.heading}"  class="formvalue"  >
@@ -24,7 +23,7 @@
 
 </td>
 
-    <td><b>POV Pitch</b></td><td class="pitch">
+   <td class="pitch">
     <f:if condition="{editmode}">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text"  name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][pitch]" value="{panorama.pitch}"  class="formvalue"  >
@@ -35,7 +34,7 @@
 
 </td>
 
-    <td><b>zoom</b></td><td class="zoom">
+   <td class="zoom">
     <f:if condition="{editmode}">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text"  name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][zoom]"  value="{panorama.zoom}"  class="formvalue"  >
@@ -45,8 +44,7 @@
     </f:if>
 
 </td>
-
-    <td><b>Position</b></td><td class="position">
+<td class="position">
     <f:if condition="{editmode}">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text"  name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][position]" value="{panorama.position}"  class="formvalue"  >

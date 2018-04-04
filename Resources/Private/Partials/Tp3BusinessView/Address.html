@@ -1,6 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <tr>
-    <td><b>name</b></td><td class="name">
+   <td class="name">
     <f:if condition="{editmode}">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text" name="tt_address[{address.uid}][name]" value="{address.name}"  class="formvalue"  >
@@ -11,7 +11,7 @@
 
 </td>
 
-    <td><b>google place_id</b></td><td class="place_id">
+   <td class="place_id">
     <f:if condition="{editmode}">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text" name="tt_address[{address.uid}][cid]"  value="{address.cid}"  class="formvalue"  >
@@ -22,7 +22,7 @@
 
 </td>
 
-    <td><b>geo</b></td><td class="geo">
+   <td class="geo">
     <f:if condition="{editmode}">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text"  name="tt_address[{address.uid}][latitude]"  value="{address.latitude}"  class="formvalue"  >
