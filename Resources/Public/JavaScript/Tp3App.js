@@ -1,4 +1,4 @@
-define(['jquery','https://maps.google.com/maps/api/js?&libraries=places&sensor=true'], function ($) {
+define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libraries=places&sensor=true'], function ($) {
 
     var Tp3App = Tp3App || {
         init:function(){

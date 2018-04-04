@@ -238,15 +238,13 @@ class Tp3BusinessViewController extends ActionController
         $this->pageRenderer->addCssFile(
             $publicResourcesPath . 'Css/Backend/Tp3Backend.css'
         );
-        $this->pageRenderer->addJsFooterFile(
-            $publicResourcesPath . 'Css/JavaScript/Tp3App.js'
-        );
+        $this->pageRenderer->addJsInlineCode("gapikey",'window.apikey = "'.$this->settings["googleMapsJavaScriptApiKey"].'";');
         $tp3BusinessViews = [
             "apis" => ["jquery","maps"],
             "js" => ["Tp3App.js"],
         ];
         $panoramas = [];
-        $addresses = [];
+        $businessAdresses = [];
 /*
         $res = $this->getDatabaseConnection()->sql_query(
             'SELECT *
