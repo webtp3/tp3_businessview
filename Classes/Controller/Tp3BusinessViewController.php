@@ -182,8 +182,11 @@ class Tp3BusinessViewController extends ActionController
        /* $tp3BusinessViews = $this->tp3BusinessViewRepository->findAll();
         $this->view->assign('tp3BusinessViews', $tp3BusinessViews);*/
        //enable page injection instead of plugin
+        $Plugins = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Tp3\Tp3Businessview\Plugin\BusinessViewPlugin::class)->main($this->cObj,$this->conf);
+
         $GLOBALS['TSFE']->page['tx_tp3businessview_onpage'] = true;
-        $GLOBALS['TSFE']->page['tx_tp3businessview_panorama'] = 1;
+        $GLOBALS['TSFE']->page['tx_tp3businessview_panorama'] = $Plugins["panoramas"];
+        $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] = $Plugins["selector"];
 
     }
     /**

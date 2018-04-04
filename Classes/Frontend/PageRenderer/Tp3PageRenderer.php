@@ -88,7 +88,6 @@ class Tp3PageRenderer implements SingletonInterface
 
             $parameters["CssFiles"] .='<script src="typo3conf/ext/tp3_businessview/Resources/Public/Css/Tp3App.css"></script>';
 
-            //     die(var_dump($this->JsonRenderer($businessview, $panoramas)));
         }
     }
 

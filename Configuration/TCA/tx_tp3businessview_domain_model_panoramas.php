@@ -6,6 +6,7 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
+        'rootLevel' => -1,
         'delete' => 'deleted',
 		'enablecolumns' => [
             'disabled' => 'hidden',
