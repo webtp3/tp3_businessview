@@ -62,7 +62,7 @@ use TYPO3\CMS\Core\DataHandling\DataHandler as DataHandlerCore;
 
 
 /**
- * Tp3BusinessViewController
+ * ModuleController
  */
 class ModuleController extends ActionController
 {
@@ -258,7 +258,7 @@ class ModuleController extends ActionController
         $panoramas = $this->panoramasRepository->findAll();
         $businessAdresses = $this->businessAdressRepository->findAll();
 
-
+        $this->view->assign('debugMode', $this->configuration["debugMode"]);
         $this->view->assign('panoramas', $panoramas);
         $this->view->assign('addresses', $businessAdresses);
 
