@@ -1,0 +1,38 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+		<langChildren>0</langChildren>
+	</meta>
+	<ROOT>
+
+		<type>array</type>
+		<el>
+
+			<panoramas>
+				<TCEforms>
+					<label>panorama</label>
+					<config>
+						<type>group</type>
+						<internal_type>db</internal_type>
+						<allowed>tx_tp3businessview_domain_model_panoramas</allowed>
+						<prepand_tname>0</prepand_tname>
+						<multiple>0</multiple>
+						<minitems>1</minitems>
+						<maxitems>1</maxitems>
+						<size>1</size>
+					</config>
+				</TCEforms>
+			</panoramas>
+			<selector>
+				<TCEforms>
+					<label>css selector</label>
+					<config>
+						<type>string</type>
+						<internal_type>db</internal_type>
+						<size>1</size>
+					</config>
+				</TCEforms>
+			</selector>
+		</el>
+	</ROOT>
+</T3DataStructure>

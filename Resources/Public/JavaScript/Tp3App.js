@@ -41,7 +41,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             $('#submitEditform').on("click", function(e){
 
             })
-            $('.panolist tr').hover(function() {
+            $('.panolist tr.entry').hover(function() {
                 $(this).addClass('hover');
             }, function() {
                 $(this).removeClass('hover');
@@ -62,7 +62,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                 panorama.setVisible(true);
                // $('#tp3businessview-floating-panel form').attr("name","updatepano")
             });
-            $('.addresslist tr').hover(function() {
+            $('.addresslist tr.entry').hover(function() {
                 $(this).addClass('hover');
             }, function() {
                 $(this).removeClass('hover');

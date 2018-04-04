@@ -13,7 +13,7 @@ plugin.tx_tp3businessview_tp3businessview {
     storagePid = 1563
   }
   settings{
-    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=google api key (FE)
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=google api key (FE) https://console.developers.google.com/apis/
     googleMapsJavaScriptApiKey = AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay color
     color=orange
@@ -41,7 +41,7 @@ module.tx_tp3businessview_tp3businessview {
     storagePid = {$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
   }
   settings{
-    # cat=module.tx_tp3businessview_tp3businessview/file; type=string; label=Maps api key for (BE)
+    # cat=module.tx_tp3businessview_tp3businessview/file; type=string; label=Maps api key for (BE) https://console.developers.google.com/apis/
     googleMapsJavaScriptApiKey = AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg
 
   }

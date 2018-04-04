@@ -223,8 +223,12 @@ class Tp3BusinessViewController extends ActionController
      */
     public function listAction()
     {
-        $tp3BusinessViews = $this->tp3BusinessViewRepository->findAll();
-        $this->view->assign('tp3BusinessViews', $tp3BusinessViews);
+       /* $tp3BusinessViews = $this->tp3BusinessViewRepository->findAll();
+        $this->view->assign('tp3BusinessViews', $tp3BusinessViews);*/
+       //enable page injection instead of plugin
+        $GLOBALS['TSFE']->page['tx_tp3businessview_onpage'] = true;
+        $GLOBALS['TSFE']->page['tx_tp3businessview_panorama'] = 1;
+
     }
     /**
      * action index
@@ -239,32 +243,10 @@ class Tp3BusinessViewController extends ActionController
             $publicResourcesPath . 'Css/Backend/Tp3Backend.css'
         );
         $this->pageRenderer->addJsInlineCode("gapikey",'window.apikey = "'.$this->settings["googleMapsJavaScriptApiKey"].'";');
-        $tp3BusinessViews = [
-            "apis" => ["jquery","maps"],
-            "js" => ["Tp3App.js"],
-        ];
+
         $panoramas = [];
         $businessAdresses = [];
-/*
-        $res = $this->getDatabaseConnection()->sql_query(
-            'SELECT *
-            FROM tx_tp3businessview_domain_model_panoramas
-            WHERE `tx_tp3businessview_domain_model_panoramas`.`hidden` = 0 '
 
-            . BackendUtility::deleteClause('tx_tp3businessview_domain_model_panoramas')
-        );
-        while ($row = $this->getDatabaseConnection()->sql_fetch_assoc($res)) {
-            $panoramas[] = $row;
-        }
-
-        $res2 = $this->getDatabaseConnection()->sql_query(
-            'SELECT *
-            FROM tt_address
-            WHERE `tt_address`.`hidden` = 0  AND `tt_address`.`deleted` = 0 '  );
-        while ($row2 = $this->getDatabaseConnection()->sql_fetch_assoc($res2)) {
-            $addresses[] = $row2;
-        }
-*/
         if ($this->panoramasRepository === null) {
             $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
         }

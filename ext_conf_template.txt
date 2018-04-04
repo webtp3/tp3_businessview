@@ -1,5 +1,2 @@
-# cat=General/130_features/10; type=string; label=LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:google_maps_javascript_apikey
-google_maps_java_script_api_key =
-
 # cat=General/120_features/10; type=boolean; label=LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:debugMode
 debugMode = 0

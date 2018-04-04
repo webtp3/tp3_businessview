@@ -12,9 +12,8 @@ defined('TYPO3_MODE') || die('Access denied.');
                 'Tp3Businessview', // Submodule key
                 '', // Position
                 [
-                    'Tp3BusinessView' => 'index,display,new,edit,create,update,updatepano,updateaddress,createpano,delete',
+                    'Tp3BusinessView' => 'index,new,edit,create,update,delete',
                     'Panoramas' => 'index,new,edit,create,update,delete',
-                    'BuisinessAdress' => 'index,new,edit,create,update,delete',
 
                 ],
                 [
@@ -27,8 +26,5 @@ defined('TYPO3_MODE') || die('Access denied.');
         }
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_tp3businessview_domain_model_tp3businessview');
-
-     //   \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_tp3businessview_domain_model_businessapp');
-
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_tp3businessview_domain_model_panoramas');
 

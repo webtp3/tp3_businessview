@@ -58,7 +58,7 @@ class Tp3PageRenderer implements SingletonInterface
                 $this->tp3businessviewrepository = $this->objectManager->get(Tp3BusinessViewRepository::class);
             }
             $businessview = $this->tp3businessviewrepository->findByPanoramas($panoramas[0]["uid"])[0];
-            $businessview['panoramas'] = $panoramas[0];
+            $businessview['panorama'] = $panoramas[0];
 
             // Social Gallery
             if ($this->businessadressrepository === null  && $businessview['contact'] > 0 ) {
@@ -95,8 +95,18 @@ class Tp3PageRenderer implements SingletonInterface
      */
     public function JsonRenderer(array $businessview = [], array $panoramas = [])
     {
-        $businessview['pano_animation'] = explode(",",$businessview['pano_animation']);
-        $businessview['pano_options'] = explode(",",$businessview['pano_options']);
+        $pano_animation = explode(",",$businessview['pano_animation']);
+        $businessview['pano_animation'] = array();
+        foreach ($pano_animation as &$value) {
+            $businessview['pano_animation'][$value] =  true;
+        }
+        unset($value);
+        $pano_options = explode(",",$businessview['pano_options']);
+        $businessview['pano_options'] = array();
+        foreach ($pano_options as &$value) {
+            $businessview['pano_options'][$value] =  true;
+        }
+        unset($value);
 
         $json = json_encode([
             "details"=> [
@@ -104,10 +114,10 @@ class Tp3PageRenderer implements SingletonInterface
                 "areaOrder"=>[],
                 "editors"=>[],
                 "googleMapsJavaScriptApiKey"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["googleMapsJavaScriptApiKey"],
-                "legalNoticeUrl"=>urlencode($businessview['externalLinks']),
+                "legalNoticeUrl"=>"http:\/\/".urlencode($businessview['external_links']),
                 "location"=>["formattedAddress"=>$businessview['contact']['address'].", ".$businessview['contact']['zip'] ." " .$businessview['contact']['city'] .",".$businessview['contact']['country'],"position"=>["latitude"=>$businessview['contact']['latitude'],"longitude"=>$businessview['contact']['longitude']]],
                 "createdBy"=>[
-                    "name"=>"\"".$businessview['createdBy'].",".urlencode($businessview['externalLinks'])."\"","status"=>true],
+                    "name"=>$businessview['created_by'].",".urlencode($businessview['external_links']),"status"=>true],
                  "modules"=>[
                     "contact"=> ["fields"=>[
                                 "name"=>["value"=>$businessview['contact']['name'],"visible"=>($businessview['contact']['name'] !="" ? true : false)],
@@ -140,10 +150,10 @@ class Tp3PageRenderer implements SingletonInterface
                 ],
                 "name"=>$businessview['name'],
                 "panoEntry"=>[
-                    "heading"=>$businessview['panoramas']['heading'],
-                    "panoId"=>$businessview['panoramas']['pano_id'],
-                    "pitch"=>$businessview['panoramas']['pitch'],
-                    "zoom"=>is_numeric($businessview['panoramas']['zoom']) ? $businessview['panoramas']['zoom'] : 0 ,
+                    "heading"=>$businessview['panorama']['heading'],
+                    "panoId"=>$businessview['panorama']['pano_id'],
+                    "pitch"=>$businessview['panorama']['pitch'],
+                    "zoom"=>is_numeric($businessview['panorama']['zoom']) ? $businessview['panorama']['zoom'] : 0 ,
                 ],
                 "panoOptions"=>[
                     "addressControl"=>$businessview['pano_options']['addressControl'] ? true : false ,
@@ -153,7 +163,7 @@ class Tp3PageRenderer implements SingletonInterface
                     "scrollwheel"=>$businessview['pano_options']['scrollwheel'] ? true : false ,
                     "zoomControl"=>$businessview['pano_options']['zoomControl'] ? true : false ,
                 ],
-                "panoramas"=>$panoramas,
+                "panoramas"=>[],
                 "type"=>"businessview",
             ],
             "hasDetails"=>true

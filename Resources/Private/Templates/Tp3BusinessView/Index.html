@@ -8,18 +8,25 @@
 <f:render partial="Tp3BusinessView/Finder" arguments="{tp3BusinessViews:tp3BusinessViews, panoramas:panorama}" />
     <br>
     <div class="recordlists">
+
+    <f:if condition=" {panoramas -> f:count() > 0}">
+        <f:then>
         <table class="panolist">
             <tr>
-            <td>
-                <b>Pano ID</b></td>
-            <td><b>POV Heading</b></td>
-            <td><b>POV Pitch</b></td>
-            <td><b>zoom</b></td>
-            <td><b>Position</b></td></tr>
-        <f:for each="{panoramas}" as="panorama">
-            <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama:panorama}" />
-        </f:for>
+                <td><b>Pano ID</b></td>
+                <td><b>POV Heading</b></td>
+                <td><b>POV Pitch</b></td>
+                <td><b>zoom</b></td>
+                <td><b>Position</b></td>
+            </tr>
+            <f:for each="{panoramas}" as="panorama">
+                <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama:panorama}" />
+            </f:for>
         </table><br>
+        </f:then><f:else>
+             <f:render partial="Tp3BusinessView/Intro" arguments="{panorama:panorama}" />
+
+         </f:else></f:if>
         <table class="addresslist">
             <tr> <td><b>name</b></td>
                 <td><b>google place_id</b></td>

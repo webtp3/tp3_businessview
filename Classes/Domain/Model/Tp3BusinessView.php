@@ -114,15 +114,6 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $contact = null;
 
     /**
-     * app
-     * 
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessApp>
-     * @cascade remove
-     * @lazy
-     */
-    protected $app = null;
-
-    /**
      * panoramas
      * 
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Panoramas>
@@ -408,48 +399,6 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->contact = $contact;
     }
 
-    /**
-     * Adds a BusinessApp
-     * 
-     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessApp $app
-     * @return void
-     */
-    public function addApp(\Tp3\Tp3Businessview\Domain\Model\BusinessApp $app)
-    {
-        $this->app->attach($app);
-    }
-
-    /**
-     * Removes a BusinessApp
-     * 
-     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessApp $appToRemove The BusinessApp to be removed
-     * @return void
-     */
-    public function removeApp(\Tp3\Tp3Businessview\Domain\Model\BusinessApp $appToRemove)
-    {
-        $this->app->detach($appToRemove);
-    }
-
-    /**
-     * Returns the app
-     * 
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessApp> $app
-     */
-    public function getApp()
-    {
-        return $this->app;
-    }
-
-    /**
-     * Sets the app
-     * 
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessApp> $app
-     * @return void
-     */
-    public function setApp(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $app)
-    {
-        $this->app = $app;
-    }
 
 
 
