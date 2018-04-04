@@ -11,8 +11,8 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'BusinsessView',
-    'description' => 'google businessview für tp3',
+    'title' => 'tp3 BusinessView',
+    'description' => 'google businessview für typo3 - google streetview integration mit dem Panorama Designer',
     'category' => 'plugin',
     'author' => 'Thomas Ruta',
     'author_email' => 'support@r-p-it.de',
@@ -21,7 +21,7 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => '0',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '0.0.7',
+    'version' => '0.0.8',
     'constraints' =>
         array (
             'depends' =>
