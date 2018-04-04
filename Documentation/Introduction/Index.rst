@@ -17,8 +17,8 @@ Introduction
 What does it do?
 ----------------
 
-simply displays Businessview Plugins on your homepage.
-Pages, Comments, Share Buttons and more
+simply displays and style BusinessView Panoramas (google streetviews) on your homepage.
+Design outputs and overlays.
 
 
 .. _screenshots:

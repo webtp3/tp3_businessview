@@ -23,10 +23,10 @@ tp3 Businessview
 		en
 
 	:Description:
-		tp3 Businessview Social Plugins
+		tp3 Businessview
 
 	:Keywords:
-		Businessview, Social, Plugins, FB, Api 2.12
+		Businessview, Streetview, Panoramas, maps, VR, 360°
 
 	:Copyright:
 		tp3 `<https://web.tp3.de/>`_ 2018

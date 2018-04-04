@@ -38,17 +38,22 @@ namespace Tp3\Tp3Businessview\Controller;
  ***/
 use Tp3\Tp3Businessview\Domain\Model\BusinessAdress;
 use Tp3\Tp3Businessview\Domain\Model\Panoramas;
+use TYPO3\CMS\Backend\Template\Components\ButtonBar;
+use TYPO3\CMS\Backend\View\BackendTemplateView;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Page\PageRenderer;
+
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
 use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
@@ -59,20 +64,57 @@ use TYPO3\CMS\Core\DataHandling\DataHandler as DataHandlerCore;
 /**
  * Tp3BusinessViewController
  */
-class Tp3BusinessViewController extends ActionController
+class ModuleController extends ActionController
 {
 
     /**
 
      */
     protected $persistenceManager = null;
+    /**
+     * Backend Template Container.
+     * Takes care of outer "docheader" and other stuff this module is embedded in.
+     *
+     * @var string
+     */
+    protected $defaultViewObjectName = BackendTemplateView::class;
 
+    /**
+     * BackendTemplateContainer
+     *
+     * @var BackendTemplateView
+     */
+    protected $view;
 
     /**
      * @var PageRenderer
      */
     protected $pageRenderer;
 
+    /**
+     * @var int
+     */
+    const FE_PREVIEW_TYPE = 699841589;
+
+
+    /**
+     * @var array
+     */
+    protected $MOD_MENU;
+
+    /**
+     * @var array
+     */
+    protected $configuration = array(
+        'translations' => array(
+            'availableLocales' => array(),
+            'languageKeyToLocaleMapping' => array()
+        ),
+        'menuActions' => array(),
+        'previewDomain' => null,
+        'previewUrlTemplate' => '',
+        'viewSettings' => array()
+    );
 
     /* @var $dataMapper \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper */
     protected $dataMapper;
@@ -89,21 +131,6 @@ class Tp3BusinessViewController extends ActionController
 
      */
     public  $businessadress = null;
-
-    /**
-     * @var array
-     */
-    protected $configuration = array(
-        'translations' => array(
-            'availableLocales' => array(),
-            'languageKeyToLocaleMapping' => array()
-        ),
-        'menuActions' => array(),
-        'previewDomain' => null,
-        'previewUrlTemplate' => '',
-        'viewSettings' => array()
-    );
-
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
@@ -126,6 +153,25 @@ class Tp3BusinessViewController extends ActionController
      */
     protected $localeService;
 
+    /**
+     * @param ViewInterface $view
+     *
+     * @return void
+     */
+    protected function initializeView(ViewInterface $view)
+    {
+        parent::initializeView($view);
+
+        // Early return for actions without valid view like tcaCreateAction or tcaDeleteAction
+        if (!($this->view instanceof BackendTemplateView)) {
+            return;
+        }
+
+        if (TYPO3_MODE === 'BE') {
+            $this->registerDocheaderButtons();
+        }
+      //  $this->view->render();
+    }
 
     protected function initializeAction()
     {
@@ -240,7 +286,64 @@ class Tp3BusinessViewController extends ActionController
     }
 
 
+    /**
+     * action edit
 
+
+     */
+    public function editAction () {
+
+        try {
+                 $item = GeneralUtility::_GP('tx_tp3businessview_web_tp3businessviewmodule') ? GeneralUtility::_GP('tx_tp3businessview_web_tp3businessviewmodule') : "";
+               if(is_array($item['tx_tp3businessview_domain_model_panoramas'])) {
+                 //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
+                   $pano = $this->dataMapper->map(Panoramas::class,[$item['tx_tp3businessview_domain_model_panoramas']]);
+
+                   $panorama = $this->objectManager->get('TYPO3\CMS\Extbase\Property\PropertyMapper')
+                       ->convert(
+                           $pano[0],
+                           Panoramas::class
+                       );
+                   if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == ""){
+                       $tcemainData = [
+                           'tx_tp3businessview_domain_model_panoramas' => [
+                               'NEW' => [
+                                   $panorama->_getCleanProperties()
+                               ]
+                           ]
+                       ];
+                   }
+                   else if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == ""){
+                       $tcemainData = [
+                           'tx_tp3businessview_domain_model_panoramas' => [
+                               'UPDATE' => [
+                                   $panorama->_getCleanProperties()
+                               ]
+                           ]
+                       ];
+                   }
+
+                   $dataHandler = GeneralUtility::makeInstance(DataHandlerCore::class);
+                   $dataHandler->start($tcemainData, []);
+                   $dataHandler->process_datamap();
+
+                   $pano = $dataHandler->substNEWwithIDs['NEW'];
+                   return $pano;
+               }
+            if(is_array($item['tx_tp3businessview_domain_model_businessadress'])) {
+                //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
+                $address = $this->dataMapper->map(BusinessAdress::class,[$item['tx_tp3businessview_domain_model_businessadress']]);
+                if($item['tx_tp3businessview_domain_model_businessadress']["uid"] == "") $this->createadressAction($address[0]);
+                else $this->updateadressAction($address[0]);
+            }
+
+            } catch (Exception $e) {
+            $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
+            throw new \RuntimeException($message);
+        }
+        $this->redirect('index');
+
+    }
     /**
      * action updateold
      *

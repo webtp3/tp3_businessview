@@ -352,7 +352,7 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
      */
     protected function getToken($tokenOnly = false)
     {
-        $token = FormProtectionFactory::get()->generateToken('moduleCall', 'web_Tp3BusinessviewTp3businessview');
+        $token = FormProtectionFactory::get()->generateToken('moduleCall', 'web_tp3businessviewmodule');
         if ($tokenOnly) {
             return $token;
         } else {

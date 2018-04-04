@@ -64,7 +64,7 @@ plugin.tx_tp3businessview._CSS_DEFAULT_STYLE (
 )
 
 # Module configuration
-module.tx_tp3businessview_web_tp3businessviewtp3businessview {
+module.tx_tp3businessview_web_tp3businessviewmodule {
   persistence {
     storagePid = {$module.tx_tp3businessview_tp3businessview.persistence.storagePid}
   }

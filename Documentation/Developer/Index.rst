@@ -14,8 +14,9 @@ Developer Corner
 Target group: **Developers**
 
 this extension is started with the extention builder.
-calls the plugin with the consiguration.
-Could be moved to fluid - was lazy
+integrates google maps and streetview apis
+
+https://developers.google.com/maps/documentation/javascript/examples/streetview-custom-simple?hl=de
 
 
 .. _developer-hooks:
@@ -23,13 +24,13 @@ Could be moved to fluid - was lazy
 Hooks
 -----
 
-there should be a hook to look if api is called or should be called
-
+Uses the post-process hook to inject into the page
 .. _developer-api:
+
+to load the maps api in the frontend is not yet solved, because tp3 has it loaded anyhow.
 
 Usage
 ---
 
    DebugMode can be anabled in the extension manager.
-   The data and configuration is done in the flexforms.
 

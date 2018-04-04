@@ -10,84 +10,140 @@
 
 ChangeLog
 =========
+Commits on Apr 4, 2018
+table switch
 
+@thomasruta
+thomasruta committed 5 hours ago
+
+misstyping fix
+
+@thomasruta
+thomasruta committed 6 hours ago
+
+apikey for be
+
+@thomasruta
+thomasruta committed 6 hours ago
+
+Commits on Apr 3, 2018
+...
+
+@thomasruta
+thomasruta committed 21 hours ago
+
+breaking tca in 8  …
+
+@thomasruta
+thomasruta committed 21 hours ago
+
+streetview in maps
+
+@thomasruta
+thomasruta committed 22 hours ago
+
+bugs and dugs
+
+@thomasruta
+thomasruta committed 23 hours ago
+
+relations and module new & save
+
+@thomasruta
+thomasruta committed a day ago
+
+Commits on Apr 2, 2018
+working module
 
 @thomasruta
 thomasruta committed 2 days ago
 
-more fixes for fb 2.12 api
-
-@thomasruta
-thomasruta committed 2 days ago
-
-update fb api 2.12  …
-
-@thomasruta
-thomasruta committed 3 days ago
-
-Commits on Mar 21, 2018
-Fixes and API update  …
+Commits on Apr 1, 2018
+...
 
 @thomasruta
 thomasruta committed 4 days ago
 
-Commits on Mar 20, 2018
-fixes for beta  …
+some tests
 
 @thomasruta
 thomasruta committed 4 days ago
 
-Commits on Mar 16, 2018
-update tt_content from Businessview_socialplugins
+Commits on Mar 31, 2018
+test ajax
+
+@thomasruta
+thomasruta committed 4 days ago
+
+Commits on Mar 29, 2018
+Finish be module and first fe output  …
+
+@thomasruta
+thomasruta committed 6 days ago
+
+Commits on Mar 28, 2018
+fix - get beta running
+
+@thomasruta
+thomasruta committed 7 days ago
+
+relations and be module lists
+
+@thomasruta
+thomasruta committed 7 days ago
+
+Businessview Designer  …
+
+@thomasruta
+thomasruta committed 7 days ago
+
+Commits on Mar 27, 2018
+backend module init
 
 @thomasruta
 thomasruta committed 8 days ago
 
-Commits on Mar 9, 2018
-bugfixes to version with html output
+js be
 
 @thomasruta
-thomasruta committed 15 days ago
+thomasruta committed 8 days ago
 
-Commits on Mar 8, 2018
-Finish Standalone Plugin
-
-@thomasruta
-thomasruta committed 17 days ago
-
-Commits on Mar 7, 2018
-Revert "Revert "0.0.2""  …
+Backend Module  …
 
 @thomasruta
-thomasruta committed
+thomasruta committed 8 days ago
 
-Revert "0.0.2"  …
-
-@thomasruta
-thomasruta committed
-
-Commits on Mar 6, 2018
-0.0.2
+add tcs
 
 @thomasruta
-thomasruta committed
+thomasruta committed 8 days ago
 
-Fix From Ext Builder
-
-@thomasruta
-thomasruta committed
-
-Merge from Businessview_socialplugins
+Revert "merge"  …
 
 @thomasruta
-thomasruta committed
+thomasruta committed 9 days ago
 
-Initial Commit
-
-@thomasruta
-thomasruta committed
-
-🎉 Added .gitattributes & .gitignore files
+merge
 
 @thomasruta
-thomasruta committed
+thomasruta committed 9 days ago
+
+relations and fix for 8
+
+@thomasruta
+thomasruta committed 9 days ago
+
+afer extbuilder
+
+@thomasruta
+thomasruta committed 9 days ago
+
+init businessview
+
+@thomasruta
+thomasruta committed 9 days ago
+
+:octocat: Added .gitattributes & .gitignore files
+
+@thomasruta
+thomasruta committed 9 days ago
