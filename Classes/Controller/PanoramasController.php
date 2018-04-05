@@ -274,6 +274,7 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         }
         $this->addFlashMessage('The object was created.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         if($panoramas->getPid() == null)$panoramas->setPid($this->conf["persistence"]["storagePid"]);
+        if($panoramas->getUid() == "")$panoramas->setUid(null);
         $this->panoramasRepository->add($panoramas);
         $this->persistenceManager->persistAll();
 

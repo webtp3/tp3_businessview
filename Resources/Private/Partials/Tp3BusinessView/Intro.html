@@ -1,6 +1,12 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{conf.persistence.storagePid} < 1}">
+    <f:then>
+        <div class="message alert alert-warning"><div class="media"> Sollten Sie diesen Bildschirm sehen - fehlt die StoragePid<br>
+            {$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
+            tragen sie diese nachdem das statische Template eingefügt wurde im roottemplate bei den konstanten ein.</div></div>
 
-
+    </f:then>
+</f:if>
 <p>Nach der Installation sollte man API Keys bei google anlegen, diese werden für Places Suche im Backend benötigt.</p>
 
 <p><a href="https://console.developers.google.com/apis/">https://console.developers.google.com/apis/</a></p>

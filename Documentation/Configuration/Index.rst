@@ -27,7 +27,7 @@ The essential domains have to be set in the app for crossdomain referencing.
 go to the backend web module and select the Storagepid. You can search in the map box with the small input field for your address or company.
 If found click on it and it should display yout panoramas. You can simply navigate in them and save the different views and positions to several panoramas.
 
-.. figure:: ../Images/Pano_Designer.png
+.. figure:: ../Images/Pano.png
     :width: 1020px
    :alt: Pano Designer tp3_businessview
 
@@ -40,13 +40,13 @@ After this is you can choose the way to view your Businessviews.
 
 Go to edit yout page. on the palette visibility
 
-.. figure:: ../Images/PageInjection.png
+.. figure:: ../Images/Page.png
     :width: 1020px
    :alt: Page Injection tp3_businessview
 
 or use the plugin and select the output spot
 
-.. figure:: ../Images/BackendPlugin.png
+.. figure:: ../Images/Backendplugin.png
     :width: 1020px
    :alt: Plugin tp3_businessview
 

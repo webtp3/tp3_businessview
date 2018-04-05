@@ -16,12 +16,12 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'plugin',
     'author' => 'Thomas Ruta',
     'author_email' => 'support@r-p-it.de',
-    'state' => 'alpha',
+    'state' => 'beta',
     'internal' => '',
     'uploadfolder' => '0',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '0.0.9',
+    'version' => '0.1.1',
     'constraints' =>
         array (
             'depends' =>

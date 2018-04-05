@@ -14,7 +14,7 @@ return [
             'endtime' => 'endtime',
         ],
 		'searchFields' => 'pano_id,heading,pitch,zoom',
-        'iconfile' => 'EXT:tp3_businessview/Resources/Public/Iconsuser_plugin_tp3businessview.svg',
+        'iconfile' => 'EXT:tp3_businessview/Resources/Public/Icons/user_plugin_tp3businessview.svg',
         'typeicon_classes' => [
             'default' => 'ext-tp3_businessview-wizard-icon'
         ],

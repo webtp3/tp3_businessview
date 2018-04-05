@@ -259,6 +259,7 @@ class ModuleController extends ActionController
         $businessAdresses = $this->businessAdressRepository->findAll();
 
         $this->view->assign('debugMode', $this->configuration["debugMode"]);
+        $this->view->assign('conf', $this->conf);
         $this->view->assign('panoramas', $panoramas);
         $this->view->assign('addresses', $businessAdresses);
 

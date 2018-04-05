@@ -7,7 +7,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             Tp3App.initPano();
             Tp3App.initMap();
             geocoder = new google.maps.Geocoder;
-            infowindow = new google.maps.InfoWindow;$('#editform')
+            infowindow = new google.maps.InfoWindow;
         /*    $('#editform').on("submit",function (e) {
                 $('<div class="loaderbg"><div class="loader"></div></div>').appendTo($(e.currentTarget).parents("body").first()).css({position:"absolute", width:"100%", height:"100%", top :0, "z-index": "999", background: "rgba(0, 0, 0, 0.5)"});
                 e.preventDefault(e);

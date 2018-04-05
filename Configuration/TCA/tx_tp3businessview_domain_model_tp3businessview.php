@@ -18,7 +18,10 @@ return [
             'endtime' => 'endtime',
         ],
 		'searchFields' => 'created_by,name,external_links,gallery,intro,pano_animation,social_gallery,pano_options,contact,app,panoramas',
-        'iconfile' => 'EXT:tp3_businessview/Resources/Public/Icons/tx_tp3businessview_domain_model_tp3businessview.gif'
+        'iconfile' => 'EXT:tp3_businessview/Resources/Public/Icons/tx_tp3businessview_domain_model_tp3businessview.gif',
+        'typeicon_classes' => [
+            'default' => 'ext-tp3_businessview-wizard-icon'
+        ],
     ],
     'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, created_by, name, external_links, gallery, intro, pano_animation, social_gallery, pano_options, contact, app, panoramas',
@@ -178,16 +181,16 @@ return [
 			    'type' => 'select',
 			    'renderType' => 'selectCheckBox',
 			    'items' => [
-                            [  "addressControl" ,"addressControl",],
-                            [   "disableDefaultUI", "disableDefaultUI",],
-                            [   "panControl" , "panControl",],
-                            [   "scaleControl" , "scaleControl",],
-                            [  "scrollwheel" , "scrollwheel",],
-                            [  "zoomControl", "zoomControl"],
+                            ["addressControl" ,"addressControl",],
+                            ["disableDefaultUI", "disableDefaultUI",],
+                            ["panControl" , "panControl",],
+                            ["scaleControl" , "scaleControl",],
+                            ["scrollwheel" , "scrollwheel",],
+                            ["zoomControl", "zoomControl"],
 
                     ],
 			    'maxitems' => 99,
-			    'eval' => ''
+			    'eval' => 'trim'
 			],
 	    ],
 	    'contact' => [

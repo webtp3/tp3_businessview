@@ -10,7 +10,7 @@ plugin.tx_tp3businessview_tp3businessview {
   }
   persistence {
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=Default storage PID
-    storagePid = 0
+    storagePid =
   }
   settings{
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=google api key (FE) https://console.developers.google.com/apis/
@@ -29,22 +29,22 @@ plugin.tx_tp3businessview_tp3businessview {
 
 }
 
-module.tx_tp3businessview_module {
+module.tx_tp3businessview_web_tp3businessviewmodule {
   view {
-    # cat=module.tx_tp3businessview_module/file; type=string; label=Path to template root (BE)
+    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Path to template root (BE)
     templateRootPath = EXT:tp3_businessview/Resources/Private/Templates/BusinessView/
-    # cat=module.tx_tp3businessview_module/file; type=string; label=Path to template partials (BE)
+    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Path to template partials (BE)
     partialRootPath = EXT:tp3_businessview/Resources/Private/Partials/BusinessView/
-    # cat=module.tx_tp3businessview_module/file; type=string; label=Path to template layouts (BE)
+    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Path to template layouts (BE)
     layoutRootPath = EXT:tp3_businessview/Resources/Private/Layouts/BusinessView/
   }
   persistence {
-    # cat=module.tx_tp3businessview_module//a; type=string; label=Default storage PID
+    # cat=module.tx_tp3businessview_web_tp3businessviewmodule//a; type=string; label=Default storage PID
     storagePid = {$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
   }
   settings{
-    # cat=module.tx_tp3businessview_module/file; type=string; label=Maps api key for (BE) https://console.developers.google.com/apis/
-    googleMapsJavaScriptApiKey = {$plugin.tx_tp3businessview_module.settings.googleMapsJavaScriptApiKey}
+    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Maps api key for (BE) https://console.developers.google.com/apis/
+    googleMapsJavaScriptApiKey = {$plugin.tx_tp3businessview_tp3businessview.settings.googleMapsJavaScriptApiKey}
 
   }
 }
