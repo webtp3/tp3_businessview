@@ -277,8 +277,8 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         $this->panoramasRepository->add($panoramas);
         $this->persistenceManager->persistAll();
 
-        $this->redirect('index','Tp3BusinessView');
-
+        if (TYPO3_MODE === 'BE') $this->redirect('index','Module');
+        else $this->redirect('list','Tp3BusinessView');
     }
     /**
      * Returns LanguageService
