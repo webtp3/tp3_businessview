@@ -81,10 +81,10 @@ $ = $j = jQuery.noConflict();
 
 			}
 
-	window.tp3_app=window.tp3_app||{
+	window.tp3_app=window.tp3_app||{};
 
 
-      initialize:function(){
+window.tp3_app.initialize=function(){
          	 window.tp3_app.init = true;
 
 			  try{

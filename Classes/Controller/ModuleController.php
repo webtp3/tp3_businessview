@@ -256,9 +256,12 @@ class ModuleController extends ActionController
             $this->businessAdressRepository = $this->objectManager->get(BusinessAdressRepository::class);
         }
         $panoramas = $this->panoramasRepository->findAll();
+        //$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        //$querySettings->setRespectStoragePage(true);
+        // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
         $businessAdresses = $this->businessAdressRepository->findAll();
 
-        $this->view->assign('debugMode', $this->configuration["debugMode"]);
+        $this->view->assign('debugMode', $this->conf["debugMode"]);
         $this->view->assign('conf', $this->conf);
         $this->view->assign('panoramas', $panoramas);
         $this->view->assign('addresses', $businessAdresses);

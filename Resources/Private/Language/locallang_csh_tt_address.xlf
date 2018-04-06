@@ -9,16 +9,16 @@
 			<trans-unit id="tx_tp3businessview_domain_model_businessadress.description">
 				<source>google businessview für tp3 BusinessAddress</source>
 			</trans-unit>
-			 <trans-unit id="cid">
+			 <trans-unit id="tx_tp3businessview_domain_model_businessadress.cid">
                     <source>BusinessID</source>
             </trans-unit>
-            <trans-unit id="cid.description">
+            <trans-unit id="tx_tp3businessview_domain_model_businessadress.cid.description">
 				<source>google placesid vor maps location</source>
 			</trans-unit>
-			 <trans-unit id="googleplus">
+			 <trans-unit id="tx_tp3businessview_domain_model_businessadress.googleplus">
                     <source>googleplus user suffix</source>
             </trans-unit>
-            <trans-unit id="googleplus.description">
+            <trans-unit id="tx_tp3businessview_domain_model_businessadress.googleplus.description">
                 <source>what comes behind the plus.google.com url.</source>
             </trans-unit>
 		</body>
