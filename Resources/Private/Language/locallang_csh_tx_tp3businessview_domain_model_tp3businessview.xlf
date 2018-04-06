@@ -42,6 +42,7 @@
 			<trans-unit id="panoramas.description">
 				<source>panoramas</source>
 			</trans-unit>
-		</body>
+
+        </body>
 	</file>
 </xliff>

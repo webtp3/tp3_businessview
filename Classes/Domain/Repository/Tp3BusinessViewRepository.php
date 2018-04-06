@@ -24,7 +24,7 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
      */
     public function findByUid($uid) {
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        $querySettings->setRespectStoragePage(false);
+        $querySettings->setRespectStoragePage(true);
 
         $this->setDefaultQuerySettings($querySettings);
         $query = $this->createQuery();

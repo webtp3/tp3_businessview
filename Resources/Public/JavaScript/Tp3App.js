@@ -4,6 +4,16 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
         init:function(){
             console.log("tp3app Init");
          //   Tp3App.scriptsload("//maps.googleapis.com/maps/api/js?key=zzz&")//callback=Tp3App.initPano
+            if(($('.panolist tr.entry').length > 0 && $.trim($('.panolist tr.entry').first().find('.position').text()) != "")){
+                try {
+                    var arr = $.trim($('.panolist tr.entry').first().find('.position').text()).substring(1, $.trim($('.panolist tr.entry').first().find('.position').text()).length -1).split(',');
+                    Tp3App.setBusinessAdress(arr[0],arr[1],$.trim($('.panolist tr.entry').first().find('.heading').text()),$.trim($('.panolist tr.entry').first().find('.pitch').text()),$.trim($('.panolist tr.entry').first().find('.zoom').text()));
+                }
+                catch (e){
+                    console.log(e);
+                }
+
+            }
             Tp3App.initPano();
             Tp3App.initMap();
             geocoder = new google.maps.Geocoder;
@@ -67,15 +77,26 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             }, function() {
                 $(this).removeClass('hover');
             }).click(function(){
-               if($(this).find('.place_id').text() != "") Tp3App.geocodePlaceId(geocoder, map, infowindow,  $(this).find('.place_id').text());
+               if($.trim($(this).find('.place_id').text()) != "") Tp3App.geocodePlaceId(geocoder, map, infowindow,  $(this).find('.place_id').text());
 
             });
-            return Tp3App;
-        }
 
+            return Tp3App;
+        },
+        setBusinessAdress:function(latv ,lngv,headingv,pitchv,zoomv){
+            Tp3App.BusinessAdress = {lat: Number(latv), lng: Number(lngv)};
+            Tp3App.pov.heading =Number( headingv);
+            Tp3App.pov.zoom = Number(zoomv);
+            Tp3App.pov.pitch = Number(pitchv);
+
+        },
+        BusinessAdress: {lat: 49.9553939, lng: 8.1767639},
+        pov: {
+            heading: 270,
+            pitch: 0
+        },
 
     },
-    BusinessAdress = {lat: 49.9553939, lng: 8.1767639},
     map = map || {},geocoder,infowindow,sv,
     panorama = panorama || {};
     Tp3App.initMap= function (){
@@ -87,14 +108,14 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
 
             // Set up the map.
             map = new google.maps.Map(document.getElementById('map'), {
-                center: BusinessAdress,
+                center: Tp3App.BusinessAdress,
                 zoom: 16,
                 streetViewControl: false
             });
             var streetviewOverlay = new google['maps']['StreetViewCoverageLayer']();
             streetviewOverlay.setMap(map);
             // Set the initial Street View camera to the center of the map
-            sv.getPanorama({location: BusinessAdress, radius: 50}, Tp3App.processSVData);
+            sv.getPanorama({location: Tp3App.BusinessAdress, radius: 50}, Tp3App.processSVData);
 
             // Look for a nearby Street View panorama when the map is clicked.
             // getPanoramaByLocation will return the nearest pano when the
@@ -180,10 +201,11 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
     Tp3App.initPano =    function (){
             panorama = new google.maps.StreetViewPanorama(
                 document.getElementById('tp3businessview-pano'), {
-                    position: BusinessAdress,
+                    position: Tp3App.BusinessAdress,
                     pov: {
-                        heading: 270,
-                        pitch: 0
+                        heading: Tp3App.pov.heading,
+                        pitch:  Tp3App.pov.pitch,
+                        zoom: Tp3App.pov.zoom
                     },
                     visible: true
                 });

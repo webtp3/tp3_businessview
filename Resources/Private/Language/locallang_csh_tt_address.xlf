@@ -3,15 +3,24 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2018-03-27T02:07:22Z" product-name="tp3_businessview">
 		<header/>
 		<body>
-			<trans-unit id="tx_tp3_businessview_domain_model_tp3businessview">
-				<source>BusinessView</source>
+			<trans-unit id="tx_tp3businessview_domain_model_businessadress">
+				<source>BusinessAddress</source>
 			</trans-unit>
-			<trans-unit id="tx_tp3_businessview_domain_model_tp3businessview.description">
-				<source>google businessview für tp3</source>
+			<trans-unit id="tx_tp3businessview_domain_model_businessadress.description">
+				<source>google businessview für tp3 BusinessAddress</source>
 			</trans-unit>
-			<trans-unit id="cid.description">
-				<source>cid</source>
+			 <trans-unit id="cid">
+                    <source>BusinessID</source>
+            </trans-unit>
+            <trans-unit id="cid.description">
+				<source>google placesid vor maps location</source>
 			</trans-unit>
+			 <trans-unit id="googleplus">
+                    <source>googleplus user suffix</source>
+            </trans-unit>
+            <trans-unit id="googleplus.description">
+                <source>what comes behind the plus.google.com url.</source>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>

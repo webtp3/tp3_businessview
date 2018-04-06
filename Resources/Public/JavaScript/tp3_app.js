@@ -82,20 +82,23 @@ $ = $j = jQuery.noConflict();
 			}
 
 	window.tp3_app=window.tp3_app||{
+
+
       initialize:function(){
          	 window.tp3_app.init = true;
 
 			  try{
 			  google.maps.event.addDomListener(window,"load", function () {
-			  if ( !window["WecMap"] ){}
-				WecMap = createWecMap();
-				WecMap.init();
+			  if ( WecMap ) {
+                  WecMap = createWecMap();
+                  WecMap.init();
                   var InitWecMapGoogleV3Labels = InitWecMapGoogleV3Labels || "";
-				if(InitWecMapGoogleV3Labels != undefined && $j.type(InitWecMapGoogleV3Labels) == "function"){
-					InitWecMapGoogleV3Labels();
-                      WECInit();
+                  if (InitWecMapGoogleV3Labels != undefined && $j.type(InitWecMapGoogleV3Labels) == "function") {
+                      InitWecMapGoogleV3Labels();
+                      if (WECInit != undefined && $j.type(WECInit) == "function") WECInit();
 
                   }
+              }
                   if(gapi && $j.type(gapi) == "object")  gapi.plus.go();
 			  })
 			  }catch (e){
@@ -150,7 +153,13 @@ if(index<lastIndex){this.children().eq(index).before(this.children().last())}
 return this;}
 
 var panorama;var panoJumpTimer;var panoRotationTimer;var panoResizeTimer;var panoResizeCounter=0;var businessviewSidebarModulesSelector='';var showSidebar=false;var startCoords={},endCoords={};var zoom=1;var updateInfoPointsStartTimer;var updateInfoPointsCounter=0;var $panoCanvas=null;var panoCanvasHeight=0;var panoCanvasWidth=0;
+window.tp3_app.AnmationOptions = tp3_app.AnmationOptions  || {
 
+        panoJumpTimer:5000,
+        panoRotationTimer:30,
+        panoRotationFactor:0.015,
+
+}
 window.tp3_app.businessview_initialize = tp3_app.businessview_initialize  || function(businessviewJson){
 	var panoEntry;
 	var panoOptions;

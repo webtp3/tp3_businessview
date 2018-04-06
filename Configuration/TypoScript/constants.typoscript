@@ -25,6 +25,13 @@ plugin.tx_tp3businessview_tp3businessview {
     textColor=#FFF
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay align
     align=right
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoJumpTimer ms
+    panoJumpTimer=5000
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationTimer ms
+    panoRotationTimer=30
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationFactor in °
+    panoRotationFactor=0.015
+
   }
 
 }
