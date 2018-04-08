@@ -82,6 +82,8 @@ class BusinessViewPlugin extends  \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
 
         $this->ffConf['panoramas'] = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'panoramas');
         $this->ffConf['selector'] = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'selector');
+        //fallback to output in plugin position
+        if($this->ffConf['selector'] == "")$this->ffConf['selector'] = "#tp3businessview-businessview-canvas";
         return $this->ffConf;
 
     }

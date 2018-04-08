@@ -45,6 +45,7 @@ class Tp3PageRenderer implements SingletonInterface
             )
             && $GLOBALS['TSFE']->cObj instanceof ContentObjectRenderer
         ) {
+            if($GLOBALS['TSFE']->page['tx_tp3businessview_onpage'] < 1)return;
             if ($this->objectManager === null) {
                 $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
             }
@@ -79,9 +80,9 @@ class Tp3PageRenderer implements SingletonInterface
             }*/
            // $businessview = $this->tp3businessviewrepository->findByUid(intval($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']))->getFirst();
 
-            $parameters["jsFooterInline"] .='<script> var businessviewJson = '.$this->JsonRenderer($businessview, $panoramas).';window.tp3_app = window.tp3_app || {};window.tp3_app.AnmationOptions  = {  panoJumpTimer:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpTimer"].', panoRotationTimer:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationTimer"].', panoRotationFactor:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationFactor"].'}';
-            $parameters["jsFooterInline"] .="  $('".($GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] != "" ? $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] : '#content') ."').first().attr(\"id\",\"businessview-panorama-canvas\").wrapAll('<div id=\"businessview-canvas\" style=\"width:100%;height:100%;min-height:600px;\"></div>');</script>";
-            $parameters["jsFooterFiles"] .='<script src="typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js"></script>';
+            $parameters["jsInline"] .='<script> var businessviewJson = businessviewJson || '.$this->JsonRenderer($businessview, $panoramas).';window.tp3_app = window.tp3_app || {};window.tp3_app.AnmationOptions  = {  panoJumpTimer:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpTimer"].', panoRotationTimer:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationTimer"].', panoRotationFactor:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationFactor"].'};</script>';
+            $parameters["jsFooterInline"] .="<script>  $('".($GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] != "" ? $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] : '#content') ."').first().attr(\"id\",\"businessview-panorama-canvas\").wrapAll('<div id=\"businessview-canvas\" style=\"width:100%;height:100%;min-height:600px;\"></div>');</script>";
+            $parameters["jsFooterLibs"] .='<script src="typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js"></script>';
             if($GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["loadApi"]){
                 $parameters["jsFooterFiles"] .='<script src="//maps.googleapis.com/maps/api/js?key='.$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["googleMapsJavaScriptApiKey"].'&libraries=places&callback=tp3_app.initialize"></script>';
             }
@@ -119,8 +120,7 @@ class Tp3PageRenderer implements SingletonInterface
                 "googleMapsJavaScriptApiKey"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["googleMapsJavaScriptApiKey"],
                 "legalNoticeUrl"=>"http:\/\/".urlencode($businessview['external_links']),
                 "location"=>["formattedAddress"=>$businessview['contact']['address'].", ".$businessview['contact']['zip'] ." " .$businessview['contact']['city'] .",".$businessview['contact']['country'],"position"=>["latitude"=>$businessview['contact']['latitude'],"longitude"=>$businessview['contact']['longitude']]],
-                "createdBy"=>[
-                    "name"=>$businessview['created_by'].",".urlencode($businessview['external_links']),"status"=>true],
+                "createdBy"=>["name"=>$businessview['created_by'].",".urlencode($businessview['external_links']),"status"=>true],
                  "modules"=>[
                     "contact"=> ["fields"=>[
                                 "name"=>["value"=>$businessview['contact']['name'],"visible"=>($businessview['contact']['name'] !="" ? true : false)],
@@ -166,7 +166,18 @@ class Tp3PageRenderer implements SingletonInterface
                     "scrollwheel"=>$businessview['pano_options']['scrollwheel'] ? true : false ,
                     "zoomControl"=>$businessview['pano_options']['zoomControl'] ? true : false ,
                 ],
-                "panoramas"=>[],
+                "panoramas"=>[
+                        "id"=>"",
+                        "areas"=>[],
+                        "infoPoints"=>[],
+                        "actions"=>[
+                                [
+                                "id"=>"",
+                                "visibleHeading"=>["from"=>0,"to"=>360],
+                                "visiblePitch"=>["from"=>0,"to"=>180]
+                                ],
+                        ],
+                    ],
                 "type"=>"businessview",
             ],
             "hasDetails"=>true

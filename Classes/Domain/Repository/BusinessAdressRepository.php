@@ -27,7 +27,7 @@ class BusinessAdressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      */
     public function findByUid($uid) {
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        $querySettings->setRespectStoragePage(true);
+        $querySettings->setRespectStoragePage(false);
 
         $this->setDefaultQuerySettings($querySettings);
         $query = $this->createQuery();

@@ -7,8 +7,8 @@ $ = $j = jQuery.noConflict();
         gapi = gapi || "",
 		businessviewJson = businessviewJson || {},
 		scrollTimeStart = new Date,
-		WECInit = WECInit || undefined;
-
+		WECInit = WECInit || undefined,
+		WecMap = WecMap || undefined;
 		 var QueryString = function () {
 
 				var query_string = {};
@@ -82,14 +82,12 @@ $ = $j = jQuery.noConflict();
 			}
 
 	window.tp3_app=window.tp3_app||{};
-
-
 window.tp3_app.initialize=function(){
          	 window.tp3_app.init = true;
 
 			  try{
 			  google.maps.event.addDomListener(window,"load", function () {
-			  if ( WecMap ) {
+			  if ( ! WecMap == undefined ) {
                   WecMap = createWecMap();
                   WecMap.init();
                   var InitWecMapGoogleV3Labels = InitWecMapGoogleV3Labels || "";
@@ -105,45 +103,15 @@ window.tp3_app.initialize=function(){
 			  	console.log(e);
 			  }
 
-				if(window.location.hash && $j(".page-" + window.location.hash.substring(1)).length > 0){
-						//e.preventDefault();
-				if($.type($.smoothScroll) == "function"){
-								$.smoothScroll({
-							  scrollElement: null,
-							  scrollTarget: ".page-" + window.location.hash.substring(1)
-							});
-							}
 
-
-					window.history.pushState({}, '', window.location.hash);
-				  }
-				 else if(document.location.hash && $j(".page-" + document.location.hash.substring(1)).length > 0){
-						//e.preventDefault();
-				if($.type($.smoothScroll) == "function"){
-					$.smoothScroll({
-					  scrollElement: null,
-					  scrollTarget: ".page-" + document.location.hash.substring(1)
-					});
-					}
-                    window.history.pushState({}, '', document.location.hash);
-				  }else if($j(window.location.hash).length > 0){
-					  e.preventDefault();
-				    if($.type($.smoothScroll) == "function"){
-								$.smoothScroll({
-								  scrollElement: null,
-								  scrollTarget: window.location.hash
-								});
-								}
-					window.history.pushState({}, '', window.location.hash);
-					}
 				  console.log(businessviewJson);
           	if(businessviewJson.hasDetails &&$j(businessviewCanvasSelector).length > 0){window.tp3_app.businessview_initialize(businessviewJson);}
 			  else{console.log(businessviewJson.errorMessage);}
 			  if($j.type(window.tp3_app.controls == "function"))window.tp3_app.controls();
-		  }};
+		  };
 
 
-window.tp3_app.init = false;
+window.tp3_app.init = window.tp3_app.init || false;
 
 
 jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length
@@ -152,14 +120,13 @@ this.append(element)
 if(index<lastIndex){this.children().eq(index).before(this.children().last())}
 return this;}
 
-var panorama;var panoJumpTimer;var panoRotationTimer;var panoResizeTimer;var panoResizeCounter=0;var businessviewSidebarModulesSelector='';var showSidebar=false;var startCoords={},endCoords={};var zoom=1;var updateInfoPointsStartTimer;var updateInfoPointsCounter=0;var $panoCanvas=null;var panoCanvasHeight=0;var panoCanvasWidth=0;
 window.tp3_app.AnmationOptions = tp3_app.AnmationOptions  || {
 
         panoJumpTimer:5000,
         panoRotationTimer:30,
         panoRotationFactor:0.015,
 
-}
+};
 window.tp3_app.businessview_initialize = tp3_app.businessview_initialize  || function(businessviewJson){
 	var panoEntry;
 	var panoOptions;
@@ -227,7 +194,21 @@ if(businessviewJson.details.modules){if(businessviewJson.details.modules.googleA
 $j(window).scroll(function(){if(isInViewport(businessviewCanvasSelector)&&!viewportToggle){ga('send','event','BusinessView Canvas','scroll','in-viewport');viewportToggle=true;}
 if(!isInViewport(businessviewCanvasSelector)&&viewportToggle){viewportToggle=false;}});}}}
 if(businessviewJson.details.modules.intro){var intro=businessviewJson.details.modules.intro;if(intro.status&&(intro.headline!=""||intro.message!="")){appendIntroToBusinessview(intro.headline,intro.message,intro.backgroundColor,intro.textColor);$j(businessviewCanvasSelector).on('click','div#businessview-intro-canvas i.fa-times',function(){removeBusinessviewCanvas('businessview-intro-canvas');});}}
-if(businessviewJson.details.modules.panoAnimation){var panoAnimation=businessviewJson.details.modules.panoAnimation;if(panoAnimation.jumps){var lastPano=panorama.getPano();panoJumpTimer=window.setInterval(function(){if(lastPano==panorama.getPano()){var links=panorama.getLinks();var nextPano;if(links.length>1){do{nextPano=links[getRandomInt(0,links.length-1)];}while(nextPano.pano==lastPano);lastPano=nextPano.pano;}else{nextPano=links[0];}
+if(businessviewJson.details.modules.panoAnimation){
+	var panoAnimation=businessviewJson.details.modules.panoAnimation;
+	if(panoAnimation.jumps){
+		var lastPano=panorama.getPano();
+		panoJumpTimer=window.setInterval(function(){
+			if(lastPano==panorama.getPano()){
+				var links=panorama.getLinks();
+				var nextPano;
+				if(links.length>1){
+					do{nextPano=links[getRandomInt(0,links.length-1)];}
+					while(nextPano.pano==lastPano);
+					lastPano=nextPano.pano;}
+					else
+						{nextPano=links[0];
+						}
 panorama.setPano(nextPano.pano);}else{window.clearInterval(panoJumpTimer);}},5000);}
 if(panoAnimation.rotation){
 	var lastPov=panorama.getPov();
@@ -569,7 +550,7 @@ window.tp3_app.watchdog = function () {
 $j(document).promise().done(function( ) {
 
     console.log("promise");
-
+    window.tp3_app.init = false;
     $j(document).trigger('loaded');
     window.dispatchEvent(new Event('loaded'))
 })

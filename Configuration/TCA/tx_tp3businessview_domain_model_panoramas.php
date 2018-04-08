@@ -114,7 +114,7 @@ return [
                 'eval' => 'trim'
             ],
         ],
-        'businessviews' => [
+        'tp3businessviews' => [
             'exclude' => true,
             'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.panoramas',
             'config' => [
@@ -123,10 +123,10 @@ return [
                 'foreign_table' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'enableMultiSelectFilterTextfield' => true,
                 'MM' => 'tx_tp3businessview_domain_model_panoramas_mm',
-                'MM_opposite_field' => 'businessviews',
+                'MM_opposite_field' => 'panoramas',
                 'minitems' => 0,
-                'maxitems' => 99,
-
+                'maxitems' => 1,
+                'size' => 1,
             ],
         ],
     ]
