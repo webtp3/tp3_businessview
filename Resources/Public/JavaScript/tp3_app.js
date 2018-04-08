@@ -82,8 +82,8 @@ $ = $j = jQuery.noConflict();
 			}
 
 	window.tp3_app=window.tp3_app||{};
-window.tp3_app.initialize=function(){
-         	 window.tp3_app.init = true;
+tp3_app.initialize=function(){
+         	 tp3_app.init = true;
 
 			  try{
 			  google.maps.event.addDomListener(window,"load", function () {
@@ -105,13 +105,13 @@ window.tp3_app.initialize=function(){
 
 
 				  console.log(businessviewJson);
-          	if(businessviewJson.hasDetails &&$j(businessviewCanvasSelector).length > 0){window.tp3_app.businessview_initialize(businessviewJson);}
+          	if(businessviewJson.hasDetails &&$j(businessviewCanvasSelector).length > 0){tp3_app.businessview_initialize(businessviewJson);}
 			  else{console.log(businessviewJson.errorMessage);}
-			  if($j.type(window.tp3_app.controls == "function"))window.tp3_app.controls();
+			//  if($j.type(tp3_app.controls == "function"))tp3_app.controls();
 		  };
 
 
-window.tp3_app.init = window.tp3_app.init || false;
+tp3_app.init = tp3_app.init || false;
 
 
 jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length
@@ -120,14 +120,14 @@ this.append(element)
 if(index<lastIndex){this.children().eq(index).before(this.children().last())}
 return this;}
 
-window.tp3_app.AnmationOptions = tp3_app.AnmationOptions  || {
+tp3_app.AnmationOptions = tp3_app.AnmationOptions  || {
 
         panoJumpTimer:5000,
         panoRotationTimer:30,
         panoRotationFactor:0.015,
 
 };
-window.tp3_app.businessview_initialize = tp3_app.businessview_initialize  || function(businessviewJson){
+tp3_app.businessview_initialize = tp3_app.businessview_initialize  || function(businessviewJson){
 	var panoEntry;
 	var panoOptions;
 	if(businessviewJson.details.panoEntry){
@@ -533,24 +533,24 @@ var request=$.ajax({url:'https://graph.facebook.com/'+pageId+'/albums?access_tok
 						});
 				});*/
 		}
-var tp3_app = window.tp3_app;
 
-window.tp3_app.watchdog = function () {
+tp3_app.watchdog = function () {
    $j(document).on("loaded",function(){
-        if(!window.tp3_app.init){
-            if(!window.tp3_app.init){
-                window.tp3_app.initialize();
+        if(!tp3_app.init){
 
-			}
-            window.tp3_app.init = true;
+                tp3_app.initialize();
+
+
+            tp3_app.init = true;
         }
+       if($j.type(tp3_app.controls == "function"))tp3_app.controls();
     })
 }
 
 $j(document).promise().done(function( ) {
 
     console.log("promise");
-    window.tp3_app.init = false;
-    $j(document).trigger('loaded');
+    tp3_app.init = false;
+   // $j(document).trigger('loaded');
     window.dispatchEvent(new Event('loaded'))
 })

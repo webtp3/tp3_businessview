@@ -9,7 +9,7 @@ plugin.tx_tp3businessview_tp3businessview {
   }
   persistence {
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=Default storage PID
-    storagePid =
+    storagePid =1563
   }
   settings{
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=google api key (FE) https://console.developers.google.com/apis/

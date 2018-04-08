@@ -1,7 +1,16 @@
 config.tx_extbase{
   persistence {
     classes {
+      Tp3\Tp3Businessview\Domain\Model\Panoramas {
+        mapping {
+          tableName = tx_tp3businessview_domain_model_panoramas
+          recordType = Tx_Tp3Businessview_Panoramas
+          columns {
+            tp3businessviews.mapOnProperty = uid
+          }
+        }
 
+      }
       Tp3\Tp3Businessview\Domain\Model\BusinessAdress {
         mapping {
           tableName = tt_address
@@ -12,6 +21,14 @@ config.tx_extbase{
         }
       }
       Tp3\Tp3Businessview\Domain\Model\Tp3Businessview {
+        mapping {
+          tableName = tx_tp3businessview_domain_model_tp3businessview
+          recordType = Tx_Tp3Businessview_Tp3Businessview
+          columns {
+            panoramas.mapOnProperty = uid
+            contact.mapOnProperty = uid
+          }
+        }
         subclasses {
           Tp3\Tp3Businessview\Domain\Model\BusinessAdress = Tp3\Tp3Businessview\Domain\Model\BusinessAdress
           Tp3\Tp3Businessview\Domain\Model\Panoramas = Tp3\Tp3Businessview\Domain\Model\Panoramas

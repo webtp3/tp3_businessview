@@ -196,7 +196,7 @@ class Tp3BusinessViewController extends ActionController
      */
     public function indexAction()
     {
-        $publicResourcesPath = ExtensionManagementUtility::extRelPath('tp3_businessview') . 'Resources/Public/';
+        $publicResourcesPath = ExtensionManagementUtility::extPath('tp3_businessview') . 'Resources/Public/';
 
         $this->pageRenderer->addCssFile(
             $publicResourcesPath . 'Css/Backend/Tp3Backend.css'

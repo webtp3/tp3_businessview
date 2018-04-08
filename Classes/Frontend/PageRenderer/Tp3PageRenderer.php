@@ -60,6 +60,7 @@ class Tp3PageRenderer implements SingletonInterface
             }
             $businessview = $this->tp3businessviewrepository->findByPanoramas($panoramas[0]["uid"])[0];
             $businessview['panorama'] = $panoramas[0];
+            $panorama_array = $this->panoramasrepository->findPanoramaFromBusinessView($businessview["uid"])[0];
 
             // Social Gallery
             if ($this->businessadressrepository === null  && $businessview['contact'] > 0 ) {
