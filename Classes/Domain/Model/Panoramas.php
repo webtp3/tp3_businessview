@@ -64,10 +64,17 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * heading
-     * 
+     *
      * @var string
      */
     protected $heading = '';
+
+    /**
+     * title
+     *
+     * @var string
+     */
+    protected $title = '';
 
     /**
      * pitch
@@ -88,6 +95,27 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $position = '';
+
+    /**
+     * Returns the title
+     *
+     * @return string $title
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Sets the title
+     *
+     * @param string $title
+     * @return void
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
 
     /**
      * Returns the position

@@ -69,6 +69,15 @@ return [
                 ]
             ],
         ],
+        'title' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_panoramas.title',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
         'pano_id' => [
 	        'exclude' => true,
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_panoramas.pano_id',
@@ -78,15 +87,16 @@ return [
 			    'eval' => 'trim,required'
 			],
 	    ],
-	    'heading' => [
-	        'exclude' => true,
-	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_panoramas.heading',
-	        'config' => [
-			    'type' => 'input',
-			    'size' => 30,
-			    'eval' => 'trim'
-			],
-	    ],
+        'heading' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_panoramas.heading',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+
 	    'pitch' => [
 	        'exclude' => true,
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_panoramas.pitch',

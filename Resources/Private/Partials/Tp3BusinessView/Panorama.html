@@ -1,58 +1,77 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<tr id="pano_{panorama.uid}_{panorama.pid}" class="entry">
-   <td class="pano_id">
+    <f:form.hidden   name="panoramas[uid]" value="{panorama.uid}"  class="formvalue uid"  />
+    <f:form.hidden   name="panoramas[pid]" value="{panorama.pid}"  class="formvalue pid"  />
+    <tr id="pano_{panorama.uid}_{panorama.pid}" class="entry">
+       <td class="title">
+        <f:if condition="{editmode}">
+            <f:then>
+                <f:form.textfield additionalAttributes=""  type="text" name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][title]"  value="{panorama.title}"  class="formvalue"  >
+                </f:form.textfield>
+            </f:then>
+            <f:else >{panorama.title}</f:else>
+        </f:if>
 
-    <f:if condition="{editmode}">
-        <f:then>
-            <f:form.textfield additionalAttributes=""  type="text" name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][pano_id]"  value="{panorama.pano_id}"  class="formvalue"  >
-            </f:form.textfield>
-        </f:then>
-        <f:else >{panorama.panoId}</f:else>
-    </f:if>
+         </td>
+        <td class="">
+            <button class="btn btn-secondary actions-view"><span class="t3js-icon icon icon-size-small icon-state-default icon-actions-view"></span></button>
+            <f:if condition="{editmode}">
+                <f:then>
+                    <f:form.textfield additionalAttributes=""  type="text" name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][pano_id]"  value="{panorama.pano_id}"  class="formvalue"  >
+                    </f:form.textfield>
+                </f:then>
+                <f:else >
+                    <f:form.hidden   name="panoramas[pano_id]" value="{panorama.panoId}"  class="formvalue pano_id"  />
+                    <f:format.crop maxCharacters="10">{panorama.panoId}</f:format.crop> </f:else>
+            </f:if>
 
-</td>
+        </td>
+       <td >
+           <div class="heading">
+        <f:if condition="{editmode}">
+            <f:then>
+                <f:form.textfield additionalAttributes=""  type="text" name="panoramas[{panorama.uid}][heading]" value="{panorama.heading}"  class="formvalue"  >
+                </f:form.textfield>
+            </f:then>
+            <f:else >{panorama.heading}</f:else>
+        </f:if>
+           </div>
+           <div class="pitch">
+               <f:if condition="{editmode}">
+                   <f:then>
+                       <f:form.textfield additionalAttributes=""  type="text"  name="panoramas[{panorama.uid}][pitch]" value="{panorama.pitch}"  class="formvalue"  >
+                       </f:form.textfield>
+                   </f:then>
+                   <f:else >{panorama.pitch}</f:else>
+               </f:if>
 
-   <td class="heading">
-    <f:if condition="{editmode}">
-        <f:then>
-            <f:form.textfield additionalAttributes=""  type="text" name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][heading]" value="{panorama.heading}"  class="formvalue"  >
-            </f:form.textfield>
-        </f:then>
-        <f:else >{panorama.heading}</f:else>
-    </f:if>
+           </div>
+           <div class="zoom">
+               <f:if condition="{editmode}">
+                   <f:then>
+                       <f:form.textfield additionalAttributes=""  type="text"  name="panoramas[{panorama.uid}][zoom]"  value="{panorama.zoom}"  class="formvalue"  >
+                       </f:form.textfield>
+                   </f:then>
+                   <f:else >{panorama.zoom}</f:else>
+               </f:if>
 
-</td>
+           </div>
+        </td>
 
-   <td class="pitch">
-    <f:if condition="{editmode}">
-        <f:then>
-            <f:form.textfield additionalAttributes=""  type="text"  name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][pitch]" value="{panorama.pitch}"  class="formvalue"  >
-            </f:form.textfield>
-        </f:then>
-        <f:else >{panorama.pitch}</f:else>
-    </f:if>
 
-</td>
+        <td class="position">
+            <f:if condition="{editmode}">
+                <f:then>
+                    <f:form.textfield additionalAttributes=""  type="text"  name="panoramas[{panorama.uid}][position]" value="{panorama.position}"  class="formvalue"  >
+                    </f:form.textfield>
+                </f:then>
+                <f:else >{panorama.position}</f:else>
+            </f:if>
+        </td>
+            <td>
 
-   <td class="zoom">
-    <f:if condition="{editmode}">
-        <f:then>
-            <f:form.textfield additionalAttributes=""  type="text"  name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][zoom]"  value="{panorama.zoom}"  class="formvalue"  >
-            </f:form.textfield>
-        </f:then>
-        <f:else >{panorama.zoom}</f:else>
-    </f:if>
+                <button  class="btn btn-secondary up"></button><br>
+                <button  class="btn btn-secondary down"></button>
 
-</td>
-<td class="position">
-    <f:if condition="{editmode}">
-        <f:then>
-            <f:form.textfield additionalAttributes=""  type="text"  name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][position]" value="{panorama.position}"  class="formvalue"  >
-            </f:form.textfield>
-        </f:then>
-        <f:else >{panorama.position}</f:else>
-    </f:if>
-
-</td>
-</tr>
+        </td>
+    </tr>
 </html>

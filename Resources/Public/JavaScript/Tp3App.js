@@ -58,13 +58,15 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             }).click(function(){
                 $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][uid]"]').val($(this).attr("id").split("_")[1]);
                 $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][pid]"]').val($(this).attr("id").split("_")[2]);
-                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][pano_id]"]').val($.trim($(this).find('.pano_id').text()));
+                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][pano_id]"]').val($.trim($(this).find('.pano_id').val()));
                 $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][heading]"]').val($.trim($(this).find('.heading').text()));
                 $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][pitch]"]').val($.trim($(this).find('.pitch').text()));
                 $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][position]"]').val($.trim($(this).find('.position').text()));
+                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][titel]"]').val($.trim($(this).find('.titel').text()));
 
 
-                panorama.setPano($.trim($(this).find('.pano_id').text()));
+
+                panorama.setPano($.trim($(this).find('.pano_id').val()));
                 panorama.setPov({
                     heading: Number($.trim($(this).find('.heading').text())),
                     pitch: Number($.trim($(this).find('.pitch').text()))
@@ -77,7 +79,9 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             }, function() {
                 $(this).removeClass('hover');
             }).click(function(){
-               if($.trim($(this).find('.place_id').text()) != "") Tp3App.geocodePlaceId(geocoder, map, infowindow,  $(this).find('.place_id').text());
+               if($.trim($(this).find('.place_id').text()) == "" || $.trim($(this).find('.geo_position').text()) == "" ) {
+                   Tp3App.getPlace( $.trim($(this).find('.geo_address').text()));
+               }
 
             });
 
@@ -97,84 +101,112 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
         },
 
     },
-    map = map || {},geocoder,infowindow,sv,
+    map = map || {},geocoder,infowindow,sv,e,
     panorama = panorama || {};
+    Tp3App.getPlace= function (uid,address){
+        var request= $.ajax({url:'//maps.google.com/maps/api/geocode/json?address='+address,type:'GET',headers:{"Access-Control-Allow-Headers":"*"}});
+        request.done(function(result){
+          var  data =  jQuery.parseJSON(result);
+            console.log(data)
+
+        }).fail(function() {
+            console.log( "error" );
+            e=true;
+
+        }).always(function(result)  {
+            if(e){
+                //Fix for bad encoding by vhs viewhelper
+                var errorContainer = $( '<div/>' );
+                try{
+                    errorContainer.html( result.responseText );
+                    errorContainer.appendTo( $( 'body' ) ).hide();
+                    data =  jQuery.parseJSON(errorContainer.text().replace("&quot;","'"));//
+
+                }
+                catch (e)
+                {
+                    console.log(e)
+                }
+
+            }
+        })
+    }
     Tp3App.initMap= function (){
-            sv = new google.maps.StreetViewService();
-            // reverse lookup if user has placeid
-            geocoder = new google.maps.Geocoder;
-            infowindow = new google.maps.InfoWindow;
-            //panorama = new google.maps.StreetViewPanorama(document.getElementById('tp3businessview-pano'));
+        sv = new google.maps.StreetViewService();
+        // reverse lookup if user has placeid
+        geocoder = new google.maps.Geocoder;
+        infowindow = new google.maps.InfoWindow;
+        //panorama = new google.maps.StreetViewPanorama(document.getElementById('tp3businessview-pano'));
 
-            // Set up the map.
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: Tp3App.BusinessAdress,
-                zoom: 16,
-                streetViewControl: false
+        // Set up the map.
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: Tp3App.BusinessAdress,
+            zoom: 16,
+            streetViewControl: false
+        });
+        var streetviewOverlay = new google['maps']['StreetViewCoverageLayer']();
+        streetviewOverlay.setMap(map);
+        // Set the initial Street View camera to the center of the map
+        sv.getPanorama({location: Tp3App.BusinessAdress, radius: 50}, Tp3App.processSVData);
+
+        // Look for a nearby Street View panorama when the map is clicked.
+        // getPanoramaByLocation will return the nearest pano when the
+        // given radius is 50 meters or less.
+        map.addListener('click', function(event) {
+            sv.getPanorama({location: event.latLng, radius: 50}, Tp3App.processSVData);
+        });
+
+        // Init Placesapi with outocomplete to find placeid
+        var input = document.getElementById('pac-input');
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
+
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        var infowindow = new google.maps.InfoWindow();
+        var marker = new google.maps.Marker({
+            map: map
+        });
+        marker.addListener('click', function() {
+            infowindow.open(map, marker);
+        });
+
+        autocomplete.addListener('place_changed', function() {
+            infowindow.close();
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                return;
+            }
+
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17);
+            }
+
+            // Set the position of the marker using the place ID and location.
+            marker.setPlace({
+                placeId: place.place_id,
+                location: place.geometry.location
             });
-            var streetviewOverlay = new google['maps']['StreetViewCoverageLayer']();
-            streetviewOverlay.setMap(map);
-            // Set the initial Street View camera to the center of the map
-            sv.getPanorama({location: Tp3App.BusinessAdress, radius: 50}, Tp3App.processSVData);
+            marker.setVisible(true);
 
-            // Look for a nearby Street View panorama when the map is clicked.
-            // getPanoramaByLocation will return the nearest pano when the
-            // given radius is 50 meters or less.
-            map.addListener('click', function(event) {
-                sv.getPanorama({location: event.latLng, radius: 50}, Tp3App.processSVData);
-            });
-
-            // Init Placesapi with outocomplete to find placeid
-            var input = document.getElementById('pac-input');
-
-            var autocomplete = new google.maps.places.Autocomplete(input);
-            autocomplete.bindTo('bounds', map);
-
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-            var infowindow = new google.maps.InfoWindow();
-            var marker = new google.maps.Marker({
-                map: map
-            });
-            marker.addListener('click', function() {
-                infowindow.open(map, marker);
-            });
-
-            autocomplete.addListener('place_changed', function() {
-                infowindow.close();
-                var place = autocomplete.getPlace();
-                if (!place.geometry) {
-                    return;
-                }
-
-                if (place.geometry.viewport) {
-                    map.fitBounds(place.geometry.viewport);
-                } else {
-                    map.setCenter(place.geometry.location);
-                    map.setZoom(17);
-                }
-
-                // Set the position of the marker using the place ID and location.
-                marker.setPlace({
-                    placeId: place.place_id,
-                    location: place.geometry.location
-                });
-                marker.setVisible(true);
-
-                document.getElementById('place-name').textContent = place.name;
-                document.getElementById('place-id').textContent = place.place_id;
-                document.getElementById('place-address').textContent =
-                    place.formatted_address;
-                infowindow.setContent(document.getElementById('infowindow-content'));
-                infowindow.open(map, marker);
-            });
+            document.getElementById('place-name').textContent = place.name;
+            document.getElementById('place-id').textContent = place.place_id;
+            document.getElementById('place-address').textContent =
+                place.formatted_address;
+            infowindow.setContent(document.getElementById('infowindow-content'));
+            infowindow.open(map, marker);
+        });
 
 
 
-         /*   document.getElementById('reversesubmit').addEventListener('click', function() {
-                Tp3App.geocodePlaceId(geocoder, map, infowindow);
-            });*/
-        }
+        /*   document.getElementById('reversesubmit').addEventListener('click', function() {
+               Tp3App.geocodePlaceId(geocoder, map, infowindow);
+           });*/
+    },
     Tp3App.geocodePlaceId = function(geocoder, map, infowindow, placeId) {
       //  if(!placeId) placeId = document.getElementById('place-id').value;
         // reverse lookup if user has placeid
@@ -252,7 +284,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                 zoomCell.value = panorama.getPov().zoom + '';
 
             });
-        };
+        }
     Tp3App.processSVData = function(data, status){
         if (status === 'OK') {
             var marker = new google.maps.Marker({

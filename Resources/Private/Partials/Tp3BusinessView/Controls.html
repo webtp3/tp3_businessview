@@ -1,26 +1,22 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<style>
 
-</style>
-<!-- https://developers.google.com/maps/documentation/javascript/streetview?hl=de
-https://developers.google.com/maps/documentation/javascript/examples/streetview-custom-simple?hl=de -->
-<input id="pac-input" class=tp3businessview-controls" type="text" placeholder="Enter a location">
-<div id="infowindow-content">
-    <span id="place-name"  class="title"></span><br>
-    Place ID <span id="place-id"></span><br>
-    <span id="place-address"></span>
-</div>
-<div id="map"></div>
-<div id="tp3businessview-pano"></div>
-<div id="tp3businessview-floating-panel">
-   <!-- if you have a place ID
-    <input id="place-id" type="text" value="">
-    <input id="reversesubmit" type="button" value="Reverse Geocode by Place ID">-->
     <f:form action="update" id="editform" controller="Panoramas"  name="update" object="{panorama}" arguments="{panorama: panorama}">
     <f:form.hidden   name="panoramas[uid]" value="{panorama.uid}"  class="formvalue"  />
     <f:form.hidden   name="panoramas[pid]" value="{panorama.pid}"  class="formvalue"  />
-
-    <table class="panoviewer">
+        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay color
+        color=orange
+        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay backgroundColor
+        backgroundColor=#F0AD4E
+        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay textColor
+        textColor=#FFF
+        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay align
+        align=right
+        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoJumpTimer ms
+        panoJumpTimer=5000
+        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationTimer ms
+        panoRotationTimer=30
+        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationFactor in °
+        panoRotationFactor=0.015
+    <table class="pano-controls">
         <tr>
             <td><b>Titel</b></td>
             <td class="title">
@@ -56,10 +52,8 @@ https://developers.google.com/maps/documentation/javascript/examples/streetview-
             </f:form.textfield>
         </td>
         </tr>
-        <table id="links_table"></table>
     </table>
-        <f:form.submit name="submit" id="submitEditform" value="save" />
-        <f:form.submit name="submit" id="submitNewform" value="new" />
+
 
     </f:form>
 </div>

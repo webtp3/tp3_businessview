@@ -47,6 +47,7 @@ use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Imaging\IconFactory;
 
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -66,6 +67,11 @@ use TYPO3\CMS\Core\DataHandling\DataHandler as DataHandlerCore;
  */
 class ModuleController extends ActionController
 {
+
+    /**
+     * @var IconFactory
+     */
+    protected $iconFactory;
 
     /**
 
@@ -91,13 +97,7 @@ class ModuleController extends ActionController
      */
     protected $pageRenderer;
 
-    /**
-     * @var int
-     */
-    const FE_PREVIEW_TYPE = 699841589;
-
-
-    /**
+     /**
      * @var array
      */
     protected $MOD_MENU;
@@ -170,7 +170,7 @@ class ModuleController extends ActionController
         if (TYPO3_MODE === 'BE') {
             $this->registerDocheaderButtons();
         }
-      //  $this->view->render();
+        //  $this->view->render();
     }
 
     protected function initializeAction()
@@ -218,20 +218,7 @@ class ModuleController extends ActionController
 
     }
 
-    /**
-     * action list
-     * 
-     * @return void
-     */
-    public function listAction()
-    {
-       /* $tp3BusinessViews = $this->tp3BusinessViewRepository->findAll();
-        $this->view->assign('tp3BusinessViews', $tp3BusinessViews);*/
-       //enable page injection instead of plugin
-        $GLOBALS['TSFE']->page['tx_tp3businessview_onpage'] = true;
-        $GLOBALS['TSFE']->page['tx_tp3businessview_panorama'] = 1;
 
-    }
     /**
      * action index
      *
@@ -246,8 +233,17 @@ class ModuleController extends ActionController
         );
         $this->pageRenderer->addJsInlineCode("gapikey",'window.apikey = "'.$this->settings["googleMapsJavaScriptApiKey"].'";');
 
+        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        $vpid = $querySettings->getStoragePageIds();
+        // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
+
         $panoramas = [];
         $businessAdresses = [];
+        $businessView = [];
+
+        if ($this->tp3BusinessViewRepository === null) {
+            $this->tp3BusinessViewRepository = $this->objectManager->get(Tp3BusinessViewRepository::class);
+        }
 
         if ($this->panoramasRepository === null) {
             $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
@@ -255,6 +251,9 @@ class ModuleController extends ActionController
         if ($this->businessAdressRepository === null) {
             $this->businessAdressRepository = $this->objectManager->get(BusinessAdressRepository::class);
         }
+
+        $businessView = $this->tp3BusinessViewRepository->findAll();
+
         $panoramas = $this->panoramasRepository->findAll();
         //$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         //$querySettings->setRespectStoragePage(true);
@@ -264,6 +263,7 @@ class ModuleController extends ActionController
         $this->view->assign('debugMode', $this->conf["debugMode"]);
         $this->view->assign('conf', $this->conf);
         $this->view->assign('panoramas', $panoramas);
+        $this->view->assign('businessview', $businessView);
         $this->view->assign('addresses', $businessAdresses);
 
     }

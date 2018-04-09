@@ -88,3 +88,7 @@
     width:100%;
     padding-top: 20px;
 }
+.recordlists button.btn.btn-secondary {
+    float: right;
+
+}

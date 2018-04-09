@@ -58,6 +58,8 @@ CREATE TABLE tx_tp3businessview_domain_model_panoramas (
 
 	pano_id varchar(255) DEFAULT '' NOT NULL,
 	heading varchar(255) DEFAULT '' NOT NULL,
+	title varchar(255) DEFAULT '' NOT NULL,
+
 	pitch varchar(255) DEFAULT '' NOT NULL,
 	zoom varchar(255) DEFAULT '' NOT NULL,
 	position varchar(255) DEFAULT '' NOT NULL,
