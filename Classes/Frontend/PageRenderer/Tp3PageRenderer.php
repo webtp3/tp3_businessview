@@ -100,18 +100,43 @@ class Tp3PageRenderer implements SingletonInterface
      */
     public function JsonRenderer(array $businessview = [], array $panoramas = [])
     {
-        $pano_animation = explode(",",$businessview['pano_animation']);
-        $businessview['pano_animation'] = array();
-        foreach ($pano_animation as &$value) {
-            $businessview['pano_animation'][$value] =  true;
+       if(!is_array($businessview['panoAnimation'])) {
+           $pano_animation = explode(",",$businessview['pano_animation']);
+           $businessview['pano_animation'] = array();
+           foreach ($pano_animation as &$value) {
+               $businessview['pano_animation'][$value] =  true;
+           }
+           unset($value);
+       }
+       else
+        $businessview['pano_animation'] = $businessview['panoAnimation'];
+
+        if(!is_array($businessview['panoOptions'])) {
+
+            $pano_options = explode(",", $businessview['pano_options']);
+            $businessview['pano_options'] = array();
+            foreach ($pano_options as &$value) {
+                $businessview['pano_options'][$value] = true;
+            }
+            unset($value);
         }
-        unset($value);
-        $pano_options = explode(",",$businessview['pano_options']);
-        $businessview['pano_options'] = array();
-        foreach ($pano_options as &$value) {
-            $businessview['pano_options'][$value] =  true;
+        else
+            $businessview['pano_options'] = $businessview['panoOptions'];
+
+        $pano_array = [];
+        foreach ($panoramas as $panorama ){
+            $pano_array[] =  [ "id"=>$panorama["pano_id"],
+                "areas"=>[],
+                "infoPoints"=>[],
+                "actions"=>[
+                    [
+                        "id"=>$panorama["pano_id"],
+                        "visibleHeading"=>["from"=>0,"to"=>360],
+                        "visiblePitch"=>["from"=>0,"to"=>180]
+                    ],
+                ],
+            ];
         }
-        unset($value);
 
         $json = json_encode([
             "details"=> [
@@ -167,18 +192,7 @@ class Tp3PageRenderer implements SingletonInterface
                     "scrollwheel"=>$businessview['pano_options']['scrollwheel'] ? true : false ,
                     "zoomControl"=>$businessview['pano_options']['zoomControl'] ? true : false ,
                 ],
-                "panoramas"=>[
-                        "id"=>"",
-                        "areas"=>[],
-                        "infoPoints"=>[],
-                        "actions"=>[
-                                [
-                                "id"=>"",
-                                "visibleHeading"=>["from"=>0,"to"=>360],
-                                "visiblePitch"=>["from"=>0,"to"=>180]
-                                ],
-                        ],
-                    ],
+                "panoramas"=>$pano_array,
                 "type"=>"businessview",
             ],
             "hasDetails"=>true

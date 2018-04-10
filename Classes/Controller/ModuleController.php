@@ -49,6 +49,7 @@ use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -239,7 +240,7 @@ class ModuleController extends ActionController
         $this->pageRenderer->addCssFile(
             $publicResourcesPath . 'Css/Backend/Tp3Backend.css'
         );
-        $this->pageRenderer->addJsInlineCode("gapikey",'window.apikey = "'.$this->settings["googleMapsJavaScriptApiKey"].'";');
+        $this->pageRenderer->addJsInlineCode("gapikey",'window.apikey = "'.$this->settings["googleMapsJavaScriptApiKey"].'";TYPO3.jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length; if(index<0){index=Math.max(0,lastIndex+ 1+ index)}this.append(element);if(index<lastIndex){this.children().eq(index).before(this.children().last())}return this;}');
 
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         $vpid = $querySettings->getStoragePageIds();
@@ -262,7 +263,6 @@ class ModuleController extends ActionController
         if ($this->jsonRenderer === null) {
             $this->jsonRenderer = $this->objectManager->get(Tp3PageRenderer::class);
         }
-        $this->pageUid = (int)GeneralUtility::_GP('id');
         $businessViews = $this->tp3BusinessViewRepository->findAll();
         $businessView = $businessViews->getFirst();
         $panoramas = $this->panoramasRepository->findByList($businessView->getPanoramas());
@@ -271,7 +271,11 @@ class ModuleController extends ActionController
         // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
         $bw = $businessView->getPropertiesArray();
         $businessAdresses = $this->businessAdressRepository->findByList($businessView->getContact());
-        $businessViewJson = $this->jsonRenderer->JsonRenderer($bw,$panoramas[0]);
+        $bw['contact'] = $businessAdresses[0];
+        $bw['panorama'] = $panoramas[0];
+        $bw['panoramas'] = [$panoramas];
+       // $bw['contact'] = $this->businessadressrepository->findByUid($businessView->getContact()->getFirst()->getUid())[0];
+        $businessViewJson = $this->jsonRenderer->JsonRenderer($bw,$panoramas);
         $this->view->assign('debugMode', $this->conf["debugMode"]);
         $this->view->assign('conf', $this->conf);
         $this->view->assign('panoramas', $panoramas);
