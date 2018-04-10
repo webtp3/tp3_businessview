@@ -6,7 +6,7 @@ config.tx_extbase{
           tableName = tx_tp3businessview_domain_model_panoramas
           recordType = Tx_Tp3Businessview_Panoramas
           columns {
-            tp3businessviews.mapOnProperty = uid_local
+            tp3businessviews.mapOnProperty = Tp3\Tp3Businessview\Domain\Model\Tp3Businessview
           }
         }
 

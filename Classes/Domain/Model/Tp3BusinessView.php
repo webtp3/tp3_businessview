@@ -88,7 +88,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var array
      */
-    protected $panoAnimation = ["jumps"=>false,"rotation"=>true];
+    protected $panoAnimation = ["jumps"=>true,"rotation"=>true];
 
     /**
      * socialGallery
@@ -418,13 +418,15 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $option_values = $this->getPanoOptions();
 
         for($i=0;count($panoOptions)<$i;$i++){
-               $panoOptions[$i] = $option_values[$i];
-    }
-
+            if(in_array($panoOptions[$i] , $option_values))$panoOptions[$i] = true;
+            else $panoOptions[$i] = false;
+        }
+        unset($option_values);
         $option_values = $this->getPanoAnimation();
-        $panoAnimation = ["jumps"=>false,"rotation"=>true];
+        $panoAnimation = ["jumps"=>true,"rotation"=>true];
         for($i=0;count($panoAnimation)<$i;$i++){
-            $panoAnimation[$i] = $option_values[$i];
+            if(in_array($panoAnimation[$i] , $option_values))$panoAnimation[$i] = true;
+            else $panoAnimation[$i] = false;
         }
         return [
 

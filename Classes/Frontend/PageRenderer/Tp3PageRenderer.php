@@ -128,15 +128,15 @@ class Tp3PageRenderer implements SingletonInterface
             $pano_array[] =  [ "id"=>$panorama["pano_id"],
                 "areas"=>[],
                 "infoPoints"=>[],
-                "actions"=>[
-                    [
-                        "id"=>$panorama["pano_id"],
-                        "visibleHeading"=>["from"=>0,"to"=>360],
-                        "visiblePitch"=>["from"=>0,"to"=>180]
-                    ],
+                "pano" => [
+                    "heading"=>$panorama['heading'],
+                    "panoId"=>$panorama['pano_id'],
+                    "pitch"=>$panorama['pitch'],
+                    "zoom"=>is_numeric($panorama['zoom']) ? $panorama['zoom'] : 0 ,
                 ],
+                "actions"=>[   ],
             ];
-        }
+        };
 
         $json = json_encode([
             "details"=> [

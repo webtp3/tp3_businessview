@@ -35,42 +35,7 @@ $ = $j = jQuery.noConflict();
 					}
 
 				}
-				 if(window.location.hash && $j(".page-" + window.location.hash.substring(1)).length > 0){
-					//e.preventDefault();
-                if($.type($.smoothScroll) == "function"){
-                    $.smoothScroll({
-                      scrollElement: null,
-                      scrollTarget: ".page-" + window.location.hash.substring(1)
-                    });
-				}
 
-
-				window.history.pushState({}, '', window.location.hash);
-			  } if(document.location.hash && $j(".page-" + document.location.hash.substring(1)).length > 0){
-					//e.preventDefault();
-                if($.type($.smoothScroll) == "function"){
-                    $.smoothScroll({
-                      scrollElement: null,
-                      scrollTarget: ".page-" + document.location.hash.substring(1)
-                    });
-				}
-
-
-				window.history.pushState({}, '', document.location.hash);
-			  }else if($j(window.location.hash).length > 0){
-				//  e.preventDefault();
-
-			if($.type($.smoothScroll) == "function"){
-				$.smoothScroll({
-				  scrollElement: null,
-				  scrollTarget:  document.location.hash
-				});
-				}
-
-
-
-				window.history.pushState({}, '', window.location.hash);
-				}
 				return query_string;
 
 			} ();

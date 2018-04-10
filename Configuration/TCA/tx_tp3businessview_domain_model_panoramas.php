@@ -131,7 +131,7 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
-                'enableMultiSelectFilterTextfield' => true,
+              //  'enableMultiSelectFilterTextfield' => true,
                 'foreign_table' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'foreign_table_where' => 'AND  tx_tp3businessview_domain_model_panoramas_mm.uid_local=###THIS_UID###',
                 'allowed' => 'tx_tp3businessview_domain_model_tp3businessview',
