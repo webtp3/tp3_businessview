@@ -219,8 +219,9 @@ return [
 			    'renderType' => 'selectMultipleSideBySide',
 			    'foreign_table' => 'tx_tp3businessview_domain_model_panoramas',
                 'enableMultiSelectFilterTextfield' => true,
+                'allowed' => 'tx_tp3businessview_domain_model_panoramas',
                 'MM' => 'tx_tp3businessview_domain_model_panoramas_mm',
-                'minitems' => 0,
+                'minitems' => 1,
 			    'maxitems' => 99,
 
 			],

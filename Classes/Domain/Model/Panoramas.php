@@ -49,6 +49,11 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public $uid = '';
 
     /**
+     * propertiesArray
+     * @var array
+     */
+    protected $propertiesArray = [];
+    /**
      * pid
      * @var integer
      */
@@ -95,6 +100,15 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $position = '';
+
+    /**
+     * contact
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView>
+     * @cascade remove
+     * @lazy
+     */
+    protected $businessviews = null;
 
     /**
      * Returns the title
@@ -257,4 +271,46 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->zoom = $zoom;
     }
+    /**
+     * @return array
+     */
+    public function getPropertiesArray() {
+        return $this->_getCleanProperties();
+
+    }
+    /**
+     * Initializes all ObjectStorage properties
+     * Do not modify this method!
+     * It will be rewritten on each save in the extension builder
+     * You may modify the constructor of this class instead
+     *
+     * @return void
+     */
+    protected function initStorageObjects()
+    {
+        $this->businessviews = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
+    /**
+     * Adds a Tp3Businessview
+     *
+     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessviews
+     * @return void
+     */
+    public function addTp3BusinessView(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessviews)
+    {
+        $this->businessviews->attach($businessviews);
+    }
+
+    /**
+     * Removes a BusinessAdress
+     *
+     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessviewsToRemove The Tp3Businessview to be removed
+     * @return void
+     */
+    public function removeTp3BusinessView(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessviewsToRemove)
+    {
+        $this->businessviews->detach($businessviewsToRemove);
+    }
+
 }

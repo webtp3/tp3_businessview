@@ -38,6 +38,7 @@ namespace Tp3\Tp3Businessview\Controller;
  ***/
 use Tp3\Tp3Businessview\Domain\Model\BusinessAdress;
 use Tp3\Tp3Businessview\Domain\Model\Panoramas;
+use Tp3\Tp3Businessview\Frontend\PageRenderer\Tp3PageRenderer;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
@@ -74,7 +75,7 @@ class ModuleController extends ActionController
     protected $iconFactory;
 
     /**
-
+    * @var PersistenceManager
      */
     protected $persistenceManager = null;
     /**
@@ -86,6 +87,10 @@ class ModuleController extends ActionController
     protected $defaultViewObjectName = BackendTemplateView::class;
 
     /**
+     * @var  pageUid
+     */
+    public  $pageUid= null;
+    /**
      * BackendTemplateContainer
      *
      * @var BackendTemplateView
@@ -96,7 +101,10 @@ class ModuleController extends ActionController
      * @var PageRenderer
      */
     protected $pageRenderer;
-
+    /**
+     * @var Tp3PageRenderer;
+     */
+    protected $jsonRenderer;
      /**
      * @var array
      */
@@ -251,20 +259,25 @@ class ModuleController extends ActionController
         if ($this->businessAdressRepository === null) {
             $this->businessAdressRepository = $this->objectManager->get(BusinessAdressRepository::class);
         }
-
-        $businessView = $this->tp3BusinessViewRepository->findAll();
-
-        $panoramas = $this->panoramasRepository->findAll();
+        if ($this->jsonRenderer === null) {
+            $this->jsonRenderer = $this->objectManager->get(Tp3PageRenderer::class);
+        }
+        $this->pageUid = (int)GeneralUtility::_GP('id');
+        $businessViews = $this->tp3BusinessViewRepository->findAll();
+        $businessView = $businessViews->getFirst();
+        $panoramas = $this->panoramasRepository->findByList($businessView->getPanoramas());
         //$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         //$querySettings->setRespectStoragePage(true);
         // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
-        $businessAdresses = $this->businessAdressRepository->findAll();
-
+        $bw = $businessView->getPropertiesArray();
+        $businessAdresses = $this->businessAdressRepository->findByList($businessView->getContact());
+        $businessViewJson = $this->jsonRenderer->JsonRenderer($bw,$panoramas[0]);
         $this->view->assign('debugMode', $this->conf["debugMode"]);
         $this->view->assign('conf', $this->conf);
         $this->view->assign('panoramas', $panoramas);
-        $this->view->assign('businessview', $businessView);
+        $this->view->assign('businessviews', $businessViews);
         $this->view->assign('addresses', $businessAdresses);
+        $this->view->assign('businessViewJson', $businessViewJson);
 
     }
 
@@ -410,52 +423,7 @@ class ModuleController extends ActionController
         $shortcutName = $this->getLanguageService()->sL(
             'LLL:EXT:beuser/Resources/Private/Language/locallang.xml:backendUsers'
         );
-        if ($currentRequest->getControllerName() === 'Module') {
-            if ($currentRequest->getControllerActionName() === 'edit') {
-                if ($currentRequest->hasArgument('returnUrl') &&
-                    $currentRequest->getArgument('returnUrl')) {
-                    // CLOSE button:
-                    $closeButton = $buttonBar->makeLinkButton()
-                        ->setHref(urldecode($currentRequest->getArgument('returnUrl')))
-                        ->setClasses('t3js-editform-close')
-                        ->setTitle($lang->sL('LLL:EXT:lang/locallang_core.xlf:rm.closeDoc'))
-                        ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon(
-                            'actions-document-close',
-                            Icon::SIZE_SMALL
-                        ));
-                    $buttonBar->addButton($closeButton, ButtonBar::BUTTON_POSITION_LEFT, 1);
-                }
 
-                // SAVE button:
-                $saveButton = $buttonBar->makeInputButton()
-                    ->setTitle($lang->sL('LLL:EXT:lang/locallang_core.xlf:rm.saveDoc'))
-                    ->setName($modulePrefix . '[submit]')
-                    ->setValue('Save')
-                    ->setForm('editYoastSettings')
-                    ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon(
-                        'actions-document-save',
-                        Icon::SIZE_SMALL
-                    ))
-                    ->setShowLabelText(true);
-
-                $buttonBar->addButton($saveButton, ButtonBar::BUTTON_POSITION_LEFT, 2);
-            }
-            if ($currentRequest->getControllerActionName() === 'settings') {
-                // SAVE button:
-                $saveButton = $buttonBar->makeInputButton()
-                    ->setTitle($lang->sL('LLL:EXT:lang/locallang_core.xlf:rm.saveDoc'))
-                    ->setName($modulePrefix . '[submit]')
-                    ->setValue('Save')
-                    ->setForm('editYoastSettings')
-                    ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon(
-                        'actions-document-save',
-                        Icon::SIZE_SMALL
-                    ))
-                    ->setShowLabelText(true);
-
-                $buttonBar->addButton($saveButton, ButtonBar::BUTTON_POSITION_LEFT, 2);
-            }
-        }
         $shortcutButton = $buttonBar->makeShortcutButton()
             ->setModuleName($moduleName)
             ->setDisplayName($shortcutName)

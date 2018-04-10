@@ -1,42 +1,13 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<tr  id="address_{address.uid}_{address.pid}" class="entry">
-   <td class="name">
-    <f:if condition="{editmode}">
-        <f:then>
-            <f:form.textfield additionalAttributes=""  type="text" name="tt_address[{address.uid}][name]" value="{address.name}"  class="formvalue"  >
-            </f:form.textfield>
-        </f:then>
-        <f:else >{address.name}</f:else>
-    </f:if>
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
-</td>
+    <f:for each="{businessview}" as="propertyValue" key="propertyName">
+        <td class="{propertyName}_lbl">
+        {propertyName}
+         </td>
+        <td class="{propertyName}">
+           {propertyValue}
+        </td>
+</f:for>
 
-   <td class="place_id">
-    <f:if condition="{editmode}">
-        <f:then>
-            <f:form.textfield additionalAttributes=""  type="text" name="tt_address[{address.uid}][cid]"  value="{address.cid}"  class="formvalue"  >
-            </f:form.textfield>
-        </f:then>
-        <f:else >{address.cid}</f:else>
-    </f:if>
-
-</td>
-
-   <td class="geo">
-    <f:if condition="{editmode}">
-        <f:then>
-            <f:form.textfield additionalAttributes=""  type="text"  name="tt_address[{address.uid}][latitude]"  value="{address.latitude}"  class="formvalue"  >
-            </f:form.textfield>
-            <f:form.textfield additionalAttributes=""  type="text"  name="tt_address[{address.uid}][longitude]"  value="{address.longitude}"  class="formvalue"  >
-            </f:form.textfield>
-        </f:then>
-        <f:else>
-            <span class="geo_position">({address.latitude}, {address.longitude})</span><button class="btn btn-secondary geolocade"><span class="texticon-inner-icon glyphicon glyphicon-map-marker"></span></button><br>
-            <span class="geo_address">{address.address}, {address.zip}, {address.city}</span><button class="btn btn-secondary addresslocate"><span class="texticon-inner-icon glyphicon glyphicon-street"></span></button>
-        </f:else>
-    </f:if>
-
-</td>
-
-</tr>
 </html>

@@ -103,12 +103,16 @@ CREATE TABLE pages (
 	tx_tp3businessview_injetionpoint varchar(255) DEFAULT '' NOT NULL,
 );
 
-#
-# Table structure for table 'tx_tp3businessview_domain_model_panoramas_mm'
-#
 CREATE TABLE `tx_tp3businessview_domain_model_panoramas_mm` (
+  `uid` int(11) NOT NULL AUTO_INCREMENT,
   `uid_local` int(11) NOT NULL,
   `uid_foreign` int(11) NOT NULL,
-  `sorting` varchar(45) DEFAULT NULL,
-  KEY `uid` (`uid_local`,`uid_foreign`)
-);
+  `sorting` int(11) DEFAULT NULL,
+  `sorting_foreign` int(11) DEFAULT NULL,
+  `tablenames` varchar(100) NOT NULL DEFAULT '',
+  `pid` int(11) NOT NULL,
+  PRIMARY KEY (`uid`),
+  KEY `uid` (`uid_local`,`uid_foreign`),
+  KEY `sorting` (`uid_local`,`sorting`),
+  KEY `sorting_foreign` (`uid_foreign`,`sorting_foreign`)
+)

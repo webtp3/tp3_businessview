@@ -51,6 +51,9 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             $('#submitEditform').on("click", function(e){
 
             })
+            $('#btn-controls').on("click", function(e){
+                    $('.tp3businessview-controls.tp3-panel').toggle()
+            })
             $('.panolist tr.entry').hover(function() {
                 $(this).addClass('hover');
             }, function() {
@@ -62,7 +65,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                 $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][heading]"]').val($.trim($(this).find('.heading').text()));
                 $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][pitch]"]').val($.trim($(this).find('.pitch').text()));
                 $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][position]"]').val($.trim($(this).find('.position').text()));
-                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][titel]"]').val($.trim($(this).find('.titel').text()));
+                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][title]"]').val($.trim($(this).find('.titel').text()));
 
 
 
@@ -440,7 +443,8 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             if(businessviewJson.details.modules.opentable){var opentable=businessviewJson.details.modules.opentable;if(opentable.status){appendOpenTableWidgetToBusinessView(opentable.restaurantId,opentable.align,opentable.position);$(businessviewCanvasSelector).on('click','div#businessview-opentable-canvas.fancybox .OTButton',function(){var url=decodeURIComponent($(this).attr('data-restaurant-url'));if(window.location.protocol=="https:"){window.location.href=url;}else{$.fancybox.open({href:url,type:'iframe',padding:0,width:'880px',height:'480px',helpers:{overlay:{locked:false}}});}});}}}
         resizeBusinessView(panoOptions);$(window).resize(function(){resizeBusinessView(panoOptions);});checkVisibleViewportObjects(panorama.getPano(),panorama.getPov());google.maps.event.addListener(panorama,'pov_changed',function(){checkVisibleViewportObjects(panorama.getPano(),panorama.getPov());updateInfoPoints();removeBusinessviewCanvas('businessview-intro-canvas');});google.maps.event.addListener(panorama,'position_changed',function(){initialize_CurrentPanoramaOverlays(panorama.getPano());checkVisibleViewportObjects(panorama.getPano(),panorama.getPov());centerBusinessViewCanvas('businessview-area-canvas');centerBusinessViewCanvas('businessview-intro-canvas');});google.maps.event.addListener(panorama,'zoom_changed',function(){zoom=panorama.getZoom();});panoResizeTimer=window.setInterval(function(){google.maps.event.trigger(panorama,'resize');panoResizeCounter++;if(panoResizeCounter==20){window.clearInterval(panoResizeTimer);}},1000);$('body').on('click','.businessview-deep-link',function(e){e.preventDefault();var businessviewId=$(this).attr('data-businessview-id');var panoId=$(this).attr('data-panorama-id');var heading=parseFloat($(this).attr('data-entry-heading'))||0;var pitch=parseFloat($(this).attr('data-entry-pitch'))||0;jumpToBusinessView(businessviewId,panoId,heading,pitch);});if(QueryString.businessviewId&&QueryString.panoramaId){var businessviewId=QueryString.businessviewId;var panoId=QueryString.panoramaId;var heading=parseFloat(QueryString.entryHeading)||0;var pitch=parseFloat(QueryString.entryPitch)||0;jumpToBusinessView(businessviewId,panoId,heading,pitch);}}
 
-
+    var businessviewJson = businessviewJson || {},
+        businessviewCanvasSelector = "#tp3businessview-pano";
    // Tp3App.init();
     return Tp3App.init();
 });

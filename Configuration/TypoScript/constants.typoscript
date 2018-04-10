@@ -16,19 +16,19 @@ plugin.tx_tp3businessview_tp3businessview {
     googleMapsJavaScriptApiKey = AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=bolean; label=load maps api from google in (FE)
     loadApi= false
-    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay color
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay color
     color=orange
-    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay backgroundColor
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay backgroundColor
     backgroundColor=#F0AD4E
-    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay textColor
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay textColor
     textColor=#FFF
-    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay align
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=select[right,left,center]; label=overlay align
     align=right
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoJumpTimer ms
     panoJumpTimer=5000
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationTimer ms
     panoRotationTimer=30
-    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationFactor in °
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationFactor in ° (default 0.015)
     panoRotationFactor=0.015
 
   }

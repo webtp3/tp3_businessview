@@ -2,7 +2,8 @@
 return [
     'ctrl' => [
         'title'	=> 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_panoramas',
-        'label' => 'pano_id',
+        'label' => 'title',
+        'label_alt' => 'pano_id',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -13,17 +14,17 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-		'searchFields' => 'pano_id,heading,pitch,zoom',
+		'searchFields' => 'title,pano_id,heading,pitch,zoom',
         'iconfile' => 'EXT:tp3_businessview/Resources/Public/Icons/user_plugin_tp3businessview.svg',
         'typeicon_classes' => [
             'default' => 'ext-tp3_businessview-wizard-icon'
         ],
     ],
     'interface' => [
-		'showRecordFieldList' => 'hidden, pano_id, heading, pitch, zoom, position',
+		'showRecordFieldList' => 'hidden, title, pano_id, heading, pitch, zoom, position',
     ],
     'types' => [
-		'1' => ['showitem' => 'hidden, pano_id, heading, pitch, zoom, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+		'1' => ['showitem' => 'hidden, title, pano_id, heading, pitch, zoom, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
 		'hidden' => [
@@ -130,14 +131,16 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
-                'foreign_table' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'enableMultiSelectFilterTextfield' => true,
+                'foreign_table' => 'tx_tp3businessview_domain_model_tp3businessview',
+                'foreign_table_where' => 'AND  tx_tp3businessview_domain_model_panoramas_mm.uid_local=###THIS_UID###',
+                'allowed' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'MM' => 'tx_tp3businessview_domain_model_panoramas_mm',
-                'MM_opposite_field' => 'panoramas',
-                'minitems' => 0,
-                'maxitems' => 1,
+                'minitems' => 1,
+                'maxitems' => 99,
                 'size' => 1,
             ],
         ],
     ]
 ];
+//tx_tp3businessview_domain_model_tp3businessview.pid=###CURRENT_PID### AND

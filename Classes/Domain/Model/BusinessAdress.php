@@ -42,12 +42,19 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  */
 class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address
 {
+
     /**
      * cid
-     * 
+     *
      * @var string
      */
     protected $cid = '';
+
+    /**
+     * propertiesArray
+     * 
+     */
+    protected $propertiesArray = [];
 
     /**
      * Returns the cid
@@ -68,5 +75,12 @@ class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address
     public function setCid($cid)
     {
         $this->cid = $cid;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPropertiesArray() {
+        return $this->_getCleanProperties();
     }
 }

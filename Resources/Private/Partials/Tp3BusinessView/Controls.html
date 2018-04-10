@@ -1,60 +1,55 @@
-
-    <f:form action="update" id="editform" controller="Panoramas"  name="update" object="{panorama}" arguments="{panorama: panorama}">
-    <f:form.hidden   name="panoramas[uid]" value="{panorama.uid}"  class="formvalue"  />
-    <f:form.hidden   name="panoramas[pid]" value="{panorama.pid}"  class="formvalue"  />
-        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay color
-        color=orange
-        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay backgroundColor
-        backgroundColor=#F0AD4E
-        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay textColor
-        textColor=#FFF
-        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=overlay align
-        align=right
-        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoJumpTimer ms
-        panoJumpTimer=5000
-        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationTimer ms
-        panoRotationTimer=30
-        # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationFactor in °
-        panoRotationFactor=0.015
-    <table class="pano-controls">
-        <tr>
-            <td><b>Titel</b></td>
-            <td class="title">
-               <f:form.textfield additionalAttributes="" required="true"  type="text" name="panoramas[title]"  value="{panorama.title}"  class="formvalue"  >
-            </f:form.textfield>
-            </td>
-        </tr><tr>
-            <td><b>Position</b></td><td ><f:form.textfield additionalAttributes="" name="panoramas[position]"  type="text" id="position-cell" value="{panorama.position-cell}"  class="formvalue"  >
-        </f:form.textfield>
-            </td>
-        </tr>
-        <tr>
-            <td><b>POV Heading</b></td><td >
-            <f:form.textfield additionalAttributes="" name="panoramas[heading]"  type="text" id="heading-cell" value="{panorama.heading-cell}"  class="formvalue"  >
-        </f:form.textfield>
-        </td>
-        </tr>
-        <tr>
-            <td><b>POV Pitch</b></td><td >
-            <f:form.textfield additionalAttributes="" name="panoramas[pitch]"  type="text" id="pitch-cell" value="{panorama.pitch-cell}"  class="formvalue"  >
-        </f:form.textfield>
-        </td>
-        </tr>
-        <tr>
-            <td><b>Pano ID</b></td><td >
-            <f:form.textfield additionalAttributes="" required="true" name="panoramas[panoId]"  type="text" id="pano-cell"  value="{panorama.panoId}"  class="formvalue"  >
-        </f:form.textfield>
-        </td>
-        </tr>
-        <tr>
-            <td><b>Zoom</b></td><td >
-            <f:form.textfield additionalAttributes="" name="panoramas[zoom]"  type="text" id="zoom-cell"  value="{panorama.zoom}"  class="formvalue"  >
-            </f:form.textfield>
-        </td>
-        </tr>
-    </table>
-
-
-    </f:form>
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="tp3businessview-controls "><button type="button" data-toggle="button" class="btn btn-secondary" id="btn-controls">open controls</button></div>
+<div class="tp3businessview-controls tp3-panel">
+           <div class="color-controls">
+               <span><b>color</b></span>
+               <span class="color">
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[color]"  value="{conf.color}"  class="formvalue"  >
+                    </f:form.textfield>
+                </span>
+           </div>
+           <div class="backgroundColor-controls">
+               <span><b>backgroundColor</b></span>
+               <span class="backgroundColor">
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[backgroundColor]"  value="{conf.backgroundColor}"  class="formvalue"  >
+                    </f:form.textfield>
+                </span>
+           </div>
+           <div class="textColor-controls">
+               <span><b>textColor</b></span>
+               <span class="textColor">
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[textColor]"  value="{conf.textColor}"  class="formvalue"  >
+                    </f:form.textfield>
+                </span>
+           </div>
+           <div class="align-controls">
+               <span><b>align</b></span>
+               <span class="align">
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[align]"  value="{conf.align}"  class="formvalue"  >
+                    </f:form.textfield>
+                </span>
+           </div>
+           <div class="panoJumpTimer-controls">
+               <span><b>panoJumpTimer</b></span>
+               <span class="panoJumpTimer">
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[panoJumpTimer]"  value="{conf.panoJumpTimer}"  class="formvalue"  >
+                    </f:form.textfield>
+                </span>
+           </div>
+           <div class="panoRotationTimer-controls">
+               <span><b>panoRotationTimer</b></span>
+               <span class="panoRotationTimer">
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[panoRotationTimer]"  value="{conf.panoRotationTimer}"  class="formvalue"  >
+                    </f:form.textfield>
+                </span>
+           </div>
+           <div class="panoRotationFactor-controls">
+               <span><b>panoRotationFactor</b></span>
+               <span class="panoRotationFactor">
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[panoRotationFactor]"  value="{conf.panoRotationFactor}"  class="formvalue"  >
+                    </f:form.textfield>
+                </span>
+           </div>
+       </div>
 </div>
-<f:render partial="Tp3BusinessView/Controls" arguments="{businessview:businessview}" />
+</html>

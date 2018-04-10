@@ -8,13 +8,20 @@
     <f:render partial="Tp3BusinessView/Finder" arguments="{tp3BusinessViews:tp3BusinessViews, panoramas:panorama}" />
     <br>
     <div class="recordlists">
-        <f:if condition="{debugMode}"><f:debug>{_all}</f:debug></f:if>
-
-        <f:if condition="{panoramas->f:count()} < 1}">
+        <f:if condition="{businessviews->f:count()} < 1}">
             <f:then>
                 <f:render partial="Tp3BusinessView/Intro" arguments="{conf:conf}" />
 
             </f:then><f:else>
+            <table class="businessviewlist">
+
+                <f:for each="{businessviews}" as="businessview">
+                    <tr id="pano_{businessview.uid}_{businessview.pid}" class="entry">
+                        <f:render partial="Tp3BusinessView/Tp3Businessview" arguments="{businessview:businessview.propertiesArray}" />
+                    </tr>
+
+                </f:for>
+            </table>
             <table class="panolist">
                 <tr>
                     <td><b>Titel</b></td>
@@ -35,7 +42,12 @@
                     <f:render partial="Tp3BusinessView/Address" arguments="{address:address}" />
                 </f:for>
             </table>
+
         </f:else></f:if>
+        <script>
+            window.businessviewJson =<f:format.raw>{businessViewJson}</f:format.raw>;
+        </script>
+
 
     </div>
 </f:section>
