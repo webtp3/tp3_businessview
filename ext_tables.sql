@@ -110,9 +110,9 @@ CREATE TABLE `tx_tp3businessview_domain_model_panoramas_mm` (
   `sorting` int(11) DEFAULT NULL,
   `sorting_foreign` int(11) DEFAULT NULL,
   `tablenames` varchar(100) NOT NULL DEFAULT '',
-  `pid` int(11) NOT NULL,
+  `pid` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`uid`),
-  KEY `uid` (`uid_local`,`uid_foreign`),
   KEY `sorting` (`uid_local`,`sorting`),
-  KEY `sorting_foreign` (`uid_foreign`,`sorting_foreign`)
-)
+  KEY `sorting_foreign` (`uid_foreign`),
+  KEY `item` (`pid`,`uid_local`)
+);

@@ -80,8 +80,11 @@ class Tp3PageRenderer implements SingletonInterface
             }
 
 
-            $parameters["jsInline"] .='<script> var businessviewJson = businessviewJson || '.$this->JsonRenderer($bw,$panoramas).';window.tp3_app = window.tp3_app || {};window.tp3_app.AnmationOptions  = {  panoJumpTimer:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpTimer"].', panoRotationTimer:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationTimer"].', panoRotationFactor:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationFactor"].'};</script>';
+            $parameters["jsInline"] .='<script> window.businessviewJson = window.businessviewJson || '.$this->JsonRenderer($bw,$panoramas).';window.tp3_app = window.tp3_app || {};window.tp3_app.AnmationOptions  = {  panoJumpTimer:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpTimer"].', panoRotationTimer:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationTimer"].', panoRotationFactor:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationFactor"].', panoJumpsRandom:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpsRandom"].'};</script>';
             $parameters["jsFooterInline"] .="<script>  $('".($GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] != "" ? $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] : '#content') ."').first().attr(\"id\",\"businessview-panorama-canvas\").wrapAll('<div id=\"businessview-canvas\" style=\"width:100%;height:100%;min-height:600px;\"></div>');</script>";
+
+
+
             $parameters["jsFooterLibs"] .='<script src="typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js"></script>';
             if($GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["loadApi"]){
                 $parameters["jsFooterFiles"] .='<script src="//maps.googleapis.com/maps/api/js?key='.$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["googleMapsJavaScriptApiKey"].'&libraries=places&callback=tp3_app.initialize"></script>';

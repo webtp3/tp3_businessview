@@ -14,6 +14,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                 }
 
             }
+            Tp3App.setAnmationOptions();
             Tp3App.initPano();
             Tp3App.initMap();
             geocoder = new google.maps.Geocoder;
@@ -109,6 +110,20 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
         pov: {
             heading: 270,
             pitch: 0
+        },
+        AnmationOptions : {
+
+            panoJumpTimer:200,
+            panoRotationTimer:30,
+            panoRotationFactor:0.015,
+            panoJumpsRandom:true,
+
+        },
+        setAnmationOptions:function(){
+            if($.type(window.AnmationOptions) == "object"){
+                Tp3App.AnmationOption = window.AnmationOptions;
+            }
+
         },
 
     },
@@ -264,14 +279,14 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                 while (linksTable.hasChildNodes()) {
                     linksTable.removeChild(linksTable.lastChild);
                 }
-                var links = panorama.getLinks();
-                for (var i in links) {
+                var linkst = window.businessviewJson.details.panoramas;
+                for (var i in linkst) {
                     var row = document.createElement('tr');
                     linksTable.appendChild(row);
                     var labelCell = document.createElement('td');
                     labelCell.innerHTML = '<b>Link: ' + i + '</b>';
                     var valueCell = document.createElement('td');
-                    valueCell.innerHTML = links[i].description;
+                    valueCell.innerHTML = linkst[i].id;
                     linksTable.appendChild(labelCell);
                     linksTable.appendChild(valueCell);
                 }
@@ -353,7 +368,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
         Tp3App.businessview_initialize = Tp3App.businessview_initialize  || function(businessviewJson){
         var panoEntry;
         var panoOptions;
-
+        var links;
         if(businessviewJson.details.panoEntry){
             panoEntry=businessviewJson.details.panoEntry;
         }else{
@@ -419,36 +434,49 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                 if(!isInViewport(businessviewCanvasSelector)&&viewportToggle){viewportToggle=false;}});}}}
             if(businessviewJson.details.modules.intro){var intro=businessviewJson.details.modules.intro;if(intro.status&&(intro.headline!=""||intro.message!="")){appendIntroToBusinessview(intro.headline,intro.message,intro.backgroundColor,intro.textColor);$(businessviewCanvasSelector).on('click','div#businessview-intro-canvas i.fa-times',function(){removeBusinessviewCanvas('businessview-intro-canvas');});}}
             if(businessviewJson.details.modules.panoAnimation){
-            var panoAnimation=businessviewJson.details.modules.panoAnimation;
-            if(panoAnimation.jumps){var lastPano=panorama.getPano();panoJumpTimer=window.setInterval(function(){
-                if(lastPano==panorama.getPano()){
-                    var links=businessviewJson.details.panoramas;var nextPano;if(links.length>1){
-                    do{nextPano=links[getRandomInt(0,links.length-1)];}
-                    while(nextPano.pano==lastPano);
-                    lastPano=nextPano.pano;
-                }else{nextPano=links[0];}
-                panorama.setPano(nextPano.pano.panoId);
-                    panorama.setPov({
-                        heading: Number(nextPano.pano.heading),
-                        pitch: Number(nextPano.pano.pitch)
-                    });
-                    panorama.setVisible(true);
-                }else{window.clearInterval(panoJumpTimer);}},5000);}
-                if(panoAnimation.rotation){
-                    var lastPov=panorama.getPov();
-                    if($.type(lastPov) == "object"){
-                        panoRotationTimer=window.setInterval(function(){
-                            var pov=panorama.getPov();
+            var panoAnimation=window.businessviewJson.details.modules.panoAnimation; var counter = 0;
+                if(panoAnimation.jumps){
+                    var lastPano=panorama.getPano();window.panoJumpTimer=window.setInterval(function(){
+                        if(lastPano.panoId==panorama.getPano()){
+                            links=window.businessviewJson.details.panoramas;var nextPano;
+                            if(links.length>1 && Tp3App.AnmationOptions.panoJumpsRandom > 0){
+                                do{nextPano=links[getRandomInt(0,links.length-1)];}
+                                while(nextPano==lastPano);
+                                lastPano=nextPano.pano;
+                            } else if(links.length>1 && Tp3App.AnmationOptions.panoJumpsRandom < 1){
+                                do{
+                                    counter++;
+                                    if(counter > links.length )counter = 0;
+                                    nextPano=links[counter];
+                                }
+                                while(nextPano==lastPano);
+                                lastPano=nextPano.pano;
+                            }else{nextPano=links[0];}
+                            panorama.setPano(nextPano.pano.panoId);
+                            panorama.setPov({
+                                heading: Number(nextPano.pano.heading),
+                                pitch: Number(nextPano.pano.pitch)
+                            });
+                            panorama.setVisible(true);
+                            if(panoAnimation.rotation){
+                                var lastPov=panorama.getPov();
+                                if($.type(lastPov) == "object"){
+                                    panoRotationTimer=window.setInterval(function(){
+                                        var pov=panorama.getPov();
 
-                            if($.type(pov) == "object" && pov.heading==lastPov.heading){
-                                pov.heading+=0.015;panorama.setPov(pov);lastPov=pov;
-                            }else{
-                                window.clearInterval(panoRotationTimer);window.clearInterval(panoJumpTimer);
+                                        if($.type(pov) == "object" && pov.heading==lastPov.heading){
+                                            pov.heading+=Tp3App.AnmationOptions.panoRotationFactor;panorama.setPov(pov);lastPov=pov;
+                                        }else{
+                                            //   document.clearInterval(panoRotationTimer);window.clearInterval(window.panoJumpTimer);
+                                        }
+                                    },Tp3App.AnmationOptions.panoRotationTimer);
+                                }
+
                             }
-                        },30);
-                    }
-
-                }}
+                        }
+                        //else{window.clearInterval(window.panoJumpTimer);}
+                    },Tp3App.AnmationOptions.panoJumpTimer);}
+                }
             if(businessviewJson.details.modules.contact){var contact=businessviewJson.details.modules.contact;if(contactBoxHasVisibleFields(contact.fields)){appendContactToBusinessview(contact.fields,contact.backgroundColor,contact.textColor,contact.align);}
                 $(businessviewCanvasSelector).on('click','div#businessview-contact-canvas div#businessview-show-contact-details',function(){$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-show-contact-details').hide();$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-contact-details').show();});$(businessviewCanvasSelector).on('click','div#businessview-contact-canvas div#businessview-contact-details i.fa-times',function(){$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-contact-details').hide();$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-show-contact-details').show();});}
             if(businessviewJson.details.modules.gallery){var gallery=businessviewJson.details.modules.gallery;if(gallery.status&&gallery.googlePlacePhotos&&gallery.googlePlacePhotos.length>0){appendGalleryToBusinessview(gallery.googlePlacePhotos);$(businessviewCanvasSelector).on('click','ul#businessview-gallery-canvas a',function(){$(businessviewCanvasSelector+' ul#businessview-gallery-canvas a').fancybox({type:'image',padding:0,helpers:{overlay:{locked:false},thumbs:{width:50,height:50}},});});}}
@@ -472,7 +500,19 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             function(){
             initialize_CurrentPanoramaOverlays(
                 panorama.getPano());
-            checkVisibleViewportObjects(panorama.getPano(),panorama.getPov());centerBusinessViewCanvas('businessview-area-canvas');centerBusinessViewCanvas('businessview-intro-canvas');});google.maps.event.addListener(panorama,'zoom_changed',function(){zoom=panorama.getZoom();});panoResizeTimer=window.setInterval(function(){google.maps.event.trigger(panorama,'resize');panoResizeCounter++;if(panoResizeCounter==20){window.clearInterval(panoResizeTimer);}},1000);$('body').on('click','.businessview-deep-link',function(e){e.preventDefault();var businessviewId=$(this).attr('data-businessview-id');var panoId=$(this).attr('data-panorama-id');var heading=parseFloat($(this).attr('data-entry-heading'))||0;var pitch=parseFloat($(this).attr('data-entry-pitch'))||0;jumpToBusinessView(businessviewId,panoId,heading,pitch);});if(QueryString.businessviewId&&QueryString.panoramaId){var businessviewId=QueryString.businessviewId;var panoId=QueryString.panoramaId;var heading=parseFloat(QueryString.entryHeading)||0;var pitch=parseFloat(QueryString.entryPitch)||0;jumpToBusinessView(businessviewId,panoId,heading,pitch);}}
+            checkVisibleViewportObjects(panorama.getPano(),panorama.getPov());
+            centerBusinessViewCanvas('businessview-area-canvas');
+            centerBusinessViewCanvas('businessview-intro-canvas');});
+        google.maps.event.addListener(panorama,'zoom_changed',function(){zoom=panorama.getZoom();});
+        panoResizeTimer=window.setInterval(function(){google.maps.event.trigger(panorama,'resize');
+        panoResizeCounter++;if(panoResizeCounter==20){window.clearInterval(panoResizeTimer);}},1000);
+        $('body').on('click','.businessview-deep-link',function(e){e.preventDefault();
+        var businessviewId=$(this).attr('data-businessview-id');
+        var panoId=$(this).attr('data-panorama-id');
+        var heading=parseFloat($(this).attr('data-entry-heading'))||0;
+        var pitch=parseFloat($(this).attr('data-entry-pitch'))||0;
+        jumpToBusinessView(businessviewId,panoId,heading,pitch);});if(QueryString.businessviewId&&QueryString.panoramaId){
+            var businessviewId=QueryString.businessviewId;var panoId=QueryString.panoramaId;var heading=parseFloat(QueryString.entryHeading)||0;var pitch=parseFloat(QueryString.entryPitch)||0;jumpToBusinessView(businessviewId,panoId,heading,pitch);}}
 
     var businessviewJson = businessviewJson || {},
         businessviewCanvasSelector = "#businessview-canvas";
