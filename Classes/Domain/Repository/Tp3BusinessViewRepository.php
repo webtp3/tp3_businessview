@@ -77,7 +77,7 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
                 $query->equals('deleted', 0)
             )
         );
-        return $query->execute(true);
+        return $query->execute();
     }
 
 

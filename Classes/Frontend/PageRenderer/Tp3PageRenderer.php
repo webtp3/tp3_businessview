@@ -7,8 +7,8 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
-use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
-use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
+use Tp3\Tp3Businessview\Domain\Repository\panoramasRepository;
+use Tp3\Tp3Businessview\Domain\Repository\businessAdressRepository;
 
 
 
@@ -18,17 +18,17 @@ class Tp3PageRenderer implements SingletonInterface
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
      */
-    public  $tp3businessviewrepository = null;
+    public  $Tp3BusinessViewRepository = null;
     /**
      *
-     * @var \Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
+     * @var \Tp3\Tp3Businessview\Domain\Repository\panoramasRepository;
      */
-    public  $panoramasrepository = null;
+    public  $panoramasRepository = null;
     /**
      *
-     * @var \Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
+     * @var \Tp3\Tp3Businessview\Domain\Repository\businessAdressRepository;
      */
-    public  $businessadressrepository = null;
+    public  $businessAdressRepository = null;
     /**
      * @param array $parameters
      * @param PageRenderer $pageRenderer
@@ -49,39 +49,38 @@ class Tp3PageRenderer implements SingletonInterface
             if ($this->objectManager === null) {
                 $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
             }
-
-            if ($this->panoramasrepository === null ) {
-                $this->panoramasrepository = $this->objectManager->get(PanoramasRepository::class);
+            if ($this->Tp3BusinessViewRepository === null) {
+                $this->Tp3BusinessViewRepository = $this->objectManager->get(Tp3BusinessViewRepository::class);
+            }
+            if ($this->panoramasRepository === null ) {
+                $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
 
             }
-            $panoramas= $this->panoramasrepository->findByUid(intval($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']));
-            if ($this->tp3businessviewrepository === null) {
-                $this->tp3businessviewrepository = $this->objectManager->get(Tp3BusinessViewRepository::class);
+            if ($this->businessAdressRepository === null ) {
+                $this->businessAdressRepository = $this->objectManager->get(BusinessAdressRepository::class);
+
             }
-            $businessview = $this->tp3businessviewrepository->findByPanoramas($panoramas[0]["uid"])[0];
+            $businessViews = $this->Tp3BusinessViewRepository->findByPanoramas($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
+            $businessView = $businessViews->getFirst();
+
+            $panoramas = $this->panoramasRepository->findByList($businessView->getPanoramas());
+            $bw = $businessView->getPropertiesArray();
+
+            $businessAdresses = $this->businessAdressRepository->findByList($businessView->getContact());
+            $bw['contact'] = $businessAdresses[0];
+            $bw['panorama'] = $panoramas[0];
+            $bw['panoramas'] = [$panoramas];
             $businessview['panorama'] = $panoramas[0];
-            $panorama_array = $this->panoramasrepository->findPanoramaFromBusinessView($businessview["uid"])[0];
 
             // Social Gallery
-            if ($this->businessadressrepository === null  && $businessview['contact'] > 0 ) {
-                $this->businessadressrepository = $this->objectManager->get(BusinessAdressRepository::class);
-                $businessview['contact'] = $this->businessadressrepository->findByUid($businessview['contact'])[0];
-                    if(isset($businessview['social_gallery'])){
-                    //#todo social galerie
-                    }
-                    //#todo addess
+
+            $businessview['contact'] = $this->businessAdressRepository->findByUid($businessview['contact'])[0];
+            if(isset($businessview['social_gallery'])){
+                //#todo social galerie
             }
 
-            // app will be removed - to much to query -> tsconfig is enough
-            /*
-            if ($this->panoramasrepository === null && $businessview['app'] > 0) {
-                $this->panoramasrepository = $this->objectManager->get(PanoramasRepository::class);
-                $this->panoramasrepository>findByUid($businessview['app']);
 
-            }*/
-           // $businessview = $this->tp3businessviewrepository->findByUid(intval($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']))->getFirst();
-
-            $parameters["jsInline"] .='<script> var businessviewJson = businessviewJson || '.$this->JsonRenderer($businessview, $panoramas).';window.tp3_app = window.tp3_app || {};window.tp3_app.AnmationOptions  = {  panoJumpTimer:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpTimer"].', panoRotationTimer:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationTimer"].', panoRotationFactor:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationFactor"].'};</script>';
+            $parameters["jsInline"] .='<script> var businessviewJson = businessviewJson || '.$this->JsonRenderer($bw,$panoramas).';window.tp3_app = window.tp3_app || {};window.tp3_app.AnmationOptions  = {  panoJumpTimer:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpTimer"].', panoRotationTimer:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationTimer"].', panoRotationFactor:'.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationFactor"].'};</script>';
             $parameters["jsFooterInline"] .="<script>  $('".($GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] != "" ? $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] : '#content') ."').first().attr(\"id\",\"businessview-panorama-canvas\").wrapAll('<div id=\"businessview-canvas\" style=\"width:100%;height:100%;min-height:600px;\"></div>');</script>";
             $parameters["jsFooterLibs"] .='<script src="typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js"></script>';
             if($GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["loadApi"]){

@@ -108,7 +108,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @cascade remove
      * @lazy
      */
-    protected $businessviews = null;
+    protected $tp3businessviews = null;
 
     /**
      * Returns the title
@@ -288,29 +288,52 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-        $this->businessviews = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->tp3businessviews = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
+
+
+    /**
+     * Returns the tp3businessviews
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView> $contact
+     */
+    public function getTp3BusinessView()
+    {
+        return $this->tp3businessviews;
+    }
+
+    /**
+     * Sets the contact
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView> $contact
+     * @return void
+     */
+    public function setTp3BusinessView(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tp3businessviews)
+    {
+        $this->tp3businessviews = $tp3businessviews;
+    }
+
 
     /**
      * Adds a Tp3Businessview
      *
-     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessviews
+     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviews
      * @return void
      */
-    public function addTp3BusinessView(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessviews)
+    public function addTp3BusinessView(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviews)
     {
-        $this->businessviews->attach($businessviews);
+        $this->tp3businessviews->attach($tp3businessviews);
     }
 
     /**
      * Removes a BusinessAdress
      *
-     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessviewsToRemove The Tp3Businessview to be removed
+     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviewsToRemove The Tp3Businessview to be removed
      * @return void
      */
-    public function removeTp3BusinessView(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessviewsToRemove)
+    public function removeTp3BusinessView(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviewsToRemove)
     {
-        $this->businessviews->detach($businessviewsToRemove);
+        $this->tp3businessviews->detach($tp3businessviewsToRemove);
     }
 
 }

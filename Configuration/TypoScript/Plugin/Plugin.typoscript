@@ -27,6 +27,8 @@ plugin.tx_tp3businessview_tp3businessview {
     panoJumpTimer={$plugin.tx_tp3businessview_tp3businessview.settings.panoJumpTimer}
     panoRotationTimer={$plugin.tx_tp3businessview_tp3businessview.settings.panoRotationTimer}
     panoRotationFactor={$plugin.tx_tp3businessview_tp3businessview.settings.panoRotationFactor}
+    panoJumpsRandom={$plugin.tx_tp3businessview_tp3businessview.settings.panoJumpsRandom}
+
   }
   mvc {
     callDefaultActionIfActionCantBeResolved = 1

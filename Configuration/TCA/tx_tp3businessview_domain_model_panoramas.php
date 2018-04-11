@@ -130,7 +130,7 @@ return [
             'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.panoramas',
             'config' => [
                 'type' => 'select',
-                'renderType' => 'selectMultipleSideBySide',
+                'renderType' => 'selectSingle',
               //  'enableMultiSelectFilterTextfield' => true,
                 'foreign_table' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'foreign_table_where' => 'AND  tx_tp3businessview_domain_model_panoramas_mm.uid_local=###THIS_UID###',

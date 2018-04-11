@@ -236,7 +236,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the panoAnimation
      * 
-     * @return string $panoAnimation
+     * @return array $panoAnimation
      */
     public function getPanoAnimation()
     {
@@ -278,7 +278,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the panoOptions
      * 
-     * @return string $panoOptions
+     * @return array $panoOptions
      */
     public function getPanoOptions()
     {

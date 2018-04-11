@@ -4,52 +4,60 @@
            <div class="color-controls">
                <span><b>color</b></span>
                <span class="color">
-                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[color]"  value="{conf.color}"  class="formvalue"  >
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="settings[color]"  value="{settings.color}"  class="formvalue"  >
                     </f:form.textfield>
                 </span>
            </div>
            <div class="backgroundColor-controls">
                <span><b>backgroundColor</b></span>
                <span class="backgroundColor">
-                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[backgroundColor]"  value="{conf.backgroundColor}"  class="formvalue"  >
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="settings[backgroundColor]"  value="{settings.backgroundColor}"  class="formvalue"  >
                     </f:form.textfield>
                 </span>
            </div>
            <div class="textColor-controls">
                <span><b>textColor</b></span>
                <span class="textColor">
-                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[textColor]"  value="{conf.textColor}"  class="formvalue"  >
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="settings[textColor]"  value="{settings.textColor}"  class="formvalue"  >
                     </f:form.textfield>
                 </span>
            </div>
            <div class="align-controls">
                <span><b>align</b></span>
                <span class="align">
-                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[align]"  value="{conf.align}"  class="formvalue"  >
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="settings[align]"  value="{settings.align}"  class="formvalue"  >
                     </f:form.textfield>
                 </span>
            </div>
            <div class="panoJumpTimer-controls">
                <span><b>panoJumpTimer</b></span>
                <span class="panoJumpTimer">
-                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[panoJumpTimer]"  value="{conf.panoJumpTimer}"  class="formvalue"  >
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="settings[panoJumpTimer]"  value="{settings.panoJumpTimer}"  class="formvalue"  >
                     </f:form.textfield>
                 </span>
            </div>
+            <div class="panoJumpsRandom-controls">
+                <span><b>panoJumpsRandom</b></span>
+                <span class="panoJumpsRandom">
+                    <f:form.checkbox additionalAttributes="" name="settings[panoRotationFactor]"  value="{settings.panoJumpsRandom}"  checked="{settings.panoJumpsRandom}" class="formvalue"  >
+                    </f:form.checkbox>
+                </span>
+            </div>
            <div class="panoRotationTimer-controls">
                <span><b>panoRotationTimer</b></span>
                <span class="panoRotationTimer">
-                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[panoRotationTimer]"  value="{conf.panoRotationTimer}"  class="formvalue"  >
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="settings[panoRotationTimer]"  value="{settings.panoRotationTimer}"  class="formvalue"  >
                     </f:form.textfield>
                 </span>
            </div>
            <div class="panoRotationFactor-controls">
                <span><b>panoRotationFactor</b></span>
                <span class="panoRotationFactor">
-                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="conf[panoRotationFactor]"  value="{conf.panoRotationFactor}"  class="formvalue"  >
+                    <f:form.textfield additionalAttributes="" required="true"  type="text" name="settings[panoRotationFactor]"  value="{settings.panoRotationFactor}"  class="formvalue"  >
                     </f:form.textfield>
                 </span>
            </div>
+            
        </div>
 </div>
 </html>

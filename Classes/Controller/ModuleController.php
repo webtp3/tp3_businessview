@@ -242,6 +242,8 @@ class ModuleController extends ActionController
         );
         $this->pageRenderer->addJsInlineCode("gapikey",'window.apikey = "'.$this->settings["googleMapsJavaScriptApiKey"].'";TYPO3.jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length; if(index<0){index=Math.max(0,lastIndex+ 1+ index)}this.append(element);if(index<lastIndex){this.children().eq(index).before(this.children().last())}return this;}');
 
+        $this->pageRenderer->addJsInlineCode("panoAnmation",'window.AnmationOptions  = {  panoJumpTimer:'.$this->settings["panoJumpTimer"].', panoRotationTimer:'.$this->settings["panoRotationTimer"].', panoRotationFactor:'.$this->settings["panoRotationFactor"].', panoJumpsRandom:'.$this->settings["panoJumpsRandom"].'};');
+
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         $vpid = $querySettings->getStoragePageIds();
         // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
@@ -278,6 +280,7 @@ class ModuleController extends ActionController
         $businessViewJson = $this->jsonRenderer->JsonRenderer($bw,$panoramas);
         $this->view->assign('debugMode', $this->conf["debugMode"]);
         $this->view->assign('conf', $this->conf);
+        $this->view->assign('settings', $this->settings);
         $this->view->assign('panoramas', $panoramas);
         $this->view->assign('businessviews', $businessViews);
         $this->view->assign('addresses', $businessAdresses);
