@@ -7,7 +7,7 @@
     <f:flashMessages />
     <f:render partial="Tp3BusinessView/Finder" arguments="{tp3BusinessViews:tp3BusinessViews, panoramas:panorama}" />
     <br>
-   <!-- <f:render partial="Tp3BusinessView/Controls" arguments="{settings:settings}" />-->
+    <f:render partial="Tp3BusinessView/Controls" arguments="{settings:settings}" />
 
     <div class="recordlists">
         <f:if condition="{businessviews->f:count()} < 1}">
@@ -18,9 +18,17 @@
             <table class="businessviewlist">
 
                 <f:for each="{businessviews}" as="businessview">
-                    <tr id="pano_{businessview.uid}_{businessview.pid}" class="entry">
-                        <f:render partial="Tp3BusinessView/Tp3Businessview" arguments="{businessview:businessview.propertiesArray}" />
+                    <tr class="head">
+                        <f:render partial="Tp3BusinessView/Labels" arguments="{properties:businessview.propertiesArray}" />
                     </tr>
+                    <tr id="bw_{businessview.uid}_{businessview.pid}" class="bwentry">
+
+                      <f:render partial="Tp3BusinessView/Properties" arguments="{properties:businessview.propertiesArray}" />
+
+                    </tr>
+                    <f:for each="{businessview.panoramas}" as="panorama">
+                        <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama:panorama}" />
+                    </f:for>
 
                 </f:for>
             </table>
@@ -32,7 +40,7 @@
                     <td><b>Position</b></td>
                     <td><b>Sorting</b></td>
                 </tr>
-                <f:for each="{panoramas}" as="panorama">
+                <f:for each="{panoramas_all}" as="panorama">
                     <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama:panorama}" />
                 </f:for>
             </table><br>

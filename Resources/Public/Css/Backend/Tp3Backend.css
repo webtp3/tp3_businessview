@@ -32,7 +32,8 @@
     float:right;
 }
 .tp3businessview-controls.tp3-panel,
-#infowindow-content {
+#infowindow-content,
+#links_table{
 
     display: none;
 }
@@ -104,6 +105,7 @@
     padding: 10px;
     border: solid 0.5pt #222;
 }
+.businessviewlist,
 .addresslist,
 .panolist {
 

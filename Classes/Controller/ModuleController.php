@@ -273,6 +273,7 @@ class ModuleController extends ActionController
         $businessViews = $this->tp3BusinessViewRepository->findAll();
         $businessView = $businessViews->getFirst();
         $panoramas = $this->panoramasRepository->findByList($businessView->getPanoramas());
+        $panoramas_all = $this->panoramasRepository->findByList($businessView->getPanoramas());
         //$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         //$querySettings->setRespectStoragePage(true);
         // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
@@ -287,6 +288,8 @@ class ModuleController extends ActionController
         $this->view->assign('conf', $this->conf);
         $this->view->assign('settings', $this->settings);
         $this->view->assign('panoramas', $panoramas);
+        $this->view->assign('panoramas_all', $panoramas_all);
+
         $this->view->assign('businessviews', $businessViews);
         $this->view->assign('addresses', $businessAdresses);
         $this->view->assign('businessViewJson', $businessViewJson);

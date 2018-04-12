@@ -8,6 +8,7 @@ return [
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'rootLevel' => -1,
+        'sortby' => 'sorting',
         'delete' => 'deleted',
 		'enablecolumns' => [
             'disabled' => 'hidden',
@@ -134,6 +135,7 @@ return [
               //  'enableMultiSelectFilterTextfield' => true,
                 'foreign_table' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'foreign_table_where' => 'AND  tx_tp3businessview_domain_model_panoramas_mm.uid_local=###THIS_UID###',
+                'foreign_sortby' => 'sorting',
                 'allowed' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'MM' => 'tx_tp3businessview_domain_model_panoramas_mm',
                 'minitems' => 1,

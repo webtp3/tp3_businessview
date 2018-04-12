@@ -25,19 +25,9 @@ class PanoramasRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
 
         $querySettings->setRespectStoragePage(FALSE);
-        // set the storagePids to respect
         // $querySettings->setStoragePageIds(array($this->conf["persistence"]["storagePid"]));
-
-        // don't add fields from enablecolumns constraint
-        // this function is deprecated!
-        $querySettings->setRespectEnableFields(true);
-
-        // define the enablecolumn fields to be ignored
-        // if nothing else is given, all enableFields are ignored
+        // $querySettings->setOrderings($this->defaultOrderings);
         $querySettings->setIgnoreEnableFields(false);
-        // define single fields to be ignored
-
-        // perform translation to dedicated language
         $this->setDefaultQuerySettings($querySettings);
     }
     /**

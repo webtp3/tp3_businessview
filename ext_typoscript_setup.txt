@@ -7,6 +7,8 @@ config.tx_extbase{
           recordType = Tx_Tp3Businessview_Panoramas
           columns {
             tp3businessviews.mapOnProperty = uid_local
+            sorting.mapOnProperty = sorting
+
           }
         }
 
@@ -17,6 +19,8 @@ config.tx_extbase{
           recordType = Tx_Tp3Businessview_BusinessAdress
           columns {
             cid.mapOnProperty = cid
+            sorting.mapOnProperty = sorting
+
           }
         }
       }
@@ -27,6 +31,8 @@ config.tx_extbase{
           columns {
             panoramas.mapOnProperty = uid_foreign
             contact.mapOnProperty = uid
+            sorting.mapOnProperty = sorting
+
           }
         }
         subclasses {

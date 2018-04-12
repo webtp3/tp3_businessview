@@ -55,7 +55,10 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             $('#btn-controls').on("click", function(e){
                     $('.tp3businessview-controls.tp3-panel').toggle()
             })
-            $('.panolist tr.entry').hover(function() {
+            $('#btn-links').on("click", function(e){
+                $('#links_table').toggle()
+            })
+            $('.businessviewlist tr.entry, .panolist tr.entry').hover(function() {
                 $(this).addClass('hover');
             }, function() {
                 $(this).removeClass('hover');
@@ -487,7 +490,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                                         if($.type(pov) == "object" && pov.heading==lastPov.heading){
                                             pov.heading+=Tp3App.AnmationOptions.panoRotationFactor;panorama.setPov(pov);lastPov=pov;
                                         }else{
-                                            Tp3App.AnmationHandler.panoRotationTimer= window.clearInterval(panoRotationTimer);Tp3App.AnmationHandler.panoJumpTimer.clearInterval(window.panoJumpTimer);
+                                            Tp3App.AnmationHandler.panoRotationTimer= window.clearInterval(panoRotationTimer);Tp3App.AnmationHandler.panoJumpTimer= window.clearInterval(window.panoJumpTimer);
                                         }
                                     },Tp3App.AnmationOptions.panoRotationTimer);
                                 }
