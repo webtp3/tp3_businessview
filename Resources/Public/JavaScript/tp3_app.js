@@ -191,7 +191,9 @@ if(businessviewJson.details.modules.intro){var intro=businessviewJson.details.mo
                         panorama.setPano(nextPano.pano.panoId);
                         panorama.setPov({
                             heading: Number(nextPano.pano.heading),
-                            pitch: Number(nextPano.pano.pitch)
+                            pitch: Number(nextPano.pano.pitch),
+                            zoom: Number(nextPano.pano.zoom)
+
                         });
                     }
                     else{

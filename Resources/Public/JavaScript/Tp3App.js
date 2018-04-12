@@ -78,6 +78,8 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                     panorama.setPov({
                         heading: Number($.trim($(this).find('.heading').text())),
                         pitch: Number($.trim($(this).find('.pitch').text()))
+                        zoom: Number($.trim($(this).find('.zoom').text()))
+
                     });
                     panorama.setVisible(true);
                     // $('#tp3businessview-floating-panel form').attr("name","updatepano")
@@ -470,6 +472,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                                 panorama.setPov({
                                     heading: Number(nextPano.pano.heading),
                                     pitch: Number(nextPano.pano.pitch)
+                                    zoom: Number(nextPano.pano.zoom)
                                 });
                             }
                             else{
