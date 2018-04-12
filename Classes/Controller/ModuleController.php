@@ -242,9 +242,9 @@ class ModuleController extends ActionController
         $this->pageRenderer->addCssFile(
             $publicResourcesPath.'Resources/Public/Css/Backend/Tp3Backend.css','stylesheet', 'all', "tp3businessview be", $compress = false
         );
-        $this->pageRenderer->addCssFile(
-            $publicResourcesPath.'Resources/Public/Css/businessview.css','stylesheet', 'all', "tp3businessview preview", $compress = false
-        );
+       /* $this->pageRenderer->addCssFile(
+            $publicResourcesPath.'Resources/Public/Css/Tp3App.css','stylesheet', 'all', "tp3businessview preview", $compress = false, false,  '', true,  '|'
+        );*/
         $this->pageRenderer->addJsInlineCode("gapikey",'window.apikey = "'. $this->settings["googleMapsJavaScriptApiKey"].'";TYPO3.jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length; if(index<0){index=Math.max(0,lastIndex+ 1+ index)}this.append(element);if(index<lastIndex){this.children().eq(index).before(this.children().last())}return this;}');
 
         $this->pageRenderer->addJsInlineCode("panoAnmation",'window.AnmationOptions  = {  panoJumpTimer:'.$this->settings["panoJumpTimer"].', panoRotationTimer:'.$this->settings["panoRotationTimer"].', panoRotationFactor:'.$this->settings["panoRotationFactor"].', panoJumpsRandom:'.$this->settings["panoJumpsRandom"].'};');

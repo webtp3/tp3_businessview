@@ -113,9 +113,9 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
         },
         AnmationOptions : {
 
-            panoJumpTimer:200,
+            panoJumpTimer:5000,
             panoRotationTimer:30,
-            panoRotationFactor:0.015,
+            panoRotationFactor:0.030,
             panoJumpsRandom:true,
 
         },
@@ -125,6 +125,11 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             }
 
         },
+            AnmationHandler : {
+
+
+
+            },
 
     },
     map = map || {},geocoder,infowindow,sv,e,
@@ -432,17 +437,21 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
         if(businessviewJson.details.modules){if(businessviewJson.details.modules.googleAnalytics){var googleAnalytics=businessviewJson.details.modules.googleAnalytics;if(googleAnalytics.tracking){if(checkIfAnalyticsLoaded(googleAnalytics.code)){$('#businessview-actions-canvas').on('click','li',function(){ga('send','event','BusinessView Actions','click',$(this).text());});$('#businessview-areas-canvas').on('click','li',function(){ga('send','event','BusinessView Areas','click',$(this).text());});var viewportToggle=false;if(isInViewport(businessviewCanvasSelector)&&!viewportToggle){ga('send','event','BusinessView Canvas','scroll','in-viewport');viewportToggle=true;}
             $(window).scroll(function(){if(isInViewport(businessviewCanvasSelector)&&!viewportToggle){ga('send','event','BusinessView Canvas','scroll','in-viewport');viewportToggle=true;}
                 if(!isInViewport(businessviewCanvasSelector)&&viewportToggle){viewportToggle=false;}});}}}
-            if(businessviewJson.details.modules.intro){var intro=businessviewJson.details.modules.intro;if(intro.status&&(intro.headline!=""||intro.message!="")){appendIntroToBusinessview(intro.headline,intro.message,intro.backgroundColor,intro.textColor);$(businessviewCanvasSelector).on('click','div#businessview-intro-canvas i.fa-times',function(){removeBusinessviewCanvas('businessview-intro-canvas');});}}
+            if(businessviewJson.details.modules.intro){var intro=businessviewJson.details.modules.intro;if(intro.status&&(intro.headline!=""||intro.message!="")){
+                appendIntroToBusinessview(intro.headline,intro.message,intro.backgroundColor,intro.textColor);$(businessviewCanvasSelector).on('click','div#businessview-intro-canvas i.fa-times',function(){removeBusinessviewCanvas('businessview-intro-canvas');});}}
             if(businessviewJson.details.modules.panoAnimation){
             var panoAnimation=window.businessviewJson.details.modules.panoAnimation; var counter = 0;
                 if(panoAnimation.jumps){
-                    var lastPano=panorama.getPano();window.panoJumpTimer=window.setInterval(function(){
-                        if(lastPano.panoId==panorama.getPano()){
-                            links=window.businessviewJson.details.panoramas;var nextPano;
+                    var lastPano = {}; lastPano.id=panorama.getPano();
+                    Tp3App.AnmationHandler.panoJumpTimer=window.setInterval(function(){
+                        if(lastPano.id==panorama.getPano()){
+                            links=window.businessviewJson.details.panoramas;var nextPano= {};
                             if(links.length>1 && Tp3App.AnmationOptions.panoJumpsRandom > 0){
-                                do{nextPano=links[getRandomInt(0,links.length-1)];}
+                                do{
+                                    var loc = getRandomInt(0,links.length-1);
+                                    nextPano=  links[loc];}
                                 while(nextPano==lastPano);
-                                lastPano=nextPano.pano;
+                                lastPano=nextPano;
                             } else if(links.length>1 && Tp3App.AnmationOptions.panoJumpsRandom < 1){
                                 do{
                                     counter++;
@@ -450,24 +459,35 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                                     nextPano=links[counter];
                                 }
                                 while(nextPano==lastPano);
-                                lastPano=nextPano.pano;
+                                lastPano= nextPano;
                             }else{nextPano=links[0];}
-                            panorama.setPano(nextPano.pano.panoId);
-                            panorama.setPov({
-                                heading: Number(nextPano.pano.heading),
-                                pitch: Number(nextPano.pano.pitch)
-                            });
+
+                            if($.type(nextPano.pano) == "object"){
+                                panorama.setPano(nextPano.pano.panoId);
+                                panorama.setPov({
+                                    heading: Number(nextPano.pano.heading),
+                                    pitch: Number(nextPano.pano.pitch)
+                                });
+                            }
+                            else{
+                                panorama.setPano(nextPano.id);
+                                /*panorama.setPov({
+                                    heading: Number(nextPano.pano.heading),
+                                    pitch: Number(nextPano.pano.pitch)
+                                });*/
+                            }
+
                             panorama.setVisible(true);
                             if(panoAnimation.rotation){
                                 var lastPov=panorama.getPov();
                                 if($.type(lastPov) == "object"){
-                                    panoRotationTimer=window.setInterval(function(){
+                                    Tp3App.AnmationHandler.panoRotationTimer=window.setInterval(function(){
                                         var pov=panorama.getPov();
 
                                         if($.type(pov) == "object" && pov.heading==lastPov.heading){
                                             pov.heading+=Tp3App.AnmationOptions.panoRotationFactor;panorama.setPov(pov);lastPov=pov;
                                         }else{
-                                            //   document.clearInterval(panoRotationTimer);window.clearInterval(window.panoJumpTimer);
+                                            Tp3App.AnmationHandler.panoRotationTimer.clearInterval(panoRotationTimer);Tp3App.AnmationHandler.panoJumpTimer.clearInterval(window.panoJumpTimer);
                                         }
                                     },Tp3App.AnmationOptions.panoRotationTimer);
                                 }

@@ -93,6 +93,8 @@ tp3_app.AnmationOptions = window.AnmationOptions  || {
     	panoJumpsRandom:1,
 
 };
+tp3_app.AnmationHandler = {};
+
 // force override app
 tp3_app.businessview_initialize =  function(businessviewJson){
 	var panoEntry;
@@ -162,50 +164,64 @@ if(businessviewJson.details.modules){if(businessviewJson.details.modules.googleA
 $j(window).scroll(function(){if(isInViewport(businessviewCanvasSelector)&&!viewportToggle){ga('send','event','BusinessView Canvas','scroll','in-viewport');viewportToggle=true;}
 if(!isInViewport(businessviewCanvasSelector)&&viewportToggle){viewportToggle=false;}});}}}
 if(businessviewJson.details.modules.intro){var intro=businessviewJson.details.modules.intro;if(intro.status&&(intro.headline!=""||intro.message!="")){appendIntroToBusinessview(intro.headline,intro.message,intro.backgroundColor,intro.textColor);$j(businessviewCanvasSelector).on('click','div#businessview-intro-canvas i.fa-times',function(){removeBusinessviewCanvas('businessview-intro-canvas');});}}
-if(businessviewJson.details.modules.panoAnimation){
-	var panoAnimation=window.businessviewJson.details.modules.panoAnimation;var counter = 0;
-    if(panoAnimation.jumps){
-        var lastPano={}; lastPano.panoId=panorama.getPano();window.panoJumpTimer=window.setInterval(function(){
-            if(lastPano==panorama.getPano()){
-                links=window.businessviewJson.details.panoramas;var nextPano ={};
-                if(links.length>1 && tp3_app.AnmationOptions.panoJumpsRandom > 0){
-                    do{nextPano.panoId=links[getRandomInt(0,links.length-1)];}
-                    while(nextPano==lastPano);
-                    lastPano=nextPano.pano;
-                } else if(links.length>1 && tp3_app.AnmationOptions.panoJumpsRandom < 1){
-                    do{
-                        counter++;
-                        if(counter > links.length )counter = 0;
-                        nextPano=links[counter];
-                    }
-                    while(nextPano==lastPano);
-                    lastPano=nextPano.pano;
-                }else{nextPano=links[0];}
-                panorama.setPano(nextPano.pano);
-                panorama.setPov({
-                    heading: Number(nextPano.pano.heading),
-                    pitch: Number(nextPano.pano.pitch)
-                });
-                panorama.setVisible(true);
-                if(panoAnimation.rotation){
-                    var lastPov=panorama.getPov();
-                    if($.type(lastPov) == "object"){
-                        panoRotationTimer=window.setInterval(function(){
-                            var pov=panorama.getPov();
+    if(businessviewJson.details.modules.panoAnimation){
+        var panoAnimation=window.businessviewJson.details.modules.panoAnimation; var counter = 0;
+        if(panoAnimation.jumps){
+            var lastPano = {}; lastPano.id=panorama.getPano();
+            tp3_app.AnmationHandler.panoJumpTimer=window.setInterval(function(){
+                if(lastPano.id==panorama.getPano()){
+                    links=window.businessviewJson.details.panoramas;var nextPano= {};
+                    if(links.length>1 && tp3_app.AnmationOptions.panoJumpsRandom > 0){
+                        do{
+                            var loc = getRandomInt(0,links.length-1);
+                            nextPano=  links[loc];}
+                        while(nextPano==lastPano);
+                        lastPano=nextPano;
+                    } else if(links.length>1 && tp3_app.AnmationOptions.panoJumpsRandom < 1){
+                        do{
+                            counter++;
+                            if(counter > links.length )counter = 0;
+                            nextPano=links[counter];
+                        }
+                        while(nextPano==lastPano);
+                        lastPano= nextPano;
+                    }else{nextPano=links[0];}
 
-                            if($.type(pov) == "object" && pov.heading==lastPov.heading){
-                                pov.heading+=tp3_app.AnmationOptions.panoRotationFactor;panorama.setPov(pov);lastPov=pov;
-                            }else{
-                                //   document.clearInterval(panoRotationTimer);window.clearInterval(window.panoJumpTimer);
-                            }
-                        },tp3_app.AnmationOptions.panoRotationTimer);
+                    if($.type(nextPano.pano) == "object"){
+                        panorama.setPano(nextPano.pano.panoId);
+                        panorama.setPov({
+                            heading: Number(nextPano.pano.heading),
+                            pitch: Number(nextPano.pano.pitch)
+                        });
+                    }
+                    else{
+                        panorama.setPano(nextPano.id);
+                        /*panorama.setPov({
+                            heading: Number(nextPano.pano.heading),
+                            pitch: Number(nextPano.pano.pitch)
+                        });*/
                     }
 
+                    panorama.setVisible(true);
+                    if(panoAnimation.rotation){
+                        var lastPov=panorama.getPov();
+                        if($.type(lastPov) == "object"){
+                            tp3_app.AnmationHandler.panoRotationTimer=window.setInterval(function(){
+                                var pov=panorama.getPov();
+
+                                if($.type(pov) == "object" && pov.heading==lastPov.heading){
+                                    pov.heading+=tp3_app.AnmationOptions.panoRotationFactor;panorama.setPov(pov);lastPov=pov;
+                                }else{
+                                    tp3_app.AnmationHandler.panoRotationTimer.clearInterval(panoRotationTimer);tp3_app.AnmationHandler.panoJumpTimer.clearInterval(window.panoJumpTimer);
+                                }
+                            },tp3_app.AnmationOptions.panoRotationTimer);
+                        }
+
+                    }
                 }
-            }
-            //else{window.clearInterval(window.panoJumpTimer);}
-        },tp3_app.AnmationOptions.panoJumpTimer);}
-}
+                //else{window.clearInterval(window.panoJumpTimer);}
+            },tp3_app.AnmationOptions.panoJumpTimer);}
+    }
     if(businessviewJson.details.modules.contact){var contact=businessviewJson.details.modules.contact;if(contactBoxHasVisibleFields(contact.fields)){appendContactToBusinessview(contact.fields,contact.backgroundColor,contact.textColor,contact.align);}
         $(businessviewCanvasSelector).on('click','div#businessview-contact-canvas div#businessview-show-contact-details',function(){$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-show-contact-details').hide();$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-contact-details').show();});$(businessviewCanvasSelector).on('click','div#businessview-contact-canvas div#businessview-contact-details i.fa-times',function(){$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-contact-details').hide();$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-show-contact-details').show();});}
     if(businessviewJson.details.modules.gallery){var gallery=businessviewJson.details.modules.gallery;if(gallery.status&&gallery.googlePlacePhotos&&gallery.googlePlacePhotos.length>0){appendGalleryToBusinessview(gallery.googlePlacePhotos);$(businessviewCanvasSelector).on('click','ul#businessview-gallery-canvas a',function(){$(businessviewCanvasSelector+' ul#businessview-gallery-canvas a').fancybox({type:'image',padding:0,helpers:{overlay:{locked:false},thumbs:{width:50,height:50}},});});}}
