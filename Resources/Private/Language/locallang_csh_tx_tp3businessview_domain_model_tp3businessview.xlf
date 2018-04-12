@@ -36,6 +36,9 @@
 			<trans-unit id="contact.description">
 				<source>contact</source>
 			</trans-unit>
+			<trans-unit id="fullscreen.description">
+                <source>fullscreen</source>
+            </trans-unit>
 			<trans-unit id="app.description">
 				<source>app</source>
 			</trans-unit>

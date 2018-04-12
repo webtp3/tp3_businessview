@@ -37,12 +37,12 @@ class PanoramasControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $panoramasRepository = $this->getMockBuilder(\::class)
+        $panoramasRepository = $this->getMockBuilder(PanoramasRepository::class)
             ->setMethods(['findAll'])
             ->disableOriginalConstructor()
             ->getMock();
         $panoramasRepository->expects(self::once())->method('findAll')->will(self::returnValue($allPanoramass));
-        $this->inject($this->subject, 'panoramasRepository', $panoramasRepository);
+        $this->inject($this->subject, 'PanoramasRepository', $panoramasRepository);
 
         $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
         $view->expects(self::once())->method('assign')->with('panoramass', $allPanoramass);

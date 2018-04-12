@@ -187,7 +187,7 @@ return [
                             ["scaleControl" , "scaleControl",],
                             ["scrollwheel" , "scrollwheel",],
                             ["zoomControl", "zoomControl"],
-
+                            ["fullScreen", "fullScreen"],
                     ],
 			    'maxitems' => 99,
 			    'eval' => 'trim'

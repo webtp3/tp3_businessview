@@ -90,6 +90,7 @@ tp3_app.AnmationOptions = window.AnmationOptions  || {
         panoJumpTimer:5000,
         panoRotationTimer:30,
         panoRotationFactor:0.015,
+    	panoJumpsRandom:1,
 
 };
 // force override app
@@ -164,11 +165,11 @@ if(businessviewJson.details.modules.intro){var intro=businessviewJson.details.mo
 if(businessviewJson.details.modules.panoAnimation){
 	var panoAnimation=window.businessviewJson.details.modules.panoAnimation;var counter = 0;
     if(panoAnimation.jumps){
-        var lastPano=panorama.getPano();window.panoJumpTimer=window.setInterval(function(){
-            if(lastPano.panoId==panorama.getPano()){
-                links=window.businessviewJson.details.panoramas;var nextPano;
+        var lastPano={}; lastPano.panoId=panorama.getPano();window.panoJumpTimer=window.setInterval(function(){
+            if(lastPano==panorama.getPano()){
+                links=window.businessviewJson.details.panoramas;var nextPano ={};
                 if(links.length>1 && tp3_app.AnmationOptions.panoJumpsRandom > 0){
-                    do{nextPano=links[getRandomInt(0,links.length-1)];}
+                    do{nextPano.panoId=links[getRandomInt(0,links.length-1)];}
                     while(nextPano==lastPano);
                     lastPano=nextPano.pano;
                 } else if(links.length>1 && tp3_app.AnmationOptions.panoJumpsRandom < 1){
@@ -180,7 +181,7 @@ if(businessviewJson.details.modules.panoAnimation){
                     while(nextPano==lastPano);
                     lastPano=nextPano.pano;
                 }else{nextPano=links[0];}
-                panorama.setPano(nextPano.pano.panoId);
+                panorama.setPano(nextPano.pano);
                 panorama.setPov({
                     heading: Number(nextPano.pano.heading),
                     pitch: Number(nextPano.pano.pitch)
@@ -291,7 +292,7 @@ function appendFacebookPageAlbumsToBusinessView(albums,disabledAlbums){if(albums
 $j(businessviewCanvasSelector+' div#businessview-socialGallery-canvas .albums').html(s);}}
 function appendFacebookPageAlbumPhotosToBusinessView(albumId,photos){var s='';for(var i=0;i<photos.length;i++){s+='<li>';s+='<a href="'+photos[i].source+'" data-fancybox-group="businessview-socialGallery-'+albumId+'">';s+='<img src="'+photos[i].source+'" data-album-id="'+albumId+'">';s+='</a>';s+='<li>';}
 $j(businessviewCanvasSelector+' div#businessview-socialGallery-canvas .network.facebookPage ul.photos').append(s);showFacebookPageAlbumPhotos(albumId);}
-function appendFullscreenModeToBusinessview(){$j(businessviewCanvasSelector).append('<div id="businessview-fullscreen-button"></div>');}
+function appendFullscreenModeToBusinessview(){ if(!businessviewJson.details.panoOptions.fullScreen) return; $j(businessviewCanvasSelector).append('<div id="businessview-fullscreen-button"></div>');}
 function appendGalleryToBusinessview(photos){$j(businessviewCanvasSelector).append('<ul id="businessview-gallery-canvas"></ul>');for(var i=0;i<photos.length;i++){addPhotoToGallery(photos[i].renditions);}
 $j('ul#businessview-gallery-canvas img').load(function(){centerBusinessViewCanvas('businessview-gallery-canvas');});}
 function appendInfoPointsToBusinessview(){setInfoPointsInActive();var panoId=panorama.getPano();var index=getPanoArrayPosition(panoId);if(window.businessviewJson.details.panoramas&&window.businessviewJson.details.panoramas[index]&&window.businessviewJson.details.panoramas[index].infoPoints){var infoPoints=window.businessviewJson.details.panoramas[index].infoPoints;var objects=window.businessviewJson.infoPoints;for(var i=0;i<infoPoints.length;i++){var objectId=infoPoints[i].id;var viewport=infoPoints[i].viewport;if(objects[objectId]){addInfoPointItemToBusinessview(objectId,objects[objectId].url,objects[objectId].tooltip,objects[objectId].size,objects[objectId].icon,objects[objectId].backgroundColor,objects[objectId].textColor,objects[objectId].target,objects[objectId].pulse,viewport);}}

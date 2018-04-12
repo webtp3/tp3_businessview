@@ -37,12 +37,12 @@ class BusinessAdressControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $businessAdressRepository = $this->getMockBuilder(\::class)
+        $businessAdressRepository = $this->getMockBuilder(BusinessAdressRepository::class)
             ->setMethods(['findAll'])
             ->disableOriginalConstructor()
             ->getMock();
         $businessAdressRepository->expects(self::once())->method('findAll')->will(self::returnValue($allBusinessAdresses));
-        $this->inject($this->subject, 'businessAdressRepository', $businessAdressRepository);
+        $this->inject($this->subject, 'BusinessAdressRepository', $businessAdressRepository);
 
         $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
         $view->expects(self::once())->method('assign')->with('businessAdresses', $allBusinessAdresses);

@@ -97,6 +97,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $socialGallery = '';
 
+
     /**
      * panoOptions
      *
@@ -107,7 +108,8 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                               "panControl" => false,
                               "scaleControl" => true,
                               "scrollwheel" => true,
-                              "zoomControl" => false
+                              "zoomControl" => false,
+                              "fullScreen" => false
                             ];
 
     /**
@@ -275,6 +277,8 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->socialGallery = $socialGallery;
     }
 
+
+
     /**
      * Returns the panoOptions
      * 
@@ -413,7 +417,8 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
           "panControl" => false,
           "scaleControl" => true,
           "scrollwheel" => true,
-          "zoomControl" => false
+          "zoomControl" => false,
+          "fullScreen" => false
       ];
         $option_values = $this->getPanoOptions();
 

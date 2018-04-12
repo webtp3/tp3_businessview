@@ -76,7 +76,7 @@ class ModuleController extends ActionController
     protected $iconFactory;
 
     /**
-    * @var PersistenceManager
+     * @var PersistenceManager
      */
     protected $persistenceManager = null;
     /**
@@ -106,7 +106,7 @@ class ModuleController extends ActionController
      * @var Tp3PageRenderer;
      */
     protected $jsonRenderer;
-     /**
+    /**
      * @var array
      */
     protected $MOD_MENU;
@@ -219,7 +219,7 @@ class ModuleController extends ActionController
 
     /**
      * action display
-     * 
+     *
      * @return void
      */
     public function displayAction()
@@ -235,12 +235,17 @@ class ModuleController extends ActionController
      */
     public function indexAction()
     {
-        $publicResourcesPath = ExtensionManagementUtility::extPath('tp3_businessview') . 'Resources/Public/';
+        $publicResourcesPath = ExtensionManagementUtility::extPath('tp3_businessview') ;
+
+            //$publicResourcesPath = "typo3conf/ext/tp3_businessview";
 
         $this->pageRenderer->addCssFile(
-            $publicResourcesPath . 'Css/Backend/Tp3Backend.css'
+            $publicResourcesPath.'Resources/Public/Css/Backend/Tp3Backend.css','stylesheet', 'all', "tp3businessview be", $compress = false
         );
-        $this->pageRenderer->addJsInlineCode("gapikey",'window.apikey = "'.$this->settings["googleMapsJavaScriptApiKey"].'";TYPO3.jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length; if(index<0){index=Math.max(0,lastIndex+ 1+ index)}this.append(element);if(index<lastIndex){this.children().eq(index).before(this.children().last())}return this;}');
+        $this->pageRenderer->addCssFile(
+            $publicResourcesPath.'Resources/Public/Css/businessview.css','stylesheet', 'all', "tp3businessview preview", $compress = false
+        );
+        $this->pageRenderer->addJsInlineCode("gapikey",'window.apikey = "'. $this->settings["googleMapsJavaScriptApiKey"].'";TYPO3.jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length; if(index<0){index=Math.max(0,lastIndex+ 1+ index)}this.append(element);if(index<lastIndex){this.children().eq(index).before(this.children().last())}return this;}');
 
         $this->pageRenderer->addJsInlineCode("panoAnmation",'window.AnmationOptions  = {  panoJumpTimer:'.$this->settings["panoJumpTimer"].', panoRotationTimer:'.$this->settings["panoRotationTimer"].', panoRotationFactor:'.$this->settings["panoRotationFactor"].', panoJumpsRandom:'.$this->settings["panoJumpsRandom"].'};');
 
@@ -276,7 +281,7 @@ class ModuleController extends ActionController
         $bw['contact'] = $businessAdresses[0];
         $bw['panorama'] = $panoramas[0];
         $bw['panoramas'] = [$panoramas];
-       // $bw['contact'] = $this->businessadressrepository->findByUid($businessView->getContact()->getFirst()->getUid())[0];
+        // $bw['contact'] = $this->businessadressrepository->findByUid($businessView->getContact()->getFirst()->getUid())[0];
         $businessViewJson = $this->jsonRenderer->JsonRenderer($bw,$panoramas);
         $this->view->assign('debugMode', $this->conf["debugMode"]);
         $this->view->assign('conf', $this->conf);
@@ -290,7 +295,7 @@ class ModuleController extends ActionController
 
     /**
      * action show
-     * 
+     *
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3BusinessView
      * @return void
      */
@@ -306,7 +311,7 @@ class ModuleController extends ActionController
      */
     public function newAction()
     {
-     //   $this->redirect('index');
+        //   $this->redirect('index');
     }
 
 
@@ -318,42 +323,42 @@ class ModuleController extends ActionController
     public function editAction () {
 
         try {
-                 $item = GeneralUtility::_GP('tx_tp3businessview_web_tp3businessviewmodule') ? GeneralUtility::_GP('tx_tp3businessview_web_tp3businessviewmodule') : "";
-               if(is_array($item['tx_tp3businessview_domain_model_panoramas'])) {
-                 //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
-                   $pano = $this->dataMapper->map(Panoramas::class,[$item['tx_tp3businessview_domain_model_panoramas']]);
+            $item = GeneralUtility::_GP('tx_tp3businessview_web_tp3businessviewmodule') ? GeneralUtility::_GP('tx_tp3businessview_web_tp3businessviewmodule') : "";
+            if(is_array($item['tx_tp3businessview_domain_model_panoramas'])) {
+                //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
+                $pano = $this->dataMapper->map(Panoramas::class,[$item['tx_tp3businessview_domain_model_panoramas']]);
 
-                   $panorama = $this->objectManager->get('TYPO3\CMS\Extbase\Property\PropertyMapper')
-                       ->convert(
-                           $pano[0],
-                           Panoramas::class
-                       );
-                   if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == ""){
-                       $tcemainData = [
-                           'tx_tp3businessview_domain_model_panoramas' => [
-                               'NEW' => [
-                                   $panorama->_getCleanProperties()
-                               ]
-                           ]
-                       ];
-                   }
-                   else if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == ""){
-                       $tcemainData = [
-                           'tx_tp3businessview_domain_model_panoramas' => [
-                               'UPDATE' => [
-                                   $panorama->_getCleanProperties()
-                               ]
-                           ]
-                       ];
-                   }
+                $panorama = $this->objectManager->get('TYPO3\CMS\Extbase\Property\PropertyMapper')
+                    ->convert(
+                        $pano[0],
+                        Panoramas::class
+                    );
+                if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == ""){
+                    $tcemainData = [
+                        'tx_tp3businessview_domain_model_panoramas' => [
+                            'NEW' => [
+                                $panorama->_getCleanProperties()
+                            ]
+                        ]
+                    ];
+                }
+                else if($item['tx_tp3businessview_domain_model_panoramas']["uid"] == ""){
+                    $tcemainData = [
+                        'tx_tp3businessview_domain_model_panoramas' => [
+                            'UPDATE' => [
+                                $panorama->_getCleanProperties()
+                            ]
+                        ]
+                    ];
+                }
 
-                   $dataHandler = GeneralUtility::makeInstance(DataHandlerCore::class);
-                   $dataHandler->start($tcemainData, []);
-                   $dataHandler->process_datamap();
+                $dataHandler = GeneralUtility::makeInstance(DataHandlerCore::class);
+                $dataHandler->start($tcemainData, []);
+                $dataHandler->process_datamap();
 
-                   $pano = $dataHandler->substNEWwithIDs['NEW'];
-                   return $pano;
-               }
+                $pano = $dataHandler->substNEWwithIDs['NEW'];
+                return $pano;
+            }
             if(is_array($item['tx_tp3businessview_domain_model_businessadress'])) {
                 //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
                 $address = $this->dataMapper->map(BusinessAdress::class,[$item['tx_tp3businessview_domain_model_businessadress']]);
@@ -361,7 +366,7 @@ class ModuleController extends ActionController
                 else $this->updateadressAction($address[0]);
             }
 
-            } catch (Exception $e) {
+        } catch (Exception $e) {
             $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
             throw new \RuntimeException($message);
         }
@@ -511,7 +516,7 @@ class ModuleController extends ActionController
      */
     protected function getToken($tokenOnly = false)
     {
-        $token = FormProtectionFactory::get()->generateToken('moduleCall', 'web_Tp3BusinessviewModule');
+        $token = FormProtectionFactory::get()->generateToken('update', 'update');
         if ($tokenOnly) {
             return $token;
         } else {

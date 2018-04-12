@@ -67,7 +67,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                     $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][heading]"]').val($.trim($(this).find('.heading').text()));
                     $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][pitch]"]').val($.trim($(this).find('.pitch').text()));
                     $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][position]"]').val($.trim($(this).find('.position').text()));
-                    $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][title]"]').val($.trim($(this).find('.titel').text()));
+                    $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][title]"]').val($.trim($(this).find('.title').text()));
 
 
 
@@ -382,7 +382,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
         if(businessviewJson.details.panoOptions){
             panoOptions=businessviewJson.details.panoOptions;
         }else{
-            panoOptions={disableDefaultUI:false,scrollwheel:false,panControl:true,zoomControl:true,scaleControl:true,addressControl:false};
+            panoOptions={disableDefaultUI:false,scrollwheel:false,panControl:true,zoomControl:true,scaleControl:true,addressControl:false,fullScreen:false};
         }
         initialize_Panorama(panoEntry,panoOptions);
         if(businessviewJson.details.modules&&businessviewJson.details.modules.sidebar){
