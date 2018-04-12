@@ -212,7 +212,7 @@ if(businessviewJson.details.modules.intro){var intro=businessviewJson.details.mo
                                 if($.type(pov) == "object" && pov.heading==lastPov.heading){
                                     pov.heading+=tp3_app.AnmationOptions.panoRotationFactor;panorama.setPov(pov);lastPov=pov;
                                 }else{
-                                    tp3_app.AnmationHandler.panoRotationTimer.clearInterval(panoRotationTimer);tp3_app.AnmationHandler.panoJumpTimer.clearInterval(window.panoJumpTimer);
+                                    tp3_app.AnmationHandler.panoRotationTimer = window.clearInterval(panoRotationTimer);tp3_app.AnmationHandler.panoJumpTimer = window.clearInterval(panoJumpTimer);
                                 }
                             },tp3_app.AnmationOptions.panoRotationTimer);
                         }

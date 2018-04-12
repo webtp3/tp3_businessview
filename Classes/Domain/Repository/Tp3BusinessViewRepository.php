@@ -15,7 +15,33 @@ namespace Tp3\Tp3Businessview\Domain\Repository;
 class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
+    // Order by BE sorting
+    protected $defaultOrderings = array(
+        'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+    );
 
+
+    public function initializeObject() {
+        /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
+        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
+
+        $querySettings->setRespectStoragePage(FALSE);
+        // set the storagePids to respect
+       // $querySettings->setStoragePageIds(array($this->conf["persistence"]["storagePid"]));
+
+        // don't add fields from enablecolumns constraint
+        // this function is deprecated!
+        $querySettings->setRespectEnableFields(true);
+
+        // define the enablecolumn fields to be ignored
+        // if nothing else is given, all enableFields are ignored
+        $querySettings->setIgnoreEnableFields(false);
+        // define single fields to be ignored
+
+        // perform translation to dedicated language
+        $this->setDefaultQuerySettings($querySettings);
+    }
     /**
      *
      *
@@ -79,6 +105,7 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
         );
         return $query->execute();
     }
+
 
 
 }

@@ -18,6 +18,7 @@ CREATE TABLE tx_tp3businessview_domain_model_tp3businessview (
 	app int(11) unsigned DEFAULT '0' NOT NULL,
 	panoramas int(11) unsigned DEFAULT '0' NOT NULL,
 
+  sorting int(11) DEFAULT '0' NOT NULL,
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
@@ -40,10 +41,10 @@ CREATE TABLE tx_tp3businessview_domain_model_tp3businessview (
 # Table structure for table 'tt_address'
 #
 CREATE TABLE tt_address (
-
-	tp3businessview int(11) unsigned DEFAULT '0' NOT NULL,
+  sorting int(11) DEFAULT '0' NOT NULL,
 	googleplus varchar(255) DEFAULT '' NOT NULL,
 	cid varchar(255) DEFAULT '' NOT NULL,
+	tp3businessview int(11) unsigned DEFAULT '0' NOT NULL,
 
 );
 
@@ -65,6 +66,7 @@ CREATE TABLE tx_tp3businessview_domain_model_panoramas (
 	position varchar(255) DEFAULT '' NOT NULL,
 	tp3businessviews int(11) unsigned DEFAULT '0' NOT NULL,
 
+  sorting int(11) DEFAULT '0' NOT NULL,
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
@@ -83,16 +85,6 @@ CREATE TABLE tx_tp3businessview_domain_model_panoramas (
 
 );
 
-#
-# Table structure for table 'tt_address'
-#
-CREATE TABLE tt_address (
-
-	tp3businessview int(11) unsigned DEFAULT '0' NOT NULL,
-  tx_extbase_type varchar(255) DEFAULT '' NOT NULL,
-  tx_cal_controller_latitude tinytext DEFAULT  '0'  NOT NULL,
-	tx_cal_controller_longitude tinytext DEFAULT  '0' NOT NULL,
-);
 
 #
 # Table structure for table 'pages'

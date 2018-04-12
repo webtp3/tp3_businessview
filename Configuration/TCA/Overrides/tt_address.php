@@ -22,9 +22,27 @@ $tmp_tp3_businessview_columns = [
         ],
     ],
     'tp3businessview' => [
-        'config' => [
-            'type' => 'passthrough',
+        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_csh_tt_address.xlf:tx_tp3businessview_domain_model_tp3businessview.tp3businessview',
+
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'tx_tp3businessview_domain_model_tp3businessview',
+                'minitems' => 0,
+                'maxitems' => 1,
+                'appearance' => [
+                    'collapseAll' => 0,
+                    'levelLinksPosition' => 'top',
+                    'showSynchronizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'showAllLocalizationLink' => 1
+                ],
+
         ]
+    ],
+    'sorting' => [
+        'config' => [
+            'type' => 'none',
+        ],
     ],
 ];
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_address',$tmp_tp3_businessview_columns);

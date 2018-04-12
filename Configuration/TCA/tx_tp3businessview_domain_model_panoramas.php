@@ -141,6 +141,11 @@ return [
                 'size' => 1,
             ],
         ],
+        'sorting' => [
+            'config' => [
+                'type' => 'none',
+            ],
+        ],
     ]
 ];
 //tx_tp3businessview_domain_model_tp3businessview.pid=###CURRENT_PID### AND

@@ -146,9 +146,9 @@ class Tp3PageRenderer implements SingletonInterface
                 "areaOrder"=>[],
                 "editors"=>[],
                 "googleMapsJavaScriptApiKey"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["googleMapsJavaScriptApiKey"],
-                "legalNoticeUrl"=>"http:\/\/".urlencode($businessview['external_links']),
+                "legalNoticeUrl"=>"http:\/\/".urlencode($businessview['external_links'] != "" ? $businessview['external_links'] : $businessview['externalLinks']),
                 "location"=>["formattedAddress"=>$businessview['contact']['address'].", ".$businessview['contact']['zip'] ." " .$businessview['contact']['city'] .",".$businessview['contact']['country'],"position"=>["latitude"=>$businessview['contact']['latitude'],"longitude"=>$businessview['contact']['longitude']]],
-                "createdBy"=>["name"=>$businessview['created_by'].",".urlencode($businessview['external_links']),"status"=>true],
+                "createdBy"=>["name"=>($businessview['created_by'] != "" ? $businessview['created_by'] : $businessview['createdBy']) .",".urlencode($businessview['external_links'] != "" ? $businessview['external_links'] : $businessview['externalLinks']),"status"=>true],
                  "modules"=>[
                     "contact"=> ["fields"=>[
                                 "name"=>["value"=>$businessview['contact']['name'],"visible"=>($businessview['contact']['name'] !="" ? true : false)],

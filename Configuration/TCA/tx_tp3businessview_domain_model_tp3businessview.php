@@ -196,21 +196,20 @@ return [
 	    'contact' => [
 	        'exclude' => true,
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.contact',
-	        'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
+            'config' => [
+                'type' => 'inline',
                 'foreign_table' => 'tt_address',
-			    'maxitems' => 9999,
-			    'appearance' => [
-			        'collapseAll' => 0,
-			        'levelLinksPosition' => 'top',
-			        'showSynchronizationLink' => 1,
-			        'showPossibleLocalizationRecords' => 1,
-			        'showAllLocalizationLink' => 1
-			    ],
-			],
+                'minitems' => 1,
+                'maxitems' => 1,
+                'appearance' => [
+                    'collapseAll' => 0,
+                    'levelLinksPosition' => 'top',
+                    'showSynchronizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'showAllLocalizationLink' => 1
+                ],
+            ],
 	    ],
-
 	    'panoramas' => [
 	        'exclude' => true,
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.panoramas',
@@ -226,5 +225,10 @@ return [
 
 			],
 	    ],
+        'sorting' => [
+            'config' => [
+                'type' => 'none',
+            ],
+        ],
     ],
 ];

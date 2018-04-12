@@ -487,7 +487,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                                         if($.type(pov) == "object" && pov.heading==lastPov.heading){
                                             pov.heading+=Tp3App.AnmationOptions.panoRotationFactor;panorama.setPov(pov);lastPov=pov;
                                         }else{
-                                            Tp3App.AnmationHandler.panoRotationTimer.clearInterval(panoRotationTimer);Tp3App.AnmationHandler.panoJumpTimer.clearInterval(window.panoJumpTimer);
+                                            Tp3App.AnmationHandler.panoRotationTimer= window.clearInterval(panoRotationTimer);Tp3App.AnmationHandler.panoJumpTimer.clearInterval(window.panoJumpTimer);
                                         }
                                     },Tp3App.AnmationOptions.panoRotationTimer);
                                 }

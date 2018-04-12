@@ -109,7 +109,31 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @lazy
      */
     protected $tp3businessviews = null;
+    /**
+     * sorting
+     *
+     * @var string $sorting
+     */
+    Protected $sorting;
 
+    /**
+     * Setter for sorting
+     *
+     * @param string $sorting
+     * @return void
+     */
+    public function setSorting($sorting) {
+        $this->sorting = $sorting;
+    }
+
+    /**
+     * Getter for sorting
+     *
+     * @return string sorting
+     */
+    public function getSorting() {
+        return $this->sorting;
+    }
     /**
      * Returns the title
      *
