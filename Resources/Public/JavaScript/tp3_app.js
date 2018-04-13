@@ -165,6 +165,11 @@ $j(window).scroll(function(){if(isInViewport(businessviewCanvasSelector)&&!viewp
 if(!isInViewport(businessviewCanvasSelector)&&viewportToggle){viewportToggle=false;}});}}}
 if(businessviewJson.details.modules.intro){var intro=businessviewJson.details.modules.intro;if(intro.status&&(intro.headline!=""||intro.message!="")){appendIntroToBusinessview(intro.headline,intro.message,intro.backgroundColor,intro.textColor);$j(businessviewCanvasSelector).on('click','div#businessview-intro-canvas i.fa-times',function(){removeBusinessviewCanvas('businessview-intro-canvas');});}}
     if(businessviewJson.details.modules.panoAnimation){
+/*
+        var p0 = $(window).width() /2;
+        $( window ).on( "mousemove", function( event ) {
+            tp3_app.AnmationOptions.panoRotationFactor = event.pageY > p0 ? tp3_app.AnmationOptions.panoRotationFactor + 1/ (event.pageY - p0)   : tp3_app.AnmationOptions.panoRotationFactor - 1/ (p0 - event.pageY) ;
+        });*/
         var panoAnimation=window.businessviewJson.details.modules.panoAnimation; var counter = 0;
         if(panoAnimation.jumps){
             var lastPano = {}; lastPano.id=panorama.getPano();
@@ -192,7 +197,7 @@ if(businessviewJson.details.modules.intro){var intro=businessviewJson.details.mo
                         panorama.setPov({
                             heading: Number(nextPano.pano.heading),
                             pitch: Number(nextPano.pano.pitch),
-                            zoom: Number(nextPano.pano.zoom)
+                            zoom: Number(nextPano.pano.zoom != undefined ? nextPano.pano.zoom : 1)
 
                         });
                     }
@@ -265,10 +270,16 @@ var businessviewJson = businessviewJson || {},
     businessviewCanvasSelector = "#businessview-canvas";
 var panorama;var panoJumpTimer;var panoRotationTimer;var panoResizeTimer;var panoResizeCounter=0;var businessviewSidebarModulesSelector='';var showSidebar=false;var startCoords={},endCoords={};var zoom=1;var updateInfoPointsStartTimer;var updateInfoPointsCounter=0;var $panoCanvas=null;var panoCanvasHeight=0;var panoCanvasWidth=0;
 
-function initialize_CurrentPanoramaOverlays(panoId){var index=getPanoArrayPosition(panoId);setActionsInActive();setAreasInActive();setInfoPointsInActive();if(panoramaHasAreas(panoId)){setAreasActive(window.businessviewJson.details.panoramas[index].areas);}
+function initialize_CurrentPanoramaOverlays(panoId){
+	var index=getPanoArrayPosition(panoId);setActionsInActive();setAreasInActive();
+	setInfoPointsInActive();
+	if(panoramaHasAreas(panoId)){
+		setAreasActive(window.businessviewJson.details.panoramas[index].areas);
+	}
 if(panoramaHasActions(panoId)){setActionsActive(window.businessviewJson.details.panoramas[index].actions);}
 if(panoramaHasInfoPoints(panoId)){appendInfoPointsToBusinessview();}}
-function initialize_Panorama(panoEntry,panoOptions){createPanoramaCanvas();var panoramaOptions={pano:panoEntry.panoId,pov:{heading:parseFloat(panoEntry.heading),pitch:parseFloat(panoEntry.pitch)},zoom:parseFloat(panoEntry.zoom),disableDefaultUI:panoOptions.disableDefaultUI,scrollwheel:panoOptions.scrollwheel,panControl:panoOptions.panControl,zoomControl:panoOptions.zoomControl,scaleControl:panoOptions.scaleControl,addressControl:panoOptions.addressControl,visible:true,mode:setPanoramaMode()};panorama=new google.maps.StreetViewPanorama(document.getElementById('businessview-panorama-canvas'),panoramaOptions);panorama.setVisible(true);currentPanoramaId=panoEntry.panoId;google.maps.event.trigger(panorama,'resize');$j(businessviewCanvasSelector+' #businessview-panorama-canvas').bind("touchstart",function(e){endCoords=e.originalEvent.targetTouches[0];startCoords.pageX=e.originalEvent.targetTouches[0].pageX;startCoords.pageY=e.originalEvent.targetTouches[0].pageY;});$j(businessviewCanvasSelector+' #businessview-panorama-canvas').bind("touchmove",function(e){endCoords=e.originalEvent.targetTouches[0];if(isInViewport(businessviewCanvasSelector+' div#businessview-panorama-canvas')){var y=$j(window).scrollTop();var currentPitch=panorama.getPov().pitch;if(isCurrentPitchBetweenMinAndMax(currentPitch,0,30)||isCurrentPitchBetweenMinAndMax(currentPitch,150,180)){var delay=50;if(currentPitch<=10||currentPitch>=170){delay=15;}else if(currentPitch<=20||currentPitch>=160){delay=25;}else if(currentPitch<=35||currentPitch>=145){delay=35;}
+function initialize_Panorama(panoEntry,panoOptions){createPanoramaCanvas();
+var panoramaOptions={pano:panoEntry.panoId,pov:{heading:parseFloat(panoEntry.heading !="" ? panoEntry.heading : 270),pitch:parseFloat(panoEntry.pitch !="" ? panoEntry.pitch : 0)},zoom:parseFloat(panoEntry.zoom !="" ? panoEntry.zoom : 1),disableDefaultUI:panoOptions.disableDefaultUI,scrollwheel:panoOptions.scrollwheel,panControl:panoOptions.panControl,zoomControl:panoOptions.zoomControl,scaleControl:panoOptions.scaleControl,addressControl:panoOptions.addressControl,visible:true,mode:setPanoramaMode()};panorama=new google.maps.StreetViewPanorama(document.getElementById('businessview-panorama-canvas'),panoramaOptions);panorama.setVisible(true);currentPanoramaId=panoEntry.panoId;google.maps.event.trigger(panorama,'resize');$j(businessviewCanvasSelector+' #businessview-panorama-canvas').bind("touchstart",function(e){endCoords=e.originalEvent.targetTouches[0];startCoords.pageX=e.originalEvent.targetTouches[0].pageX;startCoords.pageY=e.originalEvent.targetTouches[0].pageY;});$j(businessviewCanvasSelector+' #businessview-panorama-canvas').bind("touchmove",function(e){endCoords=e.originalEvent.targetTouches[0];if(isInViewport(businessviewCanvasSelector+' div#businessview-panorama-canvas')){var y=$j(window).scrollTop();var currentPitch=panorama.getPov().pitch;if(isCurrentPitchBetweenMinAndMax(currentPitch,0,30)||isCurrentPitchBetweenMinAndMax(currentPitch,150,180)){var delay=50;if(currentPitch<=10||currentPitch>=170){delay=15;}else if(currentPitch<=20||currentPitch>=160){delay=25;}else if(currentPitch<=35||currentPitch>=145){delay=35;}
 $j(window).scrollTop(y-((endCoords.pageY-startCoords.pageY)/ delay));
 }}});}
 function addActionItemToBusinessview(itemObjectId,itemText,itemUrl,itemSize,itemIcon,itemBackgroundColor,itemTextColor,itemTarget,showPermanent){if(!itemTarget){itemTarget="fancybox";}

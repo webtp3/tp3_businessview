@@ -25,10 +25,10 @@ return [
         ],
     ],
     'interface' => [
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, created_by, name, external_links, gallery, intro, pano_animation, social_gallery, pano_options, contact, app, panoramas',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, created_by, name, external_links, gallery, intro, pano_animation, social_gallery, pano_options, contact,  panoramas',
     ],
     'types' => [
-		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, created_by, name, external_links, gallery, intro, pano_animation, social_gallery, pano_options, contact, app, panoramas, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, created_by, name, external_links, gallery, intro, pano_animation, social_gallery, pano_options, contact,  panoramas, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
 		'sys_language_uid' => [

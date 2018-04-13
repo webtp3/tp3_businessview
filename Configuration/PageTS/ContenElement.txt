@@ -8,7 +8,7 @@ mod.wizards {
                         title = LLL:EXT:tp3_businessview/Resources/Private/Language/locallang.xlf:tx_tp3businessview_domain_model_tp3businessview
                         description = 
                         tt_content_defValues {
-                            CType = tp3_businessview
+                            CType = tp3businessview_tp3businessview
                         }
                     }
                  }

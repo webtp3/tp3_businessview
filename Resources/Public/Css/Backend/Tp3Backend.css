@@ -29,13 +29,20 @@
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
     width: auto;
-    float:right;
+    float: right;
 }
+.panolist.bwlist,
 .tp3businessview-controls.tp3-panel,
 #infowindow-content,
 #links_table{
 
     display: none;
+}
+div.bwentry {
+    clear: both;
+    width: 100%;
+    float: left;
+    background: #ccc;
 }
 .tp3businessview-controls:focus {
 
@@ -64,7 +71,10 @@
     min-height: 300px;
 
 }
-
+.grid {
+    float: left;
+    padding: 10px;
+}
 #businessview-canvas #businessview-panorama-canvas {
 
     width: 100%;
@@ -112,6 +122,7 @@
     clear: both;
     width:100%;
     padding-top: 20px;
+    margin-bottom: 30px;
 }
 .recordlists button.btn.btn-secondary {
 

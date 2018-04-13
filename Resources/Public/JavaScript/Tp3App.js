@@ -49,11 +49,37 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                 $('#editform').submit();
 
             })
+
             $('#submitEditform').on("click", function(e){
 
             })
             $('#btn-controls').on("click", function(e){
                     $('.tp3businessview-controls.tp3-panel').toggle()
+            })
+            $(' .bwentry').hover(function() {
+                $(this).addClass('hover');
+            }, function() {
+                $(this).removeClass('hover');
+            }).click( function(e){
+                $(this).next('.panolist.bwlist').toggle();
+            });
+            $('.panoJumpTimer-controls').on("change", function(){
+                Tp3App.AnmationOptions.panoJumpTimer = $(this).val();
+            })
+            $('.panoRotationTimer-controls').on("change", function(){
+                Tp3App.AnmationOptions.panoRotationTimer = $(this).val();
+            })
+            $('#btn-panoRotationFactor-plus').on("change", function(){
+                Tp3App.AnmationOptions.panoRotationFactor += Tp3App.AnmationOptions.panoRotationFactor *0.9;
+            })
+            $('#btn-panoRotationFactor-minus').on("change", function(){
+                Tp3App.AnmationOptions.panoRotationFactor += Tp3App.AnmationOptions.panoRotationFactor *-0.9 ;
+            })
+            $('.panoRotationFactor-controls').on("change", function(){
+                Tp3App.AnmationOptions.panoRotationFactor = $(this).val();
+            })
+            $('.panoJumpsRandom-controls').on("change", function(){
+                Tp3App.AnmationOptions.panoJumpsRandom = $(this).val();
             })
             $('#btn-links').on("click", function(e){
                 $('#links_table').toggle()
@@ -77,7 +103,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                     panorama.setPano($.trim($(this).find('.pano_id').val()));
                     panorama.setPov({
                         heading: Number($.trim($(this).find('.heading').text())),
-                        pitch: Number($.trim($(this).find('.pitch').text()))
+                        pitch: Number($.trim($(this).find('.pitch').text())),
                         zoom: Number($.trim($(this).find('.zoom').text()))
 
                     });
@@ -471,7 +497,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                                 panorama.setPano(nextPano.pano.panoId);
                                 panorama.setPov({
                                     heading: Number(nextPano.pano.heading),
-                                    pitch: Number(nextPano.pano.pitch)
+                                    pitch: Number(nextPano.pano.pitch),
                                     zoom: Number(nextPano.pano.zoom)
                                 });
                             }
