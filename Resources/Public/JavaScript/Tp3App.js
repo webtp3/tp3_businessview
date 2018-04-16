@@ -63,22 +63,25 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             }).click( function(e){
                 $(this).next('.panolist.bwlist').toggle();
             });
-            $('.panoJumpTimer-controls').on("change", function(){
+            $('.panoJumpTimer-controls').change( function(){
                 Tp3App.AnmationOptions.panoJumpTimer = $(this).val();
             })
-            $('.panoRotationTimer-controls').on("change", function(){
+            $('.panoRotationTimer-controls').change( function(){
                 Tp3App.AnmationOptions.panoRotationTimer = $(this).val();
             })
-            $('#btn-panoRotationFactor-plus').on("change", function(){
+            $('#btn-panoRotationFactor-plus').click(function(){
                 Tp3App.AnmationOptions.panoRotationFactor += Tp3App.AnmationOptions.panoRotationFactor *0.9;
+                $('input[name="settings[panoRotationFactor]"]').val(Tp3App.AnmationOptions.panoRotationFactor)
             })
-            $('#btn-panoRotationFactor-minus').on("change", function(){
+            $('#btn-panoRotationFactor-minus').click(function(){
                 Tp3App.AnmationOptions.panoRotationFactor += Tp3App.AnmationOptions.panoRotationFactor *-0.9 ;
+                $('input[name="settings[panoRotationFactor]"]').val(Tp3App.AnmationOptions.panoRotationFactor)
+
             })
-            $('.panoRotationFactor-controls').on("change", function(){
+            $('.panoRotationFactor-controls').change(function(){
                 Tp3App.AnmationOptions.panoRotationFactor = $(this).val();
             })
-            $('.panoJumpsRandom-controls').on("change", function(){
+            $('.panoJumpsRandom-controls').change( function(){
                 Tp3App.AnmationOptions.panoJumpsRandom = $(this).val();
             })
             $('#btn-links').on("click", function(e){
@@ -476,7 +479,15 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                     var lastPano = {}; lastPano.id=panorama.getPano();
                     Tp3App.AnmationHandler.panoJumpTimer=window.setInterval(function(){
                         if(lastPano.id==panorama.getPano()){
-                            links=window.businessviewJson.details.panoramas;var nextPano= {};
+                        if(window.businessviewJson.details.panoramas > 1 ){
+                            links=  window.businessviewJson.details.panoramas;
+
+                        }
+                        else {
+                                links=   panorama.getLinks();
+                                window.businessviewJson.details.panoramas = links;
+                            }
+                            var nextPano= {};
                             if(links.length>1 && Tp3App.AnmationOptions.panoJumpsRandom > 0){
                                 do{
                                     var loc = getRandomInt(0,links.length-1);
@@ -784,7 +795,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
     function panElement(element,pano_heading,pano_pitch,width,height,zoom){var elementHeading=convertDegreesToRadians(parseFloat(element.attr("data-heading")));var elementPitch=convertDegreesToRadians(parseFloat(element.attr("data-pitch")));var fov=getFieldOfView(zoom)*Math.PI/180.0;var h0=pano_heading;var p0=pano_pitch;var h=elementHeading;var p=elementPitch;var cos_p=Math.cos(p);var sin_p=Math.sin(p);var cos_h=Math.cos(h);var sin_h=Math.sin(h);var f=(width/2)/ Math.tan(fov / 2);
         var x=f*cos_p*sin_h;var z=f*sin_p;var y=f*cos_p*cos_h;var cos_p0=Math.cos(p0);var sin_p0=Math.sin(p0);var cos_h0=Math.cos(h0);var sin_h0=Math.sin(h0);var x0=f*cos_p0*sin_h0;var z0=f*sin_p0;var y0=f*cos_p0*cos_h0;var nDotD=x0*x+ y0*y+ z0*z;var nDotC=x0*x0+ y0*y0+ z0*z0;if(Math.abs(nDotD)<1e-6){element.hide();}else{var t=nDotC/nDotD;if(t<0.0){element.hide();}else{var tx=t*x;var ty=t*y;var tz=t*z;var vx=- sin_p0*sin_h0;var vy=- sin_p0*cos_h0;var vz=cos_p0;var ux=cos_p0*cos_h0;var uy=- cos_p0*sin_h0;var uz=0;var ul=Math.sqrt(ux*ux+ uy*uy+ uz*uz);ux/=ul;uy/=ul;uz/=ul;var du=tx*ux+ ty*uy+ tz*uz;var dv=tx*vx+ ty*vy+ tz*vz;var u0=width/2;var v0=height/2;var u=u0+ du;var v=v0- dv;element.css({"left":u,"bottom":height- v}).show();}}}
     function panoramaHasActions(panoId){var index=getPanoArrayPosition(panoId);if(index!=undefined&&window.businessviewJson.details.panoramas[index].actions.length>0){return true;}else{return false;}}
-    function panoramaHasAreas(panoId){var index=getPanoArrayPosition(panoId);if(index!=undefined&&window.businessviewJson.details.panoramas[index].areas.length>0){return true;}else{return false;}}
+    function panoramaHasAreas(panoId){var index=getPanoArrayPosition(panoId);if(index!=undefined&&$.type(window.businessviewJson.details.panoramas[index].areas)=="array"&&window.businessviewJson.details.panoramas[index].areas.length>0){return true;}else{return false;}}
     function panoramaHasInfoPoints(panoId){var index=getPanoArrayPosition(panoId);if(index!=undefined&&window.businessviewJson.details.panoramas[index].infoPoints.length>0){return true;}else{return false;}}
     function removeBusinessviewCanvas(canvasId){$(businessviewCanvasSelector+' #'+ canvasId).remove();}
     function resizeBusinessView(panoOptions){var businessviewHeight=$(businessviewCanvasSelector).outerHeight(true);$(businessviewCanvasSelector+' #businessview-panorama-canvas').css('height',businessviewHeight+'px');if(showSidebar){resizeSidebar();}

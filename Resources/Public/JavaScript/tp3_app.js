@@ -175,7 +175,13 @@ if(businessviewJson.details.modules.intro){var intro=businessviewJson.details.mo
             var lastPano = {}; lastPano.id=panorama.getPano();
             tp3_app.AnmationHandler.panoJumpTimer=window.setInterval(function(){
                 if(lastPano.id==panorama.getPano()){
-                    links=window.businessviewJson.details.panoramas;var nextPano= {};
+                	if(window.businessviewJson.details.panoramas > 1 )
+                    links=  window.businessviewJson.details.panoramas;
+                	else {
+                        links=   panorama.getLinks();
+                        window.businessviewJson.details.panoramas = links;
+                    }
+                    var nextPano= {};
                     if(links.length>1 && tp3_app.AnmationOptions.panoJumpsRandom > 0){
                         do{
                             var loc = getRandomInt(0,links.length-1);

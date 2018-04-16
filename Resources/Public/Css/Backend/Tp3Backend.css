@@ -38,6 +38,10 @@
 
     display: none;
 }
+img.icon{
+    float: left;
+    margin: 5px;
+}
 div.bwentry {
     clear: both;
     width: 100%;
