@@ -4,7 +4,7 @@
 </style>
 <!-- https://developers.google.com/maps/documentation/javascript/streetview?hl=de
 https://developers.google.com/maps/documentation/javascript/examples/streetview-custom-simple?hl=de -->
-<input id="pac-input" class=tp3businessview-controls" type="text" placeholder="Enter a location">
+<input id="pac-input" class=tp3businessview-controls" type="text" placeholder="Enter a location" style="width: 275px">
 <div id="infowindow-content">
     <span id="place-name"  class="title"></span><br>
     Place ID <span id="place-id"></span><br>
@@ -13,9 +13,9 @@ https://developers.google.com/maps/documentation/javascript/examples/streetview-
 <div id="map"></div>
 <div id="businessview-canvas"><div id="businessview-panorama-canvas"></div></div>
 <div id="tp3businessview-floating-panel">
-   <!-- if you have a place ID
-    <input id="place-id" type="text" value="">
-    <input id="reversesubmit" type="button" value="Reverse Geocode by Place ID">-->
+   if you have a place ID
+    <input id="placeid" type="text" value="">
+    <input id="reversesubmit" type="button" value="Reverse Geocode by Place ID">
     <f:form action="update" id="editform" controller="Panoramas"  name="update" object="{panorama}" arguments="{panorama: panorama}">
     <f:form.hidden   name="panoramas[uid]" value="{panorama.uid}"  class="formvalue"  />
     <f:form.hidden   name="panoramas[pid]" value="{panorama.pid}"  class="formvalue"  />

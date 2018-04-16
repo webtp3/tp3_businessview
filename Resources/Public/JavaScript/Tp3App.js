@@ -14,11 +14,12 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                 }
 
             }
+            geocoder = new google.maps.Geocoder;
+            infowindow = new google.maps.InfoWindow;
             Tp3App.setAnmationOptions();
             Tp3App.initPano();
             Tp3App.initMap();
-            geocoder = new google.maps.Geocoder;
-            infowindow = new google.maps.InfoWindow;
+
         /*    $('#editform').on("submit",function (e) {
                 $('<div class="loaderbg"><div class="loader"></div></div>').appendTo($(e.currentTarget).parents("body").first()).css({position:"absolute", width:"100%", height:"100%", top :0, "z-index": "999", background: "rgba(0, 0, 0, 0.5)"});
                 e.preventDefault(e);
@@ -207,7 +208,12 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
         map = new google.maps.Map(document.getElementById('map'), {
             center: Tp3App.BusinessAdress,
             zoom: 16,
-            streetViewControl: false
+            streetViewControl: false,
+            zoomControl: true,
+            scaleControl: true,
+            rotateControl: true,
+            fullscreenControl: false
+
         });
         var streetviewOverlay = new google['maps']['StreetViewCoverageLayer']();
         streetviewOverlay.setMap(map);
@@ -268,12 +274,13 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
 
 
 
-        /*   document.getElementById('reversesubmit').addEventListener('click', function() {
+          document.getElementById('reversesubmit').addEventListener('click', function() {
                Tp3App.geocodePlaceId(geocoder, map, infowindow);
-           });*/
+           });
     },
     Tp3App.geocodePlaceId = function(geocoder, map, infowindow, placeId) {
-      //  if(!placeId) placeId = document.getElementById('place-id').value;
+       // if(!placeId)
+            placeId = $.trim($('input#placeid').val());
         // reverse lookup if user has placeid
 
         geocoder.geocode({'placeId': placeId}, function(results, status) {
@@ -484,8 +491,13 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
 
                         }
                         else {
-                                links=   panorama.getLinks();
-                                window.businessviewJson.details.panoramas = links;
+                            var glinks = panorama.getLinks();
+                            for(i=0;glinks.length > i;i++){
+                                var array=glinks[i];array.actions=[];array.areas=[];array.infoPoints=[];array.id=array.pano;
+                                window.businessviewJson.details.panoramas.push(array);
+                            }
+
+                            links = window.businessviewJson.details.panoramas;
                             }
                             var nextPano= {};
                             if(links.length>1 && Tp3App.AnmationOptions.panoJumpsRandom > 0){
