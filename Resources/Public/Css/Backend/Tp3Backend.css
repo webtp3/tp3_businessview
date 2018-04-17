@@ -729,27 +729,6 @@ div#businessview-canvas div#businessview-infopoint-canvas .infoPoint .tooltip.vi
 div#businessview-canvas div#businessview-infopoint-canvas .infoPoint .tooltip>p:only-child{
     margin:0px;}
 
-div.fa {
-
-    padding-right: 6px;
-}
-div.fa-facebook,div.fa-google-plus, .fa-twitter {
-
-    display: inline-block;
-    font: normal normal normal 22px/1 FontAwesome;
-    font-size: 22pt;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    margin-top: 10px;
-
-}
-div.fa.fa-times {
-
-    float: right;
-    padding: 4px;
-    display:none;
-}
 
 
 #businessview-panorama-canvas main{
@@ -4474,6 +4453,28 @@ div.fa.fa-times {
 
     content: "\f280";
 }
+
+div.fa {
+
+    padding-right: 6px;
+}
+div.fa-facebook,div.fa-google-plus, div.fa-twitter {
+
+    display: inline-block;
+    font: normal normal normal 22px/1 FontAwesome;
+    font-size: 22pt;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-top: 10px;
+
+}
+div.fa.fa-times {
+
+    float: right;
+    padding: 4px;
+    display:none;
+}
 .loader {
 
     border: 16px solid #f3f3f3; /* Light grey */
@@ -4486,18 +4487,6 @@ div.fa.fa-times {
     padding-top: 20px;
 }
 
-.section.section-default {
-
-    padding-top: 0;
-}
-.tx_tp3jobs table{
-
-    width: 100%;
-}
-.tp3review-rating a {
-
-    padding: 0 10px;
-}
 @keyframes spin {
 
     0% {

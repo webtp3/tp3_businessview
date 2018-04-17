@@ -13,9 +13,7 @@ https://developers.google.com/maps/documentation/javascript/examples/streetview-
 <div id="map"></div>
 <div id="businessview-canvas"><div id="businessview-panorama-canvas"></div></div>
 <div id="tp3businessview-floating-panel">
-   if you have a place ID
-    <input id="placeid" type="text" value="">
-    <input id="reversesubmit" type="button" value="Reverse Geocode by Place ID">
+
     <f:form action="update" id="editform" controller="Panoramas"  name="update" object="{panorama}" arguments="{panorama: panorama}">
     <f:form.hidden   name="panoramas[uid]" value="{panorama.uid}"  class="formvalue"  />
     <f:form.hidden   name="panoramas[pid]" value="{panorama.pid}"  class="formvalue"  />
@@ -62,5 +60,8 @@ https://developers.google.com/maps/documentation/javascript/examples/streetview-
         <f:form.submit name="submit" id="submitEditform" value="save" />
         <f:form.submit name="submit" id="submitNewform" value="new" />
 
-    </f:form>
+    </f:form><br>
+    if you have a place ID
+    <input id="placeid" type="text" value="">
+    <input id="reversesubmit" type="button" value="Reverse Geocode by Place ID">
 </div>

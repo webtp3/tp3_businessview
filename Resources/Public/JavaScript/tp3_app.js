@@ -178,8 +178,13 @@ if(businessviewJson.details.modules.intro){var intro=businessviewJson.details.mo
                 	if(window.businessviewJson.details.panoramas > 1 )
                     links=  window.businessviewJson.details.panoramas;
                 	else {
-                        links=   panorama.getLinks();
-                        window.businessviewJson.details.panoramas = links;
+                        var glinks = panorama.getLinks();
+                        for(i=0;glinks.length > i;i++){
+                            var array=glinks[i];array.actions=[];array.areas=[];array.infoPoints=[];array.id=array.pano;
+                            window.businessviewJson.details.panoramas.push(array);
+                        }
+
+                        links = window.businessviewJson.details.panoramas;
                     }
                     var nextPano= {};
                     if(links.length>1 && tp3_app.AnmationOptions.panoJumpsRandom > 0){
