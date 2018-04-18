@@ -33,7 +33,8 @@
 }
 .panolist.bwlist,
 .tp3businessview-controls.tp3-panel,
-#links_table{
+#links_table,
+#infowindow-content{
 
     display: none;
 }

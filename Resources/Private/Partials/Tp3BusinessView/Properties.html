@@ -1,9 +1,32 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
 <f:for each="{properties}" as="propertyValue" key="propertyName">
+	<v:condition.type.isArray value="{propertyValue}">
+		<f:then>
+			<div class="{propertyName} grid">
+				<f:for each="{propertyValue}" as="v" key="n">
+					{
+					"{n}":
+					<v:condition.type.isArray value="{v}">
+						<f:then>
+							...
+						</f:then>
+						<f:else>
+								{v}
+						</f:else>
+					</v:condition.type.isArray>
+					}
+				</f:for>
+			</div>
+		</f:then>
+		<f:else>
+			<div class="{propertyName} grid">
+				{propertyValue}
+			</div>
+		</f:else>
+	</v:condition.type.isArray>
 
-	<div class="{propertyName} grid">
-		{propertyValue}
-	</div>
 </f:for>
 
 

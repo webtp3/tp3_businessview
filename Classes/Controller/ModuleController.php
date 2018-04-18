@@ -373,7 +373,7 @@ class ModuleController extends ActionController
             $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
             throw new \RuntimeException($message);
         }
-        $this->redirect('index');
+      //  $this->redirect('index');
 
     }
     /**

@@ -125,8 +125,14 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             }, function() {
                 $(this).removeClass('hover');
             }).click(function(){
-               if($.trim($(this).find('.place_id').text()) == "" || $.trim($(this).find('.geo_position').text()) == "" ) {
-                   Tp3App.getPlace( $.trim($(this).find('.geo_address').text()));
+               if($.trim($(this).find('.place_id').text()) != ""  ) {
+
+                   $('input#placeid').val($.trim($(this).find('.place_id').text()))
+                   Tp3App.geocodePlaceId();
+                 //  Tp3App.getPlace( $.trim($(this).find('.geo_address').text()));
+               }
+               else if( $.trim($(this).find('.geo_position').text()) == ""){
+
                }
 
             });
@@ -170,7 +176,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
     map = map || {},geocoder,infowindow,sv,e,
     panorama = panorama || {};
     Tp3App.getPlace= function (uid,address){
-        var request= $.ajax({url:'//maps.google.com/maps/api/geocode/json?address='+address,type:'GET',headers:{"Access-Control-Allow-Headers":"*"}});
+        var request= $.ajax({url:'//maps.google.com/maps/api/geocode/json?address='+address,type:'GET'});
         request.done(function(result){
           var  data =  jQuery.parseJSON(result);
             console.log(data)
@@ -269,6 +275,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             document.getElementById('place-address').textContent =
                 place.formatted_address;
             infowindow.setContent(document.getElementById('infowindow-content'));
+            $('#infowindow-content').show()
             infowindow.open(map, marker);
         });
 
@@ -282,7 +289,10 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
        // if(!placeId)
             placeId = $.trim($('input#placeid').val());
         // reverse lookup if user has placeid
-
+        if($.type(geocoder)!= "object"){
+            geocoder = new google.maps.Geocoder;
+            infowindow = new google.maps.InfoWindow;
+        }
         geocoder.geocode({'placeId': placeId}, function(results, status) {
             if (status === 'OK') {
                 if (results[0]) {

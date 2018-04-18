@@ -85,7 +85,7 @@ this.append(element)
 if(index<lastIndex){this.children().eq(index).before(this.children().last())}
 return this;}
 
-tp3_app.AnmationOptions = window.AnmationOptions  || {
+tp3_app.AnmationOptions = tp3_app.AnmationOptions  || {
 
         panoJumpTimer:5000,
         panoRotationTimer:30,

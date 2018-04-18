@@ -5,6 +5,9 @@
 <!-- https://developers.google.com/maps/documentation/javascript/streetview?hl=de
 https://developers.google.com/maps/documentation/javascript/examples/streetview-custom-simple?hl=de -->
 <input id="pac-input" class=tp3businessview-controls" type="text" placeholder="Enter a location" style="width: 275px">
+<div class="reversesearch">if you have a place ID
+<input id="placeid" type="text" value="">
+    <input id="reversesubmit" type="button" value="Reverse Geocode by Place ID"></div><br>
 <div id="infowindow-content">
     <span id="place-name"  class="title"></span><br>
     Place ID <span id="place-id"></span><br>
@@ -60,8 +63,6 @@ https://developers.google.com/maps/documentation/javascript/examples/streetview-
         <f:form.submit name="submit" id="submitEditform" value="save" />
         <f:form.submit name="submit" id="submitNewform" value="new" />
 
-    </f:form><br>
-    if you have a place ID
-    <input id="placeid" type="text" value="">
-    <input id="reversesubmit" type="button" value="Reverse Geocode by Place ID">
+    </f:form>
+
 </div>
