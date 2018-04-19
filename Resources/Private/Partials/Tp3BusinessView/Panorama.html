@@ -13,7 +13,9 @@
 
          </td>
         <td class="">
-            <button class="btn btn-secondary actions-view"><span class="t3js-icon icon icon-size-small icon-state-default icon-actions-view"><img src="/typo3/sysext/core/Resources/Public/Icons/T3Icons/actions/actions-view.svg" width="16" height="16"></span></button>
+            <button class="btn btn-secondary actions-view">
+                			{core:icon(identifier:'actions-view')}
+            </button>
             <f:if condition="{editmode}">
                 <f:then>
                     <f:form.textfield additionalAttributes=""  type="text" name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][pano_id]"  value="{panorama.pano_id}"  class="formvalue"  >
@@ -77,9 +79,9 @@
             </f:if>
         </td>
             <td>
-                {panorama.sorting}
-                <button disabled class="btn btn-secondary up"><img src="/typo3/sysext/core/Resources/Public/Icons/T3Icons/actions/actions-move-up.svg" width="16" height="16"></button><br>
-                <button disabled class="btn btn-secondary down"><img src="/typo3/sysext/core/Resources/Public/Icons/T3Icons/actions/actions-move-down.svg" width="16" height="16"></button>
+               <!-- {panorama.sorting} -->
+                <button disabled class="btn btn-secondary up">{core:icon(identifier:'actions-move-up')}</button><br>
+                <button disabled class="btn btn-secondary down">{core:icon(identifier:'actions-move-down')}</button>
 
         </td>
     </tr>

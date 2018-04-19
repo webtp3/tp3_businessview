@@ -16,15 +16,17 @@
 
             </f:then><f:else>
             <div class="businessviewlist clearfix">
-
-                <f:for each="{businessviews}" as="businessview">
-                    <div class="head">
-                        <f:render partial="Tp3BusinessView/Labels" arguments="{properties:businessview.propertiesArray}" />
-                    </div>
+            <h2>Businessviews</h2>
+                <f:for each="{businessviews}" as="businessview" iteration="Iterator">
+                    <f:if condition="{Iterator.index} < 1">
+                        <f:then>
+                            <div class="head">
+                                <f:render partial="Tp3BusinessView/Labels" arguments="{properties:businessview.propertiesArray}" />
+                            </div>
+                        </f:then>
+                    </f:if>
                     <div id="bw_{businessview.uid}_{businessview.pid}" class="bwentry">
-
-
-                        <img src="/typo3conf/ext/tp3_businessview/Resources/Public/Icons/user_mod_tp3businessview.svg" class="icon" width="24" height="24"> <f:render partial="Tp3BusinessView/Properties" arguments="{properties:businessview.propertiesArray}" />
+                        <f:render partial="Tp3BusinessView/Properties" arguments="{properties:businessview.propertiesArray}" />
 
                     </div>
                     <table id="bw{businessview.uid}" class="panolist bwlist">
@@ -41,6 +43,7 @@
                     </table>
                 </f:for>
             </div>
+            <h2>Panoramas</h2>
             <table class="panolist">
                 <tr>
                     <td><b>Titel</b></td>
@@ -53,12 +56,15 @@
                     <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama:panorama}" />
                 </f:for>
             </table><br>
+            <h2>Business </h2>
             <table class="addresslist">
                 <tr> <td><b>name</b></td>
                     <td><b>google place_id</b></td>
                     <td><b>geo</b></td></tr>
-                <f:for each="{addresses}" as="address">
-                    <f:render partial="Tp3BusinessView/Address" arguments="{address:address}" />
+                <f:for each="{addresses}" as="addressest">
+                    <f:for each="{addressest}" as="address">
+                        <f:render partial="Tp3BusinessView/Address" arguments="{address:address}" />
+                    </f:for>
                 </f:for>
             </table>
 

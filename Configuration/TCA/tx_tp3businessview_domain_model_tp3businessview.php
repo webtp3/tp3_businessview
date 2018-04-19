@@ -60,11 +60,15 @@ return [
                 ],
                 'foreign_table' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'foreign_table_where' => 'AND tx_tp3businessview_domain_model_tp3businessview.pid=###CURRENT_PID### AND tx_tp3businessview_domain_model_tp3businessview.sys_language_uid IN (-1,0)',
+                'showIconTable' => false,
+                'default' => 0,
             ],
         ],
         'l10n_diffsource' => [
             'config' => [
                 'type' => 'passthrough',
+                'default' => ''
+
             ],
         ],
 		'hidden' => [
@@ -198,7 +202,9 @@ return [
 	        'exclude' => true,
 	        'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.contact',
             'config' => [
-                'type' => 'inline',
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+
                 'foreign_table' => 'tt_address',
                 'minitems' => 1,
                 'maxitems' => 1,

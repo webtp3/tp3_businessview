@@ -46,7 +46,13 @@ div.bwentry {
     clear: both;
     width: 100%;
     float: left;
+    border-radius: 3px;
     background: #ccc;
+    height:40px;
+    overflow: hidden;
+    box-shadow: rgba(32,32,32,0.7) 2px 2px 1px;
+    cursor: pointer;
+    margin-bottom: 10px;
 }
 .tp3businessview-controls:focus {
 
@@ -74,6 +80,13 @@ div.bwentry {
     float: left;
     min-height: 300px;
 
+}
+.grid {
+    float: left;
+    padding: 10px;
+}
+.grid.array .val {
+   display:none;
 }
 .grid {
     float: left;
@@ -118,6 +131,7 @@ div.bwentry {
 
     padding: 10px;
     border: solid 0.5pt #222;
+
 }
 .businessviewlist,
 .addresslist,
@@ -127,6 +141,7 @@ div.bwentry {
     width:100%;
     padding-top: 20px;
     margin-bottom: 30px;
+    cursor: pointer;
 }
 .recordlists button.btn.btn-secondary {
 

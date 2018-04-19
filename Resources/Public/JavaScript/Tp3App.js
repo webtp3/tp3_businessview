@@ -57,6 +57,12 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             $('#btn-controls').on("click", function(e){
                     $('.tp3businessview-controls.tp3-panel').toggle()
             })
+            /* Businessview List */
+                $.each($('.array'),function(){
+                $(this).tooltip({title: $(this).text()});
+               // $(this).hide();
+                })
+
             $(' .bwentry').hover(function() {
                 $(this).addClass('hover');
             }, function() {
@@ -292,6 +298,18 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
         if($.type(geocoder)!= "object"){
             geocoder = new google.maps.Geocoder;
             infowindow = new google.maps.InfoWindow;
+        }
+        if($.type(map)!= "object"){
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: Tp3App.BusinessAdress,
+                zoom: 16,
+                streetViewControl: false,
+                zoomControl: true,
+                scaleControl: true,
+                rotateControl: true,
+                fullscreenControl: false
+
+            });
         }
         geocoder.geocode({'placeId': placeId}, function(results, status) {
             if (status === 'OK') {

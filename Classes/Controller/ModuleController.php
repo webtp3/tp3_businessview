@@ -278,7 +278,7 @@ class ModuleController extends ActionController
         //$querySettings->setRespectStoragePage(true);
         // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
         $bw = $businessView->getPropertiesArray();
-        $businessAdresses = $this->businessAdressRepository->findByList($businessView->getContact());
+        $businessAdresses[] = $this->businessAdressRepository->findByList($businessView->getContact());
         $bw['contact'] = $businessAdresses[0];
         $bw['panorama'] = $panoramas[0];
         $bw['panoramas'] = [$panoramas];
@@ -519,7 +519,7 @@ class ModuleController extends ActionController
      */
     protected function getToken($tokenOnly = false)
     {
-        $token = FormProtectionFactory::get()->generateToken('update', 'update');
+        $token = FormProtectionFactory::get()->generateToken('web_Tp3BusinessviewModule', 'index');
         if ($tokenOnly) {
             return $token;
         } else {

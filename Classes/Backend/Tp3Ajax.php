@@ -20,7 +20,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Ajax response for the custom suggest receiver
  *
  */
-class Tp3Ajax
+class Tp3Ajax extends TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
 {
     const TAG = 'tx_tp3businessview_domain_model_tp3businessview';
     const NEWS = 'tx_tp3businessview_domain_model_panoramas';
