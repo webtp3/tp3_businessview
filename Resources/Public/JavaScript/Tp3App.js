@@ -123,7 +123,14 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
 
             });
             $('.btn.btn-secondary.actions-view').on("click", function(e){
-               if(window.businessviewJson != undefined) Tp3App.businessview_initialize(window.businessviewJson)
+               if(window.businessviewJson != undefined) {
+                  var bwId=  $(this).parents(".panolist.bwlist").attr("id").split("_");
+                  if($.type(bwId) == "array"){
+                      Tp3App.businessview_initialize(window.businessviewJsonsArray[bwId[1]])
+                  }
+                   else
+                       Tp3App.businessview_initialize(window.businessviewJson)
+               }
                 else alert("no businessview")
             })
             $('.addresslist tr.entry').hover(function() {

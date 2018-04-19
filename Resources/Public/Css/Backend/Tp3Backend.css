@@ -88,6 +88,9 @@ div.bwentry {
 .grid.array .val {
    display:none;
 }
+.head .grid {
+    font-weight: bold;
+}
 .grid {
     float: left;
     padding: 10px;

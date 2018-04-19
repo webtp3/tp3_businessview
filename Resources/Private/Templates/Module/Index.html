@@ -29,7 +29,7 @@
                         <f:render partial="Tp3BusinessView/Properties" arguments="{properties:businessview.propertiesArray}" />
 
                     </div>
-                    <table id="bw{businessview.uid}" class="panolist bwlist">
+                    <table id="bw_{Iterator.index}_{businessview.uid}" class="panolist bwlist">
                         <tr>
                             <td><b>Titel</b></td>
                             <td><b>Pano ID</b></td>
@@ -69,10 +69,21 @@
             </table>
 
         </f:else></f:if>
-        <script>
-            window.businessviewJson =<f:format.raw>{businessViewJson}</f:format.raw>;
-        </script>
 
+        <script>
+            window.businessviewJsonsArray = window.businessviewJsonsArray || [];
+            <f:for each="{businessViewJson}" as="Json"  iteration="Iterator">
+
+            <f:if condition="{Iterator.index} < 1">
+                <f:then>
+            window.businessviewJson =  <f:format.raw>{Json}</f:format.raw>;
+                </f:then>
+                </f:if>
+
+            window.businessviewJsonsArray[{Iterator.index}]= <f:format.raw>{Json}</f:format.raw>;
+            </f:for>
+
+        </script>
 
     </div>
 </f:section>
