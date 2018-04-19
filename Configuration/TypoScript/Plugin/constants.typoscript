@@ -9,7 +9,7 @@ plugin.tx_tp3businessview_tp3businessview {
   }
   persistence {
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=Default storage PID
-    storagePid =
+    storagePid = {$plugin.tx_tp3businessview_tp3businessview.settings.storagePid}
   }
   settings{
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=google api key (FE) https://console.developers.google.com/apis/
@@ -32,6 +32,8 @@ plugin.tx_tp3businessview_tp3businessview {
     panoRotationFactor=0.030
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=bolean; label=panoJumpsRandom random(trrue) or linear(false)
     panoJumpsRandom=true
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=bolean; label=storage
+    storagePid =
   }
 
 }

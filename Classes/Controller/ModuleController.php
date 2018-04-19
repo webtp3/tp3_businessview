@@ -249,9 +249,6 @@ class ModuleController extends ActionController
 
         if(is_array($this->settings)) {
             $this->pageRenderer->addJsInlineCode("panoAnmation",'window.AnmationOptions  = {  panoJumpTimer:'.$this->settings["panoJumpTimer"].', panoRotationTimer:'.$this->settings["panoRotationTimer"].', panoRotationFactor:'.$this->settings["panoRotationFactor"].', panoJumpsRandom:'.$this->settings["panoJumpsRandom"].'};');
-            $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-            $vpid = $querySettings->getStoragePageIds();
-            // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
 
             $panoramas = [];
             $businessAdresses = [];
@@ -270,6 +267,11 @@ class ModuleController extends ActionController
             if ($this->jsonRenderer === null) {
                 $this->jsonRenderer = $this->objectManager->get(Tp3PageRenderer::class);
             }
+            $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+            $querySettings->setStoragePageIds(array($this->settings["storagePid"]));
+            $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
+            $this->tp3BusinessViewRepository->setDefaultQuerySettings($querySettings);
+
             $businessViews = $this->tp3BusinessViewRepository->findAll();
         //    $businessView = $businessViews->getFirst();
             if ($businessViews->getFirst() instanceof \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView) {

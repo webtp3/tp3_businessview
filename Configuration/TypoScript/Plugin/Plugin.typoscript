@@ -9,7 +9,7 @@ plugin.tx_tp3businessview_tp3businessview {
     layoutRootPaths.1 = {$plugin.tx_tp3businessview_tp3businessview.view.layoutRootPath}
   }
   persistence {
-    storagePid = {$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
+    storagePid = {$plugin.tx_tp3businessview_tp3businessview.settings.storagePid}
     recursive = 1
     enhancedLazyLoadingStrategy = 0
   }
@@ -28,6 +28,7 @@ plugin.tx_tp3businessview_tp3businessview {
     panoRotationTimer={$plugin.tx_tp3businessview_tp3businessview.settings.panoRotationTimer}
     panoRotationFactor={$plugin.tx_tp3businessview_tp3businessview.settings.panoRotationFactor}
     panoJumpsRandom={$plugin.tx_tp3businessview_tp3businessview.settings.panoJumpsRandom}
+    storagePid={$plugin.tx_tp3businessview_tp3businessview.settings.storagePid}
 
   }
   mvc {
