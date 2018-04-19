@@ -246,44 +246,54 @@ class ModuleController extends ActionController
             $publicResourcesPath.'Resources/Public/Css/Tp3App.css','stylesheet', 'all', "tp3businessview preview", $compress = false, false,  '', true,  '|'
         );*/
         $this->pageRenderer->addJsInlineCode("gapikey",'window.apikey = "'. $this->settings["googleMapsJavaScriptApiKey"].'";TYPO3.jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length; if(index<0){index=Math.max(0,lastIndex+ 1+ index)}this.append(element);if(index<lastIndex){this.children().eq(index).before(this.children().last())}return this;}');
-
-        $this->pageRenderer->addJsInlineCode("panoAnmation",'window.AnmationOptions  = {  panoJumpTimer:'.$this->settings["panoJumpTimer"].', panoRotationTimer:'.$this->settings["panoRotationTimer"].', panoRotationFactor:'.$this->settings["panoRotationFactor"].', panoJumpsRandom:'.$this->settings["panoJumpsRandom"].'};');
-
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        $vpid = $querySettings->getStoragePageIds();
-        // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
-
         $panoramas = [];
         $businessAdresses = [];
         $businessView = [];
+        if(is_array($this->settings)) {
+          $this->pageRenderer->addJsInlineCode("panoAnmation",'window.AnmationOptions  = {  panoJumpTimer:'.$this->settings["panoJumpTimer"].', panoRotationTimer:'.$this->settings["panoRotationTimer"].', panoRotationFactor:'.$this->settings["panoRotationFactor"].', panoJumpsRandom:'.$this->settings["panoJumpsRandom"].'};');
 
-        if ($this->tp3BusinessViewRepository === null) {
-            $this->tp3BusinessViewRepository = $this->objectManager->get(Tp3BusinessViewRepository::class);
-        }
+          $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+          $vpid = $querySettings->getStoragePageIds();
+          // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
 
-        if ($this->panoramasRepository === null) {
-            $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
+
+
+          if ($this->tp3BusinessViewRepository === null) {
+              $this->tp3BusinessViewRepository = $this->objectManager->get(Tp3BusinessViewRepository::class);
+          }
+
+          if ($this->panoramasRepository === null) {
+              $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
+          }
+          if ($this->businessAdressRepository === null) {
+              $this->businessAdressRepository = $this->objectManager->get(BusinessAdressRepository::class);
+          }
+          if ($this->jsonRenderer === null) {
+              $this->jsonRenderer = $this->objectManager->get(Tp3PageRenderer::class);
+          }
+          $businessViews = $this->tp3BusinessViewRepository->findAll();
+            if ($businessViews->getFirst() instanceof \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView) {
+                foreach ($businessViews as $businessView ){
+                    //  $businessView = $businessViews->getFirst();
+                    $panoramas = $this->panoramasRepository->findByList($businessView->getPanoramas());
+                    //$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+                    //$querySettings->setRespectStoragePage(true);
+                    // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
+                    $bw = $businessView->getPropertiesArray();
+                    $businessAdresses[] = $this->businessAdressRepository->findByList($businessView->getContact());
+                    $businessViewJson = $this->jsonRenderer->JsonRenderer($bw,$panoramas);
+                };
+            }
+
+
+            $panoramas_all = $this->panoramasRepository->findAll();
+
         }
-        if ($this->businessAdressRepository === null) {
-            $this->businessAdressRepository = $this->objectManager->get(BusinessAdressRepository::class);
-        }
-        if ($this->jsonRenderer === null) {
-            $this->jsonRenderer = $this->objectManager->get(Tp3PageRenderer::class);
-        }
-        $businessViews = $this->tp3BusinessViewRepository->findAll();
-        $businessView = $businessViews->getFirst();
-        $panoramas = $this->panoramasRepository->findByList($businessView->getPanoramas());
-        $panoramas_all = $this->panoramasRepository->findAll();
-        //$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        //$querySettings->setRespectStoragePage(true);
-        // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
-        $bw = $businessView->getPropertiesArray();
-        $businessAdresses[] = $this->businessAdressRepository->findByList($businessView->getContact());
         $bw['contact'] = $businessAdresses[0];
         $bw['panorama'] = $panoramas[0];
         $bw['panoramas'] = [$panoramas];
         // $bw['contact'] = $this->businessadressrepository->findByUid($businessView->getContact()->getFirst()->getUid())[0];
-        $businessViewJson = $this->jsonRenderer->JsonRenderer($bw,$panoramas);
+
         $this->view->assign('debugMode', $this->conf["debugMode"]);
         $this->view->assign('conf', $this->conf);
         $this->view->assign('settings', $this->settings);
