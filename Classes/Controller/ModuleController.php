@@ -269,7 +269,7 @@ class ModuleController extends ActionController
             }
             $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
             $querySettings->setStoragePageIds(array($this->settings["storagePid"]));
-            $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
+            $this->panoramasRepository->setDefaultQuerySettings($querySettings);
             $this->tp3BusinessViewRepository->setDefaultQuerySettings($querySettings);
 
             $businessViews = $this->tp3BusinessViewRepository->findAll();
