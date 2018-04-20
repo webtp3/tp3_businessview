@@ -22,9 +22,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class Tp3Ajax extends TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
 {
-    const TAG = 'tx_tp3businessview_domain_model_tp3businessview';
-    const NEWS = 'tx_tp3businessview_domain_model_panoramas';
-    const LL_PATH = 'LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:tag_suggest_';
+    const BW = 'tx_tp3businessview_domain_model_tp3businessview';
+    const PANO = 'tx_tp3businessview_domain_model_panoramas';
+    const LL_PATH = 'LLL:EXT:tp3_busnessview/Resources/Private/Language/locallang_be.xlf:';
 
     /**
      * @param ServerRequestInterface $request
@@ -51,8 +51,8 @@ class Tp3Ajax extends TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
             $content = [
                 $newTagId,
                 $item,
-                self::TAG,
-                self::NEWS,
+                self::BW,
+                self::PANO,
                 'tags',
                 'data[tx_tp3businessview_domain_model_panoramas][' . $newsUid . '][tags]',
                 $newsUid
@@ -89,15 +89,15 @@ class Tp3Ajax extends TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
 
         $record = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow(
             '*',
-            self::TAG,
+            self::BW,
             'deleted=0 AND pid=' . $pid .
-            ' AND title=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($title, self::TAG)
+            ' AND title=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($title, self::BW)
         );
         if (isset($record['uid'])) {
             $tagUid = $record['uid'];
         } else {
             $tcemainData = [
-                self::TAG => [
+                self::BW => [
                     'NEW' => [
                         'pid' => $pid,
                         'title' => $title

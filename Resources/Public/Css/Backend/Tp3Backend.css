@@ -31,6 +31,24 @@
     width: auto;
     float: right;
 }
+#PanoPlayer {
+    position: absolute;
+    display: none;
+    top: 10px;
+    left: 50%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+}
+
+#PanoPlayer {
+    margin-left: -75px;
+}
 .panolist.bwlist,
 .tp3businessview-controls.tp3-panel,
 #links_table,
@@ -113,6 +131,7 @@ div.bwentry {
     position: static;
     border: 0px solid #999;
 }
+
 .panoviewer{
 
     width: 100%;

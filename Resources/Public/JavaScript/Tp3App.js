@@ -4,6 +4,8 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
         init:function(){
             console.log("tp3app Init");
          //   Tp3App.scriptsload("//maps.googleapis.com/maps/api/js?key=zzz&")//callback=Tp3App.initPano
+
+         // get pano from entry instead of default
             if(($('.panolist tr.entry').length > 0 && $.trim($('.panolist tr.entry').first().find('.position').text()) != "")){
                 try {
                     var arr = $.trim($('.panolist tr.entry').first().find('.position').text()).substring(1, $.trim($('.panolist tr.entry').first().find('.position').text()).length -1).split(',');
@@ -16,90 +18,72 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             }
             geocoder = new google.maps.Geocoder;
             infowindow = new google.maps.InfoWindow;
+            Tp3App.ApplyHandler();
             Tp3App.setAnmationOptions();
             Tp3App.initPano();
             Tp3App.initMap();
 
-        /*    $('#editform').on("submit",function (e) {
-                $('<div class="loaderbg"><div class="loader"></div></div>').appendTo($(e.currentTarget).parents("body").first()).css({position:"absolute", width:"100%", height:"100%", top :0, "z-index": "999", background: "rgba(0, 0, 0, 0.5)"});
-                e.preventDefault(e);
-                $('.loader').css({position:"absolute", left:"40%", top : window.pageYOffset, "z-index": "999"});
-                var url = TYPO3.settings.ajaxUrls['tp3businessview_tp3businessview']; // the script where you handle the form input.
+            return Tp3App;
+        },
+        ApplyHandler : function(){
 
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    data:     $('#editform').serialize(), // serializes the form's elements.
-                    success: function(data)
-                    {
-                        $('.loaderbg').remove();
-                        console.log(data); // show response from the php script.
-                        var result = $.parseJSON(data);
+                $('#submitNewform').on("click", function(e){
+                    e.preventDefault(e);
+                    $('#editform').attr("action", $('#editform').attr("action").replace("update","create"))
+                    $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][uid]"]').val(null);
+                    $('#editform').submit();
 
-
-                    }
-                });
-
-                e.preventDefault(e); // avoid to execute the actual submit of the form.
-                return false;
-            })*/
-            $('#submitNewform').on("click", function(e){
-                e.preventDefault(e);
-               $('#editform').attr("action", $('#editform').attr("action").replace("update","create"))
-                $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][uid]"]').val(null);
-                $('#editform').submit();
-
-            })
-
-            $('#submitEditform').on("click", function(e){
-
-            })
-            $('#btn-controls').on("click", function(e){
-                    $('.tp3businessview-controls.tp3-panel').toggle()
-            })
-            /* Businessview List */
-                $.each($('.array'),function(){
-                $(this).tooltip({title: $(this).text()});
-               // $(this).hide();
                 })
 
-            $(' .bwentry').hover(function() {
-                $(this).addClass('hover');
-            }, function() {
-                $(this).removeClass('hover');
-            }).click( function(e){
-                $(this).next('.panolist.bwlist').toggle();
-            });
-            $('.panoJumpTimer-controls').change( function(){
-                Tp3App.AnmationOptions.panoJumpTimer = $(this).val();
-            })
-            $('.panoRotationTimer-controls').change( function(){
-                Tp3App.AnmationOptions.panoRotationTimer = $(this).val();
-            })
-            $('#btn-panoRotationFactor-plus').click(function(){
-                Tp3App.AnmationOptions.panoRotationFactor += Tp3App.AnmationOptions.panoRotationFactor *0.9;
-                $('input[name="settings[panoRotationFactor]"]').val(Tp3App.AnmationOptions.panoRotationFactor)
-            })
-            $('#btn-panoRotationFactor-minus').click(function(){
-                Tp3App.AnmationOptions.panoRotationFactor += Tp3App.AnmationOptions.panoRotationFactor *-0.9 ;
-                $('input[name="settings[panoRotationFactor]"]').val(Tp3App.AnmationOptions.panoRotationFactor)
+                $('#submitEditform').on("click", function(e){
 
-            })
-            $('.panoRotationFactor-controls').change(function(){
-                Tp3App.AnmationOptions.panoRotationFactor = $(this).val();
-            })
-            $('.panoJumpsRandom-controls').change( function(){
-                Tp3App.AnmationOptions.panoJumpsRandom = $(this).val();
-            })
-            $('#btn-links').on("click", function(e){
-                $('#links_table').toggle()
-            })
-            $('.businessviewlist tr.entry, .panolist tr.entry').hover(function() {
-                $(this).addClass('hover');
-            }, function() {
-                $(this).removeClass('hover');
-            }).click(function(e){
-                console.log(e);
+                })
+                $('#btn-controls').on("click", function(e){
+                    $('.tp3businessview-controls.tp3-panel').toggle()
+                })
+                /* Businessview List */
+                $.each($('.array'),function(){
+                    $(this).tooltip({title: $(this).text()});
+                    // $(this).hide();
+                })
+
+                $(' .bwentry').hover(function() {
+                    $(this).addClass('hover');
+                }, function() {
+                    $(this).removeClass('hover');
+                }).click( function(e){
+                    $(this).next('.panolist.bwlist').toggle();
+                });
+                $('.panoJumpTimer-controls').change( function(){
+                    Tp3App.AnmationOptions.panoJumpTimer = $(this).val();
+                })
+                $('.panoRotationTimer-controls').change( function(){
+                    Tp3App.AnmationOptions.panoRotationTimer = $(this).val();
+                })
+                $('#btn-panoRotationFactor-plus').click(function(){
+                    Tp3App.AnmationOptions.panoRotationFactor += Tp3App.AnmationOptions.panoRotationFactor *0.9;
+                    $('input[name="settings[panoRotationFactor]"]').val(Tp3App.AnmationOptions.panoRotationFactor)
+                })
+                $('#btn-panoRotationFactor-minus').click(function(){
+                    Tp3App.AnmationOptions.panoRotationFactor += Tp3App.AnmationOptions.panoRotationFactor *-0.9 ;
+                    $('input[name="settings[panoRotationFactor]"]').val(Tp3App.AnmationOptions.panoRotationFactor)
+
+                })
+                $('.panoRotationFactor-controls').change(function(){
+                    Tp3App.AnmationOptions.panoRotationFactor = $(this).val();
+                })
+                $('.panoJumpsRandom-controls').change( function(){
+                    Tp3App.AnmationOptions.panoJumpsRandom = $(this).val();
+                })
+                $('#btn-links').on("click", function(e){
+                    $('#links_table').toggle()
+                })
+                $('.businessviewlist tr.entry, .panolist tr.entry').hover(function() {
+                    $(this).addClass('hover');
+                }, function() {
+                    $(this).removeClass('hover');
+                }).click(function(e){
+                    console.log(e);
                     $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][uid]"]').val($(this).attr("id").split("_")[1]);
                     $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][pid]"]').val($(this).attr("id").split("_")[2]);
                     $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][pano_id]"]').val($.trim($(this).find('.pano_id').val()));
@@ -121,37 +105,36 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                     // $('#tp3businessview-floating-panel form').attr("name","updatepano")
 
 
-            });
-            $('.btn.btn-secondary.actions-view').on("click", function(e){
-               if(window.businessviewJson != undefined) {
-                  var bwId=  $(this).parents(".panolist.bwlist").attr("id").split("_");
-                  if($.type(bwId) == "array"){
-                      Tp3App.businessview_initialize(window.businessviewJsonsArray[bwId[1]])
-                  }
-                   else
-                       Tp3App.businessview_initialize(window.businessviewJson)
-               }
-                else alert("no businessview")
-            })
-            $('.addresslist tr.entry').hover(function() {
-                $(this).addClass('hover');
-            }, function() {
-                $(this).removeClass('hover');
-            }).click(function(){
-               if($.trim($(this).find('.place_id').text()) != ""  ) {
+                });
+                $('.btn.btn-secondary.actions-view').on("click", function(e){
+                    if(window.businessviewJson != undefined) {
+                        var bwId=  $(this).parents(".panolist.bwlist").attr("id").split("_");
+                        if($.type(bwId) == "array"){
+                            Tp3App.businessview_initialize(window.businessviewJsonsArray[bwId[1]])
+                        }
+                        else
+                            Tp3App.businessview_initialize(window.businessviewJson)
+                    }
+                    else alert("no businessview")
+                })
+                $('.addresslist tr.entry').hover(function() {
+                    $(this).addClass('hover');
+                }, function() {
+                    $(this).removeClass('hover');
+                }).click(function(){
+                    if($.trim($(this).find('.place_id').text()) != ""  ) {
 
-                   $('input#placeid').val($.trim($(this).find('.place_id').text()))
-                   Tp3App.geocodePlaceId();
-                 //  Tp3App.getPlace( $.trim($(this).find('.geo_address').text()));
-               }
-               else if( $.trim($(this).find('.geo_position').text()) == ""){
+                        $('input#placeid').val($.trim($(this).find('.place_id').text()))
+                        Tp3App.geocodePlaceId();
+                        //  Tp3App.getPlace( $.trim($(this).find('.geo_address').text()));
+                    }
+                    else if( $.trim($(this).find('.geo_position').text()) == ""){
 
-               }
+                    }
 
-            });
+                });
 
-            return Tp3App;
-        },
+            },
         setBusinessAdress:function(latv ,lngv,headingv,pitchv,zoomv){
             Tp3App.BusinessAdress = {lat: Number(latv), lng: Number(lngv)};
             Tp3App.pov.heading =Number( headingv);
@@ -179,11 +162,14 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             }
 
         },
-            AnmationHandler : {
+
+        AnmationHandler : {
+            nextPano:{},
+            lastPano:{},
 
 
 
-            },
+        },
 
     },
     map = map || {},geocoder,infowindow,sv,e,
@@ -445,11 +431,38 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
 
 
 
-    }
+    },
+        Tp3App.PanoControls =  function (control, obj) {
+
+        // Set CSS for the control border.
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#fff';
+        controlUI.style.border = '2px solid #fff';
+        controlUI.style.borderRadius = '3px';
+        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginBottom = '22px';
+        controlUI.style.textAlign = 'center';
+        controlUI.title = 'Click to recenter the map';
+        control.appendChild(controlUI);
+
+        // Set CSS for the control interior.
+
+        controlUI.appendChild(obj);
+
+      /*  // Setup the click event listeners: simply set the map to Chicago.
+        controlUI.addEventListener('click', function() {
+            map.setCenter(chicago);
+        });
+*/
+    },
         Tp3App.businessview_initialize = Tp3App.businessview_initialize  || function(businessviewJson){
         var panoEntry;
         var panoOptions;
         var links;
+
+
+
         if(businessviewJson.details.panoEntry){
             panoEntry=businessviewJson.details.panoEntry;
         }else{
@@ -491,7 +504,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             }else{appendAreasToBusinessView(businessviewJson.areas);
             }
             $('ul#businessview-area-canvas').on('click','li',function(){
-                window.clearInterval(panoJumpTimer);
+                window.clearInterval(Tp3App.AnmationHandler.panoJumpTimer);
                 var pov={heading:parseFloat(
                         $(this).attr('data-entry-panorama-heading')
                     ),pitch:parseFloat($(this).attr('data-entry-panorama-pitch'))
@@ -510,83 +523,46 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                 if($(this).attr('data-action-target')=='fancybox'){
                     $.fancybox.open({href:decodeURIComponent($(this).attr('data-object-url')),type:'iframe',padding:0,width:'80%',height:'80%',helpers:{overlay:{locked:false}}});}else{window.location.href=decodeURIComponent($(this).attr('data-object-url'));}});}
         $panoCanvas=$(businessviewCanvasSelector+' div#businessview-panorama-canvas');panoCanvasHeight=$panoCanvas.height();panoCanvasWidth=$panoCanvas.width();if(businessviewJson.infoPoints&&Object.size(businessviewJson.infoPoints)>0){createInfoPointCanvas();appendInfoPointsToBusinessview();$(businessviewCanvasSelector).on('mouseenter','div#businessview-infopoint-canvas div.with-tooltip:not(.without-url)',function(){$(this).find('div.tooltip').removeAttr('style').attr('style',getTooltipPopupPosition($(this))).addClass(' visible');});$(businessviewCanvasSelector).on('mouseleave','div#businessview-infopoint-canvas div.with-tooltip:not(.without-url)',function(){$(this).find('div.tooltip').removeAttr('style').removeClass("visible");});$(businessviewCanvasSelector).on('click','div#businessview-infopoint-canvas .infoPoint',function(){if($(this).hasClass('without-url')){if(!$(this).find('div.tooltip').hasClass('visible')){$(this).find('div.tooltip').removeAttr('style').attr('style',getTooltipPopupPosition($(this))).addClass(' visible');}else{$(this).find('div.tooltip').removeAttr('style').removeClass("visible");}}else{if($(this).attr('data-action-target')=='fancybox'){$.fancybox.open({href:decodeURIComponent($(this).attr('data-object-url')),type:'iframe',padding:0,width:'80%',height:'80%',helpers:{overlay:{locked:false}}});}else{window.location.href=decodeURIComponent($(this).attr('data-object-url'));}}});}
-        if(businessviewJson.details.modules){if(businessviewJson.details.modules.googleAnalytics){var googleAnalytics=businessviewJson.details.modules.googleAnalytics;if(googleAnalytics.tracking){if(checkIfAnalyticsLoaded(googleAnalytics.code)){$('#businessview-actions-canvas').on('click','li',function(){ga('send','event','BusinessView Actions','click',$(this).text());});$('#businessview-areas-canvas').on('click','li',function(){ga('send','event','BusinessView Areas','click',$(this).text());});var viewportToggle=false;if(isInViewport(businessviewCanvasSelector)&&!viewportToggle){ga('send','event','BusinessView Canvas','scroll','in-viewport');viewportToggle=true;}
-            $(window).scroll(function(){if(isInViewport(businessviewCanvasSelector)&&!viewportToggle){ga('send','event','BusinessView Canvas','scroll','in-viewport');viewportToggle=true;}
-                if(!isInViewport(businessviewCanvasSelector)&&viewportToggle){viewportToggle=false;}});}}}
-            if(businessviewJson.details.modules.intro){var intro=businessviewJson.details.modules.intro;if(intro.status&&(intro.headline!=""||intro.message!="")){
-                appendIntroToBusinessview(intro.headline,intro.message,intro.backgroundColor,intro.textColor);$(businessviewCanvasSelector).on('click','div#businessview-intro-canvas i.fa-times',function(){removeBusinessviewCanvas('businessview-intro-canvas');});}}
-            if(businessviewJson.details.modules.panoAnimation){
-            var panoAnimation=window.businessviewJson.details.modules.panoAnimation; var counter = 0;
-                if(panoAnimation.jumps){
-                    var lastPano = {}; lastPano.id=panorama.getPano();
-                    Tp3App.AnmationHandler.panoJumpTimer=window.setInterval(function(){
-                        if(lastPano.id==panorama.getPano()){
-                        if(window.businessviewJson.details.panoramas > 1 ){
-                            links=  window.businessviewJson.details.panoramas;
-
+        if(businessviewJson.details.modules) {
+            if (businessviewJson.details.modules.googleAnalytics) {
+                var googleAnalytics = businessviewJson.details.modules.googleAnalytics;
+                if (googleAnalytics.tracking) {
+                    if (checkIfAnalyticsLoaded(googleAnalytics.code)) {
+                        $('#businessview-actions-canvas').on('click', 'li', function () {
+                            ga('send', 'event', 'BusinessView Actions', 'click', $(this).text());
+                        });
+                        $('#businessview-areas-canvas').on('click', 'li', function () {
+                            ga('send', 'event', 'BusinessView Areas', 'click', $(this).text());
+                        });
+                        var viewportToggle = false;
+                        if (isInViewport(businessviewCanvasSelector) && !viewportToggle) {
+                            ga('send', 'event', 'BusinessView Canvas', 'scroll', 'in-viewport');
+                            viewportToggle = true;
                         }
-                        else {
-                            var glinks = panorama.getLinks();
-                            for(i=0;glinks.length > i;i++){
-                                var array=glinks[i];array.actions=[];array.areas=[];array.infoPoints=[];array.id=array.pano;
-                                window.businessviewJson.details.panoramas.push(array);
+                        $(window).scroll(function () {
+                            if (isInViewport(businessviewCanvasSelector) && !viewportToggle) {
+                                ga('send', 'event', 'BusinessView Canvas', 'scroll', 'in-viewport');
+                                viewportToggle = true;
                             }
-
-                            links = window.businessviewJson.details.panoramas;
+                            if (!isInViewport(businessviewCanvasSelector) && viewportToggle) {
+                                viewportToggle = false;
                             }
-                            var nextPano= {};
-                            if(links.length>1 && Tp3App.AnmationOptions.panoJumpsRandom > 0){
-                                do{
-                                    var loc = getRandomInt(0,links.length-1);
-                                    nextPano=  links[loc];}
-                                while(nextPano==lastPano);
-                                lastPano=nextPano;
-                            } else if(links.length>1 && Tp3App.AnmationOptions.panoJumpsRandom < 1){
-                                do{
-                                    counter++;
-                                    if(counter > links.length )counter = 0;
-                                    nextPano=links[counter];
-                                }
-                                while(nextPano==lastPano);
-                                lastPano= nextPano;
-                            }else{nextPano=links[0];}
-
-                            if($.type(nextPano.pano) == "object"){
-                                panorama.setPano(nextPano.pano.panoId);
-                                panorama.setPov({
-                                    heading: Number(nextPano.pano.heading),
-                                    pitch: Number(nextPano.pano.pitch),
-                                    zoom: Number(nextPano.pano.zoom)
-                                });
-                            }
-                            else{
-                                panorama.setPano(nextPano.id);
-                                /*panorama.setPov({
-                                    heading: Number(nextPano.pano.heading),
-                                    pitch: Number(nextPano.pano.pitch)
-                                });*/
-                            }
-
-                            panorama.setVisible(true);
-                            if(panoAnimation.rotation){
-                                var lastPov=panorama.getPov();
-                                if($.type(lastPov) == "object"){
-                                    Tp3App.AnmationHandler.panoRotationTimer=window.setInterval(function(){
-                                        var pov=panorama.getPov();
-
-                                        if($.type(pov) == "object" && pov.heading==lastPov.heading){
-                                            pov.heading+=Tp3App.AnmationOptions.panoRotationFactor;panorama.setPov(pov);lastPov=pov;
-                                        }else{
-                                            Tp3App.AnmationHandler.panoRotationTimer= window.clearInterval(panoRotationTimer);Tp3App.AnmationHandler.panoJumpTimer= window.clearInterval(window.panoJumpTimer);
-                                        }
-                                    },Tp3App.AnmationOptions.panoRotationTimer);
-                                }
-
-                            }
-                        }
-                        //else{window.clearInterval(window.panoJumpTimer);}
-                    },Tp3App.AnmationOptions.panoJumpTimer);}
+                        });
+                    }
                 }
+            }
+            if (businessviewJson.details.modules.intro) {
+                var intro = businessviewJson.details.modules.intro;
+                if (intro.status && (intro.headline != "" || intro.message != "")) {
+                    appendIntroToBusinessview(intro.headline, intro.message, intro.backgroundColor, intro.textColor);
+                    $(businessviewCanvasSelector).on('click', 'div#businessview-intro-canvas i.fa-times', function () {
+                        removeBusinessviewCanvas('businessview-intro-canvas');
+                    });
+                }
+            }
+            if (businessviewJson.details.modules.panoAnimation) {
+                animateBusinessview();
+        }
             if(businessviewJson.details.modules.contact){var contact=businessviewJson.details.modules.contact;if(contactBoxHasVisibleFields(contact.fields)){appendContactToBusinessview(contact.fields,contact.backgroundColor,contact.textColor,contact.align);}
                 $(businessviewCanvasSelector).on('click','div#businessview-contact-canvas div#businessview-show-contact-details',function(){$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-show-contact-details').hide();$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-contact-details').show();});$(businessviewCanvasSelector).on('click','div#businessview-contact-canvas div#businessview-contact-details i.fa-times',function(){$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-contact-details').hide();$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-show-contact-details').show();});}
             if(businessviewJson.details.modules.gallery){var gallery=businessviewJson.details.modules.gallery;if(gallery.status&&gallery.googlePlacePhotos&&gallery.googlePlacePhotos.length>0){appendGalleryToBusinessview(gallery.googlePlacePhotos);$(businessviewCanvasSelector).on('click','ul#businessview-gallery-canvas a',function(){$(businessviewCanvasSelector+' ul#businessview-gallery-canvas a').fancybox({type:'image',padding:0,helpers:{overlay:{locked:false},thumbs:{width:50,height:50}},});});}}
@@ -599,7 +575,8 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             if(businessviewJson.details.modules.socialGallery){if(businessviewJson.details.modules.socialGallery.status&&socialGalleryHasActiveNetworks(businessviewJson.details.modules.socialGallery.networks)){var s='';s+='<div id="businessview-socialGallery-canvas" class="hidden"></div>';s+='<div id="businessview-socialGallery-trigger"></div>';$(businessviewCanvasSelector).append(s);resolveSocialGalleryNetworks(businessviewJson.details.modules.socialGallery.networks);$(businessviewCanvasSelector).on('click','div#businessview-socialGallery-canvas #close-socialGallery',function(){$(businessviewCanvasSelector+' div#businessview-socialGallery-canvas').addClass('hidden');$(businessviewCanvasSelector).removeClass('socialGallery-open');});$(businessviewCanvasSelector).on('click','div#businessview-socialGallery-trigger',function(){$(businessviewCanvasSelector+' div#businessview-socialGallery-canvas').removeClass('hidden');$(businessviewCanvasSelector).addClass('socialGallery-open');});$(businessviewCanvasSelector).on('click','div#businessview-socialGallery-canvas .network.facebookPage ul.albums li',function(){$.fancybox.helpers.overlay.open({parent:$('body')});$.fancybox.showLoading();var albumId=$(this).attr('data-album-id');if($('div#businessview-socialGallery-canvas .network.facebookPage ul.photos img[data-album-id="'+albumId+'"]').length==0){getFacebookPageAlbumPhotos(albumId);}else{showFacebookPageAlbumPhotos(albumId);}});}}
             if(businessviewJson.details.modules.fullscreenMode){var fullscreenMode=businessviewJson.details.modules.fullscreenMode;if(fullscreenMode.status){appendFullscreenModeToBusinessview();var fullscreenResizeTimer;var fullscreenResizeCounter=0;$(businessviewCanvasSelector).on('click','div#businessview-fullscreen-button',function(){var businessviewCanvas=document.getElementById('businessview-canvas');
                 if(document.getElementById('tp3-iframe-embed')){businessviewCanvas=document.getElementById('tp3-iframe-embed');}
-                if(!document.fullscreenElement&&!document.mozFullScreenElement&&!document.webkitFullscreenElement&&!document.msFullscreenElement){$(businessviewCanvasSelector).attr('data-normal-height',$(businessviewCanvasSelector).height());if(businessviewCanvas.requestFullscreen){businessviewCanvas.requestFullscreen();}else if(businessviewCanvas.msRequestFullscreen){businessviewCanvas.msRequestFullscreen();}else if(businessviewCanvas.mozRequestFullScreen){businessviewCanvas.mozRequestFullScreen();}else if(businessviewCanvas.webkitRequestFullscreen){businessviewCanvas.webkitRequestFullscreen();}}else{if(document.exitFullscreen){document.exitFullscreen();}else if(document.msExitFullscreen){document.msExitFullscreen();}else if(document.mozCancelFullScreen){document.mozCancelFullScreen();}else if(document.webkitExitFullscreen){document.webkitExitFullscreen();}}
+                if(!document.fullscreenElement&&!document.mozFullScreenElement&&!document.webkitFullscreenElement&&!document.msFullscreenElement){$(businessviewCanvasSelector).attr('data-normal-height',$(businessviewCanvasSelector).height());if(businessviewCanvas.requestFullscreen){businessviewCanvas.requestFullscreen();}else if(businessviewCanvas.msRequestFullscreen){businessviewCanvas.msRequestFullscreen();}else if(businessviewCanvas.mozRequestFullScreen){businessviewCanvas.mozRequestFullScreen();}else if(businessviewCanvas.webkitRequestFullscreen){businessviewCanvas.webkitRequestFullscreen();}}else{
+                    if(document.exitFullscreen){document.exitFullscreen();}else if(document.msExitFullscreen){document.msExitFullscreen();}else if(document.mozCancelFullScreen){document.mozCancelFullScreen();}else if(document.webkitExitFullscreen){document.webkitExitFullscreen();}}
                 fullscreenResizeTimer=window.setInterval(function(){$(businessviewCanvasSelector).css('height',$(businessviewCanvasSelector).attr('data-normal-height')+'px');$(businessviewCanvasSelector+' #businessview-panorama-canvas').css('height',$(businessviewCanvasSelector).attr('data-normal-height')+'px');google.maps.event.trigger(panorama,'resize');fullscreenResizeCounter++;if(fullscreenResizeCounter==15){window.clearInterval(fullscreenResizeTimer);}},1000);});}}
             if(businessviewJson.details.modules.opentable){var opentable=businessviewJson.details.modules.opentable;if(opentable.status){appendOpenTableWidgetToBusinessView(opentable.restaurantId,opentable.align,opentable.position);$(businessviewCanvasSelector).on('click','div#businessview-opentable-canvas.fancybox .OTButton',function(){var url=decodeURIComponent($(this).attr('data-restaurant-url'));if(window.location.protocol=="https:"){window.location.href=url;}else{$.fancybox.open({href:url,type:'iframe',padding:0,width:'880px',height:'480px',helpers:{overlay:{locked:false}}});}});}}}
         resizeBusinessView(panoOptions);$(window).resize(function(){resizeBusinessView(panoOptions);});checkVisibleViewportObjects(panorama.getPano(),panorama.getPov());
@@ -661,10 +638,146 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
     // Tp3App.init();
     return Tp3App.init();
 
+    function animateBusinessview(to) {
+
+    if(to != undefined){
+
+    }
+        var panoAnimation = window.businessviewJson.details.modules.panoAnimation;
+        var counter = 0;
+        if (panoAnimation.jumps) {
+            lastPano.id = panorama.getPano();
+            Tp3App.AnmationHandler.panoJumpTimer = window.setInterval(function () {
+                if (Tp3App.AnmationHandler.lastPano.id == panorama.getPano()) {
+                    if (window.businessviewJson.details.panoramas > 1) {
+                        links = window.businessviewJson.details.panoramas;
+
+                    }
+                    else {
+                        var glinks = panorama.getLinks();
+                        for (i = 0; glinks.length > i; i++) {
+                            var array = glinks[i];
+                            array.actions = [];
+                            array.areas = [];
+                            array.infoPoints = [];
+                            array.id = array.pano;
+                            window.businessviewJson.details.panoramas.push(array);
+                        }
+
+                        links = window.businessviewJson.details.panoramas;
+                    }
+
+                    if (links.length > 1 && Tp3App.AnmationOptions.panoJumpsRandom > 0) {
+                        do {
+                            var loc = getRandomInt(0, links.length - 1);
+                            Tp3App.AnmationHandler.nextPano = links[loc];
+                        }
+                        while (Tp3App.AnmationHandler.nextPano == Tp3App.AnmationHandler.lastPano);
+                        Tp3App.AnmationHandler.lastPano = Tp3App.AnmationHandler.nextPano;
+                    } else if (links.length > 1 && Tp3App.AnmationOptions.panoJumpsRandom < 1) {
+                        do {
+                            counter++;
+                            if (counter > links.length) counter = 0;
+                            Tp3App.AnmationHandler.nextPano = links[counter];
+                        }
+                        while (Tp3App.AnmationHandler.nextPano == Tp3App.AnmationHandler.lastPano);
+                        Tp3App.AnmationHandler.lastPano = Tp3App.AnmationHandler.nextPano;
+                    } else {
+                        Tp3App.AnmationHandler.nextPano = links[0];
+                    }
+
+                    if ($.type(Tp3App.AnmationHandler.nextPano.pano) == "object") {
+                        panorama.setPano(Tp3App.AnmationHandler.nextPano.pano.panoId);
+                        panorama.setPov({
+                            heading: Number(Tp3App.AnmationHandler.nextPano.pano.heading),
+                            pitch: Number(Tp3App.AnmationHandler.nextPano.pano.pitch),
+                            zoom: Number(Tp3App.AnmationHandler.nextPano.pano.zoom)
+                        });
+                    }
+                    else {
+                        panorama.setPano(Tp3App.AnmationHandler.nextPano.id);
+                        /*panorama.setPov({
+                            heading: Number(Tp3App.AnmationHandler.nextPano.pano.heading),
+                            pitch: Number(Tp3App.AnmationHandler.nextPano.pano.pitch)
+                        });*/
+                    }
+
+                    panorama.setVisible(true);
+                    if (panoAnimation.rotation) {
+                        var lastPov = panorama.getPov();
+                        if ($.type(lastPov) == "object") {
+                            Tp3App.AnmationHandler.panoRotationTimer = window.setInterval(function () {
+                                var pov = panorama.getPov();
+
+                                if ($.type(pov) == "object" && pov.heading == lastPov.heading) {
+                                    pov.heading += Tp3App.AnmationOptions.panoRotationFactor;
+                                    panorama.setPov(pov);
+                                    lastPov = pov;
+                                } else {
+                                    Tp3App.AnmationHandler.panoRotationTimer = window.clearInterval(Tp3App.AnmationHandler.panoRotationTimer);
+                                    Tp3App.AnmationHandler.panoJumpTimer = window.clearInterval(Tp3App.AnmationHandler.panoJumpTimer);
+                                }
+                            }, Tp3App.AnmationOptions.panoRotationTimer);
+                        }
+
+                    }
+                }
+                else {
+                    window.clearInterval(Tp3App.AnmationHandler.panoJumpTimer);
+                }
+            }, Tp3App.AnmationOptions.panoJumpTimer);
+        }
+    }
     function initialize_CurrentPanoramaOverlays(panoId){var index=getPanoArrayPosition(panoId);setActionsInActive();setAreasInActive();setInfoPointsInActive();if(panoramaHasAreas(panoId)){setAreasActive(window.businessviewJson.details.panoramas[index].areas);}
         if(panoramaHasActions(panoId)){setActionsActive(window.businessviewJson.details.panoramas[index].actions);}
         if(panoramaHasInfoPoints(panoId)){appendInfoPointsToBusinessview();}}
-    function initialize_Panorama(panoEntry,panoOptions){createPanoramaCanvas();var panoramaOptions={pano:panoEntry.panoId,pov:{heading:parseFloat(panoEntry.heading),pitch:parseFloat(panoEntry.pitch)},zoom:parseFloat(panoEntry.zoom),disableDefaultUI:panoOptions.disableDefaultUI,scrollwheel:panoOptions.scrollwheel,panControl:panoOptions.panControl,zoomControl:panoOptions.zoomControl,scaleControl:panoOptions.scaleControl,addressControl:panoOptions.addressControl,visible:true,mode:setPanoramaMode()};panorama=new google.maps.StreetViewPanorama(document.getElementById('businessview-panorama-canvas'),panoramaOptions);panorama.setVisible(true);currentPanoramaId=panoEntry.panoId;google.maps.event.trigger(panorama,'resize');$(businessviewCanvasSelector+' #businessview-panorama-canvas').bind("touchstart",function(e){endCoords=e.originalEvent.targetTouches[0];startCoords.pageX=e.originalEvent.targetTouches[0].pageX;startCoords.pageY=e.originalEvent.targetTouches[0].pageY;});$(businessviewCanvasSelector+' #businessview-panorama-canvas').bind("touchmove",function(e){endCoords=e.originalEvent.targetTouches[0];if(isInViewport(businessviewCanvasSelector+' div#businessview-panorama-canvas')){var y=$(window).scrollTop();var currentPitch=panorama.getPov().pitch;if(isCurrentPitchBetweenMinAndMax(currentPitch,0,30)||isCurrentPitchBetweenMinAndMax(currentPitch,150,180)){var delay=50;if(currentPitch<=10||currentPitch>=170){delay=15;}else if(currentPitch<=20||currentPitch>=160){delay=25;}else if(currentPitch<=35||currentPitch>=145){delay=35;}
+    function initialize_Panorama(panoEntry,panoOptions){createPanoramaCanvas();
+    var playercontrols,show,go,panoramaOptions={pano:panoEntry.panoId,pov:{
+        heading:parseFloat(panoEntry.heading),pitch:parseFloat(panoEntry.pitch)},
+        zoom:parseFloat(panoEntry.zoom),
+        disableDefaultUI:panoOptions.disableDefaultUI,
+        scrollwheel:panoOptions.scrollwheel,
+        panControl:panoOptions.panControl,
+        zoomControl:panoOptions.zoomControl,
+        scaleControl:panoOptions.scaleControl,
+        addressControl:panoOptions.addressControl,
+        visible:true,mode:setPanoramaMode()};
+    panorama=new google.maps.StreetViewPanorama(document.getElementById('businessview-panorama-canvas'),panoramaOptions);
+    panorama.setVisible(true);currentPanoramaId=panoEntry.panoId;
+    $('#businessview-panorama-canvas, .widget-scene-canvas').hover(function() {
+        $(this).addClass('hover');
+            window.clearInterval(go);
+        $('#PanoPlayer').show();
+    }, function() {
+        $(this).removeClass('hover');
+        go = window.setInterval( function(){$('#PanoPlayer').hide()},300);
+    })
+        $('#PanoPlayer').hover(function() {
+            window.clearInterval(go);
+            $('#PanoPlayer').show();
+        })
+        $('#PanoPlayer .fa-play').click(function(){
+            animateBusinessview();
+        })
+        $('#PanoPlayer .fa-pause').click(function(){
+            window.clearInterval(Tp3App.AnmationHandler.panoJumpTimer);
+            window.clearInterval(Tp3App.AnmationHandler.panoRotationTimer);
+        })
+        $('#PanoPlayer .fa-forward').click(function(){
+            initialize_Panorama(Tp3App.AnmationHandler.nextPano);
+        })
+
+    google.maps.event.trigger(panorama,'resize');
+    $(businessviewCanvasSelector+' #businessview-panorama-canvas').bind("touchstart",function(e){endCoords=e.originalEvent.targetTouches[0];
+    startCoords.pageX=e.originalEvent.targetTouches[0].pageX;startCoords.pageY=e.originalEvent.targetTouches[0].pageY;});
+    $(businessviewCanvasSelector+' #businessview-panorama-canvas').bind("touchmove",function(e){endCoords=e.originalEvent.targetTouches[0];
+    if(isInViewport(businessviewCanvasSelector+' div#businessview-panorama-canvas')){
+        var y=$(window).scrollTop();var currentPitch=panorama.getPov().pitch;
+        if(isCurrentPitchBetweenMinAndMax(currentPitch,0,30)||isCurrentPitchBetweenMinAndMax(currentPitch,150,180)){
+            var delay=50;
+            if(currentPitch<=10||currentPitch>=170){delay=15;}
+            else if(currentPitch<=20||currentPitch>=160){delay=25;}
+            else if(currentPitch<=35||currentPitch>=145){delay=35;}
         $(window).scrollTop(y-((endCoords.pageY-startCoords.pageY)/ delay));
     }}});}
     function addActionItemToBusinessview(itemObjectId,itemText,itemUrl,itemSize,itemIcon,itemBackgroundColor,itemTextColor,itemTarget,showPermanent){if(!itemTarget){itemTarget="fancybox";}
@@ -680,7 +793,8 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
         var tooltip=(itemTooltip&&itemTooltip!=""?true:false);var s='';s+='<div class="infoPoint '+ itemSize+' '+ pulse+' '+(tooltip?"with-tooltip":"")+' '+(itemUrl==""?"without-url":"")+'"'+ getColorStyle(itemBackgroundColor,itemTextColor);s+=' data-heading="'+itemViewport.heading+'"';s+=' data-pitch="'+itemViewport.pitch+'"';s+=' data-object-id="'+ itemObjectId+'"';s+=' data-object-url="'+ itemUrl+'"';s+=' data-action-target="'+ itemTarget+'"';s+='>';s+=itemIcon;if(tooltip){s+='<div class="tooltip">'+ itemTooltip+'</div>';}
         s+='</div>';$(businessviewCanvasSelector+' div#businessview-infopoint-canvas').append(s);}
     function addPhotoToGallery(renditions){$(businessviewCanvasSelector+' ul#businessview-gallery-canvas').append('<li><a href="'+ renditions.large.url+'" data-fancybox-group="businessview-gallery"><img src="'+ renditions.small.url+'" alt=""></a></li>');}
-    function appendActionsToBusinessview(actions){for(var index in actions){addActionItemToBusinessview(index,actions[index].name,actions[index].url,actions[index].overlaysize,actions[index].icon,actions[index].backgroundColor,actions[index].textColor,actions[index].target,actions[index].showPermanent);}}
+    function appendActionsToBusinessview(actions){for(var index in actions){
+        addActionItemToBusinessview(index,actions[index].name,actions[index].url,actions[index].overlaysize,actions[index].icon,actions[index].backgroundColor,actions[index].textColor,actions[index].target,actions[index].showPermanent);}}
     function appendActionsToBusinessviewWithOrder(actions,order){for(var i=0;i<order.length;i++){var index=order[i];if(actions[index]){addActionItemToBusinessview(index,actions[index].name,actions[index].url,actions[index].overlaysize,actions[index].icon,actions[index].backgroundColor,actions[index].textColor,actions[index].target,actions[index].showPermanent);}}}
     function appendAreasToBusinessView(areas){for(var index in areas){addAreaItemToBusinessview(index,areas[index].name,areas[index].backgroundColor,areas[index].textColor,areas[index].entryPanoId,areas[index].entryHeading,areas[index].entryPitch);}
         centerBusinessViewCanvas('businessview-area-canvas');}
@@ -720,7 +834,15 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
         $(businessviewCanvasSelector+' p#opening-hours').html('<strong>Öffnungszeiten</strong><br>'+ string);}
     function appendOpenTableWidgetToBusinessView(opentableRestaurantId,align,position){var lightbox=true;var url='http://www.opentable.de/single.aspx?rid='+opentableRestaurantId+'&rtype=ism&restref='+opentableRestaurantId;if(window.location.protocol=="https:"){lightbox=false;}
         var s='';s+='<div id="businessview-opentable-canvas" class="'+align+' '+position+' '+((lightbox)?'fancybox':'')+'">';s+='<'+((lightbox)?'div data-restaurant-url="'+url+'" ':'a href="'+url+'" target="_blank" ')+' class="OTButton">';s+='<div class="OTReserveNow">';s+='<div id="OTReserveNow" class="OTReserveNow">';s+='<span class="OTReserveNowInner">Tisch buchen</span>';s+='</div>';s+='</div>';s+='<div id="OTPoweredBy" class="OTPoweredBy">Powered By OpenTable</div>';s+='</'+((lightbox)?'div':'a')+'>';s+='</div>';$(businessviewCanvasSelector).append(s);}
-    function appendSidebarToBusinessview(showGoogleMap,logoUrl,collapsed,align,backgroundColor,textColor){var panoramaControlsPosition={panControlOptions:{position:google.maps.ControlPosition.TOP_LEFT},zoomControlOptions:{position:google.maps.ControlPosition.TOP_LEFT},streetViewControlOptions:{position:google.maps.ControlPosition.TOP_LEFT}};if(align=='left'){panoramaControlsPosition={panControlOptions:{position:google.maps.ControlPosition.TOP_RIGHT},zoomControlOptions:{position:google.maps.ControlPosition.TOP_RIGHT},streetViewControlOptions:{position:google.maps.ControlPosition.TOP_RIGHT}};}
+    function appendSidebarToBusinessview(showGoogleMap,logoUrl,collapsed,align,backgroundColor,textColor){
+        var panoramaControlsPosition={panControlOptions:{position:google.maps.ControlPosition.TOP_LEFT},
+            zoomControlOptions:{position:google.maps.ControlPosition.TOP_LEFT},
+            streetViewControlOptions:{position:google.maps.ControlPosition.TOP_LEFT}};
+        if(align=='left'){
+            panoramaControlsPosition={panControlOptions:{position:google.maps.ControlPosition.TOP_RIGHT},
+                zoomControlOptions:{position:google.maps.ControlPosition.TOP_RIGHT},
+                streetViewControlOptions:{position:google.maps.ControlPosition.TOP_RIGHT}};
+        }
         panorama.setOptions(panoramaControlsPosition);var s='';s+='<div id="businessview-sidebar-canvas" class="'+(!collapsed?'open':'closed')+'" '+ getColorStyle(backgroundColor,textColor)+'>';s+='<div class="toggle"></div>';s+='<div class="content">';if(logoUrl){s+='<div class="logo">';s+='<img src="'+logoUrl+'">';s+='</div>';}
         s+='<div class="wrapper"></div>';s+='</div>';s+='</div>';$(businessviewCanvasSelector).addClass('sidebar-'+align);$(businessviewCanvasSelector).append(s);resizeSidebar(align);}
     function resizeSidebar(align){$(businessviewCanvasSelector+' div#businessview-sidebar-canvas').css('height',getSidebarHeight(align)+'px');$(businessviewCanvasSelector+' div#businessview-sidebar-canvas .toggle').css('line-height',getSidebarToggleHeight()+'px');}
