@@ -86,9 +86,9 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * panoAnimation
      *
-     * @var array
+     * @var string
      */
-    protected $panoAnimation = ["jumps"=>true,"rotation"=>true];
+    protected $panoAnimation = [];
 
     /**
      * socialGallery
@@ -101,16 +101,9 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * panoOptions
      *
-     * @var array
+     * @var string
      */
-    protected $panoOptions = ["addressControl" => false,
-                              "disableDefaultUI" => false,
-                              "panControl" => false,
-                              "scaleControl" => true,
-                              "scrollwheel" => true,
-                              "zoomControl" => false,
-                              "fullScreen" => false
-                            ];
+    protected $panoOptions = [];
 
     /**
      * contact
@@ -262,7 +255,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the panoAnimation
      * 
-     * @return array $panoAnimation
+     * @return string $panoAnimation
      */
     public function getPanoAnimation()
     {
@@ -306,7 +299,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the panoOptions
      * 
-     * @return array $panoOptions
+     * @return string $panoOptions
      */
     public function getPanoOptions()
     {
@@ -436,27 +429,26 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @return array
      */
     public function getPropertiesArray() {
-        $panoOptions =    ["addressControl" => false,
-          "disableDefaultUI" => false,
-          "panControl" => false,
-          "scaleControl" => true,
-          "scrollwheel" => true,
-          "zoomControl" => false,
-          "fullScreen" => false
-      ];
-        $option_values = $this->getPanoOptions();
+            $panoOptions =    ["addressControl" => false,
+                "disableDefaultUI" => false,
+                "panControl" => false,
+                "scaleControl" => false,
+                "scrollwheel" => false,
+                "zoomControl" => false,
+                "fullScreen" => false
+            ];
+            $option_values = explode(",",$this->getPanoOptions());
+           // $panoOptions = $option_values;
+            for($i=0;count($option_values)>$i;$i++){
+                $panoOptions[$option_values[$i]] = true;
+            }
+            unset($option_values);
+            $option_values = explode(",",$this->getPanoAnimation());
+            $panoAnimation = ["jumps"=>false,"rotation"=>false];
+            for($i=0;count($option_values)>$i;$i++){
+                $panoAnimation[$option_values[$i]] = true;
 
-        for($i=0;count($panoOptions)<$i;$i++){
-            if(in_array($panoOptions[$i] , $option_values))$panoOptions[$i] = true;
-            else $panoOptions[$i] = false;
-        }
-        unset($option_values);
-        $option_values = $this->getPanoAnimation();
-        $panoAnimation = ["jumps"=>true,"rotation"=>true];
-        for($i=0;count($panoAnimation)<$i;$i++){
-            if(in_array($panoAnimation[$i] , $option_values))$panoAnimation[$i] = true;
-            else $panoAnimation[$i] = false;
-        }
+            }
         return [
 
             "createdBy" => $this->getCreatedBy(),

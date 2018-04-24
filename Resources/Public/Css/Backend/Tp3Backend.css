@@ -37,7 +37,7 @@
     top: 10px;
     left: 50%;
     z-index: 5;
-    background-color: #fff;
+    background: rgba(255,255,255,0.5);
     padding: 5px;
     border: 1px solid #999;
     text-align: center;
@@ -47,7 +47,18 @@
 }
 
 #PanoPlayer {
-    margin-left: -75px;
+    margin-left: -125px;
+}
+#PanoPlayer .fa{
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 3px;
+    padding: 0 10px;
+    font: normal normal normal 20px/1 FontAwesome;
+}
+#PanoPlayer .fa:hover{
+    background: rgba(0,0,0,0.6);
+    color:#f2f2f2;
 }
 .panolist.bwlist,
 .tp3businessview-controls.tp3-panel,
@@ -163,7 +174,7 @@ div.bwentry {
     width:100%;
     padding-top: 20px;
     margin-bottom: 30px;
-    cursor: pointer;
+
 }
 .recordlists button.btn.btn-secondary {
 

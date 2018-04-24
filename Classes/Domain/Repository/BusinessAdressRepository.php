@@ -31,8 +31,29 @@ class BusinessAdressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $querySettings->setRespectStoragePage(FALSE);
         // $querySettings->setStoragePageIds(array($this->conf["persistence"]["storagePid"]));
         // $querySettings->setOrderings($this->defaultOrderings);
-        $querySettings->setIgnoreEnableFields(false);
+       // $querySettings->setIgnoreEnableFields(false);
         $this->setDefaultQuerySettings($querySettings);
+    }
+    /**
+     *
+     *
+     * @param integer $uid
+     * @return \Tp3\Tp3Businessview\Domain\Model\BusinessAdress
+     */
+    public function findByUidArray($uid) {
+        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        $querySettings->setRespectStoragePage(false);
+
+        $this->setDefaultQuerySettings($querySettings);
+        $query = $this->createQuery();
+        $query->matching(
+            $query->equals('uid', $uid),
+            $query->logicalAnd(
+                $query->equals('hidden', 0),
+                $query->equals('deleted', 0)
+            )
+        );
+        return $query->execute(true);
     }
     /**
      *
@@ -53,9 +74,8 @@ class BusinessAdressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $query->equals('deleted', 0)
             )
         );
-        return $query->execute(true);
+        return $query->execute();
     }
-
     /**
      *
      *

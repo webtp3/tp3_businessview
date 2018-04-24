@@ -252,7 +252,7 @@ class ModuleController extends ActionController
 
             $panoramas = [];
             $businessAdresses = [];
-            $businessView = [];
+            $businessViews = [];
 
             if ($this->tp3BusinessViewRepository === null) {
                 $this->tp3BusinessViewRepository = $this->objectManager->get(Tp3BusinessViewRepository::class);
@@ -282,12 +282,12 @@ class ModuleController extends ActionController
                     //$querySettings->setRespectStoragePage(true);
                     // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
                     $bw = $businessView->getPropertiesArray();
-                    $businessAdresses[] = $this->businessAdressRepository->findByList($businessView->getContact());
-                    $bw['contact'] = $businessAdresses[0][0];
+                    $bw['contact'] = $this->businessAdressRepository->findByUidArray($businessView->getContact())[0];
+                    $businessAdresses[] = $this->businessAdressRepository->findByUid($businessView->getContact());
                     $bw['panorama'] = $panoramas[0];
                     $bw['panoramas'] = [$panoramas];
                     // $bw['contact'] = $this->businessadressrepository->findByUid($businessView->getContact()->getFirst()->getUid())[0];
-                    $businessViewJson[$businessView->getUid()] = $this->jsonRenderer->JsonRenderer($bw,$panoramas);
+                    $businessViewJson[$businessView->getUid()] = $this->jsonRenderer->JsonRenderer($bw,$panoramas,$this->settings);
                 }
             }
 

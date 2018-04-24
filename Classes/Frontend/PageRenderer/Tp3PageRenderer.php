@@ -71,7 +71,7 @@ class Tp3PageRenderer implements SingletonInterface
                 $panorama = $this->panoramasRepository->findByUid($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
                 $bw = $businessView->getPropertiesArray();
 
-                $businessAdresses = $this->businessAdressRepository->findByUid($businessView->getContact());
+                $businessAdresses = $this->businessAdressRepository->findByUidArray($businessView->getContact());
                 $bw['contact'] = $businessAdresses[0];
                 //$bw['panorama'] = $panoramas[0];
                 $bw['panoramas'] = [$panoramas];
@@ -112,8 +112,20 @@ class Tp3PageRenderer implements SingletonInterface
      * @param array $businessview
      * @return string
      */
-    public function JsonRenderer(array $businessview = [], array $panoramas = [])
+    public function JsonRenderer(array $businessview = [], array $panoramas = [], $settings = null)
     {
+       if(is_array($settings)){
+
+       }
+       else{
+           $settings = [
+           "color"=>"#fff",
+           "backgroundColor"=>"rgba(98, 98, 98, 0.8)",
+           "textColor"=> "#fff",
+           "align"=>"right",
+               ];
+
+       }
        if(!is_array($businessview['panoAnimation'])) {
            $pano_animation = explode(",",$businessview['pano_animation']);
            $businessview['pano_animation'] = array();
@@ -171,10 +183,11 @@ class Tp3PageRenderer implements SingletonInterface
 							 	"email"=>["value"=>$businessview['contact']['email'],"visible"=>($businessview['contact']['email'] !="" ? true : false)],
                                 "website"=>["value"=>$businessview['contact']['www'],"visible"=>($businessview['contact']['www'] !="" ? true : false)],
                         ],
-                        "color"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["color"] != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["color"] : "#fff",
-                        "backgroundColor"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["backgroundColor"] != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["backgroundColor"] : "rgba(98, 98, 98, 0.8)",
-                        "textColor"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["textColor"]  != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["textColor"] : "#fff",
-                        "align"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["align"] != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["align"] : "right",
+                        "color"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["color"] != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["color"] : $settings["color"],
+                        "backgroundColor"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["backgroundColor"] != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["backgroundColor"] : $settings["backgroundColor"],
+                        "textColor"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["textColor"]  != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["textColor"] : $settings["textColor"],
+                        "align"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["align"] != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["align"] : $settings["align"],
+
                     ],
                     "custom"=>[],
                         "externalLinks"=> ["status"=>true,"links"=>[
@@ -191,7 +204,7 @@ class Tp3PageRenderer implements SingletonInterface
                     "socialGallery"=> $businessview['social_gallery']
 
                 ],
-                "name"=>$businessview['name'],
+                "name"=>$businessview['title'],
                 "panoEntry"=>[
                     "heading"=>$businessview['panorama']['heading'],
                     "panoId"=>$businessview['panorama']['pano_id'],
