@@ -126,7 +126,15 @@ class Tp3PageRenderer implements SingletonInterface
                ];
 
        }
-       if(!is_array($businessview['panoAnimation'])) {
+       if($businessview['panoAnimation'] != undefined && !is_array($businessview['panoAnimation'])) {
+           $pano_animation = explode(",",$businessview['panoAnimation']);
+           $businessview['pano_animation'] = array();
+           foreach ($pano_animation as &$value) {
+               $businessview['pano_animation'][$value] =  true;
+           }
+           unset($value);
+       }
+       else if($businessview['panoAnimation'] == undefined && $businessview['pano_animation'] != undefined && !is_array($businessview['pano_animation'])) {
            $pano_animation = explode(",",$businessview['pano_animation']);
            $businessview['pano_animation'] = array();
            foreach ($pano_animation as &$value) {
@@ -134,10 +142,19 @@ class Tp3PageRenderer implements SingletonInterface
            }
            unset($value);
        }
-       else
-        $businessview['pano_animation'] = $businessview['panoAnimation'];
+       else if(is_array($businessview['panoAnimation']))
+       $businessview['pano_animation'] = $businessview['panoAnimation'];
 
-        if(!is_array($businessview['panoOptions'])) {
+        if($businessview['panoOptions'] != undefined && !is_array($businessview['panoOptions'])) {
+
+            $pano_options = explode(",", $businessview['panoOptions']);
+            $businessview['pano_options'] = array();
+            foreach ($pano_options as &$value) {
+                $businessview['pano_options'][$value] = true;
+            }
+            unset($value);
+        }
+        else  if($businessview['panoOptions'] == undefined  && $businessview['pano_options'] != undefined && !is_array($businessview['pano_options'])) {
 
             $pano_options = explode(",", $businessview['pano_options']);
             $businessview['pano_options'] = array();
@@ -146,7 +163,7 @@ class Tp3PageRenderer implements SingletonInterface
             }
             unset($value);
         }
-        else
+        else if(is_array($businessview['panoOptions']))
             $businessview['pano_options'] = $businessview['panoOptions'];
 
         $pano_array = [];
