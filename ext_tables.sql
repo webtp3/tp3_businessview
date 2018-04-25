@@ -77,7 +77,6 @@ CREATE TABLE tx_tp3businessview_domain_model_panoramas (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY language (l10n_parent,sys_language_uid)
 
 );
 
