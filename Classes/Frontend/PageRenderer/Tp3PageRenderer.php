@@ -208,9 +208,9 @@ class Tp3PageRenderer implements SingletonInterface
                     ],
                     "custom"=>[],
                         "externalLinks"=> ["status"=>true,"links"=>[
-                            ["icon"=>"fa-twitter","url"=>"https:\\/\\/twitter.com\\".$businessview['contact']['twitter']."/","target"=>false,"visible"=>($businessview['contact']['twitter'] !="" ? true : false)],
-                            ["icon"=>"fa-facebook","url"=>"https:\\/\\/www.facebook.com\\/".$businessview['contact']['facebook']."","target"=>false,"visible"=>($businessview['contact']['facebook'] !="" ? true : false)],
-                            ["icon"=>"fa-google-plus","url"=>"https:\\/\\/plus.google.com\\/".$businessview['contact']['googleplus']."\\/about","target"=>false,"visible"=>($businessview['contact']['googleplus'] !="" ? true : false)]
+                            ["icon"=>"fa-twitter","url"=>"https:\\/\\/twitter.com\\".$businessview['contact']['twitter']."/","target"=>false,"visible"=>($businessview['contact']['twitter'] !="" && $businessview['social_gallery'] ? true : false)],
+                            ["icon"=>"fa-facebook","url"=>"https:\\/\\/www.facebook.com\\/".$businessview['contact']['facebook']."","target"=>false,"visible"=>($businessview['contact']['facebook'] !="" && $businessview['social_gallery'] ? true : false)],
+                            ["icon"=>"fa-google-plus","url"=>"https:\\/\\/plus.google.com\\/".$businessview['contact']['googleplus']."\\/about","target"=>false,"visible"=>($businessview['contact']['googleplus'] !="" && $businessview['social_gallery'] ? true : false)]
                         ]
                     ],
                     "gallery"=>[],

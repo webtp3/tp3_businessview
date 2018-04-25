@@ -47,33 +47,32 @@ $ = $j = jQuery.noConflict();
 			}
 
 	window.tp3_app=window.tp3_app||{};
+
 tp3_app.initialize=function(){
-         	 tp3_app.init = true;
 
-			  try{
-			  google.maps.event.addDomListener(window,"load", function () {
-			  if ( ! WecMap == undefined ) {
-                  WecMap = createWecMap();
-                  WecMap.init();
-                  var InitWecMapGoogleV3Labels = InitWecMapGoogleV3Labels || "";
-                  if (InitWecMapGoogleV3Labels != undefined && $j.type(InitWecMapGoogleV3Labels) == "function") {
-                      InitWecMapGoogleV3Labels();
-                      if (WECInit != undefined && $j.type(WECInit) == "function") WECInit();
+    if(tp3_app.init == true)return;
+    try{
+        if ( google.maps != undefined && $j.type(google.maps) == "object"){
 
-                  }
-              }
-                  if(gapi && $j.type(gapi) == "object")  gapi.plus.go();
-			  })
-			  }catch (e){
-			  	console.log(e);
-			  }
+            google.maps.event.addDomListener(window,"load", function () {
+                if (  WECInit != undefined && $j.type(WECInit) == "function") WECInit();
 
+                tp3_app.init = true;
+                console.log(businessviewJson);
 
-				  console.log(businessviewJson);
-          	if(businessviewJson.hasDetails &&$j(businessviewCanvasSelector).length > 0){tp3_app.businessview_initialize(businessviewJson);}
-			  else{console.log(businessviewJson.errorMessage);}
-			//  if($j.type(tp3_app.controls == "function"))tp3_app.controls();
-		  };
+                if(businessviewJson.hasDetails &&$j(businessviewCanvasSelector).length > 0){tp3_app.businessview_initialize(businessviewJson);}
+                else{console.log(businessviewJson.errorMessage);}
+
+                //  if(gapi && $j.type(gapi) == "object")  gapi.plus.go();
+            })
+            if ( WECInit == undefined)  tp3_app.init = true;
+        }
+    }catch (e){
+        console.log(e);
+    }
+    if($j.type(tp3_app.controls == "function"))tp3_app.controls();
+};
+
 
 
 tp3_app.init = tp3_app.init || false;
@@ -93,7 +92,11 @@ tp3_app.AnmationOptions = tp3_app.AnmationOptions  || {
     	panoJumpsRandom:1,
 
 };
-tp3_app.AnmationHandler = {};
+tp3_app.AnmationHandler = tp3_app.AnmationHandler || {
+    nextPano:{},
+    lastPano:{},
+    backPano:{}
+};
 
 // force override app
 var map = map || {},geocoder,infowindow,sv,e,
@@ -121,7 +124,7 @@ tp3_app.PanoControls =  function (control, obj) {
           map.setCenter(chicago);
       });
 */
-},
+};
     tp3_app.businessview_initialize = function(businessviewJson){
         var panoEntry;
         var panoOptions;
@@ -239,7 +242,7 @@ tp3_app.PanoControls =  function (control, obj) {
             if(businessviewJson.details.modules.externalLinks){var externalLinks=businessviewJson.details.modules.externalLinks;if(externalLinks.status){appendExternalLinksToBusinessview(externalLinks);}}
             if(businessviewJson.details.modules.customFont){var customFont=businessviewJson.details.modules.customFont;if(customFont.fontName){setCustomFontToBusinessview(customFont.fontName);}}
             if(businessviewJson.details.modules.socialGallery){if(businessviewJson.details.modules.socialGallery.status&&socialGalleryHasActiveNetworks(businessviewJson.details.modules.socialGallery.networks)){var s='';s+='<div id="businessview-socialGallery-canvas" class="hidden"></div>';s+='<div id="businessview-socialGallery-trigger"></div>';$(businessviewCanvasSelector).append(s);resolveSocialGalleryNetworks(businessviewJson.details.modules.socialGallery.networks);$(businessviewCanvasSelector).on('click','div#businessview-socialGallery-canvas #close-socialGallery',function(){$(businessviewCanvasSelector+' div#businessview-socialGallery-canvas').addClass('hidden');$(businessviewCanvasSelector).removeClass('socialGallery-open');});$(businessviewCanvasSelector).on('click','div#businessview-socialGallery-trigger',function(){$(businessviewCanvasSelector+' div#businessview-socialGallery-canvas').removeClass('hidden');$(businessviewCanvasSelector).addClass('socialGallery-open');});$(businessviewCanvasSelector).on('click','div#businessview-socialGallery-canvas .network.facebookPage ul.albums li',function(){$.fancybox.helpers.overlay.open({parent:$('body')});$.fancybox.showLoading();var albumId=$(this).attr('data-album-id');if($('div#businessview-socialGallery-canvas .network.facebookPage ul.photos img[data-album-id="'+albumId+'"]').length==0){getFacebookPageAlbumPhotos(albumId);}else{showFacebookPageAlbumPhotos(albumId);}});}}
-            if(businessviewJson.details.modules.fullscreenMode){var fullscreenMode=businessviewJson.details.modules.fullscreenMode;if(fullscreenMode.status){appendFullscreenModeToBusinessview();var fullscreenResizeTimer;var fullscreenResizeCounter=0;$(businessviewCanvasSelector).on('click','div#businessview-fullscreen-button',function(){var businessviewCanvas=document.getElementById('businessview-canvas');
+            if(businessviewJson.details.modules.fullscreenMode  && businessviewJson.details.panoOptions.fullScreen){var fullscreenMode=businessviewJson.details.modules.fullscreenMode;if(fullscreenMode.status){appendFullscreenModeToBusinessview();var fullscreenResizeTimer;var fullscreenResizeCounter=0;$(businessviewCanvasSelector).on('click','div#businessview-fullscreen-button',function(){var businessviewCanvas=document.getElementById('businessview-canvas');
                 if(document.getElementById('tp3-iframe-embed')){businessviewCanvas=document.getElementById('tp3-iframe-embed');}
                 if(!document.fullscreenElement&&!document.mozFullScreenElement&&!document.webkitFullscreenElement&&!document.msFullscreenElement){$(businessviewCanvasSelector).attr('data-normal-height',$(businessviewCanvasSelector).height());if(businessviewCanvas.requestFullscreen){businessviewCanvas.requestFullscreen();}else if(businessviewCanvas.msRequestFullscreen){businessviewCanvas.msRequestFullscreen();}else if(businessviewCanvas.mozRequestFullScreen){businessviewCanvas.mozRequestFullScreen();}else if(businessviewCanvas.webkitRequestFullscreen){businessviewCanvas.webkitRequestFullscreen();}}else{
                     if(document.exitFullscreen){document.exitFullscreen();}else if(document.msExitFullscreen){document.msExitFullscreen();}else if(document.mozCancelFullScreen){document.mozCancelFullScreen();}else if(document.webkitExitFullscreen){document.webkitExitFullscreen();}}
@@ -321,7 +324,7 @@ function animateBusinessview(to) {
         tp3_app.AnmationHandler.lastPano.id = panorama.getPano();
         panoJumpTimer = window.setInterval(function () {
             if (tp3_app.AnmationHandler.lastPano.id == panorama.getPano()) {
-                if (window.businessviewJson.details.panoramas > 1) {
+                if (window.businessviewJson.details.panoramas.length > 1) {
                     links = window.businessviewJson.details.panoramas;
 
                 }
@@ -360,10 +363,12 @@ function animateBusinessview(to) {
                     tp3_app.AnmationHandler.backPano = tp3_app.AnmationHandler.lastPano;
                     tp3_app.AnmationHandler.lastPano = tp3_app.AnmationHandler.nextPano;
                 } else {
+                    tp3_app.AnmationHandler.backPano = tp3_app.AnmationHandler.lastPano;
+                    tp3_app.AnmationHandler.lastPano = tp3_app.AnmationHandler.nextPano;
                     tp3_app.AnmationHandler.nextPano = links[0];
                 }
 
-                if ($.type(tp3_app.AnmationHandler.nextPano.pano) == "object") {
+                if (tp3_app.AnmationHandler.nextPano.pano != undefined && $.type(tp3_app.AnmationHandler.nextPano.pano) == "object") {
                     panorama.setPano(tp3_app.AnmationHandler.nextPano.pano.panoId);
                     panorama.setPov({
                         heading: Number(tp3_app.AnmationHandler.nextPano.pano.heading),
@@ -432,7 +437,7 @@ function initialize_CurrentPanoramaOverlays(panoId){var index=getPanoArrayPositi
     if(panoramaHasActions(panoId)){setActionsActive(window.businessviewJson.details.panoramas[index].actions);}
     if(panoramaHasInfoPoints(panoId)){appendInfoPointsToBusinessview();}}
 function initialize_Panorama(panoEntry,panoOptions){createPanoramaCanvas();
-    var playercontrols,show,go,panoramaOptions={pano:panoEntry.id,pov:{
+    var playercontrols,show,go,panoramaOptions={pano:panoEntry.panoId,pov:{
             heading:parseFloat(panoEntry.heading),pitch:parseFloat(panoEntry.pitch)},
         zoom:parseFloat(panoEntry.zoom),
         disableDefaultUI:panoOptions.disableDefaultUI,
