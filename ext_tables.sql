@@ -15,7 +15,7 @@ CREATE TABLE tx_tp3businessview_domain_model_tp3businessview (
 	social_gallery varchar(255) DEFAULT '' NOT NULL,
 	pano_options varchar(255) DEFAULT '' NOT NULL,
 	contact int(11) unsigned DEFAULT '0' NOT NULL,
-	app int(11) unsigned DEFAULT '0' NOT NULL,
+  description text DEFAULT NULL,
 	panoramas int(11) unsigned DEFAULT '0' NOT NULL,
 
   sorting int(11) DEFAULT '0' NOT NULL,

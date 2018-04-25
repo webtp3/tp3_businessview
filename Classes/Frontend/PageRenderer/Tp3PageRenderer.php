@@ -30,6 +30,11 @@ class Tp3PageRenderer implements SingletonInterface
      */
     public  $businessAdressRepository = null;
     /**
+     *
+     * @var \Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository;
+     */
+    public  $openHourRepository = null;
+    /**
      * @param array $parameters
      * @param PageRenderer $pageRenderer
      * @return string
@@ -58,6 +63,12 @@ class Tp3PageRenderer implements SingletonInterface
             }
             if ($this->businessAdressRepository === null ) {
                 $this->businessAdressRepository = $this->objectManager->get(BusinessAdressRepository::class);
+                if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded ('tp3_openhours')) {
+                    if ($this->openHourRepository === null ) {
+                        $this->openHourRepository = $this->objectManager->get(\Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository::class);
+
+                    }
+                }
 
             }
             $businessViews = $this->Tp3BusinessViewRepository->findByPanoramas($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
@@ -72,6 +83,7 @@ class Tp3PageRenderer implements SingletonInterface
                 $bw = $businessView->getPropertiesArray();
 
                 $businessAdresses = $this->businessAdressRepository->findByUidArray($businessView->getContact());
+                if ($this->openHourRepository !== null ) $this->openHourRepository->findByAddress($businessView->getContact());
                 $bw['contact'] = $businessAdresses[0];
                 //$bw['panorama'] = $panoramas[0];
                 $bw['panoramas'] = [$panoramas];
@@ -214,7 +226,18 @@ class Tp3PageRenderer implements SingletonInterface
                         ]
                     ],
                     "gallery"=>[],
-                    "intro"=>[],
+                     "intro"=>[
+                         "headline"=>$businessview['name'],"message"=>$businessview['description'],
+                         "backgroundColor"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["backgroundColor"] != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["backgroundColor"] : $settings["backgroundColor"],
+                         "textColor"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["textColor"]  != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["textColor"] : $settings["textColor"],
+                         "status"=>$businessview['intro']
+                     ],
+                    /*
+                     *
+								"openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
+
+                     */
+
                     "openingHours"=>[],
                     "opentable"=>[],
                     "panoAnimation"=>["jumps"=>$businessview['pano_animation']['jumps'] ? true : false ,"rotation"=>$businessview['pano_animation']['rotation'] ? true : false],

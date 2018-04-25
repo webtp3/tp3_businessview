@@ -233,6 +233,19 @@ return [
 
 			],
 	    ],
+        'description' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.description',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
+                'eval' => 'trim',
+                'softref' => 'typolink_tag,images,email[subst],url',
+                'enableRichtext' => true,
+                'richtextConfiguration' => 'default'
+            ]
+        ],
         'sorting' => [
             'config' => [
                 'type' => 'none',

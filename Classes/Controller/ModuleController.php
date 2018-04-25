@@ -64,6 +64,7 @@ use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
 use TYPO3\CMS\Core\DataHandling\DataHandler as DataHandlerCore;
 
 
+
 /**
  * ModuleController
  */
@@ -157,6 +158,11 @@ class ModuleController extends ActionController
      * @var \Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
      */
     public  $businessAdressRepository = null;
+    /**
+     *
+     * @var \Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository;
+     */
+    public  $openHourRepository = null;
     /**
      * @var Locales
      */
@@ -263,6 +269,12 @@ class ModuleController extends ActionController
             }
             if ($this->businessAdressRepository === null) {
                 $this->businessAdressRepository = $this->objectManager->get(BusinessAdressRepository::class);
+                if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded ('tp3_openhours')) {
+                    if ($this->openHourRepository === null ) {
+                        $this->openHourRepository = $this->objectManager->get(\Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository::class);
+
+                    }
+                }
             }
             if ($this->jsonRenderer === null) {
                 $this->jsonRenderer = $this->objectManager->get(Tp3PageRenderer::class);
@@ -284,6 +296,9 @@ class ModuleController extends ActionController
                     $bw = $businessView->getPropertiesArray();
                     $bw['contact'] = $this->businessAdressRepository->findByUidArray($businessView->getContact())[0];
                     $businessAdresses[] = $this->businessAdressRepository->findByUid($businessView->getContact());
+                    if ($this->openHourRepository !== null ){
+                        $openours =  $this->openHourRepository->findByAddress($businessView->getContact());
+                    }
                     $bw['panorama'] = $panoramas[0];
                     $bw['panoramas'] = [$panoramas];
                     // $bw['contact'] = $this->businessadressrepository->findByUid($businessView->getContact()->getFirst()->getUid())[0];

@@ -128,7 +128,12 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string $sorting
      */
     Protected $sorting;
-
+    /**
+     * description
+     *
+     * @var string $description
+     */
+    Protected $description;
     /**
      * Setter for sorting
      *
@@ -146,6 +151,25 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getSorting() {
         return $this->sorting;
+    }
+
+    /**
+     * Setter for description
+     *
+     * @param string $description
+     * @return void
+     */
+    public function setDescription($description) {
+        $this->description = $description;
+    }
+
+    /**
+     * Getter for description
+     *
+     * @return string description
+     */
+    public function getDescription() {
+        return $this->description;
     }
     /**
      * Returns the createdBy
