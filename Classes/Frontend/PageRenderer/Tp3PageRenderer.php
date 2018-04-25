@@ -83,7 +83,26 @@ class Tp3PageRenderer implements SingletonInterface
                 $bw = $businessView->getPropertiesArray();
 
                 $businessAdresses = $this->businessAdressRepository->findByUidArray($businessView->getContact());
-                if ($this->openHourRepository !== null ) $this->openHourRepository->findByAddress($businessView->getContact());
+                if ($this->openHourRepository !== null ){
+                    $openhours = $this->openHourRepository->findByAddress($businessView->getContact());
+                    $formattedText = "";
+                    $hoursArray = [];
+                    foreach ($openhours as $oh){
+                        //$dateconv = \date("H:i",$oh->getOpenTime());
+                        $formattedText .= $oh->getDayName() . " " .\date("H:i", $oh->getOpenTime())  . "-" . \date("H:i", $oh->getCloseTime()) ."<br>";
+                        $hoursArray[] = [\date("H:i", $oh->getOpenTime()),\date("H:i", $oh->getCloseTime())];
+                    }
+                    $bw['openingHours'] = [
+                        "formattedText" => $formattedText,
+                        "status"=>true,
+                        "hours"=>$hoursArray,
+                    ];
+                    /*
+                    *
+                    "openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
+
+                    */
+                }
                 $bw['contact'] = $businessAdresses[0];
                 //$bw['panorama'] = $panoramas[0];
                 $bw['panoramas'] = [$panoramas];
@@ -126,10 +145,7 @@ class Tp3PageRenderer implements SingletonInterface
      */
     public function JsonRenderer(array $businessview = [], array $panoramas = [], $settings = null)
     {
-       if(is_array($settings)){
-
-       }
-       else{
+       if(!is_array($settings)){
            $settings = [
            "color"=>"#fff",
            "backgroundColor"=>"rgba(98, 98, 98, 0.8)",
@@ -193,6 +209,7 @@ class Tp3PageRenderer implements SingletonInterface
             ];
         };
 
+
         $json = json_encode([
             "details"=> [
                 "actionOrder"=>[],
@@ -232,13 +249,8 @@ class Tp3PageRenderer implements SingletonInterface
                          "textColor"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["textColor"]  != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["textColor"] : $settings["textColor"],
                          "status"=>$businessview['intro']
                      ],
-                    /*
-                     *
-								"openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
 
-                     */
-
-                    "openingHours"=>[],
+                    "openingHours"=> $businessview['openingHours'],
                     "opentable"=>[],
                     "panoAnimation"=>["jumps"=>$businessview['pano_animation']['jumps'] ? true : false ,"rotation"=>$businessview['pano_animation']['rotation'] ? true : false],
                     "socialGallery"=> $businessview['social_gallery']

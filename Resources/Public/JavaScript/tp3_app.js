@@ -70,7 +70,7 @@ tp3_app.initialize=function(){
     }catch (e){
         console.log(e);
     }
-    if($j.type(tp3_app.controls == "function"))tp3_app.controls();
+    if($j.type(tp3_app.controls) == "function")tp3_app.controls();
 };
 
 
@@ -804,7 +804,6 @@ tp3_app.watchdog = function () {
                 tp3_app.initialize();
 
 
-            tp3_app.init = true;
         }
        if($j.type(tp3_app.controls == "function"))tp3_app.controls();
     })

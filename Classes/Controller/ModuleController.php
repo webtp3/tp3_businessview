@@ -62,6 +62,7 @@ use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
 use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
 use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
 use TYPO3\CMS\Core\DataHandling\DataHandler as DataHandlerCore;
+use DateTime;
 
 
 
@@ -297,7 +298,24 @@ class ModuleController extends ActionController
                     $bw['contact'] = $this->businessAdressRepository->findByUidArray($businessView->getContact())[0];
                     $businessAdresses[] = $this->businessAdressRepository->findByUid($businessView->getContact());
                     if ($this->openHourRepository !== null ){
-                        $openours =  $this->openHourRepository->findByAddress($businessView->getContact());
+                        $openhours = $this->openHourRepository->findByAddress($businessView->getContact());
+                        $formattedText = "";
+                        $hoursArray = [];
+                        foreach ($openhours as $oh){
+                            //$dateconv = \date("H:i",$oh->getOpenTime());
+                            $formattedText .= $oh->getDayName() . " " .\date("H:i", $oh->getOpenTime())  . "-" . \date("H:i", $oh->getCloseTime()) ."<br>";
+                            $hoursArray[] = [\date("H:i", $oh->getOpenTime()),\date("H:i", $oh->getCloseTime())];
+                        }
+                        $bw['openingHours'] = [
+                            "formattedText" => $formattedText,
+                            "status"=>true,
+                            "hours"=>$hoursArray,
+                        ];
+                        /*
+                        *
+                        "openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
+
+                        */
                     }
                     $bw['panorama'] = $panoramas[0];
                     $bw['panoramas'] = [$panoramas];
