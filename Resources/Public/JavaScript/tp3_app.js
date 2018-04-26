@@ -324,14 +324,15 @@ function animateBusinessview(to) {
         tp3_app.AnmationHandler.lastPano.id = panorama.getPano();
         panoJumpTimer = window.setInterval(function () {
             if (tp3_app.AnmationHandler.lastPano.id == panorama.getPano()) {
-                if (window.businessviewJson.details.panoramas.length > 1) {
+                if (window.businessviewJson.details.panoramas.length > 1 && window.businessviewJson.details.type == "businessview") {
                     links = window.businessviewJson.details.panoramas;
 
                 }
                 else {
                     var glinks = panorama.getLinks();
                     if(glinks != undefined){
-                        for (i = 0; glinks.length > i; i++) {
+                        window.businessviewJson.details.type = "googleshow";
+                       for (i = 0; glinks.length > i; i++) {
                             var array = glinks[i];
                             array.actions = [];
                             array.areas = [];
@@ -355,9 +356,9 @@ function animateBusinessview(to) {
                     tp3_app.AnmationHandler.lastPano = tp3_app.AnmationHandler.nextPano;
                 } else if (links.length > 1 && tp3_app.AnmationOptions.panoJumpsRandom < 1) {
                     do {
-                        counter++;
-                        if (counter > links.length) counter = 0;
+                        if (counter >= links.length) counter = 0;
                         tp3_app.AnmationHandler.nextPano = links[counter];
+                        counter++;
                     }
                     while (tp3_app.AnmationHandler.nextPano == tp3_app.AnmationHandler.lastPano);
                     tp3_app.AnmationHandler.backPano = tp3_app.AnmationHandler.lastPano;
@@ -375,16 +376,16 @@ function animateBusinessview(to) {
                         pitch: Number(tp3_app.AnmationHandler.nextPano.pano.pitch),
                         zoom: Number(tp3_app.AnmationHandler.nextPano.pano.zoom)
                     });
+                    panorama.setVisible(true);
                 }
-                else {
-                    panorama.setPano(tp3_app.AnmationHandler.nextPano.id);
+                else if (tp3_app.AnmationHandler.nextPano.pano != undefined) {
+                    panorama.setPano(tp3_app.AnmationHandler.nextPano.pano);
                     /*panorama.setPov({
                         heading: Number(tp3_app.AnmationHandler.nextPano.pano.heading),
                         pitch: Number(tp3_app.AnmationHandler.nextPano.pano.pitch)
                     });*/
+                    panorama.setVisible(true);
                 }
-
-                panorama.setVisible(true);
 
                 if (panoAnimation.rotation) {
                     var lastPov = panorama.getPov();
@@ -397,7 +398,7 @@ function animateBusinessview(to) {
                                 panorama.setPov(pov);
                                 lastPov = pov;
                             } else {
-                                panoRotationTimer = window.clearInterval(panoRotationTimer);
+                               // panoRotationTimer = window.clearInterval(panoRotationTimer);
                                 //  panoJumpTimer = window.clearInterval(panoJumpTimer);
                             }
                         }, tp3_app.AnmationOptions.panoRotationTimer);
@@ -424,7 +425,7 @@ function animateBusinessview(to) {
                     panorama.setPov(pov);
                     lastPov = pov;
                 } else {
-                    panoRotationTimer = window.clearInterval(panoRotationTimer);
+                   // panoRotationTimer = window.clearInterval(panoRotationTimer);
                     //   panoJumpTimer = window.clearInterval(panoJumpTimer);
                 }
             }, tp3_app.AnmationOptions.panoRotationTimer);

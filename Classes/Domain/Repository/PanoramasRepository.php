@@ -95,4 +95,25 @@ class PanoramasRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         );
         return $query->execute(true);
     }
+    /**
+     *
+     *
+     * @param array $uids
+     * @return array
+     */
+        public function findByPid($pid) {
+            $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+            $querySettings->setRespectStoragePage(false);
+
+            $this->setDefaultQuerySettings($querySettings);
+            $query = $this->createQuery();
+            $query->matching(
+                $query->equals('pid', $pid),
+                $query->logicalAnd(
+                    $query->equals('hidden', 0),
+                    $query->equals('deleted', 0)
+                )
+            );
+            return $query->execute();
+        }
 }

@@ -639,7 +639,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             if(businessviewJson.details.modules.externalLinks){var externalLinks=businessviewJson.details.modules.externalLinks;if(externalLinks.status){appendExternalLinksToBusinessview(externalLinks);}}
             if(businessviewJson.details.modules.customFont){var customFont=businessviewJson.details.modules.customFont;if(customFont.fontName){setCustomFontToBusinessview(customFont.fontName);}}
             if(businessviewJson.details.modules.socialGallery){if(businessviewJson.details.modules.socialGallery.status&&socialGalleryHasActiveNetworks(businessviewJson.details.modules.socialGallery.networks)){var s='';s+='<div id="businessview-socialGallery-canvas" class="hidden"></div>';s+='<div id="businessview-socialGallery-trigger"></div>';$(businessviewCanvasSelector).append(s);resolveSocialGalleryNetworks(businessviewJson.details.modules.socialGallery.networks);$(businessviewCanvasSelector).on('click','div#businessview-socialGallery-canvas #close-socialGallery',function(){$(businessviewCanvasSelector+' div#businessview-socialGallery-canvas').addClass('hidden');$(businessviewCanvasSelector).removeClass('socialGallery-open');});$(businessviewCanvasSelector).on('click','div#businessview-socialGallery-trigger',function(){$(businessviewCanvasSelector+' div#businessview-socialGallery-canvas').removeClass('hidden');$(businessviewCanvasSelector).addClass('socialGallery-open');});$(businessviewCanvasSelector).on('click','div#businessview-socialGallery-canvas .network.facebookPage ul.albums li',function(){$.fancybox.helpers.overlay.open({parent:$('body')});$.fancybox.showLoading();var albumId=$(this).attr('data-album-id');if($('div#businessview-socialGallery-canvas .network.facebookPage ul.photos img[data-album-id="'+albumId+'"]').length==0){getFacebookPageAlbumPhotos(albumId);}else{showFacebookPageAlbumPhotos(albumId);}});}}
-            if(businessviewJson.details.modules.fullscreenMode && businessviewJson.details.panoOptions.fullScreen){var fullscreenMode=businessviewJson.details.modules.fullscreenMode;if(fullscreenMode.status){appendFullscreenModeToBusinessview();var fullscreenResizeTimer;var fullscreenResizeCounter=0;$(businessviewCanvasSelector).on('click','div#businessview-fullscreen-button',function(){var businessviewCanvas=document.getElementById('businessview-canvas');
+            if(businessviewJson.details.modules.fullscreenMode && businessviewJson.details.panoOptions.fullScreen == 1){var fullscreenMode=businessviewJson.details.modules.fullscreenMode;if(fullscreenMode.status){appendFullscreenModeToBusinessview();var fullscreenResizeTimer;var fullscreenResizeCounter=0;$(businessviewCanvasSelector).on('click','div#businessview-fullscreen-button',function(){var businessviewCanvas=document.getElementById('businessview-canvas');
                 if(document.getElementById('tp3-iframe-embed')){businessviewCanvas=document.getElementById('tp3-iframe-embed');}
                 if(!document.fullscreenElement&&!document.mozFullScreenElement&&!document.webkitFullscreenElement&&!document.msFullscreenElement){$(businessviewCanvasSelector).attr('data-normal-height',$(businessviewCanvasSelector).height());if(businessviewCanvas.requestFullscreen){businessviewCanvas.requestFullscreen();}else if(businessviewCanvas.msRequestFullscreen){businessviewCanvas.msRequestFullscreen();}else if(businessviewCanvas.mozRequestFullScreen){businessviewCanvas.mozRequestFullScreen();}else if(businessviewCanvas.webkitRequestFullscreen){businessviewCanvas.webkitRequestFullscreen();}}else{
                     if(document.exitFullscreen){document.exitFullscreen();}else if(document.msExitFullscreen){document.msExitFullscreen();}else if(document.mozCancelFullScreen){document.mozCancelFullScreen();}else if(document.webkitExitFullscreen){document.webkitExitFullscreen();}}
@@ -722,13 +722,14 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             Tp3App.AnmationHandler.lastPano.id = panorama.getPano();
             panoJumpTimer = window.setInterval(function () {
                 if (Tp3App.AnmationHandler.lastPano.id == panorama.getPano()) {
-                    if (window.businessviewJson.details.panoramas.length > 1) {
+                    if (window.businessviewJson.details.panoramas.length > 1 && window.businessviewJson.details.type == "businessview") {
                         links = window.businessviewJson.details.panoramas;
 
                     }
                     else {
                         var glinks = panorama.getLinks();
                         if(glinks != undefined){
+                            window.businessviewJson.details.type = "googleshow";
                             for (i = 0; glinks.length > i; i++) {
                                 var array = glinks[i];
                                 array.actions = [];
@@ -753,9 +754,9 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                         Tp3App.AnmationHandler.lastPano = Tp3App.AnmationHandler.nextPano;
                     } else if (links.length > 1 && Tp3App.AnmationOptions.panoJumpsRandom < 1) {
                         do {
-                            counter++;
-                            if (counter > links.length) counter = 0;
+                            if (counter >= links.length) counter = 0;
                             Tp3App.AnmationHandler.nextPano = links[counter];
+                            counter++;
                         }
                         while (Tp3App.AnmationHandler.nextPano == Tp3App.AnmationHandler.lastPano);
                         Tp3App.AnmationHandler.backPano = Tp3App.AnmationHandler.lastPano;
@@ -773,16 +774,16 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                             pitch: Number(Tp3App.AnmationHandler.nextPano.pano.pitch),
                             zoom: Number(Tp3App.AnmationHandler.nextPano.pano.zoom)
                         });
+                        panorama.setVisible(true);
                     }
-                    else {
-                        panorama.setPano(Tp3App.AnmationHandler.nextPano.id);
+                    else if (Tp3App.AnmationHandler.nextPano.pano != undefined) {
+                        panorama.setPano(Tp3App.AnmationHandler.nextPano.pano);
                         /*panorama.setPov({
                             heading: Number(Tp3App.AnmationHandler.nextPano.pano.heading),
                             pitch: Number(Tp3App.AnmationHandler.nextPano.pano.pitch)
                         });*/
+                        panorama.setVisible(true);
                     }
-
-                    panorama.setVisible(true);
 
                     if (panoAnimation.rotation) {
                         var lastPov = panorama.getPov();
@@ -795,7 +796,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                                     panorama.setPov(pov);
                                     lastPov = pov;
                                 } else {
-                                    panoRotationTimer = window.clearInterval(panoRotationTimer);
+                                   // panoRotationTimer = window.clearInterval(panoRotationTimer);
                                   //  panoJumpTimer = window.clearInterval(panoJumpTimer);
                                 }
                             }, Tp3App.AnmationOptions.panoRotationTimer);
@@ -822,7 +823,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                         panorama.setPov(pov);
                         lastPov = pov;
                     } else {
-                        panoRotationTimer = window.clearInterval(panoRotationTimer);
+                       // panoRotationTimer = window.clearInterval(panoRotationTimer);
                      //   panoJumpTimer = window.clearInterval(panoJumpTimer);
                     }
                 }, Tp3App.AnmationOptions.panoRotationTimer);

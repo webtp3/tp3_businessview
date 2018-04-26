@@ -290,7 +290,7 @@ class ModuleController extends ActionController
             if ($businessViews->getFirst() instanceof \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView) {
                 foreach ($businessViews as $businessView){
                     $panoramas = $this->panoramasRepository->findByList($businessView->getPanoramas());
-                    $panoramas_all = $this->panoramasRepository->findAll();
+                    $panoramas_all = $this->panoramasRepository->findByPid($this->settings["storagePid"]);
                     //$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
                     //$querySettings->setRespectStoragePage(true);
                     // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
@@ -306,11 +306,14 @@ class ModuleController extends ActionController
                             $formattedText .= $oh->getDayName() . " " .\date("H:i", $oh->getOpenTime())  . "-" . \date("H:i", $oh->getCloseTime()) ."<br>";
                             $hoursArray[] = [\date("H:i", $oh->getOpenTime()),\date("H:i", $oh->getCloseTime())];
                         }
-                        $bw['openingHours'] = [
-                            "formattedText" => $formattedText,
-                            "status"=>true,
-                            "hours"=>$hoursArray,
-                        ];
+                        if($formattedText != ""){
+                            $bw['openingHours'] = [
+                                "formattedText" => $formattedText,
+                                "status"=>true,
+                                "hours"=>$hoursArray,
+                            ];
+                        }
+
                         /*
                         *
                         "openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},

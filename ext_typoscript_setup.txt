@@ -33,6 +33,7 @@ config.tx_extbase{
             contact.mapOnProperty = uid
             sorting.mapOnProperty = sorting
 
+
           }
         }
         subclasses {

@@ -92,11 +92,13 @@ class Tp3PageRenderer implements SingletonInterface
                         $formattedText .= $oh->getDayName() . " " .\date("H:i", $oh->getOpenTime())  . "-" . \date("H:i", $oh->getCloseTime()) ."<br>";
                         $hoursArray[] = [\date("H:i", $oh->getOpenTime()),\date("H:i", $oh->getCloseTime())];
                     }
-                    $bw['openingHours'] = [
-                        "formattedText" => $formattedText,
-                        "status"=>true,
-                        "hours"=>$hoursArray,
-                    ];
+                    if($formattedText != ""){
+                        $bw['openingHours'] = [
+                            "formattedText" => $formattedText,
+                            "status"=>true,
+                            "hours"=>$hoursArray,
+                        ];
+                    }
                     /*
                     *
                     "openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
@@ -237,19 +239,18 @@ class Tp3PageRenderer implements SingletonInterface
                     ],
                     "custom"=>[],
                         "externalLinks"=> ["status"=>true,"links"=>[
-                            ["icon"=>"fa-twitter","url"=>"https:\\/\\/twitter.com\\".$businessview['contact']['twitter']."/","target"=>false,"visible"=>($businessview['contact']['twitter'] !="" && $businessview['social_gallery'] ? true : false)],
-                            ["icon"=>"fa-facebook","url"=>"https:\\/\\/www.facebook.com\\/".$businessview['contact']['facebook']."","target"=>false,"visible"=>($businessview['contact']['facebook'] !="" && $businessview['social_gallery'] ? true : false)],
-                            ["icon"=>"fa-google-plus","url"=>"https:\\/\\/plus.google.com\\/".$businessview['contact']['googleplus']."\\/about","target"=>false,"visible"=>($businessview['contact']['googleplus'] !="" && $businessview['social_gallery'] ? true : false)]
+                            ["icon"=>"fa-twitter","url"=>"https:\\/\\/twitter.com\\".$businessview['contact']['twitter']."/","target"=>false,"visible"=>($businessview['contact']['twitter'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] )? true : false)],
+                            ["icon"=>"fa-facebook","url"=>"https:\\/\\/www.facebook.com\\/".$businessview['contact']['facebook']."","target"=>false,"visible"=>($businessview['contact']['facebook'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] ) ? true : false)],
+                            ["icon"=>"fa-google-plus","url"=>"https:\\/\\/plus.google.com\\/".$businessview['contact']['googleplus']."\\/about","target"=>false,"visible"=>($businessview['contact']['googleplus'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] ) ? true : false)]
                         ]
                     ],
                     "gallery"=>[],
                      "intro"=>[
-                         "headline"=>$businessview['name'],"message"=>$businessview['description'],
+                         "headline"=>$businessview['name'],"message"=> $businessview['description'] != null ? htmlentities($businessview['description']) : '',
                          "backgroundColor"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["backgroundColor"] != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["backgroundColor"] : $settings["backgroundColor"],
                          "textColor"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["textColor"]  != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["textColor"] : $settings["textColor"],
                          "status"=>$businessview['intro']
                      ],
-
                     "openingHours"=> $businessview['openingHours'],
                     "opentable"=>[],
                     "panoAnimation"=>["jumps"=>$businessview['pano_animation']['jumps'] ? true : false ,"rotation"=>$businessview['pano_animation']['rotation'] ? true : false],
