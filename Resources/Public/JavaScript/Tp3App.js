@@ -52,6 +52,32 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
                     $(this).removeClass('hover');
                 }).click( function(e){
                     $(this).next('.panolist.bwlist').toggle();
+
+
+                        var bwId=  $(this).attr("id").split("_");
+                        if($.type(bwId) == "array"){
+                            $('#businessview-canvas').find('[id="businessview-contact-canvas"]').remove();
+                            $('#businessview-canvas').find('[id="businessview-externalLinks-canvas"]').remove();
+                            $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][tp3businessviews]"]').val(bwId[1]);
+                            $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][uid]"]').val($(this).next('.panolist.bwlist').find('.entry').first().attr("id").split("_")[1]);
+                            $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][pid]"]').val($(this).attr("id").split("_")[2]);
+
+                        }
+                        else alert("no businessview");
+
+                   /* var bwpara = [];
+                    $.each($(this).children(),function(){
+                       $(this).removeClass("grid")
+                           if( $(this).hasClass("array")){
+                               $(this).removeClass("array")
+
+                               bwpara[this.className] = $.parseJSON( $.trim($(this).text()));
+                           }
+                           else{
+                               bwpara[this.className] = $.trim($(this).text());
+                           }
+
+                    })*/
                 });
 
             $('.businessviewlist tr.entry, .panolist tr.entry').hover(function() {
@@ -209,6 +235,9 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
 
         },
         preview:false,
+        BusinessView : {
+
+        },
         BusinessAdress: {lat: 49.9553939, lng: 8.1767639},
         pov: {
             heading: 270,
@@ -222,6 +251,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
             panoJumpsRandom:true,
 
         },
+
         setAnmationOptions:function(){
             if($.type(window.AnmationOptions) == "object"){
                 Tp3App.AnmationOption = window.AnmationOptions;

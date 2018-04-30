@@ -239,9 +239,9 @@ class Tp3PageRenderer implements SingletonInterface
                     ],
                     "custom"=>[],
                         "externalLinks"=> ["status"=>true,"links"=>[
-                            ["icon"=>"fa-twitter","url"=>"https:\\/\\/twitter.com\\".$businessview['contact']['twitter']."/","target"=>false,"visible"=>($businessview['contact']['twitter'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] )? true : false)],
-                            ["icon"=>"fa-facebook","url"=>"https:\\/\\/www.facebook.com\\/".$businessview['contact']['facebook']."","target"=>false,"visible"=>($businessview['contact']['facebook'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] ) ? true : false)],
-                            ["icon"=>"fa-google-plus","url"=>"https:\\/\\/plus.google.com\\/".$businessview['contact']['googleplus']."\\/about","target"=>false,"visible"=>($businessview['contact']['googleplus'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] ) ? true : false)]
+                            ["icon"=>"fa-twitter","url"=>"https://twitter.com".$businessview['contact']['twitter']."/","target"=>false,"visible"=>($businessview['contact']['twitter'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] )? true : false)],
+                            ["icon"=>"fa-facebook","url"=>"https://www.facebook.com/".$businessview['contact']['facebook']."","target"=>false,"visible"=>($businessview['contact']['facebook'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] ) ? true : false)],
+                            ["icon"=>"fa-google-plus","url"=>"https://plus.google.com/".$businessview['contact']['googleplus']."/about","target"=>false,"visible"=>($businessview['contact']['googleplus'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] ) ? true : false)]
                         ]
                     ],
                     "gallery"=>[],
@@ -277,7 +277,7 @@ class Tp3PageRenderer implements SingletonInterface
                 "type"=>"businessview",
             ],
             "hasDetails"=>true
-        ]);
+        ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
         return $json;
     }
 }

@@ -204,7 +204,11 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-
+                'items' => [
+                    [
+                        '', 0
+                    ]
+                ],
                 'foreign_table' => 'tt_address',
                 'minitems' => 1,
                 'maxitems' => 1,
@@ -228,6 +232,8 @@ return [
                 'enableMultiSelectFilterTextfield' => true,
                 'allowed' => 'tx_tp3businessview_domain_model_panoramas',
                 'MM' => 'tx_tp3businessview_domain_model_panoramas_mm',
+          //      'MM_hasUidField' => true,
+                'MM_opposite_field' => 'tp3businessviews',
                 'minitems' => 1,
 			    'maxitems' => 99,
 

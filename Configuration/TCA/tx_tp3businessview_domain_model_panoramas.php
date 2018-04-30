@@ -22,10 +22,10 @@ return [
         ],
     ],
     'interface' => [
-		'showRecordFieldList' => 'hidden, title, pano_id, heading, pitch, zoom, position',
+		'showRecordFieldList' => 'hidden, title, pano_id, heading, pitch, zoom, position, tp3businessviews,',
     ],
     'types' => [
-		'1' => ['showitem' => 'hidden, title, pano_id, heading, pitch, zoom, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+		'1' => ['showitem' => 'hidden, title, pano_id, heading, pitch, zoom, tp3businessviews, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
 		'hidden' => [
@@ -132,14 +132,21 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-              //  'enableMultiSelectFilterTextfield' => true,
+                'items' => [
+                    [
+                        '', 0
+                    ]
+                ],
                 'foreign_table' => 'tx_tp3businessview_domain_model_tp3businessview',
-                'foreign_table_where' => 'AND  tx_tp3businessview_domain_model_panoramas_mm.uid_local=###THIS_UID###',
+              //  'foreign_table_where' => 'AND  tx_tp3businessview_domain_model_panoramas_mm.uid_local=###THIS_UID###',
+               // 'foreign_table_where' => 'AND tx_tp3businessview_domain_model_panoramas_mm.pid=###CURRENT_PID### AND tx_tp3businessview_domain_model_panoramas_mm.uid_local!=###THIS_UID###',
                 'foreign_sortby' => 'sorting',
                 'allowed' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'MM' => 'tx_tp3businessview_domain_model_panoramas_mm',
+                'MM_hasUidField' => true,
+                'MM_opposite_field' => 'panoramas',
                 'minitems' => 1,
-                'maxitems' => 99,
+                'maxitems' => 1,
                 'size' => 1,
             ],
         ],

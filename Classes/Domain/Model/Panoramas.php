@@ -321,7 +321,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView> $contact
      */
-    public function getTp3BusinessView()
+    public function getTp3Businessviews()
     {
         return $this->tp3businessviews;
     }
@@ -332,7 +332,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView> $contact
      * @return void
      */
-    public function setTp3BusinessView(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tp3businessviews)
+    public function setTp3Businessviews(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tp3businessviews)
     {
         $this->tp3businessviews = $tp3businessviews;
     }
@@ -344,7 +344,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviews
      * @return void
      */
-    public function addTp3BusinessView(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviews)
+    public function addTp3Businessviews(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviews)
     {
         $this->tp3businessviews->attach($tp3businessviews);
     }
@@ -355,7 +355,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviewsToRemove The Tp3Businessview to be removed
      * @return void
      */
-    public function removeTp3BusinessView(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviewsToRemove)
+    public function removeTp3Businessviews(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviewsToRemove)
     {
         $this->tp3businessviews->detach($tp3businessviewsToRemove);
     }

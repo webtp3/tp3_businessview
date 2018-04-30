@@ -34,10 +34,10 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
     /**
      *
      *
-     * @param integer $uid
+     * @param integer $uid, $asArray
      * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
      */
-    public function findByUid($uid) {
+    public function findByUid($uid,$asArray = true) {
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         $querySettings->setRespectStoragePage(false);
 
@@ -50,7 +50,7 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
                 $query->equals('deleted', 0)
             )
         );
-        return $query->execute(true);
+        return $query->execute($asArray);
     }
     /**
      *

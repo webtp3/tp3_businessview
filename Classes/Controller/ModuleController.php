@@ -437,6 +437,7 @@ class ModuleController extends ActionController
         $this->persistenceManager->persistAll();
 
     }
+
     /**
      * action create
      *
