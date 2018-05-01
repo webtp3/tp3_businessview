@@ -24,12 +24,13 @@ plugin.tx_tp3businessview_tp3businessview {
     textColor={$plugin.tx_tp3businessview_tp3businessview.settings.textColor}
     loadApi={$plugin.tx_tp3businessview_tp3businessview.settings.loadApi}
     align={$plugin.tx_tp3businessview_tp3businessview.settings.align}
+    alignSocial={$plugin.tx_tp3businessview_tp3businessview.settings.alignSocial}
     panoJumpTimer={$plugin.tx_tp3businessview_tp3businessview.settings.panoJumpTimer}
     panoRotationTimer={$plugin.tx_tp3businessview_tp3businessview.settings.panoRotationTimer}
     panoRotationFactor={$plugin.tx_tp3businessview_tp3businessview.settings.panoRotationFactor}
     panoJumpsRandom={$plugin.tx_tp3businessview_tp3businessview.settings.panoJumpsRandom}
+    FEControls={$plugin.tx_tp3businessview_tp3businessview.settings.FEControls}
     storagePid={$plugin.tx_tp3businessview_tp3businessview.settings.storagePid}
-
   }
   mvc {
     callDefaultActionIfActionCantBeResolved = 1

@@ -24,14 +24,18 @@ plugin.tx_tp3businessview_tp3businessview {
     textColor=#FFF
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=select[right,left,center]; label=overlay align
     align=right
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=select[right,left,center]; label=overlay social links align
+    alignSocial=left
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoJumpTimer ms
     panoJumpTimer=10000
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationTimer ms
     panoRotationTimer=30
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationFactor in ° (default 0.015)
-    panoRotationFactor=0.030
+    panoRotationFactor=0.060
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=bolean; label=panoJumpsRandom random(trrue) or linear(false)
     panoJumpsRandom=true
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=bolean; label=FEControls show play pause in FE
+    FEControls=true
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=bolean; label=storage
     storagePid ={$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
   }

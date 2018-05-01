@@ -25,12 +25,12 @@ or search for the place on the map</div>
 
 </div><div id="businessview-panorama-canvas"></div></div>
 <div id="tp3businessview-floating-panel">
-
     <f:form action="update" id="editform" controller="Panoramas"  name="update" object="{panorama}" arguments="{panorama: panorama}">
     <f:form.hidden   name="panoramas[uid]" value="{panorama.uid}"  class="formvalue"  />
     <f:form.hidden   name="panoramas[pid]" value="{panorama.pid}"  class="formvalue"  />
-    <f:form.hidden   name="panoramas[tp3businessviews]" value="{panorama.tp3businessviews}"  class="formvalue"  />
-    <table class="panoviewer">
+        <f:form.select name="panoramas[tp3businessviews]"  multiple="false" options="{businessviews}" optionValueField="uid" optionLabelField="createdBy" value="" errorClass="'f3-form-error'" class="form-control formvalue">
+        </f:form.select>
+        <table class="panoviewer">
         <tr>
             <td><b>Titel</b></td>
             <td class="title">
@@ -66,12 +66,12 @@ or search for the place on the map</div>
             </f:form.textfield>
         </td>
         </tr>
-        <button type="button" data-toggle="button" class="btn btn-secondary" id="btn-links">open links</button>
-        <table id="links_table"></table>
+
     </table>
         <f:form.submit name="submit" id="submitEditform" value="save" />
         <f:form.submit name="submit" id="submitNewform" value="new" />
 
     </f:form>
+    <f:render partial="Tp3BusinessView/Controls" arguments="{settings:settings}" />
 
 </div>

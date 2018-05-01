@@ -77,7 +77,11 @@ class Tp3PageRenderer implements SingletonInterface
                 if (!$businessView instanceof \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView) {
                     return;
                 }
-                $panoramas = $this->panoramasRepository->findByList($businessView->getPanoramas());
+                    $panolist = [];
+                    foreach ($businessView->getPanoramas() as $panoramas => $pano){
+                        $panolist[]=  $pano->getUid();
+                    }
+                $panoramas = $this->panoramasRepository->findByList($panolist);
                 //find selcted
                 $panorama = $this->panoramasRepository->findByUid($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
                 $bw = $businessView->getPropertiesArray();
@@ -218,7 +222,7 @@ class Tp3PageRenderer implements SingletonInterface
                 "areaOrder"=>[],
                 "editors"=>[],
                 "googleMapsJavaScriptApiKey"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["googleMapsJavaScriptApiKey"],
-                "legalNoticeUrl"=>"http:\/\/".urlencode($businessview['external_links'] != "" ? $businessview['external_links'] : $businessview['externalLinks']),
+                "legalNoticeUrl"=>"http://".urlencode($businessview['external_links'] != "" ? $businessview['external_links'] : $businessview['externalLinks']),
                 "location"=>["formattedAddress"=>$businessview['contact']['address'].", ".$businessview['contact']['zip'] ." " .$businessview['contact']['city'] .",".$businessview['contact']['country'],"position"=>["latitude"=>$businessview['contact']['latitude'],"longitude"=>$businessview['contact']['longitude']]],
                 "createdBy"=>["name"=>($businessview['created_by'] != "" ? $businessview['created_by'] : $businessview['createdBy']) .",".urlencode($businessview['external_links'] != "" ? $businessview['external_links'] : $businessview['externalLinks']),"status"=>true],
                  "modules"=>[
@@ -238,10 +242,11 @@ class Tp3PageRenderer implements SingletonInterface
 
                     ],
                     "custom"=>[],
-                        "externalLinks"=> ["status"=>true,"links"=>[
+                        "externalLinks"=> ["status"=>true,"align"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["alignSocial"] != "" ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]["tp3_businessview."]["settings."]["alignSocial"] : "left","links"=>[
                             ["icon"=>"fa-twitter","url"=>"https://twitter.com".$businessview['contact']['twitter']."/","target"=>false,"visible"=>($businessview['contact']['twitter'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] )? true : false)],
                             ["icon"=>"fa-facebook","url"=>"https://www.facebook.com/".$businessview['contact']['facebook']."","target"=>false,"visible"=>($businessview['contact']['facebook'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] ) ? true : false)],
-                            ["icon"=>"fa-google-plus","url"=>"https://plus.google.com/".$businessview['contact']['googleplus']."/about","target"=>false,"visible"=>($businessview['contact']['googleplus'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] ) ? true : false)]
+                            ["icon"=>"fa-google-plus","url"=>"https://plus.google.com/".$businessview['contact']['googleplus']."/about","target"=>false,"visible"=>($businessview['contact']['googleplus'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] ) ? true : false)
+                            ]
                         ]
                     ],
                     "gallery"=>[],
@@ -277,7 +282,7 @@ class Tp3PageRenderer implements SingletonInterface
                 "type"=>"businessview",
             ],
             "hasDetails"=>true
-        ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+        ]);//JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE
         return $json;
     }
 }

@@ -289,7 +289,11 @@ class ModuleController extends ActionController
         //    $businessView = $businessViews->getFirst();
             if ($businessViews->getFirst() instanceof \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView) {
                 foreach ($businessViews as $businessView){
-                    $panoramas = $this->panoramasRepository->findByList($businessView->getPanoramas());
+                    $panolist = [];
+                    foreach ($businessView->getPanoramas() as $panoramas => $pano){
+                        $panolist[]=  $pano->getUid();
+                    }
+                    $panoramas = $this->panoramasRepository->findByList($panolist);
                     $panoramas_all = $this->panoramasRepository->findByPid($this->settings["storagePid"]);
                     //$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
                     //$querySettings->setRespectStoragePage(true);

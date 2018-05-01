@@ -532,7 +532,7 @@ function appendCustomToBusinessview(content,align,position,backgroundColor,textC
     }}
 function appendExternalLinksToBusinessview(externalLinks){var string='';var color='';if(externalLinks.backgroundColor&&externalLinks.textColor){color=getColorStyle(externalLinks.backgroundColor,externalLinks.textColor);}
     for(var i=0;i<externalLinks.links.length;i++){string+=getExternalLinksBusinessViewString(externalLinks.links[i],color);}
-    $(businessviewCanvasSelector).append('<ul id="businessview-externalLinks-canvas" class="'+(externalLinks.size?externalLinks.size:'')+'">'+ string+'</ul>');}
+    $(businessviewCanvasSelector).append('<ul id="businessview-externalLinks-canvas" class="'+window.businessviewJson.details.modules.externalLinks.align+' '+(externalLinks.size?externalLinks.size:'')+'">'+ string+'</ul>');}
 function appendFacebookPageAlbumsToBusinessView(albums,disabledAlbums){if(albums.length>0){var s='';for(var i=0;i<albums.length;i++){if(albums[i].count&&!isAlbumIdDisabled(albums[i].id,disabledAlbums)){s+='<li data-album-id="'+ albums[i].id+'">';s+='<div class="image-wrapper" data-cover-photo-id="'+ albums[i].cover_photo+'">';s+='</div>';s+='<p class="name">'+ albums[i].name+'</p>';s+='</li>';getFacebookPageAlbumsCoverPhotoUrl(albums[i].id,albums[i].cover_photo);}}
     $(businessviewCanvasSelector+' div#businessview-socialGallery-canvas .albums').html(s);}}
 function appendFacebookPageAlbumPhotosToBusinessView(albumId,photos){var s='';for(var i=0;i<photos.length;i++){s+='<li>';s+='<a href="'+photos[i].source+'" data-fancybox-group="businessview-socialGallery-'+albumId+'">';s+='<img src="'+photos[i].source+'" data-album-id="'+albumId+'">';s+='</a>';s+='<li>';}

@@ -34,7 +34,7 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
     /**
      *
      *
-     * @param integer $uid, $asArray
+     * @param integer $uid, bolean $asArray
      * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
      */
     public function findByUid($uid,$asArray = true) {
@@ -58,7 +58,7 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
      * @param integer $pid
      * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
      */
-    public function findByPid($pid) {
+    public function findByPid($pid,$asArray = false) {
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         $querySettings->setRespectStoragePage(false);
 
@@ -71,7 +71,7 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
                 $query->equals('deleted', 0)
             )
         );
-        return $query->execute();
+        return $query->execute($asArray);
     }
     /**
      *
@@ -79,7 +79,7 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
      * @param integer $uid
      * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
      */
-    public function findByPanoramas($uid) {
+    public function findByPanoramas($uid,$asArray = false) {
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         $querySettings->setRespectStoragePage(false);
 
@@ -92,7 +92,7 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
                 $query->equals('deleted', 0)
             )
         );
-        return $query->execute();
+        return $query->execute($asArray);
     }
 
 

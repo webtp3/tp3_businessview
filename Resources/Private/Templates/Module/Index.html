@@ -5,9 +5,9 @@
     <h1>Tp3 BusinessView Designer (Streetview)</h1>
 
     <f:flashMessages />
-    <f:render partial="Tp3BusinessView/Finder" arguments="{tp3BusinessViews:tp3BusinessViews, panoramas:panoramas}" />
+    <f:render partial="Tp3BusinessView/Finder" arguments="{businessviews:businessviews, panoramas:panoramas, settings:settings}" />
     <br>
-    <f:render partial="Tp3BusinessView/Controls" arguments="{settings:settings}" />
+
 
     <div class="recordlists">
         <f:if condition="{businessviews->f:count()} < 1}">

@@ -356,6 +356,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * 
      * @param \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas
      * @return void
+     *
      */
     public function setPanoramas(\Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas)
     {
