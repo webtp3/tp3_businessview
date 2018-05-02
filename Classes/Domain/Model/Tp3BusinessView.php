@@ -88,7 +88,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var string
      */
-    protected $panoAnimation = [];
+    protected $panoAnimation = null;
 
     /**
      * socialGallery
@@ -103,7 +103,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var string
      */
-    protected $panoOptions = [];
+    protected $panoOptions = null;
 
     /**
      * contact
@@ -454,26 +454,33 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @return array
      */
     public function getPropertiesArray() {
-            $panoOptions =    ["addressControl" => false,
-                "disableDefaultUI" => false,
-                "panControl" => false,
-                "scaleControl" => false,
-                "scrollwheel" => false,
-                "zoomControl" => false,
-                "fullScreen" => false
-            ];
-            $option_values = explode(",",$this->getPanoOptions());
+        $panoOptions =    ["addressControl" => false,
+            "disableDefaultUI" => false,
+            "panControl" => false,
+            "scaleControl" => false,
+            "scrollwheel" => false,
+            "zoomControl" => false,
+            "fullScreen" => false
+        ];
+       if($this->getPanoOptions() != null) {
+           $option_values = explode(",",$this->getPanoOptions());
+
            // $panoOptions = $option_values;
             for($i=0;count($option_values)>$i;$i++){
                 $panoOptions[$option_values[$i]] = true;
             }
-            unset($option_values);
+           unset($option_values);
+
+        }
+        if($this->getPanoAnimation() != null) {
             $option_values = explode(",",$this->getPanoAnimation());
             $panoAnimation = ["jumps"=>false,"rotation"=>false];
-            for($i=0;count($option_values)>$i;$i++){
+            for($i=0;count($option_values)>$i;$i++) {
                 $panoAnimation[$option_values[$i]] = true;
-
             }
+            unset($option_values);
+        }
+
         return [
 
             "createdBy" => $this->getCreatedBy(),
