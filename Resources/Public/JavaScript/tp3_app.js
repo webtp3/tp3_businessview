@@ -535,6 +535,7 @@ function appendExternalLinksToBusinessview(externalLinks){var string='';var colo
     $(businessviewCanvasSelector).append('<ul id="businessview-externalLinks-canvas" class="'+window.businessviewJson.details.modules.externalLinks.align+' '+(externalLinks.size?externalLinks.size:'')+'">'+ string+'</ul>');}
 function appendFacebookPageAlbumsToBusinessView(albums,disabledAlbums){if(albums.length>0){var s='';for(var i=0;i<albums.length;i++){if(albums[i].count&&!isAlbumIdDisabled(albums[i].id,disabledAlbums)){s+='<li data-album-id="'+ albums[i].id+'">';s+='<div class="image-wrapper" data-cover-photo-id="'+ albums[i].cover_photo+'">';s+='</div>';s+='<p class="name">'+ albums[i].name+'</p>';s+='</li>';getFacebookPageAlbumsCoverPhotoUrl(albums[i].id,albums[i].cover_photo);}}
     $(businessviewCanvasSelector+' div#businessview-socialGallery-canvas .albums').html(s);}}
+
 function appendFacebookPageAlbumPhotosToBusinessView(albumId,photos){var s='';for(var i=0;i<photos.length;i++){s+='<li>';s+='<a href="'+photos[i].source+'" data-fancybox-group="businessview-socialGallery-'+albumId+'">';s+='<img src="'+photos[i].source+'" data-album-id="'+albumId+'">';s+='</a>';s+='<li>';}
     $(businessviewCanvasSelector+' div#businessview-socialGallery-canvas .network.facebookPage ul.photos').append(s);showFacebookPageAlbumPhotos(albumId);}
 function appendFullscreenModeToBusinessview(){$(businessviewCanvasSelector).append('<div id="businessview-fullscreen-button"></div>');}
@@ -683,7 +684,7 @@ function panElement(element,pano_heading,pano_pitch,width,height,zoom){var eleme
 function panoramaHasActions(panoId){var index=getPanoArrayPosition(panoId);if(index!=undefined&&window.businessviewJson.details.panoramas[index].actions.length>0){return true;}else{return false;}}
 function panoramaHasAreas(panoId){var index=getPanoArrayPosition(panoId);if(index!=undefined&&$.type(window.businessviewJson.details.panoramas[index].areas)=="array"&&window.businessviewJson.details.panoramas[index].areas.length>0){return true;}else{return false;}}
 function panoramaHasInfoPoints(panoId){var index=getPanoArrayPosition(panoId);if(index!=undefined&&window.businessviewJson.details.panoramas[index].infoPoints.length>0){return true;}else{return false;}}
-function removeBusinessviewCanvas(canvasId){$(businessviewCanvasSelector+' #'+ canvasId).remove();}
+function removeBusinessviewCanvas(canvasId){$(businessviewCanvasSelector+' #'+ canvasId).delay(3000).remove();}
 function resizeBusinessView(panoOptions){var businessviewHeight=$(businessviewCanvasSelector).outerHeight(true);$(businessviewCanvasSelector+' #businessview-panorama-canvas').css('height',businessviewHeight+'px');if(showSidebar){resizeSidebar();}
     centerBusinessViewCanvas('businessview-area-canvas');centerBusinessViewCanvas('businessview-gallery-canvas');centerBusinessViewCanvas('businessview-intro-canvas');if($(businessviewCanvasSelector).width()<768){panorama.setOptions({panControl:false,zoomControl:false,scaleControl:false,addressControl:false});}else{panorama.setOptions({panControl:panoOptions.panControl,zoomControl:panoOptions.zoomControl,scaleControl:panoOptions.scaleControl,addressControl:panoOptions.addressControl});}
     panoCanvasHeight=$panoCanvas.height();panoCanvasWidth=$panoCanvas.width();updateInfoPoints();}
