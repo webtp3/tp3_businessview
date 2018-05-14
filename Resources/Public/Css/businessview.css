@@ -58,6 +58,10 @@ div.fa.fa-times {
     position: absolute;
 
 }
+#businessview-panorama-canvas figure.image{
+    position: relative;
+
+}
 #businessview-panorama-canvas .text {
 // position: absolute;
     background: rgba(255,255,255,0.7);

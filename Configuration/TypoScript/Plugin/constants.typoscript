@@ -14,7 +14,7 @@ plugin.tx_tp3businessview_tp3businessview {
   settings{
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=google api key (FE) https://console.developers.google.com/apis/
     googleMapsJavaScriptApiKey = AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg
-    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=bolean; label=load maps api from google in (FE)
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=load maps api from google in (FE)
     loadApi= false
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay color
     color=orange
@@ -32,11 +32,11 @@ plugin.tx_tp3businessview_tp3businessview {
     panoRotationTimer=30
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationFactor in ° (default 0.015)
     panoRotationFactor=0.060
-    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=bolean; label=panoJumpsRandom random(trrue) or linear(false)
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=panoJumpsRandom random(trrue) or linear(false)
     panoJumpsRandom=true
-    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=bolean; label=FEControls show play pause in FE
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=FEControls show play pause in FE
     FEControls=true
-    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=bolean; label=storage
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=storage
     storagePid ={$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
   }
 

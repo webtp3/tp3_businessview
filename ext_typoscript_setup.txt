@@ -32,7 +32,7 @@ config.tx_extbase{
             panoramas.mapOnProperty = uid_foreign
             contact.mapOnProperty = uid
             sorting.mapOnProperty = sorting
-
+            description.mapOnProperty = description
 
           }
         }
