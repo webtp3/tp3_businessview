@@ -143,7 +143,7 @@ class Tp3PageRenderer implements SingletonInterface
                     $parameters["jsFooterFiles"] .='<script src="//maps.googleapis.com/maps/api/js?key='.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["googleMapsJavaScriptApiKey"].'&libraries=places&callback=tp3_app.initialize"></script>';
                 }
 
-                $parameters["CssFiles"] .='<style src="typo3conf/ext/tp3_businessview/Resources/Public/Css/Tp3App.css"></style>';
+                $parameters["cssFiles"] .='<link rel="stylesheet" type="text/css" href="typo3conf/ext/tp3_businessview/Resources/Public/Css/Tp3App.css"></link>';
             }
             catch (Exception $e) {
              //   $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
