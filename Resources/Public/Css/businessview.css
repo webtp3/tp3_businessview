@@ -1,3 +1,9 @@
+/***************************************************************
+*  Copyright notice
+*
+* tp3
+* 2018 thomas ruta
+****************************************************************/
 
 div#businessview-canvas{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-variant:normal;font-weight:normal;color:#333;height:100%;min-height:319.999px;min-width:300px;overflow:hidden;position:relative;width:50%;}div#businessview-canvas ul,div#businessview-canvas div{z-index:3;}div#businessview-canvas div#businessview-panorama-canvas{height:100%;width:100%;z-index:1;}div#businessview-canvas div#businessview-panorama-canvas img{max-width:none;}
 div#businessview-canvas ul[id^="business"],div#businessview-canvas ul[class^="business"]{
@@ -8,7 +14,7 @@ bottom: 30px;left: 2px;display: block;width: 60px;}div#businessview-canvas ul#bu
 .fa-facebook,
 .fa-twitter,
 .fa-google-plus{
-
+    background:rgba(255,255,255,0.5);
     height:50px;width:50px;
 }
 .container.floatingbox {

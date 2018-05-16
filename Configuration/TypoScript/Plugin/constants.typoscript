@@ -17,11 +17,11 @@ plugin.tx_tp3businessview_tp3businessview {
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=load maps api from google in (FE)
     loadApi= false
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay color
-    color=orange
+    color={$plugin.bootstrap_package.settings.less.brand-primary}
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay backgroundColor
-    backgroundColor=#F0AD4E
+    backgroundColor={$plugin.bootstrap_package.settings.less.brand-primary}
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay textColor
-    textColor=#FFF
+    textColor={$plugin.bootstrap_package.settings.less.section-primary-color}
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=select[right,left,center]; label=overlay align
     align=right
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=select[right,left,center]; label=overlay social links align
