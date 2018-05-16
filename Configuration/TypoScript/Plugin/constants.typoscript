@@ -15,7 +15,7 @@ plugin.tx_tp3businessview_tp3businessview {
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=google api key (FE) https://console.developers.google.com/apis/
     googleMapsJavaScriptApiKey = AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=load maps api from google in (FE)
-    loadApi= false
+    loadApi= true
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay color
     color={$plugin.bootstrap_package.settings.less.brand-primary}
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay backgroundColor
