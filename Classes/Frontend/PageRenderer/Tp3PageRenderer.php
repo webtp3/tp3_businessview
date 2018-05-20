@@ -83,6 +83,7 @@ class Tp3PageRenderer implements SingletonInterface
                     $businessView = new \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView;
                     $bw = $businessView->getPropertiesArray();
                     $bw['panoramas'] = [];
+                    $panoramas= [];
                     $bw['panorama'] = $panorama[0];
                 }
                 else{
@@ -137,10 +138,10 @@ class Tp3PageRenderer implements SingletonInterface
                     ( $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpsRandom"] != "" ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpsRandom"]  : true ).'};</script>';
 
                 $parameters["jsFooterInline"] .="<script>  $('".($GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] != "" ? $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] : '#content') ."').first().attr(\"id\",\"businessview-panorama-canvas\").wrapAll('<div id=\"businessview-canvas\" style=\"width:100%;height:100%;min-height:320px;\"></div>');</script>";
-                $parameters["jsFooterLibs"] .='<script src="typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js"></script>';
+                $parameters["jsFooterLibs"] .='<script defer async="async" src="typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js"></script>';
 
                 if($GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["loadApi"]== "true" || $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["loadApi"]== "1"){
-                    $parameters["jsFooterLibs"] .='<script src="//maps.googleapis.com/maps/api/js?key='.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["googleMapsJavaScriptApiKey"].'&libraries=places&callback=tp3_app.initialize"></script>';
+                    $parameters["jsFooterLibs"] .='<script defer async="async" src="//maps.googleapis.com/maps/api/js?key='.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["googleMapsJavaScriptApiKey"].'&libraries=places&callback=tp3_app.initialize"></script>';
                 }
 
                 $parameters["cssFiles"] .='<link rel="stylesheet" type="text/css" href="typo3conf/ext/tp3_businessview/Resources/Public/Css/Tp3App.css"></link>';
