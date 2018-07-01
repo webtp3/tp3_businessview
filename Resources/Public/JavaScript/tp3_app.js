@@ -813,8 +813,17 @@ tp3_app.watchdog = function () {
 
 $j(document).promise().done(function( ) {
 
+
     console.log("promise");
     tp3_app.init = false;
-   // $j(document).trigger('loaded');
-    window.dispatchEvent(new Event('loaded'))
+    // $j(document).trigger('loaded');
+    try {
+        var evt = new Event('loaded');
+        window.dispatchEvent(evt)
+    }
+    catch (e) {
+        var evt = document.createEvent('Event');
+        window.dispatchEvent( evt);
+        evt.initEvent("loaded", true, true);
+    }
 })

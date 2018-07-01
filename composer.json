@@ -1,8 +1,8 @@
 {
-    "name": "Tp3/Tp3Businessview",
+    "name": "web-tp3/tp3businessview",
     "type": "typo3-cms-extension",
-    "title" : "BusinsessView (google Streetview)",
-    "description" : "google businessview für tp3",
+    "title" : "tp3 BusinsessView (google Streetview)",
+    "description" : "google businessview für tp3 - 360° Panorama Designer für Ihren virtuellen Rundgang",
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3 <7.2",
@@ -15,6 +15,9 @@
     },
     "replace": {
         "tp3_businessview": "self.version"
+    },
+    "suggest": {
+        "web-tp3/tp3openhours": "*"
     }
     
 }

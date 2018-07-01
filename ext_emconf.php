@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'tp3 BusinessView',
-    'description' => 'google businessview für typo3 - google streetview integration mit dem Panorama Designer',
+    'description' => 'google businessview für typo3 - 360° Panorama Designer für Ihren virtuellen Rundgang',
     'category' => 'plugin',
     'author' => 'Thomas Ruta',
     'author_email' => 'support@r-p-it.de',
@@ -35,6 +35,7 @@ $EM_CONF[$_EXTKEY] = [
                 ),
             'suggests' =>
                 array (
+                    'tp3_openhours' => '*',
                 ),
         ),
     'autoload' =>
