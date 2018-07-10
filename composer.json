@@ -1,0 +1,79 @@
+{
+	"name": "web-tp3/tp3_installer",
+	"description": "testing typo3",
+	"type": "project",
+	"minimum-stability": "dev",
+	"version": "8.x-bundle",
+	"license": "GPL-3.0+",
+	"authors": [
+		{
+			"name": "Thomas Ruta",
+			"email": "email@thomasruta.de"
+		}
+	],
+	"repositories": {
+		"local": {
+			"type": "path",
+			"url": "packages/*"
+		},
+		"remote": {
+			"type": "vcs",
+			"url": "https://bitbucket.org/connecta-ag/tmpl.git"
+		},
+		"ter": {
+			"type": "composer",
+			"url": "https://composer.typo3.org/"
+		}
+	},
+	"require": {
+		"typo3/cms": "dev-TYPO3_8-7",
+		"helhum/typo3-console": "^5",
+		"helhum/typo3-composer-setup": "^0.5.1",
+		"typo3/cms-composer-installers": "^1.4.2 || ^2.0",
+		"typo3-console/composer-auto-setup": "^0.3.6",
+		"helhum/dotenv-connector": "^2",
+		"web-tp3/tp3_installer":"dev-8.x-dev"
+
+	},
+	"require-dev": {
+		"typo3-console/php-server-command": "^0.2.0",
+		"deployer/deployer": "^6",
+		"consolidation/robo": "^1",
+		"codeception/codeception":"*",
+		"typo3/testing-framework": "8.x-dev",
+		"friendsofphp/php-cs-fixer": "^2.13@dev",
+		"se/selenium-server-standalone":"~2.53",
+		"typo3/cms-styleguide" :"~8.0.8",
+		"phpunit/php-invoker":"^1.1",
+		"enm1989/chromedriver": "~2.30",
+		"fiunchinho/phpunit-randomizer": "~3.0.0",
+		"phpunit/phpunit": "*",
+		"nimut/testing-framework": "^3.0@dev"
+
+	},
+	"autoload": {
+		"psr-4": {
+		}
+	},
+	"extra": {
+		"typo3/cms": {
+			"cms-package-dir": "{$vendor-dir}/typo3/cms",
+			"web-dir": "web",
+			"root-dir": "html"
+		},
+		"helhum/typo3-console": {
+			"install-extension-dummy": false
+		},
+		"helhum/dotenv-connector": {
+			"cache-dir": "var/cache",
+			"env-file": ".env"
+		},
+		"branch-alias": {
+			"dev-TYPO3_8-7": "8.x-dev"
+		}
+	},
+	"non-feature-branches": [
+	"TYPO3_.*"
+	]
+
+}
