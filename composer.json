@@ -3,7 +3,7 @@
 	"description": "testing typo3",
 	"type": "project",
 	"minimum-stability": "dev",
-	"version": "8.x-dev",
+	"version": "1.0.0",
 	"license": "GPL-3.0+",
 	"authors": [
 		{
@@ -17,8 +17,13 @@
 			"url": "packages/*"
 		},
 		"ter": {
+
 			"type": "composer",
 			"url": "https://composer.typo3.org/"
+		},
+		"remote": {
+			"type": "composer",
+			"url": "https://repo.packagist.com/tp3/"
 		}
 	},
 	"require": {
