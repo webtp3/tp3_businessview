@@ -3,6 +3,7 @@
 	"description": "testing typo3",
 	"type": "project",
 	"minimum-stability": "dev",
+	"stability":"dev",
 	"version": "8.x-dev",
 	"license": "GPL-3.0+",
 	"authors": [
