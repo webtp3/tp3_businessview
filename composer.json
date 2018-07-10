@@ -1,9 +1,9 @@
 {
-	"name": "web-tp3/tp3_installer",
+	"name": "thomasruta/tp3_tests",
 	"description": "testing typo3",
 	"type": "project",
 	"minimum-stability": "dev",
-	"version": "8.x-bundle",
+	"version": "8.x-dev",
 	"license": "GPL-3.0+",
 	"authors": [
 		{
@@ -16,23 +16,22 @@
 			"type": "path",
 			"url": "packages/*"
 		},
-		"remote": {
-			"type": "vcs",
-			"url": "https://bitbucket.org/connecta-ag/tmpl.git"
-		},
 		"ter": {
 			"type": "composer",
 			"url": "https://composer.typo3.org/"
 		}
 	},
 	"require": {
-		"typo3/cms": "dev-TYPO3_8-7",
 		"helhum/typo3-console": "^5",
+		"helhum/typo3-config-handling": "^0.7",
 		"helhum/typo3-composer-setup": "^0.5.1",
-		"typo3/cms-composer-installers": "^1.4.2 || ^2.0",
+		"helhum/typo3-error-handling": "@dev",
 		"typo3-console/composer-auto-setup": "^0.3.6",
 		"helhum/dotenv-connector": "^2",
-		"web-tp3/tp3_installer":"dev-8.x-dev"
+		"web-tp3/tp3_installer":"dev-8.x-dev",
+		"typo3/cms-impexp":"^8.7.0 || ^9.0",
+		"bk2k/bootstrap-package": "^8.0",
+		"typo3/cms-introduction":"^3.0.2"
 
 	},
 	"require-dev": {
@@ -48,8 +47,8 @@
 		"enm1989/chromedriver": "~2.30",
 		"fiunchinho/phpunit-randomizer": "~3.0.0",
 		"phpunit/phpunit": "*",
-		"nimut/testing-framework": "^3.0@dev"
-
+		"nimut/testing-framework": "^3.0@dev",
+		"web-tp3/cag_tests":"*"
 	},
 	"autoload": {
 		"psr-4": {
@@ -63,6 +62,12 @@
 		},
 		"helhum/typo3-console": {
 			"install-extension-dummy": false
+		},
+		"helhum/typo3-config-handling": {
+			"main-config": "config/settings.yaml",
+			"prod-config": "config/prod.settings.yaml",
+			"dev-config": "config/dev.settings.yaml",
+			"ext-config": "config/includes/extension.yaml"
 		},
 		"helhum/dotenv-connector": {
 			"cache-dir": "var/cache",
