@@ -10,8 +10,8 @@ pipelines:
           - composer
         script:
           - apt-get update && apt-get upgrade -y
-          - rm -R /var/www/html -rf
-          - cd /var/www/
+          #- rm -R /var/www/html -rf
+          - cd /var/www/html/
           # start composer install
           - composer config repositories.local path 'Packages/*'
           - composer --dev install
