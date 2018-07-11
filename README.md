@@ -14,14 +14,39 @@ installed in your (local) environment.
 
 ### Local Setup ###
 
-Install TYPO3 and all composer based extensions / components:
+Install TYPO3 and all composer based extensions / components and local private packages:
 
 ```bash
  composer config repositories.local path 'Packages/*'
- composer --dev --stability=dev update
- composer install
-  # start typo3 install from env
- bash /var/www/cgi-bin/run-typo3.sh
+ #(if you want to install interactive)
+ composer req typo3-console/composer-typo3-auto-install 
+ #(else just install)
+ composer --dev  install
+```
+you can user cli to install typo3 or the interactive Process
+```bash
+    php typo3cms install:setup --force \
+    --database-user-name root --database-user-password password \
+    --database-host-name localhost --database-port 3306 \
+    --database-socket /var/run/mysqld/mysqld.sock \
+    --use-existing-database n \
+    --admin-user-name tp3min \
+    --admin-password Init1111 \
+    --site-name tp3Testing
+```
+    
+#### install starts ###
+
+    ➤ Set up database connection
+    User name for database server (default: ""): root
+    User password for database server (default: ""):
+    Host name of database server (default: "127.0.0.1"):
+    TCP Port of database server (default: "3306"):
+    Unix Socket to connect to (default: ""): /var/run/mysqld/mysqld.sock
+
+After the installation is finisched you can start Testing
+
+```bash
   # start testing
  php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity
  php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity
