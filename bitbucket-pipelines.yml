@@ -18,9 +18,9 @@ pipelines:
           - rm -R /var/www/html -rf
           - cd /var/www/
           # start composer install
-          - composer config --global --auth http-basic.repo.packagist.com thomasruta 69d09e4ebd0a134c74a2402578b6054f62793422b25655afccae661e95a4
           - composer config repositories.local path 'Packages/*'
-          - composer --dev --stability=dev create-project thomasruta/tp3_tests html
+          - composer --dev --stability=dev update
+          - composer install
           # start typo3 install from env
           - bash /var/www/cgi-bin/run-typo3.sh
           # start testing
