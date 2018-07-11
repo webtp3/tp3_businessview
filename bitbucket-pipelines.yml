@@ -9,7 +9,7 @@ pipelines:
         script:
             # for database start with composer
             - ls -an /opt/atlassian/pipelines/agent/build/
-            - /opt/atlassian/pipelines/agent/build/build/docker/dependencies.sh
+            - /opt/atlassian/pipelines/agent/build/build/docker/depends.sh
             - docker-compose -f docker-compose.yml up
 
     - step:
