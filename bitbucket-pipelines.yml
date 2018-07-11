@@ -1,8 +1,3 @@
-# This is a sample build configuration for PHP.
-# Check our guides at https://confluence.atlassian.com/x/e8YWN for more examples.
-# Only use spaces to indent your .yml configuration.
-# -----
-# You can specify a custom docker image from Docker Hub as your build environment.
 image: webtp3/docker:16.4-stable
 
 pipelines:
@@ -20,6 +15,7 @@ pipelines:
           # start composer install
           - composer config repositories.local path 'Packages/*'
           - composer --dev install
+
           # start typo3 install from env
           - bash /var/www/cgi-bin/run-typo3.sh
           # start testing
