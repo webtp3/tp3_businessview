@@ -36,20 +36,20 @@ or in combined usage
 
 after you need to transfer the Code into the container
 
-          - cp -R /var/www/tmp /var/www/html
+          - docker exec typo3 rsync -a -e ssh youruser@2.2.2.210:/localpath/ /var/www/html
 
           # start composer install
           - composer config  repositories.local path 'Packages/*' -d  /var/www/html/web/tmp/
-          - composer --dev install -d  /var/www/html/web/tmp/
+          - composer --dev install -d  /var/www/html/
 
           # start typo3 install from env
           - bash /var/www/cgi-bin/run-typo3.sh
           # start testing
-          - php /var/www/html/tmp/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/tmp/web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity
-          - php /var/www/html/tmp/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/tmp/web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity
-          - php /var/www/html/tmp/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/tmp/web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity
-          - mkdir -p /var/www/html/tmp/web/typo3temp/var/tests
-          - /var/www/html/tmp/vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
+          - php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity
+          - php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity
+          - php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity
+          - mkdir -p web/typo3temp/var/tests
+          - vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
           - php -S 0.0.0.0:8000 >/dev/null 2>&1 &
           - sleep 3;
           - typo3DatabaseName='typo3' typo3DatabaseHost='DB' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml

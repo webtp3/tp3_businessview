@@ -4,6 +4,15 @@ pipelines:
   default:
     - step:
         name: Deploy to testing
+        image: docker:stable
+        deployment: test
+          script:
+          # for database start with composer
+            - /opt/atlassian/pipelines/agent/build/build/docker/dependencies.sh
+            - docker-compose -f docker-compose.yml up
+
+    - step:
+        name: Deploy to testing
         deployment: test
         image: webtp3/docker:16.4-stable
         caches:
