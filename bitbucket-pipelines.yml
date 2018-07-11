@@ -9,22 +9,23 @@ pipelines:
         caches:
           - composer
         script:
-          - apt-get update && apt-get upgrade -y
-          #- rm -R /var/www/html -rf
-          - cp -R /var/www/html/tmp/ /var/www/html/ && rm -R /var/www/html/tmp/
-          - cd /var/www/html/
+          #- apt-get update && apt-get upgrade -y
+          - rsync -a /var/www/tmp/ /var/www/html
+          - chown -R typo3user:www-data /var/www/html/
+          - chmod 775 -R /var/www/html/
+
           # start composer install
-          - composer config repositories.local path 'Packages/*'
-          - composer --dev install
+          - composer config  repositories.local path 'Packages/*' -d  /var/www/html/
+          - composer --dev install -d  /var/www/html/
 
           # start typo3 install from env
           - bash /var/www/cgi-bin/run-typo3.sh
           # start testing
-          - php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity
-          - php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity
-          - php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity
-          - mkdir -p web/typo3temp/var/tests
-          - ./bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
+          - php /var/www/html/tmp/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/tmp/web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity
+          - php /var/www/html/tmp/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/tmp/web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity
+          - php /var/www/html/tmp/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/tmp/web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity
+          - mkdir -p /var/www/html/tmp/web/typo3temp/var/tests
+          - /var/www/html/tmp/vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
           - php -S 0.0.0.0:8000 >/dev/null 2>&1 &
           - sleep 3;
           - typo3DatabaseName='typo3' typo3DatabaseHost='DB' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
