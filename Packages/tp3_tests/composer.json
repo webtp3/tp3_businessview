@@ -44,7 +44,7 @@
 		"deployer/deployer": "^6",
 		"consolidation/robo": "^1",
 		"codeception/codeception":"*",
-		"typo3/testing-framework": "^8.x",
+		"typo3/testing-framework": "^8.7",
 		"friendsofphp/php-cs-fixer": "^2.13",
 		"se/selenium-server-standalone":"~2.53",
 		"typo3/cms-styleguide" :"~8.0.8",
