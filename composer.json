@@ -2,7 +2,6 @@
 	"name": "thomasruta/tp3_tests",
 	"description": "testing typo3",
 	"type": "project",
-	"minimum-stability": "stable",
 	"version": "1.0.0-stable",
 	"license": "GPL-3.0+",
 	"authors": [
@@ -11,21 +10,16 @@
 			"email": "email@thomasruta.de"
 		}
 	],
-	"repositories": {
-		"local": {
-			"type": "path",
-			"url": "packages/*"
-		},
-		"ter": {
-
+	"repositories":[
+		{
 			"type": "composer",
 			"url": "https://composer.typo3.org/"
 		},
-		"remote": {
-			"type": "composer",
-			"url": "https://repo.packagist.com/tp3/"
+		{
+			"type": "path",
+			"url": "packages/*"
 		}
-	},
+	],
 	"require": {
 		"helhum/typo3-console": "^5",
 		"helhum/typo3-config-handling": "^0.7",
