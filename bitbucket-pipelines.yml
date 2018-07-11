@@ -11,6 +11,9 @@ pipelines:
         script:
           #- apt-get update && apt-get upgrade -y
           - rsync -a $BUILD_DIR /var/www/html
+          - ls -an $BUILD_DIR
+          - ls -an /var/www/tmp/
+          - ls -an /opt/atlassian/pipelines/agent/build/
           - chown -R typo3user:www-data /var/www/html/
           - chmod 775 -R /var/www/html/
 
