@@ -11,6 +11,7 @@ pipelines:
             - ls -an /opt/atlassian/pipelines/agent/build/
             - /opt/atlassian/pipelines/agent/build/build/docker/depends.sh
             - docker-compose -f docker-compose.yml up
+            - docker exec typo3 rsync -a /opt/atlassian/pipelines/agent/build/ typo3:/var/www/html
 
     - step:
         name: Deploy to testing
