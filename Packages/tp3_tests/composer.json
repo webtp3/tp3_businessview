@@ -2,9 +2,7 @@
 	"name": "thomasruta/tp3_tests",
 	"description": "testing typo3",
 	"type": "project",
-	"minimum-stability": "dev",
-	"stability":"dev",
-	"version": "8.x-dev",
+	"version": "1.0.0-stable",
 	"license": "GPL-3.0+",
 	"authors": [
 		{
@@ -26,10 +24,10 @@
 		"helhum/typo3-console": "^5",
 		"helhum/typo3-config-handling": "^0.7",
 		"helhum/typo3-composer-setup": "^0.5.1",
-		"helhum/typo3-error-handling": "@dev",
+		"helhum/typo3-error-handling": "*",
 		"typo3-console/composer-auto-setup": "^0.3.6",
 		"helhum/dotenv-connector": "^2",
-		"web-tp3/tp3_installer":"dev-8.x-dev",
+		"web-tp3/tp3_installer":"*",
 		"typo3/cms-impexp":"^8.7.0 || ^9.0",
 		"bk2k/bootstrap-package": "^8.0",
 		"typo3/cms-introduction":"^3.0.2"
@@ -40,15 +38,15 @@
 		"deployer/deployer": "^6",
 		"consolidation/robo": "^1",
 		"codeception/codeception":"*",
-		"typo3/testing-framework": "8.x-dev",
-		"friendsofphp/php-cs-fixer": "^2.13@dev",
+		"typo3/testing-framework": "^8.7",
+		"friendsofphp/php-cs-fixer": "^2.13",
 		"se/selenium-server-standalone":"~2.53",
 		"typo3/cms-styleguide" :"~8.0.8",
 		"phpunit/php-invoker":"^1.1",
 		"enm1989/chromedriver": "~2.30",
 		"fiunchinho/phpunit-randomizer": "~3.0.0",
 		"phpunit/phpunit": "*",
-		"nimut/testing-framework": "^3.0@dev",
+		"nimut/testing-framework": "^3.0",
 		"web-tp3/cag_tests":"*"
 	},
 	"autoload": {
