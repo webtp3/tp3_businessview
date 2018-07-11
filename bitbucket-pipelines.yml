@@ -6,10 +6,10 @@ pipelines:
         name: Deploy to testing
         image: docker:stable
         deployment: test
-          script:
-            # for database start with composer
-            - /opt/atlassian/pipelines/agent/build/build/docker/dependencies.sh
-            - docker-compose -f docker-compose.yml up
+        script:
+          # for database start with composer
+          - /opt/atlassian/pipelines/agent/build/build/docker/dependencies.sh
+          - docker-compose -f docker-compose.yml up
 
     - step:
         name: Deploy to testing
