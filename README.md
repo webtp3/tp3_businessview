@@ -25,14 +25,16 @@ Install TYPO3 and all composer based extensions / components and local private p
 ```
 you can user cli to install typo3 or the interactive Process
 ```bash
-    php typo3cms install:setup --force \
-    --database-user-name root --database-user-password password \
+    php vendor/bin/typo3cms install:setup --force \
+    --database-user-name root --database-user-password 8ungRP! \
     --database-host-name localhost --database-port 3306 \
     --database-socket /var/run/mysqld/mysqld.sock \
-    --use-existing-database n \
+    --use-existing-database y \
+    --database-name tp3_tests \
     --admin-user-name tp3min \
     --admin-password Init1111 \
-    --site-name tp3Testing
+    --site-name tp3Testing \
+    --non-interactive true ;
 ```
     
 #### install starts ###

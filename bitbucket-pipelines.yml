@@ -19,8 +19,7 @@ pipelines:
           - cd /var/www/
           # start composer install
           - composer config repositories.local path 'Packages/*'
-          - composer --dev --stability=dev update
-          - composer install
+          - composer --dev install
           # start typo3 install from env
           - bash /var/www/cgi-bin/run-typo3.sh
           # start testing
