@@ -10,7 +10,7 @@ pipelines:
           - composer
         script:
           #- apt-get update && apt-get upgrade -y
-          - rsync -a /var/www/tmp/ /var/www/html
+          - rsync -a $BUILD_DIR /var/www/html
           - chown -R typo3user:www-data /var/www/html/
           - chmod 775 -R /var/www/html/
 
