@@ -9,20 +9,21 @@ pipelines:
         deployment: test
         script:
           # for database start with composer
-          - ls -an
          # - apk add --no-cache py-pip bash
          # - pip install --no-cache-dir docker-compose
          # - docker-compose -f build/docker/docker-compose.yml up
           - docker run -d -e MYSQL_ROOT_PASSWORD="my-secret-pw" --name db -p 3306:3306 webtp3/tp3sql
           - docker run -d --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80 --name typo3 webtp3/docker:16.4-stable
-          - docker cp  ./ typo3:/var/www/tmp
-          - docker exec typo3 rsync -a /var/www/tmp /var/www/html
+          - docker cp  ./ typo3:/var/www/tmp/
+          - docker exec typo3 rsync -a /var/www/tmp/ /var/www/html/
+            docker exec typo3 ls -an /var/www/html/
+
             # start composer install
           - docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/
           - docker exec typo3 composer --dev install -d  /var/www/html/
           - docker exec typo3 php /var/www/html/vendor/phpunit/phpunit/phpunit --log-junit --configuration /var/www/html/web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity
           - docker exec typo3 /var/www/cgi-bin/run-typo3.sh
-          # stop the machines agein
+          # stop the machines again
           - docker stop typo3
           - docker stop db
 
