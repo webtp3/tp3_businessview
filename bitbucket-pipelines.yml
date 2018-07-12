@@ -1,4 +1,4 @@
-image: webtp3/docker:16.4-stable
+image: webtp3/docker
 options:
   docker: true
 pipelines:
