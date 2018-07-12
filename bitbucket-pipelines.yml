@@ -12,7 +12,7 @@ pipelines:
           - ls -an
           - apk add --no-cache py-pip bash
           - pip install --no-cache-dir docker-compose
-          - docker-compose -f docker-compose.yml up
+          - docker-compose -f build/docker/docker-compose.yml up
           - docker exec typo3 cp -r . typo3:/var/www/html
 
     - step:
