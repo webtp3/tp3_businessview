@@ -17,7 +17,7 @@ pipelines:
                       && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
                       && docker-php-ext-install -j$(nproc) gd pcnt
           - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-          - composer config  repositories.local path 'Packages/*' -d  /var/www/html/
+          - composer config  repositories.local path 'Packages/*'
           - composer --dev install
           - php vendor/bin/phpunit --log-junit web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml
 
