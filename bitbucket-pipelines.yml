@@ -8,14 +8,13 @@ pipelines:
         image: docker:stable
         deployment: test
         script:
-            # for database start with composer
-            - ls -an /opt/atlassian/pipelines/agent/build/
-            - ls -an
-            - apk add --no-cache py-pip bash
-            - pip install --no-cache-dir docker-compose
-            - docker-compose -f /opt/atlassian/pipelines/agent/build/docker-compose.yml up
-            - docker exec typo3 cp -r . typo3:/var/www/html
-
+          # for database start with composer
+          - ls -an /opt/atlassian/pipelines/agent/build/
+          - ls -an
+          - apk add --no-cache py-pip bash
+          - pip install --no-cache-dir docker-compose
+          - docker-compose -f /opt/atlassian/pipelines/agent/build/docker-compose.yml up
+          - docker exec typo3 cp -r . typo3:/var/www/html
 
     - step:
         image: php:7.1.1
