@@ -28,32 +28,39 @@ This image needs an external MySQL server or linked MySQL container. To create a
     
 To run TYPO3 by linking to the database created above:
 
-    docker run -d --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80 --name typo3 webtp3/docker:16.4-stable
+
+
+after you need to transfer the Code into the container
+
+          docker -t yourtest build .
+          docker run -d -e MYSQL_ROOT_PASSWORD="my-secret-pw" --name db -p 3306:3306 webtp3/tp3sql
+          docker run -d  --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80 --name typo3 yourtest
+
+
+          # start composer install
+           docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/web/tmp/
+          docker exec typo3 composer --dev install -d  /var/www/html/
+
+          # start typo3 install from env
+          docker exec typo3 bash /var/www/cgi-bin/run-typo3.sh
+          # start testing
+          docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity
+          docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity
+          docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity
+          docker exec typo3 mkdir -p web/typo3temp/var/tests
+          docker exec typo3 vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
+          docker exec typo3 php -S 0.0.0.0:8000 >/dev/null 2>&1 &
+          docker exec typo3 sleep 3;
+          docker exec typo3 typo3DatabaseName='typo3' typo3DatabaseHost='DB' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
+          
+          docker stop typo3
+          docker stop db
+
 
 or in combined usage 
 
     docker-compose -f docker-compose.yml up
-
-after you need to transfer the Code into the container
-
-          - docker exec typo3 rsync -a -e ssh youruser@2.2.2.210:/localpath/ /var/www/html
-
-          # start composer install
-          - composer config  repositories.local path 'Packages/*' -d  /var/www/html/web/tmp/
-          - composer --dev install -d  /var/www/html/
-
-          # start typo3 install from env
-          - bash /var/www/cgi-bin/run-typo3.sh
-          # start testing
-          - php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity
-          - php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity
-          - php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity
-          - mkdir -p web/typo3temp/var/tests
-          - vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
-          - php -S 0.0.0.0:8000 >/dev/null 2>&1 &
-          - sleep 3;
-          - typo3DatabaseName='typo3' typo3DatabaseHost='DB' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
-
+    
 or use a bitbucket Pipline for testing :-)
 look at bitbucket-pipelines.yml
 
