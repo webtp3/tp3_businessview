@@ -10,7 +10,7 @@ pipelines:
         script:
             # for database start with composer
             - ls -an /opt/atlassian/pipelines/agent/build/
-            - rsync -a /opt/atlassian/pipelines/agent/build/ .
+            - cp -R /opt/atlassian/pipelines/agent/build/ .
             - apk add --no-cache py-pip bash
             - pip install --no-cache-dir docker-compose
             - docker-compose -f docker-compose.yml up
