@@ -1,4 +1,4 @@
-FROM webtp3/docker:16.4-latest
+FROM webtp3/docker
 
 ADD . /var/www/html
 # start composer install
