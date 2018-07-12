@@ -10,10 +10,16 @@ pipelines:
         script:
           # for database start with composer
           - ls -an
-          - apk add --no-cache py-pip bash
-          - pip install --no-cache-dir docker-compose
-          - docker-compose -f build/docker/docker-compose.yml up
+         # - apk add --no-cache py-pip bash
+         # - pip install --no-cache-dir docker-compose
+         # - docker-compose -f build/docker/docker-compose.yml up
+          - docker run -d -e MYSQL_ROOT_PASSWORD="my-secret-pw" --name db -p 3306:3306 webtp3/tp3sql
+          - docker run -d --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80 --name typo3 webtp3/docker:16.4-stable
           - docker exec typo3 cp -r . typo3:/var/www/html
+            # start composer install
+          - docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/
+          - docker exec typo3 composer --dev install -d  /var/www/html/
+          - docker exec typo3 php /var/www/html/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity
 
     - step:
         image: php:7.1.1
