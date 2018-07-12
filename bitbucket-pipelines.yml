@@ -12,11 +12,12 @@ pipelines:
          # - apk add --no-cache py-pip bash
          # - pip install --no-cache-dir docker-compose
          # - docker-compose -f build/docker/docker-compose.yml up
+          # (mysql breaks within strat - why ever services up but script hangs)
           - docker run -d -e MYSQL_ROOT_PASSWORD="my-secret-pw" --name db -p 3306:3306 webtp3/tp3sql
           - docker run -d --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80 --name typo3 webtp3/docker:16.4-stable
           - docker cp  ./ typo3:/var/www/tmp/
           - docker exec typo3 rsync -a /var/www/tmp/ /var/www/html/
-            docker exec typo3 ls -an /var/www/html/
+          - docker exec typo3 ls -an /var/www/html/
 
             # start composer install
           - docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/
