@@ -26,6 +26,8 @@
 		"helhum/typo3-composer-setup": "^0.5.1",
         "helhum/typo3-console": "^5",
 		"helhum/typo3-config-handling": "^0.7",
+		"typo3/cms-composer-installers": "^1.4.2 || ^2.0",
+		"typo3-console/composer-auto-commands": "*",
 		"helhum/typo3-error-handling": "@dev",
 		"typo3/cms-impexp":"^8.7.0 || ^9.0",
 		"typo3/cms": "8.x-dev as 8.7.17",
