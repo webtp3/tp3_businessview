@@ -10,6 +10,8 @@ RUN chown -R 1000:33 /var/www/html/
 # Expose environment variables for automated setup
 ENV DB_HOST db
 ENV DB_PORT 3306
+ENV ADMIN_USER = tp3min
+ENV ADMIN_PASS = Init1111
 ENV DB_NAME typo3
 ENV DB_USER root
 ENV DB_PASS my-secret-pw

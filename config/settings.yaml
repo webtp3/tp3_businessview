@@ -1,7 +1,7 @@
 imports:
     - { resource: 'DefaultConfiguration', type: typo3, exclude: [LOG] }
     - { resource: 'includes/*.yaml', type: glob }
-    - { resource: '../packages/*/Configuration/Distribution/*.yaml', type: glob, ignore_errors: true }
+    - { resource: '../Packages/*/Configuration/Distribution/*.yaml', type: glob, ignore_errors: true }
     # Overriding/ adding settings for the current environment
     - { resource: 'local.settings.yaml' }
 
