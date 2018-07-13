@@ -101,9 +101,9 @@ After the installation is finisced you can start Testing
 
 ```bash
   # start testing
- php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity
- php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity
- php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity
+ php vendor/phpunit/phpunit/phpunit  --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --log-junit  --teamcity
+ php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --log-junit   --teamcity
+ php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --log-junit   --teamcity
  mkdir -p web/typo3temp/var/tests
  ./bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
  php -S 0.0.0.0:8000 >/dev/null 2>&1 &
