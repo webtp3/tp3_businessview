@@ -4,6 +4,8 @@ ADD . /var/www/html
 # start composer install
 RUN composer config  repositories.local path 'Packages/*' -d  /var/www/html/
 RUN composer update -d  /var/www/html/
+RUN chown -R 1000:33 /var/www/html/
+
 
 # Expose environment variables for automated setup
 ENV DB_HOST **LinkMe**
