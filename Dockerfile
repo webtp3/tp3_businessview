@@ -8,13 +8,14 @@ RUN chown -R 1000:33 /var/www/html/
 
 
 # Expose environment variables for automated setup
-ENV DB_HOST **LinkMe**
-ENV DB_PORT **LinkMe**
+ENV DB_HOST db
+ENV DB_PORT 3306
 ENV DB_NAME typo3
 ENV DB_USER root
 ENV DB_PASS my-secret-pw
 ENV INSTALL_TOOL_PASSWORD password
-ADD AdditionalConfiguration.php /var/www/html/web/typo3conf/
+#ADD AdditionalConfiguration.php /var/www/html/web/typo3conf/git pull
+
 
 #webroot is in /var/www/html/web we use the vendor dir for that
 # for productive enviroment we recommend to ouse the flag --no-dev
