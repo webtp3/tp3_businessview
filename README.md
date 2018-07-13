@@ -37,7 +37,7 @@ after you need to transfer the Code into the container
 
 
           # start composer install
-           docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/web/tmp/
+           docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/web/
           docker exec typo3 composer --dev install -d  /var/www/html/
 
           # start typo3 install from env
