@@ -25,6 +25,7 @@
 	"require": {
 		"symfony/dotenv":"*",
 		"helhum/typo3-console": "^5",
+		"helhum/config-loader": "^0.8",
 		"helhum/typo3-config-handling":"*",
 		"typo3-console/composer-auto-commands": "*",
 		"helhum/typo3-error-handling": "@dev",
@@ -36,6 +37,7 @@
 
 	},
 	"require-dev": {
+		"helhum/dotenv-connector": "^2",
 		"typo3-console/php-server-command": "^0.2.0",
 		"deployer/deployer": "^6",
 		"consolidation/robo": "^1",
