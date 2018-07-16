@@ -17,7 +17,7 @@ installed in your (local) environment.
 or you can use docker  
 
 ### Docker Setup ###
-webtp3/docker
+webtp3/typo3
 TYPO3 docker testing image - This image is part of an automated testing enviroment. Webservice can be linked to MySQL. More about the automated testing https://bitbucket.org/web-tp3/tp3_installer
 
 
@@ -115,6 +115,6 @@ more about the docker containers used
 
 https://bitbucket.org/web-tp3/docker
 
-https://hub.docker.com/r/webtp3/docker/tags/
+https://hub.docker.com/r/webtp3/typo3/tags/
 
-there is one with typo3 installed already webtp3/docker:8-latest or webtp3/docker:18.4-stable with php 7.2 based on ubuntu 18.4
+there is one with typo3 installed already webtp3/typo3:8-latest or webtp3/typo3:18.4-stable with php 7.2 based on ubuntu 18.4

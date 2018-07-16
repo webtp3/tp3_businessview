@@ -1,5 +1,5 @@
 typo3:
-  image: webtp3/docker:16.4-stable
+  image: webtp3/typo3:16.4-stable
   links: 
    - db
   ports:
