@@ -3,53 +3,11 @@ options:
   docker: true
 pipelines:
   default:
+
     - step:
         name: Deploy to testing
         deployment: test
-        image: docker:stable
-        script:
-        # for database start with composer
-        # - apk add --no-cache py-pip bash
-        # - pip install --no-cache-dir docker-compose
-        # - docker-compose -f build/docker/docker-compose.yml up
-        # (mysql breaks within strat - why ever services up but script hangs)
-          - docker build -t test .
-          - docker run -d -e MYSQL_ROOT_PASSWORD="my-secret-pw" --name db -p 3306:3306 webtp3/tp3sql
-          - docker run -d --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80 --name typo3 test
-
-            # start composer install
-          - docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/
-          - docker exec typo3 composer --dev install -d  /var/www/html/
-          - docker exec typo3 php /var/www/html/vendor/phpunit/phpunit/phpunit --log-junit --configuration /var/www/html/web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity
-          - docker exec typo3 /var/www/cgi-bin/run-typo3.sh
-          # stop the machines again
-          - docker stop typo3
-          - docker stop db
-
-    - step:
-        image: php:7.1.1
-        deployment: staging
-
-        name: Deploy to testing
-        script:
-          - apt-get update && apt-get install -y \
-                      libfreetype6-dev \
-                      libjpeg62-turbo-dev \
-                      libmcrypt-dev \
-                      libpng-dev \
-                      && docker-php-ext-install -j$(nproc) iconv mcrypt \
-                      && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-                      && docker-php-ext-install -j$(nproc) gd pcnt
-          - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-          - composer config  repositories.local path 'Packages/*'
-          - composer --dev install
-          - php vendor/bin/phpunit --log-junit web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml
-
-
-    - step:
-        name: Deploy to testing
-        deployment: production
-        image: webtp3/docker:16.4-stable
+        image: webtp3/docker:16.4-bundle
         caches:
           - composer
         script:
