@@ -31,4 +31,4 @@ pipelines:
           - /var/www/html/vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
           - php -S 0.0.0.0:8000 >/dev/null 2>&1 &
           - sleep 3;
-          - typo3DatabaseName='typo3' typo3DatabaseHost='DB' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
+          - typo3DatabaseName='typo3' typo3DatabaseHost='localhost' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
