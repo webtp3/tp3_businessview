@@ -1,23 +1,22 @@
 typo3:
-  image: webtp3/typo3:16.4-stable
-  links: 
-   - db
+  image: webtp3/typo3:16.4-bundle
+
   ports:
    - 80:80
+   - 443:443
+   - 2222:22
    - 9000:9000
+   - 3306:3306
+
   environment:
     DB_NAME: typo3
     DB_USER: root
     DB_PASS: my-secret-pw
-    DB_HOST: db
+    DB_HOST: localhost
     DB_PORT: 3306
-db:
-  image:  webtp3/tp3sql
-  restart: always
-  environment:
     MYSQL_ROOT_PASSWORD: my-secret-pw
-  ports:
-    - 3306:3306
+
+
 
 adminer:
   image: adminer
