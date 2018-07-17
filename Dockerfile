@@ -20,5 +20,6 @@ RUN composer --dev install -d  /var/www/html/
 RUN chown -R 1000:33 /var/www/html/ && chmod -R 775 /var/www/html/
 
 
+
 #webroot is in /var/www/html/web we use the vendor dir for that
 # for productive enviroment we recommend to ouse the flag --no-dev
