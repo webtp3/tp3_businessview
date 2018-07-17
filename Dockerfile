@@ -1,4 +1,4 @@
-FROM webtp3/typo3:16.4-bundle
+FROM webtp3/docker:16.4-bundle
 
 ADD . /var/www/html/
 
@@ -8,11 +8,11 @@ ENV DB_HOST = localhost
 ENV DB_PORT = 3306
 ENV ADMIN_USER = tp3min
 ENV ADMIN_PASS = Init1111
-ENV DB_NAME typo3
-ENV DB_USER root
-ENV DB_PASS my-secret-pw
-ENV INSTALL_TOOL_PASSWORD password
-#ADD AdditionalConfiguration.php /var/www/html/web/typo3conf/git pull
+ENV DB_NAME = typo3
+ENV DB_USER = root
+ENV DB_PASS = my-secret-pw
+ENV INSTALL_TOOL_PASSWORD = password
+#ADD AdditionalConfiguration.php /var/www/html/web/typo3conf/
 
 # start composer install
 RUN composer config  repositories.local path 'Packages/*' -d  /var/www/html/

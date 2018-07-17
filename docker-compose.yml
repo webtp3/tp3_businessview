@@ -22,6 +22,6 @@ adminer:
   image: adminer
   restart: always
   links:
-    - db
+    - typo3
   ports:
     - 8080:8080

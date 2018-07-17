@@ -20,7 +20,7 @@ or you can use docker
 Usage (bundle)
 So jest start the container to run TYPO3:
 
-    docker run -d --rm -it -v $PWD:/build  -e DB_PASS="my-secret-pw" -p 80:80 -p 3306:3306 -p 9000:9000  -p 2222:22 --name typo3 webtp3/typo3:16.4-bundle
+    docker run -d --rm -it -v $PWD:$PWD  -e DB_PASS="my-secret-pw" -p 80:80 -p 3306:3306 -p 9000:9000  -p 2222:22 --name typo3 webtp3/typo3:16.4-bundle
 
 to have a bash simply add bash to the end of the command (as you can run any command in the docker image) "docker run -d --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80 --name typo3 webtp3/docker:8-stable bash"
 
