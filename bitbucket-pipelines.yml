@@ -7,7 +7,7 @@ pipelines:
     - step:
         name: Deploy to testing
         deployment: test
-        image: webtp3/typo3:16.4-bundle
+        image: webtp3/docker:16.4-bundle
         caches:
           - composer
         script:
