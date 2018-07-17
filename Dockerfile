@@ -1,6 +1,6 @@
 FROM webtp3/typo3:16.4-bundle
 
-ADD . /var/www/html
+ADD . /var/www/html/
 
 
 # Expose environment variables for automated setup
