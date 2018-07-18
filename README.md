@@ -32,7 +32,7 @@ To run TYPO3 by linking to the database created above:
 
 after you need to transfer the Code into the container - this is happening within the build
         
-           ocker build -t yourtest . 
+          docker build -t yourtest . 
           docker run -d -e MYSQL_ROOT_PASSWORD="my-secret-pw" --name db -p 3306:3306 webtp3/tp3sql
           docker run -d  --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80 --name typo3 yourtest
 
