@@ -1,4 +1,4 @@
-FROM webtp3/docker:16.4-bundle
+FROM webtp3/docker:16.4-stable
 
 ADD . /var/www/html/
 
