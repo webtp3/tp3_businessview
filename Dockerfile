@@ -4,7 +4,7 @@ ADD . /var/www/html/
 
 
 # Expose environment variables for automated setup
-ENV DB_HOST = localhost
+ENV DB_HOST = db
 ENV DB_PORT = 3306
 ENV ADMIN_USER = tp3min
 ENV ADMIN_PASS = Init1111
