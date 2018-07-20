@@ -1,4 +1,4 @@
-FROM thomasruta/typo3:18.4-stable
+FROM webtp3/docker:18.4-stable
 
 ADD . /var/www/html/
 

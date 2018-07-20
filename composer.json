@@ -38,7 +38,6 @@
 	"require-dev": {
 		"typo3-console/php-server-command": "^0.2.0",
 		"helhum/dotenv-connector": "*",
-		"typo3-console/composer-typo3-auto-install":"*",
 		"deployer/deployer": "^6",
 		"consolidation/robo": "^1",
 		"codeception/codeception":"*",
