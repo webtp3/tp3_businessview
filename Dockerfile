@@ -16,7 +16,7 @@ ENV INSTALL_TOOL_PASSWORD password
 
 # start composer install
 RUN composer config  repositories.local path 'Packages/*' -d  /var/www/html/
-RUN composer --dev install -d  /var/www/html/
+#RUN composer --dev install -d  /var/www/html/
 RUN chown -R 1000:33 /var/www/html/ && chmod -R 775 /var/www/html/
 #RUN bash /var/www/cgi-bin/run-typo3.sh
 #CMD ["bash", "-c", "/var/www/cgi-bin/run-typo3.sh"]

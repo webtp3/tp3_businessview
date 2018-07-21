@@ -16,61 +16,8 @@ installed in your (local) environment.
 
 or you can use docker  
 
-### Docker Setup ###
-webtp3/docker
-TYPO3 docker testing image - This image is part of an automated testing enviroment. Webservice can be linked to MySQL. More about the automated testing https://bitbucket.org/web-tp3/tp3_installer
 
-
-Usage (standalone)
-
-This image needs an external MySQL server or linked MySQL container. To create a MySQL container:
-
-    docker run -d -e MYSQL_ROOT_PASSWORD="my-secret-pw" --name db -p 3306:3306 webtp3/tp3sql
-    
-To run TYPO3 by linking to the database created above:
-
-
-after you need to transfer the Code into the container - this is happening within the build
-        
-          docker build -t yourtest . 
-          docker run -d  --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 yourtest
-
-
-          # start composer install
-           docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/web/
-          docker exec typo3 composer --dev install -d  /var/www/html/
-
-          # start typo3 install from env
-          docker exec typo3 bash /var/www/cgi-bin/run-typo3.sh
-          # start testing
-          docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity --log-junit 
-          docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity --log-junit 
-          docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity --log-junit 
-          docker exec typo3 mkdir -p web/typo3temp/var/tests
-          docker exec typo3 vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
-          docker exec typo3 php -S 0.0.0.0:8000 >/dev/null 2>&1 &
-          docker exec typo3 sleep 3;
-          docker exec typo3 typo3DatabaseName='typo3' typo3DatabaseHost='DB' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
-          
-          docker stop typo3
-          docker stop db
-
-
-or in combined usage 
-
-    docker-compose -f docker-compose.yml up
-    
-or use a bitbucket Pipline for testing :-)
-look at bitbucket-pipelines.yml
-
-After the installation you use 
-
-    docker exec typo3 rsync -urv --progress  -e ssh user@local:/yourdevpath/ /var/www/html/
-
-to save time
-
-
-### Local Setup ###
+### Install Setup ###
 
 Install TYPO3 and all composer based extensions / components and local private packages:
 
@@ -156,7 +103,66 @@ databaseData:
             value: 'tp3 TYPO3 testing Suite'
 ```
 
-## install & db init###
+### Docker Setup ###
+webtp3/docker
+TYPO3 docker testing image - This image is part of an automated testing enviroment. Webservice can be linked to MySQL. More about the automated testing https://bitbucket.org/web-tp3/tp3_installer
+
+
+Usage (standalone)
+
+This image needs an external MySQL server or linked MySQL container. To create a MySQL container:
+
+    docker run -d -e MYSQL_ROOT_PASSWORD="my-secret-pw" --name db -p 3306:3306 webtp3/tp3sql
+    
+To run TYPO3 by linking to the database created above:
+
+
+after you need to transfer the Code into the container - this is happening within the build
+        
+         # start typo3 install from env
+         # setup config/install.settings.yaml
+         # match conig for wnv in Dockerfile
+                  
+          docker build -t yourtest . 
+          docker run -d  --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 yourtest
+
+         
+          
+          # start composer install
+           docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/
+          docker exec typo3 composer --dev install -d  /var/www/html/
+
+          
+          # start testing
+          docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity --log-junit 
+          docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity --log-junit 
+          docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity --log-junit 
+          docker exec typo3 mkdir -p web/typo3temp/var/tests
+          docker exec typo3 vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
+          docker exec typo3 php -S 0.0.0.0:8000 >/dev/null 2>&1 &
+          docker exec typo3 sleep 3;
+          docker exec typo3 typo3DatabaseName='typo3' typo3DatabaseHost='DB' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
+          
+          docker stop typo3
+          docker stop db
+
+
+or in combined usage 
+
+    docker-compose -f docker-compose.yml up
+    
+or use a bitbucket Pipline for testing :-)
+look at bitbucket-pipelines.yml
+
+After the installation you use 
+
+    docker exec typo3 rsync -urv --progress  -e ssh user@local:/yourdevpath/ /var/www/html/
+
+to save time
+
+###Local Setup
+
+#### install & dbinit
 
 ```bash
  composer config repositories.local path 'Packages/*'
@@ -167,31 +173,8 @@ databaseData:
 ```
 
 
-
-
-using the typo3-console/composer-typo3-auto-install will take the configuration from the folder config an promt for database and Admin User settings.
+using the typo3-console/composer-typo3-auto-install will take the configuration from the folder config an promt if you take the settings from install-interaction.settings.yaml for database and Admin User settings.
 you can use cli to install typo3 or the interactive process or run it via cli
-
-####composer-typo3-auto-install
-
-    ➤ Set up database connection
-    User name for database server (default: ""): root
-    User password for database server (default: ""):
-    Host name of database server (default: "127.0.0.1"):
-    TCP Port of database server (default: "3306"):
-    Unix Socket to connect to (default: ""): /var/run/mysqld/mysqld.sock
-####cli
-
-    php vendor/helhum/typo3-console/typo3cms install:setup --no-interaction \
-                --database-user-name="tester" \
-                --database-host-name="192.168.178.250" \
-                --database-port="3306" \
-                --database-name="tester99" \
-                --database-user-password="XrILG1MwrFrCKa2dpWuE" \
-                --database-create=1 \
-                --admin-user-name="tp3min" \
-                --admin-password="Init1111" \
-                --site-name="TYPO3 Testing Suite";
 
 
 After the installation is finished you can start Testing
