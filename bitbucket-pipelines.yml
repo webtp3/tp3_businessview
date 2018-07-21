@@ -7,11 +7,10 @@ pipelines:
     - step:
         name: Deploy to testing
         deployment: test
-        image: webtp3/typo3:16.4-stable
+        image: docker:stable
         caches:
           - composer
         script:
-           image: docker:stable
         deployment: test
         script:
           # for database start with composer
