@@ -158,6 +158,7 @@ after you need to transfer the Code into the container - this is happening withi
 or in combined usage 
 
     docker-compose -f docker-compose.yml up
+    # with compose the name of the container is generated - migfht be something like tp3tests_typo3_1
     
 or use a bitbucket Pipline for testing :-)
 look at bitbucket-pipelines.yml
