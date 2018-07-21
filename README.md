@@ -74,6 +74,90 @@ to save time
 
 Install TYPO3 and all composer based extensions / components and local private packages:
 
+Edit your settings of the automated install in the config/install.settings.yaml
+```yaml
+databaseConnect:
+    type: install
+    description: 'Set up database connection'
+    arguments:
+        databaseUserName:
+            description: 'User name for database server'
+            option: '--database-user-name'
+            type: string
+            value: tester
+            default: 'root'
+
+        databaseUserPassword:
+            description: 'User password for database server'
+            option: '--database-user-password'
+            type: hidden
+            value: XrILG1MwrFrCKa2dpWuE
+            default: ''
+
+        databaseHostName:
+            description: 'Host name of database server'
+            option: '--database-host-name'
+            type: string
+            value: 192.168.178.250
+            default: '127.0.0.1'
+
+        databasePort:
+            description: 'TCP Port of database server'
+            option: '--database-port'
+            type: int
+            value: 3306
+            default: 3306
+
+        databaseSocket:
+            description: 'Unix Socket to connect to'
+            option: '--database-socket'
+            type: string
+            value: /run/mysqld/mysqld.sock
+            default: '/run/mysqld/mysqld.sock'
+
+databaseSelect:
+    type: install
+    description: 'Select database'
+    arguments:
+        useExistingDatabase:
+            description: 'Use already existing database?'
+            option: '--use-existing-database'
+            type: bool
+            value: false
+            default: false
+
+        databaseName:
+            description: 'Name of the database'
+            option: '--database-name'
+            type: string
+            value: typo3tester5
+
+databaseData:
+    type: install
+    description: 'Set up database'
+    arguments:
+        adminUserName:
+            description: 'Username of to be created administrative user account'
+            option: '--admin-user-name'
+            type: string
+            value: tp3min
+
+        adminPassword:
+            description: 'Password of to be created administrative user account'
+            option: '--admin-password'
+            type: hidden
+            value: Init1111
+
+        siteName:
+            description: 'Name of the TYPO3 site'
+            option: '--site-name'
+            type: string
+            default: 'tp3 TYPO3 testing Suite'
+            value: 'tp3 TYPO3 testing Suite'
+```
+
+## install & db init###
+
 ```bash
  composer config repositories.local path 'Packages/*'
  #(if you want to install interactive)
@@ -83,7 +167,7 @@ Install TYPO3 and all composer based extensions / components and local private p
 ```
 
 
-## install db starts ###
+
 
 using the typo3-console/composer-typo3-auto-install will take the configuration from the folder config an promt for database and Admin User settings.
 you can use cli to install typo3 or the interactive process or run it via cli
