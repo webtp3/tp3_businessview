@@ -121,18 +121,24 @@ after you need to transfer the Code into the container - this is happening withi
         
          # start typo3 install from env
          # setup config/install.settings.yaml
-         # match conig for wnv in Dockerfile
+         # match conig for env in Dockerfile
                   
           docker build -t yourtest . 
-          docker run -d  --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 yourtest
-
          
+          docker run -d  --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 yourtest
+          # to stop the docker service use
+          # docker stop typo3
+          # docker stop db
+          # to remove the container
+          # docker rm typo3
+          # docker rm db
           
           # start composer install
            docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/
           docker exec typo3 composer --dev install -d  /var/www/html/
 
-          #automated install will fail!
+          #automated install will fail! thats because the /var/run/mysql.sock is not available 
+          #-> run-typo3.sh will fix that by linking the mysql container 
           docker exec typo3 bash /var/www/cgi-bin/run-typo3.sh
 
           # start testing
@@ -143,7 +149,7 @@ after you need to transfer the Code into the container - this is happening withi
           docker exec typo3 vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
           docker exec typo3 php -S 0.0.0.0:8000 >/dev/null 2>&1 &
           docker exec typo3 sleep 3;
-          docker exec typo3 typo3DatabaseName='typo3' typo3DatabaseHost='DB' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
+          docker exec typo3 typo3DatabaseName='typo3' typo3DatabaseHost='db' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
           
           docker stop typo3
           docker stop db
@@ -195,6 +201,61 @@ After the installation is finished you can start Testing
  typo3DatabaseName='typo3' typo3DatabaseHost='DB' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
 
 ```
+
+## finaly
+is should look like after the install has finished
+  
+    Writing lock file
+    Generating autoload files
+    Registered helhum/dotenv-connector
+    Setting up TYPO3 Core Extension directories
+    
+    Setting up TYPO3
+    ✔ Prepare installation
+    ✔ Check environment and create folders
+    ✔ Set up database connection
+    ✔ Select database
+    ✔ Set up database
+    ✔ Set up configuration
+    ✔ Set up extensions
+    ➤ Set up project settings
+    ✔
+    Your TYPO3 installation is now ready to use.
+    
+    Run vendor/bin/typo3cms server:run in your project root directory, to start the PHP builtin web server.
+    Generating  class alias map file
+    Inserting class alias loader into main autoload.php file
+
+
+the test results should look like
+    
+    --
+    
+    There was 1 failure:
+    
+    1) TYPO3\CMS\Backend\Tests\Unit\Configuration\TypoScript\ConditionMatching\ConditionMatcherTest::matchCallsTestConditionAndHandsOverParameters
+    Failed asserting that exception of type "TYPO3\CMS\Backend\Tests\Unit\Configuration\TypoScript\ConditionMatching\Fixtures\TestConditionException" is thrown.
+    
+    /var/www/clients/client1/web3/web/tp3_tests/vendor/phpunit/phpunit/phpunit:53
+    
+    --
+    
+    There were 2 risky tests:
+    
+    1) TYPO3\CMS\Backend\Tests\Unit\Form\NodeFactoryTest::constructorThrowsNoExceptionIfResolverWithSamePriorityButDifferentNodeNameAreRegistered
+    This test did not perform any assertions
+    
+    /var/www/clients/client1/web3/web/tp3_tests/vendor/phpunit/phpunit/phpunit:53
+    
+    2) TYPO3\CMS\Backend\Tests\Unit\Utility\BackendUtilityTest::getTCAtypesReturnsCorrectValuesDataProvider
+    This test did not perform any assertions
+    
+    /var/www/clients/client1/web3/web/tp3_tests/vendor/phpunit/phpunit/phpunit:53
+    
+    ERRORS!
+    Tests: 946, Assertions: 1586, Errors: 53, Failures: 1, Skipped: 1, Incomplete: 1, Risky: 2.
+
+
 more about the docker containers used
 
 https://bitbucket.org/web-tp3/docker

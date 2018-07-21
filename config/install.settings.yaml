@@ -14,21 +14,21 @@ databaseConnect:
             description: 'User name for database server'
             option: '--database-user-name'
             type: string
-            value: root
+            value: tester
             default: 'root'
 
         databaseUserPassword:
             description: 'User password for database server'
             option: '--database-user-password'
             type: hidden
-            value: my-secret-pw
+            value: XrILG1MwrFrCKa2dpWuE
             default: ''
 
         databaseHostName:
             description: 'Host name of database server'
             option: '--database-host-name'
             type: string
-            value: db
+            value: 192.168.178.250
             default: '127.0.0.1'
 
         databasePort:
@@ -60,7 +60,7 @@ databaseSelect:
             description: 'Name of the database'
             option: '--database-name'
             type: string
-            value: typo3tester6
+            value: typo3tester7
 
 databaseData:
     type: install

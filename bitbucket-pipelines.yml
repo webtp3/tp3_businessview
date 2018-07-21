@@ -20,10 +20,14 @@ pipelines:
           - pip install --no-cache-dir docker-compose
           - docker-compose -f docker-compose.yml up
           #- docker cp /opt/atlassian/pipelines/agent/build/ typo3:/var/www/html
-
-          #- apt-get update && apt-get upgrade -y
-         # - rsync -a /opt/atlassian/pipelines/agent/build/ /var/www/html
+          #- rsync -a /opt/atlassian/pipelines/agent/build/ /var/www/html
           - ls -an /opt/atlassian/pipelines/agent/build/
+          - docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/
+          - docker exec typo3 composer --dev install -d  /var/www/html/
+
+            #automated install will fail! thats because the /var/run/mysql.sock is not available
+            #-> run-typo3.sh will fix that by linking the mysql container
+          - docker exec typo3 bash /var/www/cgi-bin/run-typo3.sh
           #- docker exec typo3 bash /var/www/cgi-bin/run-typo3.sh
           # start testing
           - docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity --log-junit
@@ -33,7 +37,7 @@ pipelines:
           - docker exec typo3 vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
           - docker exec typo3 php -S 0.0.0.0:8000 >/dev/null 2>&1 &
           - docker exec typo3 sleep 3;
-          - docker exec typo3 typo3DatabaseName='typo3' typo3DatabaseHost='DB' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
+          - docker exec typo3 typo3DatabaseName='typo3' typo3DatabaseHost='db' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
 
 
           # start composer install
