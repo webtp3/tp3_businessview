@@ -1,7 +1,7 @@
 {
 	"name": "thomasruta/tp3_tests",
 	"description": "testing typo3",
-	"type": "project",
+	"type": "library",
 	"version": "1.0.0",
 	"license": "GPL-3.0+",
 	"authors": [
@@ -25,9 +25,9 @@
 	"require": {
 		"helhum/typo3-composer-setup": "^0.5.1",
 		"helhum/typo3-console": "^5.4",
+		"helhum/config-loader": "*",
+		"helhum/typo3-config-handling": "^0.7",
 		"typo3/cms-composer-installers": "^1.4.2 || ^2.0",
-		"thomasruta/tp3_tests":"1.0.0",
-		"typo3-console/composer-auto-commands": "*",
 		"helhum/typo3-error-handling": "@dev",
 		"typo3/cms-impexp":"^8.7.0 || ^9.0",
 		"typo3/cms": "8.x-dev as 8.7.17",
@@ -36,8 +36,9 @@
 
 	},
 	"require-dev": {
+		"helhum/dotenv-connector": "^2.0",
 		"typo3-console/php-server-command": "^0.2.0",
-		"helhum/dotenv-connector": "*",
+		"typo3-console/composer-typo3-auto-install": "^0.2",
 		"deployer/deployer": "^6",
 		"consolidation/robo": "^1",
 		"codeception/codeception":"*",
@@ -45,7 +46,6 @@
 		"friendsofphp/php-cs-fixer": "*",
 		"se/selenium-server-standalone":"*",
 		"typo3/cms-styleguide" :"*",
-		"phpunit/php-invoker":"*",
 		"enm1989/chromedriver": "*",
 		"fiunchinho/phpunit-randomizer": "*",
 		"phpunit/phpunit": "*",
@@ -55,6 +55,7 @@
 
 	"autoload": {
 		"psr-4": {
+			"Typo3Console\\Typo3AutoInstall\\": "src"
 		}
 	},
 	"extra": {
@@ -73,6 +74,7 @@
 		},
 		"helhum/dotenv-connector": {
 			"cache-dir": "var/cache",
+			"allow-overrides": true,
 			"env-file": ".env"
 		},
 		"branch-alias": {

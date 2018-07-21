@@ -8,11 +8,18 @@ imports:
 # Reasonable error handling by default
 BE:
     explicitADmode: 'explicitAllow'
-    loginSecurityLevel: 'normal'
+    loginSecurityLevel: 'rsa'
 DB:
     Connections:
         Default:
             charset: 'utf8'
+            dbname: typo3tests2
+            driver: mysqli
+            host: 192.168.178.250
+            password: XrILG1MwrFrCKa2dpWuE
+            port: 3306
+            unix_socket: /var/run/mysqld/mysqld.sock
+            user: tester
 FE:
     loginSecurityLevel: 'normal'
 GFX:

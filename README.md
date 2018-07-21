@@ -41,7 +41,7 @@ after you need to transfer the Code into the container - this is happening withi
           docker exec typo3 composer --dev install -d  /var/www/html/
 
           # start typo3 install from env
-          docker exec typo3 bash /var/www/html/cgi-bin/run-typo3.sh
+          docker exec typo3 bash /var/www/cgi-bin/run-typo3.sh
           # start testing
           docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity --log-junit 
           docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity --log-junit 
@@ -98,16 +98,16 @@ you can use cli to install typo3 or the interactive process or run it via cli
     Unix Socket to connect to (default: ""): /var/run/mysqld/mysqld.sock
 ####cli
 
-    php typo3cms install:setup --non-interactive \
-                --database-user-name="tp3min" \
-                --database-host-name="$DB_HOST" \
-                --database-port="$DB_PORT" \
-                --database-name="$DB_NAME" \
-                --database-user-password="$DB_PASS" \
-                --database-create=0 \
+    php vendor/helhum/typo3-console/typo3cms install:setup --no-interaction \
+                --database-user-name="tester" \
+                --database-host-name="192.168.178.250" \
+                --database-port="3306" \
+                --database-name="tester99" \
+                --database-user-password="XrILG1MwrFrCKa2dpWuE" \
+                --database-create=1 \
                 --admin-user-name="tp3min" \
                 --admin-password="Init1111" \
-                --site-name="TYPO3 Demo Installation"
+                --site-name="TYPO3 Testing Suite";
 
 
 After the installation is finished you can start Testing

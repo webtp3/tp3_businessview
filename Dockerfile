@@ -18,8 +18,8 @@ ENV INSTALL_TOOL_PASSWORD password
 RUN composer config  repositories.local path 'Packages/*' -d  /var/www/html/
 RUN composer --dev install -d  /var/www/html/
 RUN chown -R 1000:33 /var/www/html/ && chmod -R 775 /var/www/html/
-
-#CMD ["/bin/bash", "-c", "/run-typo3.sh"]
+#RUN bash /var/www/cgi-bin/run-typo3.sh
+#CMD ["bash", "-c", "/var/www/cgi-bin/run-typo3.sh"]
 
 #webroot is in /var/www/html/web we use the vendor dir for that
 # for productive enviroment we recommend to ouse the flag --no-dev
