@@ -139,7 +139,7 @@ after you need to transfer the Code into the container - this is happening withi
 
           #automated install will fail! thats because the /var/run/mysql.sock is not available 
           #-> run-typo3.sh will fix that by linking the mysql container 
-          docker exec typo3 bash /var/www/cgi-bin/run-typo3.sh
+          docker exec tp3tests_typo3_1 bash /var/www/cgi-bin/run-typo3.sh
 
           # start testing
           docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity --log-junit 
