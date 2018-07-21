@@ -12,6 +12,10 @@ ENV DB_NAME typo3
 ENV DB_USER root
 ENV DB_PASS my-secret-pw
 ENV INSTALL_TOOL_PASSWORD password
+ENV TYPO3_INSTALL_DB_UNIX_SOCKET /run/mysqld/mysqld.sock
+ENV TYPO3_INSTALL_DB_USE_EXISTING false
+ENV TYPO3_INSTALL_SITE_NAME  'tp3 TYPO3 testing Suite'
+ENV TYPO3_INSTALL_SITE_SETUP_TYPE no
 #ADD AdditionalConfiguration.php /var/www/html/web/typo3conf/
 
 # start composer install

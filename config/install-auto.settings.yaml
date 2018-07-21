@@ -42,7 +42,7 @@ databaseConnect:
             description: 'Unix Socket to connect to'
             option: '--database-socket'
             type: string
-            value: /run/mysqld/mysqld.sock
+            value: '/run/mysqld/mysqld.sock'
             default: '/run/mysqld/mysqld.sock'
 
 databaseSelect:

@@ -132,7 +132,9 @@ after you need to transfer the Code into the container - this is happening withi
            docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/
           docker exec typo3 composer --dev install -d  /var/www/html/
 
-          
+          #automated install will fail!
+          docker exec typo3 bash /var/www/cgi-bin/run-typo3.sh
+
           # start testing
           docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity --log-junit 
           docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity --log-junit 
@@ -175,6 +177,8 @@ to save time
 
 using the typo3-console/composer-typo3-auto-install will take the configuration from the folder config an promt if you take the settings from install-interaction.settings.yaml for database and Admin User settings.
 you can use cli to install typo3 or the interactive process or run it via cli
+
+    php vendor/helhum/typo3-console/typo3cms install:setup
 
 
 After the installation is finished you can start Testing
