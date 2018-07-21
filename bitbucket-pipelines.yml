@@ -11,11 +11,30 @@ pipelines:
         caches:
           - composer
         script:
+           image: docker:stable
+         deployment: test
+         script:
+          # for database start with composer
+          - ls -an
+          - apk add --no-cache py-pip bash
+          - pip install --no-cache-dir docker-compose
+          - docker-compose -f docker-compose.yml up
+          #- docker cp /opt/atlassian/pipelines/agent/build/ typo3:/var/www/html
+
           #- apt-get update && apt-get upgrade -y
-          - rsync -a /opt/atlassian/pipelines/agent/build/ /var/www/html
+         # - rsync -a /opt/atlassian/pipelines/agent/build/ /var/www/html
           - ls -an /opt/atlassian/pipelines/agent/build/
-          - chown -R typo3user:www-data /var/www/html/
-          - chmod 775 -R /var/www/html/
+          #- docker exec typo3 bash /var/www/cgi-bin/run-typo3.sh
+          # start testing
+          - docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity --log-junit
+          - docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity --log-junit
+          - docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity --log-junit
+          - docker exec typo3 mkdir -p web/typo3temp/var/tests
+          - docker exec typo3 vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
+          - docker exec typo3 php -S 0.0.0.0:8000 >/dev/null 2>&1 &
+          - docker exec typo3 sleep 3;
+          - docker exec typo3 typo3DatabaseName='typo3' typo3DatabaseHost='DB' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
+
 
           # start composer install
           - composer config  repositories.local path 'Packages/*' -d  /var/www/html/
@@ -32,3 +51,4 @@ pipelines:
           - php -S 0.0.0.0:8000 >/dev/null 2>&1 &
           - sleep 3;
           - typo3DatabaseName='typo3' typo3DatabaseHost='db' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
+          - docker-compose -f docker-compose.yml down
