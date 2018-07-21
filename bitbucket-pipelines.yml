@@ -12,8 +12,8 @@ pipelines:
           - composer
         script:
            image: docker:stable
-         deployment: test
-         script:
+        deployment: test
+        script:
           # for database start with composer
           - ls -an
           - apk add --no-cache py-pip bash
