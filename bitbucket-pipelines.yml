@@ -22,8 +22,9 @@ pipelines:
           #- rsync -a /opt/atlassian/pipelines/agent/build/ /var/www/html
           - ls -an /opt/atlassian/pipelines/agent/build/
           - docker run -d -e MYSQL_ROOT_PASSWORD="my-secret-pw" --name db -p 3306:3306 webtp3/tp3sql
-          - docker build -t yourtest .
-          - docker run -d  --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 yourtest
+         # - docker build -t yourtest .
+         #switch to autobuild save pipline time
+          - docker run -d  --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 thomasruta/tp3_tests
 
           - docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/
           - docker exec typo3 composer --dev install -d  /var/www/html/
