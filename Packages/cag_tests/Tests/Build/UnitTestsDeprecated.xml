@@ -16,7 +16,7 @@
 	beStrictAboutTestsThatDoNotTestAnything="false"
 >
 	<testsuites>
-		<testsuite name="Core tests">
+		<testsuite name="Core UnitDeprecated">
 			<directory>../../../../../web/typo3/sysext/*/Tests/UnitDeprecated/</directory>
 		</testsuite>
 

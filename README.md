@@ -135,7 +135,7 @@ after you need to transfer the Code into the container - this is happening withi
           
           # start composer install
            docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/
-          docker exec typo3 composer --dev install -d  /var/www/html/
+           docker exec typo3 composer --no-scripts --dev install -d  /var/www/html/
 
           #automated install will fail! thats because the /var/run/mysql.sock is not available 
           #-> run-typo3.sh will fix that by linking the mysql container 
@@ -204,20 +204,20 @@ After the installation is finished you can start Testing
 
 ```bash
   # start testing
- php vendor/phpunit/phpunit/phpunit  --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --log-junit  --teamcity
- php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --log-junit   --teamcity
- php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --log-junit   --teamcity
+ php vendor/phpunit/phpunit/phpunit  --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log 
+ php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml  --teamcity --log-junit  UnitTestsDeprecated.log 
+ php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml  --teamcity --log-junit  FunctionalTests.log
  mkdir -p web/typo3temp/var/tests
  ./bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
  php -S 0.0.0.0:8000 >/dev/null 2>&1 &
  sleep 3;
- typo3DatabaseName='typo3' typo3DatabaseHost='DB' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
+ typo3DatabaseName='typo3' typo3DatabaseHost='db' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
 
 ```
 
 ## finaly
 is should look like after the install has finished
-  
+  cat 
     Writing lock file
     Generating autoload files
     Registered helhum/dotenv-connector
