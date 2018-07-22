@@ -28,7 +28,7 @@ pipelines:
           - docker run -d  --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 thomasruta/tp3_tests
 
           - docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/
-          - docker exec typo3 composer --dev install -d  /var/www/html/
+          - docker exec typo3 composer --no-scripts --dev install -d  /var/www/html/
 
             #automated install will fail! thats because the /var/run/mysql.sock is not available
             #-> run-typo3.sh will fix that by linking the mysql container
