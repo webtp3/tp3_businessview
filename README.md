@@ -171,6 +171,18 @@ to save time
 
 ###Local Setup
 
+####prerequisites
+php 7.x with the extensions:
+
+    "ext-soap": "*",
+    "ext-gd": "*",
+    "ext-fileinfo": "*",
+    "ext-zlib": "*",
+    "ext-openssl": "*",
+    "ext-zip": "*",
+    "ext-mysqli": "*",
+and webserver apache/nginx and a database Mysql/MariaDB.
+
 #### install & dbinit
 
 ```bash
