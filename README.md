@@ -142,11 +142,12 @@ after you need to transfer the Code into the container - this is happening withi
           docker exec typo3 bash /var/www/cgi-bin/run-typo3.sh
 
           # start testing
-          docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity --log-junit 
-          docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity --log-junit 
-          docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity --log-junit 
-          docker exec typo3 mkdir -p web/typo3temp/var/tests
-          docker exec typo3 vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
+          docker exec typo3 ln -s  ../vendor /var/www/html/web/vendor 
+          docker exec typo3 php /var/www/html/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity --log-junit UnitTests.log
+          docker exec typo3 php /var/www/html/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity --log-junit UnitTestsDeprecated.log
+          docker exec typo3 php /var/www/html/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity --log-junit FunctionalTests.log
+          docker exec typo3 mkdir -p /var/www/html/web/typo3temp/var/tests
+          docker exec typo3 /var/www/html/vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
           docker exec typo3 php -S 0.0.0.0:8000 >/dev/null 2>&1 &
           docker exec typo3 sleep 3;
           docker exec typo3 typo3DatabaseName='typo3' typo3DatabaseHost='db' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
@@ -270,12 +271,15 @@ the test results should look like
     
     ERRORS!
     Tests: 946, Assertions: 1586, Errors: 53, Failures: 1, Skipped: 1, Incomplete: 1, Risky: 2.
+## Who do I talk to? ###
+* Jochen Rieger
+* Matthias Krams
+* Andreas Buecking
+* Thomas Ruta
 
-
-more about the docker containers used
+Connecta AG
++49 611 3 41 09 0
 
 https://bitbucket.org/web-tp3/docker
+https://bitbucket.org/web-tp3/cag_tests
 
-https://hub.docker.com/r/webtp3/docker/tags/
-
-there is one with typo3 installed already webtp3/docker:8-latest or webtp3/docker:18.4-stable with php 7.2 based on ubuntu 18.4
