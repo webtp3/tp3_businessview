@@ -29,7 +29,7 @@ pipelines:
 
           - docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/
           - docker exec typo3 composer --no-scripts --dev install -d  /var/www/html/
-
+          - docker exec typo3 ln -s  ../vendor /var/www/html/web/vendor
             #automated install will fail! thats because the /var/run/mysql.sock is not available
             #-> run-typo3.sh will fix that by linking the mysql container
           - docker exec typo3 bash /var/www/cgi-bin/run-typo3.sh

@@ -16,6 +16,12 @@ ENV TYPO3_INSTALL_DB_UNIX_SOCKET /run/mysqld/mysqld.sock
 ENV TYPO3_INSTALL_DB_USE_EXISTING false
 ENV TYPO3_INSTALL_SITE_NAME  'tp3 TYPO3 testing Suite'
 ENV TYPO3_INSTALL_SITE_SETUP_TYPE no
+ENV typo3DatabaseName $DB_NAME
+ENV typo3DatabaseHost $DB_HOST
+ENV typo3DatabaseUsername $DB_USER
+ENV typo3DatabasePassword $DB_PASS
+ENV typo3DatabasePort $DB_PORT
+
 #ADD AdditionalConfiguration.php /var/www/html/web/typo3conf/
 
 # start composer install
