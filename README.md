@@ -139,7 +139,7 @@ after you need to transfer the Code into the container - this is happening withi
 
           #automated install will fail! thats because the /var/run/mysql.sock is not available 
           #-> run-typo3.sh will fix that by linking the mysql container 
-          docker exec tp3tests_typo3_1 bash /var/www/cgi-bin/run-typo3.sh
+          docker exec typo3 bash /var/www/cgi-bin/run-typo3.sh
 
           # start testing
           docker exec typo3 php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity --log-junit 
@@ -203,6 +203,8 @@ you can use cli to install typo3 or the interactive process or run it via cli
 After the installation is finished you can start Testing
 
 ```bash
+# add an alias to the vendor dir & if you installed from .yaml set the .env vars 
+ln -s  ../vendor web/vendor
   # start testing
  php vendor/phpunit/phpunit/phpunit  --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log 
  php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml  --teamcity --log-junit  UnitTestsDeprecated.log 
@@ -215,9 +217,10 @@ After the installation is finished you can start Testing
 
 ```
 
+
 ## finaly
 is should look like after the install has finished
-  cat 
+   
     Writing lock file
     Generating autoload files
     Registered helhum/dotenv-connector
