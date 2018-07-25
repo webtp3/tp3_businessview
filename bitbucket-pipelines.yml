@@ -45,21 +45,6 @@ pipelines:
           - docker exec typo3 typo3DatabaseName='typo3' typo3DatabaseHost='db' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
 
 
-          # start composer install
-          - composer config  repositories.local path 'Packages/*' -d  /var/www/html/
-          - composer --dev install -d  /var/www/html/
-
-          # start typo3 install from env
-          - bash /var/www/cgi-bin/run-typo3.sh
-          # start testing
-          - php /var/www/html/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity
-          - php /var/www/html/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity
-          - php /var/www/html/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity
-          - mkdir -p /var/www/html/web/typo3temp/var/tests
-          - /var/www/html/vendor/bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
-          - php -S 0.0.0.0:8000 >/dev/null 2>&1 &
-          - sleep 3;
-          - typo3DatabaseName='typo3' typo3DatabaseHost='db' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
           - docker-compose -f docker-compose.yml down
 definitions:
   services:

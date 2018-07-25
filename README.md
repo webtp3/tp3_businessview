@@ -125,7 +125,7 @@ after you need to transfer the Code into the container - this is happening withi
                   
           docker build -t yourtest . 
          
-          docker run -d  --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 yourtest
+          docker run -d  --rm -it -v /path/to/source/:/var/www/html/ --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 yourtest
           # to stop the docker service use
           # docker stop typo3
           # docker stop db
@@ -164,6 +164,18 @@ or in combined usage
 or use a bitbucket Pipline for testing :-)
 look at bitbucket-pipelines.yml
 
+The System runs with a php fastcgi wrapper. So you can easyly swap php Versions to tests on several ons.
+
+    docker exec typo3 rm /etc/alternatives/php
+    docker exec typo3 ln -s /usr/bin/php7.1 /etc/alternatives/php
+    
+    # alternatives
+    php -> /etc/alternatives/php (7.0)
+    php-cgi -> /etc/alternatives/php-cgi
+    php-cgi7.1
+    php7.1
+    php7.2
+    
 After the installation you use 
 
     docker exec typo3 rsync -urv --progress  -e ssh user@local:/yourdevpath/ /var/www/html/
