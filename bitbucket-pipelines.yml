@@ -1,4 +1,4 @@
-image: webtp3/typo3
+image: webtp3/typo3:16.4-stable
 options:
   docker: true
 pipelines:
@@ -25,7 +25,7 @@ pipelines:
          # - docker build -t yourtest .
          #switch to autobuild save pipline time
           - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
-          - docker run -d  --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 thomasruta/tp3_tests
+          - docker run -d  --rm -it -v $PWD:/build --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 webtp3/docker:18.4-stable
 
           - docker exec typo3 composer config  repositories.local path 'Packages/*' -d  /var/www/html/
           - docker exec typo3 composer --no-scripts --dev install -d  /var/www/html/
