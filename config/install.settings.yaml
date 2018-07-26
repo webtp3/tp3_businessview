@@ -28,7 +28,7 @@ databaseConnect:
             description: 'Host name of database server'
             option: '--database-host-name'
             type: string
-            value: 192.168.178.250
+            value: db
             default: '127.0.0.1'
 
         databasePort:
