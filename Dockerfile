@@ -1,4 +1,4 @@
-FROM webtp3/docker:18.4-stable
+FROM webtp3/docker:16.4-stable
 
 ADD . /var/www/html/
 
@@ -27,8 +27,8 @@ ENV typo3DatabasePort $DB_PORT
 
 # start composer install
 RUN composer config  repositories.local path 'Packages/*' -d  /var/www/html/
-#RUN composer --dev install -d  /var/www/html/
 RUN chown -R www-data:www-data /var/www/html/ && chmod -R 775 /var/www/html/
+#RUN composer --dev install -d  /var/www/html/
 #RUN bash /var/www/cgi-bin/run-typo3.sh
 #CMD ["bash", "-c", "/var/www/cgi-bin/run-typo3.sh"]
 

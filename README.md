@@ -125,7 +125,7 @@ after you need to transfer the Code into the container - this is happening withi
                   
           docker build -t yourtest . 
          
-          docker run -d  --rm -it -v /path/to/source/:/var/www/html/ --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 yourtest
+          docker run -d  --rm -it -v /var/www/versions/tp3_tests/:/var/www/html/ --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 yourtest
           # to stop the docker service use
           # docker stop typo3
           # docker stop db
