@@ -124,9 +124,10 @@ after you need to transfer the Code into the container - this is happening withi
          # match conig for env in Dockerfile
                   
           docker build -t yourtest . 
-         
-          docker run -d  --rm -it -v /var/www/versions/tp3_tests/:/var/www/html/ --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 yourtest
-          # to stop the docker service use
+          docker run -d  --rm -it -v $PWD:/build/ --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 yourtest
+          #alternativly in workdir (watch out for fs-rights) on host system
+          #docker run -d  --rm -it -v /var/www/versions/tp3_tests/:/var/www/html/ --link db:db -e DB_PASS="my-secret-pw" -p 80:80  -p 2222:22 -p 443:443 -p 9000:9000   --name typo3 yourtest
+          # to stop the docker container service use
           # docker stop typo3
           # docker stop db
           # to remove the container
