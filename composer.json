@@ -32,7 +32,8 @@
 		"typo3/cms-impexp":"^8.7.0 || ^9.0",
 		"typo3/cms": "8.x-dev as 8.7.18",
 		"bk2k/bootstrap-package": "^8.0",
-		"typo3/cms-introduction":"^3.0.2"
+		"typo3/cms-introduction":"^3.0.2",
+		"georgringer/news":"*"
 
 	},
 	"require-dev": {
