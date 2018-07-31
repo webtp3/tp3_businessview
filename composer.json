@@ -2,8 +2,8 @@
 	"name": "thomasruta/tp3_tests",
 	"description": "testing typo3",
 	"type": "library",
-	"version": "1.0.0",
-	"license": "GPL-3.0+",
+	"license": "GPL-3.0-or-later",
+	"minimum-stability": "dev",
 	"authors": [
 		{
 			"name": "Thomas Ruta",

@@ -232,7 +232,7 @@ ln -s  ../vendor web/vendor
 ```
 
 
-## finaly
+## finally
 is should look like after the install has finished
    
     Writing lock file
