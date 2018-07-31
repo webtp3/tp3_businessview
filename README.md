@@ -284,6 +284,15 @@ the test results should look like
     
     ERRORS!
     Tests: 946, Assertions: 1586, Errors: 53, Failures: 1, Skipped: 1, Incomplete: 1, Risky: 2.
+    
+cleanup after broken tests
+
+    TRUNCATE `be_groups`;
+    TRUNCATE `be_sessions`;
+    TRUNCATE `be_users`;
+    TRUNCATE `sys_category`;
+    TRUNCATE `sys_category_record_mm`;
+
 ## Who do I talk to? ###
 * Jochen Rieger
 * Matthias Krams

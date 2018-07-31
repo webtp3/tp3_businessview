@@ -1,8 +1,7 @@
 actor: Tester
 paths:
-# @todo clean up here: https://forge.typo3.org/issues/79097 
-  tests: ../
-  log: ../../../../../web/typo3temp/var/tests/AcceptanceReports
+  tests: ../../../../../typo3/sysext/core/Tests
+  log: ../../../../../typo3temp/var/tests/AcceptanceReportsInstallMysql
   data: Configuration/Acceptance/Data
   support: Configuration/Acceptance/Support
   envs: Configuration/Acceptance/Envs
@@ -13,7 +12,4 @@ extensions:
   enabled:
     - Codeception\Extension\RunFailed
     - Codeception\Extension\Recorder
-    - Cag\CagTests\Core\Acceptance\AcceptanceCoreEnvironment
-groups:
-  AcceptanceTests-Job-*: Configuration/Acceptance/AcceptanceTests-Job-*
-
+    - TYPO3\TestingFramework\Core\Acceptance\AcceptanceInstallMysqlCoreEnvironment
