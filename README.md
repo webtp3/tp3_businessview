@@ -291,7 +291,7 @@ cleanup after broken tests
     TRUNCATE `be_sessions`;
     TRUNCATE `be_users`;
     TRUNCATE `sys_category`;
-    TRUNCATE `sys_category_record_mm`;
+TRUNCATE TABLE `tx_extensionmanager_domain_model_extension`
 
 ## Who do I talk to? ###
 * Jochen Rieger
