@@ -220,16 +220,26 @@ After the installation is finished you can start Testing
 # add an alias to the vendor dir & if you installed from .yaml set the .env vars 
 ln -s  ../vendor web/vendor
   # start testing
- php vendor/phpunit/phpunit/phpunit  --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log 
+/usr/bin/php7.1 vendor/phpunit/phpunit/phpunit  --configuration vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log
+/usr/bin/php7.2 vendor/phpunit/phpunit/phpunit  --configuration vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log
  php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml  --teamcity --log-junit  UnitTestsDeprecated.log 
  php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml  --teamcity --log-junit  FunctionalTests.log
  mkdir -p web/typo3temp/var/tests
- ./bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
+ java -jar vendor/se/selenium-server-standalone/bin/selenium-server-standalone.jar
+ bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
  php -S 0.0.0.0:8000 >/dev/null 2>&1 &
  sleep 3;
  typo3DatabaseName='typo3' typo3DatabaseHost='db' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
 
 ```
+
+#####cleanup after broken tests
+
+    TRUNCATE `be_groups`;
+    TRUNCATE `be_sessions`;
+    TRUNCATE `be_users`;
+    TRUNCATE `sys_category`;
+    TRUNCATE TABLE `tx_extensionmanager_domain_model_extension`
 
 
 ## finally
@@ -285,13 +295,13 @@ the test results should look like
     ERRORS!
     Tests: 946, Assertions: 1586, Errors: 53, Failures: 1, Skipped: 1, Incomplete: 1, Risky: 2.
     
-cleanup after broken tests
+    
+    set typo3DatabaseName=typo3tester55  
+    set typo3DatabaseHost=192.168.178.250
+    set typo3DatabaseUsername=tester
+    set typo3DatabasePassword=XrILG1MwrFrCKa2dpWuE
+    ./bin/codecept run Acceptance -c vendor/typo3/testing-framework/Resources/Core/Build/AcceptanceTests.yml Backend/Extensionmanager:checkIfUploadFormAppears
 
-    TRUNCATE `be_groups`;
-    TRUNCATE `be_sessions`;
-    TRUNCATE `be_users`;
-    TRUNCATE `sys_category`;
-TRUNCATE TABLE `tx_extensionmanager_domain_model_extension`
 
 ## Who do I talk to? ###
 * Jochen Rieger
