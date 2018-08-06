@@ -1,10 +1,10 @@
 
 
-jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().size()
+jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().size();
 if(index<0){index=Math.max(0,lastIndex+ 1+ index)}
-this.append(element)
+this.append(element);
 if(index<lastIndex){this.children().eq(index).before(this.children().last())}
-return this;}
+return this;};
 	var panorama;var panoJumpTimer;var panoRotationTimer;var panoResizeTimer;var panoResizeCounter=0;var businessviewSidebarModulesSelector='';var showSidebar=false;var startCoords={},endCoords={};var zoom=1;var updateInfoPointsStartTimer;var updateInfoPointsCounter=0;var $panoCanvas=null;var panoCanvasHeight=0;var panoCanvasWidth=0;
 	
 		var tp3_app = window.tp3_app;
@@ -125,7 +125,7 @@ return angle;}
 function convertRadiansToDegrees(angle){angle=angle/0.017453292519943295;while(angle<- 180.0){angle+=360.0;}
 while(angle>180.0){angle-=360.0;}
 return angle;}
-function convertHeadingInDegree(heading){var degree;heading=heading%360
+function convertHeadingInDegree(heading){var degree;heading=heading%360;
 if(heading>=0){degree=0+ heading;}else{degree=360+ heading;}
 return degree;}
 function convertPitchInDegree(pitch){return(pitch%180)+ 90;}
@@ -147,7 +147,7 @@ return position;}
 function getNavigationBusinessViewStructureString(fields){var string='';for(var i=0;i<fields.length;i++){if(fields[i].subFields&&fields[i].subFields.length>0){string+='<li>';string+='<span>'+fields[i].name+'</span>';string+='<ol class="dl-submenu">';string+='<li class="dl-back"><span>'+fields[i].name+'</span></li>';string+=getNavigationBusinessViewStructureString(fields[i].subFields);string+='</ol>';string+='</li>';}else{string+='<li data-entry-panorama-id="'+ fields[i].pov.panoId+'" data-entry-panorama-heading="'+ fields[i].pov.entryHeading+'" data-entry-panorama-pitch="'+ fields[i].pov.entryPitch+'"><span>'+ fields[i].name+'</span></li>';}}
 return string;}
 function getPanoArrayPosition(panoId){if(businessviewJson.details.panoramas!=undefined){for(var i=0;i<businessviewJson.details.panoramas.length;i++){if(businessviewJson.details.panoramas[i].id==panoId){return i;}}}else{businessviewJson.details.panoramas=businessviewJson.details.panoramas||[];}
-var array=new Object;array.actions=[];array.areas=[];array.infoPoints=[];array.id=panoId;businessviewJson.details.panoramas.push(array);return getPanoArrayPosition(panoId);}
+var array={};array.actions=[];array.areas=[];array.infoPoints=[];array.id=panoId;businessviewJson.details.panoramas.push(array);return getPanoArrayPosition(panoId);}
 function getRandomInt(min,max){return Math.floor(Math.random()*(max- min+ 1))+ min;}
 function getSidebarHeight(align){if(!align){if($(businessviewCanvasSelector).hasClass('sidebar-left')){align='left';}}
 var height=$(businessviewCanvasSelector).outerHeight(true);if(align=='left'){height-=50;}else{height-=34;}

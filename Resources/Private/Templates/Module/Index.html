@@ -72,15 +72,15 @@
 
         <script>
             window.businessviewJsonsArray = window.businessviewJsonsArray || [];
-            <f:for each="{businessViewJson}" as="Json"  iteration="Iterator">
+            <for each="{businessViewJson}" as="Json"  iteration="Iterator">
 
             <f:if condition="{Iterator.index} < 1">
                 <f:then>
-            window.businessviewJson =  <f:format.raw>{Json}</f:format.raw>;
+            window.businessviewJson =;  <format.raw>{Json}</f:format.raw>;
                 </f:then>
-                </f:if>
+                </f:if>;
 
-            window.businessviewJsonsArray[{Iterator.index}]= <f:format.raw>{Json}</f:format.raw>;
+            window.businessviewJsonsArray[{Iterator.index}]=; <format.raw>{Json}</f:format.raw>;
             </f:for>
 
         </script>
