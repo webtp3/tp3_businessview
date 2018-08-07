@@ -24,14 +24,15 @@
 
 	},
 	"repositories":  {
-		"0": {
-			"type": "composer",
-			"url": "https://composer.typo3.org/"
-		},
-		"1":{
+		"0":{
 			"type": "path",
 			"url": "Packages/*"
+		},
+		"1": {
+			"type": "composer",
+			"url": "https://composer.typo3.org/"
 		}
+
 
 	},
 	"require": {
@@ -68,10 +69,26 @@
 		"typo3/cms-impexp":"^8.7.0 || ^9.0",
 		"typo3/cms": "8.x-dev as 8.7.18",
 		"typo3/cms-cli": "^1.0.2",
-		"typo3fluid/fluid": "^2.3",
+		"typo3/cms-fluid": "^8.7",
+		"typo3/cms-rsaauth":"^8.7 || ^9",
 		"bk2k/bootstrap-package": "^8.0",
 		"typo3/cms-introduction":"^3.0.2",
-		"georgringer/news":"*"
+		"fab/vidi":"*",
+		"fab/media":"*",
+		"gridelementsteam/gridelements":"8.2.3",
+		"laxap/bootstrap-grids":"*",
+		"georgringer/news":"*",
+		"dmitryd/typo3-realurl":"*",
+		"typo3-ter/static-info-tables":"*",
+		"web-tp3/tp3businessview": "dev-master",
+		"web-tp3/tp3jobs": "dev-master",
+		"web-tp3/tp3mods": "dev-master",
+		"web-tp3/tp3social": "dev-master",
+		"web-tp3/tp3_openhours": "dev-master",
+		"friendsoftypo3/tt-address": "dev-master",
+		"yoast-seo-for-typo3/yoast_seo": "dev-master",
+		"web-tp3/tp3-feuser-register": "dev-master"
+
 	},
 	"require-dev": {
 		"helhum/dotenv-connector": "^2.0",
@@ -84,10 +101,11 @@
 		"se/selenium-server-standalone":"*",
 		"fiunchinho/phpunit-randomizer": "~3.0.0",
 		"friendsofphp/php-cs-fixer": "^2.0",
-		"typo3/cms-styleguide": "~8.0.14",
+		"typo3/cms-styleguide": "^8.7",
 		"typo3/testing-framework": "*",
 		"phpunit/phpunit": "*",
 		"nimut/testing-framework": "*"
+
 	},
 	"suggest": {
 		"ext-fileinfo": "Used for proper file type detection in the file abstraction layer",
