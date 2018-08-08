@@ -225,7 +225,7 @@ ln -s  ../vendor web/vendor
  php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml  --teamcity --log-junit  UnitTestsDeprecated.log 
  php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml  --teamcity --log-junit  FunctionalTests.log
  mkdir -p web/typo3temp/var/tests
- java -jar vendor/se/selenium-server-standalone/bin/selenium-server-standalone.jar
+ java -jar vendor/se/selenium-server-standalone/bin/selenium-server-standalone.jar -host 0.0.0.0
  bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
  php -S 0.0.0.0:8000 >/dev/null 2>&1 &
  sleep 3;

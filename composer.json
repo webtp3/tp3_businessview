@@ -90,8 +90,6 @@
 		"typo3/cms-workspaces":"^8.7",
 		"typo3/cms-viewpage":"^8.7",
 		"typo3/cms-belog":"^8.7",
-		"causal/tscobj":"*",
-		"apen/additional_reports":"*",
 		"bk2k/bootstrap-package": "^8.0",
 		"typo3/cms-introduction":"^3.0.2",
 		"fab/vidi":"*",
@@ -111,6 +109,8 @@
 		"yoast-seo-for-typo3/yoast_seo": "dev-master",
 		"web-tp3/tp3-feuser-register": "dev-master",
 		"in2code/powermail": "dev-master",
+		"causal/tscobj":"*",
+		"apen/additional_reports":"*",
 		"web-tp3/wec_map": "dev-tp8"
 	},
 	"require-dev": {
@@ -119,7 +119,7 @@
 		"typo3-console/composer-typo3-auto-install": "^0.2",
 		"deployer/deployer": "^6",
 		"consolidation/robo": "^1",
-		"codeception/codeception": "^2.3",
+		"codeception/codeception": "*",
 		"enm1989/chromedriver": "*",
 		"se/selenium-server-standalone":"*",
 		"fiunchinho/phpunit-randomizer": "~3.0.0",
@@ -127,7 +127,8 @@
 		"typo3/cms-styleguide": "^8.7",
 		"typo3/testing-framework": "*",
 		"phpunit/phpunit": "*",
-		"nimut/testing-framework": "*"
+		"nimut/testing-framework": "*",
+		"facebook/webdriver":"1.6.0"
 
 	},
 	"suggest": {
