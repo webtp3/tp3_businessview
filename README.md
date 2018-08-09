@@ -195,6 +195,7 @@ php 7.x with the extensions:
     "ext-openssl": "*",
     "ext-zip": "*",
     "ext-mysqli": "*",
+    
 and webserver apache/nginx and a database Mysql/MariaDB.
 
 #### install & dbinit

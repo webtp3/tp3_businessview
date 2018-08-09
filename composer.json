@@ -1,7 +1,9 @@
 {
 	"name": "thomasruta/tp3_tests",
 	"type": "library",
+	"description":"developt Testings for tp3",
 	"minimum-stability": "dev",
+	"license":"proprietary",
 	"authors": [
 		{
 			"name": "Jochen Rieger",
@@ -119,7 +121,7 @@
 		"typo3-console/composer-typo3-auto-install": "^0.2",
 		"deployer/deployer": "^6",
 		"consolidation/robo": "^1",
-		"codeception/codeception": "*",
+		"codeception/codeception": "^2.4",
 		"enm1989/chromedriver": "*",
 		"se/selenium-server-standalone":"*",
 		"fiunchinho/phpunit-randomizer": "~3.0.0",
