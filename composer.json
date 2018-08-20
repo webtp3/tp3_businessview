@@ -212,6 +212,6 @@
 			"TYPO3\\CMS\\Workspaces\\Tests\\": "typo3/sysext/workspaces/Tests/",
 			"TYPO3\\CMS\\Recycler\\Tests\\": "typo3/sysext/recycler/Tests/"
 		},
-		"classmap": ["tests/Fixtures/"]
+		"classmap": ["Tests/Fixtures/"]
 	}
 }
