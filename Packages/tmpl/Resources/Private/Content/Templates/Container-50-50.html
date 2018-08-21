@@ -1,0 +1,28 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+	xmlns:flux="http://typo3.org/ns/FluidTYPO3/Flux/ViewHelpers"
+	xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers">
+
+	<f:layout name="Content" />
+
+	<f:section name="Configuration">
+		<flux:form id="container-50" label="Container 50/50" options="{group: 'Container'}">
+			<flux:grid>
+				<flux:grid.row>
+					<flux:grid.column colPos="0" name="column-1" label="Column 1" style="width: 50%;" />
+					<flux:grid.column colPos="0" name="column-2" label="Column 2" style="width: 50%;" />
+				</flux:grid.row>
+			</flux:grid>
+		</flux:form>
+	</f:section>
+
+	<f:section name="Preview">
+	</f:section>
+
+	<f:section name="Main">
+		<section data-item-count="2">
+			<div class="col3 left"><flux:content.render area="column-1" /></div>
+			<div class="col3 right"><flux:content.render area="column-2" /></div>
+		</section>
+	</f:section>
+</div>

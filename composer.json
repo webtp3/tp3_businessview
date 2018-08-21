@@ -37,6 +37,7 @@
 
 
 	},
+
 	"require": {
 		"php": ">=7.0.0 <=7.2.99",
 		"ext-json": "*",
@@ -121,8 +122,11 @@
 		"typo3-console/composer-typo3-auto-install": "^0.2",
 		"deployer/deployer": "^6",
 		"consolidation/robo": "^1",
-		"codeception/codeception": "^2.4",
-		"enm1989/chromedriver": "*",
+		"codeception/codeception":"*",
+		"squizlabs/php_codesniffer": "^3.3",
+		"phpmd/phpmd": "*",
+		"typo3/testing-framework": "^1.2.2 || ^2.0.1",
+		"friendsofphp/php-cs-fixer": "*",
 		"se/selenium-server-standalone":"*",
 		"fiunchinho/phpunit-randomizer": "~3.0.0",
 		"friendsofphp/php-cs-fixer": "^2.0",
@@ -130,6 +134,7 @@
 		"typo3/testing-framework": "*",
 		"phpunit/phpunit": "*",
 		"nimut/testing-framework": "*",
+		"web-tp3/cag_tests":"*",
 		"facebook/webdriver":"1.6.0"
 
 	},
@@ -146,11 +151,10 @@
 	},
 	"extra": {
 		"typo3/cms": {
-			"typo3/cms": {
-				"root-dir": "private",
-				"cms-package-dir": "{$vendor-dir}/typo3/cms",
-				"web-dir": "web"
-			}
+			"app-dir": "Build",
+			"web-dir": "web",
+			"vendor-dir": "vendor",
+			"bin-dir": "bin"
 		},
 		"typo3/class-alias-loader": {
 			"always-add-alias-loader": true
@@ -174,7 +178,15 @@
 		}
 	},
 
-
+	"scripts": {
+		"test:php:unit": [
+			"@php -v",
+			"@php vendor/phpunit/phpunit/phpunit -c vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml"
+		],
+		"test": [
+			"@test:php:unit"
+		]
+	},
 	"autoload": {
 		"psr-4": {
 			"Typo3Console\\Typo3AutoInstall\\": "src"

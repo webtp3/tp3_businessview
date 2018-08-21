@@ -1,0 +1,6 @@
+#
+# This is the very root template for any typoscript action
+#
+<INCLUDE_TYPOSCRIPT: source="DIR:EXT:tmpl/Configuration/TypoScript/Lib/" extensions="ts">
+<INCLUDE_TYPOSCRIPT: source="DIR:EXT:tmpl/Configuration/TypoScript/Page/" extensions="ts">
+<INCLUDE_TYPOSCRIPT: source="DIR:EXT:tmpl/Configuration/TypoScript/Plugins/" extensions="ts">

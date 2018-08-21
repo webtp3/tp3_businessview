@@ -1,0 +1,43 @@
+@charset "utf-8";
+//
+// this file constitutes the scss root file to include / import any SCSS code to be compiled
+//
+
+// Foundation base includes needed for further Foundation actions - delete this line, if you don't use Foundation
+@import '~foundation-sites/scss/foundation';
+
+
+// CAG utilities and helpers to build our css
+@import 'utils/mixins';
+
+
+// let's get our settings (maybe based on Foundation settings)
+@import 'base/settings';
+
+
+// import foundation framework selectively
+@import 'base/foundation-includes'; // delete this line, if you don't use Foundation
+
+
+// import some very individual base styles
+//@import 'base/icons';
+//@import 'base/font-face';
+@import 'base/typography';
+
+
+// import all website specific styles for general page layout sections
+//@import 'layout/header';
+//@import 'layout/main-menu';
+//@import 'layout/content';
+//@import 'layout/footer';
+
+
+// import all website specific components
+//@import 'components/hero-image';
+//@import 'components/image';
+
+
+// motion UI and other fancy stuff...
+//@import 'motion-ui';
+//@include motion-ui-transitions;
+//@include motion-ui-animations;

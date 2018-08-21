@@ -1,0 +1,1 @@
+<INCLUDE_TYPOSCRIPT: source="DIR:EXT:tmpl/Configuration/TsConfig/Page/" extensions="ts">

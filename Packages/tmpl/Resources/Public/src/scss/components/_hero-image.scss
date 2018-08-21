@@ -1,0 +1,25 @@
+//
+// Styles for the hero element, mostly to be used as a first element on the page
+//
+
+/*
+
+// TODO: move magic numbers into variables maybe, if we can think of a re-use
+.hero {
+  height: 100vh;
+  padding: 5px;
+}
+
+.hero__image {
+  height: calc(100vh - 10px); // the vertical sum of the border around the image
+}
+
+.hero__text {
+
+  @include centerer(); // horizontally and vertically centered, please
+
+  width: 75%;
+  max-width: 42rem;
+}
+
+*/

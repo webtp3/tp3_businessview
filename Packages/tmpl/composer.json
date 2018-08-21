@@ -1,0 +1,29 @@
+{
+  "name": "cag/tmpl",
+  "type": "typo3-cms-extension",
+  "description": "Connecta AG templating and provider extension",
+  "license": "GPL-2.0+",
+  "version" : "0.4.0",
+  "authors": [
+    {
+      "name": "Jochen Rieger",
+      "email": "j.rieger@connecta.ag"
+    },
+    {
+      "name": "Matthias Krams",
+      "email": "m.krams@connecta.ag"
+    }
+  ],
+  "require": {
+    "typo3/cms-core": ">= 7.6 < 8.9"
+  },
+  "suggest": {
+    "web-tp3/cag_tests": "cag typo3 Testing Utility"
+  },
+  "autoload": {
+    "psr-4": {
+      "CAG\\Tmpl\\ErrorHandling\\": "src/",
+      "CAG\\Tmpl\\": "Classes/"
+    }
+  }
+}

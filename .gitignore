@@ -8,7 +8,7 @@
 !/_temp/.gitkeep
 /bin
 /typo3cms
-*config/local.settings.yaml
+*/config/local.settings.yaml
 
 ###
 # some typical TYPO3 folders and files to be ignored

@@ -120,7 +120,7 @@ module.exports = {
                         loader: 'postcss-loader',
                         options: {
                             config: {
-                                path: `${projectRootPath}/build/frontend/postcss.config.js`
+                                path: `${projectRootPath}/Build/frontend/postcss.config.js`
                             },
                             sourceMap: isDevelopmentContext ? 'inline' : false
                         }
