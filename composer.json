@@ -114,7 +114,8 @@
 		"in2code/powermail": "dev-master",
 		"causal/tscobj":"*",
 		"apen/additional_reports":"*",
-		"web-tp3/wec_map": "dev-tp8"
+		"web-tp3/wec_map": "dev-tp8",
+		"directmailteam/direct-mail":"^5.2"
 	},
 	"require-dev": {
 		"helhum/dotenv-connector": "^2.0",
@@ -152,7 +153,7 @@
 	"extra": {
 		"typo3/cms": {
 			"app-dir": "Build",
-			"web-dir": "web",
+			"web-dir": "../../web",
 			"vendor-dir": "vendor",
 			"bin-dir": "bin"
 		},
