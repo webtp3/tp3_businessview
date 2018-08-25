@@ -2,15 +2,162 @@ EXTCONF:
     realurl:
         _DOMAINS:
             encode:
+                - { GETvar: L, value: '0', useConfiguration: tp3_site.tld, urlPrepend: 'http://%conf(EXTCONF.tp3_site.defaultLanguageDomain)%' }
+                - { GETvar: L, value: '0', useConfiguration: bettina_mackeprang.tld, urlPrepend: 'http://%conf(EXTCONF.bettina_mackeprang.defaultLanguageDomain)%' }
+                - { GETvar: L, value: '1', useConfiguration: bettina_mackeprang.tld, urlPrepend: 'http://%conf(EXTCONF.bettina_mackeprang.englishDomain)%' }
+                - { GETvar: L, value: '0', useConfiguration: honda_lorenz.tld, urlPrepend: 'http://%conf(EXTCONF.honda_lorenz.defaultLanguageDomain)%' }
+                - { GETvar: L, value: '1', useConfiguration: honda_lorenz.tld, urlPrepend: 'http://%conf(EXTCONF.honda_lorenz.englishDomain)%' }
+                - { GETvar: L, value: '0', useConfiguration: lacuisine.tld, urlPrepend: 'http://%conf(EXTCONF.lacuisine.defaultLanguageDomain)%' }
+                - { GETvar: L, value: '1', useConfiguration: lacuisine.tld, urlPrepend: 'http://%conf(EXTCONF.lacuisine.englishDomain)%' }
+                - { GETvar: L, value: '0', useConfiguration: tai_chi.tld, urlPrepend: 'http://%conf(EXTCONF.tai_chi.defaultLanguageDomain)%' }
+                - { GETvar: L, value: '1', useConfiguration: tai_chi.tld, urlPrepend: 'http://%conf(EXTCONF.tai_chi.englishDomain)%' }
+                - { GETvar: L, value: '0', useConfiguration: dev_rp.tld, urlPrepend: 'http://%conf(EXTCONF.dev_rp.defaultLanguageDomain)%' }
+                - { GETvar: L, value: '1', useConfiguration: dev_rp.tld, urlPrepend: 'http://%conf(EXTCONF.dev_rp.englishDomain)%' }
+                - { GETvar: L, value: '0', useConfiguration: test_rp.tld, urlPrepend: 'http://%conf(EXTCONF.test_rp.defaultLanguageDomain)%' }
+                - { GETvar: L, value: '1', useConfiguration: test_rp.tld, urlPrepend: 'http://%conf(EXTCONF.test_rp.englishDomain)%' }
                 - { GETvar: L, value: '0', useConfiguration: default.tld, urlPrepend: 'http://%conf(EXTCONF.helhum_site_package.defaultLanguageDomain)%' }
                 - { GETvar: L, value: '1', useConfiguration: default.tld, urlPrepend: 'http://%conf(EXTCONF.helhum_site_package.englishDomain)%' }
+
             decode:
-                '%conf(EXTCONF.helhum_site_package.defaultLanguageDomain)%':
+                '%conf(EXTCONF.tp3_site.defaultLanguageDomain)%':
                     GETvars: { L: '0' }
                     useConfiguration: default.tld
-                '%conf(EXTCONF.helhum_site_package.englishDomain)%':
+                '%conf(EXTCONF.tp3_site.englishDomain)%':
                     GETvars: { L: '1' }
                     useConfiguration: default.tld
+        tp3_site.tld:
+            init:
+                enableCHashCache: true
+                appendMissingSlash: 'ifNotFile'
+                adminJumpToBackend: true
+                enableUrlDecodeCache: true
+                enableUrlEncodeCache: true
+                emptyUrlReturnValue: /
+                disableErrorLog: true
+            pagePath:
+                rootpage_id: '690'
+                type: user
+                userFunc: 'Tx\Realurl\UriGeneratorAndResolver->main'
+                spaceCharacter: '-'
+                languageGetVar: 'L'
+                expireDays: 3
+                dontResolveShortcuts: false
+            fileName:
+                defaultToHTMLsuffixOnPrev: false
+        bettina_mackeprang.tld:
+            init:
+                enableCHashCache: true
+                appendMissingSlash: 'ifNotFile'
+                adminJumpToBackend: true
+                enableUrlDecodeCache: true
+                enableUrlEncodeCache: true
+                emptyUrlReturnValue: /
+                disableErrorLog: true
+            pagePath:
+                rootpage_id: '1140'
+                type: user
+                userFunc: 'Tx\Realurl\UriGeneratorAndResolver->main'
+                spaceCharacter: '-'
+                languageGetVar: 'L'
+                expireDays: 3
+                dontResolveShortcuts: false
+            fileName:
+                defaultToHTMLsuffixOnPrev: false
+        honda_lorenz.tld:
+            init:
+                enableCHashCache: true
+                appendMissingSlash: 'ifNotFile'
+                adminJumpToBackend: true
+                enableUrlDecodeCache: true
+                enableUrlEncodeCache: true
+                emptyUrlReturnValue: /
+                disableErrorLog: true
+            pagePath:
+                rootpage_id: '956'
+                type: user
+                userFunc: 'Tx\Realurl\UriGeneratorAndResolver->main'
+                spaceCharacter: '-'
+                languageGetVar: 'L'
+                expireDays: 3
+                dontResolveShortcuts: false
+            fileName:
+                defaultToHTMLsuffixOnPrev: false
+        lacuisine.tld:
+            init:
+                enableCHashCache: true
+                appendMissingSlash: 'ifNotFile'
+                adminJumpToBackend: true
+                enableUrlDecodeCache: true
+                enableUrlEncodeCache: true
+                emptyUrlReturnValue: /
+                disableErrorLog: true
+            pagePath:
+                rootpage_id: '690'
+                type: user
+                userFunc: 'Tx\Realurl\UriGeneratorAndResolver->main'
+                spaceCharacter: '-'
+                languageGetVar: 'L'
+                expireDays: 3
+                dontResolveShortcuts: false
+            fileName:
+                defaultToHTMLsuffixOnPrev: false
+        tai_chi.tld:
+            init:
+                enableCHashCache: true
+                appendMissingSlash: 'ifNotFile'
+                adminJumpToBackend: true
+                enableUrlDecodeCache: true
+                enableUrlEncodeCache: true
+                emptyUrlReturnValue: /
+                disableErrorLog: true
+            pagePath:
+                rootpage_id: '168'
+                type: user
+                userFunc: 'Tx\Realurl\UriGeneratorAndResolver->main'
+                spaceCharacter: '-'
+                languageGetVar: 'L'
+                expireDays: 3
+                dontResolveShortcuts: false
+            fileName:
+                defaultToHTMLsuffixOnPrev: false
+        dev_rp.tld:
+            init:
+                enableCHashCache: true
+                appendMissingSlash: 'ifNotFile'
+                adminJumpToBackend: true
+                enableUrlDecodeCache: true
+                enableUrlEncodeCache: true
+                emptyUrlReturnValue: /
+                disableErrorLog: true
+            pagePath:
+                rootpage_id: '104'
+                type: user
+                userFunc: 'Tx\Realurl\UriGeneratorAndResolver->main'
+                spaceCharacter: '-'
+                languageGetVar: 'L'
+                expireDays: 3
+                dontResolveShortcuts: false
+            fileName:
+                defaultToHTMLsuffixOnPrev: false
+        test_rp.tld:
+            init:
+                enableCHashCache: true
+                appendMissingSlash: 'ifNotFile'
+                adminJumpToBackend: true
+                enableUrlDecodeCache: true
+                enableUrlEncodeCache: true
+                emptyUrlReturnValue: /
+                disableErrorLog: true
+            pagePath:
+                rootpage_id: '37'
+                type: user
+                userFunc: 'Tx\Realurl\UriGeneratorAndResolver->main'
+                spaceCharacter: '-'
+                languageGetVar: 'L'
+                expireDays: 3
+                dontResolveShortcuts: false
+            fileName:
+                defaultToHTMLsuffixOnPrev: false
         default.tld:
             init:
                 enableCHashCache: true
@@ -21,7 +168,7 @@ EXTCONF:
                 emptyUrlReturnValue: /
                 disableErrorLog: true
             pagePath:
-                rootpage_id: '1'
+                rootpage_id: '690'
                 type: user
                 userFunc: 'Tx\Realurl\UriGeneratorAndResolver->main'
                 spaceCharacter: '-'
@@ -30,5 +177,5 @@ EXTCONF:
                 dontResolveShortcuts: false
             fileName:
                 defaultToHTMLsuffixOnPrev: false
-        '%conf(EXTCONF.helhum_site_package.englishDomain)%': 'default.tld'
-        '%conf(EXTCONF.helhum_site_package.defaultLanguageDomain)%': 'default.tld'
+        '%conf(EXTCONF.tp3_site.englishDomain)%': 'default.tld'
+        '%conf(EXTCONF.tp3_site.defaultLanguageDomain)%': 'default.tld'
