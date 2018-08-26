@@ -36,6 +36,8 @@ plugin.tx_tp3businessview_tp3businessview {
     callDefaultActionIfActionCantBeResolved = 1
   }
 }
+
+
 plugin.tx_tp3businessview < plugin.tx_tp3businessview_tp3businessview
 
 plugin.tx_tp3businessview._CSS_DEFAULT_STYLE (
