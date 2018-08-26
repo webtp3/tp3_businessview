@@ -102,11 +102,11 @@
 		"georgringer/news":"*",
 		"dmitryd/typo3-realurl":"*",
 		"typo3-ter/static-info-tables":"*",
-		"web-tp3/tp3businessview": "dev-master",
-		"web-tp3/tp3jobs": "dev-master",
-		"web-tp3/tp3mods": "dev-master",
-		"web-tp3/tp3social": "dev-master",
-		"web-tp3/tp3_openhours": "dev-master",
+		"web-tp3/tp3businessview": "^1 || dev-develop",
+		"web-tp3/tp3jobs": "^0.1",
+		"web-tp3/tp3mods": "^1",
+		"web-tp3/tp3social": "1.0.10",
+		"web-tp3/tp3_openhours": "^0.0.2",
 		"friendsoftypo3/tt-address": "dev-master",
 		"fluidtypo3/vhs":"*",
 		"yoast-seo-for-typo3/yoast_seo": "dev-master",
@@ -189,14 +189,14 @@
 			"@php vendor/phpunit/phpunit/phpunit -c vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml"
 		],
 		"extension-tests": [
-			"php bin/phpunit  --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log",
-			"php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml  --teamcity --log-junit  UnitTestsDeprecated.log",
-			"php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml  --teamcity --log-junit  FunctionalTests.log"
+			"@php bin/phpunit  --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log",
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml  --teamcity --log-junit  UnitTestsDeprecated.log",
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml  --teamcity --log-junit  FunctionalTests.log"
 		],
 		"core-tests": [
-			"php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log",
-			"php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml   --teamcity --log-junit  UnitTestsDeprecated.log",
-			"php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml   --teamcity --log-junit  FunctionalTests.log"
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log",
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml   --teamcity --log-junit  UnitTestsDeprecated.log",
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml   --teamcity --log-junit  FunctionalTests.log"
 		]
 	},
 	"autoload": {
