@@ -158,7 +158,11 @@
 			"cms-package-dir": "Build/vendor/typo3/cms"
 		},
 		"typo3/class-alias-loader": {
-			"always-add-alias-loader": true
+			"always-add-alias-loader": true,
+			"autoload-case-sensitivity": false,
+			"class-alias-maps": [
+				"Migrations/Code/ClassAliasMap.php"
+			]
 		},
 		"branch-alias": {
 			"dev-TYPO3_8-7": "8.x-dev"
