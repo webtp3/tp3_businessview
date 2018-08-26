@@ -1,0 +1,21 @@
+##############
+### PAGETS ###
+##############
+
+# cat=PageTS; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:pageTs.disableConfigRTE
+disableConfigRTE = 0
+
+# cat=PageTS; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:pageTs.disablePageTs
+disablePageTs = 0
+
+# cat=PageTS; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:pageTs.disablePageTsBackendLogo
+disablePageTsBackendLogo = 0
+
+# cat=PageTS; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:feature.debugMode
+debugMode = 0
+
+# cat=PageTS; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:feature.backendModule
+backendModule = 0
+
+# cat=PageTS; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:pageTs.EnableCookieConsent
+cookieconsent = 1

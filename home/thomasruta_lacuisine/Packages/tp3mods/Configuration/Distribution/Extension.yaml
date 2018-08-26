@@ -1,0 +1,18 @@
+EXT:
+    extConf:
+        backend:
+            backendFavicon: 'EXT:tp3mods/Resources/Public/Images/Backend/favicon-96x96.png'
+            backendLogo: 'EXT:tp3mods/Resources/Public/Images/Backend/backend-logo.svg'
+            loginBackgroundImage: 'EXT:tp3mods/Resources/Public/images/Backend/login-background-image.jpg'
+            loginHighlightColor: '#ff8f00'
+            loginLogo: 'EXT:tp3mods/Resources/Public/Images/Backend/login-logo.svg'
+SC_OPTIONS:
+    t3lib/class.t3lib_div.php:
+        systemLogInit: true
+        systemLog:
+            - Tp3\Tp3mods\ErrorHandling\Log\SysLogAdapter->log
+SYS:
+    debugExceptionHandler: Tp3\Tp3mods\ErrorHandling\Error\DebugExceptionHandler
+    errorHandler: Tp3\Tp3mods\ErrorHandling\Error\ErrorHandler
+    productionExceptionHandler: Tp3\Tp3mods\ErrorHandling\Error\ProductionExceptionHandler
+    systemLog: false

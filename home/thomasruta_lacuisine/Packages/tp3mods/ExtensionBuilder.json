@@ -1,0 +1,133 @@
+{
+    "modules": [
+        {
+            "config": {
+                "position": [
+                    34,
+                    78
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_list": true,
+                    "_default1_show": true,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": true,
+                    "_default4_delete": false,
+                    "customActions": []
+                },
+                "name": "Tp3Mods",
+                "objectsettings": {
+                    "addDeletedField": false,
+                    "addHiddenField": false,
+                    "addStarttimeEndtimeFields": true,
+                    "aggregateRoot": false,
+                    "categorizable": false,
+                    "description": "",
+                    "mapToTable": "",
+                    "parentClass": "",
+                    "sorting": false,
+                    "type": "ValueObject",
+                    "uid": "183355206972"
+                },
+                "propertyGroup": {
+                    "properties": [
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "Repository of Microdara",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "microdata",
+                            "propertyType": "Text",
+                            "uid": "469375202557"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "Repository of config",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "konfiguration",
+                            "propertyType": "Text",
+                            "uid": "718282552093"
+                        }
+                    ]
+                },
+                "relationGroup": {
+                    "relations": [
+                        {
+                            "foreignRelationClass": "",
+                            "lazyLoading": false,
+                            "propertyIsExcludeField": true,
+                            "relationDescription": "",
+                            "relationName": "address",
+                            "relationType": "zeroToMany",
+                            "relationWire": "",
+                            "renderType": "inline",
+                            "uid": "1361960137150"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "properties": {
+        "backendModules": [
+            {
+                "actions": {
+                    "controllerActionCombinations": ""
+                },
+                "description": "",
+                "key": "tp3backend",
+                "mainModule": "tools",
+                "name": "tp3 Backend",
+                "tabLabel": "Labeltest"
+            }
+        ],
+        "description": "",
+        "emConf": {
+            "category": "module",
+            "custom_category": "",
+            "dependsOn": "typo3 => 7.6.0-8.9.99\n",
+            "disableLocalization": true,
+            "disableVersioning": true,
+            "skipGenerateDocumentationTemplate": false,
+            "sourceLanguage": "en",
+            "state": "beta",
+            "targetVersion": "7.6.0-8.9.99",
+            "version": "1.0.5"
+        },
+        "extensionKey": "tp3mods",
+        "name": "tp3 Mods",
+        "originalExtensionKey": "tp3mods",
+        "originalVendorName": "Tp3",
+        "persons": [
+            {
+                "company": "R&P IT Consulting GmbH",
+                "email": "email@thomasruta.de",
+                "name": "Thomas Ruta",
+                "role": "Developer"
+            }
+        ],
+        "plugins": [
+            {
+                "actions": {
+                    "controllerActionCombinations": "",
+                    "noncacheableActions": "",
+                    "switchableActions": ""
+                },
+                "key": "tp3micro",
+                "name": "tp3 microdata"
+            }
+        ],
+        "vendorName": "Tp3"
+    },
+    "wires": [],
+    "log": {
+        "last_modified": "2017-11-20 07:38",
+        "extension_builder_version": "7.6.18",
+        "be_user": " (1)"
+    }
+}

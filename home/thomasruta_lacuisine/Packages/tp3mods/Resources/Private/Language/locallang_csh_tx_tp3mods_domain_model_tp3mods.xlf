@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-20T19:38:26Z" product-name="tp3mods">
+		<header/>
+		<body>
+			<trans-unit id="tx_tp3mods_domain_model_tp3micro">
+				<source>tp3 microdata</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3mods_domain_model_tp3micro.description">
+				<source></source>
+			</trans-unit>
+			<trans-unit id="microdata.description">
+				<source>Repository of Microdara</source>
+			</trans-unit>
+			<trans-unit id="konfiguration.description">
+				<source>Repository of config</source>
+			</trans-unit>
+			<trans-unit id="address.description">
+				<source>address</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
