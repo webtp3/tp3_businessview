@@ -15,5 +15,4 @@ return array(
     'Tx_Phpunit_TestCase' => \TYPO3\CMS\Core\Tests\Unit\Resource\BaseTestCase::class,
     'PHPUnit_Framework_TestCase' => \TYPO3\TestingFramework\Core\Unit\UnitTestCase::class,
     'Tx_Phpunit_Database_TestCase' => \TYPO3\TestingFramework\Core\Unit\UnitTestCase::class
-
 );
