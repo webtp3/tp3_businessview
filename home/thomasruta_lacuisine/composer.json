@@ -123,7 +123,7 @@
 		"apen/additional_reports":"*",
 		"web-tp3/wec_map": "dev-tp8",
 		"directmailteam/direct-mail":"^5.2",
-		"typo3-ter/cal":"^1.11",
+		"typo3-ter/cal":"1.11.2-dev",
 		"causal/extractor":"^1"
 
 	},

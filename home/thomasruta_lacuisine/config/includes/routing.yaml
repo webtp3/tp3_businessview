@@ -2,7 +2,6 @@ EXTCONF:
     realurl:
         _DOMAINS:
             encode:
-
                 - { GETvar: L, value: '0', useConfiguration: tp3_site.tld, urlPrepend: 'http://%conf(EXTCONF.tp3_site.defaultLanguageDomain)%' }
                 - { GETvar: L, value: '0', useConfiguration: bettina-mackeprang.de, urlPrepend: 'http://%conf(EXTCONF.bettina_mackeprang.defaultLanguageDomain)%' }
                 - { GETvar: L, value: '0', useConfiguration: honda-lorenz.de, urlPrepend: 'http://%conf(EXTCONF.honda_lorenz.defaultLanguageDomain)%' }
@@ -30,7 +29,7 @@ EXTCONF:
             decode:
                 '%conf(EXTCONF.tp3_site.defaultLanguageDomain)%':
                     GETvars: { L: '0' }
-                    useConfiguration: tp3_site.tld
+                    useConfiguration: default.tld
                 '%conf(EXTCONF.bettina_mackeprang.defaultLanguageDomain)%':
                     GETvars: { L: '0' }
                     useConfiguration: bettina-mackeprang.de
@@ -64,7 +63,6 @@ EXTCONF:
                 '%conf(EXTCONF.dev_rp.englishDomain)%':
                     GETvars: { L: '2' }
                     useConfiguration: dev.r-p-it.com
-
 
         default.tld:
             init:
