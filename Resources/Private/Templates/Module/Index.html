@@ -14,7 +14,8 @@
             <f:then>
                 <f:render partial="Tp3BusinessView/Intro" arguments="{conf:conf}" />
 
-            </f:then><f:else>
+            </f:then>
+            <f:else>
             <div class="businessviewlist clearfix">
             <h2>Businessviews</h2>
                 <f:for each="{businessviews}" as="businessview" iteration="Iterator">
@@ -68,19 +69,20 @@
                 </f:for>
             </table>
 
-        </f:else></f:if>
+        </f:else>
+        </f:if>
 
         <script>
             window.businessviewJsonsArray = window.businessviewJsonsArray || [];
-            <for each="{businessViewJson}" as="Json"  iteration="Iterator">
+            <f:for each="{businessViewJson}" as="Json"  iteration="Iterator">
 
-            <f:if condition="{Iterator.index} < 1">
-                <f:then>
-            window.businessviewJson =;  <format.raw>{Json}</f:format.raw>;
-                </f:then>
-                </f:if>;
+                <f:if condition="{Iterator.index} < 1">
+                    <f:then>
+                        window.businessviewJson =  <f:format.raw>{Json}</f:format.raw>;
+                    </f:then>
+                </f:if>
 
-            window.businessviewJsonsArray[{Iterator.index}]=; <format.raw>{Json}</f:format.raw>;
+                window.businessviewJsonsArray[{Iterator.index}]=<f:format.raw>{Json}</f:format.raw>;
             </f:for>
 
         </script>
