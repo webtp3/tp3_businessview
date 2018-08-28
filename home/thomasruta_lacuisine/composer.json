@@ -2,7 +2,7 @@
 	"name": "thomasruta/tp3_tests",
 	"type": "library",
 	"description":"developt Testings for tp3",
-	"minimum-stability": "beta",
+	"minimum-stability": "dev",
 	"license":"proprietary",
 	"authors": [
 		{
@@ -113,13 +113,15 @@
 		"web-tp3/tp3jobs": "dev-master",
 		"web-tp3/tp3mods": "^1",
 		"web-tp3/tp3social": "1.0.10",
+		"web-tp3/tp3-facebook": "^1.1",
+
 		"web-tp3/tp3_openhours": "dev-develop",
-		"web-tp3/tp3ratings":"*",
+		"web-tp3/tp3ratings": "^1",
 		"typo3-ter/sr-email-subscribe":"^5.1",
 		"typo3-ter/tt-address": "3.2.4",
 		"typo3-ter/simplegrids":"^3.1",
 		"fluidtypo3/vhs":"*",
-		"yoast-seo-for-typo3/yoast_seo": "dev-master",
+		"yoast-seo-for-typo3/yoast_seo": "3.0.5",
 		"typo3-ter/sr-feuser-register": "^5.1",
 		"in2code/powermail": "dev-master",
 		"causal/tscobj":"*",
@@ -202,15 +204,15 @@
 			"@php -v",
 			"@php vendor/phpunit/phpunit/phpunit -c vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml"
 		],
-		"CAG_test:extension-tests": [
-			"@php binn/phpunit  --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log",
-			"@php binn/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml  --teamcity --log-junit  UnitTestsDeprecated.log",
-			"@php binn/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml  --teamcity --log-junit  FunctionalTests.log"
-		],
 		"CAG_test:core-tests": [
-			"@php binn/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log",
-			"@php binn/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml   --teamcity --log-junit  UnitTestsDeprecated.log",
-			"@php binn/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml   --teamcity --log-junit  FunctionalTests.log"
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log",
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/UnitTestsDeprecated.xml  --teamcity --log-junit  UnitTestsDeprecated.log",
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/FunctionalTests.xml  --teamcity --log-junit  FunctionalTests.log"
+		],
+		"CAG_test:extension-tests": [
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log",
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTestsDeprecated.xml   --teamcity --log-junit  UnitTestsDeprecated.log",
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/FunctionalTests.xml   --teamcity --log-junit  FunctionalTests.log"
 		]
 	},
 	"autoload": {

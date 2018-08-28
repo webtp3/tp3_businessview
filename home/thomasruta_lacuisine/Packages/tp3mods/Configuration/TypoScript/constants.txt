@@ -2,11 +2,11 @@
 plugin.tx_tp3mods_tp3micro{
   view{
     # cat=plugin.tx_tp3mods_tp3micro/file; type=string; label=Path to template root (FE)
-    templateRootPath = EXT:tp3mods/Resources/Private/Templates/
+      templateRootPath = EXT:tp3mods/Resources/Private/Templates/Page/
     # cat=plugin.tx_tp3mods_tp3micro/file; type=string; label=Path to template partials (FE)
-    partialRootPath = EXT:tp3mods/Resources/Private/Partials/
+      partialRootPath = EXT:tp3mods/Resources/Private/Partials/Page/
     # cat=plugin.tx_tp3mods_tp3micro/file; type=string; label=Path to template layouts (FE)
-    layoutRootPath = EXT:tp3mods/Resources/Private/Layouts/
+      layoutRootPath = EXT:tp3mods/Resources/Private/Layouts/Page/
   }
   persistence{
     # cat=plugin.tx_tp3mods_tp3micro//a; type=string; label=Default storage PID
@@ -74,4 +74,22 @@ module.tx_tp3mods_tp3backend{
     # cat=module.tx_tp3mods_tp3backend//a; type=string; label=Default storage PID
     storagePid =
   }
+}
+
+page.fluidtemplate {
+    # cat=bootstrap package: advanced/100/100; type=string; label=Layout Root Path: Path to layouts
+    layoutRootPath = EXT:tp3mods/Resources/Private/Layouts/Page/
+    # cat=bootstrap package: advanced/100/110; type=string; label=Partial Root Path: Path to partials
+    partialRootPath = EXT:tp3mods/Resources/Private/Partials/Page/
+    # cat=bootstrap package: advanced/100/120; type=string; label=Template Root Path: Path to templates
+    templateRootPath = EXT:tp3mods/Resources/Private/Templates/Page/
+}
+
+styles.templates {
+    # cat=content/templates/b1; type=string; label= Path of Fluid Templates for all defined content elements
+    templateRootPath = {$plugin.tx_tp3mods_tp3micro.templateRootPath}
+    # cat=content/templates/b2; type=string; label= Path of Fluid Partials for all defined content elements
+    partialRootPath = {$plugin.tx_tp3mods_tp3micro.partialRootPath}
+    # cat=content/templates/b3; type=string; label= Path of Fluid Layouts for all defined content elements
+    layoutRootPath = {$plugin.tx_tp3mods_tp3micro.layoutRootPath}
 }

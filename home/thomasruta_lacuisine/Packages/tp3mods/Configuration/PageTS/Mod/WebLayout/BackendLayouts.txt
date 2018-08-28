@@ -1,0 +1,4 @@
+########################
+#### BACKENDLAYOUTS ####
+########################
+<INCLUDE_TYPOSCRIPT: source="DIR:EXT:tp3mods/Configuration/PageTS/Mod/WebLayout/BackendLayouts" extensions="txt">

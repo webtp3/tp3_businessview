@@ -133,12 +133,12 @@ class AcceptanceCoreEnvironment extends Extension
      * @var array
      */
     protected $xmlDatabaseFixtures = [
-        'EXT:cag_tests/Tests/Acceptance/Fixtures/be_users.xml',
-        'EXT:cag_tests/Tests/Acceptance/Fixtures/be_sessions.xml',
-        'EXT:cag_tests/Tests/Acceptance/Fixtures/be_groups.xml',
-        'EXT:cag_tests/Tests/Acceptance/Fixtures/sys_category.xml',
-        'EXT:cag_tests/Tests/Acceptance/Fixtures/tx_extensionmanager_domain_model_extension.xml',
-        'EXT:cag_tests/Tests/Acceptance/Fixtures/tx_extensionmanager_domain_model_repository.xml',
+        'EXT:cag_tests/Resources/Ext/Acceptance/Fixtures/be_users.xml',
+        'EXT:cag_tests/Resources/Ext/Acceptance/Fixtures/be_sessions.xml',
+        'EXT:cag_tests/Resources/Ext/Acceptance/Fixtures/be_groups.xml',
+        'EXT:cag_tests/Resources/Ext/Acceptance/Fixtures/sys_category.xml',
+        'EXT:cag_tests/Resources/Ext/Acceptance/Fixtures/tx_extensionmanager_domain_model_extension.xml',
+        'EXT:cag_tests/Resources/Ext/Acceptance/Fixtures/tx_extensionmanager_domain_model_repository.xml',
     ];
 
     /**

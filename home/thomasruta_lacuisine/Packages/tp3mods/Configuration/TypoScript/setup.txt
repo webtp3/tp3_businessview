@@ -300,10 +300,202 @@ if(privacyPopup_open != "1")tp3_app.privacyPopup();
     page.footerData.555 < lib.cookieconsent
 
 
+page.10 {
+    templateName = TEXT
+    templateName.stdWrap.cObject = CASE
+    templateName.stdWrap.cObject {
+        key.data = pagelayout
+
+        pagets__default_clean = TEXT
+        pagets__default_clean.value = DefaultClean
+
+        pagets__default_2_columns = TEXT
+        pagets__default_2_columns.value = Default2Columns
+
+        pagets__default_2_columns_25_75 = TEXT
+        pagets__default_2_columns_25_75.value = Default2Columns2575
+
+        pagets__default_2_columns_50_50 = TEXT
+        pagets__default_2_columns_50_50.value = Default2Columns5050
+
+        pagets__default_2_columns_offset_right = TEXT
+        pagets__default_2_columns_offset_right.value = Default2ColumnsOffsetRight
+
+        pagets__default_3_columns = TEXT
+        pagets__default_3_columns.value = Default3Columns
+
+        pagets__default_subnavigation_right = TEXT
+        pagets__default_subnavigation_right.value = DefaultSubNavRight
+
+        pagets__default_subnavigation_right_2_columns = TEXT
+        pagets__default_subnavigation_right_2_columns.value = DefaultSubNavRight2Columns
+
+        pagets__default_subnavigation_left = TEXT
+        pagets__default_subnavigation_left.value = DefaultSubNavLeft
+
+        pagets__default_subnavigation_left_2_columns = TEXT
+        pagets__default_subnavigation_left_2_columns.value = DefaultSubNavLeft2Columns
+
+        pagets__special_start = TEXT
+        pagets__special_start.value = SpecialStart
+
+        pagets__special_feature = TEXT
+        pagets__special_feature.value = SpecialFeature
+
+        pagets__newsletter = TEXT
+        pagets__newsletter.value = Newsletter
+
+        default = TEXT
+        default.value = Default
+    }
+
+    settings {
+        snippet_type = {$snippet_type}
+    }
+
+    templateRootPaths {
+        0 = EXT:tp3mods/Resources/Private/Templates/Page/
+        1 = {$page.fluidtemplate.templateRootPath}
+    }
 
 
+    partialRootPaths {
+        0 = EXT:tp3mods/Resources/Private/Partials/Page/
+        1 = {$page.fluidtemplate.partialRootPath}
+    }
 
+    layoutRootPaths {
+        0 = EXT:tp3mods/Resources/Private/Layouts/Page/
+        1 = {$page.fluidtemplate.layoutRootPath}
+    }
 
+    ##########################
+    ### DATA PREPROCESSING ###
+    ##########################
+    dataProcessing {
+        10 = TYPO3\CMS\Frontend\DataProcessing\MenuProcessor
+        10 {
+            levels = 2
+            includeSpacer = 1
+            as = mainnavigation
+        }
+
+        20 = TYPO3\CMS\Frontend\DataProcessing\MenuProcessor
+        20 {
+            entryLevel = 1
+            levels = 2
+            expandAll = 0
+            includeSpacer = 1
+            as = subnavigation
+        }
+
+        30 = TYPO3\CMS\Frontend\DataProcessing\MenuProcessor
+        30 {
+            special = rootline
+            special.range = 0|-1
+            includeNotInMenu = 1
+            as = breadcrumb
+            if {
+                value = {$page.theme.breadcrumbEnableLevel}
+                value {
+                    insertData = 1
+                    prioriCalc = 1
+                    stdWrap.wrap = |-1
+                }
+
+                isGreaterThan {
+                    data = level
+                }
+            }
+        }
+
+        40 = TYPO3\CMS\Frontend\DataProcessing\MenuProcessor
+        40 {
+            special = language
+            special.value = {$page.theme.language.languageValue}
+            as = languagenavigation
+            if {
+                isTrue = {$page.theme.language.languageValue}
+            }
+        }
+
+        50 = TYPO3\CMS\Frontend\DataProcessing\MenuProcessor
+        50 {
+            special = {$page.theme.meta.navigationType}
+            special.value = {$page.theme.meta.navigationValue}
+            includeNotInMenu = {$page.theme.meta.includeNotInMenu}
+            as = metanavigation
+            if {
+                isTrue = {$page.theme.meta.navigationValue}
+            }
+        }
+    }
+
+    ################
+    ### SETTINGS ###
+    ################
+    settings {
+        logo {
+            file = {$page.logo.file}
+            fileInverted = {$page.logo.fileInverted}
+            height = {$page.logo.height}
+            width = {$page.logo.width}
+            linktitle = {$page.logo.linktitle}
+        }
+
+        breadcrumb {
+            enable = {$page.theme.breadcrumb}
+        }
+
+        navigation {
+            style = {$page.theme.navigationstyle}
+            type = {$page.theme.navigationtype}
+        }
+
+        copyright {
+            enable = {$page.theme.copyright.enable}
+            text = {$page.theme.copyright.text}
+        }
+
+        meta {
+            enable = {$page.theme.meta.enable}
+        }
+
+        language {
+            enable = {$page.theme.language.enable}
+        }
+    }
+
+    #################
+    ### VARIABLES ###
+    #################
+    variables {
+        showFooter = TEXT
+        showFooter.value = {$page.theme.footersection.enable}
+        pageTitle = TEXT
+        pageTitle.data = page:title
+        siteTitle = TEXT
+        siteTitle.data = TSFE:tmpl|setup|sitetitle
+        rootPage = TEXT
+        rootPage.data = leveluid:0
+        logoAlt = COA
+        logoAlt {
+            10 = TEXT
+            10 {
+                data = TSFE:tmpl|setup|sitetitle
+                noTrimWrap = || logo|
+                if.isFalse = {$page.logo.alt}
+            }
+
+            20 = TEXT
+            20 {
+                value = {$page.logo.alt}
+                if.isTrue = {$page.logo.alt}
+            }
+        }
+    }
+
+}
 /*
 tt_content {
 tp3mods_downloads < lib.fluidContent

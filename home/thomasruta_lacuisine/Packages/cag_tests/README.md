@@ -63,12 +63,12 @@ https://getcomposer.org/ should be available on the system already, see its docu
 
 TYPO3 >=8.7
 ```bash
- php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTests.xml --teamcity
+ php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTests.xml --teamcity
 ```
 
 for Deprecated Units
 ```bash
- php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml --teamcity
+ php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTestsDeprecated.xml --teamcity
 ``` 
 
 ###  Functional Testing 
@@ -91,7 +91,7 @@ Execute all functional tests
 
 TYPO3 >=8.7
 ```bash
- php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml --teamcity
+ php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/FunctionalTests.xml --teamcity
 ```
 
 ###  Acceptance Testing 
@@ -113,7 +113,7 @@ sleep 3;
 
 ```bash
 typo3DatabaseName='c1_cag_tests' typo3DatabaseHost='localhost' typo3DatabaseUsername='username' typo3DatabasePassword='pw' \
- vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
+ vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Resources/Ext/Build/AcceptanceTests.yml
 ``` 
 
 **TODO:** Beispiel Tests für eigene Extensions!
