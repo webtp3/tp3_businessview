@@ -1,79 +1,83 @@
+disableDevmode = 1
 //##
 plugin.tx_tp3mods_tp3micro{
-  view{
-    # cat=plugin.tx_tp3mods_tp3micro/file; type=string; label=Path to template root (FE)
-      templateRootPath = EXT:tp3mods/Resources/Private/Templates/Page/
-    # cat=plugin.tx_tp3mods_tp3micro/file; type=string; label=Path to template partials (FE)
-      partialRootPath = EXT:tp3mods/Resources/Private/Partials/Page/
-    # cat=plugin.tx_tp3mods_tp3micro/file; type=string; label=Path to template layouts (FE)
-      layoutRootPath = EXT:tp3mods/Resources/Private/Layouts/Page/
-  }
-  persistence{
-    # cat=plugin.tx_tp3mods_tp3micro//a; type=string; label=Default storage PID
-    storagePid =
-  }
+    view{
+        # cat=plugin.tx_tp3mods_tp3micro/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:tp3mods/Resources/Private/Templates/Page/
+        # cat=plugin.tx_tp3mods_tp3micro/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:tp3mods/Resources/Private/Partials/Page/
+        # cat=plugin.tx_tp3mods_tp3micro/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:tp3mods/Resources/Private/Layouts/Page/
+    }
+
+    persistence{
+        # cat=plugin.tx_tp3mods_tp3micro//a; type=string; label=Default storage PID
+        storagePid =
+    }
 }
+
 plugin.tx_tp3mods_tp3micro{
-  privacyProtect = 1
-  privacyPid = {$privacyPid}
-  settings{
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3App
-      Tp3App = 1
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include glyphicons
-      glyphicons = 1
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include awesomeicons
-      awesomeicons = 1
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3Css
-      Tp3Css = 1
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=Analytics Account
-      account = {$page.tracking.google.trackingID}
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=Use Advertizing (Werbeanzeigen)
-      advertizing = 0
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=anonymized
-      anonymized = 1
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=demographics (Display Feature)
-      demographics = 0
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=trackpageload
-      trackpageload = 0
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=inpagelinkid
-      inpagelinkid = 0
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=doubleclick
-      doubleclick = 0
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=UAdualtag
-      UAdualtag = 0
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=bouncerate
-      bouncerate = 0
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=trackexternal
-      trackexternal = 1
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=options[universal=universal,mobile=mobile,sync=sync,async=async]; label=type
-      type = async
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=optout
-      optout = 1
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=_setDomainName
-      _setDomainName = {$baseUrl}
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=optout.disablefunction
-      optout.disablefunction = 0
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=trackfiles
-      trackfiles = 1
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=path
-      path = fileadmin
-      # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=Text cookieconsent
-      cookieconsent=Diese Webseite benutzt google Analytics und Cookies für die optimale Leistung. Sie stimmen hiermit zu.
+    privacyProtect = 1
+    privacyPid = {$privacyPid}
+    settings{
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3App
+        Tp3App = 1
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include glyphicons
+        glyphicons = 1
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include awesomeicons
+        awesomeicons = 1
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3Css
+        Tp3Css = 1
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=Analytics Account
+        account = {$page.tracking.google.trackingID}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=Use Advertizing (Werbeanzeigen)
+        advertizing = 0
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=anonymized
+        anonymized = 1
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=demographics (Display Feature)
+        demographics = 0
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=trackpageload
+        trackpageload = 0
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=inpagelinkid
+        inpagelinkid = 0
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=doubleclick
+        doubleclick = 0
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=UAdualtag
+        UAdualtag = 0
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=bouncerate
+        bouncerate = 0
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=trackexternal
+        trackexternal = 1
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=options[universal=universal,mobile=mobile,sync=sync,async=async]; label=type
+        type = async
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=optout
+        optout = 1
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=_setDomainName
+        _setDomainName = {$baseUrl}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=optout.disablefunction
+        optout.disablefunction = 0
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=trackfiles
+        trackfiles = 1
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=path
+        path = fileadmin
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=Text cookieconsent
+        cookieconsent=Diese Webseite benutzt google Analytics und Cookies für die optimale Leistung. Sie stimmen hiermit zu.
     }
 }
 module.tx_tp3mods_tp3backend{
-  view{
-    # cat=module.tx_tp3mods_tp3backend/file; type=string; label=Path to template root (BE)
-    templateRootPath = EXT:tp3mods/Resources/Private/Backend/Templates/
-    # cat=module.tx_tp3mods_tp3backend/file; type=string; label=Path to template partials (BE)
-    partialRootPath = EXT:tp3mods/Resources/Private/Backend/Partials/
-    # cat=module.tx_tp3mods_tp3backend/file; type=string; label=Path to template layouts (BE)
-    layoutRootPath = EXT:tp3mods/Resources/Private/Backend/Layouts/
-  }
-  persistence{
-    # cat=module.tx_tp3mods_tp3backend//a; type=string; label=Default storage PID
-    storagePid =
-  }
+    view{
+        # cat=module.tx_tp3mods_tp3backend/file; type=string; label=Path to template root (BE)
+        templateRootPath = EXT:tp3mods/Resources/Private/Backend/Templates/
+        # cat=module.tx_tp3mods_tp3backend/file; type=string; label=Path to template partials (BE)
+        partialRootPath = EXT:tp3mods/Resources/Private/Backend/Partials/
+        # cat=module.tx_tp3mods_tp3backend/file; type=string; label=Path to template layouts (BE)
+        layoutRootPath = EXT:tp3mods/Resources/Private/Backend/Layouts/
+    }
+
+    persistence{
+        # cat=module.tx_tp3mods_tp3backend//a; type=string; label=Default storage PID
+        storagePid =
+    }
 }
 
 page.fluidtemplate {
@@ -93,3 +97,53 @@ styles.templates {
     # cat=content/templates/b3; type=string; label= Path of Fluid Layouts for all defined content elements
     layoutRootPath = {$plugin.tx_tp3mods_tp3micro.layoutRootPath}
 }
+
+
+##############
+### CONFIG ###
+##############
+config {
+    # cat=bootstrap package: advanced/150/100; type=string; label=BaseURL: This will override the default automatic BaseURL determination
+    baseURL = {$baseUrl}
+    # cat=bootstrap package: advanced/150/110; type=boolean; label=No Cache
+    no_cache = 0
+    # cat=bootstrap package: advanced/150/120; type=options[Do not remove=0,Remove=1,Move to external file=external]; label=Remove default JavaScript
+    removeDefaultJS = 0
+    # cat=bootstrap package: advanced/150/130; type=boolean; label=Compress JavaScript
+    compressJs = {$disableDevmode}
+    # cat=bootstrap package: advanced/150/140; type=boolean; label=Compress Css
+    compressCss = $disableDevmode
+    # cat=bootstrap package: advanced/150/150; type=boolean; label=Concatenate JavaScript
+    concatenateJs = $disableDevmode
+    # cat=bootstrap package: advanced/150/160; type=boolean; label=Concatenate Css
+    concatenateCss = $disableDevmode
+    # cat=bootstrap package: advanced/150/180; type=string; label=Header Comment
+    headerComment = tp3 - modular web - based on the TYPO3 Bootstrap Package
+
+}
+
+plugin.bootstrap_package {
+    view {
+        # cat=bootstrap package: advanced/BoostrapPackageExtensions/layoutRootPath; type=string; label=Layout Root Path: Path to layouts
+        layoutRootPath = EXT:tp3mods/Resources/Private/Layouts/
+        # cat=bootstrap package: advanced/BoostrapPackageExtensions/partialRootPath; type=string; label=Partial Root Path: Path to partials
+        partialRootPath = EXT:tp3mods/Resources/Private/Partials/
+        # cat=bootstrap package: advanced/BoostrapPackageExtensions/templateRootPath; type=string; label=Template Root Path: Path to templates
+        templateRootPath = EXT:tp3mods/Resources/Private/Templates/
+    }
+}
+
+#########################
+### BOOTSTRAP PACKAGE ###
+#########################
+plugin.bootstrap_package {
+    settings {
+        # cat=bootstrap package: advanced/190/100; type=boolean; label=Override LESS Variables: If enabled the variables defined in your LESS files will be overridden with the ones defined as TypoScript Constants.
+        overrideLessVariables = 1
+        # cat=bootstrap package: advanced/190/110; type=boolean; label=CSS source mapping: Create a CSS source map useful to debug Less in browser developer tools. Note: CSS compression will be disabled.
+        cssSourceMapping = 1
+    }
+}
+
+# cat=tp3mods: advanced/190/100; type=string; label=Snippet type for page (can also be product etc. see https://schema.org/WebPage)
+snippet_type = WebPage

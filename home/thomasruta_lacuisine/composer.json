@@ -114,11 +114,10 @@
 		"web-tp3/tp3mods": "^1",
 		"web-tp3/tp3social": "1.0.10",
 		"web-tp3/tp3-facebook": "^1.1",
-
 		"web-tp3/tp3_openhours": "dev-develop",
 		"web-tp3/tp3ratings": "^1",
 		"typo3-ter/sr-email-subscribe":"^5.1",
-		"typo3-ter/tt-address": "3.2.4",
+      "typo3-ter/tt-address": "3.2.5",
 		"typo3-ter/simplegrids":"^3.1",
 		"fluidtypo3/vhs":"*",
 		"yoast-seo-for-typo3/yoast_seo": "3.0.5",

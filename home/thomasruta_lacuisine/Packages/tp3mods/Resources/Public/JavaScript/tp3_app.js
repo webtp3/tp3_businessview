@@ -456,8 +456,7 @@ jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.childr
 var panorama;var panoJumpTimer;var panoRotationTimer;var panoResizeTimer;var panoResizeCounter=0;var businessviewSidebarModulesSelector='';var showSidebar=false;var startCoords={},endCoords={};var zoom=1;var updateInfoPointsStartTimer;var updateInfoPointsCounter=0;var $panoCanvas=null;var panoCanvasHeight=0;var panoCanvasWidth=0;
 
 
-
-tp3_app.controls = function(){
+tp3_app.controls = tp3_app.controls || function () {
     $j('input[type="checkbox"]').each(function(){
         $j(this).insertBefore($j(this).parent('label'))
     })

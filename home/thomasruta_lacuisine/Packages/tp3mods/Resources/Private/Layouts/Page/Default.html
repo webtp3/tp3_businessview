@@ -1,7 +1,7 @@
 <f:spaceless>
     <div id="top"></div>
     <div class="body-bg{f:if(condition:settings.navigation.type, then:' body-bg-{settings.navigation.type}')}"
-         itemscope="" itemtype="http://schema.org/{settings.snippet_type}">
+         itemscope="" itemtype="http://schema.org/{settings.snippet.snippet_type}">
         <f:if condition="{settings.newsletter}">
             <f:then>
                 <f:render partial="Navigation/Newsletter" arguments="{_all}"/>

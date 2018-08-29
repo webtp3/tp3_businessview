@@ -12,12 +12,11 @@
     height: 50px;
 }
 div.jumbotron a {
-    color: #fff;
+
     text-decoration: underline;
     text-shadow: #ccc 1pt 2pt 1pt;
 }
 div.jumbotron a.btn  {
-    color: #000;
     text-decoration: none;
 }
 #tp3Carousel .carousel-inner > .item {
@@ -74,9 +73,6 @@ div.main-section .frame{
     padding-top: 20px;
 }
 
-.navbar-brand .navbar-brand-logo-inverted {
-    display: none!important;
-}
 .tp3review-rating a {
     padding: 0 10px;
 }
@@ -110,9 +106,7 @@ div.main-section .frame{
     padding-left: 15px;
     padding-right: 5px;
 }
-.main-section .row [class^="col"] {
-    background: rgba(255,255,255,0.8);
-}
+
 #content .tx-cal-controller .month-large div.vevent a:link span.popup, #content  .tx-cal-controller .month-large div.vevent a:visited span.popup,#content  .tx-cal-controller .month-medium span.popup {
     display: block;
 }
@@ -138,16 +132,16 @@ div.main-section .frame-jumbotron [class^="col"] {
 .modal-open .modal-side {
     overflow: auto!important;
 }
+
 /*
 tt_address
 */
 .tx-ttaddress-pi1 {
     padding: 10px 5px;
-    border: 1pt solid rgba(255,255,255,0.4);
+/ / border: 1 pt solid #fff;
     background-color: rgba(255,255,255,0.2);
-
-    border-radius: 2px;
-    margin-right: 5px;
+    border-radius: 5px;
+    margin-right: 1px;
 }
 #content .fa:before {
     padding-right: 5px;
@@ -163,6 +157,24 @@ tt_address
 .tx-ttaddress-pi1 .adr {
     padding: 5px 15px;
 }
+
+.section.section-default {
+    padding-top: 0;
+}
+
+.tx_tp3jobs table {
+    width: 100%;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 /*
  * Mobile Adds Css
  */
@@ -262,5 +274,27 @@ tt_address
     .greeting  {
         left: 5%;
         width: 90%;
+    }
+}
+
+@media (min-width: 992px) {
+    .meta-section ul, .meta-section p {
+        margin: 0
+    }
+
+    .meta-section .copyright {
+        text-align: right
+    }
+
+    .row {
+        display: inline-flex;
+        padding: 10px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    header .navbar-header-main .navbar-brand.navbar-brand-image {
+        padding-top: 0;
     }
 }
