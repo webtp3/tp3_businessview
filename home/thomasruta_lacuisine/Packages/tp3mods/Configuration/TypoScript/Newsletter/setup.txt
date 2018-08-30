@@ -1,3 +1,82 @@
+#tt_content.image =< lib.contentElement
+#tt_content.image {
+#    templateName = Image
+#    dataProcessing {
+#        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+#        10 {
+#            references.fieldName = image
+#        }
+#        20 = TYPO3\CMS\Frontend\DataProcessing\GalleryProcessor
+#        20 {
+#            maxGalleryWidth = {$styles.content.textmedia.maxW}
+#            maxGalleryWidthInText = {$styles.content.textmedia.maxWInText}
+#            columnSpacing = {$styles.content.textmedia.columnSpacing}
+#            borderWidth = {$styles.content.textmedia.borderWidth}
+#            borderPadding = {$styles.content.textmedia.borderPadding}
+#        }
+#    }
+#    stdWrap {
+#        editIcons = tt_content : image [imageorient|imagewidth|imageheight], [imagecols|imageborder], image_zoom
+#        editIcons {
+#            iconTitle.data = LLL:EXT:fluid_styled_content/Resources/Private/Language/FrontendEditing.xlf:editIcon.image
+#        }
+#    }
+#}
+
+tt_content.image >
+tt_content.image =< lib.contentElement
+tt_content.image {
+
+    ################
+    ### TEMPLATE ###
+    ################
+    templateName = NewsImage
+
+    ##########################
+    ### DATA PREPROCESSING ###
+    ##########################
+    dataProcessing {
+        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+        10 {
+            references.fieldName = image
+        }
+    }
+
+}
+
+tt_content.textpic >
+tt_content.textpic =< lib.contentElement
+tt_content.textpic {
+
+    ################
+    ### TEMPLATE ###
+    ################
+    templateName = TEXT
+    templateName.stdWrap.cObject = CASE
+    templateName.stdWrap.cObject {
+        key.field = imageorient
+        8 = TEXT
+        8.value = NewsTextpicBelow
+        25 = TEXT
+        25.value = NewsTextpicRight
+        26 = TEXT
+        26.value = NewsTextpicLeft
+        default = TEXT
+        default.value = NewsTextpicAbove
+    }
+
+    ##########################
+    ### DATA PREPROCESSING ###
+    ##########################
+    dataProcessing {
+        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+        10 {
+            references.fieldName = image
+        }
+    }
+
+}
+
 ##
 ## @package TYPO3
 ## @subpackage tx_directmail
@@ -93,8 +172,9 @@ tx_directmail_pi1.config {
 
 tx_directmail_pi1.10 = TEMPLATE
 tx_directmail_pi1.10 {
-    template = FILE
-    template.file = EXT:direct_mail/pi1/tx_directmail_pi1_plaintext.tmpl
+    template = FLUIDTEMPLATE
+    template < page.10
+    #template.file = EXT:direct_mail/pi1/tx_directmail_pi1_plaintext.tmpl
     marks.CONTENT < styles.content.get
     marks.CONTENT.renderObj =< plugin.tx_directmail_pi1
     marks.DATE = TEXT

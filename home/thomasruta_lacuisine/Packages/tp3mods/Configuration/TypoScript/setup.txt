@@ -97,17 +97,17 @@ module.tx_tp3mods_tools_tp3modstp3backend {
         layoutRootPaths.1 = {$module.tx_tp3mods_tp3backend.view.layoutRootPath}
     }
 }
-lib.fluidContent {
-    templateRootPaths {
-        200 = EXT:tp3mods/Resources/Private/Templates/ContentElements/
-    }
-    partialRootPaths {
-        200 = EXT:tp3mods/Resources/Private/Partials/ContentElements/
-    }
-    layoutRootPaths {
-        200 = EXT:tp3mods/Resources/Private/Layouts/ContentElements/
-    }
-}
+#lib.fluidContent {
+#    templateRootPaths {
+#        200 = EXT:tp3mods/Resources/Private/Templates/ContentElements/
+#    }
+#    partialRootPaths {
+#        200 = EXT:tp3mods/Resources/Private/Partials/ContentElements/
+#    }
+#    layoutRootPaths {
+#        200 = EXT:tp3mods/Resources/Private/Layouts/ContentElements/
+#    }
+#}
 
 #back move effect
 # todo prallax scrolling
@@ -334,19 +334,19 @@ page {
         }
 
         templateRootPaths {
-            0 = EXT:tp3mods/Resources/Private/Templates/Page/
-            1 = {$page.fluidtemplate.templateRootPath}
+            100 = EXT:tp3mods/Resources/Private/Templates/Page/
+            200 = {$page.fluidtemplate.templateRootPath}
         }
 
 
         partialRootPaths {
-            0 = EXT:tp3mods/Resources/Private/Partials/Page/
-            1 = {$page.fluidtemplate.partialRootPath}
+            100 = EXT:tp3mods/Resources/Private/Partials/Page/
+            200 = {$page.fluidtemplate.partialRootPath}
         }
 
         layoutRootPaths {
-            0 = EXT:tp3mods/Resources/Private/Layouts/Page/
-            1 = {$page.fluidtemplate.layoutRootPath}
+            100 = EXT:tp3mods/Resources/Private/Layouts/Page/
+            200 = {$page.fluidtemplate.layoutRootPath}
         }
 
         ##########################
