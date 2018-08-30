@@ -60,7 +60,7 @@ plugin.tx_tp3mods_tp3micro{
         trackfiles = 1
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=path
         path = fileadmin
-        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=Text cookieconsent
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=Text cookieconsent
         cookieconsent=Diese Webseite benutzt google Analytics und Cookies für die optimale Leistung. Sie stimmen hiermit zu.
     }
 }

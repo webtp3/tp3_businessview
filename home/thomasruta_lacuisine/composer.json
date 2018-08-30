@@ -53,7 +53,7 @@
 		"helhum/typo3-composer-setup": "^0.5.1",
 		"helhum/typo3-console": "^5.4",
 		"helhum/config-loader": "*",
-		"helhum/typo3-config-handling": "^0.7",
+		"helhum/typo3-config-handling": "^1.0",
 		"typo3/cms-composer-installers": "^1.4.2 || ^2.0",
 		"cogpowered/finediff": "~0.3.1",
 		"doctrine/dbal": "~2.5.4",
@@ -117,7 +117,7 @@
 		"web-tp3/tp3_openhours": "dev-develop",
 		"web-tp3/tp3ratings": "^1",
 		"typo3-ter/sr-email-subscribe":"^5.1",
-      "typo3-ter/tt-address": "3.2.5",
+      	"typo3-ter/tt-address": "3.2.5",
 		"typo3-ter/simplegrids":"^3.1",
 		"fluidtypo3/vhs":"*",
 		"yoast-seo-for-typo3/yoast_seo": "3.0.5",
@@ -168,7 +168,7 @@
 			"app-dir": "Build/",
 			"web-dir": "../../web",
 			"bin-dir": "bin",
-			"cms-package-dir": "Build/typo3/cms"
+			"cms-package-dir": "Build/vendor/typo3/cms"
 
 
 		},
