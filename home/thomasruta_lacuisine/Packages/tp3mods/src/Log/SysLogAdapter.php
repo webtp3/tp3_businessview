@@ -47,7 +47,7 @@ class SysLogAdapter
 
     public function __construct(LoggerInterface $logger = null)
     {
-        $this->logger = $logger ?: GeneralUtility::makeInstance(LogManager::class)->getLogger('CAG.SysLogAdapter');
+        $this->logger = $logger ?: GeneralUtility::makeInstance(LogManager::class)->getLogger('Tp3.SysLogAdapter');
     }
 
     public function log(array $arguments)

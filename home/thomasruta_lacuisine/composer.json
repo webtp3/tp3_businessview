@@ -125,7 +125,7 @@
 		"in2code/powermail": "dev-master",
 		"causal/tscobj":"*",
 		"apen/additional_reports":"*",
-		"web-tp3/wec_map": "dev-tp8",
+		"web-tp3/wec_map": "^4.0.2",
 		"directmailteam/direct-mail":"^5.2",
 		"typo3-ter/cal":"1.11.2-dev",
 		"causal/extractor":"^1"

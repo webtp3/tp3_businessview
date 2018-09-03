@@ -23,59 +23,59 @@
 #    }
 #}
 
-tt_content.image >
-tt_content.image =< lib.contentElement
-tt_content.image {
-
-    ################
-    ### TEMPLATE ###
-    ################
-    templateName = NewsImage
-
-    ##########################
-    ### DATA PREPROCESSING ###
-    ##########################
-    dataProcessing {
-        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
-        10 {
-            references.fieldName = image
-        }
-    }
-
-}
-
-tt_content.textpic >
-tt_content.textpic =< lib.contentElement
-tt_content.textpic {
-
-    ################
-    ### TEMPLATE ###
-    ################
-    templateName = TEXT
-    templateName.stdWrap.cObject = CASE
-    templateName.stdWrap.cObject {
-        key.field = imageorient
-        8 = TEXT
-        8.value = NewsTextpicBelow
-        25 = TEXT
-        25.value = NewsTextpicRight
-        26 = TEXT
-        26.value = NewsTextpicLeft
-        default = TEXT
-        default.value = NewsTextpicAbove
-    }
-
-    ##########################
-    ### DATA PREPROCESSING ###
-    ##########################
-    dataProcessing {
-        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
-        10 {
-            references.fieldName = image
-        }
-    }
-
-}
+#tt_content.image >
+#tt_content.image =< lib.contentElement
+#tt_content.image {
+#
+#    ################
+#    ### TEMPLATE ###
+#    ################
+#    templateName = NewsImage
+#
+#    ##########################
+#    ### DATA PREPROCESSING ###
+#    ##########################
+#    dataProcessing {
+#        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+#        10 {
+#            references.fieldName = image
+#        }
+#    }
+#
+#}
+#
+#tt_content.textpic >
+#tt_content.textpic =< lib.contentElement
+#tt_content.textpic {
+#
+#    ################
+#    ### TEMPLATE ###
+#    ################
+#    templateName = TEXT
+#    templateName.stdWrap.cObject = CASE
+#    templateName.stdWrap.cObject {
+#        key.field = imageorient
+#        8 = TEXT
+#        8.value = NewsTextpicBelow
+#        25 = TEXT
+#        25.value = NewsTextpicRight
+#        26 = TEXT
+#        26.value = NewsTextpicLeft
+#        default = TEXT
+#        default.value = NewsTextpicAbove
+#    }
+#
+#    ##########################
+#    ### DATA PREPROCESSING ###
+#    ##########################
+#    dataProcessing {
+#        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+#        10 {
+#            references.fieldName = image
+#        }
+#    }
+#
+#}
 
 ##
 ## @package TYPO3

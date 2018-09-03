@@ -121,12 +121,14 @@ tp3_app.initialize=function(){
             })
             if ( WECInit == undefined)  tp3_app.init = true;
 
-            if(!tp3_app.getCookieValue(disableStr)) tp3_app.privacyPopup();
+
         }
+        if(!tp3_app.getCookieValue(disableStr)) tp3_app.privacyPopup();
+        if($j.type(tp3_app.controls == "function"))tp3_app.controls();
+
     }catch (e){
         console.log(e);
     }
-    if($j.type(tp3_app.controls == "function"))tp3_app.controls();
 
 };
 var scroll, wresize, mobile = false;
