@@ -128,7 +128,8 @@
 		"web-tp3/wec_map": "^4.0.2",
 		"directmailteam/direct-mail":"^5.2",
 		"typo3-ter/cal":"1.11.2-dev",
-		"causal/extractor":"^1"
+		"causal/extractor":"^1",
+		"snowflakeops/varnish":"^2"
 
 	},
 	"require-dev": {

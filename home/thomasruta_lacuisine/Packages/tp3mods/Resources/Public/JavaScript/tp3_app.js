@@ -460,8 +460,10 @@ var panorama;var panoJumpTimer;var panoRotationTimer;var panoResizeTimer;var pan
 
 tp3_app.controls = tp3_app.controls || function () {
     $j('input[type="checkbox"]').each(function(){
-        $j(this).insertBefore($j(this).parent('label'))
+        $j(this).insertBefore($j(this).parent('label'));
+        $j(this).on("change", function(){$j(this).next("label").find("input").val($j(this).is(':checked') ? "checked" : "")})
     })
+
     if(!tp3_app.getCookieValue(disableStr)){
        if( $j.type("recordOutboundLink") == "function" ){
            $j. recordOutboundLink();
