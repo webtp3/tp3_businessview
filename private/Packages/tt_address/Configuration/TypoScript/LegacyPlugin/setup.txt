@@ -1,0 +1,108 @@
+plugin.tx_ttaddress_pi1 = USER
+plugin.tx_ttaddress_pi1 {
+	userFunc = TYPO3\TtAddress\Controller\LegacyPluginController->main
+
+	templatePath = EXT:tt_address/Resources/Public/LegacyPluginTemplate/
+	defaultTemplateFileName = default.html
+	pidList = 0
+	recursive = 0
+	sortByColumn = name
+	sortOrder = ASC
+	listMaxItems = 0
+
+	templates.default {
+		# supports the hcard microformats standard
+
+		image {
+            params = class="photo" style="float:left; margin-right:4px;clear:right;"
+			altText = Photo of {field:first_name} {field:middle_name} {field:last_name}
+			altText.insertData = 1
+			titleText = {field:first_name} {field:middle_name} {field:last_name}
+			titleText.insertData = 1
+			debugData = 1
+            wrap = <div class="item">|</div>
+		}
+
+		first_name {
+            innerWrap = <div class="tp3"><span class="fn">|
+			innerWrap.if.isFalse.field = middle_name
+            innerWrap2 = <div class="tp3"><span class="given-name">|</span>
+			innerWrap2.if.isTrue.field = middle_name
+            outerWrap = <div class="tp3"><span class="fn n">|
+			outerWrap.if.isTrue.field = middle_name
+		}
+
+        middle_name.wrap = <span class="additional-name">|</span>
+		middle_name.required = 1
+
+		last_name {
+            innerWrap = |</span></div>
+			innerWrap.if.isFalse.field = middle_name
+            innerWrap2 = <span class="family-name">|</span>/div>
+			innerWrap2.if.isTrue.field = middle_name
+            outerWrap = |</span></div>
+			outerWrap.if.isTrue.field = middle_name
+		}
+
+		organization {
+            wrap = <div class="org">|</div>
+			required = 1
+		}
+
+		email.typolink.parameter.field = email
+        email.typolink.ATagParams = class="email"
+		email.required = 1
+        email.wrap = <div class="item"><div class="fa fa-envelope"></div>|</div>
+
+		address {
+            wrap = <div class="street-address">|</div>
+			br =1
+			required = 1
+		}
+
+		city {
+            wrap = <span class="locality">|</span>
+			required = 1
+            outerWrap = |
+			outerWrap.if.isTrue.field = region
+		}
+
+		region {
+            wrap = <span class="region">|</span>
+			required = 1
+            outerWrap = |
+			outerWrap.if.isTrue.field = zip
+		}
+
+		zip {
+            noTrimWrap = | <span class="postal-code">|</span>&nbsp;|
+			required = 1
+            outerWrap = |
+			outerWrap.if.isFalse.field = region
+		}
+
+		country {
+            wrap = <span class="country-name">|</span>
+			required = 1
+		}
+
+        phone.wrap = <div class="tel phone"><div class="fa fa-phone"></div>|</div>
+		phone.required = 1
+
+        mobile.wrap = <div class="tel mobile"><div class="fa fa-mobile"></div>|</div>
+		mobile.required = 1
+
+        fax.wrap = <div class="tel fax"><div class=" fa fa-fax"></div>|</div>
+		fax.required = 1
+
+		subparts {
+			adr.hasOneOf = address, city, region, zip, country
+			url.typolink {
+				parameter.field = www
+				target =
+                ATagParams = class="url"
+                wrap = <div class="item"><div class=" fa fa-globe"></div>|</div>
+			}
+		}
+	}
+}
