@@ -22,7 +22,7 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => '0',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '1.1.5',
+    'version' => '1.1.7',
     'author_company' => 'tp3',
     'constraints' =>
         array (

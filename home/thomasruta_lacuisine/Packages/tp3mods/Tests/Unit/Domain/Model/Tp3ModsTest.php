@@ -1,6 +1,5 @@
 <?php
 namespace Tp3\Tp3mods\Tests\Unit\Domain\Model;
-use Tp3\Tp3mods\Domain\Model\Tp3Mods;
 
 /**
  * Test case.
@@ -97,7 +96,7 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setAddressForObjectStorageContainingSetsAddress()
     {
-        $addres = new (Tp3Mods::class);
+        $addres = new \Tp3\Tp3mods\Domain\Model\Tp3Mods();
         $objectStorageHoldingExactlyOneAddress = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneAddress->attach($addres);
         $this->subject->setAddress($objectStorageHoldingExactlyOneAddress);
@@ -115,7 +114,7 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addAddresToObjectStorageHoldingAddress()
     {
-        $addres = new (Tp3Mods::class);
+        $addres = new \Tp3\Tp3mods\Domain\Model\Tp3Mods();
         $addressObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
             ->setMethods(['attach'])
             ->disableOriginalConstructor()
@@ -132,7 +131,7 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function removeAddresFromObjectStorageHoldingAddress()
     {
-        $addres = new (Tp3Mods::class);
+        $addres = new \Tp3\Tp3mods\Domain\Model\Tp3Mods();
         $addressObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
             ->setMethods(['detach'])
             ->disableOriginalConstructor()

@@ -1,5 +1,5 @@
 {
-  "name": "friendsoftypo3/tt-address",
+  "name": "typo3-ter/tt-address",
   "type": "typo3-cms-extension",
   "description": "Displays a list of addresses from an address table on the page.",
   "keywords": [
@@ -7,7 +7,7 @@
     "extension",
     "addresses"
   ],
-  "version":"8.7.20",
+  "version": "3.2.5",
   "homepage": "https://github.com/FriendsOfTYPO3/tt_address",
   "authors": [
     {

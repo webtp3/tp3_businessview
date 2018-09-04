@@ -121,12 +121,14 @@ tp3_app.initialize=function(){
             })
             if ( WECInit == undefined)  tp3_app.init = true;
 
-            if(!tp3_app.getCookieValue(disableStr)) tp3_app.privacyPopup();
+
         }
+        if(!tp3_app.getCookieValue(disableStr)) tp3_app.privacyPopup();
+        if($j.type(tp3_app.controls == "function"))tp3_app.controls();
+
     }catch (e){
         console.log(e);
     }
-    if($j.type(tp3_app.controls == "function"))tp3_app.controls();
 
 };
 var scroll, wresize, mobile = false;
@@ -456,11 +458,12 @@ jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.childr
 var panorama;var panoJumpTimer;var panoRotationTimer;var panoResizeTimer;var panoResizeCounter=0;var businessviewSidebarModulesSelector='';var showSidebar=false;var startCoords={},endCoords={};var zoom=1;var updateInfoPointsStartTimer;var updateInfoPointsCounter=0;var $panoCanvas=null;var panoCanvasHeight=0;var panoCanvasWidth=0;
 
 
-
-tp3_app.controls = function(){
+tp3_app.controls = tp3_app.controls || function () {
     $j('input[type="checkbox"]').each(function(){
-        $j(this).insertBefore($j(this).parent('label'))
+        $j(this).insertBefore($j(this).parent('label'));
+        $j(this).on("change", function(){$j(this).next("label").find("input").val($j(this).is(':checked') ? "checked" : "")})
     })
+
     if(!tp3_app.getCookieValue(disableStr)){
        if( $j.type("recordOutboundLink") == "function" ){
            $j. recordOutboundLink();
