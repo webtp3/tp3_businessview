@@ -97,17 +97,17 @@ module.tx_tp3mods_tools_tp3modstp3backend {
         layoutRootPaths.1 = {$module.tx_tp3mods_tp3backend.view.layoutRootPath}
     }
 }
-#lib.fluidContent {
-#    templateRootPaths {
-#        200 = EXT:tp3mods/Resources/Private/Templates/ContentElements/
-#    }
-#    partialRootPaths {
-#        200 = EXT:tp3mods/Resources/Private/Partials/ContentElements/
-#    }
-#    layoutRootPaths {
-#        200 = EXT:tp3mods/Resources/Private/Layouts/ContentElements/
-#    }
-#}
+lib.fluidContent {
+    templateRootPaths {
+        200 = EXT:tp3mods/Resources/Private/Templates/ContentElements/
+    }
+    partialRootPaths {
+        200 = EXT:tp3mods/Resources/Private/Partials/ContentElements/
+    }
+    layoutRootPaths {
+        200 = EXT:tp3mods/Resources/Private/Layouts/ContentElements/
+    }
+}
 
 #back move effect
 # todo prallax scrolling
@@ -266,8 +266,8 @@ page {
 
     includeCSS {
         #enabled less css
-        #bootstrap = EXT:tp3mods/Resources/Public/Less/Bootstrap/bootstrap.less
-        theme = EXT:bootstrap_package/Resources/Public/Less/Theme/theme.less
+        bootstrap = EXT:tp3mods/Resources/Public/Less/Bootstrap/bootstrap.less
+        theme = EXT:tp3mods/Resources/Public/Less/Theme/theme.less
 
         #User Css
         tp3 = fileadmin/user_upload/{$username}/{$css_file}
@@ -283,71 +283,71 @@ page {
     }
 
     #fluid template
-#    10 {
-#
-#        templateName = TEXT
-#        templateName.stdWrap.cObject = CASE
-#        templateName.stdWrap.cObject {
-#            key.data = pagelayout
-#
-#            pagets__default_clean = TEXT
-#            pagets__default_clean.value = DefaultClean
-#
-#            pagets__default_2_columns = TEXT
-#            pagets__default_2_columns.value = Default2Columns
-#
-#            pagets__default_2_columns_25_75 = TEXT
-#            pagets__default_2_columns_25_75.value = Default2Columns2575
-#
-#            pagets__default_2_columns_50_50 = TEXT
-#            pagets__default_2_columns_50_50.value = Default2Columns5050
-#
-#            pagets__default_2_columns_offset_right = TEXT
-#            pagets__default_2_columns_offset_right.value = Default2ColumnsOffsetRight
-#
-#            pagets__default_3_columns = TEXT
-#            pagets__default_3_columns.value = Default3Columns
-#
-#            pagets__default_subnavigation_right = TEXT
-#            pagets__default_subnavigation_right.value = DefaultSubNavRight
-#
-#            pagets__default_subnavigation_right_2_columns = TEXT
-#            pagets__default_subnavigation_right_2_columns.value = DefaultSubNavRight2Columns
-#
-#            pagets__default_subnavigation_left = TEXT
-#            pagets__default_subnavigation_left.value = DefaultSubNavLeft
-#
-#            pagets__default_subnavigation_left_2_columns = TEXT
-#            pagets__default_subnavigation_left_2_columns.value = DefaultSubNavLeft2Columns
-#
-#            pagets__special_start = TEXT
-#            pagets__special_start.value = SpecialStart
-#
-#            pagets__special_feature = TEXT
-#            pagets__special_feature.value = SpecialFeature
-#
-#            pagets__newsletter = TEXT
-#            pagets__newsletter.value = Newsletter
-#
-#            default = TEXT
-#            default.value = Default
-#        }
-#
-#        templateRootPaths {
-#            100 = EXT:tp3mods/Resources/Private/Templates/Page/
-#            200 = {$page.fluidtemplate.templateRootPath}
-#        }
-#
-#
-#        partialRootPaths {
-#            100 = EXT:tp3mods/Resources/Private/Partials/Page/
-#            200 = {$page.fluidtemplate.partialRootPath}
-#        }
-#
-#        layoutRootPaths {
-#            100 = EXT:tp3mods/Resources/Private/Layouts/Page/
-#            200 = {$page.fluidtemplate.layoutRootPath}
-#        }
+    10 {
+
+        templateName = TEXT
+        templateName.stdWrap.cObject = CASE
+        templateName.stdWrap.cObject {
+            key.data = pagelayout
+
+            pagets__default_clean = TEXT
+            pagets__default_clean.value = DefaultClean
+
+            pagets__default_2_columns = TEXT
+            pagets__default_2_columns.value = Default2Columns
+
+            pagets__default_2_columns_25_75 = TEXT
+            pagets__default_2_columns_25_75.value = Default2Columns2575
+
+            pagets__default_2_columns_50_50 = TEXT
+            pagets__default_2_columns_50_50.value = Default2Columns5050
+
+            pagets__default_2_columns_offset_right = TEXT
+            pagets__default_2_columns_offset_right.value = Default2ColumnsOffsetRight
+
+            pagets__default_3_columns = TEXT
+            pagets__default_3_columns.value = Default3Columns
+
+            pagets__default_subnavigation_right = TEXT
+            pagets__default_subnavigation_right.value = DefaultSubNavRight
+
+            pagets__default_subnavigation_right_2_columns = TEXT
+            pagets__default_subnavigation_right_2_columns.value = DefaultSubNavRight2Columns
+
+            pagets__default_subnavigation_left = TEXT
+            pagets__default_subnavigation_left.value = DefaultSubNavLeft
+
+            pagets__default_subnavigation_left_2_columns = TEXT
+            pagets__default_subnavigation_left_2_columns.value = DefaultSubNavLeft2Columns
+
+            pagets__special_start = TEXT
+            pagets__special_start.value = SpecialStart
+
+            pagets__special_feature = TEXT
+            pagets__special_feature.value = SpecialFeature
+
+            pagets__newsletter = TEXT
+            pagets__newsletter.value = Newsletter
+
+            default = TEXT
+            default.value = Default
+        }
+
+        templateRootPaths {
+            100 = EXT:tp3mods/Resources/Private/Templates/Page/
+            200 = {$page.fluidtemplate.templateRootPath}
+        }
+
+
+        partialRootPaths {
+            100 = EXT:tp3mods/Resources/Private/Partials/Page/
+            200 = {$page.fluidtemplate.partialRootPath}
+        }
+
+        layoutRootPaths {
+            100 = EXT:tp3mods/Resources/Private/Layouts/Page/
+            200 = {$page.fluidtemplate.layoutRootPath}
+        }
 
         ##########################
         ### DATA PREPROCESSING ###

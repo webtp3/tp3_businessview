@@ -1,3 +1,6 @@
+# cat=tp3mods: advanced; type=string; label=Snippet type for page (can also be product etc. see https://schema.org/WebPage)
+snippet_type = WebPage
+# cat=tp3mods: advanced; type=boolean; label=disable dev mode (compress, concat,...)
 disableDevmode = 1
 //##
 plugin.tx_tp3mods_tp3micro{
@@ -112,11 +115,11 @@ config {
     # cat=bootstrap package: advanced/150/130; type=boolean; label=Compress JavaScript
     compressJs = {$disableDevmode}
     # cat=bootstrap package: advanced/150/140; type=boolean; label=Compress Css
-    compressCss = $disableDevmode
+    compressCss = {$disableDevmode}
     # cat=bootstrap package: advanced/150/150; type=boolean; label=Concatenate JavaScript
-    concatenateJs = $disableDevmode
+    concatenateJs = {$disableDevmode}
     # cat=bootstrap package: advanced/150/160; type=boolean; label=Concatenate Css
-    concatenateCss = $disableDevmode
+    concatenateCss = {$disableDevmode}
     # cat=bootstrap package: advanced/150/180; type=string; label=Header Comment
     headerComment = tp3 - modular web - based on the TYPO3 Bootstrap Package
 
@@ -145,5 +148,4 @@ plugin.bootstrap_package {
     }
 }
 
-# cat=tp3mods: advanced/190/100; type=string; label=Snippet type for page (can also be product etc. see https://schema.org/WebPage)
-snippet_type = WebPage
+
