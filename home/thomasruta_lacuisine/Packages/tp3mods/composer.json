@@ -3,9 +3,9 @@
     "type": "typo3-cms-extension",
     "description" : "ratings & microdata 4 tp3",
     "license": "GPL-2.0+",
-  "version": "1.1.7",
+    "version" : "1.1.6",
     "require": {
-        "php": ">=5.3 < 7.3",
+        "php": ">=5.3 <7.3",
         "typo3/cms-core": "^7.6|| ^8.2 || ^9"
     },
     "autoload": {

@@ -1,16 +1,99 @@
 EXT:
     extConf:
+        additional_reports:
+            itemsPerPage: '30'
         backend:
-            backendFavicon: ''
-            backendLogo: ''
-            loginBackgroundImage: ''
-            loginHighlightColor: ''
-            loginLogo: ''
+            backendFavicon: 'EXT:tp3mods/Resources/Public/Images/Backend/favicon-96x96.png'
+            backendLogo: 'EXT:tp3mods/Resources/Public/Images/Backend/backend-logo.svg'
+            loginBackgroundImage: 'EXT:tp3mods/Resources/Public/images/Backend/login-background-image.jpg'
+            loginHighlightColor: '#ff8f00'
+            loginLogo: 'EXT:tp3mods/Resources/Public/Images/Backend/login-logo.svg'
+        bootstrap_grids:
+            enableGridSimpleRow: '0'
+        bootstrap_package:
+            disableLessProcessing: '0'
+            disablePageTsBackendLayouts: '0'
+            disablePageTsNewContentElementWizard: '0'
+            disablePageTsRTE: '0'
+            disablePageTsTCEFORM: '0'
+            disablePageTsTCEMAIN: '0'
+            disablePageTsTtContentPreviews: '0'
+        devlog:
+            entriesPerPage: '25'
+            excludeKeys: ''
+            includeKeys: ''
+            ipFilter: '*'
+            logFilePath: ''
+            maximumExtraDataSize: '1000000'
+            maximumRows: '1000'
+            minimumLogLevel: '-1'
+            optimizeTable: '1'
+            refreshFrequency: '4'
+        direct_mail:
+            UseHttpToFetch: '0'
+            addRecipFields: ''
+            adminEmail: email@thomasruta.de
+            cronInt: '5'
+            cron_language: en
+            enablePlainTextNews: '1'
+            notificationJob: '1'
+            sendPerCycle: '50'
+            updateMessage: '0'
         extensionmanager:
             automaticInstallation: '1'
             offlineMode: '0'
+        gridelements:
+            additionalStylesheet: ''
+            nestingInListModule: '0'
+            overlayShortcutTranslation: '0'
+        media:
+            default_categories: ''
+            disable_title_metadata_extractor: '0'
+            has_folder_tree: '1'
+            has_media_file_picker: '0'
+            hide_file_list: '0'
+            image_large: 1200x1200
+            image_medium: 760x760
+            image_mini: 120x120
+            image_small: 320x320
+            image_thumbnail: 100x100
+            load_rte_configuration: '0'
+        news:
+            advancedMediaPreview: 'true'
+            archiveDate: date
+            categoryBeGroupTceFormsRestriction: '0'
+            categoryRestriction: ''
+            contentElementPreview: '1'
+            contentElementRelation: '1'
+            dateTimeNotRequired: '0'
+            hidePageTreeForAdministrationModule: '0'
+            manualSorting: '0'
+            mediaPreview: 'false'
+            prependAtCopy: '1'
+            resourceFolderImporter: /news_import
+            rteForTeaser: '0'
+            showAdministrationModule: '1'
+            showImporter: '0'
+            storageUidImporter: '1'
+            tagPid: '1'
+        powermail:
+            disableBackendModule: '0'
+            disableIpLog: '1'
+            disableMarketingInformation: '0'
+            disablePluginInformation: '0'
+            disablePluginInformationMailPreview: '0'
+            enableCaching: '0'
+            l10n_mode_merge: '0'
+            replaceIrreWithElementBrowser: '0'
+        realurl:
+            autoConfFormat: '0'
+            configFile: typo3conf/realurl_conf.php
+            enableAutoConf: '1'
+            enableDevLog: '1'
+            moduleIcon: '0'
+            segTitleFieldList: ''
         rsaauth:
-            temporaryDirectory: ''
+            temporaryDirectory: _temp/
         saltedpasswords:
             BE:
                 forceSalted: 0
@@ -28,5 +111,82 @@ EXT:
             maxLifetime: '1440'
             showSampleTasks: '1'
             useAtdaemon: '0'
+        sr_feuser_register:
+            imageMaxSize: '7168'
+            imageTypes: 'gif,jpg,jpeg,tif,tiff,bmp,pcx,tga,png,ai,svg'
+            uploadFolder: ''
+        static_info_tables:
+            enableManager: '0'
+        styleguide:
+            boolean_1: '0'
+            boolean_2: '1'
+            boolean_3: ''
+            color_1: black
+            color_2: '#000000'
+            color_3: '000000'
+            color_4: ''
+            compat_default_1: value
+            compat_default_2: ''
+            compat_input_1: value
+            compat_input_2: ''
+            int_1: '1'
+            int_2: ''
+            integer_1: '1'
+            integer_2: ''
+            intplus_1: '1'
+            intplus_2: ''
+            intplus_3: '-100'
+            nested:
+                input_1: aDefault
+                input_2: ''
+            offset_1: 'x,y'
+            offset_2: x
+            offset_3: ',y'
+            offset_4: ''
+            options_1: default
+            options_2: option_2
+            options_3: ''
+            predefined:
+                boolean_1: '1'
+                int_1: '42'
+            small_1: value
+            small_2: ''
+            string_1: value
+            string_2: ''
+            user_1: '0'
+            wrap_1: value
+            wrap_2: ''
+        tp3_businessview:
+            debugMode: '0'
+        tp3_jobs:
+            debug: '0'
+        tp3mods:
+            backendModule: '0'
+            cookieconsent: '1'
+            debugMode: '0'
+            disableConfigRTE: '0'
+            disablePageTs: '0'
+            disablePageTsBackendLogo: '0'
         tp3ratings:
             debug: '1'
+        varnish:
+            alwaysSendTypo3Headers: '0'
+            banRequestMethod: BAN
+            enableDevLog: '0'
+            instanceHostnames: ''
+        vhs:
+            disableAssetHandling: '0'
+        vidi:
+            autoload_typoscript: '1'
+            data_types: 'fe_users,fe_groups'
+            default_pid: '1,fe_users:1,fe_groups:1'
+        wec_map:
+            apiURL: 'http://maps.google.com/maps?file=api&amp;v=%s&amp;key=%s&amp;hl=%s'
+            defaultCountry: DE
+            feUserRecordMap: '1'
+            geocodingStatus: '1'
+            ibURL: dev.tp3.de/typo3conf/ext/wec_map/Resources/Public/JavaScript/ContribJS/infobubble.js
+            jsDir: ''
+            mmURL: dev.tp3.de/typo3conf/ext/wec_map/Resources/Public/JavaScript/ContribJS/markermanager.js
+            omURL: dev.tp3.de/typo3conf/ext/wec_map/Resources/Public/JavaScript/ContribJS/oms.min.js
+            useOwnJS: '1'
