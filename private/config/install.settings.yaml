@@ -60,7 +60,7 @@ databaseSelect:
             description: 'Name of the database'
             option: '--database-name'
             type: string
-            value: 	c1typo3_2
+            value: 	c1typo3_tmp
 
 databaseData:
     type: install
@@ -117,14 +117,14 @@ setupProject:
         arguments:
             defaultLanguageDomain:
                 type: string
-                value: 'test.lacuisine.de'
+                value: 'dev.thomasruta.de'
                 description: 'Domain name for default language website'
                 configPath: 'EXTCONF.tp3_site.defaultLanguageDomain'
                 default: 'test.lacuisine.de'
 
             englishDomain:
                 type: string
-                value:  'test.lacuisine.de'
+                value:  'dev.thomasruta.de'
                 description: 'Domain name for English website'
                 configPath: 'EXTCONF.tp3_site.englishDomain'
                 default: 'en.test.lacuisine.de'

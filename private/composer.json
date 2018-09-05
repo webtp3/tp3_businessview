@@ -101,6 +101,7 @@
 		"dmitryd/typo3-realurl":"*",
 		"dmitryd/typo3-dd-googlesitemap":"^2.1 || dev-development",
 		"typo3-ter/static-info-tables":"*",
+		"typo3-ter/static-info-tables-de":"*",
 		"web-tp3/tp3businessview": "^1 || dev-develop",
 		"web-tp3/tp3jobs": "dev-master",
 		"web-tp3/tp3mods": "^1",

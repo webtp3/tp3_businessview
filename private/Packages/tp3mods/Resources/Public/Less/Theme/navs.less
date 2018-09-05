@@ -4,6 +4,7 @@
 .navbar {
     position: relative;
     z-index: @zindex-navbar;
+    perspective: 400px;
     &.navbar-fixed-top,
     &.navbar-fixed-bottom {
         position: fixed;
@@ -15,11 +16,12 @@
 // Brand
 //
 .navbar-brand {
+    transform-style: preserve-3d;
     > .navbar-brand-logo-normal {
         display: block;
     }
     > .navbar-brand-logo-inverted {
-        display: none;
+        display: block;
     }
 }
 @media (min-width: @grid-float-breakpoint) {
@@ -58,15 +60,20 @@
             > a,
             > a:hover,
             > a:focus {
-                color: lighten(@navbar-inverse-link-active-color,15%);
+                color: lighten(@navbar-default-link-active-color,15%);
             }
         }
         .navbar-brand {
             > .navbar-brand-logo-normal {
-                display: none;
+                display: block;
+
             }
             > .navbar-brand-logo-inverted {
-                display: block;
+                display: none;
+
+            }
+            > img {
+                backface-visibility: hidden;
             }
         }
     }
@@ -84,11 +91,17 @@
             }
         }
         .navbar-brand {
+
             > .navbar-brand-logo-normal {
                 display: none;
+
             }
             > .navbar-brand-logo-inverted {
                 display: block;
+
+            }
+            > img {
+                backface-visibility: hidden;
             }
         }
     }
@@ -108,13 +121,20 @@
         .navbar-brand {
             > .navbar-brand-logo-normal {
                 display: block;
+
             }
             > .navbar-brand-logo-inverted {
                 display: none;
+
+            }
+            > img {
+                backface-visibility: hidden;
             }
         }
+
     }
 }
+
 .navbar.navbar-top {
     border-left: none;
     border-right: none;

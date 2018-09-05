@@ -6,21 +6,31 @@
                 <f:then>
                     <f:link.page pageUid="{rootPage}" class="navbar-brand navbar-brand-image"
                                  title="{settings.logo.linktitle}">
-                        <div class="logo">
-                            <f:cObject typoscriptObjectPath="lib.logo" data="lib.logo"/>
-                            <img class="navbar-brand-logo-normal" src="{f:uri.image(src: settings.logo.file)}"
-                            <f:if condition="{lib.logo}">
-                                <f:then> style="display:none"</f:then>
-                                <f:else></f:else>
-                            </f:if>
-                            alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
-                            <img class="navbar-brand-logo-inverted" src="{f:uri.image(src: settings.logo.fileInverted)}"
-                            <f:if condition="{lib.logo}">
-                                <f:then> style="display:none"</f:then>
-                                <f:else></f:else>
-                            </f:if>
-                            alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
-                        </div>
+                        <f:if condition="{lib.logo}">
+                            <f:then>
+                                <div class="logo">
+                                    <f:cObject typoscriptObjectPath="lib.logo" data="lib.logo"/>
+                                </div>
+                            </f:then>
+                           <f:else>
+                                    <img class="navbar-brand-logo-normal" src="{f:uri.image(src: settings.logo.file)}"
+                                    <f:if condition="{settings.navigation.style} == 'inverse-transition'">
+                                        <f:then> </f:then>
+                                        <f:else><f:if condition="{settings.navigation.style} == 'inverse'">
+                                            <f:then> style="display:none"</f:then>
+                                        </f:if></f:else>
+                                    </f:if>
+                                    alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
+                                    <img class="navbar-brand-logo-inverted" src="{f:uri.image(src: settings.logo.fileInverted)}"
+                                     <f:if condition="{settings.navigation.style} == 'default-transition'">
+                                        <f:then> </f:then>
+                                        <f:else><f:if condition="{settings.navigation.style} == 'default'">
+                                            <f:then> style="display:none"</f:then>
+                                        </f:if></f:else>
+                                    </f:if>
+                                    alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
+                           </f:else>
+                        </f:if>
                     </f:link.page>
                 </f:then>
                 <f:else>

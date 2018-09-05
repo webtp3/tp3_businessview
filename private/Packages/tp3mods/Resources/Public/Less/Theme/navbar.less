@@ -4,6 +4,7 @@
 .navbar {
     position: relative;
     z-index: @zindex-navbar;
+    perspective: 400px;
     &.navbar-fixed-top,
     &.navbar-fixed-bottom {
         position: fixed;
@@ -15,13 +16,16 @@
 // Brand
 //
 .navbar-brand {
-    > .navbar-brand-logo-normal {
-        display: block;
-    }
-    > .navbar-brand-logo-inverted {
-        display: none;
-    }
+        transform-style: preserve-3d;
+        > .navbar-brand-logo-normal {
+            display: block;
+        }
+        > .navbar-brand-logo-inverted {
+            display: block;
+        }
+
 }
+
 @media (min-width: @grid-float-breakpoint) {
     .navbar-brand-image {
         position: relative;
@@ -58,16 +62,20 @@
             > a,
             > a:hover,
             > a:focus {
-                color: #fff;
+                color: lighten(@navbar-default-link-active-color,15%);
             }
         }
         .navbar-brand {
             > .navbar-brand-logo-normal {
-                display: none;
+                display: block;
 
             }
             > .navbar-brand-logo-inverted {
-                display: block;
+                display: none;
+
+            }
+            > img {
+                backface-visibility: hidden;
             }
         }
     }
@@ -82,9 +90,10 @@
             > a,
             > a:hover,
             > a:focus {
-                color: lighten(@navbar-default-link-active-color,15%);
+                color: lighten(@navbar-inverse-link-active-color,15%);
             }
         }
+
         .navbar-brand {
             > .navbar-brand-logo-normal {
                 display: none;
@@ -92,14 +101,20 @@
             }
             > .navbar-brand-logo-inverted {
                 display: block;
+
             }
+            > img {
+                backface-visibility: hidden;
+
+            }
+
         }
     }
     .navbar-inverse-transition{
         background-color: @navbar-inverse-bg;
     }
     .navbar-default-transition{
-      background-color: @navbar-default-bg;
+        background-color: @navbar-default-bg;
     }
     .navbar-transition {
         .navbar-header-main .navbar-brand,
@@ -111,13 +126,22 @@
         .navbar-brand {
             > .navbar-brand-logo-normal {
                 display: block;
+
             }
             > .navbar-brand-logo-inverted {
                 display: none;
+
+            }
+            > img {
+                backface-visibility: hidden;
+             //   position: absolute;
+            //    animation: spinCube .1s linear ease-in-out;
+
             }
         }
     }
 }
+
 .navbar.navbar-top {
     border-left: none;
     border-right: none;
