@@ -1,0 +1,25 @@
+BE:
+    installToolPassword: $pbkdf2-sha256$25000$DJhBPGOqoH4id6IJEOLArA$EELm1fdxntpfRWe72nwwesqnF1lfCzuB4bjpACfjA.M
+DB:
+    Connections:
+        Default:
+            dbname: c1typo3
+            driver: mysqli
+            host: 2.2.2.50
+            password: zs1yOCf@U
+            port: 3306
+            unix_socket: /run/mysqld/mysqld.sock
+            user: c1typo3
+
+MAIL:
+    transport: sendmail
+    transport_sendmail_command: '/usr/sbin/sendmail -t -i '
+    transport_smtp_server: ''
+
+SYS:
+    caching:
+        cacheConfigurations:
+            extbase_object:
+                backend: TYPO3\CMS\Core\Cache\Backend\ApcuBackend
+    encryptionKey: 84c3bd9bdf299bc783779e087d399ac84df33c3aa5d860515f40026511b3c7bdc6efe115768bfc14b688b52202cd1f8d
+    sitename: 'tp3 TYPO3 8 Suite'

@@ -229,6 +229,11 @@ AddDefaultCharset utf-8
 ### End: MIME types ###
 
 
+Redirect "/.html" "/"
+Redirect /rss.xml /index.php?eID=dd_googlesitemap
+Redirect /shops/ http://shops.tp3.de/
+Redirect /shops.html http://shops.tp3.de/
+Redirect /rp-world/t3/ssl/my-abbate/ http://my-abbate.com/
 
 ### Begin: Cross Origin ###
 
@@ -254,8 +259,12 @@ AddDefaultCharset utf-8
         </FilesMatch>
 </IfModule>
 
+#<IfModule mod_headers.c>
+#                Header set Access-Control-Allow-Origin "*"
+#</IfModule>
+
 ### End: Cross Origin ###
-                #Header set Access-Control-Allow-Origin "*"
+#                Header set Access-Control-Allow-Origin "*"
 
 Redirect "/.html" "/"
 Redirect /rss.xml /?type=1426844832
@@ -278,6 +287,11 @@ Redirect /sitemap.xml /index.php?eID=dd_googlesitemap
 	RewriteCond $0#%{REQUEST_URI} ([^#]*)#(.*)\1$
 	RewriteRule ^.*$ - [E=CWD:%2]
 
+    RedirectMatch "^/ssl/zahnarzt-dr-hondralis(.*)" "https://hondralis.r-p-it.com/"
+    RedirectMatch "^/ssl/zahnarzt-dr-hondralis.html" "https://hondralis.r-p-it.com/"
+    RedirectMatch "^/ssl/2lindenhof(.*)" "https://www.zweilindenhof-reim.de/"
+    RedirectMatch "^/ssl/(.*)" "/"
+    RedirectMatch "^/rp-world/t3/(.*)" "/"
 RedirectMatch "^/koch-events/news/details/archive/2015/(.*)" "/koch-events/news/uebersicht.html"
 RedirectMatch "^/en/koch-events/news/details/archive/2015/(.*)" "/koch-events/news/uebersicht.html"
 
@@ -290,12 +304,13 @@ RedirectMatch "^/en/koch-events/news/details/archive/2015/(.*)" "/koch-events/ne
 	#RewriteCond %{HTTP_HOST} ^www\.example\.com$
 	#RewriteRule .? - [E=TYPO3_CONTEXT:Production]
 	# Rules to set ApplicationContext based on hostname
-	RewriteCond %{HTTP_HOST} localhost\$
+	RewriteCond %{HTTP_HOST} localhost\.tp3\.de\$
 	RewriteRule .? - [E=TYPO3_CONTEXT:Development]
-
-	RewriteCond %{HTTP_HOST} ^dev\.r-p-it\.com$
-	RewriteRule .? - [E=TYPO3_CONTEXT:Production/Staging]
-	RewriteCond %{HTTP_HOST} ^\.r-p-it\.com$
+    RewriteCond %{HTTP_HOST} ^localdev\.tp3\.de\$
+	RewriteRule .? - [E=TYPO3_CONTEXT:Development]
+	RewriteCond %{HTTP_HOST} ^dev\.tp3\.de$
+	RewriteRule .? - [E=TYPO3_CONTEXT:Staging]
+	RewriteCond %{HTTP_HOST} ^web\.tp3\.de$
 	RewriteRule .? - [E=TYPO3_CONTEXT:Production]
 	# Rule for versioned static files, configured through:
 	# - $GLOBALS['TYPO3_CONF_VARS']['BE']['versionNumberInFilename']
@@ -402,3 +417,4 @@ php_value suhosin.request.max_vars 3000
 
 SetEnvIf GEOIP_COUNTRY_CODE XX BlockCountry
 Deny from env=BlockCountry
+SetEnv TYPO3_CONTEXT Development
