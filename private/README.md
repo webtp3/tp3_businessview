@@ -41,14 +41,14 @@ ln -s  ../vendor web/vendor
   # start testing
 /usr/bin/php7.1 vendor/phpunit/phpunit/phpunit  --configuration vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log
 /usr/bin/php7.2 vendor/phpunit/phpunit/phpunit  --configuration vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log
- php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/UnitTestsDeprecated.xml  --teamcity --log-junit  UnitTestsDeprecated.log 
- php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Tests/Build/FunctionalTests.xml  --teamcity --log-junit  FunctionalTests.log
+ php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTestsDeprecated.xml  --teamcity --log-junit  UnitTestsDeprecated.log 
+ php vendor/phpunit/phpunit/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/FunctionalTests.xml  --teamcity --log-junit  FunctionalTests.log
  mkdir -p web/typo3temp/var/tests
  java -jar vendor/se/selenium-server-standalone/bin/selenium-server-standalone.jar -host 0.0.0.0
  bin/chromedriver --url-base=/wd/hub >/dev/null 2>&1 &
  php -S 0.0.0.0:8000 >/dev/null 2>&1 &
  sleep 3;
- typo3DatabaseName='typo3' typo3DatabaseHost='db' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Tests/Build/AcceptanceTests.yml
+ typo3DatabaseName='typo3' typo3DatabaseHost='db' typo3DatabaseUsername='root' typo3DatabasePassword='my-secret-pw' vendor/codeception/codeception/codecept run Acceptance -c web/typo3conf/ext/cag_tests/Resources/Ext/Build/AcceptanceTests.yml
 
 ```
 

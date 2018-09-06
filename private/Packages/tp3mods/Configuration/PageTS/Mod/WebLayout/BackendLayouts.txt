@@ -7,7 +7,7 @@ TCEFORM {
     pages {
         layout {
             addItems{
-             1 = Newsltter
+             100 = Newsletter
             }
         }
     }
