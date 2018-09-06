@@ -101,7 +101,6 @@
 		"dmitryd/typo3-realurl":"*",
 		"dmitryd/typo3-dd-googlesitemap":"^2.1 || dev-development",
 		"typo3-ter/static-info-tables":"*",
-		"typo3-ter/static-info-tables-de":"*",
 		"web-tp3/tp3businessview": "^1 || dev-develop",
 		"web-tp3/tp3jobs": "dev-master",
 		"web-tp3/tp3mods": "^1",
@@ -112,13 +111,15 @@
 		"typo3-ter/sr-email-subscribe":"^5.1",
       	"typo3-ter/tt-address": "3.2.5",
 		"typo3-ter/simplegrids":"^3.1",
+		"friendsoftypo3/jumpurl":"^7",
+		"directmailteam/direct-mail":"^5",
 		"fluidtypo3/vhs":"*",
 		"yoast-seo-for-typo3/yoast_seo": "3.0.5",
 		"typo3-ter/sr-feuser-register": "^5.1",
 		"in2code/powermail": "dev-master",
 		"causal/tscobj":"*",
 		"apen/additional_reports":"*",
-		"web-tp3/wec_map": "^4.0.2",
+		"web-tp3/wec_map": "^4.0",
 		"typo3-ter/cal":"1.11.2-dev",
 		"causal/extractor":"^1",
 		"snowflakeops/varnish":"^2"
@@ -162,8 +163,6 @@
 			"web-dir": "../web",
 			"bin-dir": "bin",
 			"cms-package-dir": "Build/vendor/typo3/cms"
-
-
 		},
 		"typo3/class-alias-loader": {
 			"always-add-alias-loader": true,
