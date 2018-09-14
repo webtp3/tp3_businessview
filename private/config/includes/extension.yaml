@@ -3,7 +3,7 @@ EXT:
         additional_reports:
             itemsPerPage: '30'
         backend:
-            backendFavicon: 'EXT:tp3mods/Resources/Public/Images/Backend/favicon-96x96.png'
+            backendFavicon: 'EXT:tp3mods/Resources/Public/Images/Icons/favicon_96.png'
             backendLogo: 'EXT:tp3mods/Resources/Public/Images/Backend/backend-logo.svg'
             loginBackgroundImage: 'EXT:tp3mods/Resources/Public/images/Backend/login-background-image.jpg'
             loginHighlightColor: '#ff8f00'
@@ -18,6 +18,26 @@ EXT:
             disablePageTsTCEFORM: '0'
             disablePageTsTCEMAIN: '0'
             disablePageTsTtContentPreviews: '0'
+        cal:
+            cacheLifetime: '0'
+            cachingEngine: internal
+            cachingMode: normal
+            categoryService: tx_cal_category
+            categoryTVHeight: '280'
+            enableRealURLAutoConfiguration: '1'
+            hideDeviationRecords: '1'
+            hideLocationTextfield: '0'
+            hideOrganizerTextfield: '0'
+            noTabDividers: '0'
+            recurrenceEnd: '20201231'
+            recurrenceStart: '20140101'
+            showTimes: '1'
+            todoSubtype: event
+            treeOrderBy: uid
+            useInternalCaching: '1'
+            useLocationStructure: tx_cal_location
+            useOrganizerStructure: tx_cal_organizer
+            useTeaser: '0'
         devlog:
             entriesPerPage: '25'
             excludeKeys: ''
@@ -32,20 +52,59 @@ EXT:
         direct_mail:
             UseHttpToFetch: '0'
             addRecipFields: ''
-            adminEmail: email@thomasruta.de
+            adminEmail: admin@website.com
             cronInt: '5'
             cron_language: en
             enablePlainTextNews: '1'
             notificationJob: '1'
             sendPerCycle: '50'
             updateMessage: '0'
+        extension_builder:
+            backupDir: uploads/tx_extensionbuilder/backups
+            backupExtension: '1'
+            enableRoundtrip: '1'
         extensionmanager:
             automaticInstallation: '1'
             offlineMode: '0'
+        extractor:
+            auto_extract: '0'
+            enable_php: '1'
+            enable_tika: '0'
+            enable_tools_exiftool: '0'
+            enable_tools_pdfinfo: '0'
+            mapping_base_directory: 'EXT:extractor/Configuration/Services/'
+            mapping_configuration: ''
+            tika_jar_path: ''
+            tika_mode: jar
+            tika_server_host: ''
+            tika_server_port: '9998'
+            tools_exiftool: ''
+            tools_pdfinfo: ''
         gridelements:
             additionalStylesheet: ''
             nestingInListModule: '0'
             overlayShortcutTranslation: '0'
+        indexed_search:
+            catdoc: /usr/bin/
+            debugMode: '0'
+            disableFrontendIndexing: '0'
+            enableMetaphoneSearch: '1'
+            flagBitMask: '192'
+            fullTextDataLength: '0'
+            ignoreExtensions: ''
+            indexExternalURLs: '0'
+            maxAge: '0'
+            maxExternalFiles: '5'
+            minAge: '24'
+            pdf_mode: '20'
+            pdftools: /usr/bin/
+            ppthtml: /usr/bin/
+            trackIpInStatistic: '2'
+            unrtf: /usr/bin/
+            unzip: /usr/bin/
+            useCrawlerForExternalFiles: '0'
+            useMysqlFulltext: '0'
+            xlhtml: /usr/bin/
         media:
             default_categories: ''
             disable_title_metadata_extractor: '0'
@@ -89,11 +148,11 @@ EXT:
             autoConfFormat: '0'
             configFile: typo3conf/realurl_conf.php
             enableAutoConf: '1'
-            enableDevLog: '1'
+            enableDevLog: '0'
             moduleIcon: '0'
             segTitleFieldList: ''
         rsaauth:
-            temporaryDirectory: _temp/
+            temporaryDirectory: ''
         saltedpasswords:
             BE:
                 forceSalted: 0
@@ -111,6 +170,10 @@ EXT:
             maxLifetime: '1440'
             showSampleTasks: '1'
             useAtdaemon: '0'
+        sr_email_subscribe:
+            addressTable: tt_address
+            imageFolder: ''
+            useImageFolder: '0'
         sr_feuser_register:
             imageMaxSize: '7168'
             imageTypes: 'gif,jpg,jpeg,tif,tiff,bmp,pcx,tga,png,ai,svg'
@@ -169,6 +232,10 @@ EXT:
             disablePageTsBackendLogo: '0'
         tp3ratings:
             debug: '1'
+        tt_address:
+            backwardsCompatFormat: '%1$s %3$s'
+            readOnlyNameField: '1'
+            storeBackwardsCompatName: '1'
         varnish:
             alwaysSendTypo3Headers: '0'
             banRequestMethod: BAN

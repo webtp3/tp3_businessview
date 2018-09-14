@@ -1,9 +1,9 @@
 EXT:
     extConf:
         backend:
-            backendFavicon: 'EXT:tp3mods/Resources/Public/Images/Backend/favicon-96x96.png'
+            backendFavicon: 'EXT:tp3mods/Resources/Public/Images/Icons/favicon_96.png'
             backendLogo: 'EXT:tp3mods/Resources/Public/Images/Backend/backend-logo.svg'
-            loginBackgroundImage: 'EXT:tp3mods/Resources/Public/images/Backend/login-background-image.jpg'
+            loginBackgroundImage: 'EXT:tp3mods/Resources/Public/Images/Backend/login-background-image.jpg'
             loginHighlightColor: '#ff8f00'
             loginLogo: 'EXT:tp3mods/Resources/Public/Images/Backend/login-logo.svg'
 SC_OPTIONS:

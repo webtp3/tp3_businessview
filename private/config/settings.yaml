@@ -6,7 +6,7 @@ imports:
 
 BE:
     explicitADmode: explicitAllow
-    loginSecurityLevel: normal
+    loginSecurityLevel: rsa
 DB:
     Connections:
         Default:

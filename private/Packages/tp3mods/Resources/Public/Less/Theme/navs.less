@@ -17,6 +17,7 @@
 //
 .navbar-brand {
     transform-style: preserve-3d;
+    transform: translateZ(-100px);
     > .navbar-brand-logo-normal {
         display: block;
     }
@@ -30,7 +31,7 @@
         > img {
             position: relative;
             top: 50%;
-            transform: translate(0,-50%);
+            transform: scale3d(2,2,2);
             max-height: 65%;
             width: auto;
         }
@@ -65,15 +66,18 @@
         }
         .navbar-brand {
             > .navbar-brand-logo-normal {
-                display: block;
+              transform: rotateY(180deg);
 
             }
             > .navbar-brand-logo-inverted {
-                display: none;
+              transform: rotateY(360deg);
 
             }
             > img {
                 backface-visibility: hidden;
+                position: absolute;
+                transform: translate(-200%,-50%)
+
             }
         }
     }
@@ -93,25 +97,51 @@
         .navbar-brand {
 
             > .navbar-brand-logo-normal {
-                display: none;
+              transform: rotateY(360deg);
 
             }
             > .navbar-brand-logo-inverted {
-                display: block;
+              transform: rotateY(180deg);
+
+            }
+
+            > img {
+                backface-visibility: hidden;
+                position: absolute;
+                transform: scale3d(1,1,1);
+
+            }
+        }
+    }
+	.navbar-inverse-transition{
+        background-color: transparent;
+    }
+    .navbar-default-transition{
+		background-color: @navbar-default-bg;
+    }
+    .navbar-default-transition.navbar-transition {
+        .navbar-header-main .navbar-brand,
+        .navbar-main > li > .navbar-text,
+        .navbar-main > li > a {
+            line-height: round(@navbar-height/2);
+            height: round(@navbar-height/2);
+        }
+        .navbar-brand {
+            > .navbar-brand-logo-normal {
+              transform: rotateY(360deg);
+
+            }
+            > .navbar-brand-logo-inverted {
+              transform: rotateY(180deg);
 
             }
             > img {
                 backface-visibility: hidden;
             }
         }
+
     }
-	.navbar-inverse-transition{
-        background-color: @navbar-inverse-bg;
-    }
-    .navbar-default-transition{
-		background-color: @navbar-default-bg;
-    }
-    .navbar-transition {
+    .navbar-inverse-transition.navbar-transition {
         .navbar-header-main .navbar-brand,
         .navbar-main > li > .navbar-text,
         .navbar-main > li > a {
@@ -120,11 +150,11 @@
         }
         .navbar-brand {
             > .navbar-brand-logo-normal {
-                display: block;
+              transform: rotateY(180deg);
 
             }
             > .navbar-brand-logo-inverted {
-                display: none;
+              transform: rotateY(360deg);
 
             }
             > img {

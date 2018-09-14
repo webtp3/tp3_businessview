@@ -8,6 +8,7 @@
     &.navbar-fixed-top,
     &.navbar-fixed-bottom {
         position: fixed;
+        z-index: 99;
     }
 }
 
@@ -17,11 +18,20 @@
 //
 .navbar-brand {
         transform-style: preserve-3d;
+        transform: translateZ(-100px);
         > .navbar-brand-logo-normal {
             display: block;
+            transform: rotateY(0deg);
+
         }
         > .navbar-brand-logo-inverted {
+
+            transform: rotateY(180deg);
             display: block;
+        }
+        > img {
+            backface-visibility: hidden;
+            position: absolute;
         }
 
 }
@@ -31,9 +41,9 @@
         position: relative;
         > img {
             position: relative;
-            top: 50%;
-            transform: translate(0,-50%);
-            max-height: 65%;
+            top: 10%;
+            transform: scale3d(2,2,2);
+            max-height: 85%;
             width: auto;
         }
     }
@@ -67,15 +77,17 @@
         }
         .navbar-brand {
             > .navbar-brand-logo-normal {
-                display: block;
+                transform: rotateY(360deg);
+                //transform: scale3d(2, 2, 2);
 
             }
             > .navbar-brand-logo-inverted {
-                display: none;
+                transform: rotateY(180deg);
 
             }
             > img {
                 backface-visibility: hidden;
+                position: absolute;
             }
         }
     }
@@ -96,25 +108,26 @@
 
         .navbar-brand {
             > .navbar-brand-logo-normal {
-                display: none;
+                transform: rotateY(180deg);
 
             }
             > .navbar-brand-logo-inverted {
-                display: block;
+                transform: rotateY(0deg);
+                //transform: scale3d(2, 2, 2);
 
             }
             > img {
                 backface-visibility: hidden;
-
+                position: absolute;
             }
 
         }
     }
     .navbar-inverse-transition{
-        background-color: @navbar-inverse-bg;
+        background-color: transparent;
     }
     .navbar-default-transition{
-        background-color: @navbar-default-bg;
+        background-color: transparent;
     }
     .navbar-transition {
         .navbar-header-main .navbar-brand,
@@ -125,18 +138,16 @@
         }
         .navbar-brand {
             > .navbar-brand-logo-normal {
-                display: block;
+                transform: rotateY(18deg);
 
             }
             > .navbar-brand-logo-inverted {
-                display: none;
+                transform: rotateY(360deg);
 
             }
             > img {
                 backface-visibility: hidden;
-             //   position: absolute;
-            //    animation: spinCube .1s linear ease-in-out;
-
+                position: absolute;
             }
         }
     }

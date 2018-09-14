@@ -251,7 +251,7 @@ page {
     shortcutIcon = fileadmin/user_upload/{$username}/favicon.ico
     bodyTagCObject = TEXT
     bodyTagCObject.field = uid
-    bodyTagCObject.wrap = <body id="p|" data-{$app_name}role="page" data-spy="scroll" data-target=".navbar-collapse" >
+    bodyTagCObject.wrap = <body id="pid-|" data-{$app_name}role="page" data-spy="scroll" data-target=".navbar-collapse" >
     headerData {
         112112 < lib.containerBackgroundImage
         112113 < lib.containerBackgroundImagejs
@@ -268,7 +268,7 @@ page {
 
     includeCSS {
         #enabled less css
-        bootstrap = EXT:tp3mods/Resources/Public/Less/Bootstrap/bootstrap.less
+        #bootstrap = EXT:tp3mods/Resources/Public/Less/Bootstrap/bootstrap.less
         theme = EXT:tp3mods/Resources/Public/Less/Theme/theme.less
 
         #User Css
@@ -279,8 +279,8 @@ page {
     includeJSFooterlibs {
         tp3 = fileadmin/user_upload/{$username}/tp3.js
         tp3_app = EXT:tp3mods/Resources/Public/JavaScript/tp3_app.js
-        tp3_app.async = 1
-        tp3.async = 1
+        tp3_app.async = 0
+        tp3.async = 0
 
     }
 
