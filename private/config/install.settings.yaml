@@ -53,14 +53,14 @@ databaseSelect:
             description: 'Use already existing database?'
             option: '--use-existing-database'
             type: bool
-            value: false
+            value: true
             default: false
 
         databaseName:
             description: 'Name of the database'
             option: '--database-name'
             type: string
-            value: 	c1typo3_tmp
+            value: 	c1_demo
 
 databaseData:
     type: install
@@ -117,14 +117,14 @@ setupProject:
         arguments:
             defaultLanguageDomain:
                 type: string
-                value: 'dev.thomasruta.de'
+                value: 'praxis.tp3.de'
                 description: 'Domain name for default language website'
                 configPath: 'EXTCONF.tp3_site.defaultLanguageDomain'
                 default: 'test.lacuisine.de'
 
             englishDomain:
                 type: string
-                value:  'dev.thomasruta.de'
+                value:  'praxis.tp3.de'
                 description: 'Domain name for English website'
                 configPath: 'EXTCONF.tp3_site.englishDomain'
                 default: 'en.test.lacuisine.de'

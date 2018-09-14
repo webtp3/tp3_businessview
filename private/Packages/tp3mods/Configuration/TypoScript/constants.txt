@@ -92,14 +92,14 @@ page.fluidtemplate {
     templateRootPath = EXT:tp3mods/Resources/Private/Templates/Page/
 }
 
-styles.templates {
-    # cat=content/templates/b1; type=string; label= Path of Fluid Templates for all defined content elements
-    templateRootPath = {$plugin.tx_tp3mods_tp3micro.templateRootPath}
-    # cat=content/templates/b2; type=string; label= Path of Fluid Partials for all defined content elements
-    partialRootPath = {$plugin.tx_tp3mods_tp3micro.partialRootPath}
-    # cat=content/templates/b3; type=string; label= Path of Fluid Layouts for all defined content elements
-    layoutRootPath = {$plugin.tx_tp3mods_tp3micro.layoutRootPath}
-}
+#styles.templates {
+#    # cat=content/templates/b1; type=string; label= Path of Fluid Templates for all defined content elements
+#    templateRootPath = {$plugin.tx_tp3mods_tp3micro.templateRootPath}
+#    # cat=content/templates/b2; type=string; label= Path of Fluid Partials for all defined content elements
+#    partialRootPath = {$plugin.tx_tp3mods_tp3micro.partialRootPath}
+#    # cat=content/templates/b3; type=string; label= Path of Fluid Layouts for all defined content elements
+#    layoutRootPath = {$plugin.tx_tp3mods_tp3micro.layoutRootPath}
+#}
 
 
 ##############

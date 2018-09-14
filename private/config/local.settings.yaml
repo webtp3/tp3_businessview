@@ -1,9 +1,9 @@
 BE:
-    installToolPassword: $pbkdf2-sha256$25000$DJhBPGOqoH4id6IJEOLArA$EELm1fdxntpfRWe72nwwesqnF1lfCzuB4bjpACfjA.M
+    installToolPassword: $pbkdf2-sha256$25000$dUP4NBFic9lMPOuYYzwLaw$FkLwE2H4CI3sNa5y0Nhba6X508gFegsnAUUMgnD2Zbo
 DB:
     Connections:
         Default:
-            dbname: c1typo3
+            dbname: c1_demo
             driver: mysqli
             host: 2.2.2.50
             password: zs1yOCf@U
@@ -11,15 +11,14 @@ DB:
             unix_socket: /run/mysqld/mysqld.sock
             user: c1typo3
 
-MAIL:
-    transport: sendmail
-    transport_sendmail_command: '/usr/sbin/sendmail -t -i '
-    transport_smtp_server: ''
-
+EXTCONF:
+    tp3_site:
+        defaultLanguageDomain: praxis.tp3.de
+        englishDomain: praxis.tp3.de
 SYS:
     caching:
         cacheConfigurations:
             extbase_object:
                 backend: TYPO3\CMS\Core\Cache\Backend\ApcuBackend
-    encryptionKey: 84c3bd9bdf299bc783779e087d399ac84df33c3aa5d860515f40026511b3c7bdc6efe115768bfc14b688b52202cd1f8d
+    encryptionKey: 2eed5589614e589ec322bf048c3f41c114a63da325d6a3ff649ce581234fecfb5d7b0a22f0f9b8e260891e88ef9fafbe
     sitename: 'tp3 TYPO3 8 Suite'

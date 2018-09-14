@@ -189,42 +189,44 @@ lib.containerBackgroundImagejs {
 
 # get logo from content
 
-lib.logo = CONTENT
-lib.logo {
+[globalVar = LIT:0 > {$logoPid}]
+    lib.logo = CONTENT
+    lib.logo {
 
 
-    table = tt_content
-    select {
-        # #todo change to uid
-        pidInList = {$logoPid}
-        # Wieviele Elemente angezeigt werden sollen
-        max = 1
-        # orderBy = rand()
-    }
-}
-
-# get toolbar (phone, contact or other items)
-
-lib.navigation = COA
-lib.toolbar = COA
-lib.toolbar {
-
-    10 = CONTENT
-    10 {
         table = tt_content
         select {
-            pidInList = {$toolbarPid}
-            max = 4
+            # #todo change to uid
+            pidInList = {$logoPid}
+            # Wieviele Elemente angezeigt werden sollen
+            max = 1
             # orderBy = rand()
         }
-
-        10.stdWrap >
-
-        wrap = <div class="toolbar">|</div>
     }
-}
+[global]
 
-lib.navigation.toolbar < lib.toolbar
+# get toolbar (phone, contact or other items)
+[globalVar = LIT:0 > {$toolbarPid}]
+    lib.toolbar = COA
+    lib.toolbar {
+
+        10 = CONTENT
+        10 {
+            table = tt_content
+            select {
+                pidInList = {$toolbarPid}
+                max = 4
+                # orderBy = rand()
+            }
+
+            10.stdWrap >
+
+            wrap = <div class="toolbar">|</div>
+        }
+    }
+
+    lib.navigation.toolbar < lib.toolbar
+[global]
 #design own content
 # todo Plugin Newsletter
 
@@ -249,7 +251,7 @@ page {
     shortcutIcon = fileadmin/user_upload/{$username}/favicon.ico
     bodyTagCObject = TEXT
     bodyTagCObject.field = uid
-    bodyTagCObject.wrap = <body id="pid-|" data-{$app_name}role="page" data-spy="scroll" data-target=".navbar-collapse" >
+    bodyTagCObject.wrap = <body id="p|" data-{$app_name}role="page" data-spy="scroll" data-target=".navbar-collapse" >
     headerData {
         112112 < lib.containerBackgroundImage
         112113 < lib.containerBackgroundImagejs
