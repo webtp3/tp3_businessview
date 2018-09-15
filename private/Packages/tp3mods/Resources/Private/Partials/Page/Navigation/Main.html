@@ -6,13 +6,8 @@
                 <f:then>
                     <f:link.page pageUid="{rootPage}" class="navbar-brand navbar-brand-image"
                                  title="{settings.logo.linktitle}">
-                        <f:if condition="{lib.logo}">
-                            <f:then>
-                                <div class="logo">
-                                    <f:cObject typoscriptObjectPath="lib.logo" data="lib.logo"/>
-                                </div>
-                            </f:then>
-                           <f:else>
+
+
                                     <img class="navbar-brand-logo-normal" src="{f:uri.image(src: settings.logo.file)}"
                                     <f:if condition="{settings.navigation.style} == 'inverse-transition'">
                                         <f:then> </f:then>
@@ -29,8 +24,10 @@
                                         </f:if></f:else>
                                     </f:if>
                                     alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
-                           </f:else>
-                        </f:if>
+                                <div class="logo">
+                                    <f:cObject typoscriptObjectPath="lib.logo" data="lib.logo"/>
+                                </div>
+
                     </f:link.page>
                 </f:then>
                 <f:else>
@@ -39,6 +36,7 @@
                     </f:link.page>
                 </f:else>
             </f:if>
+            <f:cObject typoscriptObjectPath="lib.toolbar" data="lib.toolbar"/>
             <f:if condition="{mainnavigation}">
                 <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
                         data-target=".navbar-collapse">

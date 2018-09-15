@@ -277,8 +277,8 @@ page {
     includeJSFooterlibs {
         tp3 = fileadmin/user_upload/{$username}/tp3.js
         tp3_app = EXT:tp3mods/Resources/Public/JavaScript/tp3_app.js
-        tp3_app.async = 1
-        tp3.async = 1
+        tp3_app.async = 0
+        tp3.async = 0
 
     }
 
