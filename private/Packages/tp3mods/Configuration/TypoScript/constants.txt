@@ -2,7 +2,8 @@
 snippet_type = WebPage
 # cat=tp3mods: advanced; type=boolean; label=disable dev mode (compress, concat,...)
 disableDevmode = 0
-//##
+
+# cat=tp3mods: advanced;
 plugin.tx_tp3mods_tp3micro{
     view{
         # cat=plugin.tx_tp3mods_tp3micro/file; type=string; label=Path to template root (FE)
@@ -18,54 +19,6 @@ plugin.tx_tp3mods_tp3micro{
         storagePid =
     }
 }
-#######################
-### BOOTSTRAP 3.3.6 ###
-#######################
-
-############################
-### CUSTOM SUBCATEGORIES ###
-############################
-# customsubcategory=300=Colors
-# customsubcategory=301=Scaffolding
-# customsubcategory=302=Typography
-# customsubcategory=303=Iconography
-# customsubcategory=304=Components
-# customsubcategory=305=Tables
-# customsubcategory=306=Buttons
-# customsubcategory=307=Forms
-# customsubcategory=308=Dropdowns
-# customsubcategory=309=Z-index master list
-# customsubcategory=310=Media queries breakpoints
-# customsubcategory=311=Grid system
-# customsubcategory=312=Container sizes
-# customsubcategory=313=Navbar
-# customsubcategory=314=Navs
-# customsubcategory=315=Tabs
-# customsubcategory=316=Pills
-# customsubcategory=317=Pagination
-# customsubcategory=318=Pager
-# customsubcategory=319=Jumbotron
-# customsubcategory=320=Form states and alerts
-# customsubcategory=321=Tooltips
-# customsubcategory=322=Popovers
-# customsubcategory=323=Labels
-# customsubcategory=324=Modals
-# customsubcategory=325=Alerts
-# customsubcategory=326=Progress bars
-# customsubcategory=327=List group
-# customsubcategory=328=Panels
-# customsubcategory=329=Thumbnails
-# customsubcategory=330=Wells
-# customsubcategory=331=Badges
-# customsubcategory=332=Breadcrumbs
-# customsubcategory=333=Carousel
-# customsubcategory=334=Close
-# customsubcategory=335=Code
-# customsubcategory=336=Type
-# customsubcategory=390=Section Primary
-# customsubcategory=391=Section Light
-# customsubcategory=392=Section Dark
-# customsubcategory=400=Footer
 
 plugin.bootstrap_package {
     settings {

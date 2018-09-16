@@ -13,18 +13,69 @@
                                 </div>
                             </f:then>
                             <f:else>
-                                <img class="navbar-brand-logo-normal" src="{f:uri.image(src: settings.logo.file)}"
-                                    <f:if condition="{lib.logo}">
-                                        <f:then> style="transform: rotateY(180deg)"</f:then>
-                                        <f:else></f:else>
-                                    </f:if>
-                                    alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
-                                    <img class="navbar-brand-logo-inverted" src="{f:uri.image(src: settings.logo.fileInverted)}"
-                                    <f:if condition="{lib.logo}">
-                                        <f:then> style="transform: rotateY(180deg)"</f:then>
-                                        <f:else></f:else>
-                                    </f:if>
-                                    alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
+                                <f:if condition="{settings.cube}">
+                                    <f:then>
+
+                                        <div class="cube logo">
+                                            <div class="cube__face cube__face--front"> <img class="navbar-brand-logo-normal" src="{f:uri.image(src: settings.logo.file)}"
+                                                <f:if condition="{lib.logo}">
+                                                    <f:then> style="transform: rotateY(180deg)"</f:then>
+                                                    <f:else></f:else>
+                                                </f:if>
+                                                alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}"></div>
+                                            <div class="cube__face cube__face--back"><img class="navbar-brand-logo-inverted" src="{f:uri.image(src: settings.logo.fileInverted)}"
+                                                <f:if condition="{lib.logo}">
+                                                    <f:then> style="transform: rotateY(180deg)"</f:then>
+                                                    <f:else></f:else>
+                                                </f:if>
+                                                alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}"></div>
+                                            <div class="cube__face cube__face--right"> <img class="navbar-brand-logo-normal" src="{f:uri.image(src: settings.logo.file)}"
+                                                <f:if condition="{lib.logo}">
+                                                    <f:then> style="transform: rotateY(180deg)"</f:then>
+                                                    <f:else></f:else>
+                                                </f:if>
+                                                alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}"></div>
+                                            <div class="cube__face cube__face--left"> <img class="navbar-brand-logo-normal" src="{f:uri.image(src: settings.logo.file)}"
+                                                <f:if condition="{lib.logo}">
+                                                    <f:then> style="transform: rotateY(180deg)"</f:then>
+                                                    <f:else></f:else>
+                                                </f:if>
+                                                alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}"></div>
+                                            <div class="cube__face cube__face--top"> <img class="navbar-brand-logo-normal" src="{f:uri.image(src: settings.logo.file)}"
+                                                <f:if condition="{lib.logo}">
+                                                    <f:then> style="transform: rotateY(180deg)"</f:then>
+                                                    <f:else></f:else>
+                                                </f:if>
+                                                alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}"></div>
+                                            <div class="cube__face cube__face--bottom"> <img class="navbar-brand-logo-normal" src="{f:uri.image(src: settings.logo.file)}"
+                                                <f:if condition="{lib.logo}">
+                                                    <f:then> style="transform: rotateY(180deg)"</f:then>
+                                                    <f:else></f:else>
+                                                </f:if>
+                                                alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}"></div>
+                                            </div>
+
+                                    </f:then>
+                                    <f:else>
+
+                                            <img class="navbar-brand-logo-normal" src="{f:uri.image(src: settings.logo.file)}"
+                                                <f:if condition="{lib.logo}">
+                                                    <f:then> style="display:none;"</f:then>
+                                                    <f:else></f:else>
+                                                </f:if>
+                                            alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
+                                             <img class="navbar-brand-logo-inverted" src="{f:uri.image(src: settings.logo.fileInverted)}"
+                                                <f:if condition="{lib.logo}">
+                                                    <f:then> style="display:none;"</f:then>
+                                                    <f:else></f:else>
+                                                </f:if>
+                                             alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
+
+                                        <div class="logo">
+                                            <f:cObject typoscriptObjectPath="lib.logo" data="lib.logo"/>
+                                        </div>
+                                    </f:else>
+                                </f:if>
                             </f:else>
                         </f:if>
                     </f:link.page>

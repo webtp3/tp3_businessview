@@ -16,13 +16,19 @@
 // Brand
 //
 .navbar-brand {
-    transform-style: preserve-3d;
-    transform: translateZ(-100px);
+
     > .navbar-brand-logo-normal {
         display: block;
+        transform: rotateY(0deg);
+
     }
     > .navbar-brand-logo-inverted {
+        transform: rotateY(180deg);
         display: block;
+    }
+    > img {
+        backface-visibility: hidden;
+        position: absolute;
     }
 }
 @media (min-width: @grid-float-breakpoint) {
@@ -30,9 +36,8 @@
         position: relative;
         > img {
             position: relative;
-            top: 50%;
-            transform: scale3d(2,2,2);
-            max-height: 65%;
+            top: 5%;
+            max-height: 100%;
             width: auto;
         }
     }
@@ -65,19 +70,38 @@
             }
         }
         .navbar-brand {
+            > .cube {
+                position: relative;
+                transform-style: preserve-3d;
+                transform: translateZ(-100px);
+                transition: transform 1s;
+
+                > .cube__face {
+                    position: absolute;
+                }
+                > .cube__face--front  { transform: rotateY(0deg) translateZ(100px); }
+                > .cube__face--right  { transform: rotateY(90deg) translateZ(100px); }
+                > .cube__face--back   { transform: rotateY(180deg) translateZ(100px); }
+                > .cube__face--left   { transform: rotateY(-90deg) translateZ(100px); }
+                > .cube__face--top    { transform: rotateX( 90deg) translateZ(100px); }
+                > .cube__face--bottom { transform: rotateX(-90deg) translateZ(100px); }
+            }
+            > .cube.anim {
+                animation: spin 2s 1 ease-in-out;
+            }
             > .navbar-brand-logo-normal {
-              transform: rotateY(180deg);
+                display: block;
+                transform: rotateY(360deg);
+
 
             }
             > .navbar-brand-logo-inverted {
-              transform: rotateY(360deg);
-
+                transform: rotateY(-180deg);
+                display: block;
             }
             > img {
                 backface-visibility: hidden;
                 position: absolute;
-                transform: translate(-200%,-50%)
-
             }
         }
     }
@@ -96,20 +120,35 @@
         }
         .navbar-brand {
 
+            > .cube {
+                position: relative;
+                transform-style: preserve-3d;
+                transform: translateZ(-100px);
+                transition: transform 1s;
+
+                > .cube__face {
+                    position: absolute;
+                }
+                > .cube__face--front  { transform: rotateY(180deg) translateZ(100px); }
+                > .cube__face--right  { transform: rotateY(-90deg) translateZ(100px); }
+                > .cube__face--back   { transform: rotateY(0deg) translateZ(100px); }
+                > .cube__face--left   { transform: rotateY(90deg) translateZ(100px); }
+                > .cube__face--top    { transform: rotateX(-90deg) translateZ(100px); }
+                > .cube__face--bottom { transform: rotateX(90deg) translateZ(100px); }
+            }
             > .navbar-brand-logo-normal {
-              transform: rotateY(360deg);
+                display: block;
+                transform: rotateY(-360deg);
+
 
             }
             > .navbar-brand-logo-inverted {
-              transform: rotateY(180deg);
-
+                transform: rotateY(180deg);
+                display: block;
             }
-
             > img {
                 backface-visibility: hidden;
                 position: absolute;
-                transform: scale3d(1,1,1);
-
             }
         }
     }
@@ -127,16 +166,37 @@
             height: round(@navbar-height/2);
         }
         .navbar-brand {
+            > .cube {
+                position: relative;
+                transform-style: preserve-3d;
+                transform: translateZ(-100px);
+                transition: transform 1s;
+
+                > .cube__face {
+                    position: absolute;
+                }
+                > .cube__face--front  { transform: rotateY(360deg) translateZ(100px); }
+                > .cube__face--right  { transform: rotateY(90deg) translateZ(100px); }
+                > .cube__face--back   { transform: rotateY(180deg) translateZ(100px); }
+                > .cube__face--left   { transform: rotateY(-90deg) translateZ(100px); }
+                > .cube__face--top    { transform: rotateX( 90deg) translateZ(100px); }
+                > .cube__face--bottom { transform: rotateX(-90deg) translateZ(100px); }
+            }
+            > .cube.anim {
+                animation: spin 2s 1 ease-in-out;
+            }
             > .navbar-brand-logo-normal {
-              transform: rotateY(360deg);
+                display: block;
+                transform: rotateY(-360deg);
 
             }
             > .navbar-brand-logo-inverted {
-              transform: rotateY(180deg);
-
+                transform: rotateY(180deg);
+                display: block;
             }
             > img {
                 backface-visibility: hidden;
+                position: absolute;
             }
         }
 
@@ -149,16 +209,39 @@
             height: @navbar-height;
         }
         .navbar-brand {
+            > .cube {
+                position: relative;
+                transform-style: preserve-3d;
+                transform: translateZ(-100px);
+                transition: transform 1s;
+                > .show-front  { transform: translateZ(-100px) rotateY(   0deg); }
+                > .show-right  { transform: translateZ(-100px) rotateY( -90deg); }
+                > .show-back   { transform: translateZ(-100px) rotateY(-180deg); }
+                > .show-left   { transform: translateZ(-100px) rotateY(  90deg); }
+                > .show-top    { transform: translateZ(-100px) rotateX( -90deg); }
+                > .show-bottom { transform: translateZ(-100px) rotateX(  90deg); }
+                > .cube__face {
+                    position: absolute;
+                }
+                > .cube__face--front  { transform: rotateY(180deg) translateZ(100px); }
+                > .cube__face--right  { transform: rotateY(-90deg) translateZ(100px); }
+                > .cube__face--back   { transform: rotateY(360deg) translateZ(100px); }
+                > .cube__face--left   { transform: rotateY(90deg) translateZ(100px); }
+                > .cube__face--top    { transform: rotateX(-90deg) translateZ(100px); }
+                > .cube__face--bottom { transform: rotateX(90deg) translateZ(100px); }
+            }
+            > .cube.anim {
+                animation: spin 2s 1 ease-in-out;
+            }
             > .navbar-brand-logo-normal {
-              transform: rotateY(180deg);
+                display: block;
+                transform: rotateY(360deg);
+
 
             }
             > .navbar-brand-logo-inverted {
-              transform: rotateY(360deg);
-
-            }
-            > img {
-                backface-visibility: hidden;
+                transform: rotateY(-180deg);
+                display: block;
             }
         }
 

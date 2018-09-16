@@ -174,11 +174,11 @@ else{
             show = setTimeout(function() {
                 $j('header.navbar-top').height(headerheight).css({position:"fixed",top:"0px","z-index":"99"});
                 $j('.toolbar .frame').css({padding:"16px 0"});
-                $j('header.navbar-top').toggleClass('anim');
                 $j('header.navbar-top').removeClass("flat");
-                $j(' a.navbar-brand-image, #logo').css({ "transform": "translate(0,0)"});
                 $j(' .navbar-main > li > a , .headerslogan').css({"height":(headerheight - toolbarheight)  +"px","line-height": (headerheight - toolbarheight)  +"px"});
                 //$j('.headerslogan').css({"padding-left":"140px"});
+                $j('.logo.cube').toggleClass('anim');
+                $j('.logo.cube').addClass('show-front');
 
             }, 400);
 
@@ -191,10 +191,10 @@ else{
             if(once === true) {
                 once = false;
                 go = setTimeout(function() {
-                    if(!$j('header.navbar-top').hasClass("flat"))$j(' a.navbar-brand-image, #logo').css({ "transform": "translate(100%,0%)"});
+                    //if(!$j('header.navbar-top').hasClass("flat"))$j(' a.navbar-brand-image, #logo').css({ "transform": "translate(100%,0%)"});
 
                     $j('header.navbar-top').addClass("flat");
-                    $j('header.navbar-top').toggleClass('anim');
+                    $j('header.navbar-top > .cube').toggleClass('anim');
                     $j('.toolbar .frame').css({"padding":"8px 0"});
                     $j('header.navbar-top').height(headerheight / 2).width("100%").css({position:"fixed",top:"0px","z-index":"99"});
                    $j(' .navbar-main > li > a ,.headerslogan').css({"height":(headerheight - toolbarheight) / 2  +"px","line-height": (headerheight - toolbarheight) / 2  +"px"});
@@ -210,11 +210,10 @@ else{
                 once = false;
                 console.log("up")
                 go = setTimeout(function() {
-                    $j('header.navbar-top').toggleClass('anim');
+                   $j('.logo.cube').toggleClass('anim');
                     $j('header.navbar-top').height(headerheight)
                     $j('.toolbar .frame').css({padding:"8px 0"});
                     $j('header.navbar-top').height(headerheight / 2).width("100%").css({position:"fixed",top:"0px","z-index":"99"});
-                    $j(' a.navbar-brand-image, #logo').css({ "transform": "translate(100%,0%)"});
                     $j(' .navbar-main > li > a ,.headerslogan').css({"height":(headerheight - toolbarheight) / 2  +"px","line-height": (headerheight - toolbarheight) / 2  +"px"});
                 }, 400);
             }
@@ -226,8 +225,9 @@ else{
             once = true;
             //$j('header.navbar-top .breadcrumb-section').hide();
             show = setTimeout(function() {
-                $j('header.navbar-top').addClass('anim');
-
+                $j('header.navbar-top > .cube').addClass('anim');
+                //$j('header.navbar-top ').toggleClass('anim');
+                $j('.logo.cube').addClass('show-back');
             }, 400);
 
             init = false;
@@ -239,6 +239,7 @@ else{
         headerheight = 135 ;
         $j('.toolbar').insertAfter('header .navbar-header-main');//.navbar-collapse.collapse
         greeting.prependTo('#content')
+       $j('.logo.cube').toggleClass('anim');
         $j('a.navbar-brand-image, #logo').width(headerwidth < 992 ? (logoheight/headerheight*0.7)*logowidth : (logoheight/headerheight)*logowidth * 0.7).height(headerheight * 0.7).css({ "transform": "translate(-200%,-50%)"});
         $j('header .container').first().height(headerheight);
         if(headerwidth < 992)$j('.toolbar').insertAfter('.navbar-toggle').addClass('ismobile');
