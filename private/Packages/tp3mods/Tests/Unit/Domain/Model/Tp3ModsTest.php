@@ -33,7 +33,6 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getMicrodata()
         );
-
     }
 
     /**
@@ -48,7 +47,6 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'microdata',
             $this->subject
         );
-
     }
 
     /**
@@ -60,7 +58,6 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getKonfiguration()
         );
-
     }
 
     /**
@@ -75,72 +72,106 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'konfiguration',
             $this->subject
         );
-
     }
 
     /**
      * @test
      */
-    public function getAddressReturnsInitialValueFor()
+    public function getSnippetTypeReturnsInitialValueForString()
     {
-        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        self::assertEquals(
-            $newObjectStorage,
-            $this->subject->getAddress()
+        self::assertSame(
+            '',
+            $this->subject->getSnippetType()
         );
-
     }
 
     /**
      * @test
      */
-    public function setAddressForObjectStorageContainingSetsAddress()
+    public function setSnippetTypeForStringSetsSnippetType()
     {
-        $addres = new \Tp3\Tp3mods\Domain\Model\Tp3Mods();
-        $objectStorageHoldingExactlyOneAddress = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $objectStorageHoldingExactlyOneAddress->attach($addres);
-        $this->subject->setAddress($objectStorageHoldingExactlyOneAddress);
+        $this->subject->setSnippetType('Conceived at T3CON10');
 
         self::assertAttributeEquals(
-            $objectStorageHoldingExactlyOneAddress,
+            'Conceived at T3CON10',
+            'snippetType',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getMainEntryReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getMainEntry()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setMainEntryForStringSetsMainEntry()
+    {
+        $this->subject->setMainEntry('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'mainEntry',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getAggregateRatingReturnsInitialValueForBool()
+    {
+        self::assertSame(
+            false,
+            $this->subject->getAggregateRating()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setAggregateRatingForBoolSetsAggregateRating()
+    {
+        $this->subject->setAggregateRating(true);
+
+        self::assertAttributeEquals(
+            true,
+            'aggregateRating',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getAddressReturnsInitialValueForTp3Adress()
+    {
+        self::assertEquals(
+            null,
+            $this->subject->getAddress()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setAddressForTp3AdressSetsAddress()
+    {
+        $addressFixture = new \Tp3\Tp3mods\Domain\Model\Tp3Adress();
+        $this->subject->setAddress($addressFixture);
+
+        self::assertAttributeEquals(
+            $addressFixture,
             'address',
             $this->subject
         );
-
-    }
-
-    /**
-     * @test
-     */
-    public function addAddresToObjectStorageHoldingAddress()
-    {
-        $addres = new \Tp3\Tp3mods\Domain\Model\Tp3Mods();
-        $addressObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['attach'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $addressObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($addres));
-        $this->inject($this->subject, 'address', $addressObjectStorageMock);
-
-        $this->subject->addAddres($addres);
-    }
-
-    /**
-     * @test
-     */
-    public function removeAddresFromObjectStorageHoldingAddress()
-    {
-        $addres = new \Tp3\Tp3mods\Domain\Model\Tp3Mods();
-        $addressObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['detach'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $addressObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($addres));
-        $this->inject($this->subject, 'address', $addressObjectStorageMock);
-
-        $this->subject->removeAddres($addres);
-
     }
 }

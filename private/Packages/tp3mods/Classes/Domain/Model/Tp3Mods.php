@@ -19,23 +19,43 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 {
     /**
      * Repository of Microdara
-     * 
+     *
      * @var string
      */
     protected $microdata = '';
 
     /**
      * Repository of config
-     * 
+     *
      * @var string
      */
     protected $konfiguration = '';
 
     /**
+     * snippetType
+     *
+     * @var string
+     */
+    protected $snippetType = '';
+
+    /**
+     * mainEntry
+     *
+     * @var string
+     */
+    protected $mainEntry = '';
+
+    /**
+     * aggregateRating
+     *
+     * @var bool
+     */
+    protected $aggregateRating = false;
+
+    /**
      * address
-     * 
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<>
-     * @cascade remove
+     *
+     * @var \Tp3\Tp3mods\Domain\Model\Tp3Adress
      */
     protected $address = null;
 
@@ -53,17 +73,17 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
      * Do not modify this method!
      * It will be rewritten on each save in the extension builder
      * You may modify the constructor of this class instead
-     * 
+     *
      * @return void
      */
     protected function initStorageObjects()
     {
-        $this->address = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+
     }
 
     /**
      * Returns the microdata
-     * 
+     *
      * @return string $microdata
      */
     public function getMicrodata()
@@ -73,7 +93,7 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Sets the microdata
-     * 
+     *
      * @param string $microdata
      * @return void
      */
@@ -84,7 +104,7 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Returns the konfiguration
-     * 
+     *
      * @return string $konfiguration
      */
     public function getKonfiguration()
@@ -94,7 +114,7 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Sets the konfiguration
-     * 
+     *
      * @param string $konfiguration
      * @return void
      */
@@ -104,31 +124,82 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     }
 
     /**
-     * Adds a
-     * 
-     * @param $addres
-     * @return void
+     * Returns the snippetType
+     *
+     * @return string $snippetType
      */
-    public function addAddres($addres)
+    public function getSnippetType()
     {
-        $this->address->attach($addres);
+        return $this->snippetType;
     }
 
     /**
-     * Removes a
-     * 
-     * @param $addresToRemove The  to be removed
+     * Sets the snippetType
+     *
+     * @param string $snippetType
      * @return void
      */
-    public function removeAddres($addresToRemove)
+    public function setSnippetType($snippetType)
     {
-        $this->address->detach($addresToRemove);
+        $this->snippetType = $snippetType;
+    }
+
+    /**
+     * Returns the mainEntry
+     *
+     * @return string $mainEntry
+     */
+    public function getMainEntry()
+    {
+        return $this->mainEntry;
+    }
+
+    /**
+     * Sets the mainEntry
+     *
+     * @param string $mainEntry
+     * @return void
+     */
+    public function setMainEntry($mainEntry)
+    {
+        $this->mainEntry = $mainEntry;
+    }
+
+    /**
+     * Returns the aggregateRating
+     *
+     * @return bool $aggregateRating
+     */
+    public function getAggregateRating()
+    {
+        return $this->aggregateRating;
+    }
+
+    /**
+     * Sets the aggregateRating
+     *
+     * @param bool $aggregateRating
+     * @return void
+     */
+    public function setAggregateRating($aggregateRating)
+    {
+        $this->aggregateRating = $aggregateRating;
+    }
+
+    /**
+     * Returns the boolean state of aggregateRating
+     *
+     * @return bool
+     */
+    public function isAggregateRating()
+    {
+        return $this->aggregateRating;
     }
 
     /**
      * Returns the address
-     * 
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<> $address
+     *
+     * @return \Tp3\Tp3mods\Domain\Model\Tp3Adress $address
      */
     public function getAddress()
     {
@@ -137,11 +208,11 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Sets the address
-     * 
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<> $address
+     *
+     * @param \Tp3\Tp3mods\Domain\Model\Tp3Adress $address
      * @return void
      */
-    public function setAddress(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $address)
+    public function setAddress(\Tp3\Tp3mods\Domain\Model\Tp3Adress $address)
     {
         $this->address = $address;
     }

@@ -3,8 +3,8 @@
         {
             "config": {
                 "position": [
-                    34,
-                    78
+                    175,
+                    26
                 ]
             },
             "name": "New Model Object",
@@ -13,20 +13,21 @@
                     "_default0_list": true,
                     "_default1_show": true,
                     "_default2_new_create": false,
-                    "_default3_edit_update": true,
+                    "_default3_edit_update": false,
                     "_default4_delete": false,
                     "customActions": []
                 },
                 "name": "Tp3Mods",
                 "objectsettings": {
-                    "addDeletedField": false,
-                    "addHiddenField": false,
+                    "addDeletedField": true,
+                    "addHiddenField": true,
                     "addStarttimeEndtimeFields": true,
                     "aggregateRoot": false,
                     "categorizable": false,
                     "description": "",
                     "mapToTable": "",
                     "parentClass": "",
+                    "skipTypeConfiguration": false,
                     "sorting": false,
                     "type": "ValueObject",
                     "uid": "183355206972"
@@ -38,6 +39,7 @@
                             "maxItems": "1",
                             "propertyDescription": "Repository of Microdara",
                             "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
                             "propertyIsRequired": false,
                             "propertyName": "microdata",
                             "propertyType": "Text",
@@ -48,10 +50,44 @@
                             "maxItems": "1",
                             "propertyDescription": "Repository of config",
                             "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
                             "propertyIsRequired": false,
                             "propertyName": "konfiguration",
                             "propertyType": "Text",
                             "uid": "718282552093"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "snippetType",
+                            "propertyType": "Text",
+                            "uid": "747276937390"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "mainEntry",
+                            "propertyType": "Text",
+                            "uid": "645565730481"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "aggregateRating",
+                            "propertyType": "Boolean",
+                            "uid": "610947940358"
                         }
                     ]
                 },
@@ -63,12 +99,64 @@
                             "propertyIsExcludeField": true,
                             "relationDescription": "",
                             "relationName": "address",
-                            "relationType": "zeroToMany",
-                            "relationWire": "",
-                            "renderType": "inline",
+                            "relationType": "manyToOne",
+                            "relationWire": "[wired]",
+                            "renderType": "selectSingle",
                             "uid": "1361960137150"
                         }
                     ]
+                }
+            }
+        },
+        {
+            "config": {
+                "position": [
+                    1101,
+                    156
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_list": true,
+                    "_default1_show": true,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
+                    "customActions": []
+                },
+                "name": "Tp3Adress",
+                "objectsettings": {
+                    "addDeletedField": true,
+                    "addHiddenField": true,
+                    "addStarttimeEndtimeFields": true,
+                    "aggregateRoot": true,
+                    "categorizable": true,
+                    "description": "",
+                    "mapToTable": "tt_address",
+                    "parentClass": "",
+                    "skipTypeConfiguration": false,
+                    "sorting": true,
+                    "type": "Entity",
+                    "uid": "59968923444"
+                },
+                "propertyGroup": {
+                    "properties": [
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "microdataAdress",
+                            "propertyType": "Boolean",
+                            "uid": "98194247821"
+                        }
+                    ]
+                },
+                "relationGroup": {
+                    "relations": []
                 }
             }
         }
@@ -90,14 +178,14 @@
         "emConf": {
             "category": "module",
             "custom_category": "",
-            "dependsOn": "typo3 => 7.6.0-8.9.99\n",
+            "dependsOn": "typo3 => 8.7.0-9.9.99\n",
             "disableLocalization": true,
             "disableVersioning": true,
             "skipGenerateDocumentationTemplate": false,
             "sourceLanguage": "en",
-            "state": "beta",
-            "targetVersion": "7.6.0-8.9.99",
-            "version": "1.0.5"
+            "state": "stable",
+            "targetVersion": "8.7.0-8.7.99",
+            "version": "1.3.0"
         },
         "extensionKey": "tp3mods",
         "name": "tp3 Mods",
@@ -105,7 +193,7 @@
         "originalVendorName": "Tp3",
         "persons": [
             {
-                "company": "R&P IT Consulting GmbH",
+                "company": "tp3",
                 "email": "email@thomasruta.de",
                 "name": "Thomas Ruta",
                 "role": "Developer"
@@ -118,16 +206,30 @@
                     "noncacheableActions": "",
                     "switchableActions": ""
                 },
+                "description": "",
                 "key": "tp3micro",
                 "name": "tp3 microdata"
             }
         ],
         "vendorName": "Tp3"
     },
-    "wires": [],
+    "wires": [
+        {
+            "src": {
+                "moduleId": 0,
+                "terminal": "relationWire_0",
+                "uid": "1361960137150"
+            },
+            "tgt": {
+                "moduleId": 1,
+                "terminal": "SOURCES",
+                "uid": "59968923444"
+            }
+        }
+    ],
     "log": {
-        "last_modified": "2017-11-20 07:38",
-        "extension_builder_version": "7.6.18",
+        "last_modified": "2018-09-24 06:00",
+        "extension_builder_version": "8.10.2",
         "be_user": " (1)"
     }
 }

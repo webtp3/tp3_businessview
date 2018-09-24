@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-23T22:33:53Z" product-name="tp3_parallax">
+		<header/>
+		<body>
+			<trans-unit id="tx_tp3parallax_domain_model_section">
+				<source>Section</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3parallax_domain_model_section.speed">
+				<source>Speed</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3parallax_domain_model_section.direction">
+				<source>Direction</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3parallax_domain_model_section.parallaxcollection">
+				<source>Parallaxcollection</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3parallax_domain_model_collections">
+				<source>Collections</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3parallax_domain_model_collections.parallaxsection">
+				<source>Parallaxsection</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -2,6 +2,7 @@ $ = $j = jQuery.noConflict();
 var windowPadding = 10;
 var bottomPadding = 80;
 $('iframe[src^="javascript"]').prev('script').appendTo('.tx-tp3-social')
+$('iframe[src^="javascript"]').appendTo('.tx-tp3-social')
 $('span.IN-widget').appendTo('.tx-tp3-social');
 var wndW = window.width- windowPadding * 2 * 0.9;
 var wndH = window.height- windowPadding * 2 - bottomPadding;

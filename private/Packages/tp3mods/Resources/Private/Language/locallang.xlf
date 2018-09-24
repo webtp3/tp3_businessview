@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-20T19:38:26Z" product-name="tp3mods">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-24T18:00:27Z" product-name="tp3mods">
 		<header/>
 		<body>
-			<trans-unit id="tx_tp3mods_domain_model_tp3micro">
-				<source>tp3 microdata</source>
-			</trans-unit>
-			<trans-unit id="tx_tp3mods_domain_model_tp3micro.description">
-				<source></source>
-			</trans-unit>
 			<trans-unit id="tx_tp3mods_domain_model_tp3mods">
 				<source>Tp3 Mods</source>
 			</trans-unit>
@@ -18,8 +12,29 @@
 			<trans-unit id="tx_tp3mods_domain_model_tp3mods.konfiguration">
 				<source>Konfiguration</source>
 			</trans-unit>
+			<trans-unit id="tx_tp3mods_domain_model_tp3mods.snippet_type">
+				<source>Snippet Type</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3mods_domain_model_tp3mods.main_entry">
+				<source>Main Entry</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3mods_domain_model_tp3mods.aggregate_rating">
+				<source>Aggregate Rating</source>
+			</trans-unit>
 			<trans-unit id="tx_tp3mods_domain_model_tp3mods.address">
 				<source>Address</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3mods_domain_model_tp3adress">
+				<source>Tp3 Adress</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3mods_domain_model_tp3adress.microdata_adress">
+				<source>Microdata Adress</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3mods_domain_model_tp3micro">
+				<source>tp3 microdata</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3mods_domain_model_tp3micro.description">
+				<source></source>
 			</trans-unit>
 		</body>
 	</file>

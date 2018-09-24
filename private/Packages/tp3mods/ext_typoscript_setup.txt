@@ -1,0 +1,15 @@
+
+config.tx_extbase {
+  persistence {
+    classes {
+
+      Tp3\Tp3mods\Domain\Model\Tp3Adress {
+        mapping {
+          tableName = tt_address
+          recordType = Tx_Tp3mods_Tp3Adress
+        }
+      }
+
+    }
+  }
+}
