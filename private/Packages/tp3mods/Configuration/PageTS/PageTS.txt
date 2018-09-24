@@ -1,0 +1,13 @@
+########################
+#### BACKENDLAYOUTS ####
+########################
+
+TCEFORM {
+    pages {
+        layout {
+            addItems{
+             100 = Newsletter
+            }
+        }
+    }
+}
