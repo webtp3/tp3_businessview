@@ -40,20 +40,19 @@ call_user_func(function () {
     $testbase->createDirectory(PATH_site . 'typo3temp/var/transient');
     $testbase->createDirectory(PATH_site . 'uploads');
 
+    // disable TYPO3_DLOG
+    define('TYPO3_DLOG', false);
+
     // Retrieve an instance of class loader and inject to core bootstrap
     $classLoaderFilepath = TYPO3_PATH_PACKAGES . 'autoload.php';
     if (!file_exists($classLoaderFilepath)) {
         die('ClassLoader can\'t be loaded. Please check your path or set an environment variable \'TYPO3_PATH_ROOT\' to your root path.');
     }
     $classLoader = require $classLoaderFilepath;
-
-    $requestType = \TYPO3\CMS\Core\Core\SystemEnvironmentBuilder::REQUESTTYPE_BE | \TYPO3\CMS\Core\Core\SystemEnvironmentBuilder::REQUESTTYPE_CLI;
-    \TYPO3\CMS\Core\Core\SystemEnvironmentBuilder::run(0, $requestType);
-    $applicationContext = \TYPO3\CMS\Core\Core\Bootstrap::createApplicationContext();
-    \TYPO3\CMS\Core\Core\SystemEnvironmentBuilder::initializeEnvironment($applicationContext);
-    \TYPO3\CMS\Core\Utility\GeneralUtility::presetApplicationContext($applicationContext);
-    \TYPO3\CMS\Core\Core\Bootstrap::initializeClassLoader($classLoader);
-    \TYPO3\CMS\Core\Core\Bootstrap::baseSetup();
+    \TYPO3\CMS\Core\Core\Bootstrap::getInstance()
+        ->initializeClassLoader($classLoader)
+        ->setRequestType(TYPO3_REQUESTTYPE_BE | TYPO3_REQUESTTYPE_CLI)
+        ->baseSetup();
 
     // Initialize default TYPO3_CONF_VARS
     $configurationManager = new \TYPO3\CMS\Core\Configuration\ConfigurationManager();
@@ -61,21 +60,15 @@ call_user_func(function () {
     // Avoid failing tests that rely on HTTP_HOST retrieval
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
 
-    $cache = new \TYPO3\CMS\Core\Cache\Frontend\PhpFrontend(
-        'cache_core',
-	new \TYPO3\CMS\Core\Cache\Backend\NullBackend('production', [])
-    );
-    // Set all packages to active
-    $packageManager = \TYPO3\CMS\Core\Core\Bootstrap::createPackageManager(\TYPO3\CMS\Core\Package\UnitTestPackageManager::class, $cache);
+    \TYPO3\CMS\Core\Core\Bootstrap::getInstance()
+        ->disableCoreCache()
+        ->initializeCachingFramework()
+        // Set all packages to active
+        ->initializePackageManagement(\TYPO3\CMS\Core\Package\UnitTestPackageManager::class);
 
-    \TYPO3\CMS\Core\Utility\GeneralUtility::setSingletonInstance(\TYPO3\CMS\Core\Package\PackageManager::class, $packageManager);
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::setPackageManager($packageManager);
-
-    if (!\TYPO3\CMS\Core\Core\Environment::isComposerMode()) {
+    if (!\TYPO3\CMS\Core\Core\Bootstrap::usesComposerClassLoading()) {
         // Dump autoload info if in non composer mode
         \TYPO3\CMS\Core\Core\ClassLoadingInformation::dumpClassLoadingInformation();
         \TYPO3\CMS\Core\Core\ClassLoadingInformation::registerClassLoadingInformation();
     }
-
-    \TYPO3\CMS\Core\Utility\GeneralUtility::purgeInstances();
 });

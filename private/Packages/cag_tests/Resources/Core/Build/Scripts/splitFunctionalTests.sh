@@ -15,14 +15,6 @@
 #
 #########################
 
-#
-# @deprecated!
-#
-# This script has been superseded by the PHP based "splitFunctionalTests.php"
-# and will be removed any time soon.
-#
-echo "Deprecated script. Use splitFunctionalTests.php instead"
-
 numberOfFunctionalTestJobs=${1}
 numberOfFunctionalTestJobsMinusOne=$(( numberOfFunctionalTestJobs - 1 ))
 
@@ -59,6 +51,7 @@ for (( i=0; i<${numberOfFunctionalTestJobs}; i++)); do
 	fi
 	echo '<phpunit' >> vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests-Job-${i}.xml
 	echo '	backupGlobals="true"' >> vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests-Job-${i}.xml
+	echo '	backupStaticAttributes="false"' >> vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests-Job-${i}.xml
 	echo '	bootstrap="FunctionalTestsBootstrap.php"' >> vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests-Job-${i}.xml
 	echo '	colors="true"' >> vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests-Job-${i}.xml
 	echo '	convertErrorsToExceptions="true"' >> vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests-Job-${i}.xml

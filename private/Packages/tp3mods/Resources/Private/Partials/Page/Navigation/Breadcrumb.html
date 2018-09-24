@@ -12,9 +12,11 @@
                             itemtype="http://schema.org/ListItem">
                             <f:if condition="{item.current}">
                                 <f:then>
-                                    <span itemprop="item">{item.title}</span>
-                                    <meta itemprop="name" content="{item.title}" />
+                                    <a href="{item.link}" {f:if(condition: item.target, then: '
+                                    target="{item.target}"')} title="{item.title}" itemprop="item" >
+                                    <span itemprop="name">{item.title}</span>
                                     <meta itemprop="position" content="{iterator.index}" />
+                                    </a>
                                 </f:then>
                                 <f:else>
                                     <a href="{item.link}" {f:if(condition: item.target, then: '

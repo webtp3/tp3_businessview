@@ -4,7 +4,7 @@
         <f:then>
 
             <div id="c{data.uid}"
-                 class="frame frame-{data.frame_class} frame-type-{data.CType} frame-layout-{data.layout}{f:if(condition: data.space_before_class, else: ' frame-space-before-none', then: ' frame-space-before-{data.space_before_class}')}{f:if(condition: data.space_after_class, else: ' frame-space-after-none', then: ' frame-space-after-{data.space_after_class}')}">
+                 class="frame frame-{data.frame_class} frame-type-{data.CType} frame-layout-{data.layout}{f:if(condition: data.space_before_class, else: ' frame-space-before-none', then: ' frame-space-before-{data.space_before_class}')}{f:if(condition: data.space_after_class, else: ' frame-space-after-none', then: ' frame-space-after-{data.space_after_class}')} " itemscope="" itemtype="http://schema.org/WebPageElement">
                 <f:if condition="{data._LOCALIZED_UID}">
                     <a id="c{data._LOCALIZED_UID}"></a>
                 </f:if>

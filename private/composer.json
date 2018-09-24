@@ -2,7 +2,7 @@
 	"name": "thomasruta/tp3_tests",
 	"type": "library",
 	"description":"developt Testings for tp3",
-	"minimum-stability": "dev",
+	"minimum-stability": "beta",
 	"license":"proprietary",
 	"authors": [
 		{
@@ -45,7 +45,7 @@
 		"helhum/typo3-composer-setup": "^0.5.1",
 		"helhum/typo3-console": "^5.4",
 		"helhum/config-loader": "*",
-		"helhum/typo3-config-handling": "^1.0",
+		"helhum/typo3-config-handling": "^0.7",
 		"typo3/cms-composer-installers": "^1.4.2 || ^2.0",
 		"cogpowered/finediff": "~0.3.1",
 		"doctrine/dbal": "~2.5.4",
@@ -90,7 +90,8 @@
 		"typo3/cms-fluid-styled-content":"^8",
 		"typo3/cms-indexed-search":"^8",
 		"typo3/cms-linkvalidator":"^8",
-
+		"sjbr/static-info-tables":"^6.5",
+		"typo3-ter/static-info-tables-de":"^6",
 		"bk2k/bootstrap-package": "^8.0",
 		"typo3/cms-introduction":"^3.0.2",
 		"fab/vidi":"*",
@@ -119,10 +120,11 @@
 		"in2code/powermail": "dev-master",
 		"causal/tscobj":"*",
 		"apen/additional_reports":"*",
-		"web-tp3/wec_map": "^4.0",
 		"typo3-ter/cal":"1.11.2-dev",
 		"causal/extractor":"^1",
 		"snowflakeops/varnish":"^2"
+
+
 
 	},
 	"require-dev": {
@@ -143,7 +145,8 @@
 		"web-tp3/cag_tests":"*",
 		"facebook/webdriver":"1.6.0",
 		"devlog/devlog": "dev-master",
-		"friendsoftypo3/extension-builder":"^8.7"
+		"friendsoftypo3/extension-builder":"^8.7",
+		"vaites/php-apache-tika":"*"
 
 	},
 	"suggest": {

@@ -1,0 +1,49 @@
+page.footerData {
+
+    1117 = TEXT
+    1117.data = getenv : REQUEST_URI
+    1117.wrap = <meta itemprop="url" content="http://{$baseUrl}|" />
+
+    1118.= TEXT
+    1118.value (
+        <g itemscope itemtype="http://schema.org/Organization">
+            <meta itemprop="logo" content="http://{$baseUrl}/{$logo}">
+            <meta itemprop="url" content="http://{$baseUrl}">
+            <meta itemprop="name" content="{$tp3sitetitle}">
+            <meta itemprop="sameAs" content="{$facebook_profile}">
+            <meta itemprop="sameAs" content="{$twitter_profile}">
+            <meta itemprop="sameAs" content="{$linkedin_profile}">
+         </g>
+        <g itemscope itemtype="http://schema.org/SoftwareApplication">
+            <meta itemprop="image" content="http://web.tp3.de/fileadmin/user_upload/tp3/logo_125.png">
+            <meta itemprop="url" content="http://web.tp3.de">
+            <meta itemprop="name" content="tp3 - typo3 development & consulting">
+            <meta itemprop="sameAs" content="https://www.facebook.com/tp3service">
+            <meta itemprop="sameAs" content="https://plus.google.com/+Tp3De">
+            <meta itemprop="sameAs" content="https://twitter.com/tp3_web">
+            <meta itemprop="applicationSuite" content="typo3">
+            <meta itemprop="applicationCategory" content="web & mobile apps">
+            <meta itemprop="license" content="http://www.gnu.org/licenses/gpl-2.0.html">
+            <meta itemprop="operatingSystem" content="ubuntu">
+            <meta itemprop="text" content="tp3 ist eine von der R&P IT Consulting entwickelte Anpassung von typo3. Die Plattform wird als Software as a Service (SaaS) für Kunden bereitgestellt.">
+            <g  itemprop="provider" itemscope itemtype="http://schema.org/Organization">
+                <meta itemprop="name" content="RP IT Consulting GmbH" />
+                <meta itemprop="description" content="solid software & apps for innovative technical solutions" />
+                <meta itemprop="image" content="http://r-p-it.com/fileadmin/user/rp/rp_logo.png" />
+                <meta itemprop="sameAs" content="https://www.facebook.com/r.p.it.consulting">
+                <meta itemprop="sameAs" content="https://twitter.com/rp_it">
+                <meta itemprop="sameAs" content="https://www.linkedin.com/company/r&p-it-consulting-gmbh">
+            </g>
+        </g>
+    <g itemscope itemtype="http://schema.org/WebSite">
+      <meta itemprop="url" content="{$baseUrl}"/>
+      <form style="display:none" itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
+        <meta itemprop="target" content="http://{$baseUrl}/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}">
+        <meta itemprop="query-input" content="required name=skeyword">
+      </form>
+    </g>
+
+
+    )
+
+}

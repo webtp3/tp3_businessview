@@ -1,10 +1,12 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<figure class="video">
+<figure class="video" itemscope="" itemtype="http://schema.org/VideoObject">
     <div class="embed embed-responsive embed-responsive-16by9">
         <f:render partial="Media/Rendering/Video" arguments="{file: file, data: data, settings: settings}"/>
+        <meta itemprop="name" content="{file.name}">
+        <meta itemprop="contentUrl" content="{file.originalResource.publicUrl}">
     </div>
     <f:if condition="{file.description}">
-        <figcaption class="caption">
+        <figcaption class="caption" itemprop="description">
             <f:format.nl2br>{file.description}</f:format.nl2br>
         </figcaption>
     </f:if>

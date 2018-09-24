@@ -3,14 +3,14 @@
 plugin.tx_tp3mods_tp3micro {
     view {
         templateRootPaths.0 = EXT:tp3mods/Resources/Private/Templates/
-        templateRootPaths.1 = plugin.tx_tp3mods_tp3micro.view.templateRootPath
+        templateRootPaths.1 = {$plugin.tx_tp3mods_tp3micro.view.templateRootPath}
         partialRootPaths.0 = EXT:tp3mods/Resources/Private/Partials/
-        partialRootPaths.1 = plugin.tx_tp3mods_tp3micro.view.partialRootPath
+        partialRootPaths.1 = {$plugin.tx_tp3mods_tp3micro.view.partialRootPath}
         layoutRootPaths.0 = EXT:tp3mods/Resources/Private/Layouts/
-        layoutRootPaths.1 = plugin.tx_tp3mods_tp3micro.view.layoutRootPath
+        layoutRootPaths.1 = {$plugin.tx_tp3mods_tp3micro.view.layoutRootPath}
     }
     persistence {
-        storagePid = plugin.tx_tp3mods_tp3micro.persistence.storagePid
+        storagePid = {$plugin.tx_tp3mods_tp3micro.persistence.storagePid}
         #recursive = 1
     }
     features {
@@ -99,13 +99,13 @@ module.tx_tp3mods_tools_tp3modstp3backend {
 }
 lib.fluidContent {
     templateRootPaths {
-        200 = EXT:tp3mods/Resources/Private/Templates/ContentElements/
+        200 = EXT:tp3mods/Resources/Private/Templates/
     }
     partialRootPaths {
-        200 = EXT:tp3mods/Resources/Private/Partials/ContentElements/
+        200 = EXT:tp3mods/Resources/Private/Partials/
     }
     layoutRootPaths {
-        200 = EXT:tp3mods/Resources/Private/Layouts/ContentElements/
+        200 = EXT:tp3mods/Resources/Private/Layouts/
     }
 }
 

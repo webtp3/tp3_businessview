@@ -1,5 +1,5 @@
 <?php
-namespace CAG\CagTests\Core\Acceptance\Support\Helper;
+namespace Cag\CagTests\Core\Acceptance\Support\Helper;
 
 /*
  * This file is part of the TYPO3 CMS project.

@@ -106,3 +106,5 @@ plugin.tx_ttaddress_pi1 {
 		}
 	}
 }
+tt_content.list.20.tx_ttaddress_pi1 = USER
+tt_content.list.20.tx_ttaddress_pi1 < plugin.tx_ttaddress_pi1

@@ -5,23 +5,42 @@
  * @see http://robo.li/
  *
  */
-use CAG\Robo\Task\loadTasks as CAGTasks;
-
 class RoboFile extends \Robo\Tasks
 {
-    use CAGTasks;
 
-    CONST NPM_BIN_PATH = 'node_modules/.bin/';
-    CONST BASE_DIR = __DIR__;
+    function testAcceptance($seleniumPath = '~/selenium-server-standalone-2.39.0.jar')
+    {
+        // launches PHP server on port 8000 for web dir
+        // server will be executed in background and stopped in the end
+        $this->taskServer(8000)
+            ->background()
+            ->dir('web')
+            ->run();
 
-    protected $context;
-    protected $envVariables;
-    protected $envLoaded = false;
+        // running Selenium server in background
+        $this->taskExec('java -jar ' . $seleniumPath)
+            ->background()
+            ->run();
 
-    /**
-     * RoboFile constructor
-     *
-     */
+        // loading Symfony Command and running with passed argument
+        $this->taskSymfonyCommand(new \Codeception\Command\Run('run'))
+            ->arg('suite','acceptance')
+            ->run();
+    }
+
+//   #use CAGTasks;
+//
+//    CONST NPM_BIN_PATH = 'node_modules/.bin/';
+//    CONST BASE_DIR = __DIR__;
+//
+//    protected $context;
+//    protected $envVariables;
+//    protected $envLoaded = false;
+//
+//    /**
+//     * RoboFile constructor
+//     *
+//     */
     public function __construct()
     {
         try {
@@ -174,7 +193,7 @@ RewriteCond %{HTTP_HOST} \!\^' . $vHost . '$ [NC]')
             ->process('wget http://www.myproject.com/ -O ' . $tmpPath . '/index.html')
             ->run();
 
-        $this->taskExec('node ./Build/fe/tasks/criticalCss ' . $tmpPath)
+        $this->taskExec('node ./build/fe/tasks/criticalCss ' . $tmpPath)
             ->dir(self::BASE_DIR)
             ->run();
     }
@@ -185,7 +204,7 @@ RewriteCond %{HTTP_HOST} \!\^' . $vHost . '$ [NC]')
     function buildIcons() {
         $this->say('[TASK] Build icons...');
         $this->optimizeSvgIcons();
-        $this->taskExec('node ' . self::BASE_DIR . '/Build/fe/tasks/icons')
+        $this->taskExec('node ' . self::BASE_DIR . '/build/fe/tasks/icons')
             ->dir(self::BASE_DIR)
             ->run();
         $this->_remove(self::BASE_DIR . '/web/assets/Icons/Content/icons.data.png.css');

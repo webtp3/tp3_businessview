@@ -15,7 +15,7 @@ plugin.tx_yoastseo {
         imageHeight = 628c
 
         fbAdmins =
-        fbAppId =
+        fbAppId = {$plugin.tx_tp3social_tp3facebook.appID}
     }
 
     twitter {
@@ -25,7 +25,7 @@ plugin.tx_yoastseo {
         imageWidth = 1200c
         imageHeight = 628c
 
-        imageMaxWidth =
+        imageMaxWidth = 700c
         site =
     }
 }

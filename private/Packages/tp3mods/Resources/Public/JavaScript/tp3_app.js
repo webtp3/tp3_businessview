@@ -2,7 +2,6 @@ $ = $j = jQuery.noConflict();
 var windowPadding = 10;
 var bottomPadding = 80;
 $('iframe[src^="javascript"]').prev('script').appendTo('.tx-tp3-social')
-$('iframe[src^="javascript"]').appendTo('.tx-tp3-social')
 $('span.IN-widget').appendTo('.tx-tp3-social');
 var wndW = window.width- windowPadding * 2 * 0.9;
 var wndH = window.height- windowPadding * 2 - bottomPadding;
@@ -172,10 +171,10 @@ else{
             once = true;
             //$j('header.navbar-top .breadcrumb-section').hide();
             show = setTimeout(function() {
-                $j('header.navbar-top').height(headerheight).css({position:"fixed",top:"0px","z-index":"99"});
+                $j('header.navbar-top').css({position:"fixed",top:"0px","z-index":"99"});
                 $j('.toolbar .frame').css({padding:"16px 0"});
                 $j('header.navbar-top').removeClass("flat");
-                $j(' .navbar-main > li > a , .headerslogan').css({"height":(headerheight - toolbarheight)  +"px","line-height": (headerheight - toolbarheight)  +"px"});
+              //  $j(' .navbar-main > li > a , .headerslogan').css({"height":(headerheight - toolbarheight)  +"px","line-height": (headerheight - toolbarheight)  +"px"});
                 //$j('.headerslogan').css({"padding-left":"140px"});
                 $j('.logo.cube').toggleClass('anim');
                 $j('.logo.cube').addClass('show-front');
@@ -196,8 +195,8 @@ else{
                     $j('header.navbar-top').addClass("flat");
                     $j('header.navbar-top > .cube').toggleClass('anim');
                     $j('.toolbar .frame').css({"padding":"8px 0"});
-                    $j('header.navbar-top').height(headerheight / 2).width("100%").css({position:"fixed",top:"0px","z-index":"99"});
-                   $j(' .navbar-main > li > a ,.headerslogan').css({"height":(headerheight - toolbarheight) / 2  +"px","line-height": (headerheight - toolbarheight) / 2  +"px"});
+                  //  $j('header.navbar-top').height(headerheight / 2).width("100%").css({position:"fixed",top:"0px","z-index":"99"});
+                  // $j(' .navbar-main > li > a ,.headerslogan').css({"height":(headerheight - toolbarheight) / 2  +"px","line-height": (headerheight - toolbarheight) / 2  +"px"});
                 }, 400);
             }
 
@@ -211,10 +210,10 @@ else{
                 console.log("up")
                 go = setTimeout(function() {
                    $j('.logo.cube').toggleClass('anim');
-                    $j('header.navbar-top').height(headerheight)
+              //      $j('header.navbar-top').height(headerheight)
                     $j('.toolbar .frame').css({padding:"8px 0"});
-                    $j('header.navbar-top').height(headerheight / 2).width("100%").css({position:"fixed",top:"0px","z-index":"99"});
-                    $j(' .navbar-main > li > a ,.headerslogan').css({"height":(headerheight - toolbarheight) / 2  +"px","line-height": (headerheight - toolbarheight) / 2  +"px"});
+                    $j('header.navbar-top').width("100%").css({position:"fixed",top:"0px","z-index":"99"});
+                   // $j(' .navbar-main > li > a ,.headerslogan').css({"height":(headerheight - toolbarheight) / 2  +"px","line-height": (headerheight - toolbarheight) / 2  +"px"});
                 }, 400);
             }
 
@@ -240,8 +239,8 @@ else{
         $j('.toolbar').insertAfter('header .navbar-header-main');//.navbar-collapse.collapse
         greeting.prependTo('#content')
        $j('.logo.cube').toggleClass('anim');
-        $j('a.navbar-brand-image, #logo').width(headerwidth < 992 ? (logoheight/headerheight*0.7)*logowidth : (logoheight/headerheight)*logowidth * 0.7).height(headerheight * 0.7).css({ "transform": "translate(-200%,-50%)"});
-        $j('header .container').first().height(headerheight);
+      //  $j('a.navbar-brand-image, #logo').width(headerwidth < 992 ? (logoheight/headerheight*0.7)*logowidth : (logoheight/headerheight)*logowidth * 0.7).height(headerheight * 0.7).css({ "transform": "translate(-200%,-50%)"});
+        $j('header.navbar-top ').first().height(headerheight/2);
         if(headerwidth < 992)$j('.toolbar').insertAfter('.navbar-toggle').addClass('ismobile');
 
 

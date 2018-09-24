@@ -1,5 +1,5 @@
 <?php
-namespace CAG\CagTests\Core\Acceptance\Step\Backend;
+namespace Cag\CagTests\Core\Acceptance\Step\Backend;
 
 /*
  * This file is part of the TYPO3 CMS project.
