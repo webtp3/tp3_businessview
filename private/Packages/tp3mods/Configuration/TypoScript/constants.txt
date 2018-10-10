@@ -908,7 +908,7 @@ plugin.tx_tp3mods_tp3micro{
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=Analytics Account
         account = {$page.tracking.google.trackingID}
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=Use Advertizing (Werbeanzeigen)
-        advertizing = 0
+        advertizing = 1
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=anonymized
         anonymized = 1
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=demographics (Display Feature)

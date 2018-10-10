@@ -577,9 +577,9 @@ $.fn.serializeWithChkBox = function() {
     return values;
 }
 
-var canvasDots = function() {
+var canvasDots = function(tgt) {
     //   var canvas = $j('.connecting-dots').length < 1 ? $j('<canvas class="connecting-dots"></canvas>').prependTo($('#content').first()).hide() : $j('.connecting-dots');
-    var canvas = document.querySelector('canvas'),
+    var canvas = tgt || document.querySelector('canvas'),
         ctx = canvas.getContext('2d'),
         colorDot = 'rgba(2,2,2,0.1)',
         color = '#ccc';
