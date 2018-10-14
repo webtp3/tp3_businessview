@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-24T18:00:27Z" product-name="tp3mods">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-20T19:38:26Z" product-name="tp3mods">
 		<header/>
 		<body>
+			<trans-unit id="tx_tp3mods_domain_model_tp3micro">
+				<source>tp3 microdata</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3mods_domain_model_tp3micro.description">
+				<source></source>
+			</trans-unit>
+			<trans-unit id="tp3mods_downloads">
+				<source>Downloads</source>
+			</trans-unit>
+			<trans-unit id="tp3mods_downloads.description">
+				<source>Show downloads in diferent views</source>
+			</trans-unit>
 			<trans-unit id="tx_tp3mods_domain_model_tp3mods">
 				<source>Tp3 Mods</source>
 			</trans-unit>

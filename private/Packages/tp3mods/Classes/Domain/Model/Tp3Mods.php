@@ -15,7 +15,7 @@ namespace Tp3\Tp3mods\Domain\Model;
 /**
  * Tp3Mods
  */
-class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
+class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
      * Repository of Microdara

@@ -280,8 +280,8 @@ class GoogleAnalytics   {
 	/* <![CDATA[ */
 	 try{
 		var pageTracker = _gat._getTracker("' . str_replace('MO', 'UA', $this->conf['account']) . '");
-		' . $anonymizeIp . ';
-		' . $options . ';
+		' . $anonymizeIp . '
+		' . $options . '
 		pageTracker._initData();
 	 } catch(err) {}
 	/* ]]> */

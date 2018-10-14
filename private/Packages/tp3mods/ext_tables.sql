@@ -2,17 +2,15 @@
 # Table structure for table 'tx_tp3mods_domain_model_tp3mods'
 #
 CREATE TABLE tx_tp3mods_domain_model_tp3mods (
-
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
-
 	microdata text,
 	konfiguration text,
 	snippet_type text,
 	main_entry text,
 	aggregate_rating smallint(5) unsigned DEFAULT '0' NOT NULL,
 	address int(11) unsigned DEFAULT '0',
-
+	sorting int(11) DEFAULT '0' NOT NULL,
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
@@ -20,28 +18,43 @@ CREATE TABLE tx_tp3mods_domain_model_tp3mods (
 	hidden smallint(5) unsigned DEFAULT '0' NOT NULL,
 	starttime int(11) unsigned DEFAULT '0' NOT NULL,
 	endtime int(11) unsigned DEFAULT '0' NOT NULL,
-
+  pages int(11) unsigned DEFAULT '0' NOT NULL,
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-
+  KEY ref (pages)
 );
 
+#
+# Table structure for table 'tx_tp3mods_domain_model_tp3mods'
+#
+CREATE TABLE tx_tp3mods_domain_model_mm (
+  uid int(11) NOT NULL auto_increment,
+  pid int(11) DEFAULT '0' NOT NULL,
+  uid_local int(11) DEFAULT '0' NOT NULL,
+	uid_foreign int(11) DEFAULT '0' NOT NULL,
+	tablenames varchar(255) DEFAULT '' NOT NULL,
+	fieldname varchar(255) DEFAULT '' NOT NULL,
+	sorting int(11) DEFAULT '0' NOT NULL,
+	sorting_foreign int(11) DEFAULT '0' NOT NULL,
+	PRIMARY KEY (uid),
+	KEY parent (pid),
+	KEY uid_local_foreign (uid_local,uid_foreign),
+	KEY uid_foreign_tablefield (uid_foreign,tablenames(40),fieldname(3),sorting_foreign)
+);
 #
 # Table structure for table 'tt_address'
 #
 CREATE TABLE tt_address (
+  microdata_adress text,
+  tx_cal_controller_latitude tinytext DEFAULT  '0'  NOT NULL,
+	tx_cal_controller_longitude tinytext DEFAULT  '0' NOT NULL,
+  tx_extbase_type varchar(255) DEFAULT 0 NOT NULL,
+);
+#
+# Table structure for table 'pages'
+#
+CREATE TABLE pages (
 
-	microdata_adress smallint(5) unsigned DEFAULT '0' NOT NULL,
-
-	tx_extbase_type varchar(255) DEFAULT '' NOT NULL,
+  tp3microdata int(11) DEFAULT NULL,
 
 );
-
-#
-# Table structure for table 'tt_address'
-#
-CREATE TABLE tt_address (
-	categories int(11) unsigned DEFAULT '0' NOT NULL,
-);
-
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

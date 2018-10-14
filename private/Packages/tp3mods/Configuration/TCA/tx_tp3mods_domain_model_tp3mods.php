@@ -70,7 +70,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.microdata',
             'config' => [
-                'type' => 'text',
+                'type' => 'input',
                 'cols' => 40,
                 'rows' => 15,
                 'eval' => 'trim'
@@ -80,7 +80,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.konfiguration',
             'config' => [
-                'type' => 'text',
+                'type' => 'input',
                 'cols' => 40,
                 'rows' => 15,
                 'eval' => 'trim'
@@ -90,7 +90,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.snippet_type',
             'config' => [
-                'type' => 'text',
+                'type' => 'input',
                 'cols' => 40,
                 'rows' => 15,
                 'eval' => 'trim'
@@ -100,7 +100,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.main_entry',
             'config' => [
-                'type' => 'text',
+                'type' => 'input',
                 'cols' => 40,
                 'rows' => 15,
                 'eval' => 'trim'
@@ -131,6 +131,31 @@ return [
                 'maxitems' => 1,
             ],
         ],
-    
+        'pages' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.pages',
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'pages',
+                'MM' => 'tx_tp3mods_domain_model_mm',
+                'MM_hasUidField' => true,
+                'MM_opposite_field' => 'tp3microdata',
+                'maxitems' => 10,
+                'appearance' => [
+                    'showSynchronizationLink' => 1,
+                    'showAllLocalizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'showRemovedLocalizationRecords' => 1,
+                ],
+                'behaviour' => [
+                    'localizationMode' => 'select',
+                ],
+            ],
+        ],
+        'sorting' => [
+            'config' => [
+                'type' => 'none',
+            ],
+        ],
     ],
 ];

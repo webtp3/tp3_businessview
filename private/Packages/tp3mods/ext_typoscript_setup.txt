@@ -9,6 +9,15 @@ config.tx_extbase {
           recordType = Tx_Tp3mods_Tp3Adress
         }
       }
+      Tp3\Tp3mods\Domain\Model\Tp3Mods {
+        mapping {
+          recordType = Tx_Tp3mods_Tp3Mods
+        }
+        subclasses {
+          1 = Tp3\Tp3mods\Domain\Model\Tp3Adress
+
+        }
+      }
 
     }
   }

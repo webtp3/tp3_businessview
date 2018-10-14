@@ -28,7 +28,7 @@ tp3 Mods
 		comma,separated,list,of,keywords
 
 	:Copyright:
-		2018
+		2017
 
 	:Author:
 		Thomas Ruta

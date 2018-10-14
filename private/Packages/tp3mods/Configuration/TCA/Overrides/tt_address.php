@@ -1,6 +1,8 @@
 <?php
 defined('TYPO3_MODE') || die();
 
+$ll = "LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf";
+
 if (!isset($GLOBALS['TCA']['tt_address']['ctrl']['type'])) {
     // no type field defined, so we define it here. This will only happen the first time the extension is installed!!
     $GLOBALS['TCA']['tt_address']['ctrl']['type'] = 'tx_extbase_type';
@@ -19,6 +21,7 @@ if (!isset($GLOBALS['TCA']['tt_address']['ctrl']['type'])) {
             'size' => 1,
             'maxitems' => 1,
         ]
+
     ];
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_address', $tempColumnstx_tp3mods_tt_address);
 }
@@ -45,6 +48,22 @@ $tmp_tp3mods_columns = [
             'default' => 0,
         ]
         
+    ],
+    'tx_extbase_type' => [
+        'config' => [
+            'type' => 'select',
+            'renderType' => 'selectSingle',
+            'items' => [
+                [ ],
+            ],
+            'fieldWizard' => [
+                'selectIcons' => [
+                    'disabled' => false,
+                ],
+            ],
+            'size' => 1,
+            'maxitems' => 1,
+        ]
     ],
 
 ];

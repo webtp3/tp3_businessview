@@ -18,6 +18,14 @@ namespace Tp3\Tp3mods\Controller;
 class Tp3ModsController extends \Tp3\Tp3mods\Controller\Tp3AbstractController
 {
     /**
+     * tp3AdressRepository
+     *
+     * @var \Tp3\Tp3mods\Domain\Repository\Tp3AdressRepository
+     * @inject
+     */
+    protected $tp3AdressRepository = null;
+
+    /**
      * action list
      *
      * @return void

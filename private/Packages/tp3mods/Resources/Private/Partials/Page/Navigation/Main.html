@@ -4,26 +4,9 @@
         <div class="navbar-header navbar-header-main">
             <f:if condition="{settings.logo.file}">
                 <f:then>
-                    <f:link.page pageUid="{rootPage}" class="navbar-brand navbar-brand-image"
-                                 title="{settings.logo.linktitle}">
-
-
-                                    <img class="navbar-brand-logo-normal" src="{f:uri.image(src: settings.logo.file)}"
-                                    <f:if condition="{settings.navigation.style} == 'inverse-transition'">
-                                        <f:then> </f:then>
-                                        <f:else><f:if condition="{settings.navigation.style} == 'inverse'">
-                                            <f:then> style="display:none"</f:then>
-                                        </f:if></f:else>
-                                    </f:if>
-                                    alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
-                                    <img class="navbar-brand-logo-inverted" src="{f:uri.image(src: settings.logo.fileInverted)}"
-                                     <f:if condition="{settings.navigation.style} == 'default-transition'">
-                                        <f:then> </f:then>
-                                        <f:else><f:if condition="{settings.navigation.style} == 'default'">
-                                            <f:then> style="display:none"</f:then>
-                                        </f:if></f:else>
-                                    </f:if>
-                                    alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
+                    <f:link.page pageUid="{rootPage}" class="navbar-brand navbar-brand-image" title="{settings.logo.linktitle}">
+                                    <img class="navbar-brand-logo-normal" src="{f:uri.image(src: settings.logo.file)}" alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
+                                    <img class="navbar-brand-logo-inverted" src="{f:uri.image(src: settings.logo.fileInverted)}" alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
                                 <div class="logo">
                                     <f:cObject typoscriptObjectPath="lib.logo" data="lib.logo"/>
                                 </div>
@@ -49,8 +32,7 @@
             <span class="navbar-header-border-bottom"></span>
         </div>
         <f:if condition="{mainnavigation}">
-            <nav class="navbar-collapse collapse" role="navigation" itemscope=""
-                 itemtype="http://schema.org/SiteNavigationElement">
+            <nav class="navbar-collapse collapse" role="navigation" itemscope="" itemtype="http://schema.org/SiteNavigationElement">
                 <ul class="nav navbar-nav navbar-main">
                     <f:for each="{mainnavigation}" as="mainnavigationItem">
                         <li class="{f:if(condition: mainnavigationItem.active, then:'active')} {f:if(condition: mainnavigationItem.children, then:'dropdown')}">

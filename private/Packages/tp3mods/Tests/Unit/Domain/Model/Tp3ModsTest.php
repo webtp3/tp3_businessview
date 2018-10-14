@@ -33,6 +33,7 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getMicrodata()
         );
+
     }
 
     /**
@@ -47,6 +48,7 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'microdata',
             $this->subject
         );
+
     }
 
     /**
@@ -58,6 +60,7 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getKonfiguration()
         );
+
     }
 
     /**
@@ -72,6 +75,7 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'konfiguration',
             $this->subject
         );
+
     }
 
     /**
@@ -158,6 +162,7 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             null,
             $this->subject->getAddress()
         );
+
     }
 
     /**
