@@ -227,6 +227,22 @@ lib.containerBackgroundImagejs {
 
     lib.navigation.toolbar < lib.toolbar
 [global]
+[globalVar = LIT:0 > {$plugin.tx_tp3mods_tp3micro.settings.Tp3Isotop}]
+    page.includeJSFooterlibs {
+        tp3_isotope = EXT:tp3mods/Resources/Public/JavaScript/isotope.pkgd.js
+        tp3_isotope.async =1
+
+    }
+[global]
+
+[globalVar = LIT:0 > {$plugin.tx_tp3mods_tp3micro.settings.Tp3Flip}]
+    page.includeJSFooterlibs {
+        tp3_flip = EXT:tp3mods/Resources/Public/JavaScript/jquery.flip.js
+        tp3_flip.async =1
+
+    }
+[global]
+
 #design own content
 # todo Plugin Newsletter
 

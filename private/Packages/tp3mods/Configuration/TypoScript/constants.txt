@@ -980,25 +980,6 @@ page.fluidtemplate {
 ### PAGE ###
 ############
 page {
-    logo {
-        # cat=bootstrap package: basic/110/100; type=string; label=Logo: Leave blank to use website title from template instead
-        file = fileadmin/user_upload/thomasruta/logo_tp3.svg
-        # cat=bootstrap package: basic/110/110; type=string; label=Logo Inverted: Leave blank to use website title from template instead
-        fileInverted = fileadmin/user_upload/thomasruta/logo_tp3_white.svg
-        # cat=bootstrap package: basic/110/120; type=int+; label=Height: The image will not be resized!
-        height = 140
-        # cat=bootstrap package: basic/110/130; type=int+; label=Width: The image will not be resized!
-        width = 140
-        # cat=bootstrap package: basic/110/140; type=string; label=Alternative text: Text of the alt attribute of the logo image (default: "<website title> logo")
-        alt =
-        # cat=bootstrap package: basic/110/150; type=string; label=Link title: Title of the link attribute of the logo image
-        linktitle =
-    }
-
-    favicon {
-        # cat=bootstrap package: basic/111/100; type=string; label=Favicon
-        file = EXT:tp3mods/Resources/Public/Icons/favicon_96.ico
-    }
 
     theme {
         # cat=bootstrap package: basic/160/100; type=options[Default=default, Default Transition=default-transition, Inverse=inverse, Inverse Transition=inverse-transition]; label=Navigation Style

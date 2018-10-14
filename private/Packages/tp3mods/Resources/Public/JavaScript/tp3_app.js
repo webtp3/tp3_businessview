@@ -167,12 +167,11 @@ else{
         if(scroll_pos  == (headerPos) || scrollPos < (headerPos+2) ) {
 
             clearTimeout(go);
-            //$j('header.navbar-top').height(100).css({position:"relative"});;
             //$j('header.navbar-top .container').removeClass('attached').css({'top' : '0px'});
             once = true;
             //$j('header.navbar-top .breadcrumb-section').hide();
             show = setTimeout(function() {
-                $j('header.navbar-top').css({position:"fixed",top:"0px","z-index":"99"});
+                $j('header.navbar-top').css({width:"100%",position:"relative"});
                 $j('.toolbar .frame').css({padding:"16px 0"});
                 $j('header.navbar-top').removeClass("flat");
               //  $j(' .navbar-main > li > a , .headerslogan').css({"height":(headerheight - toolbarheight)  +"px","line-height": (headerheight - toolbarheight)  +"px"});
