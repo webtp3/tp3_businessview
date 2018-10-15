@@ -171,7 +171,7 @@ else
             once = true;
             //$j('header.navbar-top .breadcrumb-section').hide();
             show = setTimeout(function() {
-                $j('header.navbar-top').height(headerheight).css({position:"relative"});
+                $j('header.navbar-top').height(headerheight).css({width:"100%",position:"fixed"});
                 $j('.toolbar .frame').css({padding:"16px 0"});
                 $j(this).toggleClass('anim');
                 $j('header.navbar-top').removeClass("flat");

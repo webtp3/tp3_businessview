@@ -2,8 +2,8 @@ EXTCONF:
     realurl:
         _DOMAINS:
             encode:
-                - { GETvar: L, value: '1', useConfiguration: default.tld, urlPrepend: 'http://%conf(EXTCONF.tp3_site.defaultLanguageDomain)%' }
-                - { GETvar: L, value: '0', useConfiguration: default.tld, urlPrepend: 'http://%conf(EXTCONF.tp3_site.defaultLanguageDomain)%/en/' }
+                - { GETvar: L, value: '1', useConfiguration: default.tld }
+                - { GETvar: L, value: '0', useConfiguration: default.tld }
 
             decode:
                 '%conf(EXTCONF.tp3_site.defaultLanguageDomain)%':

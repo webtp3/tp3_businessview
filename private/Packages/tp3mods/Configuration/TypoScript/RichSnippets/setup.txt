@@ -14,6 +14,9 @@ page.footerData {
             <meta itemprop="sameAs" content="{$twitter_profile}">
             <meta itemprop="sameAs" content="{$linkedin_profile}">
          </g>
+    )
+    1119.= TEXT
+    1119.value (
         <g itemscope itemtype="http://schema.org/SoftwareApplication">
             <meta itemprop="image" content="http://web.tp3.de/fileadmin/user_upload/tp3/logo_125.png">
             <meta itemprop="url" content="http://web.tp3.de">

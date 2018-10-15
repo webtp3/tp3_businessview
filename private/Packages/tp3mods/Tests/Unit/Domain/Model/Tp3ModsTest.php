@@ -178,5 +178,41 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'address',
             $this->subject
         );
+
+    }
+
+    /**
+     * @test
+     */
+    public function addAddresToObjectStorageHoldingAddress()
+    {
+        $addres = new \Tp3\Tp3mods\Domain\Model\Tp3Mods();
+        $addressObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->setMethods(['attach'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $addressObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($addres));
+        $this->inject($this->subject, 'address', $addressObjectStorageMock);
+
+        $this->subject->addAddres($addres);
+    }
+
+    /**
+     * @test
+     */
+    public function removeAddresFromObjectStorageHoldingAddress()
+    {
+        $addres = new \Tp3\Tp3mods\Domain\Model\Tp3Mods();
+        $addressObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->setMethods(['detach'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $addressObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($addres));
+        $this->inject($this->subject, 'address', $addressObjectStorageMock);
+
+        $this->subject->removeAddres($addres);
+
     }
 }
