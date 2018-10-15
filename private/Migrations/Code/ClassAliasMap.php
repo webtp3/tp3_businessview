@@ -12,6 +12,7 @@ return array(
  */
 
 return array(
+    'tx_ttaddress_pi1' => \TYPO3\TtAddress\Controller\LegacyPluginController::class,
     'Tx_Phpunit_TestCase' => \TYPO3\CMS\Core\Tests\Unit\Resource\BaseTestCase::class,
     'PHPUnit_Framework_TestCase' => \TYPO3\TestingFramework\Core\Unit\UnitTestCase::class,
     'Tx_Phpunit_Database_TestCase' => \TYPO3\TestingFramework\Core\Unit\UnitTestCase::class

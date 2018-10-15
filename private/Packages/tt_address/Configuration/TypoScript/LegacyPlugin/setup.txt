@@ -51,7 +51,7 @@ plugin.tx_ttaddress_pi1 {
 		email.typolink.parameter.field = email
 		email.typolink.ATagParams = class="email" item="email" itemprop="email"
 		email.required = 1
-		email.wrap =  <div class="item"><div class=" fa fa-envelop"></div>|</div>
+		email.wrap =  <div class="item"><div class=" fa fa-envelope"></div>|</div>
 
 		address {
 			wrap = <div class="street-address" itemprop="streetAddress">|</div>

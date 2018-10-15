@@ -2,7 +2,7 @@
 	"name": "thomasruta/tp3_tests",
 	"type": "library",
 	"description":"developt Testings for tp3",
-	"minimum-stability": "dev",
+	"minimum-stability": "beta",
 	"license":"proprietary",
 	"authors": [
 		{

@@ -1,5 +1,4 @@
-
-
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/RichSnippets/setup.txt">
 plugin.tx_tp3mods_tp3micro {
     view {
         templateRootPaths.0 = EXT:tp3mods/Resources/Private/Templates/
@@ -305,7 +304,7 @@ page {
 
     includeCSS {
         #enabled less css
-        bootstrap = EXT:tp3mods/Resources/Public/Less/Bootstrap/bootstrap.less
+       # bootstrap = EXT:tp3mods/Resources/Public/Less/Bootstrap/bootstrap.less
         theme = EXT:tp3mods/Resources/Public/Less/Theme/theme.less
 
         #User Css
@@ -748,7 +747,56 @@ config.htmlTag_setParams = lang="de" dir="ltr" prefix="og: http://ogp.me/ns#" cl
     config.htmlTag_setParams = lang="de" dir="ltr" prefix="og: http://ogp.me/ns#" class="{$app_name} ispopup no-js" itemscope itemtype="http://schema.org/WebSite"
     page.bodyTagCObject.wrap = <body id="pid-|" data-{$app_name}role="page" data-spy="scroll" data-target=".navbar-collapse" class="ispopup {$css_class}" itemscope="" itemtype="http://schema.org/{$snippet_type}">
 [end]
-
+config {
+    sys_language_uid = 0
+    language = de
+    locale_all = de_DE.UTF-8
+}
+#############################
+#### LANGUAGE CONDITIONS ####
+#############################
+[globalVar = GP:L = 1]
+    config {
+        sys_language_uid = 1
+        language = de
+        locale_all = de_DE.UTF-8
+    }
+[global]
+[globalVar = GP:L = 2]
+    config {
+        sys_language_uid = 2
+        language = da
+        locale_all = da_DA.UTF-8
+    }
+[global]
+[globalVar = GP:L = 3]
+    config {
+        sys_language_uid = 3
+        language = en
+        locale_all = en_EN.UTF-8
+    }
+[global]
+[globalVar = GP:L = 4]
+    config {
+        sys_language_uid = 4
+        language = es
+        locale_all = es_ES.UTF-8
+    }
+[global]
+[globalVar = GP:L = 5]
+    config {
+        sys_language_uid = 5
+        language = ru
+        locale_all = ru_RU.UTF-8
+    }
+[global]
+[globalVar = GP:L = 6]
+    config {
+        sys_language_uid = 6
+        language = cz
+        locale_all = cz_CZ.UTF-8
+    }
+[global]
 ########################
 #### PAGETYPE IFRAME####
 ########################
