@@ -1,4 +1,3 @@
-<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/RichSnippets/setup.txt">
 plugin.tx_tp3mods_tp3micro {
     view {
         templateRootPaths.0 = EXT:tp3mods/Resources/Private/Templates/
@@ -304,7 +303,7 @@ page {
 
     includeCSS {
         #enabled less css
-       # bootstrap = EXT:tp3mods/Resources/Public/Less/Bootstrap/bootstrap.less
+        bootstrap = EXT:tp3mods/Resources/Public/Less/Bootstrap/bootstrap.less
         theme = EXT:tp3mods/Resources/Public/Less/Theme/theme.less
 
         #User Css
@@ -1246,3 +1245,4 @@ page {
 }
 
 [global]
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/RichSnippets/setup.txt">
