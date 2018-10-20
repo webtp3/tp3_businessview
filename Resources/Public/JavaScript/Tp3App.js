@@ -1,4 +1,4 @@
-define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libraries=places&sensor=true'], function ($) {
+define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg&libraries=places&sensor=true'], function ($) {
 
     var Tp3App = Tp3App || {
         init:function(){
@@ -55,7 +55,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
 
 
                         var bwId=  $(this).attr("id").split("_");
-                        if($.type(bwId) == "array"){
+                        if($.type(bwId) == "array" && bwId.length > 1){
                             $('select[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][tp3businessviews]"] option').prop('selected', false);
                             $('#businessview-canvas').find('[id="businessview-contact-canvas"]').remove();
                             $('#businessview-canvas').find('[id="businessview-externalLinks-canvas"]').remove();

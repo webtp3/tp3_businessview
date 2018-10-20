@@ -21,6 +21,9 @@
                 'foreign_table' => 'tx_tp3businessview_domain_model_panoramas',
                 'minitems' => 0,
                 'maxitems' => 1,
+                'items' => [
+                    [ '',  ],
+                ],
                 'appearance' => [
                     'collapseAll' => 0,
                     'levelLinksPosition' => 'top',
@@ -44,7 +47,7 @@
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
     'pages',
-    'visibility',
+    'layout',
     '
     --linebreak--, tx_tp3businessview_onpage,
     --linebreak--, tx_tp3businessview_panorama,

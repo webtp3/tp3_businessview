@@ -41,7 +41,6 @@ class Tp3PageRenderer implements SingletonInterface
      */
     public function render(array $parameters, &$pageRenderer)
     {
-
         $config = isset($GLOBALS['TSFE']->tmpl->setup) ? $GLOBALS['TSFE']->tmpl->setup : [];
         if (is_array($config)
             && (bool)$GLOBALS['TSFE']->page['tx_tp3businessview_onpage']
