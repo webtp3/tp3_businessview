@@ -16,8 +16,10 @@ EXTCONF:
         availableLanguages:
             - de
 FE:
-    addRootLineFields: 'subtitle,author,keywords,description,media,title,abstract,tsconfig'
-    loginSecurityLevel: normal
+    addRootLineFields: 'subtitle,author,keywords,description,media,title,abstract,tsconfig,tp3microdata'
+    loginSecurityLevel: rsa
+    pageNotFoundOnCHashError: false
+
 GFX:
     jpg_quality: '80'
     processor: GraphicsMagick
@@ -29,7 +31,7 @@ LOG:
                 logFile: '%env(TYPO3_PATH_COMPOSER_ROOT)%/var/log/typo3-warning.log'
 SYS:
     displayErrors: 0
-    errorHandlerErrors: 1
-    exceptionalErrors: 1
+    errorHandlerErrors: 0
+    exceptionalErrors: 0
     reverseProxyIP: 2.2.2.2
     systemLogLevel: 2

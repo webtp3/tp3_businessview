@@ -4,6 +4,17 @@
 * tp3
 * 10.5.2018 thomas ruta
 ****************************************************************/
+figure.image{
+    perspective: 1000;
+}
+img.lazyload {
+    transform-style: preserve-3d;
+    opacity: 0.3;
+    -webkit-transition: all  0.3s ease-in 0s;
+    -o-transition: all  0.3s ease-in 0s;
+    transition: all  0.3s ease-in 0s;
+    transform: rotateX(30deg);
+}
 .container.floatingbox {
     width: 100%;
 }
@@ -62,6 +73,11 @@ div.main-section .frame{
     padding : 0;
 }
 
+.navbar-brand > img,.navbar-brand > .logo {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 10px;
+}
 .loader {
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #3498db; /* Blue */

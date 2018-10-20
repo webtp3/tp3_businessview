@@ -317,6 +317,7 @@ page {
         tp3_app.async = 1
         tp3.async = 1
 
+        responsiveimages = EXT:tp3mods/Resources/Public/JavaScript/jquery.responsiveimages.js
     }
 
     #fluid template
