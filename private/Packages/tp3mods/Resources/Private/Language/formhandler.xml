@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<T3locallang>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="email">e-mail address</label>
+			<label index="first_name">Vorname</label>
+			<label index="last_name">Nachname</label>
+			<label index="title">Anrede</label>
+				<label index="title_choose">Bitte wählen</label>
+				<label index="title_mister">Herr</label>
+				<label index="title_miss">Frau</label>
+			<label index="submit">send</label>
+			<label index="success">Thank you for your registration.</label>
+			<label index="error_email_required">Please insert your e-mail address.</label>
+			<label index="error_email_email">The given e-mail address is invalid.</label>
+			<label index="error_email_isNotInDBTable">This e-mail address is already registered.</label>
+			<label index="error_website_equals">-</label>
+			<label index="required_fields">*mandatory</label>
+			<label index="emailStart">News registration:</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="email">E-Mail Adresse</label>
+			<label index="first_name">Vorname</label>
+			<label index="last_name">Nachname</label>
+			<label index="title">Anrede</label>
+				<label index="title_choose">Bitte wählen</label>
+				<label index="title_mister">Herr</label>
+				<label index="title_miss">Frau</label>
+			<label index="submit">senden</label>
+			<label index="success">Vielen Dank für Ihre Anmeldung. Wir haben an Ihre E-Mail-Adresse einen Link gesendet, mit dem Sie die Anmeldung bestätigen können.</label>
+			<label index="error_email_required">Bitte geben Sie eine E-Mail-Adresse ein.</label>
+			<label index="error_email_email">Die eingegebene E-Mail-Adresse ist ungültig.</label>
+			<label index="error_email_isNotInDBTable">Diese E-Mail-Adresse ist bereits registriert.</label>
+			<label index="error_website_equals">-</label>
+			<label index="required_fields">*Pflichtfelder.</label>
+			<label index="emailStart">Neue Anmeldung:</label>
+		</languageKey>
+	</data>
+</T3locallang>

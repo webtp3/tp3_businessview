@@ -9,7 +9,7 @@
 /bin
 /typo3cms
 */local.settings.yaml
-
+home/*
 ###
 # some typical TYPO3 folders and files to be ignored
 #
