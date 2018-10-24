@@ -6,13 +6,15 @@ page.footerData {
 
     1118.= TEXT
     1118.value (
-        <g itemscope itemtype="http://schema.org/Organization">
-            <meta itemprop="logo" content="http://{$baseUrl}/{$logo}">
-            <meta itemprop="url" content="http://{$baseUrl}">
-            <meta itemprop="name" content="{$tp3sitetitle}">
-            <meta itemprop="sameAs" content="{$facebook_profile}">
-            <meta itemprop="sameAs" content="{$twitter_profile}">
-            <meta itemprop="sameAs" content="{$linkedin_profile}">
+         <g itemscope itemtype="http://schema.org/Organization">
+            <meta itemprop="logo" content="http://{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}/{$plugin.tx_tp3mods_tp3micro.settings.logo}">
+            <meta itemprop="url" content="http://{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}">
+            <meta itemprop="name" content="{$plugin.tx_tp3mods_tp3micro.settings.tp3sitetitle}">
+            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.facebook_profile}">
+            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.twitter_profile}">
+            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.google_profile}">
+            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.insta_profile}">
+
          </g>
     )
     1119.= TEXT

@@ -23,7 +23,7 @@ plugin.tx_ttaddress_pi1 {
 		}
 
 		first_name {
-			innerWrap = <span class="fn" item="name">|
+			innerWrap = <span class="fn" item="name" itemprop="name">|
 			innerWrap.if.isFalse.field = middle_name
 			innerWrap2 = <span class="given-name" item="givenName">|</span>
 			innerWrap2.if.isTrue.field = middle_name
@@ -44,7 +44,7 @@ plugin.tx_ttaddress_pi1 {
 		}
 
 		organization {
-			wrap = <div class="org" item="worksFor">|</div>
+			wrap = <div class="org" item="worksFor" >|</div>
 			required = 1
 		}
 

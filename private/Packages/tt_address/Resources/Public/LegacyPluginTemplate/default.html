@@ -38,22 +38,24 @@ Markers you can use:
 -->
 
 <!-- ###TEMPLATE_ADDRESS### beginn -->
-<div class="vcard" itemscope itemtype="http://schema.org/Person">
-###IMAGE###
-<!-- ###SUBPART_URL### begin -->
-###FIRSTNAME### ###MIDDLENAME### ###LASTNAME###
-<!-- ###SUBPART_URL### end -->
-###ORGANIZATION###
-###EMAIL###
-<!-- ###SUBPART_ADR### begin -->
-<div class="adr" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-###ADDRESS###
-###ZIP### ###CITY### ###REGION###<br>  ###COUNTRY###
-</div>
-<!-- ###SUBPART_ADR### end -->
-###PHONE###
+<div class="vcard" itemscope itemtype="http://schema.org/LocalBusiness">
+	###IMAGE###
+	<!-- ###SUBPART_URL### begin -->
+	<span itemprop="name">###FIRSTNAME### ###MIDDLENAME### ###LASTNAME###</span>
+	<!-- ###SUBPART_URL### end -->
+	###ORGANIZATION###
+	###EMAIL###
+	<!-- ###SUBPART_ADR### begin -->
+	<div class="adr" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+		###ADDRESS###
+		###ZIP### ###CITY### ###REGION###<br>
+		###COUNTRY###
+	</div>
+	<!-- ###SUBPART_ADR### end -->
+	###PHONE###
 </div>
 <!-- ###TEMPLATE_ADDRESS### end -->
 
 </body>
 </html>
+
