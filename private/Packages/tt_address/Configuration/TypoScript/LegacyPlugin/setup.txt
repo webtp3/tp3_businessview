@@ -68,14 +68,14 @@ plugin.tx_ttaddress_pi1 {
 		region {
 			wrap = <span class="region" itemprop="addressRegion">|</span>
 			required = 1
-			outerWrap = |,
+			outerWrap = |
 			outerWrap.if.isTrue.field = zip
 		}
 
 		zip {
 			noTrimWrap = | <span class="postal-code" itemprop="postalCode">|</span>|
 			required = 1
-			outerWrap = , |
+			outerWrap = |&nbsp;
 			outerWrap.if.isFalse.field = region
 		}
 

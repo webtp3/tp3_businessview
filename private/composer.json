@@ -117,10 +117,11 @@
 		"fluidtypo3/vhs":"*",
 		"yoast-seo-for-typo3/yoast_seo": "3.0.5",
 		"sjbr/sr-feuser-register": "^5.1",
-		"in2code/powermail": "dev-master",
+		"in2code/powermail": "*",
 		"causal/tscobj":"*",
 		"apen/additional_reports":"*",
 		"typo3-ter/cal":"1.11.2-dev",
+		"typo3-ter/error404page":"^3",
 		"web-tp3/wec_map": "^4.1",
 		"causal/extractor":"^1",
 		"snowflakeops/varnish":"^3"

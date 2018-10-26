@@ -410,6 +410,22 @@ return [
                 'default' => null
             ]
         ],
+        'tx_extbase_type' => [
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    [ ],
+                ],
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => false,
+                    ],
+                ],
+                'size' => 1,
+                'maxitems' => 1,
+            ]
+        ],
     ],
     'types' => [
         '0' => ['showitem' =>
@@ -458,5 +474,6 @@ return [
 							facebook, --linebreak--,
 							linkedin'
         ],
+
     ]
 ];
