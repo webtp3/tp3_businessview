@@ -124,7 +124,8 @@
 		"typo3-ter/error404page":"^3",
 		"web-tp3/wec_map": "^4.1",
 		"causal/extractor":"^1",
-		"snowflakeops/varnish":"^3"
+		"snowflakeops/varnish":"^3",
+		"r3h6/error404page":"*"
 
 
 	},
