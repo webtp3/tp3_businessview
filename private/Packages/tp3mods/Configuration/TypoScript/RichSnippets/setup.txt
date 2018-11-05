@@ -2,7 +2,7 @@ page.footerData {
 
     1117 = TEXT
     1117.data = getenv : REQUEST_URI
-    1117.wrap = <meta itemprop="url" content="http://{$baseUrl}|" />
+    1117.wrap = <meta itemprop="url" content="http://{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}|" />
 
     1118.= TEXT
     1118.value (
@@ -41,9 +41,9 @@ page.footerData {
             </g>
         </g>
     <g itemscope itemtype="http://schema.org/WebSite">
-      <meta itemprop="url" content="{$baseUrl}"/>
+      <meta itemprop="url" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}"/>
       <form style="display:none" itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
-        <meta itemprop="target" content="https://{$baseUrl}/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}">
+        <meta itemprop="target" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}">
         <meta itemprop="query-input" content="required name=skeyword">
       </form>
     </g>
