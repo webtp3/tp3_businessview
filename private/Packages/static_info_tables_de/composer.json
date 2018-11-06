@@ -15,7 +15,7 @@
     "typo3-ter/static-info-tables-de": "self.version"
   },
   "require": {
-    "typo3/cms-core": "",
-    "sjbr/static-info-tables": "^"
+    "typo3/cms-core": "*",
+    "sjbr/static-info-tables": "^6"
   }
 }

@@ -62,7 +62,7 @@ class Tp3PageRenderer implements SingletonInterface
 
             }
             $tp3micro = $this->tp3ModsRepository->findByUid($GLOBALS['TSFE']->page['tp3microdata']);
-           if( $tp3micro === "array" &&  $tp3micro[0]["address"] > 0)$tp3micro = $this->tp3AdressRepository->findByUid($tp3micro[0]["address"]);
+           if( $tp3micro === "array" &&  $tp3micro[0]["address"] > 0)$tp3micro_adress = $this->tp3AdressRepository->findByUid($tp3micro[0]["address"]);
             // $microdata = $tp3micro->getFirst();
 //            var_dump($tp3micro);
 //            var_dump($microdata);
