@@ -1,6 +1,7 @@
 $ = $j = jQuery.noConflict();
 var windowPadding = 10;
 var bottomPadding = 80;
+
 $('iframe[src^="javascript"]').prev('script').appendTo('.tx-tp3-social')
 $('iframe[src^="javascript"]').appendTo('.tx-tp3-social')
 $('span.IN-widget').appendTo('.tx-tp3-social');
@@ -12,6 +13,7 @@ var businessviewCanvasSelector =  businessviewCanvasSelector || "#businessview-c
     google = google || {},
     businessviewJson = businessviewJson || {},
     scrollTimeStart = new Date,
+    disableStr = disableStr || false,
     WECInit = WECInit || undefined;
 window.tp3_app = window.tp3_app || {};
 
@@ -138,7 +140,7 @@ var init = false;
 
 var show, go, scoll_pos;
 var scroll_pos = scroll_pos || $j(document).scrollTop(),
-    headerheight =   headerheight ||  $j('header.navbar-top').height(),
+    headerheight =   headerheight ||  $j('header.navbar-top').height() +30,
     headerwidth =   headerwidth ||  $j('header').width(),
     logoheight =   logoheight || headerheight * 0.9,
     logowidth  = logowidth ||   $j('.navbar-brand-image').width(),
@@ -157,7 +159,7 @@ else
 
     if(mobile != true || headerwidth > 600) {
         var scrollPos = $j(document).scrollTop();
-        if(scroll_pos  == (headerPos)) {
+        if(scroll_pos  == (headerPos) || (scrollPos == headerPos)) {
             console.log("top")
             clearTimeout(go);
             //$j('header.navbar-top').height(100).css({position:"relative"});;
@@ -166,12 +168,13 @@ else
             once = true;
             //$j('header.navbar-top .breadcrumb-section').hide();
             show = setTimeout(function() {
-                $j('header.navbar-top').height(headerheight).css({position:"relative"});
-                $j('.toolbar .frame').css({padding:"16px 0"});
+                $j('.body-bg').css({paddingTop:headerheight+toolbarheight+"px"});
+                $j('header.navbar-top').height(headerheight).width("100%").css({position:"fixed",top:"0px","z-index":"99"});
+                $j('.toolbar .frame').css({padding:"6px 0"});
                 $j(this).toggleClass('anim');
                 $j('header.navbar-top').removeClass("flat");
                 $j(' a.navbar-brand-image, #logo, .logo').height(logoheight).width(logowidth);
-                $j('.navbar-collapse:not(.in) .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight) * 0.5 +"px"});
+                $j('.navbar-collapse:not(.in) .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight) *0.7 +"px"});
                 //$j('.headerslogan').css({"padding-left":"140px"});
 
             }, 400);
@@ -193,7 +196,7 @@ else
 
                     $j('header.navbar-top').height(headerheight * 0.7).width("100%").css({position:"fixed",top:"0px","z-index":"99"});
                     $j(' a.navbar-brand-image, #logo, .logo').width(logowidth * 0.7).height(logoheight * 0.7 );
-                    $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight)  * 0.4  * 0.6 +"px"});
+                    $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight)  * 0.5 +"px"});
                 }, 400);
             }
 
@@ -210,8 +213,8 @@ else
                     $j(this).toggleClass('anim');
                     $j('header.navbar-top').height(headerheight)
                     $j('.toolbar .frame').css({padding:"4px 0 2px"});
-                    $j(' a.navbar-brand-image, #logo, .logo').width(logowidth).height(logoheight);
-                    $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight) * 0.4 + "px"});
+                    $j(' a.navbar-brand-image, #logo, .logo').width("auto").height(headerheight *0.9);
+                    $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight) * 0.5 + "px"});
                     $j('header.navbar-top').removeClass("flat");
                 }, 400);
             }
@@ -230,16 +233,16 @@ else
 
             init = false;
         }
-        else if(scrollPos == headerPos){
-            console.log("top")
-            $j(this).toggleClass('anim');
-            $j('header.navbar-top').removeClass("flat");
-            $j('.toolbar .frame').css({padding:"16px 0"});
-            $j('header.navbar-top').height(headerheight).css({position:"relative"})
-            $j(' a.navbar-brand-image, #logo, .logo').width(logowidth).height(logoheight);
-            $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight)  +"px"});
-
-        }
+        // else if(scrollPos == headerPos){
+        //     console.log("top")
+        //     $j(this).toggleClass('anim');
+        //     $j('header.navbar-top').removeClass("flat");
+        //     $j('.toolbar .frame').css({padding:"16px 0"});
+        //     $j('header.navbar-top').height(headerheight).css({position:"relative"})
+        //     $j(' a.navbar-brand-image, #logo, .logo').width(logowidth).height(logoheight);
+        //     $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight)  +"px"});
+        //
+        // }
         scroll_pos = $j(document).scrollTop();
     }
     else if (!init && $j(window).width() < 992 ){

@@ -124,7 +124,7 @@ lib.containerBackgroundImage {
     10 = TEXT
     10.wrap = {|}
     10.data = levelmedia:-1,slide
-
+    10.override.if.isFalse.field = media
     10.split {
         token = ,
         cObjNum = 1
@@ -159,7 +159,7 @@ lib.containerBackgroundImagejs {
     10 = TEXT
     10.wrap = [|]}
     10.data = levelmedia:-1,slide
-
+    10.override.if.isFalse.field = media
     10.split {
         token = ,
         cObjNum = 1
@@ -317,6 +317,7 @@ page {
         user.async = 1
 
 
+
     }
 
     includeCSS {
@@ -333,7 +334,7 @@ page {
         tp3 = fileadmin/user_upload/{$username}/tp3.js
         tp3_app = EXT:tp3mods/Resources/Public/JavaScript/tp3_app.js
         tp3_app.async = 0
-        tp3.async = 1
+        tp3.async = 0
 
         responsiveimages = EXT:tp3mods/Resources/Public/JavaScript/jquery.responsiveimages.js
     }
@@ -547,7 +548,7 @@ page {
 
         tp3_app >
         tp3_app = EXT:tp3mods/Resources/Public/JavaScript/tp3_app.js
-        tp3_app.async = 1
+        tp3_app.async = 0
     }
 [end]
 [globalVar = LIT:1 = {$plugin.tx_tp3mods_tp3micro.settings.glyphicons}]

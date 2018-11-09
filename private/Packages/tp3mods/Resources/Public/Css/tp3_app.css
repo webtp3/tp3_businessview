@@ -76,7 +76,7 @@ div.main-section .frame{
 .navbar-brand > img,.navbar-brand > .logo {
     backface-visibility: hidden;
     position: absolute;
-    top: 10px;
+    top: 50%;
 }
 .loader {
     border: 16px solid #f3f3f3; /* Light grey */
@@ -149,6 +149,49 @@ div.main-section .frame-jumbotron [class^="col"] {
     overflow: auto!important;
 }
 
+/*
+Carousel CSS Adds
+ */
+.carousel-inner .item.carousel-item-type-header .valign{
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    transition: transform 5s;
+}
+.carousel-text-inner {
+    text-shadow: rgba(2, 2, 2, 1) 2px 2px 1px;
+    text-align: left;
+}
+.item.carousel-item-type.carousel-item-type-header.next,
+.item.carousel-item-type.carousel-item-type-header.active.right {
+    transform: rotateY( -180deg );
+    transition: transform 1s;
+
+}
+.item.carousel-item-type.carousel-item-type-header.prev,
+.item.carousel-item-type.carousel-item-type-header.active.left {
+    transform: rotateY( 180deg );
+    transition: transform 1s;
+
+
+}
+.item.carousel-item-type.carousel-item-type-header.next.left,
+.item.carousel-item-type.carousel-item-type-header.prev.right,
+.item.carousel-item-type.carousel-item-type-header.active {
+    transform: rotateY( 0deg );
+    transition: transform 1s;
+
+}
+
+.item.carousel-item-type.carousel-item-type-header.prev .valign > .vcontainer,
+.item.carousel-item-type.carousel-item-type-header.next .valign > .vcontainer,
+.valign > .vcontainer{
+    transform: rotateX(115deg);
+
+}
+.item.active.carousel-item-type .valign > .vcontainer{
+    transform:rotateX(0deg) translate3d(0em, -5em, -5em);
+    transition: transform 2s;
+}
 /*
 tt_address
 */
@@ -237,7 +280,7 @@ tt_address
         display: none;
     }
     .toolbar {
-        display: inline-block;
+        display: inline-flex;
         font-size: 10px;
     }
     #calendar-event .Bild.pic{
@@ -290,6 +333,17 @@ tt_address
     .greeting  {
         left: 5%;
         width: 90%;
+    }
+    .carousel-item-type-header .valign > .vcontainer {
+        display: table-cell;
+        vertical-align: middle;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        left: 0;
+        text-align: left;
+        background: rgba(0, 0, 0, 0.5);
+
     }
 }
 

@@ -15,7 +15,7 @@ plugin.tx_tp3mods_tp3micro{
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
         linkedin_profile = {$linkedin_profile}
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
-        baseUrl = {https://{$baseUrl}
+        baseUrl = {$baseUrl}
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
         logo = {$logo}
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path

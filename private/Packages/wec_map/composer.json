@@ -1,0 +1,43 @@
+{
+	"name": "web-tp3/wec_map",
+	"description": "WEC Google Maps",
+	"type": "typo3-cms-extension",
+	"license": "GPL-2.0+",
+	"authors": [
+		{
+			"name": "Christian Technology Ministries International Inc.",
+			"email": "j.bartels@arcor.de"
+		},
+		{
+			"name": "Thomas Ruta",
+			"email": "email@thomasruta.de"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"JBartels\\WecMap\\": "Classes/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"JBartels\\WecMap\\": "Tests/"
+		}
+	},
+	"require": {
+		"typo3/cms-core": "^7.6 || ^8.7",
+		"typo3/class-alias-loader": "^1.0"
+
+	},
+	"replace": {
+		"wec_map": "self.version",
+		"typo3-ter/wec-map": "self.version",
+		"web-tp3/wec-map": "self.version"
+	},
+	"typo3/class-alias-loader": {
+		"always-add-alias-loader": true,
+		"autoload-case-sensitivity": false,
+		"class-alias-maps": [
+			"Migrations/Code/ClassAliasMap.php"
+		]
+	}
+}

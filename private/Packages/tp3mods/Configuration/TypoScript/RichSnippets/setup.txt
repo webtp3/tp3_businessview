@@ -2,13 +2,13 @@ page.footerData {
 
     1117 = TEXT
     1117.data = getenv : REQUEST_URI
-    1117.wrap = <meta itemprop="url" content="http://{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}|" />
+    1117.wrap = <meta itemprop="url" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}|" />
 
     1118.= TEXT
     1118.value (
-         <g itemscope itemtype="http://schema.org/Organization">
-            <meta itemprop="logo" content="http://{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}/{$plugin.tx_tp3mods_tp3micro.settings.logo}">
-            <meta itemprop="url" content="http://{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}">
+         <g itemscope itemtype="http://schema.org/LocalBusiness">
+            <meta itemprop="logo" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}/{$plugin.tx_tp3mods_tp3micro.settings.logo}">
+            <meta itemprop="url" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}">
             <meta itemprop="name" content="{$plugin.tx_tp3mods_tp3micro.settings.tp3sitetitle}">
             <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.facebook_profile}">
             <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.twitter_profile}">
@@ -31,8 +31,9 @@ page.footerData {
             <meta itemprop="license" content="http://www.gnu.org/licenses/gpl-2.0.html">
             <meta itemprop="operatingSystem" content="ubuntu">
             <meta itemprop="text" content="tp3 ist eine von der R&P IT Consulting entwickelte Anpassung von typo3. Die Plattform wird als Software as a Service (SaaS) für Kunden bereitgestellt.">
-            <g  itemprop="provider" itemscope itemtype="http://schema.org/Organization">
-                <meta itemprop="name" content="RP IT Consulting GmbH" />
+            <g  itemprop="provider" itemscope itemtype="http://schema.org/LocalBusiness">
+                <meta itemprop="name" content="R&P IT Consulting GmbH" />
+                <meta itemprop="name" content="R&P IT Consulting GmbH" />
                 <meta itemprop="description" content="solid software & apps for innovative technical solutions" />
                 <meta itemprop="image" content="http://r-p-it.com/fileadmin/user/rp/rp_logo.png" />
                 <meta itemprop="sameAs" content="https://www.facebook.com/r.p.it.consulting">

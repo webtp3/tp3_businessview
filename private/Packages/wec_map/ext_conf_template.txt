@@ -1,0 +1,18 @@
+# cat=basic; type=boolean; label=Enable map in FE user records
+feUserRecordMap = 1
+# cat=basic; type=boolean; label=Enable Geocoding Status
+geocodingStatus = 1
+# cat=basic; type=input; label=Default country: Default country to be used for address lookup if no country is given
+defaultCountry = DE
+# cat=basic; type=input; label=Which URL to load the API from: Useful if you have a Premier key from Google. sprintf formatting.
+apiURL = http://maps.google.com/maps?file=api&amp;v=%s&amp;key=%s&amp;hl=%s
+#cat=basic; type=boolean; label=Use downloaded JS-files for InfoBubble and MarkerManager from Google. Use wec_map-Admin menu before.
+useOwnJS = 1
+# cat=basic; type=input; label=Directory for own JS-files for wec_map (including trailing slash)
+jsDir =
+# cat=basic; type=input; label=URL of markermanager (without protocol-prefix)
+mmURL = dev.tp3.de/typo3conf/ext/wec_map/Resources/Public/JavaScript/ContribJS/markermanager.js
+# cat=basic; type=input; label=URL of infobubble (without protocol-prefix)
+ibURL = dev.tp3.de/typo3conf/ext/wec_map/Resources/Public/JavaScript/ContribJS/infobubble.js
+# cat=basic; type=input; label=URL of OverlappingMarkerSpiderfier (without protocol-prefix)
+omURL = dev.tp3.de/typo3conf/ext/wec_map/Resources/Public/JavaScript/ContribJS/oms.min.js
