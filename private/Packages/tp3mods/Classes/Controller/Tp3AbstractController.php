@@ -48,15 +48,7 @@ abstract class Tp3AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\A
      */
     protected $unknownErrorMessage = 'An unknown error occurred. The wild monkey horde in our basement will try to fix this as soon as possible.';
 
-    /**
-     * Initializes the current action
-     *
-     * @return void
-     */
-    public function initializeAction()
-    {
-     //   parent::initializeAction();
-    }
+
     /**
      * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
      * @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response

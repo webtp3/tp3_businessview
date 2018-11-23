@@ -21,10 +21,10 @@ plugin.tx_tp3mods_tp3micro {
     }
 }
 
-plugin.tx_tp3mods_tp3micro{
+plugin.tx_tp3mods_tp3micro {
     privacyProtect = 1
     privacyPid = {$privacyPid}
-    settings{
+    settings {
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3App
         Tp3App = 1
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3Isotop
@@ -258,7 +258,8 @@ plugin.bootstrap_package {
     }
 }
 
-
+# cat=tp3mods: advanced/190/100; type=string; label=Snippet type for page (can also be product etc. see https://schema.org/WebPage)
+snippet_type = WebPage
 
 ####################
 #### EXTENSIONS ####

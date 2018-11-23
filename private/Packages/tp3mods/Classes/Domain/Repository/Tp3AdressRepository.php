@@ -15,7 +15,7 @@ namespace Tp3\Tp3mods\Domain\Repository;
 /**
  * The repository for Tp3Adresses
  */
-class Tp3AdressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class Tp3AdressRepository extends \TYPO3\TtAddress\Domain\Repository\AddressRepository
 {
     // Order by BE sorting
     protected $defaultOrderings = array(
@@ -26,7 +26,7 @@ class Tp3AdressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
-        $querySettings->setRespectStoragePage(true);
+        $querySettings->setRespectStoragePage(false);
         // $querySettings->setStoragePageIds(array($this->conf["persistence"]["storagePid"]));
         // $querySettings->setOrderings($this->defaultOrderings);
         $querySettings->setIgnoreEnableFields(false);
@@ -51,7 +51,7 @@ class Tp3AdressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $query->equals('deleted', 0)
             )
         );
-        return $query->execute(true);
+        return $query->execute()->getFirst();
     }
 
 }

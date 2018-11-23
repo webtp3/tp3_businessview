@@ -33,7 +33,6 @@ page.footerData {
             <meta itemprop="text" content="tp3 ist eine von der R&P IT Consulting entwickelte Anpassung von typo3. Die Plattform wird als Software as a Service (SaaS) für Kunden bereitgestellt.">
             <g  itemprop="provider" itemscope itemtype="http://schema.org/LocalBusiness">
                 <meta itemprop="name" content="R&P IT Consulting GmbH" />
-                <meta itemprop="name" content="R&P IT Consulting GmbH" />
                 <meta itemprop="description" content="solid software & apps for innovative technical solutions" />
                 <meta itemprop="image" content="http://r-p-it.com/fileadmin/user/rp/rp_logo.png" />
                 <meta itemprop="sameAs" content="https://www.facebook.com/r.p.it.consulting">

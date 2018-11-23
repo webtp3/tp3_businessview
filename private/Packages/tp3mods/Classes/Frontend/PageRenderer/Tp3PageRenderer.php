@@ -10,8 +10,6 @@ use Tp3\Tp3mods\Domain\Repository\Tp3AdressRepository;
 use Tp3\Tp3mods\Domain\Repository\Tp3ModsRepository;
 
 
-
-
 class Tp3PageRenderer implements SingletonInterface
 {
     /**
@@ -35,9 +33,9 @@ class Tp3PageRenderer implements SingletonInterface
      * @param PageRenderer $pageRenderer
      * @return string
      */
-    public function render(array $parameters, &$pageRenderer)
+    public function render($parameters, &$pageRenderer)
     {
-
+        if(!is_array($parameters))return;
         $config = isset($GLOBALS['TSFE']->tmpl->setup) ? $GLOBALS['TSFE']->tmpl->setup : [];
         if (is_array($config)
             && (bool)$GLOBALS['TSFE']->page['tp3microdata']
@@ -62,257 +60,151 @@ class Tp3PageRenderer implements SingletonInterface
 
             }
             $tp3micro = $this->tp3ModsRepository->findByUid($GLOBALS['TSFE']->page['tp3microdata']);
-           if( $tp3micro === "array" &&  $tp3micro[0]["address"] > 0)$tp3micro_adress = $this->tp3AdressRepository->findByUid($tp3micro[0]["address"]);
+            if( is_array($tp3micro) &&  $tp3micro[0]["address"] > 0)$tp3micro[0]["address_object"] = $this->tp3AdressRepository->findByUid($tp3micro[0]["address"]);
             // $microdata = $tp3micro->getFirst();
 //            var_dump($tp3micro);
 //            var_dump($microdata);
-            /*
-             * <script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "url": "http://www.example.com",
-  "logo": "http://www.example.com/images/logo.png"
-  "name": "your name",
-  "sameAs": [
-    "http://www.facebook.com/your-profile",
-    "http://instagram.com/yourProfile",
-    "http://www.linkedin.com/in/yourprofile",
-    "http://plus.google.com/your_profile"
-  ]
-  "contactPoint": [{
-    "@type": "ContactPoint",
-    "telephone": "+1-401-555-1212",
-    "contactType": "customer service"
-  }]
-}
-</script>
-             */
-//            try{
-//                $businessView = $businessViews->getFirst();
-//                if (!$businessView instanceof \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView) {
-//                    $panorama = $this->panoramasRepository->findByUid($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
-//                    if (!is_array($panorama) &&  count($panorama)< 1) return;
-//                    /*
-//                     * #todo display panorama only
-//                     */
-//                    $businessView = new \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView;
-//                    $bw = $businessView->getPropertiesArray();
-//                    $bw['panoramas'] = [];
-//                    $panoramas= [];
-//                    $bw['panorama'] = $panorama[0];
-//                }
-//                else{
-//                    $panolist = [];
-//                    foreach ($businessView->getPanoramas() as $panoramas => $pano){
-//                        $panolist[]=  $pano->getUid();
-//                    }
-//                    $panoramas = $this->panoramasRepository->findByList($panolist);
-//                    //find selcted
-//                    $panorama = $this->panoramasRepository->findByUid($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
-//                    $bw = $businessView->getPropertiesArray();
-//
-//                    $businessAdresses = $this->businessAdressRepository->findByUidArray($businessView->getContact());
-//                    if ($this->openHourRepository !== null ){
-//                        $openhours = $this->openHourRepository->findByAddress($businessView->getContact());
-//                        $formattedText = "";
-//                        $hoursArray = [];
-//                        foreach ($openhours as $oh){
-//                            //$dateconv = \date("H:i",$oh->getOpenTime());
-//                            $formattedText .= $oh->getDayName() . " " .\date("H:i", $oh->getOpenTime())  . "-" . \date("H:i", $oh->getCloseTime()) ."<br>";
-//                            $hoursArray[] = [\date("H:i", $oh->getOpenTime()),\date("H:i", $oh->getCloseTime())];
-//                        }
-//                        if($formattedText != ""){
-//                            $bw['openingHours'] = [
-//                                "formattedText" => $formattedText,
-//                                "status"=>true,
-//                                "hours"=>$hoursArray,
-//                            ];
-//                        }
-//                        /*
-//                        *
-//                        "openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
-//
-//                        */
-//                    }
-//                    $bw['contact'] = $businessAdresses[0];
-//                    //$bw['panorama'] = $panoramas[0];
-//                    $bw['panoramas'] = [$panoramas];
-//                    $bw['panorama'] = $panorama[0];
-//
-//                    // Social Gallery
-//
-//                    // $businessview['contact'] = $this->businessAdressRepository->findByUid($businessview['contact'])[0];
-//
-//
-//
-//                }
-//                $parameters["jsInline"] .='<script> window.businessviewJson = window.businessviewJson || '.$this->JsonRenderer($bw,$panoramas,$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]).';window.tp3_app = window.tp3_app || {};window.tp3_app.AnmationOptions  = {  panoJumpTimer:'.
-//                    ( $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpTimer"] != "" ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpTimer"] : 5000) . ', panoRotationTimer:'.
-//                    ( $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationTimer"] != "" ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationTimer"] : 10 ).', panoRotationFactor:'.
-//                    ( $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationFactor"] != "" ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationFactor"] : 0.060 ).', panoJumpsRandom:'.
-//                    ( $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpsRandom"] != "" ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpsRandom"]  : true ).'};</script>';
-//
-//                $parameters["jsFooterInline"] .="<script>  $('".($GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] != "" ? $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] : '#content') ."').first().attr(\"id\",\"businessview-panorama-canvas\").wrapAll('<div id=\"businessview-canvas\" style=\"width:100%;height:100%;min-height:320px;\"></div>');</script>";
-//                $parameters["jsFooterLibs"] .='<script defer async="async" src="typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js"></script>';
-//
-//                if($GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["loadApi"]== "true" || $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["loadApi"]== "1"){
-//                    $parameters["jsFooterLibs"] .='<script defer async="async" src="//maps.googleapis.com/maps/api/js?key='.$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["googleMapsJavaScriptApiKey"].'&libraries=places&callback=tp3_app.initialize"></script>';
-//                }
-//
-//                $parameters["cssFiles"] .='<link rel="stylesheet" type="text/css" href="typo3conf/ext/tp3_businessview/Resources/Public/Css/Tp3App.css"></link>';
-//            }
-//            catch (Exception $e) {
-//             //   $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
-//             //   throw new \RuntimeException($message);
-//            }
-//
-//
-//
-//
-//        }
+
+            try{
+
+              if(is_array($tp3micro[0]["address_object"]))  $parameters["jsInline"] .='<script> '.$this->JsonRenderer($tp3micro[0],$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3mods_tp3micro.']["settings."]).'</script>';
+
+            }
+            catch (Exception $e) {
+                //   $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
+                //   throw new \RuntimeException($message);
+            }
+
+
+
+
         }
+
 
     }
 
     /**
-     * @param array $businessview
+     * @param array $microdata, array $settings
      * @return string
      */
-    public function JsonRenderer(array $businessview = [], array $panoramas = [], $settings = null)
+    public function JsonRenderer(array $microdata = [], $settings = null)
     {
-//       if(!is_array($settings)){
-//           $settings = [
-//           "color"=>"#fff",
-//           "backgroundColor"=>"rgba(98, 98, 98, 0.8)",
-//           "textColor"=> "#fff",
-//           "align"=>"right",
-//               ];
-//
-//       }
-//       if($businessview['panoAnimation'] != undefined && !is_array($businessview['panoAnimation'])) {
-//           $pano_animation = explode(",",$businessview['panoAnimation']);
-//           $businessview['pano_animation'] = array();
-//           foreach ($pano_animation as &$value) {
-//               $businessview['pano_animation'][$value] =  true;
-//           }
-//           unset($value);
-//       }
-//       else if($businessview['panoAnimation'] == undefined && $businessview['pano_animation'] != undefined && !is_array($businessview['pano_animation'])) {
-//           $pano_animation = explode(",",$businessview['pano_animation']);
-//           $businessview['pano_animation'] = array();
-//           foreach ($pano_animation as &$value) {
-//               $businessview['pano_animation'][$value] =  true;
-//           }
-//           unset($value);
-//       }
-//       else if(is_array($businessview['panoAnimation']))
-//       $businessview['pano_animation'] = $businessview['panoAnimation'];
-//
-//        if($businessview['panoOptions'] != undefined && !is_array($businessview['panoOptions'])) {
-//
-//            $pano_options = explode(",", $businessview['panoOptions']);
-//            $businessview['pano_options'] = array();
-//            foreach ($pano_options as &$value) {
-//                $businessview['pano_options'][$value] = true;
-//            }
-//            unset($value);
-//        }
-//        else  if($businessview['panoOptions'] == undefined  && $businessview['pano_options'] != undefined && !is_array($businessview['pano_options'])) {
-//
-//            $pano_options = explode(",", $businessview['pano_options']);
-//            $businessview['pano_options'] = array();
-//            foreach ($pano_options as &$value) {
-//                $businessview['pano_options'][$value] = true;
-//            }
-//            unset($value);
-//        }
-//        else if(is_array($businessview['panoOptions']))
-//            $businessview['pano_options'] = $businessview['panoOptions'];
-//
-//        $pano_array = [];
-//        foreach ($panoramas as $panorama ){
-//            $pano_array[] =  [ "id"=>$panorama["pano_id"],
-//                "areas"=>[],
-//                "infoPoints"=>[],
-//                "pano" => [
-//                    "heading"=>$panorama['heading'],
-//                    "panoId"=>$panorama['pano_id'],
-//                    "pitch"=>$panorama['pitch'],
-//                    "zoom"=>is_numeric($panorama['zoom']) ? $panorama['zoom'] : 0 ,
-//                ],
-//                "actions"=>[   ],
-//            ];
-//        };
-//
-//
-//        $json = json_encode([
-//            "details"=> [
-//                "actionOrder"=>[],
-//                "areaOrder"=>[],
-//                "editors"=>[],
-//                "googleMapsJavaScriptApiKey"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["googleMapsJavaScriptApiKey"],
-//                "legalNoticeUrl"=>"http://".urlencode($businessview['external_links'] != "" ? $businessview['external_links'] : $businessview['externalLinks']),
-//                "location"=>["formattedAddress"=>$businessview['contact']['address'].", ".$businessview['contact']['zip'] ." " .$businessview['contact']['city'] .",".$businessview['contact']['country'],"position"=>["latitude"=>$businessview['contact']['latitude'],"longitude"=>$businessview['contact']['longitude']]],
-//                "createdBy"=>["name"=>($businessview['created_by'] != "" ? $businessview['created_by'] : $businessview['createdBy']) .",".urlencode($businessview['external_links'] != "" ? $businessview['external_links'] : $businessview['externalLinks']),"status"=>true],
-//                 "modules"=>[
-//                    "contact"=> ["fields"=>[
-//                                "name"=>["value"=>$businessview['contact']['name'],"visible"=>($businessview['contact']['name'] !="" ? true : false)],
-//							 	"street"=>["value"=>$businessview['contact']['address'],"visible"=>($businessview['contact']['address'] !="" ? true : false)],
-//                                "zip"=>["value"=>$businessview['contact']['zip'],"visible"=>($businessview['contact']['zip'] !="" ? true : false)],
-//							 	"city"=>["value"=>$businessview['contact']['city'],"visible"=>($businessview['contact']['city'] !="" ? true : false)],
-//                                "phone"=>["value"=>$businessview['contact']['phone'],"visible"=>($businessview['contact']['phone'] !="" ? true : false)],
-//							 	"email"=>["value"=>$businessview['contact']['email'],"visible"=>($businessview['contact']['email'] !="" ? true : false)],
-//                                "website"=>["value"=>$businessview['contact']['www'],"visible"=>($businessview['contact']['www'] !="" ? true : false)],
-//                        ],
-//                        "color"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["color"] != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["color"] : $settings["color"],
-//                        "backgroundColor"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["backgroundColor"] != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["backgroundColor"] : $settings["backgroundColor"],
-//                        "textColor"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["textColor"]  != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["textColor"] : $settings["textColor"],
-//                        "align"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["align"] != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["align"] : $settings["align"],
-//
-//                    ],
-//                    "custom"=>[],
-//                        "externalLinks"=> ["status"=>true,"align"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["alignSocial"] != "" ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["alignSocial"] : "left","links"=>[
-//                            ["icon"=>"fa-twitter","url"=>"https://twitter.com/".$businessview['contact']['twitter']."/","target"=>false,"visible"=>($businessview['contact']['twitter'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] )? true : false)],
-//                            ["icon"=>"fa-facebook","url"=>"https://www.facebook.com/".$businessview['contact']['facebook']."","target"=>false,"visible"=>($businessview['contact']['facebook'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] ) ? true : false)],
-//                            ["icon"=>"fa-google-plus","url"=>"https://plus.google.com/".$businessview['contact']['googleplus']."/about","target"=>false,"visible"=>($businessview['contact']['googleplus'] !="" && ( $businessview['social_gallery'] ||  $businessview['socialGallery'] ) ? true : false)
-//                            ]
-//                        ]
-//                    ],
-//                    "gallery"=>[],
-//                     "intro"=>[
-//                         "headline"=>$businessview['name'],"message"=> $businessview['description'] != null ? htmlentities($businessview['description']) : '',
-//                         "backgroundColor"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["backgroundColor"] != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["backgroundColor"] : $settings["backgroundColor"],
-//                         "textColor"=>$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["textColor"]  != null ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["textColor"] : $settings["textColor"],
-//                         "status"=>$businessview['intro']
-//                     ],
-//                    "openingHours"=> $businessview['openingHours'],
-//                    "opentable"=>[],
-//                    "panoAnimation"=>["jumps"=>$businessview['pano_animation']['jumps'] ? true : false ,"rotation"=>$businessview['pano_animation']['rotation'] ? true : false],
-//                    "socialGallery"=> $businessview['social_gallery']
-//
-//                ],
-//                "name"=>$businessview['title'],
-//                "panoEntry"=>[
-//                    "heading"=>$businessview['panorama']['heading'],
-//                    "panoId"=>$businessview['panorama']['pano_id'],
-//                    "pitch"=>$businessview['panorama']['pitch'],
-//                    "zoom"=>is_numeric($businessview['panorama']['zoom']) ? $businessview['panorama']['zoom'] : 0 ,
-//                ],
-//                "panoOptions"=>[
-//                    "addressControl"=>$businessview['pano_options']['addressControl'] ? true : false ,
-//                    "disableDefaultUI"=>$businessview['pano_options']['disableDefaultUI'] ? true : false ,
-//                    "panControl"=>$businessview['pano_options']['panControl'] ? true : false ,
-//                    "scaleControl"=>$businessview['pano_options']['scaleControl'] ? true : false ,
-//                    "scrollwheel"=>$businessview['pano_options']['scrollwheel'] ? true : false ,
-//                    "zoomControl"=>$businessview['pano_options']['zoomControl'] ? true : false ,
-//                    "fullScreen"=>$businessview['pano_options']['fullScreen'] ? true : false ,
-//                ],
-//                "panoramas"=>$pano_array,
-//                "type"=>"businessview",
-//            ],
-//            "hasDetails"=>true
-//        ]);//JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE
+
+        $json =      ' {
+         "@context": "http://schema.org",
+         "@type": "'.$microdata["snippetType"].'",
+         "url": "'.$microdata["address_object"]["www"].'",
+         "logo": "'.$microdata["address_object"]["image"].'",
+         "telephone": "'.$microdata["address_object"]["phone"].'",
+         "sameAs": '.$microdata["address_object"]["social_profiles"].' 
+         "contactPoint": [{
+           "@type": "ContactPoint",
+           "telephone": "'.$microdata["address_object"]["phone"].'",
+           "contactType": "customer service"
+         }]
+         "@id": "'.$microdata["address_object"]["url"].'",
+          "name": "'.$microdata["address_object"]["name"].'",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "'.$microdata["address_object"]["address"].'",
+            "addressLocality": "'.$microdata["address_object"]["city"].'",
+            "addressRegion": "'.$microdata["address_object"]["region"].'",
+            "postalCode": "'.$microdata["address_object"]["zip"].'",
+            "addressCountry": "'.$microdata["address_object"]["country"].'"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": '.$microdata["address_object"]["latitude"].',
+            "longitude": '.$microdata["address_object"]["longitude"].'
+          },
+       }';
+
+        /*{
+          "@context": "http://schema.org",
+          "@type": "Store",
+          "image": [
+            "https://example.com/photos/1x1/photo.jpg",
+            "https://example.com/photos/4x3/photo.jpg",
+            "https://example.com/photos/16x9/photo.jpg"
+           ],
+          "@id": "http://davesdeptstore.example.com",
+          "name": "Dave's Department Store",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "1600 Saratoga Ave",
+            "addressLocality": "San Jose",
+            "addressRegion": "CA",
+            "postalCode": "95129",
+            "addressCountry": "US"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 37.293058,
+            "longitude": -121.988331
+          },
+          "url": "http://www.example.com/store-locator/sl/San-Jose-Westgate-Store/1427",
+          "telephone": "+14088717984",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "08:00",
+              "closes": "23:59"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Sunday",
+              "opens": "08:00",
+              "closes": "23:00"
+            }
+          ],
+          "department": [
+            {
+              "@type": "Pharmacy",
+              "image": [
+            "https://example.com/photos/1x1/photo.jpg",
+            "https://example.com/photos/4x3/photo.jpg",
+            "https://example.com/photos/16x9/photo.jpg"
+           ],
+              "name": "Dave's Pharmacy",
+              "telephone": "+14088719385",
+              "openingHoursSpecification": [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday"
+                  ],
+                  "opens": "09:00",
+                  "closes": "19:00"
+                },
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": "Saturday",
+                  "opens": "09:00",
+                  "closes": "17:00"
+                },
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": "Sunday",
+                  "opens": "11:00",
+                  "closes": "17:00"
+                }
+              ]
+            }
+          ]
+        }
+        */
         return $json;
     }
 }

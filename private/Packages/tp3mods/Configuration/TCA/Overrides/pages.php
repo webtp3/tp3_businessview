@@ -21,7 +21,7 @@
             'label' => 'tp3 microdata',
             'exclude' => true,
             'config' => [
-                'type' => 'inline',
+                'type' => 'selectSingle',
                 'MM' => 'tx_tp3mods_domain_model_mm',
                 'MM_hasUidField' => true,
                 'MM_opposite_field' => 'pages',

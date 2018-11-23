@@ -76,7 +76,6 @@ div.main-section .frame{
 .navbar-brand > img,.navbar-brand > .logo {
     backface-visibility: hidden;
     position: absolute;
-    top: 50%;
 }
 .loader {
     border: 16px solid #f3f3f3; /* Light grey */
@@ -106,7 +105,7 @@ div.main-section .frame{
     margin: 0;
     float: right;
     text-align: right;
-    display: inline-flex;
+    display: none;
     clear: right;
 }
 .toolbar .texticon-content {
@@ -116,10 +115,10 @@ div.main-section .frame{
 .toolbar .texticon.texticon-left {
     padding-left: 20px;
 }
-.toolbar .texticon-left .texticon-icon,.toolbar .texticon-right .texticon-icon {
+
+.toolbar .texticon-left .texticon-icon, .toolbar .texticon-right .texticon-icon {
     position: relative;
     min-height: 1px;
-    padding-left: 15px;
     padding-right: 5px;
 }
 
@@ -334,6 +333,12 @@ tt_address
         left: 5%;
         width: 90%;
     }
+    .row {
+        display: inline-flex;
+        padding: 10px;
+        width: 100%;
+        margin-left: 0px;
+    }
     .carousel-item-type-header .valign > .vcontainer {
         display: table-cell;
         vertical-align: middle;
@@ -345,9 +350,7 @@ tt_address
         background: rgba(0, 0, 0, 0.5);
 
     }
-}
 
-@media (min-width: 992px) {
     .meta-section ul, .meta-section p {
         margin: 0
     }

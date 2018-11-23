@@ -15,7 +15,7 @@ namespace Tp3\Tp3mods\Domain\Model;
 /**
  * Tp3Adress
  */
-class Tp3Adress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Tp3Adress extends \TYPO3\TtAddress\Domain\Model\Address
 {
     /**
      * microdataAdress
