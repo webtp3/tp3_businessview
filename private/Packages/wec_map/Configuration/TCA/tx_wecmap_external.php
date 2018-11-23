@@ -34,7 +34,7 @@ return array(
 				        'link' => Array(
 				                'type' => 'popup',
 				                'title' => 'Link',
-				                'icon' => 'link_popup.gif',
+				                'icon' => 'actions-wizard-link',
 								'module' => [
 									'name' => 'wizard_link',
 								],

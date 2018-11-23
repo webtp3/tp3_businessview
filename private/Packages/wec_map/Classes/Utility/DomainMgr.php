@@ -199,8 +199,8 @@ class DomainMgr {
         $instObj = $this->objectManager->get(\TYPO3\CMS\Core\Configuration\ConfigurationManager::class);
         // Get lines from localconf file
         $lines = $instObj->getLocalConfigurationFileLocation();
-        $instObj->removeLocalConfigurationKeysByPath( array( 'EXT/extConf/'.$this->extKey ) ) ;
-        $instObj->setLocalConfigurationValueByPath( 'EXT/extConf/'.$this->extKey , serialize($extConf) );
+       // $instObj->removeLocalConfigurationKeysByPath( array( 'EXT/extConf/'.$this->extKey ) ) ;
+       // $instObj->setLocalConfigurationValueByPath( 'EXT/extConf/'.$this->extKey , serialize($extConf) );
 	}
 
 	/**
