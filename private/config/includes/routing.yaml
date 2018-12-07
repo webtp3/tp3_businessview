@@ -2,17 +2,15 @@ EXTCONF:
     realurl:
         _DOMAINS:
             encode:
-                - { GETvar: L, value: '1', useConfiguration: default.tld }
-                - { GETvar: L, value: '0', useConfiguration: default.tld }
+            - { GETvar: L, value: '0', useConfiguration: _DEFAULT }
+            - { GETvar: L, value: '1', useConfiguration: _DEFAULT }
+            - { GETvar: L, value: '2', useConfiguration: _DEFAULT }
 
             decode:
                 '%conf(EXTCONF.tp3_site.defaultLanguageDomain)%':
                     GETvars: { L: '1' }
                     useConfiguration: default.tld
 
-                '%conf(EXTCONF.tp3_site.englishDomain)%':
-                    GETvars: { L: '0' }
-                    useConfiguration: default.tld
 
 
         default.tld:
@@ -36,5 +34,5 @@ EXTCONF:
             fileName:
                 defaultToHTMLsuffixOnPrev: false
 
-        '%conf(EXTCONF.tp3_site.defaultLanguageDomain)%': 'default.tld'
-        '%conf(EXTCONF.tp3_site.englishDomain)%': 'default.tld'
+        '%conf(EXTCONF.tp3_site.defaultLanguageDomain)%': '_DEFAULT'
+        '%conf(EXTCONF.tp3_site.englishDomain)%': '_DEFAULT'

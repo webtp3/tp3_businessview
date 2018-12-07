@@ -52,7 +52,7 @@ EXT:
         direct_mail:
             UseHttpToFetch: '0'
             addRecipFields: ''
-            adminEmail: admin@website.com
+            adminEmail: email@thomasruta.de
             cronInt: '5'
             cron_language: en
             enablePlainTextNews: '1'
@@ -149,7 +149,7 @@ EXT:
             configFile: typo3conf/realurl_conf.php
             enableAutoConf: '1'
             enableDevLog: '0'
-            moduleIcon: '0'
+            moduleIcon: '3'
             segTitleFieldList: ''
         rsaauth:
             temporaryDirectory: ''
