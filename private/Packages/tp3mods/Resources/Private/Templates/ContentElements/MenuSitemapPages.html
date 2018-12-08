@@ -13,7 +13,7 @@
     <f:if condition="{menu}">
         <ul>
             <f:for each="{menu}" as="page">
-                <li>
+                <li class="sitemap_section {page.title}">
                     <a href="{page.link}" {f:if(condition: page.target, then: ' target="{page.target}"')}
                     title="{page.title}">{page.title}</a>
                     <f:render section="Menu" arguments="{menu: page.children}"/>

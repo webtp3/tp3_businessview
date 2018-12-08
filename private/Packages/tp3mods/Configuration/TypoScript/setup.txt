@@ -287,7 +287,8 @@ page {
     bodyTagCObject.field = uid
     bodyTagCObject.wrap = <body id="pid-|" data-{$app_name}role="page" data-spy="scroll" data-target=".navbar-collapse"  itemscope="" itemtype="http://schema.org/{$snippet_type}">
     headerData {
-        112112 < lib.containerBackgroundImage
+        112112 >
+#< lib.containerBackgroundImage
         112113 < lib.containerBackgroundImagejs
         // Flip ahead browsing for IE10/11
         // http://msdn.microsoft.com/en-us/library/ie/jj883726(v=vs.85).aspx
@@ -323,7 +324,7 @@ page {
 
     includeCSS {
         #enabled less css
-        bootstrap = EXT:tp3mods/Resources/Public/Less/Bootstrap/bootstrap.less
+        #bootstrap = EXT:tp3mods/Resources/Public/Less/Bootstrap/bootstrap.less
         theme = EXT:tp3mods/Resources/Public/Less/Theme/theme.less
 
         #User Css
@@ -332,6 +333,9 @@ page {
     }
 
     includeJSFooterlibs {
+        responsiveimages >
+        responsiveimages = EXT:tp3mods/Resources/Public/JavaScript/jquery.responsiveimages.js
+
         tp3 = fileadmin/user_upload/{$username}/tp3.js
         tp3_app = EXT:tp3mods/Resources/Public/JavaScript/tp3_app.js
         tp3_app.async = 1
@@ -727,9 +731,9 @@ if(privacyPopup_open != "1")tp3_app.privacyPopup();
 </script>
     )
 [end]
-
-#add cookieconsent
-
+/*
+add cookieconsent
+*/
 page.footerData.555 < lib.cookieconsent
 
 
@@ -1159,8 +1163,8 @@ iframe {
                         10 {
                             field = header
                             insertData = 1
-                            wrap          = <div class="panel-heading"><h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordion-{field:tx_gridelements_container}" href="#collapse-{field:uid}" aria-expanded="false" aria-controls="collapse-{field:uid}" class="collapsed accordion-toggle">|</a></h4></div><div id="collapse-{field:uid}" class="panel-collapse collapse" role="tabpanel"><div class="panel-body">
-                            wrap.override = <div class="panel-heading"><h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordion-{field:tx_gridelements_container}" href="#collapse-{field:uid}" aria-expanded="true" aria-controls="collapse-{field:uid}" class="accordion-toggle">|</a></h4></div><div id="collapse-{field:uid}" class="panel-collapse collapse in" role="tabpanel"><div class="panel-body">
+                            wrap          = <div class="panel-heading"><h4 class="panel-title"><a role="tab" data-toggle="collapse" data-parent="#accordion-{field:tx_gridelements_container}" href="#collapse-{field:uid}" aria-expanded="false" aria-controls="collapse-{field:uid}" class="collapsed accordion-toggle">|</a></h4></div><div id="collapse-{field:uid}" class="panel-collapse collapse" role="tabpanel"><div class="panel-body">
+                            wrap.override = <div class="panel-heading"><h4 class="panel-title"><a role="tab" data-toggle="collapse" data-parent="#accordion-{field:tx_gridelements_container}" href="#collapse-{field:uid}" aria-expanded="true" aria-controls="collapse-{field:uid}" class="accordion-toggle">|</a></h4></div><div id="collapse-{field:uid}" class="panel-collapse collapse in" role="tabpanel"><div class="panel-body">
                             wrap.override.if.value = 1
                             wrap.override.if.equals.data = register:AccordionCount
                         }

@@ -36,6 +36,12 @@
                         <f:format.html>{settings.copyright.text}</f:format.html>
                     </div>
                 </f:if>
+                <f:if condition="{settings.socialicons.enable}">
+                    <div class="frame frame-small default socialicons">
+
+                        <f:cObject typoscriptObjectPath="lib.socialIcons" data="lib.socialIcons"/>
+                    </div>
+                </f:if>
             </div>
         </section>
     </footer>

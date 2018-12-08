@@ -14,9 +14,12 @@ var businessviewCanvasSelector =  businessviewCanvasSelector || "#businessview-c
     businessviewJson = businessviewJson || {},
     scrollTimeStart = new Date,
     disableStr = disableStr || false,
-    WECInit = WECInit || undefined;
+    WECInit = WECInit || undefined,
+    greeting = "",
+    $container = $container || undefined;
+var section_box;
 window.tp3_app = window.tp3_app || {};
-
+window.$container = $container;
 
 var QueryString = function () {
 
@@ -92,353 +95,68 @@ if(QueryString.businessviewId && QueryString.businessviewId != "") {
 $( window ).on("resize",function() {
     wndW = $(window).width()- windowPadding * 2 * 0.9;
     wndH = $(window).height()- windowPadding * 2 - bottomPadding;
-    console.log("resize")
-    if($(window).height()<760)
+    console.log("resize");
+    if($(window).height()<769)
         $('iframe:not([id^="oauth2relay"]), .tx-wecmap-map').css({"width":wndW+"px","height":wndH+"px","max-width":"100%","max-height":"100%"});
     else{
         $.each($('iframe:not([id^="oauth2relay"]), .tx-wecmap-map'),function(){
             wndW = $(this).parents(".container").width();
-            wndH = $(this).parents(".container").height()
+            wndH = $(this).parents(".container").height();
             $(this).css({"width":wndW+"px","height":wndH+"px","max-width":"100%","max-height":"100%"});
         })
     }
 });
-var WECInit = WECInit || {}, WecMap = WecMap || undefined;
+var WECInit = WECInit || undefined, WecMap = WecMap || undefined;
 
 tp3_app.initialize=function(){
     if(tp3_app.init == true)return;
     try{
-        if ( google.maps != undefined && $j.type(google.maps) == "object"){
+        if (($j('.tx-wecmap-map').length > 0 || businessviewJson.hasDetails) &&( google.maps != undefined && $j.type(google.maps) == "object")){
 
             google.maps.event.addDomListener(window,"load", function () {
-                if (  WECInit != undefined && $j.type(WECInit) == "function") WECInit();
+                if (  WECInit != undefined && $j.type(WECInit) == "function" ) {
+                    if($j.type( createWecMap) == "function")WECInit();
+                }
 
                 tp3_app.init = true;
                 console.log(businessviewJson);
 
-                if(businessviewJson.hasDetails &&$j(businessviewCanvasSelector).length > 0){tp3_app.businessview_initialize(businessviewJson);}
+                if(businessviewJson.hasDetails && $j(businessviewCanvasSelector).length > 0){tp3_app.businessview_initialize(businessviewJson);}
                 else{console.log(businessviewJson.errorMessage);}
 
                 //  if(gapi && $j.type(gapi) == "object")  gapi.plus.go();
-            })
-            if ( WECInit == undefined)  tp3_app.init = true;
+            });
+            if ( WecMap == undefined)  tp3_app.init = true;
 
 
         }
-        if(!tp3_app.getCookieValue(disableStr)) tp3_app.privacyPopup();
-        if($j.type(tp3_app.controls == "function"))tp3_app.controls();
+        else  if ($j('.tx-wecmap-map').length < 1 && google.maps == undefined){
+            /*
+            no google maps needed - so proceed
+             */
+            tp3_app.init = true;
+        }
+        if($j.type(tp3_app.privacyPopup) == "funtion" && !tp3_app.getCookieValue(disableStr)) tp3_app.privacyPopup();
+        if($j.type(tp3_app.controls) == "function")tp3_app.controls();
+        if($j.type(tp3_app.isotop) == "function")tp3_app.isotop();
 
     }catch (e){
         console.log(e);
     }
 
 };
-tp3_app.cookies = tp3_app.cookies || true;
-tp3_app.init = tp3_app.init || false;
-var sl = 0,
-    section_image = section_image || false;
-tp3_app.backmove= function(e){
-    if(e == undefined)e = $j('body').first();
-    if(section_image["section#p" + $j(e).attr("id").split("-")[1]].length > 0 && section_image["section#p" + $j(e).attr("id").split("-")[1]][sl].background != ""){
-        $j("#" + $j(e).attr("id") +" > .body-bg").css({"background-image":"url("+section_image["section#p" + $j(e).attr("id").split("-")[1]][sl].background+")","background-size":"cover"})
-        /*$j("#" + $j(e).attr("id") +" > .body-bg").fadeTo('slow', 0.3, function(){
-            $j(this).css('background-image', 'url(' + section_image["section#p" + $j(e).attr("id").split("-")[1]][sl].background + ')');
-        }).fadeTo('slow', 1);	*/
-        sl++;
-        if(sl >= section_image["section#p" + $j(e).attr("id").split("-")[1]].length) sl = 0;
-        setTimeout(function(){tp3_app.backmove(e)},  15000);
-    }
-}
-tp3_app.initcontrols = tp3_app.initcontrols || false;
-tp3_app.controls = function(){
-    if(tp3_app.init && tp3_app.initcontrols) return;
-    $j('input[type="checkbox"]').each(function(){
-        $j(this).insertBefore($j(this).parent('label'));
-        $j(this).on("change", function(){$j(this).next("label").find("input").val($j(this).is(':checked') ? "checked" : "")})
-    })
-    $j('.news').on('click', '.page-navigation a', function (e) {
-        var ajaxUrl = $j(this).data('link');
-        if (ajaxUrl !== undefined && ajaxUrl !== '') {
-            e.preventDefault();
-            var container = 'news-container-' + $j(this).data('container');
-            $j.ajax({
-                url: ajaxUrl.replace("http:", "https:"),
-                type: 'GET',
-                success: function (result) {
-                    var ajaxDom = $j(result).find('#' + container);
-                    $('#' + container).replaceWith(ajaxDom);
-                }
-            });
-        }
-    });
-
-    $j('.ajaxModal, [data-toggle="ajaxModal"]').not('.tp3rederer').on('click',
-        function(e) {
-            $j('#ajaxModal').remove();
-            e.preventDefault();
-            var $this = $j(this)
-                , $remote = $this.data('src') ||   $this.attr('href').replace("/de/","/") + "?type=1000 #content"
-                , $modal = $('<div class="modal fade" id="ajaxModal" tabindex="-1" role="dialog" aria-hidden="true">\n' +
-                '  <div class="modal-dialog modal-lg">\n' +
-                '    <div class="modal-content">\n' +
-                '      <div class="modal-header">\n' +
-                '        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n' +
-                '        <h4 class="modal-title" id="myModalLabel">'+$this.text()+'</h4>\n' +
-                '      </div>\n' +
-                '      <div class="modal-body"><div class="loader"></div>\n' +
-                '        ...\n' +
-                '      </div>\n' +
-                '      <div class="modal-footer">\n' +
-                '      </div>\n' +
-                '    </div>\n' +
-                '  </div>\n' +
-                '</div>');
-
-            $j('body').append($modal);
-            $modal.modal({ keyboard: true});
-            $modal.find(".modal-body").css({padding:"20px 10px 0 10px"}).load($remote , function () {
-                $j('form[name="anfordern"]').autosubmit({
-                    "request": "data"
-                });
-
-                $modal.find('input[type="checkbox"]').each(function(){
-                    var tgt =  $j(this).prev('input[type="hidden"]');
-                    $j(this).insertBefore($j(this).parent('label')).on("change",function(){
-                        $j(tgt).val($j(this).val());
-                    })
-
-                })
-            });
-
-            // Fill modal with content from link href
-            $("#ajaxModal").on("show.bs.modal", function(e) {
-                //var link = $(e.relatedTarget);
-                //	$(this).find(".modal-body").load($remote+"?type=1000" );
-            });
-        }).addClass("tp3rederer").addClass("btn-primary");
-
-    var boxes = [],
-        x = 0;
-    $j('#c582').appendTo($j('.main-section .container').first())
-    $j.each($j('#c582 li'),function(){
-        boxes.push(this);
-        var ref = $j(this).find('a').first().attr("href"),
-            title = $j(this).find('a').first().attr("title"),
-            box = $j(this);
-        if(document.location.href == ref)$j(box).addClass('active')
-        $j(box).addClass('flexible').addClass('box')
-        $j(box)
-            .click(function(){
-                location.href = ref;
-            })
-            .addClass('box')
-            .css({
-
-                'cursor':'pointer'
-
-            })
-
-        x++;
-    })
-    if($j.type($j.fn.isotope) == "function"){
-        var $container = $j('#c582 ul').isotope({
-            itemSelector: 'li',
-            layoutMode: 'fitRows',
-            // getSortData: {
-            //     image: '.image',
-            //     category: '.category',
-            //     number: '.products_price',
-            //     category: '.products_name',
-            //
-            // }
-        });
-    }
-    if($j('.media-list').length > 0){
-        var $sbtn = $j('<a href="JavaScript:return false;"><div class="texticon-icon texticon-size-default texticon-type-default"><span class="texticon-inner-icon glyphicon glyphicon-search" style="cursor: pointer;"></span></div></a>').css({ "position":"absolute","right": "10px"}),
-            $sinp =  $j('<input class="form-control" id="media_search" type="text" name="media_search" value="">').insertBefore('.media-list').hide();
-
-        $sbtn.insertBefore('.media-list').click(function(){
-            var $rows = $j('li.media');
-            $sinp.toggle();
-            $sinp.focus();
-            $sinp.keyup(function() {
-                var val = $.trim($j(this).val()).replace(/ +/g, ' ').toLowerCase();
-
-                $rows.show().filter(function() {
-                    var text = $j(this).text().replace(/\s+/g, ' ').toLowerCase();
-                    return !~text.indexOf(val);
-                }).hide();
-            });
-        })
-
-    }
-// $j(window).trigger("loaded");
-    tp3_app.initcontrols = true;
-    console.log("controls");
-}
-
-
-
-
-$j(document).on("loaded",function(){
-    $j('.toolbar').insertAfter('header .navbar-header-main');//.navbar-collapse.collapse
-    if(headerwidth < 992)$j('.toolbar').insertAfter('.navbar-toggle')
-    $j('.toolbar').slideDown().css({display:"inline-flex"});
-    if(!tp3_app.init){
-        tp3_app.initialize();
-    }
-    $j(".logo").animate({
-        'opacity': '3'
-    }, {
-        step: function (now, fx) {
-            //	$j(this).css({"transform": "translate3d(0px, " + now + "px, 0px)"});
-            $j(this).css({'transform': 'rotateY( '+now * 120+'deg )'});
-
-        },
-        duration: 2000,
-        easing: 'swing',
-        queue: false,
-        complete: function () {
-
-            console.log('Animation is done box');
-            tp3_app.controls();
-
-            // tp3_app.isotop();
-            //   tp3_app.parallax();
-        }
-    })
-
-    if(tp3_app.flexsliders && $j.type($.flexslider=="function")){
-        $.flexslider.defaults = {
-            namespace: "flex-",             //{NEW} String: Prefix string attached to the class of every element generated by the plugin
-            selector: ".slides > li",       //{NEW} Selector: Must match a simple pattern. '{container} > {slide}' -- Ignore pattern at your own peril
-            animation: "fade",              //String: Select your animation type, "fade" or "slide"
-            easing: "swing",                //{NEW} String: Determines the easing method used in jQuery transitions. jQuery easing plugin is supported!
-            direction: "horizontal",        //String: Select the sliding direction, "horizontal" or "vertical"
-            reverse: false,                 //{NEW} Boolean: Reverse the animation direction
-            animationLoop: true,            //Boolean: Should the animation loop? If false, directionNav will received "disable" classes at either end
-            smoothHeight: false,            //{NEW} Boolean: Allow height of the slider to animate smoothly in horizontal mode
-            startAt: 0,                     //Integer: The slide that the slider should start on. Array notation (0 = first slide)
-            slideshow: true,                //Boolean: Animate slider automatically
-            slideshowSpeed: 7000,           //Integer: Set the speed of the slideshow cycling, in milliseconds
-            animationSpeed: 600,            //Integer: Set the speed of animations, in milliseconds
-            initDelay: 0,                   //{NEW} Integer: Set an initialization delay, in milliseconds
-            randomize: false,               //Boolean: Randomize slide order
-            fadeFirstSlide: true,           //Boolean: Fade in the first slide when animation type is "fade"
-            thumbCaptions: false,           //Boolean: Whether or not to put captions on thumbnails when using the "thumbnails" controlNav.
-
-            // Usability features
-            pauseOnAction: true,            //Boolean: Pause the slideshow when interacting with control elements, highly recommended.
-            pauseOnHover: false,            //Boolean: Pause the slideshow when hovering over slider, then resume when no longer hovering
-            pauseInvisible: true,   		//{NEW} Boolean: Pause the slideshow when tab is invisible, resume when visible. Provides better UX, lower CPU usage.
-            useCSS: true,                   //{NEW} Boolean: Slider will use CSS3 transitions if available
-            touch: true,                    //{NEW} Boolean: Allow touch swipe navigation of the slider on touch-enabled devices
-            video: false,                   //{NEW} Boolean: If using video in the slider, will prevent CSS3 3D Transforms to avoid graphical glitches
-
-            // Primary Controls
-            controlNav: true,               //Boolean: Create navigation for paging control of each slide? Note: Leave true for manualControls usage
-            directionNav: true,             //Boolean: Create navigation for previous/next navigation? (true/false)
-            prevText: "Previous",           //String: Set the text for the "previous" directionNav item
-            nextText: "Next",               //String: Set the text for the "next" directionNav item
-
-            // Secondary Navigation
-            keyboard: true,                 //Boolean: Allow slider navigating via keyboard left/right keys
-            multipleKeyboard: false,        //{NEW} Boolean: Allow keyboard navigation to affect multiple sliders. Default behavior cuts out keyboard navigation with more than one slider present.
-            mousewheel: false,              //{UPDATED} Boolean: Requires jquery.mousewheel.js (https://github.com/brandonaaron/jquery-mousewheel) - Allows slider navigating via mousewheel
-            pausePlay: false,               //Boolean: Create pause/play dynamic element
-            pauseText: "Pause",             //String: Set the text for the "pause" pausePlay item
-            playText: "Play",               //String: Set the text for the "play" pausePlay item
-
-            // Special properties
-            controlsContainer: "",          //{UPDATED} jQuery Object/Selector: Declare which container the navigation elements should be appended too. Default container is the FlexSlider element. Example use would be $(".flexslider-container"). Property is ignored if given element is not found.
-            manualControls: "",             //{UPDATED} jQuery Object/Selector: Declare custom control navigation. Examples would be $(".flex-control-nav li") or "#tabs-nav li img", etc. The number of elements in your controlNav should match the number of slides/tabs.
-            customDirectionNav: "",         //{NEW} jQuery Object/Selector: Custom prev / next button. Must be two jQuery elements. In order to make the events work they have to have the classes "prev" and "next" (plus namespace)
-            sync: "",                       //{NEW} Selector: Mirror the actions performed on this slider with another slider. Use with care.
-            asNavFor: "",                   //{NEW} Selector: Internal property exposed for turning the slider into a thumbnail navigation for another slider
-
-            // Carousel Options
-            itemWidth: 0,                   //{NEW} Integer: Box-model width of individual carousel items, including horizontal borders and padding.
-            itemMargin: 0,                  //{NEW} Integer: Margin between carousel items.
-            minItems: 1,                    //{NEW} Integer: Minimum number of carousel items that should be visible. Items will resize fluidly when below this.
-            maxItems: 0,                    //{NEW} Integer: Maxmimum number of carousel items that should be visible. Items will resize fluidly when above this limit.
-            move: 0,                        //{NEW} Integer: Number of carousel items that should move on animation. If 0, slider will move all visible items.
-            allowOneSlide: true,           //{NEW} Boolean: Whether or not to allow a slider comprised of a single slide
-
-            // Callback API
-            start: function(){
-                if($j('.flex-active-slide').find("video").length>0) {
-
-                    var active = $j('.flex-active-slide').find("video")[0];
-                    active.src = $j('.flex-active-slide').find("video").find("source").attr("src")
-                }
-            },            //Callback: function(slider) - Fires when the slider loads the first slide
-            before: function(){
-                if($j('.flex-active-slide').find("video").length>0) {
-                    $j('.flex-active-slide').find("button").on('click', function() {
-                        $j('.flex-active-slide').find("video")[0].src = $j('.flex-active-slide').find("video").find("source").attr("src")
-
-                    });
-                }
-
-                $j('.flexslider').find("video").each(function() {
-                    var $vid = $j(this)[0];
-                    if ($vid.paused) {
-                        //already paused, do nothing
-                    } else {
-                        $vid.pause();
-                    }
-                });
-            },           //Callback: function(slider) - Fires asynchronously with each slider animation
-            after: function(){
-                if($j('.flex-active-slide').find("video").length>0){
-                    var active =$j('.flex-active-slide').find("video")[0];
-                    $j('.flex-active-slide').find("button").on('click', function() {
-                        $j('.flex-active-slide').find("video")[0].src = $j('.flex-active-slide').find("video").find("source").attr("src")
-
-                    });
-                    if (active.paused) {
-                        active.src = $j('.flex-active-slide').find("video").find("source").attr("src");
-                        active.autoplay = true;
-                        // var promise = active.play();
-                        //
-                        // if (promise !== undefined) {
-                        //     promise.then(_ => {
-                        //         console.log("autoplay")
-                        //     }).catch(error => {
-                        //        callback:$j('.flex-active-slide').find("button").trigger("click")
-                        //     });
-                        // }
-                        // console.log('paused');
-                    }
-                }
-            },            //Callback: function(slider) - Fires after each slider animation completes
-            end: function(){},              //Callback: function(slider) - Fires when the slider reaches the last slide (asynchronous)
-            added: function(){},            //{NEW} Callback: function(slider) - Fires after a slide is added
-            removed: function(){},           //{NEW} Callback: function(slider) - Fires after a slide is removed
-            init: function() {
-
-            }             //{NEW} Callback: function(slider) - Fires after the slider is initially setup
-        };
-        tp3_app.flexsliders();
-
-    }
-
-    setTimeout(function() {
-        $j('document').trigger('scroll');
-    }, 900);
-});
 var scroll, wresize, mobile = false;
 var headerPos = $j('header .container').offset().top;
 var once = true;
 var init = false;
 
 var show, go, scoll_pos;
-var scroll_pos = $j(document).scrollTop(),
-    headerheight = headerheight || $j('header').height(),
-    headerwidth = headerwidth || $j('header').width(),
-    logoheight = logoheight || $j('#logo').height(),
-    logowidth = logowidth || $j('#logo').width(),
-    toolbarheight = toolbarheight || $j('.toolbar').first().height();
+var scroll_pos = scroll_pos || $j(document).scrollTop(),
+    headerheight =   headerheight ||  $j('header.navbar-top').height() +30,
+    headerwidth =   headerwidth ||  $j('header').width(),
+    logoheight =   logoheight || headerheight * 0.9,
+    logowidth  = logowidth ||   $j('.navbar-brand-image').width() > 0 ? $j('.navbar-brand-image').width() : $j('#logo').width(),
+    toolbarheight  = toolbarheight ||  $j('.toolbar').first().height();
 if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
     || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) mobile = true;
 if(headerwidth < 992){
@@ -448,7 +166,9 @@ if(headerwidth < 992){
 else
     $j('body').removeClass('ismobile');
 
+
 (scroll = function(event) {
+
     if(scroll_pos  == (headerPos)) {
         $j('header.navbar-top').addClass("toppos");
 
@@ -456,30 +176,31 @@ else
     else{
         $j('header.navbar-top').removeClass("toppos");
     }
-
     if(mobile != true || headerwidth > 600) {
         var scrollPos = $j(document).scrollTop();
         if(scroll_pos  == (headerPos) || (scrollPos == headerPos)) {
-
+            console.log("top")
             clearTimeout(go);
+            //$j('header.navbar-top').height(100).css({position:"relative"});;
 
             //$j('header.navbar-top .container').removeClass('attached').css({'top' : '0px'});
             once = true;
             //$j('header.navbar-top .breadcrumb-section').hide();
             show = setTimeout(function() {
-                $j('.body-bg').css({paddingTop:headerheight});
-                $j('header.navbar-top').height(headerheight).css({position:"fixed",top:"0px","z-index":"999","width":"100%"});
-                $j('.toolbar .frame').css({padding:"8px 0"});
+                $j('header.navbar-top').width("100%").css({position:"relative",top:"0px","z-index":"99"});
+                $j('.toolbar .frame').css({padding:"16px 0"});
                 $j(this).toggleClass('anim');
                 $j('header.navbar-top').removeClass("flat");
-                $j(' a.navbar-brand-image, #logo').height(headerheight );
-                //   $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight) *0.7   +"px"});
+               // $j('.body-bg').css({"padding-top":headerheight + "px"});
+                $j(' a.navbar-brand-image, #logo').width("auto").height(headerheight *0.8 );
+             //   $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight)  +"px"});
                 //$j('.headerslogan').css({"padding-left":"140px"});
 
             }, 400);
 
             init = false;
         }
+
 
         if(scrollPos > headerPos && scroll_pos <= scrollPos) {
             clearTimeout(show);
@@ -490,11 +211,11 @@ else
                 go = setTimeout(function() {
                     $j('header.navbar-top').addClass("flat");
                     $j(this).toggleClass('anim');
-                    $j('.toolbar .frame').css({"padding":"4px 0"});
+                    $j('.toolbar .frame').css({"padding":"8px 0"});
 
-                    $j('header.navbar-top').height(headerheight ).width("100%").css({position:"fixed",top:"0px","z-index":"999"});
-                    $j(' a.navbar-brand-image, #logo').height(headerheight  );
-                    //      $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight) / 2  +"px"});
+                    $j('header.navbar-top').width("100%").css({position:"fixed",top:"0px","z-index":"99"});
+                    $j(' a.navbar-brand-image, #logo').width("auto").height(headerheight /2  );
+               //     $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight) / 2  +"px"});
                 }, 400);
             }
 
@@ -508,12 +229,10 @@ else
 
                 go = setTimeout(function() {
                     $j(this).toggleClass('anim');
-                    $j('header.navbar-top').addClass("flat");
-
-                    $j('header.navbar-top').height(headerheight ).width("100%").css({position:"fixed",top:"0px","z-index":"999"});
-                    $j('.toolbar .frame').css({padding:"4px 0"});
-                    $j(' a.navbar-brand-image, #logo').height(headerheight);
-                    //      $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight) /2 + "px"});
+                    //$j('header.navbar-top').height(headerheight)
+                    $j('.toolbar .frame').css({padding:"8px 0"});
+                    $j(' a.navbar-brand-image, #logo').width("auto").height(headerheight  *0.8);
+               //     $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight)  + "px"});
                     $j('header.navbar-top').removeClass("flat");
                 }, 400);
             }
@@ -521,28 +240,31 @@ else
             //$j('header.navbar-top').addClass('attached').css({'top' : (scrollPos-headerPos)+'px'});
 
         } else if(init === true) {
+            console.log("init")
             clearTimeout(go);
             once = true;
             //$j('header.navbar-top .breadcrumb-section').hide();
             show = setTimeout(function() {
                 $j(this).addClass('anim');
-                $j('.body-bg').css({paddingTop:headerheight*1.5});
+
             }, 400);
 
             init = false;
         }
 
-        //scroll_pos = $j(document).scrollTop();
+        scroll_pos = $j(document).scrollTop();
     }
-    else if ( $j(window).width() < 1025 ){
-        // headerheight = 100 ;
-
+    else if ( $j(window).width() < 992 ){
+       // headerheight = 100 ;
         $j('.toolbar').insertAfter('header .navbar-header-main');//.navbar-collapse.collapse
-        //   $j('a.navbar-brand-image, #logo').width(headerwidth < 992 ? (logoheight/headerheight)*logowidth : (logoheight/headerheight)*logowidth * 0.7);
-        // $j('header.navbar-top').first().height(headerheight /2);
+        $j('a.navbar-brand-image, #logo, .logo').width("auto").height(logoheight * 0.7);
+        $j('header .container').first().height(headerheight);
         if(headerwidth < 992)$j('.toolbar').insertAfter('.navbar-toggle').addClass('ismobile');
 
-        if(mobile)$j('.body-bg').css({paddingTop:headerheight});
+        $j('body').addClass('ismobile');
+        $j('header.navbar-top').width("100%").css({position:"relative",top:"0px","z-index":"99"});
+        $j('#content').first().css({"margin-top":headerheight + "px"});
+
         //    $j('header.navbar-top').height(headerheight).width("100%").css({position:"fixed",top:"0px","z-index":"99"});
         //   $j('#content').first().css({"margin-top":headerheight + "px"});
         /*
@@ -554,38 +276,252 @@ else
         init = true;
     }
 
-    if($j('.flex-active-slide').find("video").length > 1 && $j('.flex-active-slide').find("video")[0].src != $j('.flex-active-slide').find("video").find("source").attr("src")) {
-        $j('.flex-active-slide').find("video")[0].src = $j('.flex-active-slide').find("video").find("source").attr("src")
-        // var promise =$j('.flex-active-slide').find("video")[0].play();
-        //
-        // if (promise !== undefined) {
-        //     promise.then(_ => {
-        //         console.log("autoplay")
-        //     }).catch(error => {
-        //          console.warn("autoplay error")
-        //         $j('.flex-active-slide').find("button").trigger("click");
-        //     });
-        // }
-    }
-
-
-
 })();
-
+$j(document).scroll(scroll);
+$j(document).resize(scroll);
 tp3_app.cookies = tp3_app.cookies || true;
+tp3_app.init = tp3_app.init || false;
+var sl = 0,
+    section_image = section_image || false;
+tp3_app.backmove = function (e) {
+    if (e == undefined) e = $j('body').first();
+    if( $j('.section_image').length > 2) $j('.section_image').first().remove()
+    if (section_image && section_image["section#p" + $j(e).attr("id").split("-")[1]].length > 0 && section_image["section#p" + $j(e).attr("id").split("-")[1]][sl].background != "") {
+        var img = section_image["section#p" + $j(e).attr("id").split("-")[1]][sl].background;
+        //get the index of the start of the part of the URL we want to keep
+        if( img.match(/\.(jpeg|jpg|gif|png|svg)$/) != null)
+        {
+            if( $j('.section_shadow').length < 1){
+                var shadow =  $j("<div>&nbsp;</div>").appendTo( $j('.body-bg').first())
+                shadow.addClass("section_shadow").css({
+                    "position":"absolute",
+                    "width":"100%",
+                    "height":"100%",
+                    "z-index":"-1",
+                    "top":"0",
+                    "max-height":screen.height,
+                })
+            }
 
-tp3_app.watchdog = function () {
-    $j(document).on("loaded",function(){
-        if(!tp3_app.init){
-            tp3_app.initialize();
 
+            var gb =  $j("<div></div>").appendTo( $j('.body-bg').first())
+            gb.addClass("section_image")
+            gb.addClass("p" + $j(e).attr("id").split("-")[1]+"_"+sl)
+                .attr("data-speed","-3")
+                .css({
+                    "position":"absolute",
+                    "width":"100%",
+                    "z-index":"-3",
+                    "max-height":screen.height,
+                    "height":"100%",
+                    "display":"none",
+                    "top":"0",
+                   // "background-position": "50% 50%",
+                    "background-repeat": "no-repeat",
+                    "background-image": "url(" + img + ")",
+                })
 
         }
-        tp3_app.isotop();
-        tp3_app.controls();
+        else{
+            gb = $j('.body-bg').first().prepend($("<video controls=\"\" class=\"embed-responsive-item\"><source src=\"/fileadmin/data/video/SampleVideo_1280x720_5mb.mp4\" type=\"video/mp4\"></video>/>").css({
+                    "position":"absolute",
+                    "width":"100%",
+                    "top":0,
+                    "height":"100%",
+                    "background-image": "url(" + img + ")",
+                })
+            )
+        }
+        gb.fadeIn("slow", function () {
+            if( $j('.section_image').length > 1)   $j('.section_image').first().fadeOut("slow", function () {
+            })
+        })
 
-        $j(document).scroll(scroll);
-        $j(document).resize(scroll);
+
+
+
+        if($j.type(tp3_app.parallax == "function"))tp3_app.parallax();
+
+        // $window.on('scroll', function(){
+        //     // HTML5 proves useful for helping with creating JS functions!
+        //     // also, negative value because we're scrolling upwards
+        //     var speed =  $j('.section_image').data('speed') != undefined ?  $j('.section_image').data('speed') : 5
+        //     var yPos = speed < 0 ? -(($window.scrollTop() -  $j('.section_image').offset().top) / speed *2) : -(($window.scrollTop() -  $j('.section_image').offset().top) / speed)// ($window.scrollTop() * 2);//
+        //
+        //     // background position
+        //     var coords = '50% '+ yPos + 'px';
+        //
+        //     // move the background
+        //     $j('.section_image').last().css({ backgroundPosition: coords });
+        // }); // end window scroll
+
+        //then get everything after the found index
+
+        // $j("#" + $j(e).attr("id") + " > .body-bg").css({
+        //     "background-image": "url(" + section_image["section#p" + $j(e).attr("id").split("-")[1]][sl].background + ")",
+        //     "background-size": "cover"
+        // })
+        /*$j("#" + $j(e).attr("id") +" > .body-bg").fadeTo('slow', 0.3, function(){
+            $j(this).css('background-image', 'url(' + section_image["section#p" + $j(e).attr("id").split("-")[1]][sl].background + ')');
+        }).fadeTo('slow', 1);	*/
+        sl++;
+        if (sl >= section_image["section#p" + $j(e).attr("id").split("-")[1]].length) sl = 0;
+        setTimeout(function () {
+            tp3_app.backmove(e)
+        }, 15000);
+    }
+}
+tp3_app.watchdog = function () {
+    $j(document).on("loaded",function(){
+        if(mobile != true) $j('.toolbar').slideDown();
+        if(!tp3_app.init){
+            tp3_app.initialize();
+        }
+        $j(".logo").animate({
+            'opacity': '3'
+        }, {
+            step: function (now, fx) {
+                //	$j(this).css({"transform": "translate3d(0px, " + now + "px, 0px)"});
+                $j(this).css({'transform': 'rotateY( '+now * 120+'deg )'});
+
+            },
+            duration: 2000,
+            easing: 'swing',
+            queue: false,
+            complete: function () {
+
+                console.log('Animation is done box');
+                if(!tp3_app.init){
+                    tp3_app.initialize();
+                }
+                else
+                {
+                    if($j.type(WECInit) == "function" && google.maps != undefined)WECInit()
+
+                    if($j.type(tp3_app.controls == "function"))tp3_app.controls();
+                    if($j.type(tp3_app.isotop == "function"))tp3_app.isotop();
+                    if($j.type(tp3_app.parallax == "function"))tp3_app.parallax();
+                }
+
+
+            }
+        })
+
+        if(tp3_app.flexsliders && $j.type($j.fn.flexslider=="function")){
+            $j.flexslider = $j.flexslider || {};
+            $j.flexslider.defaults = {
+                namespace: "flex-",             //{NEW} String: Prefix string attached to the class of every element generated by the plugin
+                selector: ".slides > li",       //{NEW} Selector: Must match a simple pattern. '{container} > {slide}' -- Ignore pattern at your own peril
+                animation: "fade",              //String: Select your animation type, "fade" or "slide"
+                easing: "swing",                //{NEW} String: Determines the easing method used in jQuery transitions. jQuery easing plugin is supported!
+                direction: "horizontal",        //String: Select the sliding direction, "horizontal" or "vertical"
+                reverse: false,                 //{NEW} Boolean: Reverse the animation direction
+                animationLoop: true,            //Boolean: Should the animation loop? If false, directionNav will received "disable" classes at either end
+                smoothHeight: false,            //{NEW} Boolean: Allow height of the slider to animate smoothly in horizontal mode
+                startAt: 0,                     //Integer: The slide that the slider should start on. Array notation (0 = first slide)
+                slideshow: true,                //Boolean: Animate slider automatically
+                slideshowSpeed: 7000,           //Integer: Set the speed of the slideshow cycling, in milliseconds
+                animationSpeed: 600,            //Integer: Set the speed of animations, in milliseconds
+                initDelay: 0,                   //{NEW} Integer: Set an initialization delay, in milliseconds
+                randomize: false,               //Boolean: Randomize slide order
+                fadeFirstSlide: true,           //Boolean: Fade in the first slide when animation type is "fade"
+                thumbCaptions: false,           //Boolean: Whether or not to put captions on thumbnails when using the "thumbnails" controlNav.
+
+                // Usability features
+                pauseOnAction: true,            //Boolean: Pause the slideshow when interacting with control elements, highly recommended.
+                pauseOnHover: false,            //Boolean: Pause the slideshow when hovering over slider, then resume when no longer hovering
+                pauseInvisible: true,   		//{NEW} Boolean: Pause the slideshow when tab is invisible, resume when visible. Provides better UX, lower CPU usage.
+                useCSS: true,                   //{NEW} Boolean: Slider will use CSS3 transitions if available
+                touch: true,                    //{NEW} Boolean: Allow touch swipe navigation of the slider on touch-enabled devices
+                video: false,                   //{NEW} Boolean: If using video in the slider, will prevent CSS3 3D Transforms to avoid graphical glitches
+
+                // Primary Controls
+                controlNav: true,               //Boolean: Create navigation for paging control of each slide? Note: Leave true for manualControls usage
+                directionNav: true,             //Boolean: Create navigation for previous/next navigation? (true/false)
+                prevText: "Previous",           //String: Set the text for the "previous" directionNav item
+                nextText: "Next",               //String: Set the text for the "next" directionNav item
+
+                // Secondary Navigation
+                keyboard: true,                 //Boolean: Allow slider navigating via keyboard left/right keys
+                multipleKeyboard: false,        //{NEW} Boolean: Allow keyboard navigation to affect multiple sliders. Default behavior cuts out keyboard navigation with more than one slider present.
+                mousewheel: false,              //{UPDATED} Boolean: Requires jquery.mousewheel.js (https://github.com/brandonaaron/jquery-mousewheel) - Allows slider navigating via mousewheel
+                pausePlay: false,               //Boolean: Create pause/play dynamic element
+                pauseText: "Pause",             //String: Set the text for the "pause" pausePlay item
+                playText: "Play",               //String: Set the text for the "play" pausePlay item
+
+                // Special properties
+                controlsContainer: "",          //{UPDATED} jQuery Object/Selector: Declare which container the navigation elements should be appended too. Default container is the FlexSlider element. Example use would be $(".flexslider-container"). Property is ignored if given element is not found.
+                manualControls: "",             //{UPDATED} jQuery Object/Selector: Declare custom control navigation. Examples would be $(".flex-control-nav li") or "#tabs-nav li img", etc. The number of elements in your controlNav should match the number of slides/tabs.
+                customDirectionNav: "",         //{NEW} jQuery Object/Selector: Custom prev / next button. Must be two jQuery elements. In order to make the events work they have to have the classes "prev" and "next" (plus namespace)
+                sync: "",                       //{NEW} Selector: Mirror the actions performed on this slider with another slider. Use with care.
+                asNavFor: "",                   //{NEW} Selector: Internal property exposed for turning the slider into a thumbnail navigation for another slider
+
+                // Carousel Options
+                itemWidth: 0,                   //{NEW} Integer: Box-model width of individual carousel items, including horizontal borders and padding.
+                itemMargin: 0,                  //{NEW} Integer: Margin between carousel items.
+                minItems: 1,                    //{NEW} Integer: Minimum number of carousel items that should be visible. Items will resize fluidly when below this.
+                maxItems: 0,                    //{NEW} Integer: Maxmimum number of carousel items that should be visible. Items will resize fluidly when above this limit.
+                move: 0,                        //{NEW} Integer: Number of carousel items that should move on animation. If 0, slider will move all visible items.
+                allowOneSlide: true,           //{NEW} Boolean: Whether or not to allow a slider comprised of a single slide
+
+                // Callback API
+                start: function(){
+                    if($j('.flex-active-slide').find("video").length>0) {
+
+                        var active = $j('.flex-active-slide').find("video")[0];
+                        active.src = $j('.flex-active-slide').find("video").find("source").attr("src")
+                    }
+                },            //Callback: function(slider) - Fires when the slider loads the first slide
+                before: function(){
+                    if($j('.flex-active-slide').find("video").length>0) {
+                        $j('.flex-active-slide').find("button").on('click', function() {
+                            $j('.flex-active-slide').find("video")[0].src = $j('.flex-active-slide').find("video").find("source").attr("src")
+
+                        });
+                    }
+
+                    $j('.flexslider').find("video").each(function() {
+                        var $vid = $j(this)[0];
+                        if ($vid.paused) {
+                            //already paused, do nothing
+                        } else {
+                            $vid.pause();
+                        }
+                    });
+                },           //Callback: function(slider) - Fires asynchronously with each slider animation
+                after: function(){
+                    if($j('.flex-active-slide').find("video").length>0){
+                        var active =$j('.flex-active-slide').find("video")[0];
+                        $j('.flex-active-slide').find("button").on('click', function() {
+                            $j('.flex-active-slide').find("video")[0].src = $j('.flex-active-slide').find("video").find("source").attr("src")
+
+                        });
+                        if (active.paused) {
+                            active.src = $j('.flex-active-slide').find("video").find("source").attr("src");
+                            active.autoplay = true;
+                            // var promise = active.play();
+                            //
+                            // if (promise !== undefined) {
+                            //     promise.then(_ => {
+                            //         console.log("autoplay")
+                            //     }).catch(error => {
+                            //        callback:$j('.flex-active-slide').find("button").trigger("click")
+                            //     });
+                            // }
+                            // console.log('paused');
+                        }
+                    }
+                },            //Callback: function(slider) - Fires after each slider animation completes
+                end: function(){},              //Callback: function(slider) - Fires when the slider reaches the last slide (asynchronous)
+                added: function(){},            //{NEW} Callback: function(slider) - Fires after a slide is added
+                removed: function(){},           //{NEW} Callback: function(slider) - Fires after a slide is removed
+                init: function() {
+
+                }             //{NEW} Callback: function(slider) - Fires after the slider is initially setup
+            };
+            tp3_app.flexsliders();
+
+        }
         $j(window).trigger("loaded")
     })
 }
@@ -681,7 +617,7 @@ tp3_app.isotop = function(){
 cookieconsent integration
  */
 tp3_app.privacyRequest = function(choise){
-    var jqxhr = $.getJSON( 'index.php?eID=consent&choise=' + choise)
+    var jqxhr = $.getJSON( '/index.php?eID=consent&choise=' + choise)
         .done(function () {
             console.log("done")
         })
@@ -693,7 +629,7 @@ tp3_app.privacyRequest = function(choise){
         });
 
     return false;
-}
+};
 tp3_app.getCookieValue = function(name) {
     var value = document.cookie;
     var cookieStartsAt = value.indexOf(" " + name + "=");
@@ -712,7 +648,7 @@ tp3_app.getCookieValue = function(name) {
             cookieEndsAt));
     }
     return value;
-}
+};
 tp3_app.onpage = function(){
 
 
@@ -745,27 +681,34 @@ tp3_app.onpage = function(){
 
     });
 };
-$window = $j(window);
+
 /*
 parallax effect
  */
-tp3_app.parallax = function(){
+$window = $j(window);
 
-    $j('.body-bg .section_image, .carousel-inner .item,  #content.main-section  > .section , #content.main-section  > .row.frame').each(function(){
+tp3_app.parallax = function(){
+//.body-bg .section_image,
+    $j(' .carousel-inner .item,  #content.main-section  > .section , #content.main-section  > .row.frame, .section_image').each(function(){
         // declare the variable to affect the defined data-type
         var $scroll = $(this);
 
         $window.on('scroll', function(){
             // HTML5 proves useful for helping with creating JS functions!
             // also, negative value because we're scrolling upwards
-            var speed = $scroll.data('speed') != undefined ? $scroll.data('speed') : 5;
-            var yPos =-(($window.scrollTop() - $scroll.offset().top) / speed);// ($window.scrollTop() * 2);//
+            var speed = $scroll.data('speed') != undefined ? $scroll.data('speed') : Math.floor((Math.random() * 100) + 1) *-1;
+            var yPos = speed < 0 ? -(($window.scrollTop() -  $scroll.offset().top) / speed *2) : -(($window.scrollTop() -  $scroll.offset().top) / speed);// ($window.scrollTop() * 2);//
 
             // background position
             var coords = '50% '+ yPos + 'px';
 
             // move the background
-            $scroll.css({ backgroundPosition: coords, top : yPos+"px"  });
+            $scroll.css({
+                backgroundPosition: coords,
+
+            })
+
+            //
         }); // end window scroll
     });  // end section function
 
@@ -779,13 +722,18 @@ tp3_app.parallax = function(){
         $j('.attached').width(msize);
     });
 
-    $j(document).scroll(scroll);
-    $j(window).resize(wresize);
-    $j('#content.main-section  > .section , #content.main-section  > .row.frame').css({"min-height":screen.height});
-    $j('#content.main-section').first().css({"min-height":screen.height});
+    // $j(document).scroll(scroll);
+    // $j(window).resize(wresize);
+    //$j('#content.main-section  > .section , #content.main-section  > .row.frame').css({"min-height":screen.height});
+    //$j('#content.main-section').first().css({"min-height":screen.height});
 //$j('body > .body-bg').attr("data-speed","6").css({"background-image":"url(fileadmin/user_upload/neodental/Technician-in-dental-lab-presenting-a-prosthesis-into-the-camera-000025618872_Double.jpg)"});
     $(window).trigger("scroll")
 };
+//$j('.main-section > .section.section-light').attr("data-speed","3").css({"background-size":"cover;","background-image":"url(fileadmin/locations/LocationGuide-Titelbilder/ATELIERS-GALERIEN-documenta10_Seitenlichthalle__documenta_gGmbH.jpg)"});
+$j('.body-bg').attr("data-speed","-50")
+
+$j('.carousel-inner .item ').attr("data-speed","-9")
+
 jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length;
     if(index<0){index=Math.max(0,lastIndex+ 1+ index)}
     this.append(element)
@@ -793,8 +741,9 @@ jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.childr
     return this;}
 var panorama;var panoJumpTimer;var panoRotationTimer;var panoResizeTimer;var panoResizeCounter=0;var businessviewSidebarModulesSelector='';var showSidebar=false;var startCoords={},endCoords={};var zoom=1;var updateInfoPointsStartTimer;var updateInfoPointsCounter=0;var $panoCanvas=null;var panoCanvasHeight=0;var panoCanvasWidth=0;
 
-
-tp3_app.controls = tp3_app.controls || function () {
+tp3_app.initcontrols = tp3_app.initcontrols || false;
+tp3_app.controls = tp3_app.controls || function(){
+    if(!tp3_app.init || (tp3_app.init  && tp3_app.initcontrols)) return;
     $j('input[type="checkbox"]').each(function(){
         $j(this).insertBefore($j(this).parent('label'));
         $j(this).on("change", function(){$j(this).next("label").find("input").val($j(this).is(':checked') ? "checked" : "")})
@@ -805,7 +754,36 @@ tp3_app.controls = tp3_app.controls || function () {
            $j. recordOutboundLink();
        }
     }
+    $j('.news').on('click','.page-navigation a', function (e) {
+        console.log("ajax news");
+        var ajaxUrl = $j(this).data('link');
+        if (ajaxUrl !== undefined && ajaxUrl !== '') {
+            e.preventDefault();
+            var container = 'news-container-' + $j(this).data('container');
+            var loader = $j('<div class="loader" style="position:absolute;top:25%;left:25%;height:300px;width:300px"></div>').appendTo("body");
+            $j.ajax({
+                url: ajaxUrl.replace("http:", "https:"),
+                type: 'GET',
+                success: function (result) {
+                    $j(loader).remove();
+                    var ajaxDom = $j(result).find('.news-list-item');
+                    $j(ajaxDom).each( function () {
+                        //$j('.news-panel').append(this);
+                        if($j.type(tp3_app.isotop == "function") && ($j(".news-list-view").hasClass("isotop") || $j(".news-list-view").hasClass("boxes"))){
+                            window.$container.prepend( ajaxDom );
+                            // add and lay out newly prepended items
+                            window.$container.isotope( 'prepended', ajaxDom );
+                            window.$container.isotope("layout");
+                        }
+                        else
+                            $j('.news-panel').append(this);
 
+                    });
+
+                }
+            });
+        }
+    });
     $j('.ajaxModal, [data-toggle="ajaxModal"]').on('click',
         function(e) {
             $j('#ajaxModal').remove();
@@ -848,13 +826,56 @@ tp3_app.controls = tp3_app.controls || function () {
                 //var link = $(e.relatedTarget);
                 //	$(this).find(".modal-body").load($remote+"?type=1000" );
             });
-        }).addClass("btn-default");
+        }).addClass("tp3rederer").addClass("btn-primary");
 
-    $(window).trigger("scroll");
+    var boxes = [],
+        x = 0;
+    $j('#c582').appendTo($j('.main-section .container').last());
+    $j.each($j('#c582 li'),function(){
+        boxes.push(this);
+        var ref = $j(this).find('a').first().attr("href"),
+            title = $j(this).find('a').first().attr("title"),
+            box = $j(this);
+        if(document.location.href == ref)$j(box).addClass('active');
+        $j(box).addClass('flexible').addClass('box');
+        $j(box)
+            .click(function(){
+                location.href = ref;
+            })
+            .addClass('box')
+            .css({
 
+                'cursor':'pointer'
+
+            });
+
+        x++;
+    });
+
+
+    if($j('.media-list').length > 0){
+        var $sbtn = $j('<a href="JavaScript:return false;"><div class="texticon-icon texticon-size-default texticon-type-default"><span class="texticon-inner-icon glyphicon glyphicon-search" style="cursor: pointer;"></span></div></a>').css({ "position":"absolute","right": "10px"}),
+            $sinp =  $j('<input class="form-control" id="media_search" type="text" name="media_search" value="">').insertBefore('.media-list').hide();
+
+        $sbtn.insertBefore('.media-list').click(function(){
+            var $rows = $j('li.media');
+            $sinp.toggle();
+            $sinp.focus();
+            $sinp.keyup(function() {
+                var val = $.trim($j(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+                $rows.show().filter(function() {
+                    var text = $j(this).text().replace(/\s+/g, ' ').toLowerCase();
+                    return !~text.indexOf(val);
+                }).hide();
+            });
+        })
+
+    }
+    // $j(window).trigger("loaded");
+    tp3_app.initcontrols = true;
     console.log("controls");
-}
-
+};
 
 
 function onRequestCompleted(xhr,textStatus) {
@@ -923,214 +944,6 @@ $.fn.serializeWithChkBox = function() {
 }
 
 var canvasDots = function() {
-    /*
-
-jQuery(window).load(function() {
-
-    var w_width, w_height, largeHeader, canvas, ctx, points, target, animateHeader = true;
-
-    // Main
-    largeHeader = jQuery( '.home #msb-tweenlite-header');
-    if ( jQuery( largeHeader ).height() > 0 ) {
-       initHeader();
-       initAnimation();
-       addListeners();
-    } else { return; }
-
-    function initHeader() {
-
-        w_height = jQuery( largeHeader ).height();
-        w_width  = jQuery( largeHeader ).width();
-        target = {x: w_width/2, y: w_height/2};
-        // console.log( w_height);
-
-        canvas = jQuery('<canvas/>',{ 'class':'radHuh', id: 'msb_canvas_314'
-                }).prop({
-                    width: w_width,
-                    height: w_height
-                });
-        jQuery('#msb-tweenlite-header .et-pb-active-slide .et_parallax_bg').prepend(canvas);
-
-        canvas.width = w_width;
-        canvas.height = w_height;
-        ctx = canvas[0].getContext('2d');
-
-        // create points
-        points = [];
-        for(var x = 0; x < w_width; x = x + w_width/15) {
-            for(var y = 0; y < w_height; y = y + w_height/15) {
-                var px = x + Math.random()*w_width/15;
-                var py = y + Math.random()*w_height/15;
-                var p = {x: px, originX: px, y: py, originY: py };
-                points.push(p);
-            }
-        }
-
-        // for each point find the 5 closest points
-        for(var i = 0; i < points.length; i++) {
-            var closest = [];
-            var p1 = points[i];
-            for(var j = 0; j < points.length; j++) {
-                var p2 = points[j]
-                if(!(p1 == p2)) {
-                    var placed = false;
-                    for(var k = 0; k < 5; k++) {
-                        if(!placed) {
-                            if(closest[k] == undefined) {
-                                closest[k] = p2;
-                                placed = true;
-                            }
-                        }
-                    }
-
-                    for(var k = 0; k < 5; k++) {
-                        if(!placed) {
-                            if(getDistance(p1, p2) < getDistance(p1, closest[k])) {
-                                closest[k] = p2;
-                                placed = true;
-                            }
-                        }
-                    }
-                }
-            }
-            p1.closest = closest;
-        }
-
-        // assign a circle to each point
-        for(var i in points) {
-            //rgba(255,255,255,0.7)
-            var c = new Circle(points[i], 2+Math.random()*2, 'rgba(116,199,168,0.7)');
-            points[i].circle = c;
-        }
-    }
-
-    // Event handling
-    function addListeners() {
-        if(!('ontouchstart' in window)) {
-            window.addEventListener('mousemove', mouseMove);
-        }
-        window.addEventListener('scroll', scrollCheck);
-        window.addEventListener('resize', resize);
-    }
-
-    function mouseMove(e) {
-        var posx = posy = 0;
-        if (e.pageX || e.pageY) {
-            posx = e.pageX;
-            posy = e.pageY;
-        }
-        else if (e.clientX || e.clientY)    {
-            posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-            posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-        }
-        target.x = posx;
-        target.y = posy;
-    }
-
-    function scrollCheck() {
-        if(document.body.scrollTop > w_height) animateHeader = false;
-        else animateHeader = true;
-    }
-
-    function resize() {
-        // largeHeader.style.height = w_height+'px';
-        largeHeader = jQuery( '.home #msb-tweenlite-header');
-        w_height = jQuery( largeHeader ).height();
-        w_width  = jQuery( largeHeader ).width();
-        target = {x: w_width/2, y: w_height/2};
-
-        jQuery(canvas).prop({
-                    width: w_width,
-                    height: w_height
-                });
-        canvas.width = w_width;
-        canvas.height = w_height;
-        ctx = canvas[0].getContext('2d');
-
-
-    }
-
-    // animation
-    function initAnimation() {
-        animate();
-        for(var i in points) {
-            shiftPoint(points[i]);
-        }
-    }
-
-    function animate() {
-        if(animateHeader) {
-            ctx.clearRect(0,0,w_width,w_height);
-            for(var i in points) {
-                // detect points in range
-                if(Math.abs(getDistance(target, points[i])) < 4000) {
-                    points[i].active = 0.3;
-                    points[i].circle.active = 0.7;
-                } else if(Math.abs(getDistance(target, points[i])) < 20000) {
-                    points[i].active = 0.1;
-                    points[i].circle.active = 0.3;
-                } else if(Math.abs(getDistance(target, points[i])) < 40000) {
-                    points[i].active = 0.02;
-                    points[i].circle.active = 0.1;
-                } else {
-                    points[i].active = 0;
-                    points[i].circle.active = 0;
-                }
-
-                drawLines(points[i]);
-                points[i].circle.draw();
-            }
-        }
-        requestAnimationFrame(animate);
-    }
-
-    function shiftPoint(p) {
-        TweenLite.to(p, 1+1*Math.random(), {x:p.originX-50+Math.random()*100,
-            y: p.originY-50+Math.random()*100, ease:Circ.easeInOut,
-            onComplete: function() {
-                shiftPoint(p);
-            }});
-    }
-
-    // Canvas manipulation
-    function drawLines(p) {
-        if(!p.active) return;
-        for(var i in p.closest) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p.closest[i].x, p.closest[i].y);
-            ctx.strokeStyle = 'rgba(255,255,255,'+ p.active+')';
-            ctx.stroke();
-        }
-    }
-
-    function Circle(pos,rad,color) {
-        var _this = this;
-
-        // constructor
-        (function() {
-            _this.pos = pos || null;
-            _this.radius = rad || null;
-            _this.color = color || null;
-        })();
-
-        this.draw = function() {
-            if(!_this.active) return;
-            ctx.beginPath();
-            ctx.arc(_this.pos.x, _this.pos.y, _this.radius, 0, 2 * Math.PI, false);
-            ctx.fillStyle = 'rgba(116,199,168,'+ _this.active+')';
-            ctx.fill();
-        };
-    }
-
-    // Util
-    function getDistance(p1, p2) {
-        return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
-    }
-
-});
-
-     */
     //   var canvas = $j('.connecting-dots').length < 1 ? $j('<canvas class="connecting-dots"></canvas>').prependTo($('#content').first()).hide() : $j('.connecting-dots');
     var canvas = document.querySelector('canvas'),
         ctx = canvas.getContext('2d'),
@@ -1239,13 +1052,221 @@ window.onload = function() {
 };
 */
 
++function($) {
+
+// cache img.lazyload collection
+    var $lazyload;
+
+// VIEWPORT HELPER CLASS DEFINITION
+// ================================
+    var viewport;
+    var ViewPort = function(options){
+        this.viewportWidth = 0;
+        this.viewportHeight = 0;
+        this.options = $.extend({}, ViewPort.DEFAULTS, options);
+        this.attrib = "src";
+        this.update();
+    };
+
+    ViewPort.DEFAULTS = {
+        breakpoints : {
+            0: 'extrasmall',
+            768: 'small',
+            992: 'medium',
+            1200: 'large'
+        }
+    };
+
+    ViewPort.prototype.viewportW = function() {
+        var clientWidth = document.documentElement['clientWidth'], innerWidth = window['innerWidth'];
+        return this.viewportWidth = clientWidth < innerWidth ? innerWidth : clientWidth;
+    };
+
+    ViewPort.prototype.viewportH = function() {
+        var clientHeight = document.documentElement['clientHeight'], innerHeight = window['innerHeight'];
+        return this.viewportHeight = clientHeight < innerHeight ? innerHeight : clientHeight;
+    };
+
+    ViewPort.prototype.inviewport = function(boundingbox) {
+        return !!boundingbox && boundingbox.bottom >= 0 && boundingbox.right >= 0 && boundingbox.top <= this.viewportHeight && boundingbox.left <= this.viewportWidth;
+    };
+
+    ViewPort.prototype.update = function(){
+        this.viewportH();
+        this.viewportW();
+        var attrib = this.attrib,
+            width = this.viewportWidth;
+
+        $j.each(this.options.breakpoints, function (breakpoint, datakey) {
+            if (width >= breakpoint) {
+                attrib = datakey;
+            }
+        });
+
+        this.attrib = attrib;
+    };
+
+// expose viewportH & viewportW methods
+    $j.fn.viewportH = ViewPort.prototype.viewportH;
+    $j.fn.viewportW = ViewPort.prototype.viewportW;
+
+// RESPONSIVE IMAGES CLASS DEFINITION
+// ==================================
+    var ResponsiveContent = function(element, options) {
+        this.$element = $j(element);
+        this.options = $j.extend({}, ResponsiveContent.DEFAULTS, options);
+        this.attrib = "data-link";
+        this.loaded = false;
+        this.checkviewport();
+    };
+
+    ResponsiveContent.DEFAULTS = {
+        threshold: 0,
+        attrib: "data-link",
+        skip_invisible: false,
+        preload: false
+    };
+
+    ResponsiveContent.prototype.checkviewport = function() {
+        if (this.attrib !== viewport.attrib) {
+            this.attrib = viewport.attrib;
+            this.loaded = false;
+        }
+        this.unveil();
+    };
+
+    ResponsiveContent.prototype.boundingbox = function() {
+        var boundingbox = {},
+            coords = this.$element[0].getBoundingClientRect(),
+            threshold = +this.options.threshold || 0;
+        boundingbox['right'] = coords['right'] + threshold; boundingbox['left'] = coords['left'] - threshold;
+        boundingbox['bottom'] = coords['bottom'] + threshold; boundingbox['top'] = coords['top'] - threshold;
+        return boundingbox;
+    };
+
+    ResponsiveContent.prototype.inviewport = function() {
+        var boundingbox = this.boundingbox();
+        return viewport.inviewport(boundingbox);
+    };
+
+    ResponsiveContent.prototype.unveil = function(force) {
+        if (this.loaded || !force && !this.options.preload && this.options.skip_invisible && this.$element.is(":hidden")) return;
+        var inview = force || this.options.preload || this.inviewport();
+        console.log("ResponsiveContent view?");
+
+        if (inview) {
+            var source = $j(this.$element).data("link");
+            if (source) {
+
+                console.log("ResponsiveContent load");
+                this.$element.attr("data-link", source);
+                var container = 'news-container-' +  $j('.pagination').find('.active').first().data('container');
+                var loader = $j('<div  style="position:absolute;bottom:10px;left:0;height:100%;width:100%;background-color: rgba(255,255,255,0.3)"><div class="loader">...</div></div>').appendTo('.news-panel').width("100%").height("100%");
+                if($j(this.$element).get(0) == $j('.news .responsiveContent').last().get(0))$j('.pagination').hide();
+
+                $j.ajax({
+                    url: source.replace("http:", "https:"),
+                    type: 'GET',
+                    success: function (result) {
+                        $j(loader).remove();
+                        var ajaxDom = $j(result).find(".news-list-item");
+                       // $j(ajaxDom).each( function () {
+                        if($j.type(tp3_app.isotop == "function") && ($j(".news-list-view").hasClass("isotop") || $j(".news-list-view").hasClass("boxes"))){
+                                window.$container.append( ajaxDom );
+                                // add and lay out newly prepended items
+                                window.$container.isotope( 'appended', ajaxDom );
+
+                                //$j('.news-panel').height('100%')
+
+                            }
+                            else{
+                                //$j('.news-panel').append(this);
+
+                            }
+                       // })
+                        $j('.news-panel').height('100%')
+                        // if ($j.type(tp3_app.isotop == "function") && ($j('.news-panel').hasClass("isotop") || $j('.news-panel').hasClass("boxes"))) {
+                        //     window.$container.isotope({
+                        //         itemSelector: '.news-list-item',
+                        //         layoutMode: 'masonry', //masonry
+                        //         masonry: {
+                        //             columnWidth: screen.availHeight / 3
+                        //         },
+                        //         getSortData: {
+                        //             headline: '.headline',
+                        //             category: '[data-category]',
+                        //             time: '[data-time]',
+                        //
+                        //         }
+                        //     });
+                        // }
+                    },
+                    error: function () {
+                        $j(loader).remove();
+                        $j('.pagination').show();
+
+                    }
+                });
+                this.loaded	= true;
+            }
+        }
+    };
+
+    ResponsiveContent.prototype.print = function() {
+        this.unveil(true);
+    };
+
+// RESPONSIVE IMAGES PLUGIN DEFINITION
+// ===================================
+    function Plugin(option) {
+        $lazyload = this;
+        console.log("ResponsiveContent");
+        return this.each(function() {
+            var $this = $(this);
+            var data = $this.data("tp3.responsiveContent");
+            var options = typeof option === 'object' && option;
+
+            if (!data) {
+                if (!viewport) viewport = new ViewPort(options && options.breakpoints ? {breakpoints:options.breakpoints} : {});
+
+                if (options && options.breakpoints) options.breakpoints = null;
+                options = $.extend({}, $this.data(), options);
+
+                $this.data('tp3.responsiveContent', (data = new ResponsiveContent(this, options)));
+            }
+            if (typeof option === 'string') data[option]();
+        });
+    }
+// var old = $.fn.responsiveContents;
+    $.fn.responsiveContent = Plugin;
+    $.fn.responsiveContent.Constructor = ResponsiveContent;
+
+    // $(window).on('load.tp3.responsiveContent', function() {
+    //     $j('.news .responsiveContent').responsiveContent();
+    //     // EVENTS
+    //     // ======
+    //     $(window)
+    //         .on('scroll.tp3.responsiveContent', function(){
+    //             $lazyload.responsiveContent('unveil');
+    //         })
+    //         .on('resize.tp3.responsiveContent', function(){
+    //             if (viewport) viewport.update();
+    //             $lazyload.responsiveContent('checkviewport');
+    //         })
+    //         .on('beforeprint.tp3.responsiveContent', function(){
+    //             $lazyload.responsiveContent('print');
+    //             $j(window).trigger("readytoprint.tp3.responsiveContent");
+    //         });
+    // });
+}(jQuery);
+
 $j(document).promise().done(function( ) {
 
     console.log("promise");
-    tp3_app.init = false;
+    tp3_app.init = tp3_app.ini || false;
     try {
         var evt = new Event('loaded');
-        window.dispatchEvent(evt)
+        window.dispatchEvent(evt);
         $j(document).trigger('loaded');
 
     }
@@ -1257,4 +1278,4 @@ $j(document).promise().done(function( ) {
         $j(document).trigger('loaded');
 
     }
-})
+});

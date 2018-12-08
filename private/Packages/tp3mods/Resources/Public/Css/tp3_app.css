@@ -5,7 +5,7 @@
 * 10.5.2018 thomas ruta
 ****************************************************************/
 figure.image{
-    perspective: 1000;
+    perspective: 500px;
 }
 img.lazyload {
     transform-style: preserve-3d;
@@ -13,7 +13,10 @@ img.lazyload {
     -webkit-transition: all  0.3s ease-in 0s;
     -o-transition: all  0.3s ease-in 0s;
     transition: all  0.3s ease-in 0s;
-    transform: rotateX(30deg);
+    transform: rotateX(15deg);
+}
+.pswp{
+    z-index: 9999;
 }
 .container.floatingbox {
     width: 100%;
@@ -61,7 +64,7 @@ New Bootstrap
 header .navbar-nav {
         float: right;
         margin: 0;
-    }
+}
 .footer-section-meta > .container >.frame {
     width: 33%;
     float: left;
@@ -101,11 +104,12 @@ div.main-section .frame{
 
 .toolbar {
     font-size: 10px;
-    padding: 0px 20px;
+    padding: 0px 20px 20px ;
     margin: 0;
+    height:30px;
     float: right;
     text-align: right;
-    display: none;
+    display: inline-flex;
     clear: right;
 }
 .toolbar .texticon-content {
@@ -115,10 +119,10 @@ div.main-section .frame{
 .toolbar .texticon.texticon-left {
     padding-left: 20px;
 }
-
-.toolbar .texticon-left .texticon-icon, .toolbar .texticon-right .texticon-icon {
+.toolbar .texticon-left .texticon-icon,.toolbar .texticon-right .texticon-icon {
     position: relative;
     min-height: 1px;
+    padding-left: 15px;
     padding-right: 5px;
 }
 
@@ -215,7 +219,9 @@ tt_address
 .tx-ttaddress-pi1 .adr {
     padding: 5px 15px;
 }
-
+.tx-ttaddress-pi1 .item .fa {
+    padding-right: 5px;
+}
 .section.section-default {
     padding-top: 0;
 }
@@ -244,6 +250,11 @@ tt_address
         width: 100%;
     }
 }
+@media (min-width:768px) {
+    .flexslider .gallery-item.col-md-6.col-xs-12 {
+        width: 50%;
+    }
+}
 @media (max-width:768px) {
     header.navbar-header-main .navbar-brand.navbar-brand-image {
         padding-top: 0;
@@ -269,6 +280,18 @@ tt_address
         padding-right: 0px;
         padding-left: 0px;
     }
+    .tilt .toolbar {
+        font-size: 10px;
+        position: relative;
+        width: 100%;
+        display: none;
+        text-align: center;
+
+    }
+    .tilt .toolbar .texticon-content{
+        display: inline-flex;
+    }
+
 }
 
 @media screen and ( max-width: 991px ) {
@@ -314,6 +337,35 @@ tt_address
         padding-top: 0;
     }
 
+    body{
+        /*perspective: 1000px;*/
+    }
+    .tilt{
+        transform:matrix(0.28,-0.14,0.13,0.63,-120,1);
+        -ms-transform:matrix(0.28,-0.14,0.13,0.63,-120,1);
+        -webkit-transform:matrix(0.28,-0.14,0.13,0.63,-120,1);
+/*//        transform: matrix3d(0.6461,-0.42,0.71,0,0.42,0.8827,0.26,0.001,-0.71,-0.26,0.6887,0,-200,100,20,1);*/
+     /*//   -webkit-transform: matrix3d(0.6461,-0.42,0.71,0,0.42,0.8827,0.26,0.001,-0.71,-0.26,0.6887,0,-200,100,20,1);*/
+
+        transition: 2s ease-in-out;
+        transform-origin: right center 0px;
+        -webkit-transform-origin: right center 0px;
+        -webkit-transition: all 0.2s ease 0s;
+
+    }
+    .tiltback{
+        transform:matrix(1.00,0.00,0.00,1.00,0,0);
+        -ms-transform:matrix(1.00,0.00,0.00,1.00,0,0);
+        -webkit-transform:matrix(1.00,0.00,0.00,1.00,0,0);
+        //transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+
+        transition: 2s ease-in-out;
+        transform-origin: right center 0px;
+        -webkit-transform-origin: right center 0px;
+        -webkit-transition: all 0.2s ease 0s;
+
+
+    }
 }
 @media screen and (min-width: 992px){
     .carousel-small .item {
@@ -350,11 +402,15 @@ tt_address
         background: rgba(0, 0, 0, 0.5);
 
     }
+}
 
+@media (min-width: 992px) {
     .meta-section ul, .meta-section p {
         margin: 0
     }
-
+    .navbar-main {
+        clear: right;
+    }
     .meta-section .copyright {
         text-align: right
     }

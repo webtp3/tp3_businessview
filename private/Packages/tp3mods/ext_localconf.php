@@ -22,7 +22,12 @@ defined('TYPO3_MODE') || die('Access denied.');
         if (!is_array($tp3modsConfig)) {
             $tp3modsConfig = unserialize($tp3modsConfig);
         }
-
+        /***************
+         * Add default RTE configuration for tp3mods
+         */
+        if (!$tp3modsConfig['disableConfigRTE'] == 0 || $tp3modsConfig['disableConfigRTE'] == false) {
+            $GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets']['bootstrap'] = 'EXT:tp3mods/Configuration/RTE/Default.yaml';
+        }
 
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -77,12 +82,13 @@ defined('TYPO3_MODE') || die('Access denied.');
                 }
            }'
         );*/
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class . '->intPages';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['consent'] = \Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class . '::setTracking';
 
+if (!$tp3modsConfig['cookieconsent'] == 0) {
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class . '->intPages';
+    $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['consent'] = \Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class . '::setTracking';//Tp3\Tp3ratings\Controller\RatingsdataController::class . '->RatingAction';//
+}
 
-    if (TYPO3_MODE == 'BE') {
-
+if (TYPO3_MODE == 'BE') {
         /***************
          * Add default RTE configuration for tp3mods
          */
@@ -155,3 +161,4 @@ defined('TYPO3_MODE') || die('Access denied.');
         }
 
     }
+

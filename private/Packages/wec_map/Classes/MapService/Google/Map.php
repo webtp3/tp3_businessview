@@ -270,22 +270,22 @@ class Map extends \JBartels\WecMap\MapService\Map {
 
 
 			} else {
-				$htmlContent .= '<script defer async="async" src="'.$apiURL.'" type="text/javascript"></script>';
+				$htmlContent .= '<script defer async="false" src="'.$apiURL.'" type="text/javascript"></script>';
 				if(\JBartels\WecMap\Utility\Backend::getExtConf('useOwnJS'))
 				{
-					$htmlContent .= '<script defer async="async" src="' . \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $mmURL . '" type="text/javascript"></script>';
-					$htmlContent .= '<script defer async="async" src="' . \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $ibURL . '" type="text/javascript"></script>';
-					$htmlContent .= '<script defer async="async" src="' . \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $omURL . '" type="text/javascript"></script>';
+					$htmlContent .= '<script defer async="false" src="' . \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $mmURL . '" type="text/javascript"></script>';
+					$htmlContent .= '<script defer async="false" src="' . \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $ibURL . '" type="text/javascript"></script>';
+					$htmlContent .= '<script defer async="false" src="' . \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $omURL . '" type="text/javascript"></script>';
 				}
 				else
 				{
-					$htmlContent .= '<script defer async="async" src="' . $mmURL . '" type="text/javascript"></script>';
-					$htmlContent .= '<script defer async="async" src="' . $ibURL . '" type="text/javascript"></script>';
-					$htmlContent .= '<script defer async="async" src="' . $omURL . '" type="text/javascript"></script>';
+					$htmlContent .= '<script defer async="false" src="' . $mmURL . '" type="text/javascript"></script>';
+					$htmlContent .= '<script defer async="false" src="' . $ibURL . '" type="text/javascript"></script>';
+					$htmlContent .= '<script defer async="false" src="' . $omURL . '" type="text/javascript"></script>';
 				}
-				$htmlContent .= ( $jsFile  ? '<script src="' . \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $jsFile  . '" type="text/javascript"></script>' : '' )
-				              . ( $jsFile2 ? '<script defer async="async" src="' . \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $jsFile2 . '" type="text/javascript"></script>' : '' )
-				              . ( $jsFile3 ? '<script defer async="async" src="' . \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $jsFile3 . '" type="text/javascript"></script>' : '' )
+				$htmlContent .= ( $jsFile  ? '<script defer async="false" src="' . \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $jsFile  . '" type="text/javascript"></script>' : '' )
+				              . ( $jsFile2 ? '<script defer async="false" src="' . \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $jsFile2 . '" type="text/javascript"></script>' : '' )
+				              . ( $jsFile3 ? '<script defer async="false" src="' . \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $jsFile3 . '" type="text/javascript"></script>' : '' )
 				              ;
 			}
 

@@ -204,7 +204,7 @@ class FEUserMapController extends ActionController {
 	 * @return	void
 	 */
 	function indexAction()	{
-		$this->setViewConfiguration($this->view);
+		//$this->setViewConfiguration($this->view);
 		$this->iconFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Imaging\\IconFactory');
 		$this->moduleContent();
 		
@@ -224,9 +224,9 @@ class FEUserMapController extends ActionController {
 			$this->content .= $this->mapSettings();
 			//break;
 		//switch((string)$this->MOD_SETTINGS['function'])	{
-        $this->view->assign('content', $this->content);
+        //$this->view->assign('content', $this->content);
 
-		//return $this->content;
+		return $this->content;
 	}
 	function mapSettings() {
 	

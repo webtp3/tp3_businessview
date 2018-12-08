@@ -234,11 +234,11 @@ class MapAdministrationController extends ActionController {
 				$this->content.=$this->apiKeyAdmin();
 		//		break;
 		//}
-		//return $this->content;
-        $this->view->assign('content', $this->content);
-        $this->view->assign('geocodeAdmin', $this->geocodeAdmin());
-        $this->view->assign('batchGeocode', $this->batchGeocode());
-        $this->view->assign('apiKeyAdmin', $this->apiKeyAdmin());
+		return $this->content;
+//        $this->view->assign('content', $this->content);
+//        $this->view->assign('geocodeAdmin', $this->geocodeAdmin());
+//        $this->view->assign('batchGeocode', $this->batchGeocode());
+//        $this->view->assign('apiKeyAdmin', $this->apiKeyAdmin());
 
     }
 	function mapSettings() {
