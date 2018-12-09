@@ -1,10 +1,13 @@
 <?php
 
+$extensionKey = "tp3mods";
+
 // RTE Config (Old style)
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerPageTSConfigFile(
     'tp3mods',
     'Configuration/PageTS/setup.txt',
     'EXT:tp3mods :: mods for tp3 special Pages');
+
 
 // Layouts as Newsletter ...
 
@@ -12,6 +15,27 @@
     'tp3mods',
     'Configuration/PageTS/Mod/WebLayout/BackendLayouts.txt',
     'EXT:tp3mods :: Backendlayouts for tp3');
+
+// TCEFORM
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerPageTSConfigFile(
+    $extensionKey,
+    'Configuration/PageTS/TCEFORM.txt',
+    'EXT:tp3mods : TCEFORM'
+);
+
+// TtContent Previews
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerPageTSConfigFile(
+    $extensionKey,
+    'Configuration/PageTS/Mod/WebLayout/TtContent/preview.txt',
+    'EXT:tp3mods : Content Previews'
+);
+
+// New Content element wizards
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerPageTSConfigFile(
+    $extensionKey,
+    'Configuration/PageTS/Mod/Wizards/newContentElement.txt',
+    'EXT:tp3mods : New Content Element Wizards'
+);
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
     'pages',
@@ -39,6 +63,13 @@
         ],
 
     ]
+);
+
+// TCEFORM
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerPageTSConfigFile(
+    'tp3mods',
+    'Configuration/PageTS/TCEFORM.txt',
+    'tp3: TCEFORM'
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(

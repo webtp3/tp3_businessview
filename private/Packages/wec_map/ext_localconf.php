@@ -17,7 +17,7 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 ** add New CE-wizard elements
 */
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:wec_map/Configuration/PageTS/NewContentElementWizard.txt">'
+    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:wec_map/Configuration/PageTS/NewContentElementWizard.ts">'
 );
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'EXT:wec_map/Classes/Utility/Backend.php:Backend';

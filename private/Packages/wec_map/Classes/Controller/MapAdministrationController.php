@@ -207,7 +207,7 @@ class MapAdministrationController extends ActionController {
 	 * @return	void
 	 */
 	function indexAction()	{
-		$this->setViewConfiguration($this->view);
+	//	$this->setViewConfiguration($this->view);
 		$this->iconFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Imaging\\IconFactory');
 		$this->moduleContent();
 		

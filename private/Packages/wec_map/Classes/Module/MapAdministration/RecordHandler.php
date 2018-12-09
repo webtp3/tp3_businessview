@@ -129,7 +129,6 @@ class RecordHandler {
 //			'alt' => $LANG->getLL('deleteCache')
 //			)
 //		);
-        $iconDelete = "delete";
 		$content = $LANG->getLL('totalCachedAddresses') .
 			': <strong><span id="recordCount">?</span></strong><span id="deleteCache">' . $iconDelete . '</span>';
 

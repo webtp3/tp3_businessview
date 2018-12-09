@@ -420,6 +420,9 @@ tt_address
         padding: 10px;
         width: 100%;
     }
+    .section_image{
+        background-size: contain;
+    }
 }
 
 @media (max-width: 768px) {

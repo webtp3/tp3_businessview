@@ -180,24 +180,9 @@ class DomainMgr {
 	 */
 	function saveApiKey($dataArray) {
 		global $TYPO3_CONF_VARS;
-        if (class_exists('TYPO3\CMS\Core\Configuration\ExtensionConfiguration')) {
-            $extensionConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-                \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class
-            );
-            $extConf = $extensionConfiguration->get('wec_map');
-        } else {
-            // Fallback for CMS8
-            // @extensionScannerIgnoreLine
-            $extConf = $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['wec_map'];
-            if (!is_array($extConf)) {
-                $extConf = unserialize($extConf);
-            }
-        }
-        if (!is_array($extConf)) {
-            $extConf = unserialize($extConf);
-        }
-        //$extConf = unserialize($TYPO3_CONF_VARS['EXT']['extConf'][$this->extKey]);
-        $extConf['apiKey.']['google'] = $dataArray;
+
+		$extConf = unserialize($TYPO3_CONF_VARS['EXT']['extConf'][$this->extKey]);
+		$extConf['apiKey.']['google'] = $dataArray;
 
 		// Instance of install tool
 		#$instObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_install');
@@ -214,8 +199,8 @@ class DomainMgr {
         $instObj = $this->objectManager->get(\TYPO3\CMS\Core\Configuration\ConfigurationManager::class);
         // Get lines from localconf file
         $lines = $instObj->getLocalConfigurationFileLocation();
-        //$instObj->removeLocalConfigurationKeysByPath( array( 'EXT/extConf/'.$this->extKey ) ) ;
-        $instObj->setLocalConfigurationValueByPath( 'EXT/extConf/'.$this->extKey , serialize($extConf) );
+       // $instObj->removeLocalConfigurationKeysByPath( array( 'EXT/extConf/'.$this->extKey ) ) ;
+       // $instObj->setLocalConfigurationValueByPath( 'EXT/extConf/'.$this->extKey , serialize($extConf) );
 	}
 
 	/**

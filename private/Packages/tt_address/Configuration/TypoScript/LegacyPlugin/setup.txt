@@ -104,3 +104,4 @@ plugin.tx_ttaddress_pi1 {
 		}
 	}
 }
+tt_content.list.20.tt_address_pi1 = < plugin.tx_ttaddress_pi1
