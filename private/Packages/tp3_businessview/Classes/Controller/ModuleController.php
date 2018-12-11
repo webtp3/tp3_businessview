@@ -90,6 +90,11 @@ class ModuleController extends ActionController
     protected $defaultViewObjectName = BackendTemplateView::class;
 
     /**
+     * @var  rootLine
+     */
+    public  $rootLine= null;
+
+    /**
      * @var  pageUid
      */
     public  $pageUid= null;
@@ -199,7 +204,6 @@ class ModuleController extends ActionController
                 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tp3_businessview']
             );
         }
-        //$this->cObj=  $this->configurationManager->getContentObject();
 
         parent::initializeAction();
 
@@ -220,7 +224,10 @@ class ModuleController extends ActionController
             $this->conf = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
         }
+        $this->pageUid = GeneralUtility::_GP('id');
 
+        $sysPageObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
+        $this->rootLine = $sysPageObj->getRootLine($this->pageUid );
     }
 
 
@@ -281,7 +288,7 @@ class ModuleController extends ActionController
                 $this->jsonRenderer = $this->objectManager->get(Tp3PageRenderer::class);
             }
             $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-            $querySettings->setStoragePageIds(array($this->settings["storagePid"]));
+            $querySettings->setStoragePageIds(array($this->pageUid));
             $this->panoramasRepository->setDefaultQuerySettings($querySettings);
             $this->tp3BusinessViewRepository->setDefaultQuerySettings($querySettings);
 
@@ -290,44 +297,49 @@ class ModuleController extends ActionController
             if ($businessViews->getFirst() instanceof \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView) {
                 foreach ($businessViews as $businessView){
                     $panolist = [];
+                    $panoramas_list = [];
                     foreach ($businessView->getPanoramas() as $panoramas => $pano){
                         $panolist[]=  $pano->getUid();
+                        array_push($panoramas_list,$pano->getPropertiesArray());
                     }
-                    $panoramas = $this->panoramasRepository->findByList($panolist);
-                    $panoramas_all = $this->panoramasRepository->findByPid($this->settings["storagePid"]);
-                    //$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-                    //$querySettings->setRespectStoragePage(true);
-                    // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
-                    $bw = $businessView->getPropertiesArray();
-                    $bw['contact'] = $this->businessAdressRepository->findByUidArray($businessView->getContact())[0];
-                    $businessAdresses[] = $this->businessAdressRepository->findByUid($businessView->getContact());
-                    if ($this->openHourRepository !== null ){
-                        $openhours = $this->openHourRepository->findByAddress($businessView->getContact());
-                        $formattedText = "";
-                        $hoursArray = [];
-                        foreach ($openhours as $oh){
-                            //$dateconv = \date("H:i",$oh->getOpenTime());
-                            $formattedText .= $oh->getDayName() . " " .\date("H:i", $oh->getOpenTime())  . "-" . \date("H:i", $oh->getCloseTime()) ."<br>";
-                            $hoursArray[] = [\date("H:i", $oh->getOpenTime()),\date("H:i", $oh->getCloseTime())];
-                        }
-                        if($formattedText != ""){
-                            $bw['openingHours'] = [
-                                "formattedText" => $formattedText,
-                                "status"=>true,
-                                "hours"=>$hoursArray,
-                            ];
-                        }
+                   if(count($panolist)>0){
+                       $panoramas = $panoramas_list;// $this->panoramasRepository->findByList($panolist);
+                       $panoramas_all = $this->panoramasRepository->findAll(); //findByPid($this->pageUid);
+                       //$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+                       //$querySettings->setRespectStoragePage(true);
+                       // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
+                       $bw = $businessView->getPropertiesArray();
+                       $bw['contact'] = $this->businessAdressRepository->findByUidArray($businessView->getContact())[0];
+                       $businessAdresses[] = $this->businessAdressRepository->findByPid($this->pageUid);
+                       if ($this->openHourRepository !== null ){
+                           $openhours = $this->openHourRepository->findByAddress($businessView->getContact());
+                           $formattedText = "";
+                           $hoursArray = [];
+                           foreach ($openhours as $oh){
+                               //$dateconv = \date("H:i",$oh->getOpenTime());
+                               $formattedText .= $oh->getDayName() . " " .\date("H:i", $oh->getOpenTime())  . "-" . \date("H:i", $oh->getCloseTime()) ."<br>";
+                               $hoursArray[] = [\date("H:i", $oh->getOpenTime()),\date("H:i", $oh->getCloseTime())];
+                           }
+                           if($formattedText != ""){
+                               $bw['openingHours'] = [
+                                   "formattedText" => $formattedText,
+                                   "status"=>true,
+                                   "hours"=>$hoursArray,
+                               ];
+                           }
 
-                        /*
-                        *
-                        "openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
+                           /*
+                           *
+                           "openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
 
-                        */
-                    }
-                    $bw['panorama'] = $panoramas[0];
-                    $bw['panoramas'] = [$panoramas];
-                    // $bw['contact'] = $this->businessadressrepository->findByUid($businessView->getContact()->getFirst()->getUid())[0];
-                    $businessViewJson[$businessView->getUid()] = $this->jsonRenderer->JsonRenderer($bw,$panoramas,$this->settings);
+                           */
+                       }
+                       $bw['panorama'] = $panoramas[0];
+                       $bw['panoramas'] = [$panoramas];
+                       // $bw['contact'] = $this->businessadressrepository->findByUid($businessView->getContact()->getFirst()->getUid())[0];
+                       $businessViewJson[$businessView->getUid()] = $this->jsonRenderer->JsonRenderer($bw,$panoramas,$this->settings);
+                   }
+
                 }
             }
 

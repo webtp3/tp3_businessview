@@ -210,15 +210,13 @@ return [
                     ]
                 ],
                 'foreign_table' => 'tt_address',
+          //      'foreign_table_where' => 'AND tx_tp3businessview_domain_model_tp3businessview_mm.uid_local=###THIS_UID###  AND tx_tp3businessview_domain_model_tp3businessview.sys_language_uid IN (-1,0)',
+                'foreign_sortby' => 'sorting',
+                'MM' => 'tx_tp3businessview_domain_model_tp3businessview_mm',
+                'MM_hasUidField' => true,
                 'minitems' => 1,
                 'maxitems' => 1,
-                'appearance' => [
-                    'collapseAll' => 0,
-                    'levelLinksPosition' => 'top',
-                    'showSynchronizationLink' => 1,
-                    'showPossibleLocalizationRecords' => 1,
-                    'showAllLocalizationLink' => 1
-                ],
+                'size' => 1,
             ],
 	    ],
 	    'panoramas' => [
@@ -229,6 +227,7 @@ return [
 			    'renderType' => 'selectMultipleSideBySide',
 			    'foreign_table' => 'tx_tp3businessview_domain_model_panoramas',
                 'foreign_sortby' => 'sorting',
+            //    'foreign_table_where' => 'AND tx_tp3businessview_domain_model_tp3businessview.sys_language_uid IN (-1,0) ',
                 'enableMultiSelectFilterTextfield' => true,
                 'allowed' => 'tx_tp3businessview_domain_model_panoramas',
                 'MM' => 'tx_tp3businessview_domain_model_panoramas_mm',

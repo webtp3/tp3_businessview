@@ -23,8 +23,10 @@ class PanoramasRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
-        $querySettings->setRespectStoragePage(true);
-        // $querySettings->setStoragePageIds(array($this->conf["persistence"]["storagePid"]));
+
+        $querySettings->setRespectStoragePage(false);
+
+        // ;
         // $querySettings->setOrderings($this->defaultOrderings);
         $querySettings->setIgnoreEnableFields(false);
         $this->setDefaultQuerySettings($querySettings);
@@ -36,10 +38,7 @@ class PanoramasRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @return \Tp3\Tp3Businessview\Domain\Model\Panoramas
      */
     public function findByUid($uid) {
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        $querySettings->setRespectStoragePage(false);
 
-        $this->setDefaultQuerySettings($querySettings);
         $query = $this->createQuery();
         $query->matching(
             $query->equals('uid', $uid),
@@ -58,10 +57,7 @@ class PanoramasRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @return array
      */
     public function findPanoramaFromBusinessView($uid) {
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        $querySettings->setRespectStoragePage(false);
 
-        $this->setDefaultQuerySettings($querySettings);
         $query = $this->createQuery();
         $query->matching(
             $query->equals('tp3businessviews.uid', $uid),
@@ -81,10 +77,7 @@ class PanoramasRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @return array
      */
     public function findByList($uids) {
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        $querySettings->setRespectStoragePage(true);
         if(is_array($uids)){
-            $this->setDefaultQuerySettings($querySettings);
             $query = $this->createQuery();
             $query->matching(
                 $query->in('uid', $uids),
@@ -104,11 +97,8 @@ class PanoramasRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param array $uids
      * @return array
      */
-        public function findByPid($pid) {
-            $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-            $querySettings->setRespectStoragePage(false);
+        public function findByPid($pid = 0) {
 
-            $this->setDefaultQuerySettings($querySettings);
             $query = $this->createQuery();
             $query->matching(
                 $query->equals('pid', $pid),

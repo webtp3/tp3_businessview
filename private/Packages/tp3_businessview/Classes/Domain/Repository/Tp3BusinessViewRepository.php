@@ -25,9 +25,11 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
-        $querySettings->setRespectStoragePage(true);
 
-       // $querySettings->setOrderings($this->defaultOrderings);
+        $querySettings->setRespectStoragePage(false);
+
+        // ;
+        // $querySettings->setOrderings($this->defaultOrderings);
         $querySettings->setIgnoreEnableFields(false);
         $this->setDefaultQuerySettings($querySettings);
     }
@@ -38,10 +40,10 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
      * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
      */
     public function findByUid($uid,$asArray = true) {
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        $querySettings->setRespectStoragePage(false);
-
-        $this->setDefaultQuerySettings($querySettings);
+//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+//        $querySettings->setRespectStoragePage(false);
+//
+//        $this->setDefaultQuerySettings($querySettings);
         $query = $this->createQuery();
         $query->matching(
             $query->equals('uid', $uid),
@@ -59,10 +61,10 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
      * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
      */
     public function findByPid($pid,$asArray = false) {
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        $querySettings->setRespectStoragePage(false);
-
-        $this->setDefaultQuerySettings($querySettings);
+//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+//        $querySettings->setRespectStoragePage(false);
+//
+//        $this->setDefaultQuerySettings($querySettings);
         $query = $this->createQuery();
         $query->matching(
             $query->equals('pid', $pid),
@@ -80,10 +82,10 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
      * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
      */
     public function findByPanoramas($uid,$asArray = false) {
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        $querySettings->setRespectStoragePage(false);
-
-        $this->setDefaultQuerySettings($querySettings);
+//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+//        $querySettings->setRespectStoragePage(false);
+//
+//        $this->setDefaultQuerySettings($querySettings);
         $query = $this->createQuery();
         $query->matching(
             $query->equals('panoramas.uid', $uid),

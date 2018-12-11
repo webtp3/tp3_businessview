@@ -445,7 +445,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact
      * @return void
      */
-    public function setContact(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $contact)
+    public function setContact(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact)
     {
         $this->contact = $contact;
     }

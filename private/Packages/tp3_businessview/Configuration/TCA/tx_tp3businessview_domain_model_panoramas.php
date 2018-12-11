@@ -131,7 +131,7 @@ return [
             'label' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview.panoramas',
             'config' => [
                 'type' => 'select',
-                'renderType' => 'selectSingle',
+                'renderType' => 'selectSingleBox',
                 'items' => [
                     [
                         '', 0
@@ -143,10 +143,9 @@ return [
                 'foreign_sortby' => 'sorting',
                 'allowed' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'MM' => 'tx_tp3businessview_domain_model_panoramas_mm',
-                'MM_hasUidField' => true,
                 'MM_opposite_field' => 'panoramas',
                 'minitems' => 1,
-                'maxitems' => 1,
+                'maxitems' => 10,
                 'size' => 1,
             ],
         ],

@@ -445,16 +445,18 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                 while (linksTable.hasChildNodes()) {
                     linksTable.removeChild(linksTable.lastChild);
                 }
-                 var linkst = window.businessviewJson.hasDetails ? window.businessviewJson.details.panoramas : [];
-                for (var i in linkst) {
-                    var row = document.createElement('tr');
-                    linksTable.appendChild(row);
-                    var labelCell = document.createElement('td');
-                    labelCell.innerHTML = '<b>Link: ' + i + '</b>';
-                    var valueCell = document.createElement('td');
-                    valueCell.innerHTML = linkst[i].id;
-                    linksTable.appendChild(labelCell);
-                    linksTable.appendChild(valueCell);
+                if(window.businessviewJson && window.businessviewJson.hasDetails) {
+                    var linkst = window.businessviewJson.details.panoramas;
+                    for (var i in linkst) {
+                        var row = document.createElement('tr');
+                        linksTable.appendChild(row);
+                        var labelCell = document.createElement('td');
+                        labelCell.innerHTML = '<b>Link: ' + i + '</b>';
+                        var valueCell = document.createElement('td');
+                        valueCell.innerHTML = linkst[i].id;
+                        linksTable.appendChild(labelCell);
+                        linksTable.appendChild(valueCell);
+                    }
                 }
             });
 

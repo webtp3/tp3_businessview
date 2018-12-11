@@ -46,7 +46,7 @@ class Tp3PageRenderer implements SingletonInterface
         if (is_array($config)
             && (bool)$GLOBALS['TSFE']->page['tx_tp3businessview_onpage']
             && isset(
-                $config['plugin.']['tx_tp3businessview.']['view.']
+                $config['plugin.']['tx_tp3businessview_tp3businessview.']['view.']
             )
             && $GLOBALS['TSFE']->cObj instanceof ContentObjectRenderer
         ) {
@@ -90,8 +90,9 @@ class Tp3PageRenderer implements SingletonInterface
                     $panolist = [];
                     foreach ($businessView->getPanoramas() as $panoramas => $pano){
                         $panolist[]=  $pano->getUid();
+                        array_push($panoramas,$pano);
                     }
-                    $panoramas = $this->panoramasRepository->findByList($panolist);
+                  //  $panoramas = $this->panoramasRepository->findByList($panolist);
                     //find selcted
                     $panorama = $this->panoramasRepository->findByUid($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
                     $bw = $businessView->getPropertiesArray();

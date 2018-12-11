@@ -117,6 +117,27 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     Protected $sorting;
 
     /**
+     * __construct
+     */
+    public function __construct()
+    {
+        //Do not remove the next line: It would break the functionality
+        $this->initStorageObjects();
+    }
+
+    /**
+     * Initializes all ObjectStorage properties
+     * Do not modify this method!
+     * It will be rewritten on each save in the extension builder
+     * You may modify the constructor of this class instead
+     *
+     * @return void
+     */
+    protected function initStorageObjects()
+    {
+        $this->tp3businessviews = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+    /**
      * Setter for sorting
      *
      * @param string $sorting
@@ -198,7 +219,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $uid
      */
-    public function SetUid($uid)
+    public function setUid($uid)
     {
         return $this->uid = $uid;
     }
@@ -217,7 +238,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $pid
      */
-    public function SetPid($pid)
+    public function setPid($pid)
     {
         return $this->pid = $pid;
     }
@@ -302,24 +323,13 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         return $this->_getCleanProperties();
 
     }
-    /**
-     * Initializes all ObjectStorage properties
-     * Do not modify this method!
-     * It will be rewritten on each save in the extension builder
-     * You may modify the constructor of this class instead
-     *
-     * @return void
-     */
-    protected function initStorageObjects()
-    {
-        $this->tp3businessviews = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-    }
+
 
 
     /**
      * Returns the tp3businessviews
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView> $contact
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView> $tp3businessview
      */
     public function getTp3Businessviews()
     {
@@ -329,7 +339,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the contact
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView> $contact
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView> $tp3businessviews
      * @return void
      */
     public function setTp3Businessviews(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tp3businessviews)
