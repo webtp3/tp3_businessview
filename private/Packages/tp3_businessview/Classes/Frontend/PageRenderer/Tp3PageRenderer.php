@@ -88,16 +88,18 @@ class Tp3PageRenderer implements SingletonInterface
                 }
                 else{
                     $panolist = [];
+                    $panoramas_list =[];
                     foreach ($businessView->getPanoramas() as $panoramas => $pano){
                         $panolist[]=  $pano->getUid();
-                        array_push($panoramas,$pano);
+                        array_push($panoramas_list,$pano);
                     }
-                  //  $panoramas = $this->panoramasRepository->findByList($panolist);
+                  //  $panoramas_list = $this->panoramasRepository->findByList($panolist);
                     //find selcted
                     $panorama = $this->panoramasRepository->findByUid($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
                     $bw = $businessView->getPropertiesArray();
                     foreach ($businessView->getContact() as $addresses => $address){
                         $addresslist[]=  $address->getUid();
+
                     }
                     $businessAdresses = $this->businessAdressRepository->findByUidArray($addresslist);
                     if ($this->openHourRepository !== null ){
@@ -123,8 +125,8 @@ class Tp3PageRenderer implements SingletonInterface
                         */
                     }
                     $bw['contact'] = $businessAdresses[0];
-                    //$bw['panorama'] = $panoramas[0];
-                    $bw['panoramas'] = [$panoramas];
+                    //$bw['panorama'] = $panoramas_list[0];
+                    $bw['panoramas'] = [$panoramas_list];
                     $bw['panorama'] = $panorama[0];
 
                     // Social Gallery
@@ -134,7 +136,7 @@ class Tp3PageRenderer implements SingletonInterface
 
 
                 }
-                $parameters["jsInline"] .='<script> window.businessviewJson = window.businessviewJson || '.$this->JsonRenderer($bw,$panoramas,$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]).';window.tp3_app = window.tp3_app || {};window.tp3_app.AnmationOptions  = {  panoJumpTimer:'.
+                $parameters["jsInline"] .='<script> window.businessviewJson = window.businessviewJson || '.$this->JsonRenderer($bw,$panoramas_list,$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]).';window.tp3_app = window.tp3_app || {};window.tp3_app.AnmationOptions  = {  panoJumpTimer:'.
                     ( $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpTimer"] != "" ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoJumpTimer"] : 5000) . ', panoRotationTimer:'.
                     ( $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationTimer"] != "" ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationTimer"] : 10 ).', panoRotationFactor:'.
                     ( $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationFactor"] != "" ? $GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3businessview.']["settings."]["panoRotationFactor"] : 0.060 ).', panoJumpsRandom:'.

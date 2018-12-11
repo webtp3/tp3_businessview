@@ -24,16 +24,16 @@ class BusinessAdressRepository extends \TYPO3\TtAddress\Domain\Repository\Addres
     );
 
     public function initializeObject() {
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
-
-
-            $querySettings->setRespectStoragePage(false);
-
-        // ;
-        // $querySettings->setOrderings($this->defaultOrderings);
-        $querySettings->setIgnoreEnableFields(false);
-        $this->setDefaultQuerySettings($querySettings);
+//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+//        // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
+//
+//
+//            $querySettings->setRespectStoragePage(false);
+//
+//        // ;
+//        // $querySettings->setOrderings($this->defaultOrderings);
+//        $querySettings->setIgnoreEnableFields(false);
+//        $this->setDefaultQuerySettings($querySettings);
     }
     /**
      *
@@ -101,9 +101,9 @@ class BusinessAdressRepository extends \TYPO3\TtAddress\Domain\Repository\Addres
      * @return array
      */
     public function findByList($uids) {
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        $querySettings->setRespectStoragePage(false);
-        $this->setDefaultQuerySettings($querySettings);
+//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+//        $querySettings->setRespectStoragePage(false);
+//        $this->setDefaultQuerySettings($querySettings);
 
         $query = $this->createQuery();
         $query->matching(
@@ -113,9 +113,9 @@ class BusinessAdressRepository extends \TYPO3\TtAddress\Domain\Repository\Addres
                 $query->equals('deleted', 0)
             )
         );
-        $queryParser = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser::class);
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getSQL());
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getParameters());
+//        $queryParser = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser::class);
+//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getSQL());
+//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getParameters());
         return $query->execute(true);
     }
 

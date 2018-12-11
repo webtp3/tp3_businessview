@@ -292,6 +292,9 @@ class ModuleController extends ActionController
             $this->panoramasRepository->setDefaultQuerySettings($querySettings);
             $this->tp3BusinessViewRepository->setDefaultQuerySettings($querySettings);
 
+            $querySettings->setRespectStoragePage(false);
+            $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
+
             $businessViews = $this->tp3BusinessViewRepository->findAll();
         //    $businessView = $businessViews->getFirst();
             if ($businessViews->getFirst() instanceof \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView) {
@@ -303,7 +306,7 @@ class ModuleController extends ActionController
                         array_push($panoramas_list,$pano->getPropertiesArray());
                     }
                    if(count($panolist)>0){
-                       $panoramas = $panoramas_list;// $this->panoramasRepository->findByList($panolist);
+                       //$panoramas_list;// $this->panoramasRepository->findByList($panolist);
                        $panoramas_all = $this->panoramasRepository->findAll(); //findByPid($this->pageUid);
                        //$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
                        //$querySettings->setRespectStoragePage(true);
@@ -334,10 +337,10 @@ class ModuleController extends ActionController
 
                            */
                        }
-                       $bw['panorama'] = $panoramas[0];
-                       $bw['panoramas'] = [$panoramas];
+                       $bw['panorama'] = $panoramas_list[0];
+                       $bw['panoramas'] = [$panoramas_list];
                        // $bw['contact'] = $this->businessadressrepository->findByUid($businessView->getContact()->getFirst()->getUid())[0];
-                       $businessViewJson[$businessView->getUid()] = $this->jsonRenderer->JsonRenderer($bw,$panoramas,$this->settings);
+                       $businessViewJson[$businessView->getUid()] = $this->jsonRenderer->JsonRenderer($bw,$panoramas_list,$this->settings);
                    }
 
                 }
@@ -349,7 +352,7 @@ class ModuleController extends ActionController
         $this->view->assign('debugMode', $this->conf["debugMode"]);
         $this->view->assign('conf', $this->conf);
         $this->view->assign('settings', $this->settings);
-        $this->view->assign('panoramas', $panoramas);
+        $this->view->assign('panoramas', $panoramas_list);
         $this->view->assign('panoramas_all', $panoramas_all);
 
         $this->view->assign('businessviews', $businessViews);
