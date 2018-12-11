@@ -1,0 +1,15 @@
+
+config.tx_extbase {
+  persistence {
+    classes {
+
+      Tp3\Tp3Openhours\Domain\Model\TtAddress {
+        mapping {
+          tableName = tt_address
+          recordType = Tx_Tp3Openhours_TtAddress
+        }
+      }
+
+    }
+  }
+}

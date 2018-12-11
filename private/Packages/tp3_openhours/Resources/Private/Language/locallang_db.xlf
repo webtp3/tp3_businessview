@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-04-25T09:27:00Z" product-name="tp3_openhours">
+		<header/>
+		<body>
+			<trans-unit id="tx_tp3openhours_domain_model_ttaddress">
+				<source>Tt Address</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3openhours_domain_model_ttaddress.open_hours">
+				<source>Open Hours</source>
+			</trans-unit>
+			<trans-unit id="tt_address.tx_extbase_type.Tx_Tp3Openhours_TtAddress">
+				<source>tt_address OpenHours TtAddress</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3openhours_domain_model_openhour">
+				<source>Open Hour</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3openhours_domain_model_openhour.day">
+				<source>Day</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3openhours_domain_model_openhour.open_time">
+				<source>Open Time</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3openhours_domain_model_openhour.close_time">
+				<source>Close Time</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

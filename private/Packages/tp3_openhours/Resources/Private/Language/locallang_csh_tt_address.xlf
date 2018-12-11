@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-04-25T09:27:00Z" product-name="tp3_openhours">
+		<header/>
+		<body>
+			<trans-unit id="open_hours.description">
+				<source>openHours</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
