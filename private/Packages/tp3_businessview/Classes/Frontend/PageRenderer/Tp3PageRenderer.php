@@ -91,7 +91,7 @@ class Tp3PageRenderer implements SingletonInterface
                     $panoramas_list =[];
                     foreach ($businessView->getPanoramas() as $panoramas => $pano){
                         $panolist[]=  $pano->getUid();
-                        array_push($panoramas_list,$pano);
+                        array_push($panoramas_list,$pano->getPropertiesArray());
                     }
                   //  $panoramas_list = $this->panoramasRepository->findByList($panolist);
                     //find selcted

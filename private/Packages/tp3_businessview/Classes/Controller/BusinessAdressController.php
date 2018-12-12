@@ -313,7 +313,7 @@ class BusinessAdressController extends ActionController
      */
     protected function getToken($tokenOnly = false)
     {
-        $token = FormProtectionFactory::get()->generateToken('web_Tp3BusinessviewBusinessAdress', 'index');
+        $token = FormProtectionFactory::get()->generateToken('web_BusinessAdress', 'index');
         if ($tokenOnly) {
             return $token;
         } else {

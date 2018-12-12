@@ -288,7 +288,7 @@ class ModuleController extends ActionController
                 $this->jsonRenderer = $this->objectManager->get(Tp3PageRenderer::class);
             }
             $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-            $querySettings->setStoragePageIds(array($this->pageUid));
+            $querySettings->setStoragePageIds(array($this->conf["persistence"]["storagePid"], $this->pageUid));
             $this->panoramasRepository->setDefaultQuerySettings($querySettings);
             $this->tp3BusinessViewRepository->setDefaultQuerySettings($querySettings);
 
