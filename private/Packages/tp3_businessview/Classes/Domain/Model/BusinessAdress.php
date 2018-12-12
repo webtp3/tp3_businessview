@@ -45,7 +45,7 @@ class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address {
 
 
     /**
-     * Categories
+     * Tp3BusinessView
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView>
      * @cascade remove

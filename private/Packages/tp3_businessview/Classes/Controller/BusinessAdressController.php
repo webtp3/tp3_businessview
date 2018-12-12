@@ -161,7 +161,7 @@ class BusinessAdressController extends ActionController
                 'search_levels' => 1
             );
             $url = \TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl('web_list', $urlParameters);
-            $this->redirectToURI(REQUEST_SCHEME.'://'.$_SERVER['HTTP_HOST'].'/'.$url);
+            $this->redirectToURI($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/'.$url);
             exit;
         }
         $businessAdresses = $this->businessAdressRepository->findAll();
@@ -313,7 +313,7 @@ class BusinessAdressController extends ActionController
      */
     protected function getToken($tokenOnly = false)
     {
-        $token = FormProtectionFactory::get()->generateToken('web_BusinessAdress', 'index');
+        $token = FormProtectionFactory::get()->generateToken('web_Tp3BusinessviewBusinessAdress', 'index');
         if ($tokenOnly) {
             return $token;
         } else {

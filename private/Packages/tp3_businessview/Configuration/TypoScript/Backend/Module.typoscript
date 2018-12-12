@@ -29,5 +29,6 @@ module.tx_tp3businessview_web_tp3businessviewmodule{
     layoutRootPaths.1 = {$module.tx_tp3businessview_web_tp3businessviewmodule.view.layoutRootPath}
   }
 }
+module.tx_tp3businessview_web_tp3businessviewbusinessadress < module.tx_tp3businessview_web_tp3businessviewmodule
 #module.tx_tp3businessview < module.tx_tp3businessview_web_tp3businessviewmodule
 

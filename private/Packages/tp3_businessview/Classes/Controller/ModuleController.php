@@ -308,10 +308,7 @@ class ModuleController extends ActionController
                    if(count($panolist)>0){
                        //$panoramas_list;// $this->panoramasRepository->findByList($panolist);
                        $panoramas_all = $this->panoramasRepository->findAll(); //findByPid($this->pageUid);
-                       //$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-                       //$querySettings->setRespectStoragePage(true);
-                       // $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
-                       $bw = $businessView->getPropertiesArray();
+                        $bw = $businessView->getPropertiesArray();
                        $bw['contact'] = $this->businessAdressRepository->findByUidArray($businessView->getContact())[0];
                        $businessAdresses[] = $this->businessAdressRepository->findByPid($this->pageUid);
                        if ($this->openHourRepository !== null ){

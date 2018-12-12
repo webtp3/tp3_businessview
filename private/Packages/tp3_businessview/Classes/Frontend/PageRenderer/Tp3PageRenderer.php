@@ -71,24 +71,31 @@ class Tp3PageRenderer implements SingletonInterface
                 }
 
             }
+            $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+            $querySettings->setStoragePageIds(array( $config['plugin.']['tx_tp3businessview_tp3businessview.']["persistence."]["storagePid"], $this->pageUid));
+            $this->panoramasRepository->setDefaultQuerySettings($querySettings);
+            $this->Tp3BusinessViewRepository->setDefaultQuerySettings($querySettings);
+
+            $querySettings->setRespectStoragePage(false);
+            $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
+
             $businessViews = $this->Tp3BusinessViewRepository->findByPanoramas($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
             try{
+                $panoramas_list =[];
                 $businessView = $businessViews->getFirst();
                 if (!$businessView instanceof \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView) {
                     $panorama = $this->panoramasRepository->findByUid($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
                     if (!is_array($panorama) &&  count($panorama)< 1) return;
-                    /*
-                     * #todo display panorama only
-                     */
+
                     $businessView = new \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView;
                     $bw = $businessView->getPropertiesArray();
                     $bw['panoramas'] = [];
                     $panoramas= [];
                     $bw['panorama'] = $panorama[0];
+                    array_push($panoramas_list,$panorama[0]);
                 }
                 else{
                     $panolist = [];
-                    $panoramas_list =[];
                     foreach ($businessView->getPanoramas() as $panoramas => $pano){
                         $panolist[]=  $pano->getUid();
                         array_push($panoramas_list,$pano->getPropertiesArray());

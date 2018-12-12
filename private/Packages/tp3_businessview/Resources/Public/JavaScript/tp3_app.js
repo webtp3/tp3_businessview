@@ -47,35 +47,44 @@ $ = $j = jQuery.noConflict();
 			}
 
 	window.tp3_app=window.tp3_app||{};
-
-tp3_app.initialize=function(){
+tp3_app.init = tp3_app.init || false;
+tp3_app.initialize= tp3_app.initialize || function(){
 
     if(tp3_app.init == true)return;
     try{
-        if ( google.maps != undefined && $j.type(google.maps) == "object"){
+        if (($j('.tx-wecmap-map').length > 0 || businessviewJson.hasDetails) &&( google.maps != undefined && $j.type(google.maps) == "object")){
 
             google.maps.event.addDomListener(window,"load", function () {
-                if (  WECInit != undefined && $j.type(WECInit) == "function") WECInit();
+                if (  WECInit != undefined && $j.type(WECInit) == "function" ) {
+                    if($j.type( createWecMap) == "function")WECInit();
+                }
 
                 tp3_app.init = true;
                 console.log(businessviewJson);
 
-                if(businessviewJson.hasDetails &&$j(businessviewCanvasSelector).length > 0){tp3_app.businessview_initialize(businessviewJson);}
+                if(businessviewJson.hasDetails && $j(businessviewCanvasSelector).length > 0){tp3_app.businessview_initialize(businessviewJson);}
                 else{console.log(businessviewJson.errorMessage);}
 
                 //  if(gapi && $j.type(gapi) == "object")  gapi.plus.go();
             });
-            if ( WECInit == undefined)  tp3_app.init = true;
+            if ( WecMap == undefined)  tp3_app.init = true;
+
+
         }
+        else  if ($j('.tx-wecmap-map').length < 1 && google.maps == undefined){
+            /*
+            no google maps needed - so proceed
+             */
+            tp3_app.init = true;
+        }
+        if($j.type(tp3_app.privacyPopup) == "funtion" && !tp3_app.getCookieValue(disableStr)) tp3_app.privacyPopup();
+        // #todo move to function list to call incl. callback
+        if($j.type(tp3_app.controls) == "function")tp3_app.controls();
+        if($j.type(tp3_app.parallax) == "function")tp3_app.parallax();
+        if($j.type(tp3_app.isotop) == "function")tp3_app.isotop();
     }catch (e){
         console.log(e);
     }
-    // #todo move to function list to call incl. callback
-    if($j.type(tp3_app.controls) == "function")tp3_app.controls();
-    if($j.type(tp3_app.parallax) == "function")tp3_app.parallax();
-    if($j.type(tp3_app.isotop) == "function")tp3_app.isotop();
-    if($j.type(tp3_app.backmove) == "function")tp3_app.backmove();
-
 };
 
 
