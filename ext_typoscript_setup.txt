@@ -6,7 +6,7 @@ config.tx_extbase{
           tableName = tx_tp3businessview_domain_model_panoramas
           recordType = Tx_Tp3Businessview_Panoramas
           columns {
-            tp3businessviews.mapOnProperty = uid_local
+            tp3businessviews.mapOnProperty = tp3businessviews
             sorting.mapOnProperty = sorting
 
           }
@@ -20,25 +20,27 @@ config.tx_extbase{
           columns {
             cid.mapOnProperty = cid
             sorting.mapOnProperty = sorting
-
+            tp3businessview.mapOnProperty = tp3businessview
+            googleplus.mapOnProperty = googleplus
           }
         }
+
       }
       Tp3\Tp3Businessview\Domain\Model\Tp3Businessview {
         mapping {
           tableName = tx_tp3businessview_domain_model_tp3businessview
           recordType = Tx_Tp3Businessview_Tp3Businessview
           columns {
-            panoramas.mapOnProperty = uid_foreign
-            contact.mapOnProperty = uid
+            panoramas.mapOnProperty = panoramas
+            contact.mapOnProperty = contact
             sorting.mapOnProperty = sorting
             description.mapOnProperty = description
 
           }
         }
         subclasses {
-          Tp3\Tp3Businessview\Domain\Model\BusinessAdress = Tp3\Tp3Businessview\Domain\Model\BusinessAdress
-          Tp3\Tp3Businessview\Domain\Model\Panoramas = Tp3\Tp3Businessview\Domain\Model\Panoramas
+          Tx_Tp3Businessview_BusinessAdress = Tp3\Tp3Businessview\Domain\Model\BusinessAdress
+          Tx_Tp3Businessview_Panoramas = Tp3\Tp3Businessview\Domain\Model\Panoramas
 
         }
       }

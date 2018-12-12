@@ -47,30 +47,44 @@ $ = $j = jQuery.noConflict();
 			}
 
 	window.tp3_app=window.tp3_app||{};
-
-tp3_app.initialize=function(){
+tp3_app.init = tp3_app.init || false;
+tp3_app.initialize= tp3_app.initialize || function(){
 
     if(tp3_app.init == true)return;
     try{
-        if ( google.maps != undefined && $j.type(google.maps) == "object"){
+        if (($j('.tx-wecmap-map').length > 0 || businessviewJson.hasDetails) &&( google.maps != undefined && $j.type(google.maps) == "object")){
 
             google.maps.event.addDomListener(window,"load", function () {
-                if (  WECInit != undefined && $j.type(WECInit) == "function") WECInit();
+                if (  WECInit != undefined && $j.type(WECInit) == "function" ) {
+                    if($j.type( createWecMap) == "function")WECInit();
+                }
 
                 tp3_app.init = true;
                 console.log(businessviewJson);
 
-                if(businessviewJson.hasDetails &&$j(businessviewCanvasSelector).length > 0){tp3_app.businessview_initialize(businessviewJson);}
+                if(businessviewJson.hasDetails && $j(businessviewCanvasSelector).length > 0){tp3_app.businessview_initialize(businessviewJson);}
                 else{console.log(businessviewJson.errorMessage);}
 
                 //  if(gapi && $j.type(gapi) == "object")  gapi.plus.go();
-            })
-            if ( WECInit == undefined)  tp3_app.init = true;
+            });
+            if ( WecMap == undefined)  tp3_app.init = true;
+
+
         }
+        else  if ($j('.tx-wecmap-map').length < 1 && google.maps == undefined){
+            /*
+            no google maps needed - so proceed
+             */
+            tp3_app.init = true;
+        }
+        if($j.type(tp3_app.privacyPopup) == "funtion" && !tp3_app.getCookieValue(disableStr)) tp3_app.privacyPopup();
+        // #todo move to function list to call incl. callback
+        if($j.type(tp3_app.controls) == "function")tp3_app.controls();
+        if($j.type(tp3_app.parallax) == "function")tp3_app.parallax();
+        if($j.type(tp3_app.isotop) == "function")tp3_app.isotop();
     }catch (e){
         console.log(e);
     }
-    if($j.type(tp3_app.controls) == "function")tp3_app.controls();
 };
 
 
@@ -78,11 +92,11 @@ tp3_app.initialize=function(){
 tp3_app.init = tp3_app.init || false;
 
 
-jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length
+jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length;
 if(index<0){index=Math.max(0,lastIndex+ 1+ index)}
-this.append(element)
+this.append(element);
 if(index<lastIndex){this.children().eq(index).before(this.children().last())}
-return this;}
+return this;};
 
 tp3_app.AnmationOptions = tp3_app.AnmationOptions  || {
 
@@ -224,7 +238,7 @@ tp3_app.PanoControls =  function (control, obj) {
                 var intro = businessviewJson.details.modules.intro;
                 if (intro.status && (intro.headline != "" || intro.message != "")) {
                     appendIntroToBusinessview(intro.headline, intro.message, intro.backgroundColor, intro.textColor);
-                    $(businessviewCanvasSelector).on('click', 'div#businessview-intro-canvas i.fa-times', function () {
+                    $('#businessview-intro-canvas').on('click', function () {
                         removeBusinessviewCanvas('businessview-intro-canvas');
                     });
                 }
@@ -251,7 +265,11 @@ tp3_app.PanoControls =  function (control, obj) {
         resizeBusinessView(panoOptions);$(window).resize(function(){resizeBusinessView(panoOptions);});checkVisibleViewportObjects(panorama.getPano(),panorama.getPov());
         google.maps.event.addListener(panorama,'pov_changed',function(){
             checkVisibleViewportObjects(panorama.getPano(),panorama.getPov());
-            updateInfoPoints();removeBusinessviewCanvas('businessview-intro-canvas');});
+            updateInfoPoints();
+           setTimeout(function() {
+               removeBusinessviewCanvas('businessview-intro-canvas');
+            }, 800);
+        });
         google.maps.event.addListener(panorama,'position_changed',
             function(){
                 initialize_CurrentPanoramaOverlays(
@@ -268,7 +286,7 @@ tp3_app.PanoControls =  function (control, obj) {
             var heading=parseFloat($(this).attr('data-entry-heading'))||0;
             var pitch=parseFloat($(this).attr('data-entry-pitch'))||0;
             jumpToBusinessView(businessviewId,panoId,heading,pitch);});if(QueryString.businessviewId&&QueryString.panoramaId){
-            var businessviewId=QueryString.businessviewId;var panoId=QueryString.panoramaId;var heading=parseFloat(QueryString.entryHeading)||0;var pitch=parseFloat(QueryString.entryPitch)||0;jumpToBusinessView(businessviewId,panoId,heading,pitch);}}
+            var businessviewId=QueryString.businessviewId;var panoId=QueryString.panoramaId;var heading=parseFloat(QueryString.entryHeading)||0;var pitch=parseFloat(QueryString.entryPitch)||0;jumpToBusinessView(businessviewId,panoId,heading,pitch);}};
 
 var businessviewJson = businessviewJson || {},
     businessviewCanvasSelector = "#businessview-canvas";
@@ -457,33 +475,33 @@ function initialize_Panorama(panoEntry,panoOptions){createPanoramaCanvas();
     }, function() {
         $(this).removeClass('hover');
         go = window.setInterval( function(){$('#PanoPlayer').hide()},300);
-    })
+    });
     $('#PanoPlayer').hover(function() {
         window.clearInterval(go);
         $('#PanoPlayer').show();
-    })
+    });
     $('#PanoPlayer .fa-play').click(function(){
         animateBusinessview();
-    })
+    });
     $('#PanoPlayer .fa-pause').click(function(){
         panoRotationTimer = window.clearInterval(panoRotationTimer);
         panoJumpTimer = window.clearInterval(panoJumpTimer);
-    })
+    });
     $('#PanoPlayer .fa-forward').click(function(){
         initialize_Panorama(tp3_app.AnmationHandler.nextPano, panoOptions);
-    })
+    });
     $('#PanoPlayer .fa-backward').click(function(){
         initialize_Panorama(tp3_app.AnmationHandler.backPano, panoOptions);
-    })
+    });
     $('#PanoPlayer .fa-plus-square').click(function(){
         tp3_app.AnmationOptions.panoRotationFactor += tp3_app.AnmationOptions.panoRotationFactor *0.9;
         $('input[name="settings[panoRotationFactor]"]').val(tp3_app.AnmationOptions.panoRotationFactor)
-    })
+    });
     $('#PanoPlayer .fa-minus-square').click(function(){
         tp3_app.AnmationOptions.panoRotationFactor += tp3_app.AnmationOptions.panoRotationFactor *-0.9 ;
         $('input[name="settings[panoRotationFactor]"]').val(tp3_app.AnmationOptions.panoRotationFactor)
 
-    })
+    });
     google.maps.event.trigger(panorama,'resize');
     $(businessviewCanvasSelector+' #businessview-panorama-canvas').bind("touchstart",function(e){endCoords=e.originalEvent.targetTouches[0];
         startCoords.pageX=e.originalEvent.targetTouches[0].pageX;startCoords.pageY=e.originalEvent.targetTouches[0].pageY;});
@@ -587,7 +605,7 @@ function convertDegreesToRadians(angle){angle=angle*0.017453292519943295;while(a
 function convertRadiansToDegrees(angle){angle=angle/0.017453292519943295;while(angle<- 180.0){angle+=360.0;}
     while(angle>180.0){angle-=360.0;}
     return angle;}
-function convertHeadingInDegree(heading){var degree;heading=heading%360
+function convertHeadingInDegree(heading){var degree;heading=heading%360;
     if(heading>=0){degree=0+ heading;}else{degree=360+ heading;}
     return degree;}
 function convertPitchInDegree(pitch){return(pitch%180)+ 90;}
@@ -664,7 +682,7 @@ function getPanoArrayPosition(panoId){
     else{window.businessviewJson.details.panoramas=window.businessviewJson.details.panoramas||
         [];
     }
-    var array=new Object;array.actions=[];array.areas=[];array.infoPoints=[];array.id=panoId;window.businessviewJson.details.panoramas.push(array);return getPanoArrayPosition(panoId);}
+    var array={};array.actions=[];array.areas=[];array.infoPoints=[];array.id=panoId;window.businessviewJson.details.panoramas.push(array);return getPanoArrayPosition(panoId);}
 function getRandomInt(min,max){return Math.floor(Math.random()*(max- min+ 1))+ min;}
 function getSidebarHeight(align){if(!align){if($(businessviewCanvasSelector).hasClass('sidebar-left')){align='left';}}
     var height=$(businessviewCanvasSelector).outerHeight(true);if(align=='left'){height-=50;}else{height-=34;}
@@ -684,7 +702,7 @@ function panElement(element,pano_heading,pano_pitch,width,height,zoom){var eleme
 function panoramaHasActions(panoId){var index=getPanoArrayPosition(panoId);if(index!=undefined&&window.businessviewJson.details.panoramas[index].actions.length>0){return true;}else{return false;}}
 function panoramaHasAreas(panoId){var index=getPanoArrayPosition(panoId);if(index!=undefined&&$.type(window.businessviewJson.details.panoramas[index].areas)=="array"&&window.businessviewJson.details.panoramas[index].areas.length>0){return true;}else{return false;}}
 function panoramaHasInfoPoints(panoId){var index=getPanoArrayPosition(panoId);if(index!=undefined&&window.businessviewJson.details.panoramas[index].infoPoints.length>0){return true;}else{return false;}}
-function removeBusinessviewCanvas(canvasId){$(businessviewCanvasSelector+' #'+ canvasId).delay(3000).remove();}
+function removeBusinessviewCanvas(canvasId){$(businessviewCanvasSelector+' #'+ canvasId).delay(300000).remove();}
 function resizeBusinessView(panoOptions){var businessviewHeight=$(businessviewCanvasSelector).outerHeight(true);$(businessviewCanvasSelector+' #businessview-panorama-canvas').css('height',businessviewHeight+'px');if(showSidebar){resizeSidebar();}
     centerBusinessViewCanvas('businessview-area-canvas');centerBusinessViewCanvas('businessview-gallery-canvas');centerBusinessViewCanvas('businessview-intro-canvas');if($(businessviewCanvasSelector).width()<768){panorama.setOptions({panControl:false,zoomControl:false,scaleControl:false,addressControl:false});}else{panorama.setOptions({panControl:panoOptions.panControl,zoomControl:panoOptions.zoomControl,scaleControl:panoOptions.scaleControl,addressControl:panoOptions.addressControl});}
     panoCanvasHeight=$panoCanvas.height();panoCanvasWidth=$panoCanvas.width();updateInfoPoints();}
@@ -809,7 +827,7 @@ tp3_app.watchdog = function () {
         }
        if($j.type(tp3_app.controls == "function"))tp3_app.controls();
     })
-}
+};
 
 $j(document).promise().done(function( ) {
 
@@ -826,4 +844,4 @@ $j(document).promise().done(function( ) {
         window.dispatchEvent( evt);
         evt.initEvent("loaded", true, true);
     }
-})
+});

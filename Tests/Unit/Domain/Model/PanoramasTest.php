@@ -1,10 +1,16 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3businessview.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
  *
- * @author Thomas Ruta <support@r-p-it.de>
  */
 class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
@@ -33,7 +39,6 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getPanoId()
         );
-
     }
 
     /**
@@ -48,7 +53,6 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'panoId',
             $this->subject
         );
-
     }
 
     /**
@@ -60,7 +64,6 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getHeading()
         );
-
     }
 
     /**
@@ -75,7 +78,6 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'heading',
             $this->subject
         );
-
     }
 
     /**
@@ -87,7 +89,6 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getPitch()
         );
-
     }
 
     /**
@@ -102,7 +103,6 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'pitch',
             $this->subject
         );
-
     }
 
     /**
@@ -114,7 +114,6 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getZoom()
         );
-
     }
 
     /**
@@ -129,6 +128,5 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'zoom',
             $this->subject
         );
-
     }
 }

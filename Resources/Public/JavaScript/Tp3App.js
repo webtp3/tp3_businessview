@@ -2,6 +2,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
 
     var Tp3App = Tp3App || {
         init:function(){
+
             console.log("tp3app Init");
          //   Tp3App.scriptsload("//maps.googleapis.com/maps/api/js?key=zzz&")//callback=Tp3App.initPano
 
@@ -31,11 +32,11 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                  */
                 $('#submitNewform').on("click", function(e){
                     e.preventDefault(e);
-                    $('#editform').attr("action", $('#editform').attr("action").replace("update","create"))
+                    $('#editform').attr("action", $('#editform').attr("action").replace("update","create"));
                     $('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][uid]"]').val(null);
                     $('#editform').submit();
 
-                })
+                });
 
 
                 /* Businessview List
@@ -44,7 +45,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                 $.each($('.array'),function(){
                     $(this).tooltip({title: $(this).text()});
                     // $(this).hide();
-                })
+                });
 
                 $(' .bwentry').hover(function() {
                     $(this).addClass('hover');
@@ -126,7 +127,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                         Tp3App.businessview_initialize(window.businessviewJson)
                 }
                 else alert("no businessview")
-            })
+            });
 
                 /* Handle Controls Form
               #todo new overlaycontrols
@@ -134,7 +135,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
 
                 $('#btn-controls').on("click", function(e){
                     $('.tp3businessview-controls.tp3-panel').toggle()
-                })
+                });
                 $('.color-controls input').change( function(){
                     window.businessviewJson.details.modules.contact.color  = $(this).val();
                    if(businessviewJsonsArray != undefined){
@@ -146,7 +147,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                         $('#businessview-canvas').find('[id="businessview-externalLinks-canvas"]').remove();
 
                         Tp3App.businessview_initialize(window.businessviewJson)
-                })
+                });
                 $('.align-controls input').change( function(){
                     window.businessviewJson.details.modules.contact.align  = $(this).val();
                     if(businessviewJsonsArray != undefined){
@@ -158,7 +159,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                     $('#businessview-canvas').find('[id="businessview-externalLinks-canvas"]').remove();
 
                     Tp3App.businessview_initialize(window.businessviewJson)
-                })
+                });
                 $('.backgroundColor-controls input').change( function(){
                     window.businessviewJson.details.modules.contact.backgroundColor  = $(this).val();
                     if(businessviewJsonsArray != undefined){
@@ -170,7 +171,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                     $('#businessview-canvas').find('[id="businessview-externalLinks-canvas"]').remove();
 
                     Tp3App.businessview_initialize(window.businessviewJson)
-                })
+                });
                 $('.textColor-controls input').change( function(){
                     window.businessviewJson.details.modules.contact.textColor  = $(this).val();
                     if(businessviewJsonsArray != undefined){
@@ -182,31 +183,31 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                     $('#businessview-canvas').find('[id="businessview-externalLinks-canvas"]').remove();
 
                     Tp3App.businessview_initialize(window.businessviewJson)
-                })
+                });
                 $('.panoJumpTimer-controls input').change( function(){
                     Tp3App.AnmationOptions.panoJumpTimer = $(this).val();
-                })
+                });
                     $('.panoRotationTimer-controls input').change( function(){
                     Tp3App.AnmationOptions.panoRotationTimer = $(this).val();
-                })
+                });
                 $('#btn-panoRotationFactor-plus').click(function(){
                     Tp3App.AnmationOptions.panoRotationFactor += Tp3App.AnmationOptions.panoRotationFactor *0.9;
                     $('input[name="settings[panoRotationFactor]"]').val(Tp3App.AnmationOptions.panoRotationFactor)
-                })
+                });
                 $('#btn-panoRotationFactor-minus').click(function(){
                     Tp3App.AnmationOptions.panoRotationFactor += Tp3App.AnmationOptions.panoRotationFactor *-0.9 ;
                     $('input[name="settings[panoRotationFactor]"]').val(Tp3App.AnmationOptions.panoRotationFactor)
 
-                })
+                });
                 $('.panoRotationFactor-controls').change(function(){
                     Tp3App.AnmationOptions.panoRotationFactor = $(this).val();
-                })
+                });
                 $('.panoJumpsRandom-controls').change( function(){
                     Tp3App.AnmationOptions.panoJumpsRandom = $(this).val();
-                })
+                });
                 $('#btn-links').on("click", function(e){
                     $('#links_table').toggle()
-                })
+                });
 
             /* AddressList
 
@@ -218,7 +219,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                 }).click(function(){
                     if($.trim($(this).find('.place_id').text()) != ""  ) {
 
-                        $('input#placeid').val($.trim($(this).find('.place_id').text()))
+                        $('input#placeid').val($.trim($(this).find('.place_id').text()));
                         Tp3App.geocodePlaceId();
                         //  Tp3App.getPlace( $.trim($(this).find('.geo_address').text()));
                     }
@@ -299,7 +300,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
 
             }
         })
-    }
+    };
     Tp3App.initMap= function (){
         sv = new google.maps.StreetViewService();
         // reverse lookup if user has placeid
@@ -372,7 +373,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
             document.getElementById('place-address').textContent =
                 place.formatted_address;
             infowindow.setContent(document.getElementById('infowindow-content'));
-            $('#infowindow-content').show()
+            $('#infowindow-content').show();
             infowindow.open(map, marker);
         });
 
@@ -420,7 +421,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                 window.alert('Geocoder failed due to: ' + status);
             }
         });
-    }
+    };
     Tp3App.initPano =    function (){
             panorama = new google.maps.StreetViewPanorama(
                 document.getElementById('businessview-panorama-canvas'), {
@@ -444,16 +445,18 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                 while (linksTable.hasChildNodes()) {
                     linksTable.removeChild(linksTable.lastChild);
                 }
-                var linkst = window.businessviewJson.details.panoramas;
-                for (var i in linkst) {
-                    var row = document.createElement('tr');
-                    linksTable.appendChild(row);
-                    var labelCell = document.createElement('td');
-                    labelCell.innerHTML = '<b>Link: ' + i + '</b>';
-                    var valueCell = document.createElement('td');
-                    valueCell.innerHTML = linkst[i].id;
-                    linksTable.appendChild(labelCell);
-                    linksTable.appendChild(valueCell);
+                if(window.businessviewJson && window.businessviewJson.hasDetails) {
+                    var linkst = window.businessviewJson.details.panoramas;
+                    for (var i in linkst) {
+                        var row = document.createElement('tr');
+                        linksTable.appendChild(row);
+                        var labelCell = document.createElement('td');
+                        labelCell.innerHTML = '<b>Link: ' + i + '</b>';
+                        var valueCell = document.createElement('td');
+                        valueCell.innerHTML = linkst[i].id;
+                        linksTable.appendChild(labelCell);
+                        linksTable.appendChild(valueCell);
+                    }
                 }
             });
 
@@ -475,7 +478,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                 zoomCell.value = panorama.getPov().zoom + '';
 
             });
-        }
+        };
     Tp3App.processSVData = function(data, status){
         if (status === 'OK') {
             var marker = new google.maps.Marker({
@@ -697,7 +700,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
         var heading=parseFloat($(this).attr('data-entry-heading'))||0;
         var pitch=parseFloat($(this).attr('data-entry-pitch'))||0;
         jumpToBusinessView(businessviewId,panoId,heading,pitch);});if(QueryString.businessviewId&&QueryString.panoramaId){
-            var businessviewId=QueryString.businessviewId;var panoId=QueryString.panoramaId;var heading=parseFloat(QueryString.entryHeading)||0;var pitch=parseFloat(QueryString.entryPitch)||0;jumpToBusinessView(businessviewId,panoId,heading,pitch);}}
+            var businessviewId=QueryString.businessviewId;var panoId=QueryString.panoramaId;var heading=parseFloat(QueryString.entryHeading)||0;var pitch=parseFloat(QueryString.entryPitch)||0;jumpToBusinessView(businessviewId,panoId,heading,pitch);}};
 
     var businessviewJson = businessviewJson || {},
         businessviewCanvasSelector = "#businessview-canvas";
@@ -887,33 +890,33 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
     }, function() {
         $(this).removeClass('hover');
         go = window.setInterval( function(){$('#PanoPlayer').hide()},300);
-    })
+    });
         $('#PanoPlayer').hover(function() {
             window.clearInterval(go);
             $('#PanoPlayer').show();
-        })
+        });
         $('#PanoPlayer .fa-play').click(function(){
             animateBusinessview();
-        })
+        });
         $('#PanoPlayer .fa-pause').click(function(){
             panoRotationTimer = window.clearInterval(panoRotationTimer);
             panoJumpTimer = window.clearInterval(panoJumpTimer);
-        })
+        });
         $('#PanoPlayer .fa-forward').click(function(){
             initialize_Panorama(Tp3App.AnmationHandler.nextPano, panoOptions);
-        })
+        });
         $('#PanoPlayer .fa-backward').click(function(){
             initialize_Panorama(Tp3App.AnmationHandler.backPano, panoOptions);
-        })
+        });
         $('#PanoPlayer .fa-plus-square').click(function(){
             Tp3App.AnmationOptions.panoRotationFactor += Tp3App.AnmationOptions.panoRotationFactor *0.9;
             $('input[name="settings[panoRotationFactor]"]').val(Tp3App.AnmationOptions.panoRotationFactor)
-        })
+        });
         $('#PanoPlayer .fa-minus-square').click(function(){
             Tp3App.AnmationOptions.panoRotationFactor += Tp3App.AnmationOptions.panoRotationFactor *-0.9 ;
             $('input[name="settings[panoRotationFactor]"]').val(Tp3App.AnmationOptions.panoRotationFactor)
 
-        })
+        });
     google.maps.event.trigger(panorama,'resize');
     $(businessviewCanvasSelector+' #businessview-panorama-canvas').bind("touchstart",function(e){endCoords=e.originalEvent.targetTouches[0];
     startCoords.pageX=e.originalEvent.targetTouches[0].pageX;startCoords.pageY=e.originalEvent.targetTouches[0].pageY;});
@@ -1016,7 +1019,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
     function convertRadiansToDegrees(angle){angle=angle/0.017453292519943295;while(angle<- 180.0){angle+=360.0;}
         while(angle>180.0){angle-=360.0;}
         return angle;}
-    function convertHeadingInDegree(heading){var degree;heading=heading%360
+    function convertHeadingInDegree(heading){var degree;heading=heading%360;
         if(heading>=0){degree=0+ heading;}else{degree=360+ heading;}
         return degree;}
     function convertPitchInDegree(pitch){return(pitch%180)+ 90;}
@@ -1093,7 +1096,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
             else{window.businessviewJson.details.panoramas=window.businessviewJson.details.panoramas||
             [];
         }
-        var array=new Object;array.actions=[];array.areas=[];array.infoPoints=[];array.id=panoId;window.businessviewJson.details.panoramas.push(array);return getPanoArrayPosition(panoId);}
+        var array={};array.actions=[];array.areas=[];array.infoPoints=[];array.id=panoId;window.businessviewJson.details.panoramas.push(array);return getPanoArrayPosition(panoId);}
     function getRandomInt(min,max){return Math.floor(Math.random()*(max- min+ 1))+ min;}
     function getSidebarHeight(align){if(!align){if($(businessviewCanvasSelector).hasClass('sidebar-left')){align='left';}}
         var height=$(businessviewCanvasSelector).outerHeight(true);if(align=='left'){height-=50;}else{height-=34;}

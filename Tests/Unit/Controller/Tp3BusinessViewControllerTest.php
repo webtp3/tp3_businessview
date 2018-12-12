@@ -1,10 +1,16 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3businessview.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Tests\Unit\Controller;
 
 /**
  * Test case.
  *
- * @author Thomas Ruta <support@r-p-it.de>
  */
 class Tp3BusinessViewControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
@@ -26,5 +32,4 @@ class Tp3BusinessViewControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         parent::tearDown();
     }
-
 }

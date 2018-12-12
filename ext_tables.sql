@@ -103,3 +103,18 @@ CREATE TABLE `tx_tp3businessview_domain_model_panoramas_mm` (
   KEY `sorting_foreign` (`uid_foreign`),
   KEY `item` (`pid`,`uid_local`)
 );
+
+
+CREATE TABLE `tx_tp3businessview_domain_model_tp3businessview_mm` (
+  `uid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid_local` int(11) NOT NULL,
+  `uid_foreign` int(11) NOT NULL,
+  `sorting` int(11) DEFAULT NULL,
+  `sorting_foreign` int(11) DEFAULT NULL,
+  `tablenames` varchar(100) NOT NULL DEFAULT '',
+  `pid` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`uid`),
+  KEY `sorting` (`uid_local`,`sorting`),
+  KEY `sorting_foreign` (`uid_foreign`),
+  KEY `item` (`pid`,`uid_local`)
+);

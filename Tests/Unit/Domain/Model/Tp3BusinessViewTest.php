@@ -1,10 +1,16 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3businessview.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
  *
- * @author Thomas Ruta <support@r-p-it.de>
  */
 class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
@@ -33,7 +39,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getCreatedBy()
         );
-
     }
 
     /**
@@ -48,7 +53,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'createdBy',
             $this->subject
         );
-
     }
 
     /**
@@ -60,7 +64,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getName()
         );
-
     }
 
     /**
@@ -75,7 +78,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'name',
             $this->subject
         );
-
     }
 
     /**
@@ -87,7 +89,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getExternalLinks()
         );
-
     }
 
     /**
@@ -102,7 +103,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'externalLinks',
             $this->subject
         );
-
     }
 
     /**
@@ -114,7 +114,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getGallery()
         );
-
     }
 
     /**
@@ -129,7 +128,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'gallery',
             $this->subject
         );
-
     }
 
     /**
@@ -141,7 +139,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getIntro()
         );
-
     }
 
     /**
@@ -156,7 +153,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'intro',
             $this->subject
         );
-
     }
 
     /**
@@ -182,7 +178,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getSocialGallery()
         );
-
     }
 
     /**
@@ -197,7 +192,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'socialGallery',
             $this->subject
         );
-
     }
 
     /**
@@ -224,7 +218,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             $newObjectStorage,
             $this->subject->getContact()
         );
-
     }
 
     /**
@@ -242,7 +235,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'contact',
             $this->subject
         );
-
     }
 
     /**
@@ -277,7 +269,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->inject($this->subject, 'contact', $contactObjectStorageMock);
 
         $this->subject->removeContact($contact);
-
     }
 
     /**
@@ -290,7 +281,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             $newObjectStorage,
             $this->subject->getApp()
         );
-
     }
 
     /**
@@ -308,7 +298,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'app',
             $this->subject
         );
-
     }
 
     /**
@@ -343,7 +332,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->inject($this->subject, 'app', $appObjectStorageMock);
 
         $this->subject->removeApp($app);
-
     }
 
     /**
@@ -355,7 +343,6 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             null,
             $this->subject->getPanoramas()
         );
-
     }
 
     /**
@@ -371,6 +358,5 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'panoramas',
             $this->subject
         );
-
     }
 }
