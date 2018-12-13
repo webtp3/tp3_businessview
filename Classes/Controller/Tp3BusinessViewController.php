@@ -43,14 +43,12 @@ namespace Tp3\Tp3Businessview\Controller;
  *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
  *
  ***/
-use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
-use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
+
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
@@ -188,27 +186,23 @@ class Tp3BusinessViewController extends ActionController
      */
     public function indexAction()
     {
-        $publicResourcesPath = ExtensionManagementUtility::extPath('tp3_businessview') . 'Resources/Public/';
+        if ($GLOBALS['BE_USER']->user['usergroup'] > 0 || $GLOBALS['BE_USER']->user['admin']) {
+            if (!isset($this->conf['persistence']['storagePid']) ||$this->conf['persistence']['storagePid']=='') {
+                $storage_id = $this->pageUid;
+            } else {
+                $storage_id = $this->conf['persistence']['storagePid'];
+            }
 
-        $this->pageRenderer->addCssFile(
-            $publicResourcesPath . 'Css/Backend/Tp3Backend.css'
-        );
-        $this->pageRenderer->addJsInlineCode('gapikey', 'window.apikey = "' . $this->settings['googleMapsJavaScriptApiKey'] . '";');
-
-        $panoramas = [];
-        $businessAdresses = [];
-
-        if ($this->panoramasRepository === null) {
-            $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
+            // Weiterleitung
+            $urlParameters = [
+                'id' => $storage_id,
+                'table' => 'tx_tp3businessview_domain_model_tp3businessview',
+                'search_levels' => 1
+            ];
+            $url = \TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl('web_list', $urlParameters);
+            $this->redirectToURI($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/' . $url);
+            exit;
         }
-        if ($this->businessAdressRepository === null) {
-            $this->businessAdressRepository = $this->objectManager->get(BusinessAdressRepository::class);
-        }
-        $panoramas = $this->panoramasRepository->findAll();
-        $businessAdresses = $this->businessAdressRepository->findAll();
-
-        $this->view->assign('panoramas', $panoramas);
-        $this->view->assign('addresses', $businessAdresses);
     }
 
     /**

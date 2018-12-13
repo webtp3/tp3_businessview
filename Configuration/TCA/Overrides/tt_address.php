@@ -65,12 +65,23 @@ $tmp_tp3_businessview_columns = [
     'social',
      ' --linebreak--, googleplus, --linebreak--, cid, --linebreak--, tp3businessview, --linebreak--,'
 );
-/*
 
-$GLOBALS['TCA']['tt_address']['types']['Tx_Tp3Businessview_BusinessAdress']['showitem'] .= ',--div--;LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_businessadress,';
-$GLOBALS['TCA']['tt_address']['types']['Tx_Tp3Businessview_BusinessAdress']['showitem'] .= 'cid';
+//if (isset($GLOBALS['TCA']['tt_address']['types']['0']['showitem'])) {
+//    $GLOBALS['TCA']['tt_address']['types']['Tx_Tp3Businessview_BusinessAdress']['showitem'] = $GLOBALS['TCA']['tt_address']['types']['0']['showitem'];
+//} elseif(is_array($GLOBALS['TCA']['tt_address']['types'])) {
+//    // use first entry in types array
+//    $tt_address_type_definition = reset($GLOBALS['TCA']['tt_address']['types']);
+//    $GLOBALS['TCA']['tt_address']['types']['Tx_Tp3Businessview_BusinessAdress']['showitem'] = $tt_address_type_definition['showitem'];
+//} else {
+//    $GLOBALS['TCA']['tt_address']['types']['Tx_Tp3Businessview_BusinessAdress']['showitem'] = '';
+//}
+//
+//$GLOBALS['TCA']['tt_address']['types']['Tx_Tp3Businessview_BusinessAdress']['showitem'] .= ',--div--;LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_businessadress,';
+//$GLOBALS['TCA']['tt_address']['types']['Tx_Tp3Businessview_BusinessAdress']['showitem'] .= 'cid';
+//
+//$GLOBALS['TCA']['tt_address']['columns'][$GLOBALS['TCA']['tt_address']['ctrl']['type']]['config']['items'][] = ['LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tt_address.tx_extbase_type.Tx_Tp3Businessview_BusinessAdress','Tx_Tp3Businessview_BusinessAdress'];
+//
 
-*/
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
     'tp3_businessview',
     'EXT:tp3_businessview/Resources/Private/Language/locallang_csh_tt_address.xlf'

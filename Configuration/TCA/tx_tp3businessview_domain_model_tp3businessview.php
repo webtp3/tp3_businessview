@@ -9,8 +9,8 @@
 return [
     'ctrl' => [
         'title'	=> 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:tx_tp3businessview_domain_model_tp3businessview',
-        'label' => 'created_by',
-        'label_alt' => 'name',
+        'label' => 'name',
+        'label_alt' => 'created_by',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',

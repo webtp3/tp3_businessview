@@ -300,16 +300,19 @@ class ModuleController extends ActionController
                 foreach ($businessViews as $businessView) {
                     $panolist = [];
                     $panoramas_list = [];
+                    $addresslist =[];
                     foreach ($businessView->getPanoramas() as $panoramas => $pano) {
                         $panolist[]=  $pano->getUid();
                         array_push($panoramas_list, $pano->getPropertiesArray());
                     }
                     if (count($panolist)>0) {
-                        //$panoramas_list;// $this->panoramasRepository->findByList($panolist);
-                       $panoramas_all = $this->panoramasRepository->findAll(); //findByPid($this->pageUid);
+                        $panoramas_all = $this->panoramasRepository->findAll(); //findByPid($this->pageUid);
                         $bw = $businessView->getPropertiesArray();
-                        $bw['contact'] = $this->businessAdressRepository->findByUidArray($businessView->getContact())[0];
-                        $businessAdresses[] = $this->businessAdressRepository->findByPid($this->pageUid);
+                        foreach ($businessView->getContact() as $addresses => $address) {
+                            $addresslist[]=  $address->_getCleanProperties();
+                        }
+                        $bw['contact'] = $addresslist[0];
+                        $businessAdresses[] = $this->businessAdressRepository->findAll();
                         if ($this->openHourRepository !== null) {
                             $openhours = $this->openHourRepository->findByAddress($businessView->getContact());
                             $formattedText = '';
