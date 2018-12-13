@@ -105,12 +105,11 @@ class Tp3PageRenderer implements SingletonInterface
                     $panorama = $this->panoramasRepository->findByUid($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
                     $bw = $businessView->getPropertiesArray();
                     foreach ($businessView->getContact() as $addresses => $address){
-                        $addresslist[]=  $address->getUid();
+                        $addresslist[]=  $address->_getCleanProperties();
 
                     }
-                    $businessAdresses = $this->businessAdressRepository->findByUidArray($addresslist);
                     if ($this->openHourRepository !== null ){
-                        $openhours = $this->openHourRepository->findByAddress($businessView->getContact());
+                        $openhours = $this->openHourRepository->findByAddress($addresslist[0]['uid']);
                         $formattedText = "";
                         $hoursArray = [];
                         foreach ($openhours as $oh){
@@ -131,7 +130,7 @@ class Tp3PageRenderer implements SingletonInterface
 
                         */
                     }
-                    $bw['contact'] = $businessAdresses[0];
+                    $bw['contact'] = $addresslist[0];
                     //$bw['panorama'] = $panoramas_list[0];
                     $bw['panoramas'] = [$panoramas_list];
                     $bw['panorama'] = $panorama[0];

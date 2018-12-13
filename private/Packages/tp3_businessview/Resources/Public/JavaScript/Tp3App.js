@@ -446,7 +446,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                     linksTable.removeChild(linksTable.lastChild);
                 }
                 if(window.businessviewJson && window.businessviewJson.hasDetails) {
-                    var linkst = window.businessviewJson.details.panoramas;
+                    var linkst =$.merge([],  window.businessviewJson.details.panoramas , panorama.getLinks());
                     for (var i in linkst) {
                         var row = document.createElement('tr');
                         linksTable.appendChild(row);
