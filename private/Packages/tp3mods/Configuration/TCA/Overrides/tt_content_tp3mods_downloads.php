@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 defined('TYPO3_MODE') || die();
 return;
 /***************
@@ -72,7 +79,6 @@ $GLOBALS['TCA']['tt_content']['types']['tp3mods_downloads'] = array_replace_recu
     ]
 );
 
-
 /***************
  * Register fields
  */
@@ -109,4 +115,3 @@ $GLOBALS['TCA']['tt_content']['columns'] = array_replace_recursive(
 
     ]
 );
-

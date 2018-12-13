@@ -1,8 +1,15 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
-    function() {
+    function () {
         /***************
          * Make the extension configuration accessible
          */
@@ -49,11 +56,10 @@ call_user_func(
             }
         }
 
-       // \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('tp3mods', 'Configuration/TypoScript', 'tp3 Mods');
+        // \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('tp3mods', 'Configuration/TypoScript', 'tp3 Mods');
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_tp3mods_domain_model_tp3mods', 'EXT:tp3mods/Resources/Private/Language/locallang_csh_tx_tp3mods_domain_model_tp3mods.xlf');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_tp3mods_domain_model_tp3mods');
-
     }
 );
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
+//# EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

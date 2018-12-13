@@ -1,8 +1,7 @@
 <?php
 
 /*
- * This file is part of the package bk2k/bootstrap-package.
- *
+ * This file is part of the web-tp3/tp3mods.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */

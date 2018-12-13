@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3mods\Domain\Repository;
 
 /***
@@ -18,11 +25,12 @@ namespace Tp3\Tp3mods\Domain\Repository;
 class Tp3AdressRepository extends \TYPO3\TtAddress\Domain\Repository\AddressRepository
 {
     // Order by BE sorting
-    protected $defaultOrderings = array(
+    protected $defaultOrderings = [
         'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
-    );
+    ];
 
-    public function initializeObject() {
+    public function initializeObject()
+    {
         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
@@ -35,10 +43,11 @@ class Tp3AdressRepository extends \TYPO3\TtAddress\Domain\Repository\AddressRepo
     /**
      *
      *
-     * @param integer $uid
+     * @param int $uid
      * @return \Tp3\Tp3mods\Domain\Model\Tp3Adress
      */
-    public function findByUid($uid) {
+    public function findByUid($uid)
+    {
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         $querySettings->setRespectStoragePage(false);
 
@@ -53,5 +62,4 @@ class Tp3AdressRepository extends \TYPO3\TtAddress\Domain\Repository\AddressRepo
         );
         return $query->execute()->getFirst();
     }
-
 }

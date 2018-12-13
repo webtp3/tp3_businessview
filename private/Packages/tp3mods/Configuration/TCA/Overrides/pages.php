@@ -1,20 +1,27 @@
 <?php
 
-$extensionKey = "tp3mods";
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
+$extensionKey = 'tp3mods';
 
 // RTE Config (Old style)
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerPageTSConfigFile(
     'tp3mods',
     'Configuration/PageTS/setup.txt',
-    'EXT:tp3mods :: mods for tp3 special Pages old RTE etc.');
-
+    'EXT:tp3mods :: mods for tp3 special Pages old RTE etc.'
+);
 
 // Layouts as Newsletter ...
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerPageTSConfigFile(
     'tp3mods',
     'Configuration/PageTS/Mod/WebLayout/BackendLayouts.txt',
-    'EXT:tp3mods :: Backendlayouts for tp3');
+    'EXT:tp3mods :: Backendlayouts for tp3'
+);
 
 // TCEFORM
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerPageTSConfigFile(
@@ -53,7 +60,7 @@ $extensionKey = "tp3mods";
                 'foreign_table' => 'tx_tp3mods_domain_model_tp3mods',
                 'minitems' => 0,
                 'items' => [
-                    [ '',  ],
+                    [ ''],
                 ],
 
             ]
@@ -61,8 +68,6 @@ $extensionKey = "tp3mods";
 
     ]
 );
-
-
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
     'pages',

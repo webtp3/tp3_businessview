@@ -1,6 +1,12 @@
 <?php
-defined('TYPO3_MODE') || die();
 
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
+defined('TYPO3_MODE') || die();
 
 //if (!isset($GLOBALS['TCA']['tt_address']['ctrl']['type'])) {
 //    // no type field defined, so we define it here. This will only happen the first time the extension is installed!!
@@ -46,7 +52,7 @@ $tmp_tp3mods_columns = [
             ],
             'default' => 0,
         ]
-        
+
     ],
 //    'tx_extbase_type' => [
 //        'config' => [
@@ -67,7 +73,7 @@ $tmp_tp3mods_columns = [
 
 ];
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_address',$tmp_tp3mods_columns);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_address', $tmp_tp3mods_columns);
 
 /* inherit and extend the show items from the parent class */
 

@@ -1,10 +1,16 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3mods\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
  *
- * @author Thomas Ruta <email@thomasruta.de>
  */
 class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
@@ -33,7 +39,6 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getMicrodata()
         );
-
     }
 
     /**
@@ -48,7 +53,6 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'microdata',
             $this->subject
         );
-
     }
 
     /**
@@ -60,7 +64,6 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getKonfiguration()
         );
-
     }
 
     /**
@@ -75,7 +78,6 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'konfiguration',
             $this->subject
         );
-
     }
 
     /**
@@ -162,7 +164,6 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             null,
             $this->subject->getAddress()
         );
-
     }
 
     /**
@@ -178,7 +179,6 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'address',
             $this->subject
         );
-
     }
 
     /**
@@ -213,6 +213,5 @@ class Tp3ModsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->inject($this->subject, 'address', $addressObjectStorageMock);
 
         $this->subject->removeAddres($addres);
-
     }
 }

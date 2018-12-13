@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 defined('TYPO3_MODE') || die();
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(

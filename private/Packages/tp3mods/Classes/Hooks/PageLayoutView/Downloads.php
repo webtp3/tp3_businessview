@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3mods\Hooks\PageLayoutView;
 
 /*
@@ -14,8 +21,8 @@ namespace Tp3\Tp3mods\Hooks\PageLayoutView;
  * The TYPO3 project - inspiring people to share!
  */
 
-use \TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface;
-use \TYPO3\CMS\Backend\View\PageLayoutView;
+use TYPO3\CMS\Backend\View\PageLayoutView;
+use TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface;
 
 /**
  * Contains a preview rendering for the page module of CType="tp3mods_downloads"
@@ -40,8 +47,7 @@ class Downloads implements PageLayoutViewDrawItemHookInterface
         &$headerContent,
         &$itemContent,
         array &$row
-    )
-    {
+    ) {
         if ($row['CType'] === 'tp3mods_downloads') {
             $itemContent .= '<p>We can change our preview here!</p>';
 

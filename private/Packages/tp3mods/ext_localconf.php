@@ -1,8 +1,14 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 defined('TYPO3_MODE') || die('Access denied.');
 
-
-$_EXTKEY = "tp3mods";
+$_EXTKEY = 'tp3mods';
 /***************
  * Make the extension configuration accessible
  */
@@ -29,7 +35,6 @@ if (!$tp3modsConfig['disableConfigRTE'] == 0 || $tp3modsConfig['disableConfigRTE
     $GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets']['bootstrap'] = 'EXT:tp3mods/Configuration/RTE/Default.yaml';
 }
 
-
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'Tp3.Tp3mods',
     'Tp3micro',
@@ -43,7 +48,6 @@ if (!$tp3modsConfig['disableConfigRTE'] == 0 || $tp3modsConfig['disableConfigRTE
         'Tp3Adress' => ''
     ]
 );
-
 
 // wizards
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
@@ -94,8 +98,6 @@ if (!$tp3modsConfig['cookieconsent'] == 0) {
      */
 //$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3mods\Frontend\PageRenderer\Tp3PageRenderer::class . '->render';
 
-
-
 if (TYPO3_MODE == 'BE') {
     /***************
      * Add default RTE configuration for tp3mods
@@ -107,8 +109,6 @@ if (TYPO3_MODE == 'BE') {
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $_EXTKEY . '/Configuration/PageTS/TCEFORM.txt">');
         // \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/PageTS/setup.txt">');
     }
-
-
 
     /***************
      * Register Icons
@@ -125,16 +125,11 @@ if (TYPO3_MODE == 'BE') {
         ['source' => 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/user_plugin_tp3micro.svg']
     );
 
-
-
-
     /***************
      * Backend Styling for CMS8
      * Please see \BK2K\BootstrapPackage\Service\BrandingService for CMS9
      */
     if (TYPO3_MODE == 'BE' && !class_exists('TYPO3\CMS\Core\Configuration\ExtensionConfiguration')) {
-
-
         if (!$tp3modsConfig['disablePageTsBackendLogo'] == 0 || $tp3modsConfig['disablePageTsBackendLogo'] == false) {
             /**
              * Configure Backend Extension
@@ -167,6 +162,4 @@ if (TYPO3_MODE == 'BE') {
             }
         }
     }
-
 }
-

@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods',
@@ -118,7 +125,7 @@ return [
                 ],
                 'default' => 0,
             ]
-            
+
         ],
         'address' => [
             'exclude' => true,

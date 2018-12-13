@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3mods\Hooks;
 
 /*
@@ -18,8 +25,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
 *  Copyright notice
@@ -48,33 +53,32 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Hook for integrating Google Analytics into the website
  *
- * @author Andreas Becker - websedit AG <extensions@websedit.de>
  */
-class GoogleAnalyticsFehook extends \Tp3\Tp3mods\Hooks\GoogleAnalytics implements SingletonInterface {
-	/**
-	 * Modification for pages that doesn't get cached (COA_/USER_INT)
+class GoogleAnalyticsFehook extends \Tp3\Tp3mods\Hooks\GoogleAnalytics implements SingletonInterface
+{
+    /**
+     * Modification for pages that doesn't get cached (COA_/USER_INT)
      * @param array $params
      * @param PageRenderer $pageRenderer
      * @return string
-	 */
-	function intPages (array &$params, &$pageRenderer) {
-
+     */
+    public function intPages(array &$params, &$pageRenderer)
+    {
         $config = isset($GLOBALS['TSFE']->tmpl->setup) ? $GLOBALS['TSFE']->tmpl->setup : [];
         if (is_array($config)
             //&& $GLOBALS['TSFE']->cObj instanceof ContentObjectRenderer
         ) {
-
-            if (!$config["plugin."]["tx_tp3mods_tp3micro."]["settings."]['account']) {
+            if (!$config['plugin.']['tx_tp3mods_tp3micro.']['settings.']['account']) {
                 return;
             }
             /*
              * $_COOKIE["cookieconsent_dismissed"]
              */
-            $this->conf = $config["plugin."]["tx_tp3mods_tp3micro."]["settings."];
+            $this->conf = $config['plugin.']['tx_tp3mods_tp3micro.']['settings.'];
             $params = $this->process($params);
-           // $params =   $this->main($params, $config["lib."]["tp3mods."]);
+            // $params =   $this->main($params, $config["lib."]["tp3mods."]);
         }
-	}
+    }
     /**
      * Ajax handler to cookie consent.
      *
@@ -82,39 +86,41 @@ class GoogleAnalyticsFehook extends \Tp3\Tp3mods\Hooks\GoogleAnalytics implement
      * @param ResponseInterface $response
      * @return ResponseInterface
      */
-    function setTracking(ServerRequestInterface $request, ResponseInterface $response) {
-
+    public function setTracking(ServerRequestInterface $request, ResponseInterface $response)
+    {
         $config = isset($GLOBALS['TSFE']->tmpl->setup) ? $GLOBALS['TSFE']->tmpl->setup : [];
         if (is_array($config)
         ) {    // $tx_wegoogleanalytics = new tx_wegoogleanalytics();
             //$tx_wegoogleanalytics = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Tp3\Tp3mods\Hooks\);
             $tracking = $request->getQueryParams();
-           if(!$GLOBALS['TSFE'] instanceof \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController)$this->getTypoScriptFrontendController();
-            $GLOBALS ['TSFE']->fe_user->setKey ('ses', 'tracking', intval($tracking["choise"]));
-            $GLOBALS ['TSFE']->storeSessionData ();
-            $user = \GuzzleHttp\json_encode($GLOBALS["TSFE"]->fe_user->user);
+            if (!$GLOBALS['TSFE'] instanceof \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController) {
+                $this->getTypoScriptFrontendController();
+            }
+            $GLOBALS ['TSFE']->fe_user->setKey('ses', 'tracking', intval($tracking['choise']));
+            $GLOBALS ['TSFE']->storeSessionData();
+            $user = \GuzzleHttp\json_encode($GLOBALS['TSFE']->fe_user->user);
             $response->getBody()->write($user);
             return $response;
         }
     }
-	/**
-	 * Modification for pages on their way into the cache
-	 * @param array &$params
-	 * @param object &$that
-	 * @return void
-	 */
-	function noIntPages (&$params, &$that) {
+    /**
+     * Modification for pages on their way into the cache
+     * @param array &$params
+     * @param object &$that
+     * @return void
+     */
+    public function noIntPages(&$params, &$that)
+    {
         $config = isset($GLOBALS['TSFE']->tmpl->setup) ? $GLOBALS['TSFE']->tmpl->setup : [];
         if (is_array($config)
          //   && $GLOBALS['TSFE']->cObj instanceof ContentObjectRenderer
         ) {
-            if (!$config["lib."]["tx_tp3mods_tp3micro."]["settings."]['account']) {
+            if (!$config['lib.']['tx_tp3mods_tp3micro.']['settings.']['account']) {
                 return;
             }
             $params = $this->process($params);
-
         }
-	}
+    }
 
     /**
      * Initialize the typoscript frontend controller
@@ -135,14 +141,13 @@ class GoogleAnalyticsFehook extends \Tp3\Tp3mods\Hooks\GoogleAnalytics implement
         $GLOBALS['TSFE'] = $frontend;
         $frontend->connectToDB();
         $frontend->initFEuser();
-       // $frontend->determineId();
+        // $frontend->determineId();
       //  $frontend->initTemplate();
       //  $frontend->getConfigArray();
     }
 }
 /*
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/we_google_analytics/class.tx_wegoogleanalytics_fehook.php']) {
-	require_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/we_google_analytics/class.tx_wegoogleanalytics_fehook.php']);
+    require_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/we_google_analytics/class.tx_wegoogleanalytics_fehook.php']);
 }
 */
-?>
