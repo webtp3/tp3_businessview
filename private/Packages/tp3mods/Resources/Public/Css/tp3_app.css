@@ -195,6 +195,12 @@ Carousel CSS Adds
     transform:rotateX(0deg) translate3d(0em, -5em, -5em);
     transition: transform 2s;
 }
+.align-right {
+    float: right;
+}
+.align-left {
+    float: left;
+}
 /*
 tt_address
 */
@@ -421,7 +427,7 @@ tt_address
         width: 100%;
     }
     .section_image{
-        background-size: contain;
+        background-size: cover;
     }
 }
 

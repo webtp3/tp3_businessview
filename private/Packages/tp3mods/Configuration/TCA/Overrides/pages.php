@@ -6,7 +6,7 @@ $extensionKey = "tp3mods";
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerPageTSConfigFile(
     'tp3mods',
     'Configuration/PageTS/setup.txt',
-    'EXT:tp3mods :: mods for tp3 special Pages');
+    'EXT:tp3mods :: mods for tp3 special Pages old RTE etc.');
 
 
 // Layouts as Newsletter ...
@@ -45,7 +45,8 @@ $extensionKey = "tp3mods";
             'label' => 'tp3 microdata',
             'exclude' => true,
             'config' => [
-                'type' => 'selectSingle',
+                'type' => 'select',
+                'renderType' => 'inline',
                 'MM' => 'tx_tp3mods_domain_model_mm',
                 'MM_hasUidField' => true,
                 'MM_opposite_field' => 'pages',
@@ -65,12 +66,7 @@ $extensionKey = "tp3mods";
     ]
 );
 
-// TCEFORM
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerPageTSConfigFile(
-    'tp3mods',
-    'Configuration/PageTS/TCEFORM.txt',
-    'tp3: TCEFORM'
-);
+
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
     'pages',

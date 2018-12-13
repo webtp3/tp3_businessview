@@ -29,7 +29,6 @@ if (!$tp3modsConfig['disableConfigRTE'] == 0 || $tp3modsConfig['disableConfigRTE
     $GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets']['bootstrap'] = 'EXT:tp3mods/Configuration/RTE/Default.yaml';
 }
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $_EXTKEY . '/Configuration/PageTS/TCEFORM.txt">');
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'Tp3.Tp3mods',
@@ -105,6 +104,7 @@ if (TYPO3_MODE == 'BE') {
         $GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets']['bootstrap'] = 'EXT:tp3mods/Configuration/RTE/Default.yaml';
     }
     if (!$tp3modsConfig['disablePageTs'] == 0 || $tp3modsConfig['disablePageTs'] == false) {
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $_EXTKEY . '/Configuration/PageTS/TCEFORM.txt">');
         // \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/PageTS/setup.txt">');
     }
 

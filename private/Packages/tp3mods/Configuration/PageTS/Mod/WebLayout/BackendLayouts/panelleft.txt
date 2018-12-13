@@ -6,6 +6,7 @@ mod {
         BackendLayouts {
             panelleft {
                 title = PanelLeft
+                icon = EXT:bootstrap_package/Resources/Public/Images/BackendLayouts/default.gif
                 config {
                        backend_layout {
                                colCount = 2
@@ -27,8 +28,7 @@ mod {
                                      }
                                }
                        }
-
-                icon = EXT:bootstrap_package/Resources/Public/Images/BackendLayouts/default.gif
+                }
             }
         }
     }

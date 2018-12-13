@@ -25,7 +25,7 @@ CREATE TABLE tx_tp3mods_domain_model_tp3mods (
 );
 
 #
-# Table structure for table 'tx_tp3mods_domain_model_tp3mods'
+# Table structure for table 'tx_tp3mods_domain_model_mm'
 #
 CREATE TABLE tx_tp3mods_domain_model_mm (
   uid int(11) NOT NULL auto_increment,

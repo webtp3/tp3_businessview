@@ -53,7 +53,7 @@ TCEFORM {
         imageorient {
             addItems {
                 29 = TextpicInLeft
-                TextpicInRight =  TextpicInRight
+                30 =  TextpicInRight
             }
             types {
 

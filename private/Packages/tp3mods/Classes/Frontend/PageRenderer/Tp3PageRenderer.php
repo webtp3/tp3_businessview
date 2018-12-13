@@ -21,6 +21,13 @@ class Tp3PageRenderer implements SingletonInterface
     protected $tp3AdressRepository = null;
 
     /**
+     * tp3AdressRepository
+     *
+     * @var \Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository
+     * @inject
+     */
+    protected $openHourRepository = null;
+    /**
      * tp3ModsRepository
      *
      * @var \Tp3\Tp3mods\Domain\Repository\Tp3ModsRepository
@@ -56,15 +63,41 @@ class Tp3PageRenderer implements SingletonInterface
                     if ($this->tp3AdressRepository === null) {
                         $this->tp3AdressRepository = $this->objectManager->get(Tp3AdressRepository::class);
                     }
+                    if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded ('tp3_openhours')) {
+                        if ($this->openHourRepository === null ) {
+                            $this->openHourRepository = $this->objectManager->get(\Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository::class);
+
+                        }
+                    }
                 }
 
             }
             $tp3micro = $this->tp3ModsRepository->findByUid($GLOBALS['TSFE']->page['tp3microdata']);
             if( is_array($tp3micro) &&  $tp3micro[0]["address"] > 0)$tp3micro[0]["address_object"] = $this->tp3AdressRepository->findByUid($tp3micro[0]["address"]);
-            // $microdata = $tp3micro->getFirst();
-//            var_dump($tp3micro);
-//            var_dump($microdata);
 
+          # todo openhours Rich Snippets
+            if ($this->openHourRepository !== null ){
+                $openhours = $this->openHourRepository->findByAddress($tp3micro[0]["address"]);
+                $formattedText = "";
+                $hoursArray = [];
+                foreach ($openhours as $oh){
+                    //$dateconv = \date("H:i",$oh->getOpenTime());
+                    $formattedText .= $oh->getDayName() . " " .\date("H:i", $oh->getOpenTime())  . "-" . \date("H:i", $oh->getCloseTime()) ."<br>";
+                    $hoursArray[] = [\date("H:i", $oh->getOpenTime()),\date("H:i", $oh->getCloseTime())];
+                }
+                if($formattedText != ""){
+                    $bw['openingHours'] = [
+                        "formattedText" => $formattedText,
+                        "status"=>true,
+                        "hours"=>$hoursArray,
+                    ];
+                }
+                /*
+                *
+                "openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
+
+                */
+            }
             try{
 
               if(is_array($tp3micro[0]["address_object"]))  $parameters["jsInline"] .='<script> '.$this->JsonRenderer($tp3micro[0],$GLOBALS["TSFE"]->tmpl->setup["plugin."]['tx_tp3mods_tp3micro.']["settings."]).'</script>';
