@@ -48,7 +48,6 @@ CREATE TABLE tt_address (
   microdata_adress text,
   tx_cal_controller_latitude tinytext DEFAULT  '0'  NOT NULL,
 	tx_cal_controller_longitude tinytext DEFAULT  '0' NOT NULL,
-  tx_extbase_type varchar(255) DEFAULT 0 NOT NULL,
 );
 #
 # Table structure for table 'pages'

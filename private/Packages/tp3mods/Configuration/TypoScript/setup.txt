@@ -845,13 +845,9 @@ iframe {
 
 [end]
 
-[userFunc = TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('bootstrap_grids')]
-    <INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/Grids/setup.typoscript">
-
-[global]
-
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/RichSnippets/setup.txt">
 
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/Helper/ContentElement.txt">
 
 #############################################################
 #### CONTENT ELEMENT RENDERING                           ####
@@ -887,3 +883,8 @@ iframe {
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/ContentElement/Textpic.txt">
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/ContentElement/Textmedia.txt">
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/ContentElement/Uploads.txt">
+
+[userFunc = TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('bootstrap_grids')]
+    <INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/Grids/setup.typoscript">
+
+[global]

@@ -45,21 +45,17 @@ $extensionKey = "tp3mods";
             'label' => 'tp3 microdata',
             'exclude' => true,
             'config' => [
-                'type' => 'select',
-                'renderType' => 'inline',
+                'type' => 'inline',
                 'MM' => 'tx_tp3mods_domain_model_mm',
                 'MM_hasUidField' => true,
                 'MM_opposite_field' => 'pages',
-                'maxitems' => 100,
+                'maxitems' => 1,
                 'foreign_table' => 'tx_tp3mods_domain_model_tp3mods',
                 'minitems' => 0,
                 'items' => [
                     [ '',  ],
                 ],
-                'appearance' => [
-                    'collapseAll' => 0,
-                    'levelLinksPosition' => 'top',
-                ],
+
             ]
         ],
 
