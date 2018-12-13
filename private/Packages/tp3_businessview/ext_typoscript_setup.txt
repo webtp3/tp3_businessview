@@ -6,21 +6,26 @@ config.tx_extbase{
           tableName = tx_tp3businessview_domain_model_panoramas
           recordType = Tx_Tp3Businessview_Panoramas
           columns {
-            tp3businessviews.mapOnProperty = tp3businessviews
+            tp3businessviews.mapOnProperty = uid_local
             sorting.mapOnProperty = sorting
 
           }
         }
 
       }
+      TYPO3\TtAddress\Domain\Model\Address{
+        subclasses {
+          0 = Tp3\Tp3Businessview\Domain\Model\BusinessAdress
+        }
+      }
       Tp3\Tp3Businessview\Domain\Model\BusinessAdress {
         mapping {
           tableName = tt_address
-          recordType = Tx_Tp3Businessview_BusinessAdress
+          recordType = 0
           columns {
             cid.mapOnProperty = cid
             sorting.mapOnProperty = sorting
-            tp3businessview.mapOnProperty = tp3businessview
+            tp3businessview.mapOnProperty = uid_foreign
             googleplus.mapOnProperty = googleplus
           }
         }
@@ -31,15 +36,15 @@ config.tx_extbase{
           tableName = tx_tp3businessview_domain_model_tp3businessview
           recordType = Tx_Tp3Businessview_Tp3Businessview
           columns {
-            panoramas.mapOnProperty = panoramas
-            contact.mapOnProperty = contact
+            panoramas.mapOnProperty = uid_foreign
+            contact.mapOnProperty = uid_local
             sorting.mapOnProperty = sorting
             description.mapOnProperty = description
 
           }
         }
         subclasses {
-          Tx_Tp3Businessview_BusinessAdress = Tp3\Tp3Businessview\Domain\Model\BusinessAdress
+          0 = Tp3\Tp3Businessview\Domain\Model\BusinessAdress
           Tx_Tp3Businessview_Panoramas = Tp3\Tp3Businessview\Domain\Model\Panoramas
 
         }
