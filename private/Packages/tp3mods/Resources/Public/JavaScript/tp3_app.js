@@ -153,7 +153,7 @@ var init = false;
 
 var show, go, scoll_pos;
 var scroll_pos = scroll_pos || $j(document).scrollTop(),
-    headerheight =   headerheight ||  $j('header.navbar-top').height() +30,
+    headerheight =   headerheight ||  $j('header.navbar-top').height() ,
     headerwidth =   headerwidth ||  $j('header').width(),
     logoheight =   logoheight || headerheight * 0.9,
     logowidth  = logowidth ||   $j('#logo').width()< 1 ? $j('.navbar-brand-image').width() : $j('#logo').width() ,
@@ -177,7 +177,7 @@ else
     else{
         $j('header.navbar-top').removeClass("toppos");
     }
-    if(mobile != true || headerwidth > 600) {
+    if(mobile != true || headerwidth > 769) {
         var scrollPos = $j(document).scrollTop();
         if(scroll_pos  == (headerPos) || (scrollPos == headerPos)) {
             console.log("top")
@@ -188,11 +188,11 @@ else
             once = true;
             //$j('header.navbar-top .breadcrumb-section').hide();
             show = setTimeout(function() {
-                $j('header.navbar-top').width("100%").css({position:"relative",top:"0px","z-index":"99"});
+                $j('header.navbar-top').width("100%").css({position:"fixed",top:"0px","z-index":"99"});
                 $j('.toolbar .frame').css({padding:"16px 0"});
                 $j(this).toggleClass('anim');
                 $j('header.navbar-top').removeClass("flat");
-               // $j('.body-bg').css({"padding-top":headerheight + "px"});
+                $j('.body-bg').css({"padding-top":headerheight + "px"});
                 $j(' a.navbar-brand-image, #logo').width("auto").height(headerheight *0.8 );
              //   $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight)  +"px"});
                 //$j('.headerslogan').css({"padding-left":"140px"});
@@ -255,7 +255,7 @@ else
 
         scroll_pos = $j(document).scrollTop();
     }
-    else if ( $j(window).width() < 992 ){
+    else if ( $j(window).width() < 769 ){
        // headerheight = 100 ;
         $j('.toolbar').insertAfter('header .navbar-header-main');//.navbar-collapse.collapse
         $j('a.navbar-brand-image, #logo, .logo').width("auto").height(logoheight * 0.7);
@@ -710,15 +710,15 @@ tp3_app.parallax = function(){
             // HTML5 proves useful for helping with creating JS functions!
             // also, negative value because we're scrolling upwards
             var speed = $scroll.data('speed') != undefined ? $scroll.data('speed') : Math.floor((Math.random() * 10) + 1) ;
-            var yPos = speed < 0 ? -(($window.scrollTop() -  $scroll.offset().top) / speed *2) : -(($window.scrollTop() -  $scroll.offset().top) / speed);// ($window.scrollTop() * 2);//
+            var yPos = speed < 0 ? 50 -(($window.scrollTop() -  $scroll.offset().top) * speed / 100 ) : 50 +(($window.scrollTop() -  $scroll.offset().top) * speed / 100);// ($window.scrollTop() * 2);//
 
             // background position
-            var coords = '50% '+ yPos + 'px';
+            var coords = '50% '+ yPos + '%';
 
             // move the background
             $scroll.css({
                 backgroundPosition: coords,
-                top: yPos+"px",
+                //top: yPos+"px",
 
             })
 

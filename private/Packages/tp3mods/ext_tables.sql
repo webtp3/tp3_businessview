@@ -8,7 +8,7 @@ CREATE TABLE tx_tp3mods_domain_model_tp3mods (
 	konfiguration text,
 	snippet_type text,
 	main_entry text,
-	aggregate_rating smallint(5) unsigned DEFAULT '0' NOT NULL,
+	aggregate_rating varchar(255) unsigned DEFAULT '0' NOT NULL,
 	address int(11) unsigned DEFAULT '0',
 	sorting int(11) DEFAULT '0' NOT NULL,
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,

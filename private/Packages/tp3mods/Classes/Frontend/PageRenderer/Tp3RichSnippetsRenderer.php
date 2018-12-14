@@ -16,7 +16,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
-class Tp3PageRenderer implements SingletonInterface
+class Tp3RichSnippetsRenderer implements SingletonInterface
 {
     /**
      * tp3AdressRepository
@@ -67,11 +67,19 @@ class Tp3PageRenderer implements SingletonInterface
             }
 
             if ($this->tp3ModsRepository === null) {
+                $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+                //  $querySettings->setStoragePageIds();
+                $querySettings->setRespectStoragePage(false);
+
                 $this->tp3ModsRepository = $this->objectManager->get(Tp3ModsRepository::class);
+                $this->tp3ModsRepository->setDefaultQuerySettings($querySettings);
+
                 if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_address')) {
                     if ($this->tp3AdressRepository === null) {
                         $this->tp3AdressRepository = $this->objectManager->get(Tp3AdressRepository::class);
                     }
+                    $this->tp3AdressRepository->setDefaultQuerySettings($querySettings);
+
                     if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tp3_openhours')) {
                         if ($this->openHourRepository === null) {
                             $this->openHourRepository = $this->objectManager->get(\Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository::class);
@@ -79,6 +87,7 @@ class Tp3PageRenderer implements SingletonInterface
                     }
                 }
             }
+
             $tp3micro = $this->tp3ModsRepository->findByUid($GLOBALS['TSFE']->page['tp3microdata']);
             if (is_array($tp3micro) &&  $tp3micro[0]['address'] > 0) {
                 $tp3micro[0]['address_object'] = $this->tp3AdressRepository->findByUid($tp3micro[0]['address']);

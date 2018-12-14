@@ -106,7 +106,6 @@ div.main-section .frame{
     font-size: 10px;
     padding: 0px 20px 20px ;
     margin: 0;
-    height:30px;
     float: right;
     text-align: right;
     display: inline-flex;
@@ -115,6 +114,10 @@ div.main-section .frame{
 .toolbar .texticon-content {
     overflow: visible;
     display: inline-flex;
+    font-size: 20px;
+}
+.flat .toolbar  .texticon-content {
+    font-size: 15px;
 }
 .toolbar .texticon.texticon-left {
     padding-left: 20px;

@@ -9,7 +9,8 @@
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods',
-        'label' => 'microdata',
+        'label' => 'snippet_type',
+        'label_alt' => 'microdata',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -19,14 +20,14 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'microdata,konfiguration,snippet_type,main_entry,aggregate_rating,address',
+        'searchFields' => 'microdata,konfiguration,snippet_type,main_entry,address',
         'iconfile' => 'EXT:tp3mods/Resources/Public/Icons/tx_tp3mods_domain_model_tp3mods.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden, microdata, konfiguration, snippet_type, main_entry, aggregate_rating, address',
+        'showRecordFieldList' => 'hidden, snippet_type, microdata, konfiguration, main_entry,  address',
     ],
     'types' => [
-        '1' => ['showitem' => 'hidden, microdata, konfiguration, snippet_type, main_entry, aggregate_rating, address, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'hidden, snippet_type, microdata, konfiguration,  main_entry,  address, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'hidden' => [
@@ -77,10 +78,18 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.microdata',
             'config' => [
-                'type' => 'input',
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
+                'type' => 'select',
+                'renderType' => 'selectCheckBox',
+                'items' => [
+                    ['WebSite', 'WebSite', '', 'required'],
+                    ['SearchAction', 'SearchAction', '', 'indexsearch needed'],
+                    ['AggregateRating', 'AggregateRating', '', 'tp3rating needed'],
+                    ['BreadcrumbList', 'BreadcrumbList', '', 'bootstrap_package needed'],
+                    ['SiteNavigation', 'SiteNavigation', '', 'element configuration'],
+                    ['LocalBusiness', 'LocalBusiness', '', 'tt_address needed'],
+                    ['openingHours', 'openingHours', '', 'tp3_openhours needed'],
+
+                ],
             ]
         ],
         'konfiguration' => [
@@ -97,10 +106,26 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.snippet_type',
             'config' => [
-                'type' => 'input',
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['WebPage', 'WebPage'],
+                    ['AboutPage', 'AboutPage'],
+                    ['CheckoutPage', 'CheckoutPage'],
+                    ['CollectionPage', 'CollectionPage'],
+                    ['ImageGallery', 'ImageGallery'],
+                    ['VideoGallery', 'VideoGallery'],
+                    ['ContactPage', 'ContactPage'],
+                    ['FAQPage', 'FAQPage'],
+                    ['MedicalWebPage', 'MedicalWebPage'],
+                    ['ProfilePage', 'ProfilePage'],
+                    ['QAPage', 'QAPage'],
+                    ['SearchResultsPage', 'SearchResultsPage'],
+
+                ],
+                'size' => 3,
+                'maxitems' => 1,
+
             ]
         ],
         'main_entry' => [
@@ -112,6 +137,17 @@ return [
                 'rows' => 15,
                 'eval' => 'trim'
             ]
+        ],
+        'address' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.address',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tt_address',
+                'minitems' => 0,
+                'maxitems' => 1,
+            ],
         ],
         'aggregate_rating' => [
             'exclude' => true,
@@ -126,17 +162,6 @@ return [
                 'default' => 0,
             ]
 
-        ],
-        'address' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.address',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'foreign_table' => 'tt_address',
-                'minitems' => 0,
-                'maxitems' => 1,
-            ],
         ],
         'pages' => [
             'exclude' => true,

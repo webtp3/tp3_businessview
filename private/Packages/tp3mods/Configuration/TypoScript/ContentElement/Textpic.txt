@@ -26,7 +26,7 @@ tt_content.textpic {
         30 = TEXT
         30.value = TextpicInRight
         default = TEXT
-        default.value = TextpicInRight
+        default.value = TextpicAbove
     }
 
     ##########################
