@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-03-27T02:07:22Z" product-name="tp3_businessview">
+		<header/>
+		<body>
+			<trans-unit id="tx_tp3_businessview_domain_model_tp3businessview">
+				<source>BusinessView</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3_businessview_domain_model_tp3businessview.description">
+				<source>google businessview für tp3</source>
+			</trans-unit>
+			<trans-unit id="mlang_tabs_tab">
+				<source>BusinessView Designer</source>
+			</trans-unit>
+			<trans-unit id="mlang_labels_tabdescr">
+				<source>tp3 Businessview Designer for google streetview</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
