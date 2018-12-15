@@ -93,13 +93,25 @@ return [
             ]
         ],
         'konfiguration' => [
+            /* https://schema.org/LocalBusiness
+             * konfiguration for addresstype
+
+             */
             'exclude' => true,
             'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.konfiguration',
             'config' => [
-                'type' => 'input',
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['LocalBusiness', 'LocalBusiness'],
+                    ['Person', 'Person'],
+                    ['Restaurant', 'Restaurant'],
+                    ['RealEstateAgent', 'RealEstateAgent'],
+                    ['TravelAgency', 'TravelAgency'],
+                    ['Store', 'Store'],
+                    ['Dentist', 'Dentist'],
+
+                ],
             ]
         ],
         'snippet_type' => [
