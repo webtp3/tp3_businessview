@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3businessview.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Controller;
 
 /***
@@ -14,21 +21,18 @@ namespace Tp3\Tp3Businessview\Controller;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
-use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
-use TYPO3\CMS\Core\Imaging\Icon;
-use TYPO3\CMS\Core\Localization\Locales;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
-
+use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Localization\Locales;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+
 /**
  * BusinessAdressController
  */
@@ -55,12 +59,12 @@ class BusinessAdressController extends ActionController
     /**
      * @var  rootLine
      */
-    public  $rootLine= null;
+    public $rootLine= null;
 
     /**
      * @var  pageUid
      */
-    public  $pageUid= null;
+    public $pageUid= null;
     /**
      * BackendTemplateContainer
      *
@@ -121,21 +125,19 @@ class BusinessAdressController extends ActionController
         }
         if ($this->conf === null) {
             $this->conf = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-
         }
         $this->pageUid = GeneralUtility::_GP('id');
 
         $sysPageObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
-        $this->rootLine = $sysPageObj->getRootLine($this->pageUid );
+        $this->rootLine = $sysPageObj->getRootLine($this->pageUid);
     }
     /**
      * action list
-     * 
+     *
      * @return void
      */
     public function listAction()
     {
-
         $businessAdresses = $this->businessAdressRepository->findAll();
         $this->view->assign('businessAdresses', $businessAdresses);
     }
@@ -146,22 +148,21 @@ class BusinessAdressController extends ActionController
      */
     public function indexAction()
     {
-
-        if( $GLOBALS["BE_USER"]->user['usergroup'] > 0 || $GLOBALS['BE_USER']->user['admin'] )
-        {
-            if( !isset($this->conf["persistence"]["storagePid"]) ||$this->conf["persistence"]["storagePid"]=='')
+        if ($GLOBALS['BE_USER']->user['usergroup'] > 0 || $GLOBALS['BE_USER']->user['admin']) {
+            if (!isset($this->conf['persistence']['storagePid']) ||$this->conf['persistence']['storagePid']=='') {
                 $storage_id = $this->pageUid;
-            else
-                $storage_id = $this->conf["persistence"]["storagePid"];
+            } else {
+                $storage_id = $this->conf['persistence']['storagePid'];
+            }
 
             // Weiterleitung
-            $urlParameters = array(
+            $urlParameters = [
                 'id' => $storage_id,
                 'table' => 'tt_address',
                 'search_levels' => 1
-            );
+            ];
             $url = \TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl('web_list', $urlParameters);
-            $this->redirectToURI($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/'.$url);
+            $this->redirectToURI($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/' . $url);
             exit;
         }
         $businessAdresses = $this->businessAdressRepository->findAll();
@@ -169,7 +170,7 @@ class BusinessAdressController extends ActionController
     }
     /**
      * action show
-     * 
+     *
      * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $businessAdress
      * @return void
      */
@@ -193,7 +194,6 @@ class BusinessAdressController extends ActionController
         $this->addFlashMessage('The object was created.', 'created', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->businessadressrepository->add($adress);
         $this->persistenceManager->persistAll();
-
     }
 
     /**
@@ -211,7 +211,6 @@ class BusinessAdressController extends ActionController
         $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->businessadressrepository->update($adress);
         $this->persistenceManager->persistAll();
-
     }
     /**
      * Registers the Icons into the docheader
@@ -236,7 +235,7 @@ class BusinessAdressController extends ActionController
         $shortcutButton = $buttonBar->makeShortcutButton()
             ->setModuleName($moduleName)
             ->setDisplayName($shortcutName)
-            ->setGetVariables(array('id' => (int)GeneralUtility::_GP('id')));
+            ->setGetVariables(['id' => (int)GeneralUtility::_GP('id')]);
         $buttonBar->addButton($shortcutButton);
     }
 

@@ -1,4 +1,4 @@
-define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg&libraries=places&sensor=true'], function ($) {
+define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libraries=places&sensor=true'], function ($) {
 
     var Tp3App = Tp3App || {
         init:function(){
@@ -224,7 +224,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                         //  Tp3App.getPlace( $.trim($(this).find('.geo_address').text()));
                     }
                     else if( $.trim($(this).find('.geo_position').text()) == ""){
-
+                        // #todo get postion from geo
                     }
 
                 });
@@ -392,6 +392,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
             infowindow = new google.maps.InfoWindow;
         }
         if($.type(map)!= "object"){
+
             map = new google.maps.Map(document.getElementById('map'), {
                 center: Tp3App.BusinessAdress,
                 zoom: 16,
@@ -402,6 +403,18 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                 fullscreenControl: false
 
             });
+            sv = new google.maps.StreetViewService();
+            // Set the initial Street View camera to the center of the map
+            sv.getPanorama({location: Tp3App.BusinessAdress, radius: 50}, Tp3App.processSVData);
+
+            // Look for a nearby Street View panorama when the map is clicked.
+            // getPanoramaByLocation will return the nearest pano when the
+            // given radius is 50 meters or less.
+            map.addListener('click', function(event) {
+                sv.getPanorama({location: event.latLng, radius: 50}, Tp3App.processSVData);
+            });
+            var streetviewOverlay = new google['maps']['StreetViewCoverageLayer']();
+            streetviewOverlay.setMap(map);
         }
         geocoder.geocode({'placeId': placeId}, function(results, status) {
             if (status === 'OK') {
@@ -414,6 +427,8 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                     });
                     infowindow.setContent(results[0].formatted_address);
                     infowindow.open(map, marker);
+                    var streetviewOverlay = new google['maps']['StreetViewCoverageLayer']();
+                    streetviewOverlay.setMap(map);
                 } else {
                     window.alert('No results found');
                 }
@@ -486,7 +501,8 @@ define(['jquery','https://maps.google.com/maps/api/js?key=AIzaSyAeFL1mw0cUjDZ5kS
                 map: map,
                 title: data.location.description
             });
-
+            var streetviewOverlay = new google['maps']['StreetViewCoverageLayer']();
+            streetviewOverlay.setMap(map);
             panorama.setPano(data.location.pano);
             panorama.setPov({
                 heading: 270,

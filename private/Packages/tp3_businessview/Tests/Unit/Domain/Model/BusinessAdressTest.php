@@ -1,10 +1,16 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3businessview.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
  *
- * @author Thomas Ruta <support@r-p-it.de>
  */
 class BusinessAdressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
@@ -33,7 +39,6 @@ class BusinessAdressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getCid()
         );
-
     }
 
     /**
@@ -48,6 +53,5 @@ class BusinessAdressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'cid',
             $this->subject
         );
-
     }
 }

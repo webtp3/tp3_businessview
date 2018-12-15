@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3businessview.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Domain\Model;
 
 /***************************************************************
@@ -40,9 +47,8 @@ namespace Tp3\Tp3Businessview\Domain\Model;
 /**
  * BusinessAdress
  */
-class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address {
-
-
+class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address
+{
 
     /**
      * Tp3BusinessView
@@ -53,7 +59,6 @@ class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address {
      */
     protected $tp3businessview;
 
-
     /**
      * cid
      *
@@ -62,8 +67,15 @@ class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address {
     protected $cid = '';
 
     /**
+     * googleplus
+     *
+     * @var string
+     */
+    protected $googleplus = '';
+
+    /**
      * propertiesArray
-     * 
+     *
      */
     protected $propertiesArray = [];
 
@@ -72,7 +84,8 @@ class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address {
      *
      * @var string $sorting
      */
-    Protected $sorting;
+    protected $sorting;
+
     /**
      * Returns the tp3businessviews
      *
@@ -93,7 +106,6 @@ class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address {
     {
         $this->tp3businessview = $tp3businessview;
     }
-
 
     /**
      * Adds a Tp3Businessview
@@ -122,7 +134,8 @@ class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address {
      * @param string $sorting
      * @return void
      */
-    public function setSorting($sorting) {
+    public function setSorting($sorting)
+    {
         $this->sorting = $sorting;
     }
 
@@ -131,12 +144,13 @@ class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address {
      *
      * @return string sorting
      */
-    public function getSorting() {
+    public function getSorting()
+    {
         return $this->sorting;
     }
     /**
      * Returns the cid
-     * 
+     *
      * @return string $cid
      */
     public function getCid()
@@ -146,7 +160,7 @@ class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address {
 
     /**
      * Sets the cid
-     * 
+     *
      * @param string $cid
      * @return void
      */
@@ -154,11 +168,31 @@ class BusinessAdress extends \TYPO3\TtAddress\Domain\Model\Address {
     {
         $this->cid = $cid;
     }
+    /**
+     * Returns the googleplus
+     *
+     * @return string $googleplus
+     */
+    public function getGoogleplus()
+    {
+        return $this->googleplus;
+    }
 
+    /**
+     * Sets the googleplus
+     *
+     * @param string $googleplus
+     * @return void
+     */
+    public function setGoogleplus($googleplus)
+    {
+        $this->googleplus = $googleplus;
+    }
     /**
      * @return array
      */
-    public function getPropertiesArray() {
+    public function getPropertiesArray()
+    {
         return $this->_getCleanProperties();
     }
 }

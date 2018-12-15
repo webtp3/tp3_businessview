@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3businessview.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Domain\Model;
 
 /***************************************************************
@@ -83,14 +90,14 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * pitch
-     * 
+     *
      * @var string
      */
     protected $pitch = '';
 
     /**
      * zoom
-     * 
+     *
      * @var string
      */
     protected $zoom = '';
@@ -114,7 +121,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var string $sorting
      */
-    Protected $sorting;
+    protected $sorting;
 
     /**
      * __construct
@@ -143,7 +150,8 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $sorting
      * @return void
      */
-    public function setSorting($sorting) {
+    public function setSorting($sorting)
+    {
         $this->sorting = $sorting;
     }
 
@@ -152,7 +160,8 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string sorting
      */
-    public function getSorting() {
+    public function getSorting()
+    {
         return $this->sorting;
     }
     /**
@@ -198,7 +207,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
     /**
      * Returns the panoId
-     * 
+     *
      * @return string $panoId
      */
     public function getPanoId()
@@ -245,7 +254,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the panoId
-     * 
+     *
      * @param string $panoId
      * @return void
      */
@@ -256,7 +265,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the heading
-     * 
+     *
      * @return string $heading
      */
     public function getHeading()
@@ -266,7 +275,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the heading
-     * 
+     *
      * @param string $heading
      * @return void
      */
@@ -277,7 +286,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the pitch
-     * 
+     *
      * @return string $pitch
      */
     public function getPitch()
@@ -287,7 +296,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the pitch
-     * 
+     *
      * @param string $pitch
      * @return void
      */
@@ -298,7 +307,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the zoom
-     * 
+     *
      * @return string $zoom
      */
     public function getZoom()
@@ -308,7 +317,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the zoom
-     * 
+     *
      * @param string $zoom
      * @return void
      */
@@ -319,12 +328,10 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return array
      */
-    public function getPropertiesArray() {
+    public function getPropertiesArray()
+    {
         return $this->_getCleanProperties();
-
     }
-
-
 
     /**
      * Returns the tp3businessviews
@@ -347,7 +354,6 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->tp3businessviews = $tp3businessviews;
     }
 
-
     /**
      * Adds a Tp3Businessview
      *
@@ -369,5 +375,4 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->tp3businessviews->detach($tp3businessviewsToRemove);
     }
-
 }

@@ -1,9 +1,14 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/tp3businessview.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
     'pages',
     [
-
 
         'tx_tp3businessview_onpage' => [
             'label' => 'Display Businessview on page',
@@ -22,7 +27,7 @@
                 'minitems' => 0,
                 'maxitems' => 1,
                 'items' => [
-                    [ '',  ],
+                    [ ''],
                 ],
                 'appearance' => [
                     'collapseAll' => 0,

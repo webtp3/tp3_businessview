@@ -41,23 +41,3 @@ plugin.tx_tp3businessview_tp3businessview {
   }
 
 }
-
-module.tx_tp3businessview_web_tp3businessviewmodule {
-  view {
-    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Path to template root (BE)
-    templateRootPath = EXT:tp3_businessview/Resources/Private/Templates/BusinessView/
-    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Path to template partials (BE)
-    partialRootPath = EXT:tp3_businessview/Resources/Private/Partials/BusinessView/
-    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Path to template layouts (BE)
-    layoutRootPath = EXT:tp3_businessview/Resources/Private/Layouts/BusinessView/
-  }
-  persistence {
-    # cat=module.tx_tp3businessview_web_tp3businessviewmodule//a; type=string; label=Default storage PID
-    storagePid = {$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
-  }
-  settings{
-    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Maps api key for (BE) https://console.developers.google.com/apis/
-    googleMapsJavaScriptApiKey = {$plugin.tx_tp3businessview_tp3businessview.settings.googleMapsJavaScriptApiKey}
-
-  }
-}

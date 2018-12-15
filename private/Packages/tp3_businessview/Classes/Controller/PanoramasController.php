@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3businessview.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Controller;
 
 /***
@@ -12,29 +19,20 @@ namespace Tp3\Tp3Businessview\Controller;
  *
  ***/
 
-use Tp3\Tp3Businessview\Domain\Model\BusinessAdress;
 use Tp3\Tp3Businessview\Domain\Model\Panoramas;
-use TYPO3\CMS\Backend\Template\Components\ButtonBar;
+use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
+use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
-use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
-use TYPO3\CMS\Core\Imaging\Icon;
-use TYPO3\CMS\Core\Localization\Locales;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Core\Page\PageRenderer;
-
-use TYPO3\CMS\Core\Utility\ArrayUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
-use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
-use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
 use TYPO3\CMS\Core\DataHandling\DataHandler as DataHandlerCore;
+
+use TYPO3\CMS\Core\Localization\Locales;
+use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
  * PanoramasController
@@ -71,7 +69,6 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
      */
     const FE_PREVIEW_TYPE = 699841589;
 
-
     /**
      * @var array
      */
@@ -80,16 +77,16 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     /**
      * @var array
      */
-    protected $configuration = array(
-        'translations' => array(
-            'availableLocales' => array(),
-            'languageKeyToLocaleMapping' => array()
-        ),
-        'menuActions' => array(),
+    protected $configuration = [
+        'translations' => [
+            'availableLocales' => [],
+            'languageKeyToLocaleMapping' => []
+        ],
+        'menuActions' => [],
         'previewDomain' => null,
         'previewUrlTemplate' => '',
-        'viewSettings' => array()
-    );
+        'viewSettings' => []
+    ];
 
     /* @var $dataMapper \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper */
     protected $dataMapper;
@@ -100,38 +97,37 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     /**
      *
      */
-    public  $panoramas = null;
+    public $panoramas = null;
     /**
      *
      */
-    public  $tp3businessview = null;
+    public $tp3businessview = null;
     /**
      *
 
      */
-    public  $businessadress = null;
+    public $businessadress = null;
 
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
      */
-    public  $panoramasRepository = null;
+    public $panoramasRepository = null;
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
      */
-    public  $tp3BusinessViewRepository = null;
+    public $tp3BusinessViewRepository = null;
 
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
      */
-    public  $businessadressrepository = null;
+    public $businessadressrepository = null;
     /**
      * @var Locales
      */
     protected $localeService;
-
 
     protected function initializeAction()
     {
@@ -144,7 +140,6 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
             );
         }
         //$this->cObj=  $this->configurationManager->getContentObject();
-
 
         parent::initializeAction();
 
@@ -159,56 +154,50 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
             $this->dataMapper = GeneralUtility::makeInstance(DataMapper::class);
         }
 
-        if( $this->request->hasArgument("panoramas")){
+        if ($this->request->hasArgument('panoramas')) {
             if (!($this->persistenceManager instanceof PersistenceManager)) {
                 $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
             }
-            $pano_array = $this->request->getArgument("panoramas");
-            $this->request->SetArgument("panoramas",$pano_array);
-            if($pano_array["tp3businessviews"] > 0) {
-                $this->request->SetArgument("tp3businessview",["uid"=>$pano_array["tp3businessviews"]]);
+            $pano_array = $this->request->getArgument('panoramas');
+            $this->request->SetArgument('panoramas', $pano_array);
+            if ($pano_array['tp3businessviews'] > 0) {
+                $this->request->SetArgument('tp3businessview', ['uid'=>$pano_array['tp3businessviews']]);
                 /* mm relations */
                 if (!($this->tp3BusinessViewRepository instanceof Tp3BusinessViewRepository)) {
                     $this->tp3BusinessViewRepository = $this->objectManager->get(Tp3BusinessViewRepository::class);
                 }
             }
-
         }
         if ($this->cObj === null) {
             $this->cObj = $this->configurationManager->getContentObject();
         }
         if ($this->conf === null) {
             $this->conf = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-
         }
-
     }
     /**
      * initialize create action
      *
      * @return void
      */
-    public function initializeCreateAction() {
-
-        $this->arguments->getArgument("panoramas")->getPropertyMappingConfiguration()->allowAllProperties();
+    public function initializeCreateAction()
+    {
+        $this->arguments->getArgument('panoramas')->getPropertyMappingConfiguration()->allowAllProperties();
         $this->arguments->getArgument('panoramas')->getPropertyMappingConfiguration()->setTargetTypeForSubProperty('uid', 'string');
-
     }
     /**
      * initialize create action
      *
      * @return void
      */
-    public function initializeUpdateAction() {
-
-        $this->arguments->getArgument("panoramas")->getPropertyMappingConfiguration()->allowAllProperties();
+    public function initializeUpdateAction()
+    {
+        $this->arguments->getArgument('panoramas')->getPropertyMappingConfiguration()->allowAllProperties();
         $this->arguments->getArgument('panoramas')->getPropertyMappingConfiguration()->setTargetTypeForSubProperty('uid', 'string');
-
-
     }
     /**
      * action list
-     * 
+     *
      * @return void
      */
     public function listAction()
@@ -219,7 +208,7 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     /**
      * action show
-     * 
+     *
      * @param \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas
      * @return void
      */
@@ -235,25 +224,28 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
      */
     public function updateAction(\Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas)
     {
-
-        if($panoramas->uid == "NEW"){$this->redirect('create'); }
+        if ($panoramas->uid == 'NEW') {
+            $this->redirect('create');
+        }
 
         if ($this->panoramasRepository === null) {
             $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
         }
         $this->panoramasRepository->add($panoramas);
         /* mm */
-        if($this->request->hasArgument("tp3businessview")){
-            $this->tp3businessview= $this->tp3BusinessViewRepository->findByUid(intval($this->request->getArgument("tp3businessview")["uid"]), false);
+        if ($this->request->hasArgument('tp3businessview')) {
+            $this->tp3businessview= $this->tp3BusinessViewRepository->findByUid(intval($this->request->getArgument('tp3businessview')['uid']), false);
             $this->tp3businessview->getFirst()->addPanoramas($panoramas);
             $this->tp3BusinessViewRepository->update($this->tp3businessview->getFirst());
         }
         $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->persistenceManager->persistAll();
 
-        if (TYPO3_MODE === 'BE') $this->redirect('index','Module');
-        else $this->redirect('list','Tp3BusinessView');
-
+        if (TYPO3_MODE === 'BE') {
+            $this->redirect('index', 'Module');
+        } else {
+            $this->redirect('list', 'Tp3BusinessView');
+        }
     }
     /**
      * action create
@@ -290,22 +282,28 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         if ($this->panoramasRepository === null) {
             $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
         }
-        if($panoramas->getPid() == null)$panoramas->setPid($this->conf["persistence"]["storagePid"]);
-        if($panoramas->getUid() == "")$panoramas->setUid(null);
+        if ($panoramas->getPid() == null) {
+            $panoramas->setPid($this->conf['persistence']['storagePid']);
+        }
+        if ($panoramas->getUid() == '') {
+            $panoramas->setUid(null);
+        }
         /* mm */
-        if($this->request->hasArgument("tp3businessview")){
-            $this->tp3businessview= $this->tp3BusinessViewRepository->findByUid($this->request->getArgument("tp3businessview")["uid"], false);
+        if ($this->request->hasArgument('tp3businessview')) {
+            $this->tp3businessview= $this->tp3BusinessViewRepository->findByUid($this->request->getArgument('tp3businessview')['uid'], false);
             $this->tp3businessview->getFirst()->addPanoramas($panoramas);
             $this->tp3BusinessViewRepository->update($this->tp3businessview->getFirst());
         }
-
 
         $this->panoramasRepository->add($panoramas);
         $this->persistenceManager->persistAll();
         $this->addFlashMessage('The object was created.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
 
-        if (TYPO3_MODE === 'BE') $this->redirect('index','Module');
-        else $this->redirect('list','Tp3BusinessView');
+        if (TYPO3_MODE === 'BE') {
+            $this->redirect('index', 'Module');
+        } else {
+            $this->redirect('list', 'Tp3BusinessView');
+        }
     }
     /**
      * Returns LanguageService

@@ -1,10 +1,16 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3businessview.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
  *
- * @author Thomas Ruta <support@r-p-it.de>
  */
 class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
@@ -33,7 +39,6 @@ class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getBusinessviewId()
         );
-
     }
 
     /**
@@ -48,7 +53,6 @@ class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'businessviewId',
             $this->subject
         );
-
     }
 
     /**
@@ -60,7 +64,6 @@ class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getGoogleMapsJavaScriptApiKey()
         );
-
     }
 
     /**
@@ -75,7 +78,6 @@ class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'googleMapsJavaScriptApiKey',
             $this->subject
         );
-
     }
 
     /**
@@ -87,7 +89,6 @@ class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getBusinessviewCanvasSelector()
         );
-
     }
 
     /**
@@ -102,6 +103,5 @@ class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'businessviewCanvasSelector',
             $this->subject
         );
-
     }
 }

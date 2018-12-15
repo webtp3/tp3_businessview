@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3businessview.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Domain\Repository;
 
 /***
@@ -19,11 +26,12 @@ class BusinessAdressRepository extends \TYPO3\TtAddress\Domain\Repository\Addres
 {
 
 // Order by BE sorting
-    protected $defaultOrderings = array(
+    protected $defaultOrderings = [
         'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
-    );
+    ];
 
-    public function initializeObject() {
+    public function initializeObject()
+    {
 //        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
 //        // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
 //
@@ -41,8 +49,8 @@ class BusinessAdressRepository extends \TYPO3\TtAddress\Domain\Repository\Addres
      * @param array $uids
      * @return array
      */
-    public function findByPid($pid = 0) {
-
+    public function findByPid($pid = 0)
+    {
         $query = $this->createQuery();
         $query->matching(
             $query->equals('pid', $pid),
@@ -56,10 +64,11 @@ class BusinessAdressRepository extends \TYPO3\TtAddress\Domain\Repository\Addres
     /**
      *
      *
-     * @param integer $uid
+     * @param int $uid
      * @return array
      */
-    public function findByUidArray($uid) {
+    public function findByUidArray($uid)
+    {
 //        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
 //        $querySettings->setRespectStoragePage(false);
 //        $this->setDefaultQuerySettings($querySettings);
@@ -76,10 +85,11 @@ class BusinessAdressRepository extends \TYPO3\TtAddress\Domain\Repository\Addres
     /**
      *
      *
-     * @param integer $uid
+     * @param int $uid
      * @return \Tp3\Tp3Businessview\Domain\Model\BusinessAdress
      */
-    public function findByUid($uid) {
+    public function findByUid($uid)
+    {
 //       $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
 //        $querySettings->setRespectStoragePage(false);
 //        $this->setDefaultQuerySettings($querySettings);
@@ -100,7 +110,8 @@ class BusinessAdressRepository extends \TYPO3\TtAddress\Domain\Repository\Addres
      * @param array $uids
      * @return array
      */
-    public function findByList($uids) {
+    public function findByList($uids)
+    {
 //        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
 //        $querySettings->setRespectStoragePage(false);
 //        $this->setDefaultQuerySettings($querySettings);
@@ -118,5 +129,4 @@ class BusinessAdressRepository extends \TYPO3\TtAddress\Domain\Repository\Addres
 //        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getParameters());
         return $query->execute(true);
     }
-
 }

@@ -1,9 +1,14 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3businessview.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 defined('TYPO3_MODE') || die('Access denied.');
 
-
-
-$extKey = "tp3_businessview";
+$extKey = 'tp3_businessview';
 
         if (TYPO3_MODE === 'BE') {
             if (!$tp3modsConfig['disableBeModuleDesigner']) {
@@ -43,7 +48,6 @@ $extKey = "tp3_businessview";
                 );
             }
             if (!$tp3modsConfig['disableBeModuleBusinessView']) {
-
                 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
                     'Tp3.Tp3Businessview',
                     'web', // Make module a submodule of 'tools'

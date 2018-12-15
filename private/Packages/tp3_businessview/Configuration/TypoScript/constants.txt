@@ -1,1 +1,2 @@
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3_businessview/Configuration/TypoScript/Plugin/constants.typoscript">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3_businessview/Configuration/TypoScript/Backend/constants.typoscript">
