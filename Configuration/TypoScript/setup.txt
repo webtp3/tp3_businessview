@@ -1,2 +1,2 @@
-<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3_businessview/Configuration/TypoScript/Backend/Module.typoscript">
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3_businessview/Configuration/TypoScript/Plugin/Plugin.typoscript">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3_businessview/Configuration/TypoScript/Backend/Module.typoscript">
