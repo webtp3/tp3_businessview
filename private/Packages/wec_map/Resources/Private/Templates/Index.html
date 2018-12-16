@@ -1,19 +1,11 @@
 <f:layout name="Default"/>
 <f:section name="main">
 
-    <f:cObject typoscriptObjectPath="lib.dynamicContent" data="{pageUid: '{data.uid}', colPos: '3'}"/>
-    <div class="container">
-    TEst Index
-        <f:cObject typoscriptObjectPath="lib.dynamicContent" data="{pageUid: '{data.uid}', colPos: '0'}"/>
-    </div>
-
+    <f:format.raw>{Plugins}</f:format.raw>
 </f:section>
 <f:section name="Index">
 
-    <f:cObject typoscriptObjectPath="lib.dynamicContent" data="{pageUid: '{data.uid}', colPos: '3'}"/>
-    <div class="container">
-    Index 
-        <f:cObject typoscriptObjectPath="lib.dynamicContent" data="{pageUid: '{data.uid}', colPos: '0'}"/>
-    </div>
+    <f:format.raw>{Plugins}</f:format.raw>
+
 
 </f:section>
