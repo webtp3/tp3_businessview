@@ -1,22 +1,48 @@
+plugin.tx_tp3mods_tp3micro{
+    settings{
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=Site Name
+        tp3sitetitle = {$plugin.tx_tp3mods_tp3micro.settings.tp3sitetitle}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        facebook_profile = {$plugin.tx_tp3mods_tp3micro.settings.facebook_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= FB AppID
+        facebook_appid = {$plugin.tx_tp3mods_tp3micro.settings.facebook_appid}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        twitter_profile = {$plugin.tx_tp3mods_tp3micro.settings.twitter_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        google_profile = {$plugin.tx_tp3mods_tp3micro.settings.google_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        insta_profile = {$plugin.tx_tp3mods_tp3micro.settings.insta_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        linkedin_profile = {$plugin.tx_tp3mods_tp3micro.settings.linkedin_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        baseUrl = {$plugin.tx_tp3mods_tp3micro.settings.baseUrl}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
+        logo = {$plugin.tx_tp3mods_tp3micro.settings.logo}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
+        logo_width = {$plugin.tx_tp3mods_tp3micro.settings.logo_width}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
+        logo_inv = {$plugin.tx_tp3mods_tp3micro.settings.logo_inv}
+    }
+}
 page.footerData {
 
     1117 = TEXT
     1117.data = getenv : REQUEST_URI
     1117.wrap = <meta itemprop="url" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}|" />
 
-    1118.= TEXT
-    1118.value (
-         <g itemscope itemtype="http://schema.org/LocalBusiness">
-            <meta itemprop="logo" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}/{$plugin.tx_tp3mods_tp3micro.settings.logo}">
-            <meta itemprop="url" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}">
-            <meta itemprop="name" content="{$plugin.tx_tp3mods_tp3micro.settings.tp3sitetitle}">
-            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.facebook_profile}">
-            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.twitter_profile}">
-            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.google_profile}">
-            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.insta_profile}">
-
-         </g>
-    )
+#    1118.= TEXT
+#    1118.value (
+#         <g itemscope itemtype="http://schema.org/LocalBusiness">
+#            <meta itemprop="logo" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}/{$plugin.tx_tp3mods_tp3micro.settings.logo}">
+#            <meta itemprop="url" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}">
+#            <meta itemprop="name" content="{$plugin.tx_tp3mods_tp3micro.settings.tp3sitetitle}">
+#            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.facebook_profile}">
+#            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.twitter_profile}">
+#            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.google_profile}">
+#            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.insta_profile}">
+#
+#         </g>
+#    )
     1119.= TEXT
     1119.value (
         <g itemscope itemtype="http://schema.org/SoftwareApplication">
@@ -40,13 +66,7 @@ page.footerData {
                 <meta itemprop="sameAs" content="https://www.linkedin.com/company/r&p-it-consulting-gmbh">
             </g>
         </g>
-    <g itemscope itemtype="http://schema.org/WebSite">
-      <meta itemprop="url" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}"/>
-      <form style="display:none" itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
-        <meta itemprop="target" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}">
-        <meta itemprop="query-input" content="required name=skeyword">
-      </form>
-    </g>
+
 
 
     )
