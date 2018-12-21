@@ -1,10 +1,16 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3openhours.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Openhours\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
  *
- * @author Thomas Ruta <email@thomasruta.de>
  */
 class TtAddressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
@@ -34,7 +40,6 @@ class TtAddressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             $newObjectStorage,
             $this->subject->getOpenHours()
         );
-
     }
 
     /**
@@ -52,7 +57,6 @@ class TtAddressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'openHours',
             $this->subject
         );
-
     }
 
     /**
@@ -87,6 +91,5 @@ class TtAddressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->inject($this->subject, 'openHours', $openHoursObjectStorageMock);
 
         $this->subject->removeOpenHour($openHour);
-
     }
 }

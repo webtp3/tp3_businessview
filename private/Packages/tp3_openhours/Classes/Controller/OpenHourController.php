@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3openhours.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Openhours\Controller;
 
 /***
@@ -19,7 +26,7 @@ class OpenHourController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 {
     /**
      * openHourRepository
-     * 
+     *
      * @var \Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository
      * @inject
      */
@@ -27,7 +34,7 @@ class OpenHourController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     /**
      * action list
-     * 
+     *
      * @return void
      */
     public function listAction()
@@ -38,7 +45,7 @@ class OpenHourController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     /**
      * action show
-     * 
+     *
      * @param \Tp3\Tp3Openhours\Domain\Model\OpenHour $openHour
      * @return void
      */
@@ -49,17 +56,16 @@ class OpenHourController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     /**
      * action new
-     * 
+     *
      * @return void
      */
     public function newAction()
     {
-
     }
 
     /**
      * action create
-     * 
+     *
      * @param \Tp3\Tp3Openhours\Domain\Model\OpenHour $newOpenHour
      * @return void
      */
@@ -72,7 +78,7 @@ class OpenHourController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     /**
      * action edit
-     * 
+     *
      * @param \Tp3\Tp3Openhours\Domain\Model\OpenHour $openHour
      * @ignorevalidation $openHour
      * @return void
@@ -84,7 +90,7 @@ class OpenHourController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     /**
      * action update
-     * 
+     *
      * @param \Tp3\Tp3Openhours\Domain\Model\OpenHour $openHour
      * @return void
      */
@@ -97,7 +103,7 @@ class OpenHourController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     /**
      * action delete
-     * 
+     *
      * @param \Tp3\Tp3Openhours\Domain\Model\OpenHour $openHour
      * @return void
      */

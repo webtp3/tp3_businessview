@@ -53,14 +53,15 @@ $extensionKey = 'tp3mods';
             'exclude' => true,
             'config' => [
                 'type' => 'inline',
-                'MM' => 'tx_tp3mods_domain_model_mm',
-                'MM_hasUidField' => true,
-                'MM_opposite_field' => 'pages',
                 'maxitems' => 1,
                 'foreign_table' => 'tx_tp3mods_domain_model_tp3mods',
                 'minitems' => 0,
                 'items' => [
                     [ ''],
+                ],
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'expandSingle' => 1,
                 ],
 
             ]
@@ -71,7 +72,7 @@ $extensionKey = 'tp3mods';
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
     'pages',
-    'layout',
+    'editorial',
     '
     --linebreak--, tp3microdata,
     '

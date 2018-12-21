@@ -20,6 +20,7 @@ plugin.tx_ttaddress_pi1 {
 			titleText = {field:first_name} {field:middle_name} {field:last_name}
 			titleText.insertData = 1
 			debugData = 1
+            wrap = <div class="item" itemprop="image">|</div>
 		}
 
 		first_name {
@@ -51,6 +52,8 @@ plugin.tx_ttaddress_pi1 {
 		email.typolink.parameter.field = email
 		email.typolink.ATagParams = class="email" item="email"
 		email.required = 1
+		email.wrap = <div class="item"><div class="fa fa-envelope"></div>|</div>
+
 
 		address {
 			wrap = <div class="street-address" itemprop="streetAddress">|</div>
@@ -84,13 +87,13 @@ plugin.tx_ttaddress_pi1 {
 			required = 1
 		}
 
-		phone.wrap = <div class="tel phone" item="telephone"><div class="fa fa-phone"></div>|</div>
+		phone.wrap = <div class="tel phone item" item="telephone"><div class="fa fa-phone" itemprop="telephone"></div>|</div>
 		phone.required = 1
 
-		mobile.wrap = <div class="tel mobile"><div class="fa fa-mobile"></div>|</div>
+		mobile.wrap = <div class="tel mobile"><div class="fa fa-mobile" itemprop="telephone"></div>|</div>
 		mobile.required = 1
 
-		fax.wrap = <div class="tel fax" item="faxNumber"><div class="fa fa-fax"></div>|</div>
+		fax.wrap = <div class="tel fax" item="faxNumber"><div class="fa fa-fax" itemprop="faxNumber"></div>|</div>
 		fax.required = 1
 
 		subparts {

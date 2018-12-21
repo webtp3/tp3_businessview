@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3openhours.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Openhours\Controller;
 
 /***
@@ -19,7 +26,7 @@ class TtAddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 {
     /**
      * action list
-     * 
+     *
      * @return void
      */
     public function listAction()
@@ -30,7 +37,7 @@ class TtAddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     /**
      * action show
-     * 
+     *
      * @param \Tp3\Tp3Openhours\Domain\Model\TtAddress $ttAddress
      * @return void
      */
@@ -41,17 +48,16 @@ class TtAddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     /**
      * action new
-     * 
+     *
      * @return void
      */
     public function newAction()
     {
-
     }
 
     /**
      * action create
-     * 
+     *
      * @param \Tp3\Tp3Openhours\Domain\Model\TtAddress $newTtAddress
      * @return void
      */
@@ -64,7 +70,7 @@ class TtAddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     /**
      * action edit
-     * 
+     *
      * @param \Tp3\Tp3Openhours\Domain\Model\TtAddress $ttAddress
      * @ignorevalidation $ttAddress
      * @return void
@@ -76,7 +82,7 @@ class TtAddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     /**
      * action update
-     * 
+     *
      * @param \Tp3\Tp3Openhours\Domain\Model\TtAddress $ttAddress
      * @return void
      */
@@ -89,7 +95,7 @@ class TtAddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     /**
      * action delete
-     * 
+     *
      * @param \Tp3\Tp3Openhours\Domain\Model\TtAddress $ttAddress
      * @return void
      */

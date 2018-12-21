@@ -3,8 +3,8 @@
         {
             "config": {
                 "position": [
-                    202,
-                    131
+                    650,
+                    185
                 ]
             },
             "name": "New Model Object",
@@ -17,33 +17,33 @@
                     "_default4_delete": false,
                     "customActions": []
                 },
-                "name": "Section",
+                "name": "Collections",
                 "objectsettings": {
-                    "addDeletedField": true,
-                    "addHiddenField": true,
+                    "addDeletedField": false,
+                    "addHiddenField": false,
                     "addStarttimeEndtimeFields": true,
-                    "aggregateRoot": false,
+                    "aggregateRoot": true,
                     "categorizable": false,
                     "description": "",
-                    "mapToTable": "",
-                    "parentClass": "",
+                    "mapToTable": "sys_file_collection",
+                    "parentClass": "\\TYPO3\\CMS\\Core\\Resource\\Collection\\StaticFileCollection",
                     "skipTypeConfiguration": false,
                     "sorting": false,
-                    "type": "ValueObject",
-                    "uid": "15875114603"
+                    "type": "Entity",
+                    "uid": "301880501177"
                 },
                 "propertyGroup": {
                     "properties": [
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "transition speed",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
                             "propertyIsRequired": false,
-                            "propertyName": "speed",
+                            "propertyName": "parallaxPage",
                             "propertyType": "Integer",
-                            "uid": "1458432298052"
+                            "uid": "662872301757"
                         },
                         {
                             "allowedFileTypes": "",
@@ -52,78 +52,14 @@
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
                             "propertyIsRequired": false,
-                            "propertyName": "direction",
-                            "propertyType": "Select",
-                            "uid": "1033461635531"
+                            "propertyName": "parallaxContent",
+                            "propertyType": "Text",
+                            "uid": "994781223396"
                         }
                     ]
                 },
                 "relationGroup": {
-                    "relations": [
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": true,
-                            "relationDescription": "Parallax Collection",
-                            "relationName": "parallaxcollection",
-                            "relationType": "manyToOne",
-                            "relationWire": "[wired]",
-                            "renderType": "selectSingle",
-                            "uid": "523986195158"
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "config": {
-                "position": [
-                    650,
-                    185
-                ]
-            },
-            "name": "New Model Object",
-            "value": {
-                "actionGroup": {
-                    "_default0_list": false,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
-                    "customActions": []
-                },
-                "name": "Collections",
-                "objectsettings": {
-                    "addDeletedField": true,
-                    "addHiddenField": true,
-                    "addStarttimeEndtimeFields": true,
-                    "aggregateRoot": true,
-                    "categorizable": false,
-                    "description": "",
-                    "mapToTable": "",
-                    "parentClass": "",
-                    "skipTypeConfiguration": false,
-                    "sorting": true,
-                    "type": "Entity",
-                    "uid": "301880501177"
-                },
-                "propertyGroup": {
-                    "properties": []
-                },
-                "relationGroup": {
-                    "relations": [
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": true,
-                            "relationDescription": "",
-                            "relationName": "parallaxsection",
-                            "relationType": "zeroToMany",
-                            "relationWire": "[wired]",
-                            "renderType": "inline",
-                            "uid": "1476750031428"
-                        }
-                    ]
+                    "relations": []
                 }
             }
         }
@@ -145,8 +81,8 @@
         },
         "extensionKey": "tp3_parallax",
         "name": "tp3 Parallax ",
-        "originalExtensionKey": "",
-        "originalVendorName": "",
+        "originalExtensionKey": "tp3_parallax",
+        "originalVendorName": "Tp3",
         "persons": [
             {
                 "company": "tp3",
@@ -158,22 +94,9 @@
         "plugins": [],
         "vendorName": "Tp3"
     },
-    "wires": [
-        {
-            "src": {
-                "moduleId": 1,
-                "terminal": "relationWire_0",
-                "uid": "1476750031428"
-            },
-            "tgt": {
-                "moduleId": 0,
-                "terminal": "SOURCES",
-                "uid": "523986195158"
-            }
-        }
-    ],
+    "wires": [],
     "log": {
-        "last_modified": "2018-09-23 10:33",
+        "last_modified": "2018-12-10 01:11",
         "extension_builder_version": "8.10.2",
         "be_user": " (1)"
     }

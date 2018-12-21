@@ -17,11 +17,11 @@ plugin.tx_tp3mods_tp3micro{
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
         baseUrl = http://{$baseUrl}
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
-        logo = {$logo}
+        logo = {$page.logo.file}
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
-        logo_width = {$logo_width}
+        logo_width = {$page.logo.width}
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
-        logo_inv = {$logo}
+        logo_inv = {$page.logo.file}
     }
 }
 

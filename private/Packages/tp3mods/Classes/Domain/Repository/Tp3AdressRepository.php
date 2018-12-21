@@ -48,10 +48,10 @@ class Tp3AdressRepository extends \TYPO3\TtAddress\Domain\Repository\AddressRepo
      */
     public function findByUid($uid)
     {
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        $querySettings->setRespectStoragePage(false);
+//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+//        $querySettings->setRespectStoragePage(false);
 
-        $this->setDefaultQuerySettings($querySettings);
+//        $this->setDefaultQuerySettings($querySettings);
         $query = $this->createQuery();
         $query->matching(
             $query->equals('uid', $uid),
@@ -61,5 +61,26 @@ class Tp3AdressRepository extends \TYPO3\TtAddress\Domain\Repository\AddressRepo
             )
         );
         return $query->execute()->getFirst();
+    }
+    /**
+     *
+     *
+     * @param array $uids
+     * @return \Tp3\Tp3mods\Domain\Model\Tp3Adress
+     */
+    public function findByRootline($uids)
+    {
+//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+//        $querySettings->setRespectStoragePage(false);
+
+        $query = $this->createQuery();
+        $query->matching(
+            $query->in('uid', $uids),
+            $query->logicalAnd(
+                $query->equals('hidden', 0),
+                $query->equals('deleted', 0)
+            )
+        );
+        return $query->execute();
     }
 }

@@ -1,16 +1,12 @@
 <?php
 
-/***************************************************************
- * Extension Manager/Repository config file for ext "tp3_openhours".
- *
- * Auto generated 25-04-2018 15:46
- *
- * Manual updates:
- * Only the data in the array - everything else is removed by next
- * writing. "version" and "dependencies" must not be touched!
- ***************************************************************/
+/*
+ * This file is part of the web-tp3/tp3openhours.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
-$EM_CONF[$_EXTKEY] = array (
+$EM_CONF[$_EXTKEY] = [
   'title' => 'tt_address OpenHours',
   'description' => 'Öffnungszeiten für tt_address &amp; businessview',
   'category' => 'misc',
@@ -20,22 +16,21 @@ $EM_CONF[$_EXTKEY] = array (
   'uploadfolder' => false,
   'createDirs' => '',
   'clearCacheOnLoad' => 0,
-  'version' => '0.0.6',
-  'constraints' => 
-  array (
+  'version' => '0.0.7',
+  'constraints' =>
+  [
 'depends' =>
-    array (
+    [
         'typo3' => '8.7.0-9.9.99',
         'tt_address' => '*',
-    ),
-    'conflicts' => 
-    array (
-    ),
-    'suggests' => 
-    array (
-    ),
-  ),
+    ],
+    'conflicts' =>
+    [
+    ],
+    'suggests' =>
+    [
+    ],
+  ],
   'clearcacheonload' => false,
-  'author_company' => NULL,
-);
-
+  'author_company' => null,
+];

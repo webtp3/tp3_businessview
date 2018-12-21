@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3openhours.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Openhours\Domain\Model;
 
 /***
@@ -23,7 +30,14 @@ class OpenHour extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
      *
      * @var array
      */
-    protected $DayArray =  ['','Mo','Di','Mi','Do','Fr','Sa','So','Mo-Fr','Sa-So','24x7'];
+    protected $DayArray =  ['', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So', 'Mo-Fr', 'Sa-So', '24x7'];
+
+    /**
+     * MicroDayArray
+     *
+     * @var array
+     */
+    protected $MicroDayArray =  ['', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo-Fr', 'Sa-Su', 'all day'];
     /*
         ['Mo'=> 1],
         ['Di'=> 2],
@@ -37,7 +51,7 @@ class OpenHour extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Day of OpenHours
-     * 
+     *
      * @var int
      * @validate NotEmpty
      */
@@ -45,7 +59,7 @@ class OpenHour extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * openTime
-     * 
+     *
      * @var int
      * @validate NotEmpty
      */
@@ -53,7 +67,7 @@ class OpenHour extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * closeTime
-     * 
+     *
      * @var int
      */
     protected $closeTime = 0;
@@ -65,16 +79,16 @@ class OpenHour extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     public function getDayNames()
     {
         $timestamp = strtotime('next Sunday');
-        $days = array();
+        $days = [];
         for ($i = 0; $i < 7; $i++) {
             $days[] = strftime('%A', $timestamp);
             $timestamp = strtotime('+1 day', $timestamp);
         }
-        $this->DayArray = array_merge( $this->DayArray,$days);
+        $this->DayArray = array_merge($this->DayArray, $days);
     }
     /**
      * Returns the day
-     * 
+     *
      * @return int $day
      */
     public function getDay()
@@ -88,13 +102,12 @@ class OpenHour extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
      */
     public function getDayName()
     {
-
         return $this->DayArray[$this->day];
     }
 
     /**
      * Sets the day
-     * 
+     *
      * @param int $day
      * @return void
      */
@@ -102,10 +115,20 @@ class OpenHour extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     {
         $this->day = $day;
     }
+    /**
+     * Returns the dayname
+     *
+     * @return string
+     */
+    public function getMicroDayName()
+    {
+        return $this->MicroDayArray[$this->day];
+    }
+
 
     /**
      * Returns the openTime
-     * 
+     *
      * @return int $openTime
      */
     public function getOpenTime()
@@ -115,7 +138,7 @@ class OpenHour extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Sets the openTime
-     * 
+     *
      * @param int $openTime
      * @return void
      */
@@ -126,7 +149,7 @@ class OpenHour extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Returns the closeTime
-     * 
+     *
      * @return int $closeTime
      */
     public function getCloseTime()
@@ -136,7 +159,7 @@ class OpenHour extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 
     /**
      * Sets the closeTime
-     * 
+     *
      * @param int $closeTime
      * @return void
      */

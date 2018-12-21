@@ -66,15 +66,13 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
         }
         $config = isset($GLOBALS['TSFE']->tmpl->setup) ? $GLOBALS['TSFE']->tmpl->setup : [];
         if (is_array($config)
-            && (bool)$GLOBALS['TSFE']->page['tp3microdata']
+            && ((int)$GLOBALS['TSFE']->page['tp3microdata']>0 ||(int)$GLOBALS["TSFE"]->rootLine[0]["tp3microdata"]>0)
             && isset(
-                $config['plugin.']['tx_tp3mods_tp3micro.']['view.']
+                $config['plugin.']['tx_tp3mods_tp3micro.']['settings.']
             )
             && $GLOBALS['TSFE']->cObj instanceof ContentObjectRenderer
         ) {
-            if ($GLOBALS['TSFE']->page['tp3microdata'] < 1) {
-                return;
-            }
+
             if ($this->objectManager === null) {
                 $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
             }
@@ -108,7 +106,8 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
                 }
             }
 
-            $tp3micro = $this->tp3ModsRepository->findByUid($GLOBALS['TSFE']->page['tp3microdata']);
+            $tp3micro = $this->tp3ModsRepository->findByUid($GLOBALS['TSFE']->page['tp3microdata'] > 0 ? $GLOBALS['TSFE']->page['tp3microdata'] :  $GLOBALS["TSFE"]->rootLine[0]["tp3microdata"]);
+
             if (is_array($tp3micro) &&  $tp3micro[0]['address'] > 0) {
                 $tp3micro[0]['address_object'] = $this->tp3AdressRepository->findByUid($tp3micro[0]['address']);
             }
@@ -116,7 +115,7 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
              * logo from tsconfig
              *
              */
-            $tp3micro[0]['logo'] = $config["plugin."]["tx_tp3mods_tp3micro."]["settings."]["logo"];
+            $tp3micro[0]['logo'] = $config["page."]["10."]["settings."]["logo."]["file"] != "" ? $config["page."]["10."]["settings."]["logo."]["file"] : $GLOBALS['TSFE']->tmpl->setup["plugin."]["tx_tp3mods_tp3micro."]["settings."]["logo"];
             /*
              * Features
              * WebSite,SearchAction,AggregateRating,SiteNavigation,LocalBusiness,openingHours
@@ -234,22 +233,26 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
              * geo data
              *#todo get geo from wec
              */
-            if($tp3micro[0]['address_object']->getLatitude() != "" &&  $tp3micro[0]['address_object']->getLongitude() != "") $tp3micro[0]['geo'] = ',
+
+            try {
+                if (is_object($tp3micro[0]['address_object'])) {
+
+                    if($tp3micro[0]['address_object']->getLatitude() != "" &&  $tp3micro[0]['address_object']->getLongitude() != ""){
+                        $tp3micro[0]['geo'] = ',
                         "geo": {
                             "@type": "GeoCoordinates",
                                 "latitude": ' . $tp3micro[0]['address_object']->getLatitude() . ',
                                 "longitude": ' . $tp3micro[0]['address_object']->getLongitude() . '
                               },';
-            try {
-                if (is_object($tp3micro[0]['address_object'])) {
+                    }
                     $parameters['jsInline'] .='<script type="application/ld+json"> ' . $this->JsonRenderer($tp3micro[0], $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']) . '</script>';
-                    if(in_array("SearchAction",$this->tp3Microdata)) $parameters['jsInline'] .='<script type="application/ld+json"> ' . $this->JsonWeb($tp3micro[0], $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']) . '</script>';
-                   if(in_array("SearchAction",$this->tp3Microdata)) $parameters['jsInline'] .='<script type="application/ld+json"> ' . $this->JsonSearch($tp3micro[0], $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']) . '</script>';
-
                 }
                 else{
                     // #todo without address
                 }
+                if(in_array("SearchAction",$this->tp3Microdata)) $parameters['jsInline'] .='<script type="application/ld+json"> ' . $this->JsonWeb($tp3micro[0], $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']) . '</script>';
+                if(in_array("SearchAction",$this->tp3Microdata)) $parameters['jsInline'] .='<script type="application/ld+json"> ' . $this->JsonSearch($tp3micro[0], $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']) . '</script>';
+
             } catch (Exception $e) {
                 //   $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
                 //   throw new \RuntimeException($message);
@@ -292,7 +295,7 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
          "@context": "http://schema.org",
          "@type": "WebSite",
          "url": "' . $GLOBALS["_SERVER"]["REQUEST_SCHEME"] . '://' . $GLOBALS["_SERVER"]["SERVER_NAME"] . '",
-         "name": "'.$GLOBALS["TSFE"]->cObj->data["title"].' :: '. $GLOBALS["TSFE"]->tmpl->sitetitle.'",
+         "name": "'. $GLOBALS["TSFE"]->tmpl->sitetitle.'",
          "potentialAction": {
             "@type": "SearchAction",
             "target": "' . $GLOBALS["_SERVER"]["REQUEST_SCHEME"] . '://' . $GLOBALS["_SERVER"]["SERVER_NAME"] . '/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}",
@@ -325,8 +328,8 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
         $json =      ' {
          "@context": "http://schema.org",
          "@type": "' . $microdata['konfiguration'] . '",
-         "logo": "' .  $microdata['address_object']->getWww() . '/'. $microdata[0]['logo'] . '",
-         "image": ["' .  $microdata['address_object']->getWww() . '/'. $microdata[0]['logo'] . '"],                       
+         "logo": "' .  $microdata['address_object']->getWww() . '/'. $microdata['logo'] . '",
+         "image": ["' .  $microdata['address_object']->getWww() . '/'. $microdata['logo'] . '"],                       
          "url": "' .  $microdata['address_object']->getWww() . '",                       
          "email": "' . $microdata['address_object']->getEmail() . '",
          "telephone": "' . $microdata['address_object']->getPhone() . '",

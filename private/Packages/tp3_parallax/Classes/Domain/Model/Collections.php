@@ -15,15 +15,21 @@ namespace Tp3\Tp3Parallax\Domain\Model;
 /**
  * Collections
  */
-class Collections extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Collections extends \TYPO3\CMS\Core\Resource\Collection\StaticFileCollection
 {
     /**
-     * parallaxsection
+     * parallaxPage
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Parallax\Domain\Model\Section>
-     * @cascade remove
+     * @var int
      */
-    protected $parallaxsection = null;
+    protected $parallaxPage = 0;
+
+    /**
+     * parallaxContent
+     *
+     * @var string
+     */
+    protected $parallaxContent = '';
 
     /**
      * __construct
@@ -44,49 +50,48 @@ class Collections extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-        $this->parallaxsection = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+
     }
 
     /**
-     * Adds a Section
+     * Returns the parallaxPage
      *
-     * @param \Tp3\Tp3Parallax\Domain\Model\Section $parallaxsection
+     * @return int $parallaxPage
+     */
+    public function getParallaxPage()
+    {
+        return $this->parallaxPage;
+    }
+
+    /**
+     * Sets the parallaxPage
+     *
+     * @param int $parallaxPage
      * @return void
      */
-    public function addParallaxsection(\Tp3\Tp3Parallax\Domain\Model\Section $parallaxsection)
+    public function setParallaxPage($parallaxPage)
     {
-        $this->parallaxsection->attach($parallaxsection);
+        $this->parallaxPage = $parallaxPage;
     }
 
     /**
-     * Removes a Section
+     * Returns the parallaxContent
      *
-     * @param \Tp3\Tp3Parallax\Domain\Model\Section $parallaxsectionToRemove The Section to be removed
+     * @return string $parallaxContent
+     */
+    public function getParallaxContent()
+    {
+        return $this->parallaxContent;
+    }
+
+    /**
+     * Sets the parallaxContent
+     *
+     * @param string $parallaxContent
      * @return void
      */
-    public function removeParallaxsection(\Tp3\Tp3Parallax\Domain\Model\Section $parallaxsectionToRemove)
+    public function setParallaxContent($parallaxContent)
     {
-        $this->parallaxsection->detach($parallaxsectionToRemove);
-    }
-
-    /**
-     * Returns the parallaxsection
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Parallax\Domain\Model\Section> $parallaxsection
-     */
-    public function getParallaxsection()
-    {
-        return $this->parallaxsection;
-    }
-
-    /**
-     * Sets the parallaxsection
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Parallax\Domain\Model\Section> $parallaxsection
-     * @return void
-     */
-    public function setParallaxsection(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $parallaxsection)
-    {
-        $this->parallaxsection = $parallaxsection;
+        $this->parallaxContent = $parallaxContent;
     }
 }

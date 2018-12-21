@@ -27,28 +27,24 @@ class CollectionsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getParallaxsectionReturnsInitialValueForSection()
+    public function getParallaxPageReturnsInitialValueForInt()
     {
-        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        self::assertEquals(
-            $newObjectStorage,
-            $this->subject->getParallaxsection()
+        self::assertSame(
+            0,
+            $this->subject->getParallaxPage()
         );
     }
 
     /**
      * @test
      */
-    public function setParallaxsectionForObjectStorageContainingSectionSetsParallaxsection()
+    public function setParallaxPageForIntSetsParallaxPage()
     {
-        $parallaxsection = new \Tp3\Tp3Parallax\Domain\Model\Section();
-        $objectStorageHoldingExactlyOneParallaxsection = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $objectStorageHoldingExactlyOneParallaxsection->attach($parallaxsection);
-        $this->subject->setParallaxsection($objectStorageHoldingExactlyOneParallaxsection);
+        $this->subject->setParallaxPage(12);
 
         self::assertAttributeEquals(
-            $objectStorageHoldingExactlyOneParallaxsection,
-            'parallaxsection',
+            12,
+            'parallaxPage',
             $this->subject
         );
     }
@@ -56,34 +52,25 @@ class CollectionsTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function addParallaxsectionToObjectStorageHoldingParallaxsection()
+    public function getParallaxContentReturnsInitialValueForString()
     {
-        $parallaxsection = new \Tp3\Tp3Parallax\Domain\Model\Section();
-        $parallaxsectionObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['attach'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $parallaxsectionObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($parallaxsection));
-        $this->inject($this->subject, 'parallaxsection', $parallaxsectionObjectStorageMock);
-
-        $this->subject->addParallaxsection($parallaxsection);
+        self::assertSame(
+            '',
+            $this->subject->getParallaxContent()
+        );
     }
 
     /**
      * @test
      */
-    public function removeParallaxsectionFromObjectStorageHoldingParallaxsection()
+    public function setParallaxContentForStringSetsParallaxContent()
     {
-        $parallaxsection = new \Tp3\Tp3Parallax\Domain\Model\Section();
-        $parallaxsectionObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['detach'])
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->subject->setParallaxContent('Conceived at T3CON10');
 
-        $parallaxsectionObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($parallaxsection));
-        $this->inject($this->subject, 'parallaxsection', $parallaxsectionObjectStorageMock);
-
-        $this->subject->removeParallaxsection($parallaxsection);
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'parallaxContent',
+            $this->subject
+        );
     }
 }

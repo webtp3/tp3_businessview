@@ -6,13 +6,6 @@ EXTCONF:
             - { GETvar: L, value: '1', useConfiguration: _DEFAULT }
             - { GETvar: L, value: '2', useConfiguration: _DEFAULT }
 
-            decode:
-                '%conf(EXTCONF.tp3_site.defaultLanguageDomain)%':
-                    GETvars: { L: '1' }
-                    useConfiguration: default.tld
-
-
-
         default.tld:
             init:
                 enableCHashCache: true

@@ -12,6 +12,13 @@ config.tx_extbase {
       Tp3\Tp3mods\Domain\Model\Tp3Mods {
         mapping {
           recordType = Tx_Tp3mods_Tp3Mods
+          tableName = tx_tp3mods_domain_model_tp3mods
+          columns {
+            pages.mapOnProperty = uid_foreign
+            sorting.mapOnProperty = sorting
+
+          }
+
         }
         subclasses {
           0 = Tp3\Tp3mods\Domain\Model\Tp3Adress

@@ -3,7 +3,7 @@ EXT:
         additional_reports:
             itemsPerPage: '30'
         backend:
-            backendFavicon: 'EXT:tp3mods/Resources/Public/Images/Icons/favicon_96.png'
+            backendFavicon: 'EXT:tp3mods/Resources/Public/Icons/favicon_96.png'
             backendLogo: 'EXT:tp3mods/Resources/Public/Images/Backend/backend-logo.svg'
             loginBackgroundImage: 'EXT:tp3mods/Resources/Public/images/Backend/login-background-image.jpg'
             loginHighlightColor: '#ff8f00'
@@ -35,9 +35,9 @@ EXT:
             todoSubtype: event
             treeOrderBy: uid
             useInternalCaching: '1'
-            useLocationStructure: tx_cal_location
-            useOrganizerStructure: tx_cal_organizer
-            useTeaser: '0'
+            useLocationStructure: tt_address
+            useOrganizerStructure: tt_address
+            useTeaser: '1'
         devlog:
             entriesPerPage: '25'
             excludeKeys: ''
@@ -59,6 +59,12 @@ EXT:
             notificationJob: '1'
             sendPerCycle: '50'
             updateMessage: '0'
+        error404page:
+            basicAuthentication: ''
+            debug: '0'
+            doktypeError404page: '104'
+            enableErrorLog: '0'
+            excludeErrorLogPattern: ''
         extension_builder:
             backupDir: uploads/tx_extensionbuilder/backups
             backupExtension: '1'
@@ -130,7 +136,7 @@ EXT:
             mediaPreview: 'false'
             prependAtCopy: '1'
             resourceFolderImporter: /news_import
-            rteForTeaser: '0'
+            rteForTeaser: '1'
             showAdministrationModule: '1'
             showImporter: '0'
             storageUidImporter: '1'
@@ -248,6 +254,7 @@ EXT:
             data_types: 'fe_users,fe_groups'
             default_pid: '1,fe_users:1,fe_groups:1'
         wec_map:
+            BackendModule: '1'
             apiURL: 'http://maps.google.com/maps?file=api&amp;v=%s&amp;key=%s&amp;hl=%s'
             defaultCountry: DE
             feUserRecordMap: '1'

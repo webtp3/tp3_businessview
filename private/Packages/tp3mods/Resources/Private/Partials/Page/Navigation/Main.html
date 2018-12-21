@@ -36,7 +36,6 @@
                     </f:link.page>
                 </f:else>
             </f:if>
-            <f:cObject typoscriptObjectPath="lib.toolbar" data="lib.toolbar"/>
             <f:if condition="{mainnavigation}">
                 <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
                         data-target=".navbar-collapse">
@@ -103,6 +102,7 @@
         </f:if>
     </div>
 </header>
+<f:cObject typoscriptObjectPath="lib.toolbar" data="lib.toolbar"/>
 <div class="bg-panel search hidden">
     <f:render partial="IndexedSearch/Form" arguments="{_all}"/>
 </div>

@@ -50,13 +50,35 @@ class Tp3ModsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      */
     public function findByUid($uid)
     {
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        $querySettings->setRespectStoragePage(false);
-
-        $this->setDefaultQuerySettings($querySettings);
+//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+//        $querySettings->setRespectStoragePage(false);
+//
+//        $this->setDefaultQuerySettings($querySettings);
         $query = $this->createQuery();
         $query->matching(
             $query->equals('uid', $uid),
+            $query->logicalAnd(
+                $query->equals('hidden', 0),
+                $query->equals('deleted', 0)
+            )
+        );
+        return $query->execute(true);
+    }
+    /**
+     *
+     *
+     * @param int $pid
+     * @return \Tp3\Tp3mods\Domain\Model\Tp3Mods
+     */
+    public function findByPidRaw($pid)
+    {
+//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+//        $querySettings->setRespectStoragePage(false);
+//
+//        $this->setDefaultQuerySettings($querySettings);
+        $query = $this->createQuery();
+        $query->matching(
+            $query->equals('pid', $pid),
             $query->logicalAnd(
                 $query->equals('hidden', 0),
                 $query->equals('deleted', 0)
