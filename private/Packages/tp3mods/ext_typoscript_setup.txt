@@ -7,6 +7,9 @@ config.tx_extbase {
         mapping {
           tableName = tt_address
           recordType = 0
+          columns {
+            microdata_adress.mapOnProperty = microdata_adress
+          }
         }
       }
       Tp3\Tp3mods\Domain\Model\Tp3Mods {
@@ -16,7 +19,8 @@ config.tx_extbase {
           columns {
             pages.mapOnProperty = uid_foreign
             sorting.mapOnProperty = sorting
-
+            pages.mapOnProperty = uid_foreign
+            address.mapOnProperty = address
           }
 
         }

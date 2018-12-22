@@ -81,13 +81,13 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectCheckBox',
                 'items' => [
-                    ['WebSite', 'WebSite', '', 'required'],
-                    ['SearchAction', 'SearchAction', '', 'indexsearch needed'],
-                    ['AggregateRating', 'AggregateRating', '', 'tp3rating needed'],
-                    ['BreadcrumbList', 'BreadcrumbList', '', 'bootstrap_package needed'],
-                    ['SiteNavigation', 'SiteNavigation', '', 'element configuration'],
-                    ['LocalBusiness', 'LocalBusiness', '', 'tt_address needed'],
-                    ['openingHours', 'openingHours', '', 'tp3_openhours needed'],
+                    ['WebSite', 'WebSite'],
+                    ['SearchAction', 'SearchAction'],
+                    ['AggregateRating', 'AggregateRating'],
+                    ['BreadcrumbList', 'BreadcrumbList'],
+                    ['SiteNavigation', 'SiteNavigation'],
+                    ['LocalBusiness', 'LocalBusiness'],
+                    ['openingHours', 'openingHours'],
 
                 ],
             ]
@@ -181,12 +181,11 @@ return [
             'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.pages',
             'config' => [
                 'type' => 'select',
-                'renderType' => 'selectMultipleSideBySide',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'pages',
-                'MM' => 'tx_tp3mods_domain_model_mm',
-                'MM_opposite_field' => 'tp3microdata',
+             //   'MM' => 'tx_tp3mods_domain_model_mm',
+             //   'MM_opposite_field' => 'tp3microdata',
                 'maxitems' => 100,
-                'allowed' => 'pages',
                 'enableMultiSelectFilterTextfield' => true,
                 'behaviour' => [
                     'localizationMode' => 'select',

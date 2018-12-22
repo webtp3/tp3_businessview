@@ -104,14 +104,11 @@ div.main-section .frame{
 
 .toolbar {
     font-size: 10px;
-    position: fixed;
     margin: 0;
     z-index: 9;
     padding: 0px 20px;
-    float: left;
     top:15%;
     text-align: left;
-    display: block;
 }
 .toolbar .texticon-content {
     overflow: visible;
@@ -392,10 +389,7 @@ tt_address
         width: 100%;
         transform: scale(0.9);
     }
-    .greeting  {
-        left: 5%;
-        width: 90%;
-    }
+
     .row {
         display: inline-flex;
         padding: 10px;

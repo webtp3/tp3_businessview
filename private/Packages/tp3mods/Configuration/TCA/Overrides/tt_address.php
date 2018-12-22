@@ -30,13 +30,13 @@ defined('TYPO3_MODE') || die();
 //    ];
 //    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_address', $tempColumnstx_tp3mods_tt_address);
 //}
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
-    'tt_address',
-    $GLOBALS['TCA']['tt_address']['ctrl']['type'],
-    '',
-    'after:' . $GLOBALS['TCA']['tt_address']['ctrl']['label']
-);
+//
+//\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+//    'tt_address',
+//    $GLOBALS['TCA']['tt_address']['ctrl']['type'],
+//    '',
+//    'after:' . $GLOBALS['TCA']['tt_address']['ctrl']['label']
+//);
 
 $tmp_tp3mods_columns = [
 
@@ -44,13 +44,15 @@ $tmp_tp3mods_columns = [
         'exclude' => true,
         'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3adress.microdata_adress',
         'config' => [
-            'type' => 'check',
-            'items' => [
-                '1' => [
-                    '0' => 'LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.enabled'
-                ]
-            ],
-            'default' => 0,
+//            'type' => 'select',
+//            'renderType' => 'selectMultipleSideBySide',
+//            'foreign_table' => 'tx_tp3mods_domain_model_tp3mods',
+//            'MM' => 'tx_tp3mods_domain_model_mm',
+//            'MM_opposite_field' => 'address',
+            'type' => 'select',
+            'renderType' => 'selectSingle',
+            'foreign_table' => 'tp3mods_domain_model_tp3mods',
+
         ]
 
     ],
@@ -91,7 +93,7 @@ $tmp_tp3mods_columns = [
 //
 //$GLOBALS['TCA']['tt_address']['columns'][$GLOBALS['TCA']['tt_address']['ctrl']['type']]['config']['items'][] = ['LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tt_address.tx_extbase_type.Tx_Tp3mods_Tp3Adress','Tx_Tp3mods_Tp3Adress'];
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
-   'tp3mods',
-   'tt_address'
-);
+//\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
+//   'tp3mods',
+//   'tt_address'
+//);

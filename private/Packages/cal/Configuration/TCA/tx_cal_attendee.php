@@ -64,6 +64,12 @@ $tx_cal_attendee = array(
 								'eval' => 'lower'
 						)
 				),
+                'event_id' => array(
+                    'exclude' => 1,
+                    'config' => [
+                        'type' => 'passthrough'
+                    ]
+                ),
 				'attendance' => array(
 						'exclude' => 1,
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_attendee.attendance',
@@ -131,6 +137,7 @@ $tx_cal_attendee = array(
 						)
 				)
 		),
+
 		'types' => array(
 				'0' => array(
 						'showitem' => 'hidden,fe_user_id,fe_group_id,email,attendance,status'

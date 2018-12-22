@@ -122,7 +122,6 @@
 		"causal/tscobj":"*",
 		"apen/additional_reports":"*",
 		"typo3-ter/cal":"1.11.2-dev",
-		"typo3-ter/error404page":"^3",
 		"web-tp3/wec_map": "^4.1.4",
 		"causal/extractor":"^1",
 		"snowflakeops/varnish":"^3.0.2"
