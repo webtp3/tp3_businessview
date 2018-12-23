@@ -24,6 +24,7 @@ CREATE TABLE tx_tp3mods_domain_model_tp3mods (
   KEY ref (pages)
 );
 
+
 #
 # Table structure for table 'tx_tp3mods_domain_model_mm'
 #
@@ -41,19 +42,30 @@ CREATE TABLE tx_tp3mods_domain_model_mm (
 	KEY uid_local_foreign (uid_local,uid_foreign),
 	KEY uid_foreign_tablefield (uid_foreign,tablenames(40),fieldname(3),sorting_foreign)
 );
+
 #
 # Table structure for table 'tt_address'
 #
 CREATE TABLE tt_address (
   microdata_adress text,
   tx_cal_controller_latitude tinytext DEFAULT  '0'  NOT NULL,
-	tx_cal_controller_longitude tinytext DEFAULT  '0' NOT NULL,
+	tx_cal_controller_longitude tinytext DEFAULT  '0' NOT NULL
 );
+
 #
 # Table structure for table 'pages'
 #
 CREATE TABLE pages (
+  tp3parallax int(2) DEFAULT '1' NOT NULL,
+  tp3microdata int(11) DEFAULT NULL
 
-  tp3microdata int(11) DEFAULT NULL,
+);
 
+#
+# Table structure for table 'sys_file_reference'
+#
+CREATE TABLE sys_file_reference (
+
+	speed varchar(255) DEFAULT '' NOT NULL,
+  parallax int(2) DEFAULT '1' NOT NULL
 );

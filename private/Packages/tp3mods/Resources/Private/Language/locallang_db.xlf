@@ -63,6 +63,12 @@
 			<trans-unit id="tp3mods_downloads.description">
 				<source>Show downloads in diferent views</source>
 			</trans-unit>
+			<trans-unit id="sys_file_reference.parallax">
+				<source>für benutzen parallax</source>
+			</trans-unit>
+			<trans-unit id="sys_file_reference.speed">
+				<source>scroll geschwindigkeit (+/-)</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

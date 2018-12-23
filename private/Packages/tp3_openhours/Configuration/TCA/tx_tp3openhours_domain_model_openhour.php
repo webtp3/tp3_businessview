@@ -168,7 +168,12 @@ return [
         ],
         'ttaddress' => [
             'config' => [
-                'type' => 'passthrough',
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tt_address',
+                'foreign_field' => 'open_hours',
+                'foreign_sortby' => 'sorting',
+                'maxitems' => 9999,
             ],
         ],
     ],

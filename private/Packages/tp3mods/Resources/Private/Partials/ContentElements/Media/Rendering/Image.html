@@ -6,7 +6,8 @@
      data-small="{f:uri.image(image: file, cropVariant: 'small', maxWidth: 720)}"
      data-extrasmall="{f:uri.image(image: file, cropVariant: 'extrasmall', maxWidth: 320)}" title="{file.title}"
      alt="{file.alternative}" class="lazyload"
-     data-preload="{f:if(condition: settings.preload.images, then: 'true', else: 'false')}"/>
+     data-preload="{f:if(condition: settings.preload.images, then: 'true', else: 'false')}"
+     data-speed="{file.speed}" data-parallax="{file.parallax}" />
 <noscript>
     <img src="{f:uri.image(image: file)}" title="{file.title}" alt="{file.alternative}"/>
 </noscript>

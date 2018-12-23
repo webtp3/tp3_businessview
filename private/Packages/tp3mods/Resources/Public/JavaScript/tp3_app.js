@@ -20,7 +20,7 @@ var businessviewCanvasSelector =  businessviewCanvasSelector || "#businessview-c
 var greeting =  $j('#c1716').parents('div').first();
 $j(greeting).parents('.section-light').hide();
 var section_box;
-window.tp3_app = window.tp3_app || {};
+    window.tp3_app = window.tp3_app || {};
 window.$container = $container;
 
 if($j(document).width() < 769){
@@ -158,14 +158,15 @@ tp3_app.initialize=function(){
 tp3_app.cookies = tp3_app.cookies || true;
 tp3_app.init = tp3_app.init || false;
 var sl = 0,
-    section_image = section_image || false;
+    section_image = section_image || [];
+
 tp3_app.backmove = function (e) {
     if (e == undefined) e = $j('body').first();
     if( $j('.section_image').length > 2) $j('.section_image').first().remove()
-    if (section_image && section_image["section#p" + $j(e).attr("id").split("-")[1]].length > 0 && section_image["section#p" + $j(e).attr("id").split("-")[1]][sl].background != "") {
-        var img = section_image["section#p" + $j(e).attr("id").split("-")[1]][sl].background;
+    if (section_image && $j.type(section_image) == "array" && section_image.length > 0 && section_image[0].background ) {
+        var img = section_image[sl].background;
         //get the index of the start of the part of the URL we want to keep
-        if( img.match(/\.(jpeg|jpg|gif|png|svg)$/) != null)
+        if( img.toLowerCase().match(/\.(jpeg|jpg|gif|png|svg)$/) != null)
         {
             if( $j('.section_shadow').length < 1){
                 var shadow =  $j("<div>&nbsp;</div>").appendTo( $j('.body-bg').first())
@@ -175,7 +176,7 @@ tp3_app.backmove = function (e) {
                     "height":"100%",
                     "z-index":"-1",
                     "top":"0",
-                    "max-height":screen.height,
+                    "max-height":screen.availHeight,
                 })
             }
 
@@ -188,23 +189,26 @@ tp3_app.backmove = function (e) {
                     "position":"absolute",
                     "width":"100%",
                     "z-index":"-3",
-                    "max-height":screen.height,
-                    "height":"100%",
+                    "height":screen.availHeight,
                     "display":"none",
-                    "top":"0",
-                    // "background-position": "50% 50%",
-                    "background-repeat": "no-repeat",
+                    "top":0,
+                    "min-height":"100%",
+                    "background-position": "50% 50%",
                     "background-image": "url(" + img + ")",
                 })
 
         }
-        else{
-            gb = $j('.body-bg').first().prepend($("<video controls=\"\" class=\"embed-responsive-item\"><source src=\"/fileadmin/data/video/SampleVideo_1280x720_5mb.mp4\" type=\"video/mp4\"></video>/>").css({
+        else if (section_image && $j.type(section_image) == "array" && section_image.length > 0 ){
+            gb = $j('.body-bg').first().prepend($("<video controls=\"\" class=\"embed-responsive-item\"><source src=\""+img+"\" type=\"video/mp4\"></video>").css({
                     "position":"absolute",
                     "width":"100%",
+                    "height":screen.availHeight,
+                    "display":"none",
                     "top":0,
-                    "height":"100%",
+                    "min-height":"100%",
+                    "background-position": "50% 50%",
                     "background-image": "url(" + img + ")",
+
                 })
             )
         }
@@ -213,39 +217,21 @@ tp3_app.backmove = function (e) {
             })
         })
 
-
-
-
         if($j.type(tp3_app.parallax == "function"))tp3_app.parallax();
 
-        // $window.on('scroll', function(){
-        //     // HTML5 proves useful for helping with creating JS functions!
-        //     // also, negative value because we're scrolling upwards
-        //     var speed =  $j('.section_image').data('speed') != undefined ?  $j('.section_image').data('speed') : 5
-        //     var yPos = speed < 0 ? -(($window.scrollTop() -  $j('.section_image').offset().top) / speed *2) : -(($window.scrollTop() -  $j('.section_image').offset().top) / speed)// ($window.scrollTop() * 2);//
-        //
-        //     // background position
-        //     var coords = '50% '+ yPos + 'px';
-        //
-        //     // move the background
-        //     $j('.section_image').last().css({ backgroundPosition: coords });
-        // }); // end window scroll
-
-        //then get everything after the found index
-
-        // $j("#" + $j(e).attr("id") + " > .body-bg").css({
-        //     "background-image": "url(" + section_image["section#p" + $j(e).attr("id").split("-")[1]][sl].background + ")",
-        //     "background-size": "cover"
-        // })
-        /*$j("#" + $j(e).attr("id") +" > .body-bg").fadeTo('slow', 0.3, function(){
-            $j(this).css('background-image', 'url(' + section_image["section#p" + $j(e).attr("id").split("-")[1]][sl].background + ')');
-        }).fadeTo('slow', 1);	*/
         sl++;
-        if (sl >= section_image["section#p" + $j(e).attr("id").split("-")[1]].length) sl = 0;
+        if (sl >= section_image.length) sl = 0;
         setTimeout(function () {
             tp3_app.backmove(e)
         }, 15000);
     }
+    // else {
+    //     sl++;
+    //     if (sl >= section_image.length) sl = 0;
+    //     tp3_app.backmove(e)
+    // }
+
+
 }
 tp3_app.watchdog = function () {
     $j(document).on("loaded",function(){
@@ -593,9 +579,14 @@ tp3_app.parallax = function(){
             // move the background
             $scroll.css({
                 backgroundPosition: coords,
-                //top: yPos+"px",
 
             })
+            // if($scroll.hasClass("section_image")){
+            //     $scroll.css({
+            //         top: $scroll.offset().top + Math.round($scroll.offset().top * 0.25) +"px",
+            //
+            //     })
+            // }
 
             //
         }); // end window scroll
@@ -616,7 +607,7 @@ tp3_app.parallax = function(){
     //$j('#content.main-section  > .section , #content.main-section  > .row.frame').css({"min-height":screen.height});
     //$j('#content.main-section').first().css({"min-height":screen.height});
 //$j('body > .body-bg').attr("data-speed","6").css({"background-image":"url(fileadmin/user_upload/neodental/Technician-in-dental-lab-presenting-a-prosthesis-into-the-camera-000025618872_Double.jpg)"});
-    $(window).trigger("scroll")
+  //  $(window).trigger("scroll")
 };
 //$j('.main-section > .section.section-light').attr("data-speed","3").css({"background-size":"cover;","background-image":"url(fileadmin/locations/LocationGuide-Titelbilder/ATELIERS-GALERIEN-documenta10_Seitenlichthalle__documenta_gGmbH.jpg)"});
 $j('.body-bg').attr("data-speed","-50")
@@ -818,9 +809,9 @@ var init = false;
 
 var show, go, scoll_pos;
 var scroll_pos = scroll_pos || $j(document).scrollTop(),
-    headerheight =   headerheight ||  $j('header.navbar').height() ,
+    headerheight =   headerheight ||  $j('header.navbar').height()  ,
     headerwidth =   headerwidth ||  $j('header').width(),
-    logoheight =   logoheight || headerheight * 0.9,
+    logoheight = logoheight || (headerheight ) + "px",
     logowidth  = logowidth ||   $j('#logo').width()< 1 ? $j('.navbar-brand-image').width() : $j('#logo').width() ,
     toolbarheight  = toolbarheight ||  $j('.toolbar').first().height();
 if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
@@ -858,11 +849,10 @@ else{
             once = true;
             //$j('header.navbar-top .breadcrumb-section').hide();
             show = setTimeout(function() {
-                $j('.toolbar .frame').css({padding:"16px 0"});
                 $j(this).toggleClass('anim');
                 $j('header.navbar-top').removeClass("flat");
                 $j('a.navbar-brand-image, #logo, .logo').width( "auto").height(logoheight );
-                $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight)  +"px"});
+             //   $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight)  +"px"});
                 //$j('.headerslogan').css({"padding-left":"140px"});
 
             }, 400);
@@ -879,10 +869,8 @@ else{
                 go = setTimeout(function() {
                     $j('header.navbar-top').addClass("flat");
                     $j(this).toggleClass('anim');
-                    $j('.toolbar .frame').css({"padding":"8px 0"});
 
                     $j('a.navbar-brand-image, #logo, .logo').width( "auto").height(logoheight /2 );
-                    $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight) / 2  +"px"});
                 }, 400);
             }
 
@@ -896,9 +884,7 @@ else{
 
                 go = setTimeout(function() {
                     $j(this).toggleClass('anim');
-                    $j('.toolbar .frame').css({padding:"8px 0"});
                     $j('a.navbar-brand, a.navbar-brand img ,#logo, .logo').width( "auto").height(logoheight /2 );
-                    $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight)  + "px"});
                     $j('header.navbar-top').removeClass("flat");
                 }, 400);
             }
@@ -1100,219 +1086,8 @@ var canvasDots = function() {
 
     setInterval(createDots, 1000/30);
 };
-/*
-window.onload = function() {
-    //canvasDots();
-};
-*/
 
-+function($) {
 
-// cache img.lazyload collection
-    var $lazyload;
-
-// VIEWPORT HELPER CLASS DEFINITION
-// ================================
-    var viewport;
-    var ViewPort = function(options){
-        this.viewportWidth = 0;
-        this.viewportHeight = 0;
-        this.options = $.extend({}, ViewPort.DEFAULTS, options);
-        this.attrib = "src";
-        this.update();
-    };
-
-    ViewPort.DEFAULTS = {
-        breakpoints : {
-            0: 'extrasmall',
-            768: 'small',
-            992: 'medium',
-            1200: 'large'
-        }
-    };
-
-    ViewPort.prototype.viewportW = function() {
-        var clientWidth = document.documentElement['clientWidth'], innerWidth = window['innerWidth'];
-        return this.viewportWidth = clientWidth < innerWidth ? innerWidth : clientWidth;
-    };
-
-    ViewPort.prototype.viewportH = function() {
-        var clientHeight = document.documentElement['clientHeight'], innerHeight = window['innerHeight'];
-        return this.viewportHeight = clientHeight < innerHeight ? innerHeight : clientHeight;
-    };
-
-    ViewPort.prototype.inviewport = function(boundingbox) {
-        return !!boundingbox && boundingbox.bottom >= 0 && boundingbox.right >= 0 && boundingbox.top <= this.viewportHeight && boundingbox.left <= this.viewportWidth;
-    };
-
-    ViewPort.prototype.update = function(){
-        this.viewportH();
-        this.viewportW();
-        var attrib = this.attrib,
-            width = this.viewportWidth;
-
-        $j.each(this.options.breakpoints, function (breakpoint, datakey) {
-            if (width >= breakpoint) {
-                attrib = datakey;
-            }
-        });
-
-        this.attrib = attrib;
-    };
-
-// expose viewportH & viewportW methods
-    $j.fn.viewportH = ViewPort.prototype.viewportH;
-    $j.fn.viewportW = ViewPort.prototype.viewportW;
-
-// RESPONSIVE IMAGES CLASS DEFINITION
-// ==================================
-    var ResponsiveContent = function(element, options) {
-        this.$element = $j(element);
-        this.options = $j.extend({}, ResponsiveContent.DEFAULTS, options);
-        this.attrib = "data-link";
-        this.loaded = false;
-        this.checkviewport();
-    };
-
-    ResponsiveContent.DEFAULTS = {
-        threshold: 0,
-        attrib: "data-link",
-        skip_invisible: false,
-        preload: false
-    };
-
-    ResponsiveContent.prototype.checkviewport = function() {
-        if (this.attrib !== viewport.attrib) {
-            this.attrib = viewport.attrib;
-            this.loaded = false;
-        }
-        this.unveil();
-    };
-
-    ResponsiveContent.prototype.boundingbox = function() {
-        var boundingbox = {},
-            coords = this.$element[0].getBoundingClientRect(),
-            threshold = +this.options.threshold || 0;
-        boundingbox['right'] = coords['right'] + threshold; boundingbox['left'] = coords['left'] - threshold;
-        boundingbox['bottom'] = coords['bottom'] + threshold; boundingbox['top'] = coords['top'] - threshold;
-        return boundingbox;
-    };
-
-    ResponsiveContent.prototype.inviewport = function() {
-        var boundingbox = this.boundingbox();
-        return viewport.inviewport(boundingbox);
-    };
-
-    ResponsiveContent.prototype.unveil = function(force) {
-        if (this.loaded || !force && !this.options.preload && this.options.skip_invisible && this.$element.is(":hidden")) return;
-        var inview = force || this.options.preload || this.inviewport();
-        console.log("ResponsiveContent view?");
-
-        if (inview) {
-            var source = $j(this.$element).data("link");
-            if (source) {
-
-                console.log("ResponsiveContent load");
-                this.$element.attr("data-link", source);
-                var container = 'news-container-' +  $j('.pagination').find('.active').first().data('container');
-                var loader = $j('<div  style="position:absolute;bottom:10px;left:0;height:100%;width:100%;background-color: rgba(255,255,255,0.3)"><div class="loader">...</div></div>').appendTo('.news-panel').width("100%").height("100%");
-                if($j(this.$element).get(0) == $j('.news .responsiveContent').last().get(0))$j('.pagination').hide();
-
-                $j.ajax({
-                    url: source.replace("http:", "https:"),
-                    type: 'GET',
-                    success: function (result) {
-                        $j(loader).remove();
-                        var ajaxDom = $j(result).find(".news-list-item");
-                        // $j(ajaxDom).each( function () {
-                        if($j.type(tp3_app.isotop == "function") && ($j(".news-list-view").hasClass("isotop") || $j(".news-list-view").hasClass("boxes"))){
-                            window.$container.append( ajaxDom );
-                            // add and lay out newly prepended items
-                            window.$container.isotope( 'appended', ajaxDom );
-
-                            //$j('.news-panel').height('100%')
-
-                        }
-                        else{
-                            //$j('.news-panel').append(this);
-
-                        }
-                        // })
-                        $j('.news-panel').height('100%')
-                        // if ($j.type(tp3_app.isotop == "function") && ($j('.news-panel').hasClass("isotop") || $j('.news-panel').hasClass("boxes"))) {
-                        //     window.$container.isotope({
-                        //         itemSelector: '.news-list-item',
-                        //         layoutMode: 'masonry', //masonry
-                        //         masonry: {
-                        //             columnWidth: screen.availHeight / 3
-                        //         },
-                        //         getSortData: {
-                        //             headline: '.headline',
-                        //             category: '[data-category]',
-                        //             time: '[data-time]',
-                        //
-                        //         }
-                        //     });
-                        // }
-                    },
-                    error: function () {
-                        $j(loader).remove();
-                        $j('.pagination').show();
-
-                    }
-                });
-                this.loaded	= true;
-            }
-        }
-    };
-
-    ResponsiveContent.prototype.print = function() {
-        this.unveil(true);
-    };
-
-// RESPONSIVE IMAGES PLUGIN DEFINITION
-// ===================================
-    function Plugin(option) {
-        $lazyload = this;
-        console.log("ResponsiveContent");
-        return this.each(function() {
-            var $this = $(this);
-            var data = $this.data("tp3.responsiveContent");
-            var options = typeof option === 'object' && option;
-
-            if (!data) {
-                if (!viewport) viewport = new ViewPort(options && options.breakpoints ? {breakpoints:options.breakpoints} : {});
-
-                if (options && options.breakpoints) options.breakpoints = null;
-                options = $.extend({}, $this.data(), options);
-
-                $this.data('tp3.responsiveContent', (data = new ResponsiveContent(this, options)));
-            }
-            if (typeof option === 'string') data[option]();
-        });
-    }
-// var old = $.fn.responsiveContents;
-    $.fn.responsiveContent = Plugin;
-    $.fn.responsiveContent.Constructor = ResponsiveContent;
-
-    // $(window).on('load.tp3.responsiveContent', function() {
-    //     $j('.news .responsiveContent').responsiveContent();
-    //     // EVENTS
-    //     // ======
-    //     $(window)
-    //         .on('scroll.tp3.responsiveContent', function(){
-    //             $lazyload.responsiveContent('unveil');
-    //         })
-    //         .on('resize.tp3.responsiveContent', function(){
-    //             if (viewport) viewport.update();
-    //             $lazyload.responsiveContent('checkviewport');
-    //         })
-    //         .on('beforeprint.tp3.responsiveContent', function(){
-    //             $lazyload.responsiveContent('print');
-    //             $j(window).trigger("readytoprint.tp3.responsiveContent");
-    //         });
-    // });
-}(jQuery);
 
 $j(document).promise().done(function( ) {
 

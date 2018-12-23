@@ -30,7 +30,15 @@ $extensionKey = 'tp3mods';
 
             ]
         ],
+        'tp3parallax' => [
+            'label' => 'tp3 parallax effect',
+            'exclude' => true,
+            'config' => [
+                'type' => 'check',
+                'default' => '1'
 
+            ]
+        ],
     ]
 );
 
@@ -42,6 +50,13 @@ $extensionKey = 'tp3mods';
     '
 );
 
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+    'pages',
+    'layout',
+    '
+    --linebreak--, tp3parallax,
+    '
+);
 // RTE Config (Old style)
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerPageTSConfigFile(
     'tp3mods',

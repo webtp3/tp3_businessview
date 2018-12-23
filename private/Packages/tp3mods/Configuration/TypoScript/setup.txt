@@ -113,81 +113,40 @@ lib.fluidContent {
 
 #back move effect
 # todo prallax scrolling
-
-//Include header image if in page properties
-
-lib.containerBackgroundImage = COA
-lib.containerBackgroundImage {
-    wrap = <style>|</style>
-    5 = TEXT
-    5.data = page:uid
-    #5.wrap = section#p|
-    5.wrap = #pid-| > .body-bg
-    10 = TEXT
-    10.wrap = {|}
-    10.data = levelmedia:-1,slide
-    10.override.if.isFalse.field = media
-    10.split {
-        token = ,
-        cObjNum = 1
-        1 {
-
-            10 = IMG_RESOURCE
-            #  params = class="flexible"
-            10.file {
-                import.current = 1
-                import = uploads/media/
-                treatIdAsReference = 1
-
-                // beispiel breite höhe
-                width = 1920
-                maxH = 1080
-            }
-        }
-
-        1.wrap = background:url(/|) no-repeat top center; background-size: contain;
-    }
-
-
-}
-
+[globalVar = TSFE:page|tp3parallax = 1]
 
 lib.containerBackgroundImagejs = COA
 lib.containerBackgroundImagejs {
-    wrap = <script>|</script>
-    5 = TEXT
-    5.data = page:uid
-    5.wrap = var section_image = {"section#p|":
-    10 = TEXT
-    10.wrap = [|]}
-    10.data = levelmedia:-1,slide
-    10.override.if.isFalse.field = media
-    10.split {
-        token = ,
-        cObjNum = 1
-        max = 10
-        sort = rand()
+    1 = TEXT
+    1.value = <script>var section_image = section_image || [];
 
-        1 {
-
-            10 = IMG_RESOURCE
-            #  params = class="flexible"
-            10.file {
-                import.current = 1
-                import = uploads/media/
-                treatIdAsReference = 1
-                # todo get size from register
-#                // beispiel breite höhe
-                width = 1920
-                maxH = 1080
+    2 = COA
+    2{
+        10 = FILES
+        10{
+            references {
+                data = levelmedia: -1, slide
+                orderBy = rand()
+                table = pages
+                fieldName  = media
             }
         }
+        10.begin = 0
+        10.maxItems = 10
+        10.renderObj = TEXT
+        10.renderObj {
+            data = file:current:publicUrl
+            wrap = {background:"|"},
 
-        1.wrap = {background:"|"},
+        }
     }
+    2.wrap = section_image.push( | );
+    3 = TEXT
+    3.value = </script>
 
 
 }
+[global]
 
 # get logo from content
 
@@ -287,7 +246,8 @@ page {
     bodyTagCObject.field = uid
     bodyTagCObject.wrap = <body id="pid-|" data-{$app_name}role="page" data-spy="scroll" data-target=".navbar-collapse"  itemscope="" itemtype="http://schema.org/{$snippet_type}">
     headerData {
-        112112 >
+        112113 >
+
         112113 < lib.containerBackgroundImagejs
         // Flip ahead browsing for IE10/11
         // http://msdn.microsoft.com/en-us/library/ie/jj883726(v=vs.85).aspx
@@ -323,7 +283,7 @@ page {
 
     includeCSS {
         #enabled less css
-        #bootstrap = EXT:tp3mods/Resources/Public/Less/Bootstrap/bootstrap.less
+        bootstrap = EXT:tp3mods/Resources/Public/Less/Bootstrap/bootstrap.less
         theme = EXT:tp3mods/Resources/Public/Less/Theme/theme.less
 
         #User Css

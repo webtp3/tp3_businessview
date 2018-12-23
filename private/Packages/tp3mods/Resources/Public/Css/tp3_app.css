@@ -69,9 +69,7 @@ header .navbar-nav {
     width: 33%;
     float: left;
 }
-div.main-section .frame{
-    padding-top: 0;
-}
+
 .logo > .frame{
     padding : 0;
 }
@@ -139,6 +137,7 @@ div.main-section .frame{
 div.main-section .frame-jumbotron [class^="col"] {
     background: transparent;
 }
+
 #content .subnav-wrap .hidden-xs {
     display: block!important;
 }
@@ -261,6 +260,12 @@ tt_address
 @media (min-width:768px) {
     .flexslider .gallery-item.col-md-6.col-xs-12 {
         width: 50%;
+    }
+    .main-section .section{
+        background: transparent;
+    }
+    header .container {
+        padding-bottom: 15px;
     }
 }
 @media (max-width:768px) {
@@ -407,6 +412,12 @@ tt_address
         background: rgba(0, 0, 0, 0.5);
 
     }
+    .toolbar {
+        position: fixed;
+        display: inline-grid;
+        top: 200px;
+        left:0;
+    }
 }
 
 @media (min-width: 992px) {
@@ -426,7 +437,8 @@ tt_address
         width: 100%;
     }
     .section_image{
-        background-size: cover;
+        background-size: 150%;
+
     }
 }
 

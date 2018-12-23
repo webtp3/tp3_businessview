@@ -16,6 +16,13 @@ CREATE TABLE pages (
 
 );
 #
+# Table structure for table 'pages_language_overlay'
+#
+CREATE TABLE pages_language_overlay (
+	page_parallax varchar(11) DEFAULT '0' NOT NULL,
+
+);
+#
 # Table structure for table 'tx_tp3_parallax_mm'
 #
 CREATE TABLE tx_tp3_parallax_mm (
