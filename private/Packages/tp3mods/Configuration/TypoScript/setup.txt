@@ -112,9 +112,14 @@ lib.fluidContent {
 }
 
 #back move effect
-# todo prallax scrolling
+# todo parallax scrolling with page & sys_file_references
 [globalVar = TSFE:page|tp3parallax = 1]
-
+page.jsInline{
+    112113 = TEXT
+    112113.value(
+        var tp3parallax = true;
+    )
+}
 lib.containerBackgroundImagejs = COA
 lib.containerBackgroundImagejs {
     1 = TEXT

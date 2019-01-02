@@ -1,6 +1,6 @@
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/RichSnippets/constants.txt">
 # cat=tp3mods: advanced/190/100; type=string; label=devmode)
-disableDevmode = 1
+disableDevmode = 0
 
 # cat=tp3mods: advanced/190/100; type=string; label=Snippet type for page (can also be product etc. see https://schema.org/WebPage)
 snippet_type = WebPage
@@ -187,7 +187,7 @@ page {
         # cat=bootstrap package: basic/120/100; type=string; label=Description: Enter a short description of the page. It will be displayed in the result lists of most search engines.
         description =
         # cat=bootstrap package: basic/120/110; type=string; label=Author: Enter the page author's name.
-        author =
+        author = {$google_profile_url}
         # cat=bootstrap package: basic/120/120; type=string; label=Keywords: Enter keywords for the page separated by commas. You may also use short phrases.
         keywords =
         # cat=bootstrap package: advanced/120/100; type=string; label=viewport

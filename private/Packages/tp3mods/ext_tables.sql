@@ -60,7 +60,13 @@ CREATE TABLE pages (
   tp3microdata int(11) DEFAULT NULL
 
 );
-
+#
+# Table structure for table 'pages_language_overlay'
+#
+CREATE TABLE pages_language_overlay (
+	tp3parallax int(2) DEFAULT '1' NOT NULL,
+  tp3microdata int(11) DEFAULT NULL
+);
 #
 # Table structure for table 'sys_file_reference'
 #
