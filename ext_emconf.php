@@ -17,13 +17,12 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => '0',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '1.0.3',
+    'version' => '1.0.4',
     'constraints' =>
         [
             'depends' =>
                 [
                     'typo3' => '8.7.0-9.9.99',
-                    'tt_address' => '*',
                 ],
             'conflicts' =>
                 [
@@ -31,6 +30,7 @@ $EM_CONF[$_EXTKEY] = [
                 ],
             'suggests' =>
                 [
+                    'tt_address' => '*',
                     'tp3_openhours' => '*',
                 ],
         ],
