@@ -902,7 +902,7 @@ $GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] ['TYPO3\\CMS
 );
 
 /* defining stuff for scheduler */
-if (\TYPO3\CMS\Core\Utility\GeneralUtility::inList ($GLOBALS['TYPO3_CONF_VARS'] ['EXT'] ['extList'], 'scheduler')) {
+if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('scheduler')) {
 	// find type of ext and determine paths
 	// add these to the global TYPO3_LOADED_EXT
 	$temp_extKey = 'scheduler';
