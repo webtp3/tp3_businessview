@@ -8,7 +8,7 @@ $TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT'] = array(
         'enableCHashCache' => 1,
         'enableUrlDecodeCache' => 1,
         'enableUrlEncodeCache' => 1,
-        'disableErrorLog'=> 0,
+        'disableErrorLog'=> 1,
         'appendMissingSlash' => 'ifNotFile,redirect[301]',
         'respectSimulateStaticURLs' => 1,
         'postVarSet_failureMode'=>'redirect_goodUpperDir',
@@ -24,6 +24,7 @@ $TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT'] = array(
         array(
             'GETvar' => 'L',
             'valueMap' => array(
+                'de' => '1',
                 'da' => '2',
                 'en' => '3',
                 'es' => '4',
@@ -286,4 +287,3 @@ $TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT'] = array(
         ),
     ),
 );
-?>

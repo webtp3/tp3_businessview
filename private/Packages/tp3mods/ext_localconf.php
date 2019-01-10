@@ -67,8 +67,8 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php'][
        }'
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] .= ($GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] ? ',' : '') . 'subtitle,author,keywords,description,media,title,abstract,tp3microdata';
-$GLOBALS['TYPO3_CONF_VARS']['FE']['pageOverlayFields'] .= ($GLOBALS['TYPO3_CONF_VARS']['FE']['pageOverlayFields'] ? ',' : '' ) . 'tp3microdata';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] .= ($GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] ? ',' : '') . 'subtitle,author,keywords,description,title,abstract,media,tsconfig,tp3microdata';
+//$GLOBALS['TYPO3_CONF_VARS']['FE']['pageOverlayFields'] .= ($GLOBALS['TYPO3_CONF_VARS']['FE']['pageOverlayFields'] ? ',' : '' ) . 'media';
 /*  \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
       'mod {
           wizards.newContentElement.wizardItems.common{

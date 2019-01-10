@@ -122,8 +122,9 @@ page.jsInline{
 }
 lib.containerBackgroundImagejs = COA
 lib.containerBackgroundImagejs {
+
     1 = TEXT
-    1.value = <script>var section_image = section_image || [];
+    1.value = <script>var section_image = section_image || [], section_speed = section_speed || [];
 
     2 = COA
     2{
@@ -131,23 +132,30 @@ lib.containerBackgroundImagejs {
         10{
             references {
                 data = levelmedia: -1, slide
-                orderBy = rand()
                 table = pages
                 fieldName  = media
             }
         }
         10.begin = 0
         10.maxItems = 10
+
         10.renderObj = TEXT
         10.renderObj {
             data = file:current:publicUrl
             wrap = {background:"|"},
 
         }
+
     }
     2.wrap = section_image.push( | );
-    3 = TEXT
-    3.value = </script>
+    3 < .2
+    3.10.renderObj {
+        data = file:current:speed
+        wrap = {speed:"|"},
+    }
+    3.wrap = section_speed.push( | );
+    10 = TEXT
+    10.value = </script>
 
 
 }

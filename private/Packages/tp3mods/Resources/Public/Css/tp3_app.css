@@ -142,7 +142,10 @@ div.main-section .frame-jumbotron [class^="col"] {
     display: block!important;
 }
 
-.connecting-dots{position: absolute;}
+.connecting-dots{
+    position: absolute;
+    z-index: -1;
+}
 
 .modal-dialog.modal-side.modal-bottom-right {
     right: 30px;
@@ -268,9 +271,7 @@ tt_address
     .main-section .section:not(.section-primary) {
         background: transparent;
     }
-    header .container {
-        padding-bottom: 15px;
-    }
+
 }
 @media (max-width:768px) {
     header.navbar-header-main .navbar-brand.navbar-brand-image {
@@ -404,7 +405,9 @@ tt_address
         width: 100%;
         transform: scale(0.9);
     }
-
+    .gallery-item {
+        padding: 5px;
+    }
     .row {
         display: inline-flex;
         padding: 10px;

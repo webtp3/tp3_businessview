@@ -19,6 +19,22 @@ return [
         'versioningWS' => true,
         'origUid' => 't3_origuid',
         'thumbnail' => 'image',
+        'EXT' => array (
+            'wec_map' => array (
+                'isMappable' => 1,
+                'addressFields' => array (
+                    'street' => 'address',
+                    'city' => 'city',
+                    'state' => 'region',
+                    'zip' => 'zip',
+                    'country' => 'country',
+                ),
+                'latlongFields' => array (
+                    'lat' => 'latitude',
+                    'long' => 'longitude',
+                ),
+            ),
+        ),
         'enablecolumns' => [
             'disabled' => 'hidden'
         ],

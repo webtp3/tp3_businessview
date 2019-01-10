@@ -137,7 +137,6 @@ $tx_cal_attendee = array(
 						)
 				)
 		),
-
 		'types' => array(
 				'0' => array(
 						'showitem' => 'hidden,fe_user_id,fe_group_id,email,attendance,status'

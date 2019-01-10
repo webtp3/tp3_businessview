@@ -14,8 +14,10 @@ var businessviewCanvasSelector =  businessviewCanvasSelector || "#businessview-c
     scrollTimeStart = new Date,
     disableStr = disableStr || false,
     WECInit = WECInit || undefined,
-    $container = $container || undefined;
-var greeting =  $j('#c1716').parents('div').first();
+    $container = $container || undefined,
+    greeting =  $j('#c1716').parents('div').first(),
+    section_image = section_image || [],
+    section_speed = section_speed || [];
 $j(greeting).parents('.section-light').hide();
 var section_box;
     window.tp3_app = window.tp3_app || {};
@@ -113,12 +115,12 @@ $( window ).on("resize",function() {
     var wndH = window.availHeight- (windowPadding * 2 );
     console.log("resize");
     if($(window).height()<769)
-        $('iframe:not([id^="oauth2relay"]), .tx-wecmap-map').css({"width":wndW+"px","height":wndH+"px","max-width":"100%","max-height":"100%"});
+        $('iframe:not([id^="oauth2relay"]), .tx-wecmap-map').css({"max-width":"100%","max-height":"100%"});
     else{
         $.each($('iframe:not([id^="oauth2relay"]), .tx-wecmap-map'),function(){
             wndW = $(this).parents(".container").width();
             wndH = $(this).parents(".container").height();
-            $(this).css({"width":wndW+"px","height":wndH+"px","max-width":"100%","max-height":"100%"});
+            $(this).css({"max-width":"100%","max-height":"100%"});
         })
     }
 });
@@ -191,7 +193,7 @@ tp3_app.backmove = function (e) {
             var gb =  $j("<div></div>").appendTo( $j('.body-bg').first())
             gb.addClass("section_image")
             gb.addClass("p" + $j(e).attr("id").split("-")[1]+"_"+sl)
-                .attr("data-speed",-Math.floor((Math.random() * 10) + 1))
+                .attr("data-speed",section_speed[sl].speed != "" ? section_speed[sl].speed : -Math.floor((Math.random() * 10) + 1))
                 .css({
                     "position":"absolute",
                     "width":"100%",
@@ -200,24 +202,28 @@ tp3_app.backmove = function (e) {
                     "display":"none",
                     "top":0,
                     "max-height":"100%",
-                    "background-position": "50% 50%",
+                    "background-position": "50% 0%",
                     "background-image": "url(" + img + ")",
                 })
 
         }
-        else if (section_image && $j.type(section_image) == "array" && section_image.length > 0 ){
-            gb = $j('.body-bg').first().prepend($("<video controls=\"\" class=\"embed-responsive-item\"><source src=\""+img+"\" type=\"video/mp4\"></video>").css({
-                    "position":"absolute",
-                    "width":"100%",
-                    "height":$j(document).height()+"px",
-                    "display":"none",
-                    "top":0,
-                    "max-height":"100%",
-                    "background-position": "50% 50%",
-                    "background-image": "url(" + img + ")",
+        else if ( img.toLowerCase().match(/\.(avi|mpg|flv|mov|mp4|ogg|flac|opus|webm|youtube|vimeo)$/) != null ){
+            var gb =  $j("<video controls=\"\" class=\"embed-responsive-item\"><source src=\""+img+"\" type=\"video/mp4\"></video>").appendTo( $j('.body-bg').first())
+            gb.addClass("section_image ")
+            .addClass("section_video")
+            .attr("data-speed",section_speed[sl].speed != "" ? section_speed[sl].speed : -Math.floor((Math.random() * 10) + 1))
+            .css({
+                "position":"absolute",
+                "width":"100%",
+                "height":$j(document).height()+"px",
+                "display":"none",
+                "top":0,
+                "max-height":"100%",
+                "background-position": "50% 0%",
+                "background-image": "url(" + img + ")",
 
-                })
-            )
+            })
+
         }
         gb.fadeIn("slow", function () {
             if( $j('.section_image').length > 1)   $j('.section_image').first().fadeOut("slow", function () {
@@ -579,7 +585,7 @@ tp3_app.parallax = function(){
             // HTML5 proves useful for helping with creating JS functions!
             // also, negative value because we're scrolling upwards
             var speed = $scroll.data('speed') != undefined ? $scroll.data('speed') : Math.floor((Math.random() * 10) + 1) ;
-            var yPos = speed < 0 ? 50 -(($window.scrollTop() -  $scroll.offset().top) * speed / 100 ) : 50 -(($window.scrollTop() -  $scroll.offset().top) * speed / 100);// ($window.scrollTop() * 2);//
+            var yPos = speed < 0 ? 0 -(($window.scrollTop() -  $scroll.offset().top) * speed / 100 ) : 0 -(($window.scrollTop() -  $scroll.offset().top) * speed / 100);// ($window.scrollTop() * 2);//
 
             // background position
             var coords = '50% '+ yPos + '%';
@@ -860,7 +866,7 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
             show = setTimeout(function() {
                 $j(this).toggleClass('anim');
                 $j('header.navbar-top').removeClass("flat");
-                $j('a.navbar-brand-image, #logo, .logo').width( "auto").height(logoheight );
+                $j('a.navbar-brand-image, #logo, .logo').width( "auto").height(headerheight );
              //   $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight)  +"px"});
                 //$j('.headerslogan').css({"padding-left":"140px"});
 

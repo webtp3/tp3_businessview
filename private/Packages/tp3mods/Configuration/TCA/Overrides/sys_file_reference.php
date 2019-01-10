@@ -25,12 +25,22 @@ $newSysFileReferenceColumns = [
         'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:sys_file_reference.speed',
         'config' =>  [
             'type' => 'input',
-            'default' => 5,
-            'eval' => 'int',
+            'default' => '-20',
+            'eval' => 'trim,int',
+            'range' => [
+                'lower' => -100,
+                'upper' => 100,
+            ],
+            'slider' => [
+                'step' => 5,
+                'width' => 200,
+            ],
         ],
+
     ],
     'parallax' => [
         'exclude' => true,
+
         'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:sys_file_reference.parallax',
         'config' => [
             'type' => 'check',
