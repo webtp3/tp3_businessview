@@ -66,13 +66,12 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
         }
         $config = isset($GLOBALS['TSFE']->tmpl->setup) ? $GLOBALS['TSFE']->tmpl->setup : [];
         if (is_array($config)
-            && ((int)$GLOBALS['TSFE']->page['tp3microdata']>0 ||(int)$GLOBALS["TSFE"]->rootLine[0]["tp3microdata"]>0)
+            && ((int)$GLOBALS['TSFE']->page['tp3microdata']>0 ||(int)$GLOBALS['TSFE']->rootLine[0]['tp3microdata']>0)
             && isset(
                 $config['plugin.']['tx_tp3mods_tp3micro.']['settings.']
             )
             && $GLOBALS['TSFE']->cObj instanceof ContentObjectRenderer
         ) {
-
             if ($this->objectManager === null) {
                 $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
             }
@@ -101,12 +100,11 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
                         if ($this->ratingsdataRepository === null) {
                             $this->ratingsdataRepository = $this->objectManager->get(\Tp3\Tp3ratings\Domain\Repository\RatingsdataRepository::class);
                         }
-
                     }
                 }
             }
 
-            $tp3micro = $this->tp3ModsRepository->findByUid($GLOBALS['TSFE']->page['tp3microdata'] > 0 ? $GLOBALS['TSFE']->page['tp3microdata'] :  $GLOBALS["TSFE"]->rootLine[0]["tp3microdata"]);
+            $tp3micro = $this->tp3ModsRepository->findByUid($GLOBALS['TSFE']->page['tp3microdata'] > 0 ? $GLOBALS['TSFE']->page['tp3microdata'] :  $GLOBALS['TSFE']->rootLine[0]['tp3microdata']);
 
             if (is_array($tp3micro) &&  $tp3micro[0]['address'] > 0) {
                 $tp3micro[0]['address_object'] = $this->tp3AdressRepository->findByUid($tp3micro[0]['address']);
@@ -115,15 +113,15 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
              * logo from tsconfig
              *
              */
-            $tp3micro[0]['logo'] = $config["page."]["10."]["settings."]["logo."]["file"] != "" ? $config["page."]["10."]["settings."]["logo."]["file"] : $GLOBALS['TSFE']->tmpl->setup["plugin."]["tx_tp3mods_tp3micro."]["settings."]["logo"];
+            $tp3micro[0]['logo'] = $config['page.']['10.']['settings.']['logo.']['file'] != '' ? $config['page.']['10.']['settings.']['logo.']['file'] : $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']['logo'];
             /*
              * Features
              * WebSite,SearchAction,AggregateRating,SiteNavigation,LocalBusiness,openingHours
              */
-            $this->tp3Microdata = explode(",",$tp3micro[0]["microdata"]);
+            $this->tp3Microdata = explode(',', $tp3micro[0]['microdata']);
 
             // todo rating Rich Snippets
-            if ($this->ratingsdataRepository !== null && in_array("AggregateRating",$this->tp3Microdata)) {
+            if ($this->ratingsdataRepository !== null && in_array('AggregateRating', $this->tp3Microdata)) {
                 $ratingsdata = $this->ratingsdataRepository->findAll();
                 $tp3micro[0]['aggregateRating'] = '';
                 $ratingValue = 5;
@@ -144,19 +142,17 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
                     $tp3micro[0]['aggregateRating'] = ',
                     "aggregateRating":[{
                                         "@type": "aggregateRating",
-                                                "ratingValue": "'.round($ratingValue/ $reviewCount,2).'",
-                                                "reviewCount": "'.$reviewCount.'",
+                                                "ratingValue": "' . round($ratingValue/ $reviewCount, 2) . '",
+                                                "reviewCount": "' . $reviewCount . '",
                                                 "worstRating": "1",
                                                 "bestRating": "5",
-                                                "ratingCount": "'.$reviewCount.'"
+                                                "ratingCount": "' . $reviewCount . '"
                                         }]';
                 }
-
-
             }
             // todo rating Rich Snippets
-            if ($this->ratingsdataRepository !== null && in_array("AggregateRating",$this->tp3Microdata)) {
-                $ratingsdata = $this->ratingsdataRepository->findbyStorgePid($GLOBALS["TSFE"]->page["uid"]);
+            if ($this->ratingsdataRepository !== null && in_array('AggregateRating', $this->tp3Microdata)) {
+                $ratingsdata = $this->ratingsdataRepository->findbyStorgePid($GLOBALS['TSFE']->page['uid']);
                 $tp3micro[0]['pageAggregateRating'] = '';
                 $ratingValue = 5;
                 $reviewCount = 1;
@@ -170,31 +166,31 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
                     $tp3micro[0]['pageAggregateRating'] = ',
                     "aggregateRating":[{
                                         "@type": "aggregateRating",
-                                                "ratingValue": "'.round($ratingValue/ $reviewCount,2).'",
-                                                "reviewCount": "'.$reviewCount.'",
+                                                "ratingValue": "' . round($ratingValue/ $reviewCount, 2) . '",
+                                                "reviewCount": "' . $reviewCount . '",
                                                 "worstRating": "1",
                                                 "bestRating": "5",
-                                                "ratingCount": "'.$reviewCount.'"
+                                                "ratingCount": "' . $reviewCount . '"
                                         }]';
                 }
 
-/*
- *  "@context" : "http://schema.org/",
-  "@type": "AggregateRating",
-  "itemReviewed": {
-    "@type": "Organization",
-    "name" : "World's Best Coffee Shop",
-    "sameAs" : "http://www.worlds-best-coffee-shop.example.com"
-  },
-  "ratingValue": "91",
-  "bestRating": "100",
-  "worstRating": "1",
-  "ratingCount" : "10561"
-}
- */
+                /*
+                 *  "@context" : "http://schema.org/",
+                  "@type": "AggregateRating",
+                  "itemReviewed": {
+                    "@type": "Organization",
+                    "name" : "World's Best Coffee Shop",
+                    "sameAs" : "http://www.worlds-best-coffee-shop.example.com"
+                  },
+                  "ratingValue": "91",
+                  "bestRating": "100",
+                  "worstRating": "1",
+                  "ratingCount" : "10561"
+                }
+                 */
             }
             // todo date openhours Rich Snippets
-            if ($this->openHourRepository !== null && in_array("openingHours",$this->tp3Microdata)) {
+            if ($this->openHourRepository !== null && in_array('openingHours', $this->tp3Microdata)) {
                 $openhours = $this->openHourRepository->findByAddress($tp3micro[0]['address']);
                 $formattedText = '';
                 $OpeningHoursSpecification = '';
@@ -205,11 +201,11 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
                     $OpeningHoursSpecification .= '
                             {
                             "@type": "OpeningHoursSpecification",
-                              "dayOfWeek": "'.$oh->getDayName().'",
-                              "opens": "'.\date('H:i', $oh->getOpenTime()).'",
-                              "closes": "'.\date('H:i', $oh->getCloseTime()).'"
+                              "dayOfWeek": "' . $oh->getDayName() . '",
+                              "opens": "' . \date('H:i', $oh->getOpenTime()) . '",
+                              "closes": "' . \date('H:i', $oh->getCloseTime()) . '"
                             }';
-                    if(++$i < $numItems) {
+                    if (++$i < $numItems) {
                         $OpeningHoursSpecification .= ',';
                     }
                     // $oh->getDayName() . ' ' . \date('H:i', $oh->getOpenTime()) . '-' . \date('H:i', $oh->getCloseTime()) . '<br>';
@@ -218,7 +214,7 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
                 if ($OpeningHoursSpecification != '') {
                     $formattedText = ',
                             "openingHoursSpecification": [
-                                    '.$OpeningHoursSpecification.'
+                                    ' . $OpeningHoursSpecification . '
                               ]';
                     $tp3micro[0]['OpeningHoursSpecification'] = $formattedText;
                 }
@@ -227,7 +223,6 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
                 "openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
 
                 */
-
             }
             /*
              * geo data
@@ -236,8 +231,7 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
 
             try {
                 if (is_object($tp3micro[0]['address_object'])) {
-
-                    if($tp3micro[0]['address_object']->getLatitude() != "" &&  $tp3micro[0]['address_object']->getLongitude() != ""){
+                    if ($tp3micro[0]['address_object']->getLatitude() != '' &&  $tp3micro[0]['address_object']->getLongitude() != '') {
                         $tp3micro[0]['geo'] = ',
                         "geo": {
                             "@type": "GeoCoordinates",
@@ -246,13 +240,15 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
                               },';
                     }
                     $parameters['jsInline'] .='<script type="application/ld+json"> ' . $this->JsonRenderer($tp3micro[0], $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']) . '</script>';
-                }
-                else{
+                } else {
                     // #todo without address
                 }
-                if(in_array("SearchAction",$this->tp3Microdata)) $parameters['jsInline'] .='<script type="application/ld+json"> ' . $this->JsonWeb($tp3micro[0], $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']) . '</script>';
-                if(in_array("SearchAction",$this->tp3Microdata)) $parameters['jsInline'] .='<script type="application/ld+json"> ' . $this->JsonSearch($tp3micro[0], $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']) . '</script>';
-
+                if (in_array('SearchAction', $this->tp3Microdata)) {
+                    $parameters['jsInline'] .='<script type="application/ld+json"> ' . $this->JsonWeb($tp3micro[0], $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']) . '</script>';
+                }
+                if (in_array('SearchAction', $this->tp3Microdata)) {
+                    $parameters['jsInline'] .='<script type="application/ld+json"> ' . $this->JsonSearch($tp3micro[0], $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']) . '</script>';
+                }
             } catch (Exception $e) {
                 //   $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
                 //   throw new \RuntimeException($message);
@@ -265,24 +261,22 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
      */
     public function JsonWeb(array $microdata = [], $settings = null)
     {
-
         $json = ' {
          "@context": "http://schema.org",
          "@type": "' . $microdata['snippet_type'] . '",
-         "url": "' . $GLOBALS["_SERVER"]["REQUEST_SCHEME"] . '://' . $GLOBALS["_SERVER"]["SERVER_NAME"] . '/' . $_SERVER['REQUEST_URI'] . '",
-         "name": "'.$GLOBALS["TSFE"]->cObj->data["title"].' :: '. $GLOBALS["TSFE"]->tmpl->sitetitle.'",
-         "keywords": "'.$GLOBALS["TSFE"]->cObj->data["keywords"].'",
-         "description": "'.$GLOBALS["TSFE"]->cObj->data["description"].'",
+         "url": "' . $GLOBALS['_SERVER']['REQUEST_SCHEME'] . '://' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/' . $_SERVER['REQUEST_URI'] . '",
+         "name": "' . $GLOBALS['TSFE']->cObj->data['title'] . ' :: ' . $GLOBALS['TSFE']->tmpl->sitetitle . '",
+         "keywords": "' . $GLOBALS['TSFE']->cObj->data['keywords'] . '",
+         "description": "' . $GLOBALS['TSFE']->cObj->data['description'] . '",
              "potentialAction": {
                 "@type": "SearchAction",
-                "target": "' . $GLOBALS["_SERVER"]["REQUEST_SCHEME"] . '://' . $GLOBALS["_SERVER"]["SERVER_NAME"] . '/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}",
+                "target": "' . $GLOBALS['_SERVER']['REQUEST_SCHEME'] . '://' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}",
                 "query-input": "required name=skeyword"
-              }'.
+              }' .
             $microdata['pageAggregateRating'] .
             '
        }';
         return $json;
-
     }
     /**
      * @param array $microdata, array $settings
@@ -290,21 +284,19 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
      */
     public function JsonSearch(array $microdata = [], $settings = null)
     {
-
         $json = ' {
          "@context": "http://schema.org",
          "@type": "WebSite",
-         "url": "' . $GLOBALS["_SERVER"]["REQUEST_SCHEME"] . '://' . $GLOBALS["_SERVER"]["SERVER_NAME"] . '",
-         "name": "'. $GLOBALS["TSFE"]->tmpl->sitetitle.'",
+         "url": "' . $GLOBALS['_SERVER']['REQUEST_SCHEME'] . '://' . $GLOBALS['_SERVER']['SERVER_NAME'] . '",
+         "name": "' . $GLOBALS['TSFE']->tmpl->sitetitle . '",
          "potentialAction": {
             "@type": "SearchAction",
-            "target": "' . $GLOBALS["_SERVER"]["REQUEST_SCHEME"] . '://' . $GLOBALS["_SERVER"]["SERVER_NAME"] . '/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}",
+            "target": "' . $GLOBALS['_SERVER']['REQUEST_SCHEME'] . '://' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}",
             "query-input": "required name=skeyword"
           }
-          '.  $microdata['aggregateRating'] . '
+          ' . $microdata['aggregateRating'] . '
        }';
         return $json;
-
     }
     /**
      * @param array $microdata, array $settings
@@ -312,7 +304,6 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
      */
     public function JsonRenderer(array $microdata = [], $settings = null)
     {
-
 
         /*
          * "logo": "' . $microdata['address_object']->getImage() . '",
@@ -328,19 +319,19 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
         $json =      ' {
          "@context": "http://schema.org",
          "@type": "' . $microdata['konfiguration'] . '",
-         "logo": "' .  $microdata['address_object']->getWww() . '/'. $microdata['logo'] . '",
-         "image": ["' .  $microdata['address_object']->getWww() . '/'. $microdata['logo'] . '"],                       
-         "url": "' .  $microdata['address_object']->getWww() . '",                       
+         "logo": "' . $microdata['address_object']->getWww() . '/' . $microdata['logo'] . '",
+         "image": ["' . $microdata['address_object']->getWww() . '/' . $microdata['logo'] . '"],                       
+         "url": "' . $microdata['address_object']->getWww() . '",                       
          "email": "' . $microdata['address_object']->getEmail() . '",
          "telephone": "' . $microdata['address_object']->getPhone() . '",
-         "sameAs": [' . implode(",",$microdata['address_object']->getSocialProfiles() ). '],
+         "sameAs": [' . implode(',', $microdata['address_object']->getSocialProfiles()) . '],
             "contactPoint": [{
                "@type": "ContactPoint",
                "telephone": "' . $microdata['address_object']->getPhone() . '",
-               "email": "' .  $microdata['address_object']->getEmail() . '",
+               "email": "' . $microdata['address_object']->getEmail() . '",
                "contactType": "customer service"
              }],
-         "@id": "' .$microdata['address_object']->getWww() .'",
+         "@id": "' . $microdata['address_object']->getWww() . '",
           "name": "' . $microdata['address_object']->getName() . '",
           "address": {
             "@type": "PostalAddress",
@@ -349,7 +340,7 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
             "addressRegion": "' . $microdata['address_object']->getRegion() . '",
             "postalCode": "' . $microdata['address_object']->getZip() . '",
             "addressCountry": "' . $microdata['address_object']->getCountry() . '"
-          }'.
+          }' .
             $microdata['OpeningHoursSpecification'] .
             $microdata['aggregateRating'] .
             $microdata['geo'] .

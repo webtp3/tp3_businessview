@@ -92,4 +92,3 @@ $extensionKey = 'tp3mods';
     'Configuration/PageTS/Mod/Wizards/newContentElement.txt',
     'EXT:tp3mods : New Content Element Wizards'
 );
-

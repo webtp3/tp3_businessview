@@ -50,7 +50,6 @@ class Tp3Adress extends \TYPO3\TtAddress\Domain\Model\Address
      */
     protected $sorting;
 
-
     /**
      * microdataAdress
      *
@@ -86,10 +85,18 @@ class Tp3Adress extends \TYPO3\TtAddress\Domain\Model\Address
     public function getSocialProfiles()
     {
         $profiles =[];
-        if($this->getGoogleplus() != "")array_push($profiles,'"https://plus.google.com/' . $this->getGoogleplus().'"');
-        if($this->getTwitter() != "")array_push($profiles,'"https://twitter.com/' . $this->getTwitter().'"' );
-        if($this->getLinkedIn() != "")array_push($profiles,'"https://linkedin.com/in/' . $this->getLinkedIn().'"');
-        if($this->getFacebook() != "")array_push($profiles,'"https://www.facebook.com/' . $this->getFacebook().'"');
+        if ($this->getGoogleplus() != '') {
+            array_push($profiles, '"https://plus.google.com/' . $this->getGoogleplus() . '"');
+        }
+        if ($this->getTwitter() != '') {
+            array_push($profiles, '"https://twitter.com/' . $this->getTwitter() . '"');
+        }
+        if ($this->getLinkedIn() != '') {
+            array_push($profiles, '"https://linkedin.com/in/' . $this->getLinkedIn() . '"');
+        }
+        if ($this->getFacebook() != '') {
+            array_push($profiles, '"https://www.facebook.com/' . $this->getFacebook() . '"');
+        }
         return $profiles;
     }
 

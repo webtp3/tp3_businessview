@@ -108,7 +108,7 @@ var wndH = window.availHeight- (windowPadding * 2 );
 $.each($('.tx-wecmap-map'),function(){
     wndW = $(this).parents(".container").width();
     wndH = $(this).parents(".container").height();
-    $(this).css({"width":wndW+"px","height":wndH+"px","max-width":"100%","max-height":"100%"});
+    $(this).css({"max-width":"100%","max-height":"100%"});
 })
 $( window ).on("resize",function() {
     var wndW = window.availWidth- (windowPadding * 2);
