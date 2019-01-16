@@ -18,11 +18,12 @@ namespace Tp3\Tp3Businessview\Domain\Repository;
  *  (c) 2017 Thomas Ruta <email@thomasruta.de>, R&P IT Consulting GmbH
  *
  ***/
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * The repository for Iplogs
  */
-class BusinessAdressRepository extends \TYPO3\TtAddress\Domain\Repository\AddressRepository
+class BusinessAdressRepository extends Repository
 {
 
 // Order by BE sorting
