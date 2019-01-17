@@ -18,11 +18,12 @@ namespace Tp3\Tp3mods\Domain\Repository;
  *  (c) 2018 Thomas Ruta <email@thomasruta.de>, tp3
  *
  ***/
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * The repository for Tp3Adresses
  */
-class Tp3AdressRepository extends \TYPO3\TtAddress\Domain\Repository\AddressRepository
+class Tp3AdressRepository extends Repository
 {
     // Order by BE sorting
     protected $defaultOrderings = [

@@ -108,6 +108,7 @@ styles.templates {
     layoutRootPath = {$plugin.tx_tp3mods_tp3micro.layoutRootPath}
 }
 
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/Address/constants.typoscript">
 
 ############
 ### PAGE ###

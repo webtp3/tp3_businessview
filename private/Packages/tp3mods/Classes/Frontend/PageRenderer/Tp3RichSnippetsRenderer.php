@@ -120,7 +120,6 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
              */
             $this->tp3Microdata = explode(',', $tp3micro[0]['microdata']);
 
-            // todo rating Rich Snippets
             if ($this->ratingsdataRepository !== null && in_array('AggregateRating', $this->tp3Microdata)) {
                 $ratingsdata = $this->ratingsdataRepository->findAll();
                 $tp3micro[0]['aggregateRating'] = '';
@@ -150,7 +149,6 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
                                         }]';
                 }
             }
-            // todo rating Rich Snippets
             if ($this->ratingsdataRepository !== null && in_array('AggregateRating', $this->tp3Microdata)) {
                 $ratingsdata = $this->ratingsdataRepository->findbyStorgePid($GLOBALS['TSFE']->page['uid']);
                 $tp3micro[0]['pageAggregateRating'] = '';
@@ -189,7 +187,6 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
                 }
                  */
             }
-            // todo date openhours Rich Snippets
             if ($this->openHourRepository !== null && in_array('openingHours', $this->tp3Microdata)) {
                 $openhours = $this->openHourRepository->findByAddress($tp3micro[0]['address']);
                 $formattedText = '';

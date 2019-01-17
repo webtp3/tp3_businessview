@@ -112,7 +112,7 @@ lib.fluidContent {
 }
 
 #back move effect
-# todo parallax scrolling with page & sys_file_references
+# todo parallax as fluid template?
 [globalVar = TSFE:page|tp3parallax = 1]
 page.jsInline{
     112113 = TEXT
@@ -817,6 +817,8 @@ iframe {
     page.bodyTagCObject.wrap = <body id="pid-|" data-{$app_name}role="page" data-spy="scroll" data-target=".navbar-collapse" class="isiframe {$css_class}" itemscope="" itemtype="http://schema.org/{$snippet_type}">
 
 [end]
+
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/Address/setup.typoscript">
 
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/RichSnippets/setup.txt">
 
