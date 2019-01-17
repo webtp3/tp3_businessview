@@ -26,8 +26,8 @@ if(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_address')) {
 	);
 
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_address', $mapTCA, 1);
-	$GLOBALS['TCA']['tt_address']['interface']['showRecordFieldList'] .= ',tx_wecmap_map';
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tt_address', '--div--;LLL:EXT:wec_map/Resources/Private/Languages/locallang_db.xlf:berecord_maplabel,tx_wecmap_map');
+//	$GLOBALS['TCA']['tt_address']['interface']['showRecordFieldList'] .= ',tx_wecmap_map';
+//	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tt_address', '--div--;LLL:EXT:wec_map/Resources/Private/Languages/locallang_db.xlf:berecord_maplabel,tx_wecmap_map');
 
 
 	/* If we want to show the geocoding status in address records, add it to the TCA */
@@ -44,8 +44,8 @@ if(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_address')) {
 		);
 
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_address', $geocodeTCA, 1);
-		$GLOBALS['TCA']['tt_address']['interface']['showRecordFieldList'] .= ',tx_wecmap_geocode';
-		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tt_address', 'tx_wecmap_geocode');
+//		$GLOBALS['TCA']['tt_address']['interface']['showRecordFieldList'] .= ',tx_wecmap_geocode';
+//		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tt_address', 'tx_wecmap_geocode');
 	}
 }
 

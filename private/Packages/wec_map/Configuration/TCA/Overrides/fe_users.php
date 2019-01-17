@@ -40,8 +40,8 @@ if(\JBartels\WecMap\Utility\Backend::getExtConf('feUserRecordMap')) {
 	);
 
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $mapTCA, 1);
-	$GLOBALS['TCA']['fe_users']['interface']['showRecordFieldList'] .= ',tx_wecmap_map';
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', '--div--;LLL:EXT:wec_map/Resources/Private/Languages/locallang_db.xlf:berecord_maplabel,tx_wecmap_map');
+//	$GLOBALS['TCA']['fe_users']['interface']['showRecordFieldList'] .= ',tx_wecmap_map';
+//	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', '--div--;LLL:EXT:wec_map/Resources/Private/Languages/locallang_db.xlf:berecord_maplabel,tx_wecmap_map');
 }
 
 
@@ -59,8 +59,8 @@ if(\JBartels\WecMap\Utility\Backend::getExtConf('geocodingStatus')) {
 	);
 
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $geocodeTCA, 1);
-	$GLOBALS['TCA']['fe_users']['interface']['showRecordFieldList'] .= ',tx_wecmap_geocode';
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'tx_wecmap_geocode');
+//	$GLOBALS['TCA']['fe_users']['interface']['showRecordFieldList'] .= ',tx_wecmap_geocode';
+//	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'tx_wecmap_geocode');
 }
 
 ?>
