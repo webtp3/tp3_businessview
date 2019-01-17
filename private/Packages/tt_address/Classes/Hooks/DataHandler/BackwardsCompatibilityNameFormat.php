@@ -1,26 +1,31 @@
 <?php
-namespace TYPO3\TtAddress\Hooks\DataHandler;
 
-/*
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
+namespace FriendsOfTYPO3\TtAddress\Hooks\DataHandler;
+
+/**
+ * This file is part of the "tt_address" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
  */
-
-use TYPO3\TtAddress\Utility\SettingsUtility;
+use FriendsOfTYPO3\TtAddress\Domain\Model\Dto\Settings;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class BackwardsCompatibilityNameFormat
  */
 class BackwardsCompatibilityNameFormat
 {
+
+    /** @var Settings */
+    protected $settings;
+
+    public function __construct()
+    {
+        $this->settings = GeneralUtility::makeInstance(Settings::class);
+    }
+
     /**
      * looks for tt_address records with changes to the first, middle, and
      * last name fields to come by. This function will then write changes back
@@ -30,25 +35,17 @@ class BackwardsCompatibilityNameFormat
      * @param string $table db table
      * @param int $id record uid
      * @param array $fieldArray record
-     * @param object $pObj parent object
      */
-    public function processDatamap_postProcessFieldArray($status, $table, $id, &$fieldArray, $pObj)
+    public function processDatamap_postProcessFieldArray($status, $table, $id, &$fieldArray)
     {
-        if ($table == 'tt_address' && ($status == 'new' || $status == 'update')) {
-            $settings = SettingsUtility::getSettings();
-            if ($settings->isStoreBackwardsCompatName()) {
-                if ($status == 'update') {
-                    $address = $this->getFullRecord($id);
-                } else {
-                    $address = $fieldArray;
-                }
-
-                $format = $settings->getBackwardsCompatFormat();
+        if ($table === 'tt_address' && ($status === 'new' || $status === 'update')) {
+            if ($this->settings->isStoreBackwardsCompatName()) {
+                $address = $status === 'update' ? $this->getRecord($id) : $fieldArray;
 
                 $newRecord = array_merge($address, $fieldArray);
 
                 $combinedName = trim(sprintf(
-                    $format,
+                    $this->settings->getBackwardsCompatFormat(),
                     $newRecord['first_name'],
                     $newRecord['middle_name'],
                     $newRecord['last_name']
@@ -62,19 +59,11 @@ class BackwardsCompatibilityNameFormat
     }
 
     /**
-     * gets a full tt_address record
-     *
-     * @param int $uid unique id of the tt_address record to get
-     * @return array full tt_address record with associative keys
+     * @param int $id
+     * @return array
      */
-    protected function getFullRecord($uid)
+    protected function getRecord(int $id): array
     {
-        $row = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-            '*',
-            'tt_address',
-            'uid = ' . $uid
-        );
-
-        return $row[0];
+        return BackendUtility::getRecord('tt_address', $id);
     }
 }

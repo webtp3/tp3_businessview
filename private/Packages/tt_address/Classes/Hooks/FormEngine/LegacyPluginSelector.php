@@ -1,20 +1,15 @@
 <?php
-namespace TYPO3\TtAddress\Hooks\FormEngine;
 
-/*
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
+namespace FriendsOfTYPO3\TtAddress\Hooks\FormEngine;
+
+/**
+ * This file is part of the "tt_address" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Html\HtmlParser;
+use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
@@ -26,13 +21,21 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  */
 class LegacyPluginSelector
 {
+
+    /** @var LanguageService */
+    protected $languageService;
+
+    public function __construct()
+    {
+        $this->languageService = $GLOBALS['LANG'];
+    }
+
     /**
      * Manipulating the input array, $params, adding new selectorbox items.
      *
-     * @param	array	$params array of select field options (reference)
-     * @param	object	$pObj parent object (reference)
+     * @param    array $params array of select field options (reference)
      */
-    public function addFieldsToSelector(&$params, &$pObj)
+    public function addFieldsToSelector(&$params)
     {
         // TODO consolidate with list in pi1
         $coreSortFields = 'gender, first_name, middle_name, last_name, title, company, '
@@ -43,8 +46,8 @@ class LegacyPluginSelector
 
         $selectOptions = [];
         foreach ($sortFields as $field) {
-            $label = $GLOBALS['LANG']->sL($GLOBALS['TCA']['tt_address']['columns'][$field]['label']);
-            $label = substr($label, 0, -1);
+            $label = $this->languageService->sL($GLOBALS['TCA']['tt_address']['columns'][$field]['label']);
+            $label = rtrim($label, ':');
 
             $selectOptions[] = [
                 'field' => $field,
@@ -55,7 +58,7 @@ class LegacyPluginSelector
         // add sorting by order of single selection
         $selectOptions[] = [
             'field' => 'singleSelection',
-            'label' => $GLOBALS['LANG']->sL('LLL:EXT:tt_address/Resources/Private/Language/locallang_pi1.xlf:pi1_flexform.sortBy.singleSelection')
+            'label' => $this->languageService->sL('LLL:EXT:tt_address/Resources/Private/Language/locallang_pi1.xlf:pi1_flexform.sortBy.singleSelection')
         ];
 
         // sort by labels
@@ -74,13 +77,14 @@ class LegacyPluginSelector
             ];
         }
     }
+
     /**
      * Manipulating the input array, $params, adding new selectorbox items.
      *
      * Checks for the TypoScript path of the templates and looks up if there is a ".gif" file at the same location
      *
-     * @param	array	$params array of select field options (reference)
-     * @param	object	$pObj parent object (reference)
+     * @param    array $params array of select field options (reference)
+     * @param    object $pObj parent object (reference)
      */
     public function addFilesToSelector(&$params, &$pObj)
     {

@@ -1,40 +1,38 @@
 <?php
-namespace TYPO3\TtAddress\Controller;
 
-/*
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
+namespace FriendsOfTYPO3\TtAddress\Controller;
+
+/**
+ * This file is part of the "tt_address" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
  */
-
-use TYPO3\CMS\Core\Charset\CharsetConverter;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
+use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 
 /**
  * main class for the tt_address plugin, outputs addresses either by direct
  * selection or by selection via groups or a combination of both
  *
- * @author Ingo Renner <typo3@ingo-renner.com>
+ * @deprecated will be removed in version 5.0.0, switch to the extbase based plugin
  */
 class LegacyPluginController extends AbstractPlugin
 {
     /**
      * @var string
      */
-    public $prefixId      = 'tx_ttaddress_pi1';
+    public $prefixId = 'tx_ttaddress_pi1';
 
     /**
      * @var string
      */
-    public $extKey        = 'tt_address';
+    public $extKey = 'tt_address';
 
     /**
      * @var bool
@@ -52,6 +50,11 @@ class LegacyPluginController extends AbstractPlugin
     protected $ffData;
 
     /**
+     * @var MarkerBasedTemplateService
+     */
+    protected $templateService;
+
+    /**
      * main method which controls the data flow and outputs the addresses
      *
      * @param string $content Content string, empty
@@ -60,10 +63,10 @@ class LegacyPluginController extends AbstractPlugin
      */
     public function main($content, $conf)
     {
+        $this->templateService = GeneralUtility::makeInstance(MarkerBasedTemplateService::class);
         $this->init($conf);
-        $content = '';
         $singleSelection = $this->getSingleRecords();
-        $groupSelection  = $this->getRecordsFromGroups();
+        $groupSelection = $this->getRecordsFromGroups();
 
         $templateCode = $this->getTemplate();
 
@@ -78,10 +81,10 @@ class LegacyPluginController extends AbstractPlugin
         // output
         foreach ($addresses as $address) {
             if (!empty($address)) {
-                $markerArray  = $this->getItemMarkerArray($address);
+                $markerArray = $this->getItemMarkerArray($address);
                 $subpartArray = $this->getSubpartArray($templateCode, $markerArray, $address);
 
-                $addressContent = $this->cObj->substituteMarkerArrayCached(
+                $addressContent = $this->templateService->substituteMarkerArrayCached(
                     $templateCode,
                     $markerArray,
                     $subpartArray
@@ -89,7 +92,7 @@ class LegacyPluginController extends AbstractPlugin
 
                 $wrap = $this->conf['templates.'][$this->conf['templateName'] . '.']['wrap'];
                 $content .= $this->cObj->wrap($addressContent, $wrap);
-                $content .= chr(10) . chr(10);
+                $content .= LF . LF;
             }
         }
 
@@ -116,13 +119,13 @@ class LegacyPluginController extends AbstractPlugin
 
         // flexform data
         $flexKeyMapping = [
-            'sDEF.singleRecords'    => 'singleRecords',
-            'sDEF.groupSelection'   => 'groupSelection',
-            'sDEF.combination'      => 'combination',
-            'sDEF.sortBy'           => 'sortBy',
-            'sDEF.sortOrder'        => 'sortOrder',
-            'sDEF.pages'            => 'pages',
-            'sDEF.recursive'        => 'recursive',
+            'sDEF.singleRecords' => 'singleRecords',
+            'sDEF.groupSelection' => 'groupSelection',
+            'sDEF.combination' => 'combination',
+            'sDEF.sortBy' => 'sortBy',
+            'sDEF.sortOrder' => 'sortOrder',
+            'sDEF.pages' => 'pages',
+            'sDEF.recursive' => 'recursive',
             'sDISPLAY.templateFile' => 'templateFile',
         ];
         $this->ffData = $this->getFlexFormConfig($flexKeyMapping);
@@ -176,17 +179,25 @@ class LegacyPluginController extends AbstractPlugin
     public function getSingleRecords()
     {
         $singleRecords = [];
-        $uidList = $this->getDatabaseConnection()->cleanIntList($this->conf['singleSelection']);
+        $singleRecordUids = GeneralUtility::intExplode(',', $this->conf['singleSelection'], true);
+        $pids = GeneralUtility::intExplode(',', $this->conf['pidList'], true);
 
-        if (!empty($uidList)) {
-            $addresses = $this->getDatabaseConnection()->exec_SELECTgetRows(
-                '*',
-                'tt_address',
-                'uid IN(' . $uidList . ') ' . (!empty($this->conf['pidList']) ? ' AND pid IN (' . $this->conf['pidList'] . ')' : '')
-                . $this->cObj->enableFields('tt_address')
-            );
+        if (!empty($singleRecordUids)) {
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_address');
+            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+            $queryBuilder
+                ->select('*')
+                ->from('tt_address')
+                ->where(
+                    $queryBuilder->expr()->in('uid', $singleRecordUids)
+                );
 
-            foreach ($addresses as $k => $address) {
+            if (!empty($pids)) {
+                $queryBuilder->andWhere($queryBuilder->expr()->in('pid', $pids));
+            }
+
+            $result = $queryBuilder->execute();
+            while ($address = $result->fetch()) {
                 $singleRecords[$address['uid']] = $this->getGroupsForAddress($address);
             }
         }
@@ -202,40 +213,70 @@ class LegacyPluginController extends AbstractPlugin
     {
         $groupRecords = [];
 
-        $groups    = GeneralUtility::intExplode(',', $this->conf['groupSelection']);
-        $groupList = implode(',', $groups);
+        $pageIds = GeneralUtility::intExplode(',', $this->conf['pidList'], true);
+        $groups = GeneralUtility::intExplode(',', $this->conf['groupSelection'], true);
+        if (!empty($groups) && !empty($this->conf['pidList'])) {
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_address');
+            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
 
-        if (!empty($groupList) && !empty($this->conf['pidList'])) {
-            if ($this->conf['combination'] == 'AND') {
-                // AND
-                $res = $this->getDatabaseConnection()->sql_query(
-                    'SELECT tt_address.*, COUNT(tt_address.uid) AS c ' .
-                    'FROM tt_address ' .
-                    'JOIN sys_category_record_mm ON tt_address.uid = sys_category_record_mm.uid_foreign ' .
-                    'JOIN sys_category ON sys_category.uid = sys_category_record_mm.uid_local ' .
-                    'WHERE sys_category_record_mm.uid_local IN ( ' . $groupList . ') ' .
-                    $this->cObj->enableFields('tt_address') .
-                    $this->cObj->enableFields('sys_category') .
-                    ' AND tt_address.pid IN (' . $this->conf['pidList'] . ')' .
-                    ' AND sys_category_record_mm.fieldname = \'categories\' AND sys_category_record_mm.tablenames = \'tt_address\'' .
-                    'GROUP BY tt_address.uid ' .
-                    'HAVING c = ' . count($groups) . ' '
-                );
-            } elseif ($this->conf['combination'] == 'OR') {
-                // OR
-                $res = $this->getDatabaseConnection()->exec_SELECTquery(
-                    'DISTINCT tt_address.*',
-                    'tt_address, sys_category_record_mm, sys_category',
-                    'sys_category_record_mm.uid_local IN(' . $groupList .
-                    ') AND tt_address.uid = sys_category_record_mm.uid_foreign ' .
-                    $this->cObj->enableFields('tt_address') .
-                    $this->cObj->enableFields('sys_category') .
-                    ' AND tt_address.pid IN (' . $this->conf['pidList'] . ')' .
-                    ' AND sys_category_record_mm.fieldname = \'categories\' AND sys_category_record_mm.tablenames = \'tt_address\''
-                );
+            if ($this->conf['combination'] === 'AND') {
+                $queryBuilder
+                    ->select('tt_address.*')
+                    ->addSelectLiteral($queryBuilder->expr()->count('tt_address.uid', 'c'))
+                    ->from('tt_address')
+                    ->join(
+                        'tt_address',
+                        'sys_category_record_mm',
+                        'sys_category_record_mm',
+                        $queryBuilder->expr()->eq(
+                            'tt_address.uid',
+                            $queryBuilder->quoteIdentifier('sys_category_record_mm.uid_foreign')
+                        )
+                    )
+                    ->join(
+                        'sys_category_record_mm',
+                        'sys_category',
+                        'sys_category',
+                        $queryBuilder->expr()->eq(
+                            'sys_category.uid',
+                            $queryBuilder->quoteIdentifier('sys_category_record_mm.uid_local')
+                        )
+                    )
+                    ->where(
+                        $queryBuilder->expr()->in('sys_category_record_mm.uid_local', $groups),
+                        $queryBuilder->expr()->in('tt_address.pid', $pageIds),
+                        $queryBuilder->expr()->eq('sys_category_record_mm.fieldname', $queryBuilder->createNamedParameter('categories', \PDO::PARAM_STR)),
+                        $queryBuilder->expr()->eq('sys_category_record_mm.tablenames', $queryBuilder->createNamedParameter('tt_address', \PDO::PARAM_STR))
+                    )
+                    ->groupBy('tt_address.uid')
+                    ->having(
+                        $queryBuilder->expr()->eq('c', count($groups))
+                    );
+            } elseif ($this->conf['combination'] === 'OR') {
+                $queryBuilder
+                    ->select('tt_address.*')
+                    ->from('tt_address')
+                    ->join(
+                        'tt_address',
+                        'sys_category_record_mm',
+                        'sys_category_record_mm'
+                    )
+                    ->join(
+                        'sys_category_record_mm',
+                        'sys_category',
+                        'sys_category'
+                    )
+                    ->where(
+                        $queryBuilder->expr()->in('sys_category_record_mm.uid_local', $groups),
+                        $queryBuilder->expr()->in('tt_address.pid', $pageIds),
+                        $queryBuilder->expr()->eq('sys_category_record_mm.fieldname', $queryBuilder->createNamedParameter('categories', \PDO::PARAM_STR)),
+                        $queryBuilder->expr()->eq('sys_category_record_mm.tablenames', $queryBuilder->createNamedParameter('tt_address', \PDO::PARAM_STR))
+                    )
+                    ->groupBy('tt_address.uid');
             }
 
-            while ($address = $this->getDatabaseConnection()->sql_fetch_assoc($res)) {
+            $result = $queryBuilder->execute();
+            while ($address = $result->fetch()) {
                 $groupRecords[$address['uid']] = $this->getGroupsForAddress($address);
             }
         }
@@ -253,16 +294,31 @@ class LegacyPluginController extends AbstractPlugin
     {
         $groupTitles = [];
 
-        $result = $this->getDatabaseConnection()->exec_SELECTgetRows(
-            'c.*',
-            'sys_category c, sys_category_record_mm mm',
-            'mm.uid_local=c.uid AND mm.uid_foreign=' . (int)$address['uid'] . ' AND mm.tablenames=\'tt_address\' AND mm.fieldname=\'categories\'',
-            '',
-            'mm.sorting_foreign ASC'
-        );
-        foreach ($result as $groupRecord) {
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_category');
+        $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+        $result = $queryBuilder
+            ->select('c.*')
+            ->from('sys_category', 'c')
+            ->join(
+                'c',
+                'sys_category_record_mm',
+                'mm',
+                $queryBuilder->expr()->eq(
+                    'c.uid',
+                    $queryBuilder->quoteIdentifier('mm.uid_local')
+                )
+            )
+            ->where(
+                $queryBuilder->expr()->eq('mm.uid_foreign', $queryBuilder->createNamedParameter((int)$address['uid'], \PDO::PARAM_INT)),
+                $queryBuilder->expr()->eq('mm.tablenames', $queryBuilder->createNamedParameter('tt_address', \PDO::PARAM_STR)),
+                $queryBuilder->expr()->eq('mm.fieldname', $queryBuilder->createNamedParameter('categories', \PDO::PARAM_STR))
+            )
+            ->orderBy('mm.sorting_foreign')
+            ->execute();
+        while ($groupRecord = $result->fetch()) {
             if ($this->getTypoScriptFrontendController()->sys_language_content) {
-                $groupRecord = $this->getTypoScriptFrontendController()->sys_page->getRecordOverlay('sys_category', $groupRecord, $this->getTypoScriptFrontendController()->sys_language_content);
+                $groupRecord = $this->getTypoScriptFrontendController()->sys_page->getRecordOverlay('sys_category',
+                    $groupRecord, $this->getTypoScriptFrontendController()->sys_language_content);
             }
             if ($groupRecord) {
                 $address['groups'][] = $groupRecord;
@@ -272,7 +328,6 @@ class LegacyPluginController extends AbstractPlugin
 
         $groupList = implode(', ', $groupTitles);
         $address['groupList'] = $groupList;
-
         return $address;
     }
 
@@ -324,47 +379,47 @@ class LegacyPluginController extends AbstractPlugin
 
         //local configuration and local cObj
         $lConf = $this->conf['templates.'][$this->conf['templateName'] . '.'];
-        $lcObj = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
+        $lcObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
         $lcObj->data = $address;
 
-        $markerArray['###UID###']          = $address['uid'];
+        $markerArray['###UID###'] = $address['uid'];
 
-        $markerArray['###GENDER###']       = $lcObj->stdWrap($address['gender'], $lConf['gender.']);
-        $markerArray['###NAME###']         = $lcObj->stdWrap($address['name'], $lConf['name.']);
-        $markerArray['###FIRSTNAME###']    = $lcObj->stdWrap($address['first_name'], $lConf['first_name.']);
-        $markerArray['###MIDDLENAME###']   = $lcObj->stdWrap($address['middle_name'], $lConf['middle_name.']);
-        $markerArray['###LASTNAME###']     = $lcObj->stdWrap($address['last_name'], $lConf['last_name.']);
-        $markerArray['###TITLE###']        = $lcObj->stdWrap($address['title'], $lConf['title.']);
-        $markerArray['###EMAIL###']        = $lcObj->stdWrap($address['email'], $lConf['email.']);
-        $markerArray['###PHONE###']        = $lcObj->stdWrap($address['phone'], $lConf['phone.']);
-        $markerArray['###FAX###']          = $lcObj->stdWrap($address['fax'], $lConf['fax.']);
-        $markerArray['###MOBILE###']       = $lcObj->stdWrap($address['mobile'], $lConf['mobile.']);
-        $markerArray['###WWW###']          = $lcObj->stdWrap($address['www'], $lConf['www.']);
-        $markerArray['###ADDRESS###']      = $lcObj->stdWrap($address['address'], $lConf['address.']);
-        $markerArray['###BUILDING###']     = $lcObj->stdWrap($address['building'], $lConf['building.']);
-        $markerArray['###ROOM###']         = $lcObj->stdWrap($address['room'], $lConf['room.']);
-        $markerArray['###BIRTHDAY###']     = $lcObj->stdWrap($address['birthday'], $lConf['birthday.']);
+        $markerArray['###GENDER###'] = $lcObj->stdWrap($address['gender'], $lConf['gender.']);
+        $markerArray['###NAME###'] = $lcObj->stdWrap($address['name'], $lConf['name.']);
+        $markerArray['###FIRSTNAME###'] = $lcObj->stdWrap($address['first_name'], $lConf['first_name.']);
+        $markerArray['###MIDDLENAME###'] = $lcObj->stdWrap($address['middle_name'], $lConf['middle_name.']);
+        $markerArray['###LASTNAME###'] = $lcObj->stdWrap($address['last_name'], $lConf['last_name.']);
+        $markerArray['###TITLE###'] = $lcObj->stdWrap($address['title'], $lConf['title.']);
+        $markerArray['###EMAIL###'] = $lcObj->stdWrap($address['email'], $lConf['email.']);
+        $markerArray['###PHONE###'] = $lcObj->stdWrap($address['phone'], $lConf['phone.']);
+        $markerArray['###FAX###'] = $lcObj->stdWrap($address['fax'], $lConf['fax.']);
+        $markerArray['###MOBILE###'] = $lcObj->stdWrap($address['mobile'], $lConf['mobile.']);
+        $markerArray['###WWW###'] = $lcObj->stdWrap($address['www'], $lConf['www.']);
+        $markerArray['###ADDRESS###'] = $lcObj->stdWrap($address['address'], $lConf['address.']);
+        $markerArray['###BUILDING###'] = $lcObj->stdWrap($address['building'], $lConf['building.']);
+        $markerArray['###ROOM###'] = $lcObj->stdWrap($address['room'], $lConf['room.']);
+        $markerArray['###BIRTHDAY###'] = $lcObj->stdWrap($address['birthday'], $lConf['birthday.']);
         $markerArray['###ORGANIZATION###'] = $lcObj->stdWrap($address['company'], $lConf['organization.']);
-        $markerArray['###COMPANY###']      = $markerArray['###ORGANIZATION###']; // alias
-        $markerArray['###POSITION###']     = $lcObj->stdWrap($address['position'], $lConf['position.']);
-        $markerArray['###CITY###']         = $lcObj->stdWrap($address['city'], $lConf['city.']);
-        $markerArray['###ZIP###']          = $lcObj->stdWrap($address['zip'], $lConf['zip.']);
-        $markerArray['###REGION###']       = $lcObj->stdWrap($address['region'], $lConf['region.']);
-        $markerArray['###COUNTRY###']      = $lcObj->stdWrap($address['country'], $lConf['country.']);
-        $markerArray['###DESCRIPTION###']  = $lcObj->stdWrap($address['description'], $lConf['description.']);
-        $markerArray['###SKYPE###']        = $lcObj->stdWrap($address['skype'], $lConf['skype.']);
-        $markerArray['###TWITTER###']      = $lcObj->stdWrap($address['twitter'], $lConf['twitter.']);
-        $markerArray['###FACEBOOK###']     = $lcObj->stdWrap($address['facebook'], $lConf['facebook.']);
-        $markerArray['###LINKEDIN###']     = $lcObj->stdWrap($address['linkedin'], $lConf['linkedin.']);
-        $markerArray['###MAINGROUP###']    = $lcObj->stdWrap($address['groups'][0]['title'], $lConf['mainGroup.']);
-        $markerArray['###GROUPLIST###']    = $lcObj->stdWrap($address['groupList'], $lConf['groupList.']);
+        $markerArray['###COMPANY###'] = $markerArray['###ORGANIZATION###']; // alias
+        $markerArray['###POSITION###'] = $lcObj->stdWrap($address['position'], $lConf['position.']);
+        $markerArray['###CITY###'] = $lcObj->stdWrap($address['city'], $lConf['city.']);
+        $markerArray['###ZIP###'] = $lcObj->stdWrap($address['zip'], $lConf['zip.']);
+        $markerArray['###REGION###'] = $lcObj->stdWrap($address['region'], $lConf['region.']);
+        $markerArray['###COUNTRY###'] = $lcObj->stdWrap($address['country'], $lConf['country.']);
+        $markerArray['###DESCRIPTION###'] = $lcObj->stdWrap($address['description'], $lConf['description.']);
+        $markerArray['###SKYPE###'] = $lcObj->stdWrap($address['skype'], $lConf['skype.']);
+        $markerArray['###TWITTER###'] = $lcObj->stdWrap($address['twitter'], $lConf['twitter.']);
+        $markerArray['###FACEBOOK###'] = $lcObj->stdWrap($address['facebook'], $lConf['facebook.']);
+        $markerArray['###LINKEDIN###'] = $lcObj->stdWrap($address['linkedin'], $lConf['linkedin.']);
+        $markerArray['###MAINGROUP###'] = $lcObj->stdWrap($address['groups'][0]['title'], $lConf['mainGroup.']);
+        $markerArray['###GROUPLIST###'] = $lcObj->stdWrap($address['groupList'], $lConf['groupList.']);
 
         // the image
         $markerArray['###IMAGE###'] = '';
         if (!empty($address['image'])) {
             $filesConf = [
                 'references.' => [
-                    'uid' =>  (int)$address['uid'],
+                    'uid' => (int)$address['uid'],
                     'table' => 'tt_address',
                     'fieldName' => 'image'
                 ],
@@ -375,7 +430,7 @@ class LegacyPluginController extends AbstractPlugin
                 'renderObj.' => [
                     'file.' => [
                         'import.' => [
-                            'data' => 'file:current:uid_foreign // file:current:uid'
+                            'data' => 'file:current:uid'
                         ],
                         'treatIdAsReference' => '1'
                     ],
@@ -392,7 +447,8 @@ class LegacyPluginController extends AbstractPlugin
             }
             for ($filesIndex = 0; $filesIndex < 6; $filesIndex++) {
                 $filesConf['begin'] = $filesIndex;
-                $markerArray['###IMAGE' . ($filesIndex == 0 ? '' : $filesIndex) . '###'] = $lcObj->cObjGetSingle('FILES', $filesConf);
+                $markerArray['###IMAGE' . ($filesIndex == 0 ? '' : $filesIndex) . '###'] = $lcObj->cObjGetSingle('FILES',
+                    $filesConf);
             }
         } elseif (!empty($lConf['placeholderImage'])) {
             // we have no image, but a default image
@@ -405,9 +461,9 @@ class LegacyPluginController extends AbstractPlugin
         }
 
         // adds hook for processing of extra item markers
-        if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tt_address']['extraItemMarkerHook'])) {
+        if (\is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tt_address']['extraItemMarkerHook'])) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tt_address']['extraItemMarkerHook'] as $_classRef) {
-                $_procObj = GeneralUtility::getUserObj($_classRef);
+                $_procObj = GeneralUtility::makeInstance($_classRef);
                 $markerArray = $_procObj->extraItemMarkerProcessor($markerArray, $address, $lConf, $this);
             }
         }
@@ -427,16 +483,18 @@ class LegacyPluginController extends AbstractPlugin
     {
         $subpartArray = [];
 
-        if (is_array($this->conf['templates.'][$this->conf['templateName'] . '.']['subparts.'])) {
-            $lcObj = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class); // local cObj
+        if (\is_array($this->conf['templates.'][$this->conf['templateName'] . '.']['subparts.'])) {
+            $lcObj = GeneralUtility::makeInstance(ContentObjectRenderer::class); // local cObj
+            $templateService = GeneralUtility::makeInstance(MarkerBasedTemplateService::class); // local cObj
+
             $lcObj->data = $address;
 
             foreach ($this->conf['templates.'][$this->conf['templateName'] . '.']['subparts.'] as $spName => $spConf) {
                 $spName = '###SUBPART_' . strtoupper(substr($spName, 0, -1)) . '###';
 
-                $spTemplate = $lcObj->getSubpart($templateCode, $spName);
-                $content    = $lcObj->stdWrap(
-                    $lcObj->substituteMarkerArrayCached(
+                $spTemplate = $templateService->getSubpart($templateCode, $spName);
+                $content = $lcObj->stdWrap(
+                    $templateService->substituteMarkerArrayCached(
                         $spTemplate,
                         $markerArray
                     ),
@@ -503,7 +561,7 @@ class LegacyPluginController extends AbstractPlugin
         }
 
         $templateCode = file_get_contents(GeneralUtility::getFileAbsFileName($this->conf['templatePath'] . $templateFile));
-        return $this->cObj->getSubpart($templateCode, '###TEMPLATE_ADDRESS###');
+        return $this->templateService->getSubpart($templateCode, '###TEMPLATE_ADDRESS###');
     }
 
     /**
@@ -518,13 +576,35 @@ class LegacyPluginController extends AbstractPlugin
     {
         // TODO add all fields from TCA (extract them from TCA) or add a method to add new sorting fields
         $validSortings = [
-            'uid', 'pid', 'tstamp',
-            'name', 'gender', 'first_name', 'middle_name', 'last_name', 'title', 'email',
-            'phone', 'mobile', 'www', 'address', 'building', 'room', 'birthday', 'company', 'city', 'zip',
-            'region', 'country', 'image', 'fax', 'description', 'singleSelection'
+            'uid',
+            'pid',
+            'tstamp',
+            'name',
+            'gender',
+            'first_name',
+            'middle_name',
+            'last_name',
+            'title',
+            'email',
+            'phone',
+            'mobile',
+            'www',
+            'address',
+            'building',
+            'room',
+            'birthday',
+            'company',
+            'city',
+            'zip',
+            'region',
+            'country',
+            'image',
+            'fax',
+            'description',
+            'singleSelection'
         ];
 
-        if (!in_array($sortBy, $validSortings, true)) {
+        if (!\in_array($sortBy, $validSortings, true)) {
             $sortBy = 'name';
         }
 
@@ -574,7 +654,7 @@ class LegacyPluginController extends AbstractPlugin
      * Removes whitespaces, hyphens and replaces umlauts to allow a correct
      * sorting with multisort.
      *
-     * @param mixed $value: value to clean
+     * @param mixed $value : value to clean
      * @return string cleaned value
      */
     protected function normalizeSortingString($value)
@@ -584,9 +664,7 @@ class LegacyPluginController extends AbstractPlugin
             return $value;
         }
 
-        /** @var CharsetConverter $charsetConverter */
-        $charsetConverter = GeneralUtility::makeInstance(CharsetConverter::class);
-        $value = $charsetConverter->conv_case('utf-8', $value, 'toLower');
+        $value = mb_strtolower($value, 'utf-8');
         $value = preg_replace("/\s+/", '', $value); // remove whitespace
         $value = preg_replace('/-/', '', $value); // remove hyphens e.g. from double names
         $value = preg_replace('/ü/', 'u', $value); // remove umlauts
@@ -600,15 +678,7 @@ class LegacyPluginController extends AbstractPlugin
     }
 
     /**
-     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
-     */
-    protected function getDatabaseConnection()
-    {
-        return $GLOBALS['TYPO3_DB'];
-    }
-
-    /**
-     * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+     * @return TypoScriptFrontendController
      */
     protected function getTypoScriptFrontendController()
     {

@@ -1,19 +1,13 @@
 <?php
-namespace TYPO3\TtAddress\Domain\Model;
 
-/*
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
+namespace FriendsOfTYPO3\TtAddress\Domain\Model;
+
+/**
+ * This file is part of the "tt_address" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Extbase\Domain\Model\Category;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -143,7 +137,7 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * LinkedIn
      * @var string
      */
-    protected $linkedIn;
+    protected $linkedin;
 
     /**
      * Email
@@ -561,7 +555,7 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function setTwitter($twitter)
     {
-        if (substr($twitter, 0, 1) !== '@') {
+        if ($twitter[0] !== '@') {
             throw new \InvalidArgumentException('twitter name must start with @', 1357530444);
         }
 
@@ -585,7 +579,7 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function setFacebook($facebook)
     {
-        if (substr($facebook, 0, 1) !== '/') {
+        if ($facebook[0] !== '/') {
             throw new \InvalidArgumentException('Facebook name must start with /', 1357530471);
         }
 
@@ -605,11 +599,11 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * sets the LinkedIn attribute
      *
-     * @param string $linkedIn
+     * @param string $linkedin
      */
-    public function setLinkedIn($linkedIn)
+    public function setLinkedin($linkedin)
     {
-        $this->linkedIn = $linkedIn;
+        $this->linkedin = $linkedin;
     }
 
     /**
@@ -617,9 +611,9 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getLinkedIn()
+    public function getLinkedin()
     {
-        return $this->linkedIn;
+        return $this->linkedin;
     }
 
     /**
@@ -785,11 +779,28 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the images
      *
-     * @return ObjectStorage<FileReference>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Get first image
+     *
+     * @return FileReference|null
+     */
+    public function getFirstImage()
+    {
+        $images = $this->getImage();
+        if ($images) {
+            foreach ($images as $image) {
+                return $image;
+            }
+        }
+
+        return null;
     }
 
     /**

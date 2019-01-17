@@ -1,16 +1,32 @@
 <?php
 defined('TYPO3_MODE') or die();
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
-    [
-        'LLL:EXT:tt_address/Resources/Private/Language/locallang_db.xlf:pi_tt_address',
-        'tt_address_pi1'
-    ],
-    'list_type',
-    'tt_address'
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+    'FriendsOfTYPO3.tt_address',
+    'ListView',
+    'LLL:EXT:tt_address/Resources/Private/Language/db/locallang.xlf:extbase_title'
 );
 
-// add flexform to pi1
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['tt_address_pi1'] = 'pi_flexform';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['tt_address_pi1'] = 'layout,select_key,pages,recursive';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue('tt_address_pi1', 'FILE:EXT:tt_address/Configuration/FlexForms/Pi1.xml');
+$pluginSignature = 'ttaddress_listview';
+
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages,recursive';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:tt_address/Configuration/FlexForms/List.xml');
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToInsertRecords('tt_address');
+
+$settings = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\FriendsOfTYPO3\TtAddress\Domain\Model\Dto\Settings::class);
+if ($settings->isActivatePiBase()) {
+    $pluginSignature = 'tt_address_pi1';
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
+        [
+            'LLL:EXT:tt_address/Resources/Private/Language/locallang_pi1.xlf:pi1_title',
+            $pluginSignature
+        ],
+        'list_type',
+        'tt_address'
+    );
+    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages,recursive';
+    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:tt_address/Configuration/FlexForms/Pi1.xml');
+}

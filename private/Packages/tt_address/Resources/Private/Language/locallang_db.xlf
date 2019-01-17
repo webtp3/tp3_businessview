@@ -15,6 +15,9 @@
             <trans-unit id="tt_address.gender.f">
                 <source>Female (Mrs)</source>
             </trans-unit>
+            <trans-unit id="tt_address.gender.undefined">
+                <source>Undefined</source>
+            </trans-unit>
             <trans-unit id="tt_address.first_name">
                 <source>First Name</source>
             </trans-unit>
@@ -70,7 +73,7 @@
                 <source>Name</source>
             </trans-unit>
             <trans-unit id="tt_address_palette.organization">
-                <source>Organization</source>
+                <source>Organisation</source>
             </trans-unit>
             <trans-unit id="tt_address_palette.address">
                 <source>Address</source>
@@ -83,6 +86,9 @@
             </trans-unit>
             <trans-unit id="tt_address_palette.social">
                 <source>Social Networks</source>
+            </trans-unit>
+            <trans-unit id="tt_address_palette.coordinates">
+                <source>Coordinates</source>
             </trans-unit>
             <trans-unit id="pi_tt_address">
                 <source>Addresses</source>
