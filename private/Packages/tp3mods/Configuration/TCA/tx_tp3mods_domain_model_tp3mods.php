@@ -27,7 +27,7 @@ return [
         'showRecordFieldList' => 'hidden, snippet_type, microdata, konfiguration, main_entry,  address',
     ],
     'types' => [
-        '1' => ['showitem' => 'hidden, snippet_type, microdata, konfiguration,  main_entry,  address, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'hidden, snippet_type, microdata, konfiguration,  main_entry,  address, login_page, privacy_page, terms_page, error_page, profile_page --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'hidden' => [
@@ -186,6 +186,76 @@ return [
              //   'MM' => 'tx_tp3mods_domain_model_mm',
              //   'MM_opposite_field' => 'tp3microdata',
                 'maxitems' => 100,
+                'enableMultiSelectFilterTextfield' => true,
+                'behaviour' => [
+                    'localizationMode' => 'select',
+                ],
+            ],
+        ],
+        'login_page' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.login_page',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'pages',
+                'maxitems' => 1,
+                'enableMultiSelectFilterTextfield' => true,
+                'behaviour' => [
+                    'localizationMode' => 'select',
+                ],
+            ],
+        ],
+        'privacy_page' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.privacy_page',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'pages',
+                'maxitems' => 1,
+                'enableMultiSelectFilterTextfield' => true,
+                'behaviour' => [
+                    'localizationMode' => 'select',
+                ],
+            ],
+        ],
+        'terms_page' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.terms_page',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'pages',
+                'maxitems' => 1,
+                'enableMultiSelectFilterTextfield' => true,
+                'behaviour' => [
+                    'localizationMode' => 'select',
+                ],
+            ],
+        ],
+        'error_page' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.error_page',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'pages',
+                'maxitems' => 1,
+                'enableMultiSelectFilterTextfield' => true,
+                'behaviour' => [
+                    'localizationMode' => 'select',
+                ],
+            ],
+        ],
+        'profile_page' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.profile_page',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'pages',
+                'maxitems' => 1,
                 'enableMultiSelectFilterTextfield' => true,
                 'behaviour' => [
                     'localizationMode' => 'select',

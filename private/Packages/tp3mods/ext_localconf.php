@@ -28,72 +28,15 @@ if (class_exists('TYPO3\CMS\Core\Configuration\ExtensionConfiguration')) {
 if (!is_array($tp3modsConfig)) {
     $tp3modsConfig = unserialize($tp3modsConfig);
 }
-/*
-* Rich snippets hook in postrenderer
-*/
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3mods\Frontend\PageRenderer\Tp3RichSnippetsRenderer::class . '->render';
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Tp3.Tp3mods',
-    'Tp3micro',
-    [
-        'Tp3Mods' => 'list, show',
-        'Tp3Adress' => 'list, show'
-    ],
-    // non-cacheable actions
-    [
-        'Tp3Mods' => '',
-        'Tp3Adress' => ''
-    ]
-);
+// Override local page not found handling configuration
+$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = \Tp3\Tp3mods\Utility\PageNotFoundHandling::class . '->pageNotFound';
 
-// wizards
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-    'mod {
-            wizards.newContentElement.wizardItems.plugins {
-                elements {
-                    tp3micro {
-                        iconIdentifier = tp3mods-plugin-tp3micro
-                        title = LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_tp3micro.name
-                        description = LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_tp3micro.description
-                        tt_content_defValues {
-                            CType = list
-                            list_type = tp3mods_tp3micro
-                        }
-                    }
-                }
-                show = *
-            }
-       }'
-);
-
-$GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] .= ($GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] ? ',' : '') . 'subtitle,author,keywords,description,title,abstract,media,tsconfig,tp3microdata';
-//$GLOBALS['TYPO3_CONF_VARS']['FE']['pageOverlayFields'] .= ($GLOBALS['TYPO3_CONF_VARS']['FE']['pageOverlayFields'] ? ',' : '' ) . 'media';
-/*  \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-      'mod {
-          wizards.newContentElement.wizardItems.common{
-              elements {
-                  tp3mods_downloads {
-                      icon = ' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/user_plugin_tp3micro.svg
-                      title = LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tp3mods_downloads
-                      description = LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tp3mods_downloads.description
-                      tt_content_defValues {
-                          CType = tp3mods_downloads
-
-                      }
-                  }
-              }
-              show = *
-          }
-     }'
-  );*/
-/*
- * dsvgo hook
- */
-if (!$tp3modsConfig['cookieconsent'] == 0) {
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class . '->intPages';
-    $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['consent'] = \Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class . '::setTracking';//Tp3\Tp3ratings\Controller\RatingsdataController::class . '->RatingAction';//
+// Define global hooks array
+if (!isset($tp3modsConfig['errorHandlers'])) {
+    $tp3modsConfig['errorHandlers'] = array();
 }
+
 
 if (TYPO3_MODE == 'BE') {
     /***************
@@ -160,3 +103,93 @@ if (TYPO3_MODE == 'BE') {
         }
     }
 }
+else{
+
+    /*
+    * Rich snippets hook in postrenderer
+    */
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3mods\Frontend\PageRenderer\Tp3RichSnippetsRenderer::class . '->render';
+
+
+    //call only on FE
+    /*
+    * dsvgo hook
+    */
+    if (!$tp3modsConfig['cookieconsent'] == 0) {
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class . '->intPages';
+        $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['consent'] = \Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class . '::setTracking';//Tp3\Tp3ratings\Controller\RatingsdataController::class . '->RatingAction';//
+    }
+}
+//// Cache configuration
+////if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations'][\R3H6\Error404page\Domain\Cache\ErrorHandlerCache::IDENTIFIER])) {
+////    $TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations'][\R3H6\Error404page\Domain\Cache\ErrorHandlerCache::IDENTIFIER] = array();
+////}
+//
+//// Debug log
+//if (\Tp3\Tp3mods\Configuration\ExtensionConfiguration::is('debugMode')) {
+//    $GLOBALS['TYPO3_CONF_VARS']['LOG']['R3H6']['Error404page']['writerConfiguration'] = array(
+//        \TYPO3\CMS\Core\Log\LogLevel::DEBUG => array(
+//            'TYPO3\\CMS\\Core\\Log\\Writer\\FileWriter' => array(
+//                'logFile' => 'typo3temp/logs/debug.log',
+//            ),
+//        ),
+//    );
+//}
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'Tp3.Tp3mods',
+    'Tp3micro',
+    [
+        'Tp3Mods' => 'list, show',
+        'Tp3Adress' => 'list, show'
+    ],
+    // non-cacheable actions
+    [
+        'Tp3Mods' => '',
+        'Tp3Adress' => ''
+    ]
+);
+
+// wizards
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+    'mod {
+            wizards.newContentElement.wizardItems.plugins {
+                elements {
+                    tp3micro {
+                        iconIdentifier = tp3mods-plugin-tp3micro
+                        title = LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_tp3micro.name
+                        description = LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_tp3micro.description
+                        tt_content_defValues {
+                            CType = list
+                            list_type = tp3mods_tp3micro
+                        }
+                    }
+                }
+                show = *
+            }
+       }'
+);
+
+$GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] .= ($GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] ? ',' : '') . 'subtitle,author,keywords,description,title,abstract,media,tsconfig,tp3microdata';
+//$GLOBALS['TYPO3_CONF_VARS']['FE']['pageOverlayFields'] .= ($GLOBALS['TYPO3_CONF_VARS']['FE']['pageOverlayFields'] ? ',' : '' ) . 'media';
+/*  \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+      'mod {
+          wizards.newContentElement.wizardItems.common{
+              elements {
+                  tp3mods_downloads {
+                      icon = ' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/user_plugin_tp3micro.svg
+                      title = LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tp3mods_downloads
+                      description = LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tp3mods_downloads.description
+                      tt_content_defValues {
+                          CType = tp3mods_downloads
+
+                      }
+                  }
+              }
+              show = *
+          }
+     }'
+  );*/
+
+
+

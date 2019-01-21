@@ -262,27 +262,7 @@ page {
         112113 >
 
         112113 < lib.containerBackgroundImagejs
-        // Flip ahead browsing for IE10/11
-        // http://msdn.microsoft.com/en-us/library/ie/jj883726(v=vs.85).aspx
-        200200 = HMENU
-        200200 {
-            special = browse
-            special {
-                items = prev|next
-            }
-            1 = TMENU
-            1.NO {
-                allWrap = <link rel="prev" href="|"> |*| <link rel="next" href="|">
-                doNotLinkIt = 1
-                stdWrap {
-                    typolink {
-                        parameter.data = field:uid
-                        useCacheHash = 1
-                        returnLast = url
-                    }
-                }
-            }
-        }
+
 
     }
 

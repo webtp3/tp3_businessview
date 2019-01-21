@@ -62,3 +62,4 @@ CREATE TABLE tt_address (
     KEY parent (pid),
     KEY pid (pid,email)
 );
+

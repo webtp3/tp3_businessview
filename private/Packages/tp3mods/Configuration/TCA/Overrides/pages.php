@@ -92,3 +92,15 @@ $extensionKey = 'tp3mods';
     'Configuration/PageTS/Mod/Wizards/newContentElement.txt',
     'EXT:tp3mods : New Content Element Wizards'
 );
+
+\Tp3\Tp3mods\Utility\PageNotFoundHandling::addDoktypeToPages(
+    \Tp3\Tp3mods\Configuration\ExtensionConfiguration::EXT_KEY,
+    \Tp3\Tp3mods\Configuration\ExtensionConfiguration::get('doktypeError404page'),
+    'tp3mods',
+    '404'
+);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerPageTSConfigFile(
+    'tp3mods',
+    'Configuration/PageTS/Redirect403.txt',
+    'EXT:tp3mods :: Redirect 403 error to login page'
+);

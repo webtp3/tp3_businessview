@@ -19,6 +19,13 @@ CREATE TABLE tx_tp3mods_domain_model_tp3mods (
 	starttime int(11)  DEFAULT '0' NOT NULL,
 	endtime int(11)  DEFAULT '0' NOT NULL,
   pages int(11)  DEFAULT '0' NOT NULL,
+  login_page int(11)  DEFAULT '0' NOT NULL,
+  privacy_page int(11)  DEFAULT '0' NOT NULL,
+  terms_page int(11)  DEFAULT '0' NOT NULL,
+	error_page int(11)  DEFAULT '0' NOT NULL,
+	profile_page int(11)  DEFAULT '0' NOT NULL,
+	news_page int(11)  DEFAULT '0' NOT NULL,
+	search_page int(11)  DEFAULT '0' NOT NULL,
 	PRIMARY KEY (uid),
 	KEY parent (pid),
   KEY ref (pages)

@@ -5,17 +5,32 @@
 # cat=PageTS; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:pageTs.disableConfigRTE
 disableConfigRTE = 0
 
-# cat=PageTS; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:pageTs.disablePageTs
+# cat=tp3mods//1; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:pageTs.disablePageTs
 disablePageTs = 0
 
-# cat=PageTS; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:pageTs.disablePageTsBackendLogo
+# cat=tp3mods//2; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:pageTs.disablePageTsBackendLogo
 disablePageTsBackendLogo = 0
 
-# cat=PageTS; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:feature.debugMode
+# cat=tp3mods//3; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:feature.debugMode
 debugMode = 0
 
-# cat=PageTS; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:feature.backendModule
+# cat=tp3mods//4; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:feature.backendModule
 backendModule = 0
 
-# cat=PageTS; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:pageTs.EnableCookieConsent
+# cat=tp3mods//5; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/ExtConfTemplate.xlf:pageTs.EnableCookieConsent
 cookieconsent = 1
+
+# cat=tp3mods//10; type=int+; label=LLL:EXT:tp3mods/Resources/Private/Language/locallang_be.xlf:configuration.doktypeTp3modsError404page
+doktypeTp3modsError404page = 104
+
+# cat=tp3mods//20; type=boolean; label=LLL:EXT:tp3mods/Resources/Private/Language/locallang_be.xlf:configuration.enableErrorLog
+enableErrorLog = 0
+
+# cat=tp3mods//20; type=string; label=LLL:EXT:tp3mods/Resources/Private/Language/locallang_be.xlf:configuration.excludeErrorLogPattern
+excludeErrorLogPattern =
+
+# cat=tp3mods//30; type=string; label=LLL:EXT:tp3mods/Resources/Private/Language/locallang_be.xlf:configuration.basicAuthentication
+basicAuthentication =
+
+# cat=tp3mods//40; type=int+; label=LLL:EXT:tp3mods/Resources/Private/Language/locallang_be.xlf:configuration.doktypeTp3modsError404page
+doktypeNumError404page = 4040404
