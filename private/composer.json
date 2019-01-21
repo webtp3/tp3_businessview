@@ -21,7 +21,7 @@
 	"repositories":  {
 		"0":{
 			"type": "path",
-			"url": "Packages/*",
+			"url": "./Packages/*",
 			"options": {
 				"symlink": true
 			}
@@ -53,7 +53,7 @@
 		"helhum/typoscript-rendering":"*",
 		"typo3/cms-composer-installers": "^1.4.2 || ^2.0",
 		"cogpowered/finediff": "~0.3.1",
-		"doctrine/dbal": "~2.5.4",
+		"doctrine/dbal": "^2.5",
 		"doctrine/instantiator": "~1.0.4",
 		"doctrine/lexer": "^1.0",
 		"guzzlehttp/guzzle": "^6.3.0",
@@ -100,31 +100,31 @@
 		"typo3/cms-introduction":"^3.0",
 		"fab/vidi":"*",
 		"fab/media":"*",
-		"gridelementsteam/gridelements":"8.2.3",
-		"laxap/bootstrap-grids":"*",
+		"gridelementsteam/gridelements":"^8.3",
+		"laxap/bootstrap-grids":"2.0.1",
 		"georgringer/news":"^7",
 		"dmitryd/typo3-realurl":"*",
 		"dmitryd/typo3-dd-googlesitemap":"^2.1 || dev-development",
 		"sjbr/static-info-tables":"^6.5",
         "sjbr/static-info-tables-de":"^6",
-		"sjbr/sr-feuser-register": "^5.1",
+		"sjbr/sr-feuser-register": "*",
 		"web-tp3/tp3businessview": "^1 || dev-develop",
 		"web-tp3/tp3_openhours":"*",
 		"web-tp3/tp3jobs": "*",
 		"web-tp3/tp3mods": "^1",
-		"web-tp3/tp3social": "^1",
+		"web-tp3/tp3social": "1.0.10",
 		"web-tp3/tp3-facebook": "^1",
 		"web-tp3/tp3ratings": "^1",
-      	"typo3-ter/tt-address": "3.2.5",
+      	"friendsoftypo3/tt-address": "4.0.2",
 		"fluidtypo3/vhs":"*",
 		"yoast-seo-for-typo3/yoast_seo": "3.0.5",
 		"in2code/powermail": "*",
 		"causal/tscobj":"*",
 		"apen/additional_reports":"*",
-		"typo3-ter/cal":"1.11.2-dev",
+		"typo3-ter/cal":"^1.12",
 		"web-tp3/wec_map": "^4.1.4",
 		"causal/extractor":"^1",
-		"snowflakeops/varnish":"^3.0.2"
+		"snowflakeops/varnish":"^3.0"
 
 
 	},
@@ -143,7 +143,7 @@
 		"friendsofphp/php-cs-fixer": "^2.0",
 		"phpunit/phpunit": "*",
 		"nimut/testing-framework": "*",
-        "web-tp3/cag_tests":"*",
+        "web-tp3/cag_tests":"1.2.2",
 		"evoweb/ew-llxml2xliff":"^2",
 		"phpspec/phpspec":"^1",
         "facebook/webdriver":"^1",
@@ -215,6 +215,9 @@
 	},
 	"autoload": {
 		"psr-4": {
+			"Cag\\ComposerBuild\\": "Build/composer",
+			"Cag\\Robo\\": "Build/robo",
+			"Cag\\Deployer\\": "Build/deployer",
 			"Typo3Console\\Typo3AutoInstall\\": "src"
 		}
 	},

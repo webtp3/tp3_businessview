@@ -87,7 +87,31 @@ class CountryRepository extends AbstractEntityRepository
 		$entities = $this->findByTerritory($territory);
 		return $this->localizedSort($entities);
 	}
-
+    /**
+     * Finds a set of allowed countries
+     *
+     * @param string $allowedCountries: list of alpha-3 country codes
+     * @return array the selected countries
+     */
+    public function findByOfficialNameLocal($countrynames = '')
+    {
+        $query = $this->createQuery();
+        $countries = GeneralUtility::trimExplode(',', $countrynames, true);
+        $query->matching(
+            $query->in('officialNameLocal', $countrynames)
+        );
+        $entities = $query->execute();
+        $orderedCountries = array();
+        foreach ($countries as $isoCodeA3) {
+            foreach ($entities as $entity) {
+                if ($entity->getIsoCodeA3() === $isoCodeA3) {
+                    $orderedCountries[] = $entity;
+                    break;
+                }
+            }
+        }
+        return $orderedCountries;
+    }
 	/**
 	 * Finds a set of allowed countries
 	 *
@@ -113,4 +137,29 @@ class CountryRepository extends AbstractEntityRepository
 		}
 		return $orderedCountries;
 	}
+    /**
+     * Finds a set of allowed countries
+     *
+     * @param string $allowedCountries: list of alpha-3 country codes
+     * @return array the selected countries
+     */
+    public function findAllowedByIsoCodeA2($allowedCountries = '')
+    {
+        $query = $this->createQuery();
+        $countries = GeneralUtility::trimExplode(',', $allowedCountries, true);
+        $query->matching(
+            $query->in('isoCodeA2', $countries)
+        );
+        $entities = $query->execute();
+        $orderedCountries = array();
+        foreach ($countries as $isoCodeA3) {
+            foreach ($entities as $entity) {
+                if ($entity->getIsoCodeA3() === $isoCodeA3) {
+                    $orderedCountries[] = $entity;
+                    break;
+                }
+            }
+        }
+        return $orderedCountries;
+    }
 }
