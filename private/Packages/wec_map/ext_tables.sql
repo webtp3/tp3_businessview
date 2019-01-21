@@ -22,19 +22,3 @@ CREATE TABLE `tx_wecmap_external` (
 	
 	PRIMARY KEY (uid)
 );
-
-#
-# Table structure for table 'tt_address'
-#
-CREATE TABLE tt_address (
-  tx_wecmap_geocode varchar(100),
-  tx_wecmap_map varchar(100),
-);
-
-#
-# Table structure for table 'fe_users'
-#
-CREATE TABLE fe_users (
-  tx_wecmap_geocode varchar(100),
-  tx_wecmap_map varchar(100),
-);
