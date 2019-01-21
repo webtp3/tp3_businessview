@@ -1,0 +1,56 @@
+plugin.tx_news {
+	rss.channel {
+		title = {$tp3sitetitle}
+		description = {$description}
+		link = {$baseUrl}
+		language = de_DE
+		copyright = HessenFilm
+		category =
+		generator = tp3 EXT:news
+	}
+
+	opengraph {
+		site_name = {$tp3sitetitle}
+
+		twitter {
+			card = summary
+			site = {$twitter_profile}
+			creator =
+		}
+	}
+
+	view {
+		# cat=plugin.tx_news/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:news/Resources/Private/Templates/
+		# cat=plugin.tx_news/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:news/Resources/Private/Partials/
+		# cat=plugin.tx_news/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:news/Resources/Private/Layouts/
+	}
+
+	settings {
+		# cat=plugin.tx_news/file; type=string; label=Path to CSS file
+		cssFile = EXT:news/Resources/Public/Css/news-basic.css
+	}
+}
+
+plugin.tx_news {
+	view.twb {
+		# cat=plugin.tx_news/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:news/Resources/Private/Templates/Styles/Twb/Templates/
+		# cat=plugin.tx_news/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:news/Resources/Private/Templates/Styles/Twb/Partials/
+		# cat=plugin.tx_news/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:news/Resources/Private/Templates/Styles/Twb/Layouts/
+	}
+}
+plugin.tx_news {
+	view.hessenfilm {
+		# cat=plugin.tx_news/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:tp3_news_extend/Resources/Private/Templates/
+		# cat=plugin.tx_news/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:tp3_news_extend/Resources/Private/Partials/
+		# cat=plugin.tx_news/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:tp3_news_extend/Resources/Private/Layouts/
+	}
+}

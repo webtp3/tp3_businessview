@@ -1,0 +1,28 @@
+{
+  "name": "web-tp3/tp3_news_extend",
+  "type": "typo3-cms-extension",
+  "version": "1.0.9",
+  "description": "tx_news extend layouts with isotope and canonial,...",
+  "license": "GPL-2.0+",
+  "authors": [
+
+    {
+      "name": "Thomas Ruta",
+      "email": "email@thomasruta.de"
+    }
+  ],
+  "require": {
+    "typo3/cms-core": "*",
+    "georgringer/news": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Tp3\\Tp3NewsExtend\\": "Classes/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tp3\\Tp3NewsExtend\\": "Tests/"
+    }
+  }
+}
