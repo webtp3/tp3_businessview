@@ -166,7 +166,7 @@
 	},
 	"extra": {
 		"typo3/cms": {
-			"app-dir": "Build/",
+			"app-dir": "../web",
 			"web-dir": "../web",
 			"bin-dir": "bin",
 			"cms-package-dir": "Build/vendor/typo3/cms"
@@ -215,9 +215,9 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Cag\\ComposerBuild\\": "Build/composer",
-			"Cag\\Robo\\": "Build/robo",
-			"Cag\\Deployer\\": "Build/deployer",
+			"Cag\\ComposerBuild\\": "Libraries/composer",
+			"Cag\\Robo\\": "Libraries/robo",
+			"Cag\\Deployer\\": "Libraries/deployer",
 			"Typo3Console\\Typo3AutoInstall\\": "src"
 		}
 	},

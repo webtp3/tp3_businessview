@@ -1,7 +1,7 @@
 <?php
 
 if(!class_exists(\Cag\Robo\CagTasks::class)){
-    if(!class_exists(\Composer\Autoload\ClassLoader::class))require_once ("../private/Build/vendor/autoload.php");
+    if(!class_exists(\Composer\Autoload\ClassLoader::class))require_once ("../Build/vendor/autoload.php");
     //  require_once ("./build/robo/RoboFile.php");
 
 }
