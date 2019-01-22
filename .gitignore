@@ -56,7 +56,9 @@ home/*/.env
 !/var/cache/.gitkeep
 /var/storage/*
 !/var/storage/.gitkeep
-
+/private/Build/vendor/*
+/private/Build/
+/home/*
 
 
 ###
@@ -111,3 +113,4 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace;
 .env
+

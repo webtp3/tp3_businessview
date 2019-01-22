@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4097e8cb0f031a7024928931f51a5daf",
+    "content-hash": "189576ab027a818ce5f67745fc9b4c84",
     "packages": [
         {
             "name": "apen/additional_reports",
@@ -2980,12 +2980,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3/TYPO3.CMS.git",
-                "reference": "5e7476a6a4206d645c2ba7f8d3953c2293b5e554"
+                "reference": "1fae04ecdbf9cdbf6a56b3d17d0e1d962596793e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3/TYPO3.CMS/zipball/5e7476a6a4206d645c2ba7f8d3953c2293b5e554",
-                "reference": "5e7476a6a4206d645c2ba7f8d3953c2293b5e554",
+                "url": "https://api.github.com/repos/TYPO3/TYPO3.CMS/zipball/1fae04ecdbf9cdbf6a56b3d17d0e1d962596793e",
+                "reference": "1fae04ecdbf9cdbf6a56b3d17d0e1d962596793e",
                 "shasum": ""
             },
             "require": {
@@ -3178,7 +3178,7 @@
                 "extbase",
                 "typo3"
             ],
-            "time": "2019-01-21T11:48:33+00:00"
+            "time": "2019-01-21T19:32:43+00:00"
         },
         {
             "name": "typo3/cms-cli",
