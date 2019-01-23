@@ -26,9 +26,9 @@ ENV typo3DatabasePort $DB_PORT
 #ADD AdditionalConfiguration.php /var/www/html/web/typo3conf/
 
 # start composer install
-#RUN composer config  repositories.local path 'Packages/*' -d  /var/www/html/
-RUN composer --dev install -d  /var/www/html/
+RUN composer config  repositories.local path 'Packages/*' -d  /var/www/html/private/
 RUN chown -R www-data:www-data /var/www/html/ && chmod -R 775 /var/www/html/
+RUN composer --dev install -d  /var/www/html/private/
 
 #RUN bash /var/www/cgi-bin/run-typo3.sh
 #CMD ["bash", "-c", "/var/www/cgi-bin/run-typo3.sh"]

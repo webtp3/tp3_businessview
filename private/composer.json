@@ -198,6 +198,29 @@
 	},
 
 	"scripts": {
+		"CAG_composer:update": [
+			"Cag\\PackageHandler::prePackageUpdate"
+		],
+		"CAG_composer:install":
+			"Cag\\PackageHandler::prePackageInstall",
+
+		"pre-package-update": [
+			"@CAG_composer:update"
+		],
+		"post-dependencies-solving": [
+			"@CAG_composer:update"
+		],
+		"pre-update-cmd": [
+			"@CAG_composer:update"
+
+		],
+		"pre-command-run": [
+			"@CAG_composer:update"
+
+		],
+		"pre-install-cmd": [
+			"@CAG_composer:install"
+		],
 		"test:php:unit": [
 			"@php -v",
 			"@php vendor/phpunit/phpunit/phpunit -c vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml"
@@ -215,7 +238,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Cag\\ComposerBuild\\": "Libraries/composer",
+			"Cag\\": "Libraries/composer",
 			"Cag\\Robo\\": "Libraries/robo",
 			"Cag\\Deployer\\": "Libraries/deployer",
 			"Typo3Console\\Typo3AutoInstall\\": "src"
@@ -223,6 +246,9 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
+			"Cag\\": "Libraries/composer",
+			"Cag\\Robo\\": "Libraries/robo",
+			"Cag\\Deployer\\": "Libraries/deployer",
 			"TYPO3\\CMS\\Backend\\Tests\\": "typo3/sysext/backend/Tests/",
 			"TYPO3\\CMS\\Belog\\Tests\\": "typo3/sysext/belog/Tests/",
 			"TYPO3\\CMS\\Beuser\\Tests\\": "typo3/sysext/beuser/Tests/",

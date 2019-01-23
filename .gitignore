@@ -114,3 +114,5 @@ Thumbs.db
 *.sublime-workspace;
 .env
 
+/private/_temp/
+/private/var/error.log
