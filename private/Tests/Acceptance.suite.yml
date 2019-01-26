@@ -20,4 +20,4 @@ modules:
         elementScrollBehavior: 1
         chromeOptions:
           #"--headless", remove to see tests
-          args: ["--headless","--no-sandbox", "window-size=1280x1024", "--proxy-server='direct://'", "--proxy-bypass-list=*", "--disable-gpu"]
+          args: ["--no-sandbox", "window-size=1280x1024", "--proxy-server='direct://'", "--proxy-bypass-list=*", "--disable-gpu"]

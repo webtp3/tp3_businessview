@@ -198,28 +198,25 @@
 	},
 
 	"scripts": {
-		"CAG_composer:update": [
-			"Cag\\PackageHandler::prePackageUpdate"
-		],
-		"CAG_composer:install":
-			"Cag\\PackageHandler::prePackageInstall",
-
-		"pre-package-update": [
-			"@CAG_composer:update"
+		"post-update-cmd": [
+			"CAG\\Composer\\PackageHandler::postPackageUpdate"
 		],
 		"post-dependencies-solving": [
-			"@CAG_composer:update"
+			"CAG\\Composer\\PackageHandler::dependsSolve"
 		],
+		"cag-update": [
+			"CAG\\Composer\\PackageHandler::preUpdate"
+		],
+
+		"cag-install": [
+			"CAG\\Composer\\PackageHandler::prePackageInstall"
+		],
+
 		"pre-update-cmd": [
-			"@CAG_composer:update"
-
-		],
-		"pre-command-run": [
-			"@CAG_composer:update"
-
+			"CAG\\Composer\\PackageHandler::preUpdate"
 		],
 		"pre-install-cmd": [
-			"@CAG_composer:install"
+			"@cag:install"
 		],
 		"test:php:unit": [
 			"@php -v",
@@ -238,17 +235,14 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Cag\\": "Libraries/composer",
-			"Cag\\Robo\\": "Libraries/robo",
-			"Cag\\Deployer\\": "Libraries/deployer",
+			"CAG\\Composer\\": "Libraries/composer/",
+			"Cag\\Robo\\": "Libraries/robo/",
+			"Cag\\Deployer\\": "Libraries/deployer/",
 			"Typo3Console\\Typo3AutoInstall\\": "src"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Cag\\": "Libraries/composer",
-			"Cag\\Robo\\": "Libraries/robo",
-			"Cag\\Deployer\\": "Libraries/deployer",
 			"TYPO3\\CMS\\Backend\\Tests\\": "typo3/sysext/backend/Tests/",
 			"TYPO3\\CMS\\Belog\\Tests\\": "typo3/sysext/belog/Tests/",
 			"TYPO3\\CMS\\Beuser\\Tests\\": "typo3/sysext/beuser/Tests/",

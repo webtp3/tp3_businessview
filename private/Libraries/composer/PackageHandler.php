@@ -1,52 +1,100 @@
 <?php
-namespace Cag;
+namespace CAG\Composer;
 
-use Composer\Script\Event;
+use Composer\Script\Event as ScriptEvent;
 use Composer\Installer\PackageEvent;
 use Composer\Installer\InstallerEvent;
+use Helhum\Typo3Console\Exception;
+
 /*
  * https://getcomposer.org/doc/articles/scripts.md
  */
 class PackageHandler
 {
-    public static function postUpdate(Event $event)
+    /*
+    * @param ScriptEvent $event
+    * @internal
+    * @throws Exception
+    */
+    public static function postUpdate(ScriptEvent $event)
     {
         $composer = $event->getComposer();
         // do stuff
     }
-
-    public static function postAutoloadDump(Event $event)
+    /*
+    * @param ScriptEvent $event
+    * @internal
+    * @throws Exception
+    */
+    public static function preUpdate(ScriptEvent $event)
+    {
+        $composer = $event->getComposer();
+        // do stuff
+    }
+    /*
+      * @param ScriptEvent $event
+      * @internal
+      * @throws Exception
+      */
+    public static function postAutoloadDump(ScriptEvent $event)
     {
         $vendorDir = $event->getComposer()->getConfig()->get('vendor-dir');
         require $vendorDir . '/autoload.php';
 
         //some_function_from_an_autoloaded_file();
     }
-
-    public static function prePackageInstall(Event $event)
+    /*
+      * @param ScriptEvent $event
+      * @internal
+      * @throws Exception
+      */
+    public static function prePackageInstall(ScriptEvent $event)
     {
         $vendorDir = $event->getComposer()->getConfig()->get('vendor-dir');
         require $vendorDir . '/autoload.php';
 
         //some_function_from_an_autoloaded_file();
     }
-    public static function prePackageUpdate(Event $event)
+    /*
+      * @param ScriptEvent $event
+      * @internal
+      * @throws Exception
+      */
+    public static function prePackageUpdate(ScriptEvent $event)
     {
         $vendorDir = $event->getComposer()->getConfig()->get('vendor-dir');
         require $vendorDir . '/autoload.php';
 
         //some_function_from_an_autoloaded_file();
     }
+    /*
+      * @param ScriptEvent $event
+      * @internal
+      * @throws Exception
+      */
+    public static function postPackageUpdate(ScriptEvent $event)
+    {
+        $vendorDir = $event->getComposer()->getConfig()->get('vendor-dir');
+        require $vendorDir . '/autoload.php';
 
-
-
-    public static function postPackageInstall(PackageEvent $event)
+        //some_function_from_an_autoloaded_file();
+    }
+    /*
+      * @param ScriptEvent $event
+      * @internal
+      * @throws Exception
+      */
+    public static function postPackageInstall(InstallerEvent $event)
     {
         $installedPackage = $event->getOperation()->getPackage();
         // do stuff
     }
-
-    public static function warmCache(Event $event)
+    /*
+      * @param ScriptEvent $event
+      * @internal
+      * @throws Exception
+      */
+    public static function dependsSolve(InstallerEvent $event)
     {
         // make cache toasty
     }
