@@ -1,5 +1,5 @@
 <?php
-namespace Cag\Deployer;
+namespace CAG\Deployer;
 /**
  * This is project's console commands configuration for Robo task runner.
  *
@@ -8,7 +8,8 @@ namespace Cag\Deployer;
  */
 //if(!class_exists(\Composer\Autoload\ClassLoader::class)) require dirname(__DIR__).'/private/Build/vendor/autoload.php';
 
-
+use Deployer\Deployer;
+use Symfony\Component\Yaml\Yaml;
 
 class CagDeploy {
     static public $repository = 'git@bitbucket.org:web-tp3/tp3_installer.git';
@@ -32,7 +33,8 @@ class CagDeploy {
          */
     public function __construct()
     {
-        require 'vendor/deployer/deployer/recipe/typo3.php';
+
+
 
     }
 
@@ -42,19 +44,21 @@ class CagDeploy {
      * CagDeploy constructor
      *
      */
-    public function deploy()
+    public static function deploy($deploy_path = '.')
     {
-
-        set('repository', $this->repository);
-        set('keep_releases',  $this->keep_releases);
-        set('shared_dirs',  $this->shared_dirs);
-        set('shared_files',  $this->shared_files);
-        set('writable_dirs',  $this->writable_dirs);
-        set('writable_use_sudo',  $this->writable_use_sudo); // Using sudo in writable commands?
+        require __DIR__ . '/../../Build/vendor/deployer/deployer/recipe/typo3.php';
+        $yaml = Yaml::parse(file_get_contents(__DIR__ . '/../../config/servers.yaml'));
+        $yamlString = Yaml::dump($yaml);
+        Deployer::set('repository', self::$repository);
+        Deployer::set('keep_releases',  self::$keep_releases);
+        Deployer::set('shared_dirs',  self::$shared_dirs);
+        Deployer::set('shared_files',  self::$shared_files);
+        Deployer::set('writable_dirs',  self::$writable_dirs);
+        Deployer::set('writable_use_sudo',  self::$writable_use_sudo); // Using sudo in writable commands?
         /**
          * Deploy start, prepare deploy directory
          */
-    task('deploy:start', function ()
+    Deployer::task('deploy:start', function ()
     {
         cd('~');
         run("if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi");
@@ -65,7 +69,7 @@ class CagDeploy {
          * Deploy configure
          */
     desc('Make configure files for your stage');
-    task('deploy:configure', function ()
+    Deployer::task('deploy:configure', function ()
     {
         /**
          * Paser value for template compiler
@@ -101,7 +105,7 @@ class CagDeploy {
         $iterator = $finder
             ->files()
             ->name('*.tpl')
-            ->in(__DIR__ . '/shared');
+            ->in(__DIR__ . '/../../config');
         $tmpDir = sys_get_temp_dir();
         /* @var $file \Symfony\Component\Finder\SplFileInfo */
         foreach ($iterator as $file) {
@@ -136,7 +140,7 @@ class CagDeploy {
         /**
          * Main task
          */
-    task('deploy', ['deploy:prepare',
+    Deployer::task('deploy', ['deploy:prepare',
     'deploy:lock',
     'deploy:release',
     'deploy:update_code',
@@ -159,7 +163,7 @@ class CagDeploy {
     //foreach (glob(__DIR__ . '/stage/*.php') as $filename) {
     //    include $filename;
     //}
-    serverList(__DIR__ . '/config/servers.yml');
+    serverList(__DIR__ . '/../../config/servers.yml');
     }
 
 

@@ -1,0 +1,44 @@
+# list servers
+# -------------
+dev:
+    host: localdev.tp3.de
+    port: 22
+    user: dev
+#    identity_file:
+#       public_key:  config/keys/id_rsa.pub
+#       private_key: config/keys/id_rsa
+#       password:    jpb0OIJlmCmiRT9hP5Pu
+    forward_agent: ~
+    stage: dev
+    deploy_path: /develop/dev-rp/private/
+
+    #// Project name
+    application: ~/../../
+
+    #// Project repository
+    repository: https://thomasruta@bitbucket.org/web-tp3/dev-rp.git
+    git_tty: true
+    keep_releases: 4
+
+    #// Shared files/dirs between deploys
+    shared_files: ['composer.json']
+    shared_dirs: ['Build','config','bin']
+
+    #// Writable dirs by web server
+    writable_dirs: ['../tmp/','_temp']
+    branch: develop
+
+stage:
+  host: praxis.tp3.de
+  port: 22
+  user: r_p_it_praxis
+    #    identity_file:
+    public_key:  config/keys/id_rsa.pub
+    private_key: config/keys/id_rsa
+    password:    jpb0OIJlmCmiRT9hP5Pu
+  forward_agent: ~
+  stage: stage
+  deploy_path: ../../private/
+  branch: develop
+
+

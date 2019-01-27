@@ -72,9 +72,9 @@ class PackageHandler
         }
         self::$version = $version;
 
-        $extEmConfFile = __DIR__ . '/../../../Resources/Private/ExtensionArtifacts/ext_emconf.php';
-        $content = file_get_contents($extEmConfFile);
-        $content = preg_replace('/(\'version\' => )\'\d+\.\d+\.\d+/', '$1\'' . $version, $content);
+//        $extEmConfFile = __DIR__ . '/../../../Resources/Private/ExtensionArtifacts/ext_emconf.php';
+//        $content = file_get_contents($extEmConfFile);
+//        $content = preg_replace('/(\'version\' => )\'\d+\.\d+\.\d+/', '$1\'' . $version, $content);
 //        file_put_contents($extEmConfFile, $content);
 
 
@@ -107,9 +107,7 @@ class PackageHandler
                 $fileSystem = new Filesystem();
 
                 try {
-//                    $bkp = $folder . '_' . random_int(0, 1000);
-//                    echo 'backuped old Packages  ' . $bkp . PHP_EOL;
-//                    $fileSystem->rename($folder, $bkp);
+//                  symlink(  dirname(__DIR__ . '/../' . $event->getComposer()->getConfig()->get('vendor-dir')) ,'vendor');
                     symlink( $folder,dirname(__DIR__ . '/../' . $event->getComposer()->getConfig()->get('web-dir')));
 
                 } catch (IOExceptionInterface $exception) {
@@ -132,11 +130,35 @@ class PackageHandler
     public static function prePackageInstall(ScriptEvent $event)
     {
         $cag = self::init($event);
-        $vendorDir = $event->getComposer()->getConfig()->get('vendor-dir');
+        if (file_exists($folder = dirname(__DIR__ . '/../' . $event->getComposer()->getConfig()->get('web-root'))) &&
+            !file_exists(dirname(__DIR__ . '/../' . $event->getComposer()->getConfig()->get('web-dir')))) {
+            try {
+                $fileSystem = new Filesystem();
 
-        if($event->getComposer()->getPackage()->getName() != "thomasruta/tests")return;
-        //require $vendorDir . '/autoload.php';
+                try {
+//
+                    symlink(  dirname(__DIR__ . '/../' . $event->getComposer()->getConfig()->get('vendor-dir')) ,'vendor');
+                    symlink( $folder,dirname(__DIR__ . '/../' . $event->getComposer()->getConfig()->get('web-dir')));
 
+
+                } catch (IOExceptionInterface $exception) {
+                    echo "An error occurred while creating your directory at " . $exception->getPath();
+                }
+            } catch (FileException $e) {
+                // ... handle exception if something happens during file upload
+            }
+
+            echo 'linked web-root to Version ' . self::$version . PHP_EOL;
+
+
+        }
+        $vendorDir = self::getConfig()->get('vendor-dir');
+
+     //   if($event->getComposer()->getPackage()->getName() != "thomasruta/tests")return;
+        if (file_exists($file = $vendorDir . '/autoload.php')) {
+            require $vendorDir . '/autoload.php';
+        }
+        \CAG\Deployer\CagDeploy::deploy();
 
     }
     /**
@@ -149,7 +171,7 @@ class PackageHandler
         $vendorDir = $event->getComposer()->getConfig()->get('vendor-dir');
         require $vendorDir . '/autoload.php';
 
-        if($event->getComposer()->getPackage()->getName() != "thomasruta/tests")return;
+       // if($event->getComposer()->getPackage()->getName() != "thomasruta/tests")return;
         /*
          * dir to copy
          */

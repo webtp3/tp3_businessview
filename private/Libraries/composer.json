@@ -14,7 +14,7 @@
 			],
 			"CAG\\Composer\\": "Libraries/composer",
 			"Cag\\Robo\\": "Libraries/robo",
-			"Cag\\Deployer\\": "Libraries/deployer"
+			"CAG\\Deployer\\": "Libraries/deployer"
 		}
 	},
 	"require": {

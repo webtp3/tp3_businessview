@@ -1,6 +1,6 @@
 <?php
 
-server('dev-svr', 'localdev.tp3.de', 22)
+server('dev', 'localdev.tp3.de', 22)
     ->user('dev')
     ->forwardAgent()
     ->stage(['dev'])

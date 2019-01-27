@@ -257,7 +257,7 @@
 		"psr-4": {
 			"CAG\\Composer\\": "Libraries/composer/",
 			"Cag\\Robo\\": "Libraries/robo/",
-			"Cag\\Deployer\\": "Libraries/deployer/",
+			"CAG\\Deployer\\": "Libraries/deployer/",
 			"Typo3Console\\Typo3AutoInstall\\": "src"
 		}
 	},
