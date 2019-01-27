@@ -10,7 +10,7 @@ dev-svr:
        password:    jpb0OIJlmCmiRT9hP5Pu
     forward_agent: ~
     stage: dev
-    deploy_path: ../../private/
+    deploy_path: /develop/dev-rp/private/
     branch: develop
 
 praxis.tp3.de:
@@ -22,7 +22,7 @@ praxis.tp3.de:
     private_key: config/keys/id_rsa
     password:    jpb0OIJlmCmiRT9hP5Pu
   forward_agent: ~
-  stage: dev
+  stage: stage
   deploy_path: ../../private/
   branch: develop
 

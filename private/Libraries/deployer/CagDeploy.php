@@ -13,8 +13,8 @@ namespace Cag\Deployer;
 class CagDeploy {
     static public $repository = 'git@bitbucket.org:web-tp3/tp3_installer.git';
     static public $keep_releases = '4';
-    static public $shared_dirs = ['Build','config','bin'];
-    static public $shared_files = ['Build','config','bin'];
+    static public $shared_dirs = ['Build','config','bin', 'Libraries'];
+    static public $shared_files = ['composer.json'];
     static public $writable_dirs = ['../tmp/','_temp'];
     static public $writable_use_sudo = false;
 
@@ -32,7 +32,7 @@ class CagDeploy {
          */
     public function __construct()
     {
-        require 'vendor/deployer/deployer/recipe/slack.php';
+        require 'vendor/deployer/deployer/recipe/typo3.php';
 
     }
 
@@ -159,7 +159,7 @@ class CagDeploy {
     //foreach (glob(__DIR__ . '/stage/*.php') as $filename) {
     //    include $filename;
     //}
-    serverList(__DIR__ . '/stage/servers.yml');
+    serverList(__DIR__ . '/config/servers.yml');
     }
 
 

@@ -1,6 +1,7 @@
 {
 	"name": "thomasruta/tp3_tests",
 	"type": "library",
+	"version": "1.0.0",
 	"description":"develop Testings for tp3",
 	"minimum-stability": "beta",
 	"license":"proprietary",
@@ -15,7 +16,8 @@
 		"optimize-autoloader": true,
 		"bin-dir": "bin",
 		"vendor-dir":"Build/vendor/",
-		"sort-packages": false
+		"sort-packages": false,
+		"web-root": "../../web/"
 
 	},
 	"repositories":  {
@@ -115,6 +117,7 @@
 		"web-tp3/tp3social": "1.0.10",
 		"web-tp3/tp3-facebook": "^1",
 		"web-tp3/tp3ratings": "^1",
+		"web-tp3/tp3_news_extend":"^1.1",
       	"friendsoftypo3/tt-address": "4.0.2",
 		"fluidtypo3/vhs":"*",
 		"yoast-seo-for-typo3/yoast_seo": "3.0.5",
@@ -194,22 +197,33 @@
 			"cache-dir": "var/cache",
 			"allow-overrides": true,
 			"env-file": ".env"
+		},
+		"CAG/composer": {
+			"web-root": ".env"
 		}
 	},
 
 	"scripts": {
 		"post-update-cmd": [
-			"CAG\\Composer\\PackageHandler::postPackageUpdate"
+			"CAG\\Composer\\PackageHandler::postPackageUpdate",
+			"@php bin/typo3cms -v database:update",
+			"@php bin/typo3cms -v upgrade:list"
+
 		],
 		"post-dependencies-solving": [
 			"CAG\\Composer\\PackageHandler::dependsSolve"
 		],
 		"cag-update": [
-			"CAG\\Composer\\PackageHandler::preUpdate"
+			"CAG\\Composer\\PackageHandler::preUpdate",
+			"@composer -v -o --apcu-autoloader u"
+
+
 		],
 
 		"cag-install": [
-			"CAG\\Composer\\PackageHandler::prePackageInstall"
+			"CAG\\Composer\\PackageHandler::prePackageInstall",
+			"@composer -v install"
+
 		],
 
 		"pre-update-cmd": [
@@ -231,6 +245,12 @@
 			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log",
 			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTestsDeprecated.xml   --teamcity --log-junit  UnitTestsDeprecated.log",
 			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/FunctionalTests.xml   --teamcity --log-junit  FunctionalTests.log"
+		],
+		"set-version": [
+			"CAG\\Composer\\PackageHandler::setVersion"
+		],
+		"extension-verify-composer-json": [
+			"CAG\\Composer\\PackageHandler::verifyAutoloadInfoInLibraries"
 		]
 	},
 	"autoload": {

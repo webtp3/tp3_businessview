@@ -159,6 +159,8 @@ EXT:
             segTitleFieldList: ''
         rsaauth:
             temporaryDirectory: ''
+        rte_ckeditor:
+            ckeditorVersion: '1'
         saltedpasswords:
             BE:
                 forceSalted: 0
