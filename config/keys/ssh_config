@@ -17,7 +17,7 @@ Host srv400
     HostName 217.19.182.58
     IdentityFile ~tr/.ssh/srv400_rsa
 
-Host localdev.tp3.de
+Host dev
     User dev
     HostName localdev.tp3.de
     IdentityFile /develop/rp-dev/config/keys/id_rsa

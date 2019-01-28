@@ -28,7 +28,7 @@ set('typo3_webroot', $yaml[$input]['typo3_webroot']);
 set('http_user', $yaml[$input]['user']);
 // Project repository
 set('repository', $yaml[$input]['repository']);
-set('composer_options', 'config  repositories.local path \'Packages/*\' -d  ./ && composer install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
+set('composer_options', 'install -vvv -d {{deploy_path}}/releases/{{release_name}}');
 //set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
 
 // [Optional] Allocate tty for git clone. Default value is false.
@@ -44,7 +44,7 @@ add('writable_dirs', $yaml[$input]['writable_dirs']);
 
 //
 //// Hosts
-  host($yaml[$input]['host'])
+  host($input)
         ->user($yaml[$input]['user'])
         ->port($yaml[$input]['port'] > 1 ? $yaml[$input]['port'] : 22)
         ->configFile($yaml[$input]['configFile'])
