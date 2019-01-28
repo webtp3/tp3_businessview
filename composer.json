@@ -17,7 +17,7 @@
 		"bin-dir": "bin",
 		"vendor-dir":"Build/vendor/",
 		"sort-packages": false,
-		"web-root": "../web/"
+		"web-root": "web/"
 
 	},
 	"repositories":  {
@@ -71,7 +71,7 @@
 		"symfony/yaml": "^2.7 || ^3.0 || ^4.0",
 		"typo3/class-alias-loader": "^1.0",
 		"typo3/cms-impexp":"^8.7.0 || ^9.0",
-		"typo3/cms": "8.x-dev as 8.7.21",
+		"typo3/cms": "8.x-dev as 8.7.26",
 		"typo3/cms-cli": "^1.0.2",
 		"typo3/cms-fluid": "^8.7",
 		"typo3/cms-rsaauth":"^8.7 || ^9",
@@ -102,8 +102,8 @@
 		"typo3/cms-linkvalidator":"^8",
 		"bk2k/bootstrap-package": "^8.0",
 		"typo3/cms-introduction":"^3.0",
-		"fab/vidi":"*",
-		"fab/media":"*",
+		"fab/vidi":"^2",
+		"fab/media":"^4.5",
 		"gridelementsteam/gridelements":"^8.3",
 		"laxap/bootstrap-grids":"2.0.1",
 		"georgringer/news":"^7",
@@ -201,7 +201,7 @@
 			"env-file": ".env"
 		},
 		"CAG/composer": {
-			"web-root": ".env"
+			"web-root": "web/"
 		}
 	},
 
@@ -242,14 +242,14 @@
 			"@php vendor/phpunit/phpunit/phpunit -c vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml"
 		],
 		"CAG_test:core-tests": [
-			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log",
-			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/UnitTestsDeprecated.xml  --teamcity --log-junit  UnitTestsDeprecated.log",
-			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/FunctionalTests.xml  --teamcity --log-junit  FunctionalTests.log"
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/UnitTests.xml   --log-junit UnitTests.log",
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/UnitTestsDeprecated.xml   --log-junit  UnitTestsDeprecated.log",
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/FunctionalTests.xml  --log-junit  FunctionalTests.log"
 		],
 		"CAG_test:extension-tests": [
-			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log",
-			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTestsDeprecated.xml   --teamcity --log-junit  UnitTestsDeprecated.log",
-			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/FunctionalTests.xml   --teamcity --log-junit  FunctionalTests.log"
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTests.xml   --log-junit UnitTests.log",
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTestsDeprecated.xml   --log-junit  UnitTestsDeprecated.log",
+			"@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/FunctionalTests.xml   --log-junit  FunctionalTests.log"
 		],
 		"set-version": [
 			"CAG\\Composer\\PackageHandler::setVersion"

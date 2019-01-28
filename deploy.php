@@ -8,14 +8,15 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Yaml\Yaml;
 
-if(!class_exists(\Composer\Autoload\ClassLoader::class)) require dirname(__DIR__).'/private/Build/vendor/autoload.php';
+if(!class_exists(\Composer\Autoload\ClassLoader::class)) require dirname(__DIR__).'/Build/vendor/autoload.php';
+var_dump(dirname(__DIR__ ));
+require './Build/vendor/deployer/deployer/recipe/typo3.php';
+//inventory('./config/servers.yaml');
 
-require 'Build/vendor/deployer/deployer/recipe/typo3.php';
 $input = 'dev';//$_SERVER["argv"][1] ? $_SERVER["argv"][1] : "dev";
-$yaml = Yaml::parse(file_get_contents(dirname(__DIR__ ). '/private/config/servers.yaml'));
+$yaml = Yaml::parse(file_get_contents('./config/servers.yaml'));
 //$yamlString = Yaml::dump($yaml);
 
-inventory(dirname(__DIR__ ). '/private/config/servers.yaml');
 //if(InputArgument::OPTIONAL)argument('stage', InputArgument::OPTIONAL, 'Run tasks only on this host or stage.');
 //if(InputArgument::VALUE_OPTIONAL)option('tag', null, InputOption::VALUE_OPTIONAL, 'Tag to deploy.');
 // Project name
@@ -27,6 +28,8 @@ set('typo3_webroot', $yaml[$input]['typo3_webroot']);
 set('http_user', $yaml[$input]['user']);
 // Project repository
 set('repository', $yaml[$input]['repository']);
+set('composer_options', 'config  repositories.local path \'Packages/*\' -d  ./ && composer install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
+//set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', $yaml[$input]['git_tty']);
@@ -41,12 +44,38 @@ add('writable_dirs', $yaml[$input]['writable_dirs']);
 
 //
 //// Hosts
-//foreach ($iterator as $file) {
+  host($yaml[$input]['host'])
+        ->user($yaml[$input]['user'])
+        ->port($yaml[$input]['port'] > 1 ? $yaml[$input]['port'] : 22)
+        ->configFile($yaml[$input]['configFile'])
+        ->identityFile($yaml[$input]['identityFile'])
+        ->forwardAgent($yaml[$input]['forwardAgent'])
+        ->multiplexing($yaml[$input]['multiplexing'])
+        ->addSshOption('UserKnownHostsFile', '/dev/null')
+        ->addSshOption('StrictHostKeyChecking', 'no');
+//foreach ($yaml as $key => $y) {
+//
+//    host($key)
+//        ->user($y['user'])
+//        ->port($y['port'] > 1 ? $y['port'] : 22)
+//        ->configFile($y['configFile'])
+//        ->identityFile($y['identityFile'])
+//        ->forwardAgent($y['forwardAgent'])
+//        ->multiplexing($y['multiplexing'])
+//        ->addSshOption('UserKnownHostsFile', '/dev/null')
+//        ->addSshOption('StrictHostKeyChecking', 'no');
+//
+//    set('deploy_path', $y['deploy_path']);
+//    set('typo3_webroot', $y['typo3_webroot']);
+//
+//// user
+//    set('http_user', $y['user']);
+//// Project repository
+//    set('repository', $y['repository']);
+//    set('composer_options', 'config  repositories.local path \'Packages/*\' -d  {{deploy_path}}');
+//    set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader -d {{deploy_path}}');
 //
 //}
-host( $yaml[$input]['host'])
-    ->set('deploy_path', $yaml[$input]['deploy_path']);
-    
 // Tasks
 
 task('build', function () {
@@ -55,14 +84,14 @@ task('build', function () {
     run('/usr/bin/composer  -d {{deploy_path}} CAG_test:core-tests');
 })->local();
 
-// [Optional] if deploy fails automatically unlock.
-//after('deploy:failed', 'deploy:unlock');
-task('deploy:start', function ()
-{
-    cd('~');
-    run("if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi");
-    cd('{{deploy_path}}');
-})->setPrivate();
+//// [Optional] if deploy fails automatically unlock.
+////after('deploy:failed', 'deploy:unlock');
+//task('deploy:start', function ()
+//{
+//    cd('~');
+//    run("if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi");
+//    cd('{{deploy_path}}');
+//})->setPrivate();
 
 /**
  * Deploy configure

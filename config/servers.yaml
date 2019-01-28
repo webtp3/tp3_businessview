@@ -24,8 +24,8 @@ dev:
     keep_releases: 4
 
     #// Shared files/dirs between deploys
-    shared_files: ['composer.json']
-    shared_dirs: ['Build','config','bin']
+    shared_files: ['.env','cag']
+    shared_dirs: ['Build','config','bin','Libraries']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp']
@@ -38,12 +38,16 @@ stage:
     public_key:  'config/keys/id_rsa.pub'
     private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
-    forward_agent: ~
+    configFile: config/keys/ssh_config
+    identityFile: config/keys/id_rsa
+    forwardAgent: true
+    multiplexing: true
     stage: stage
     deploy_path: ../../private/
+    typo3_webroot: ../web/
     branch: develop
     #// Project path
-    application: ~/../../private/
+    application: tmp/
 
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git

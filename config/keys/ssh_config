@@ -19,6 +19,5 @@ Host srv400
 
 Host localdev.tp3.de
     User dev
-    Password jpb0OIJlmCmiRT9hP5Pu
     HostName localdev.tp3.de
-    IdentityFile /develop/rp-dev/private/config/keys/id_rsa
+    IdentityFile /develop/rp-dev/config/keys/id_rsa
