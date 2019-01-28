@@ -11,7 +11,7 @@ use Symfony\Component\Yaml\Yaml;
 if(!class_exists(\Composer\Autoload\ClassLoader::class)) require dirname(__DIR__).'/Build/vendor/autoload.php';
 var_dump(dirname(__DIR__ ));
 require './Build/vendor/deployer/deployer/recipe/typo3.php';
-inventory('./config/servers.yaml');
+//inventory('./config/servers.yaml');
 $input_ = new \Symfony\Component\Console\Input\ArgvInput();
 $input = 'dev';//$_SERVER["argv"][1] ? $_SERVER["argv"][1] : "dev";
 $yaml = Yaml::parse(file_get_contents('./config/servers.yaml'));
@@ -42,26 +42,13 @@ add('shared_dirs', $yaml[$input]['shared_dirs']);
 // Writable dirs by web server 
 add('writable_dirs', $yaml[$input]['writable_dirs']);
 
-//
-//// Hosts
-host($yaml[$input]['hostname'])
-    ->user($yaml[$input]['user'])
-    ->hostname($yaml[$input]['hostname'])
-    ->port($yaml[$input]['port'] > 1 ? $yaml[$input]['port'] : 22)
-    ->configFile($yaml[$input]['configFile'])
-    ->identityFile($yaml[$input]['identityFile'])
-    ->forwardAgent($yaml[$input]['forwardAgent'])
-    ->multiplexing($yaml[$input]['multiplexing'])
-
-    ->addSshOption('UserKnownHostsFile', '/dev/null')
-    ->addSshOption('StrictHostKeyChecking', 'no');
 foreach ($yaml as $key => $y) {
 
     host($y['hostname'])
         ->user($y['user'])
         ->port($y['port'] > 1 ? $y['port'] : 22)
         ->configFile($y['configFile'])
-        ->hostname($y['hostname'])
+        ->hostname($y['hostname'].'.deployer.tp3.de')
         ->identityFile($y['identityFile'])
         ->forwardAgent($y['forwardAgent'])
         ->multiplexing($y['multiplexing'])
@@ -69,6 +56,7 @@ foreach ($yaml as $key => $y) {
         ->set('deploy_path', $y['deploy_path'])
         ->addSshOption('StrictHostKeyChecking', 'no')
         ->set('typo3_webroot', $y['typo3_webroot'])
+       // ->stage('dev')
 // user
     ->set('http_user', $y['user'])
 // Project repository
@@ -98,6 +86,20 @@ foreach ($yaml as $key => $y) {
 
 
 }
+
+//
+//// Hosts
+host($yaml[$input]['hostname'])
+    ->user($yaml[$input]['user'])
+    ->hostname($yaml[$input]['hostname'])
+    ->port($yaml[$input]['port'] > 1 ? $yaml[$input]['port'] : 22)
+    ->configFile($yaml[$input]['configFile'])
+    ->identityFile($yaml[$input]['identityFile'])
+    ->forwardAgent($yaml[$input]['forwardAgent'])
+    ->multiplexing($yaml[$input]['multiplexing'])
+
+    ->addSshOption('UserKnownHostsFile', '/dev/null')
+    ->addSshOption('StrictHostKeyChecking', 'no');
 // Tasks
 
 task('build', function () {
@@ -151,40 +153,6 @@ task('deploy:configure', function ()
         return $contents;
     };
 
-//    $finder = new \Symfony\Component\Finder\Finder();
-//    $iterator = $finder
-//        ->files()
-//        ->name('*.tpl')
-//        ->in(__DIR__ . '/shared');
-//    $tmpDir = sys_get_temp_dir();
-//    /* @var $file \Symfony\Component\Finder\SplFileInfo */
-//    foreach ($iterator as $file) {
-//        $success = false;
-//        // Make tmp file
-//        $tmpFile = tempnam($tmpDir, 'tmp');
-//        if (!empty($tmpFile)) {
-//            try {
-//                $contents = $compiler($file->getContents());
-//                $target = preg_replace('/\.tpl$/', '', $file->getRelativePathname());
-//                // Put contents and upload tmp file to server
-//                if (file_put_contents($tmpFile, $contents) > 0) {
-//                    //run('mkdir -p {{deploy_path}}/shared/' . dirname($target));
-//                    upload($tmpFile, '{{deploy_path}}/shared/' . $target);
-//                    $success = true;
-//                }
-//            } catch (\Exception $e) {
-//                //throw new $e;
-//                $success = false;
-//            }
-//            // Delete tmp file
-//            unlink($tmpFile);
-//        }
-//        if ($success) {
-//            writeln(sprintf("<info>✔</info> %s", $file->getRelativePathname()));
-//        } else {
-//            writeln(sprintf("<fg=red>✘</fg=red> %s", $file->getRelativePathname()));
-//        }
-//    }
 });
 
 /**
