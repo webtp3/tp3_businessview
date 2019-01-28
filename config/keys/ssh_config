@@ -21,3 +21,32 @@ Host dev
     User dev
     HostName localdev.tp3.de
     IdentityFile /develop/rp-dev/config/keys/id_rsa
+
+Host lacuisine
+    User lacuisine_composer
+    HostName test.lacuisine.de
+
+Host tr
+    User thomasruta_tudy
+    HostName dev.thomasruta.de
+
+
+Host cdu
+    User r_p_it_cdu
+    HostName old.r-p-it.com
+
+Host dev
+    User dev
+    HostName localdev.tp3.de
+
+Host tp3
+    User r_p_it_tp3
+    HostName dev.tp3.de
+
+Host rp
+    User r_p_it_rp
+    HostName dev.r-p-it.com
+
+Host srt
+    User srt_ssh
+    HostName srt-wiesbaden.de

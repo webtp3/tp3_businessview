@@ -40,4 +40,4 @@ config.tx_extbase{
 	}
 
 }
-<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3_news_extend/Configuration/TypoScript/Setup/setup.txt">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3_news_extend/Configuration/TypoScript/setup.txt">

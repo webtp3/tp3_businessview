@@ -44,7 +44,7 @@ add('writable_dirs', $yaml[$input]['writable_dirs']);
 
 //
 //// Hosts
-host($input)
+host($yaml[$input]['hostname'])
     ->user($yaml[$input]['user'])
     ->hostname($yaml[$input]['hostname'])
     ->port($yaml[$input]['port'] > 1 ? $yaml[$input]['port'] : 22)
@@ -52,6 +52,7 @@ host($input)
     ->identityFile($yaml[$input]['identityFile'])
     ->forwardAgent($yaml[$input]['forwardAgent'])
     ->multiplexing($yaml[$input]['multiplexing'])
+
     ->addSshOption('UserKnownHostsFile', '/dev/null')
     ->addSshOption('StrictHostKeyChecking', 'no');
 foreach ($yaml as $key => $y) {
@@ -60,7 +61,7 @@ foreach ($yaml as $key => $y) {
         ->user($y['user'])
         ->port($y['port'] > 1 ? $y['port'] : 22)
         ->configFile($y['configFile'])
-        ->hostname('217.19.182.58')
+        ->hostname($y['hostname'])
         ->identityFile($y['identityFile'])
         ->forwardAgent($y['forwardAgent'])
         ->multiplexing($y['multiplexing'])
@@ -185,6 +186,7 @@ task('deploy:configure', function ()
 //        }
 //    }
 });
+
 /**
  * Deploy start, prepare deploy directory
  */

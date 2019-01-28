@@ -33,7 +33,6 @@ dev:
 
 stage:
     hostname: praxis.tp3.de
-    hostName: praxis.tp3.de
     port: 22
     user: r_p_it_praxis
     public_key:  'config/keys/id_rsa.pub'
@@ -44,6 +43,9 @@ stage:
     forwardAgent: true
     multiplexing: true
     stage: staging
+    sshOptions:
+      UserKnownHostsFile: /dev/null
+      StrictHostKeyChecking: no
     deploy_path: /var/www/praxis.tp3.de/private/
     typo3_webroot: ../web/
     branch: develop
@@ -126,7 +128,7 @@ tr:
 cdu:
     hostname: old.r-p-it.com
     port: 22
-    user: thomasruta_tudy
+    user: r_p_it_cdu
     public_key:  'config/keys/id_rsa.pub'
     private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
