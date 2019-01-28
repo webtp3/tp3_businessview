@@ -1,1 +1,0 @@
-tx_error404page.redirectError403To = auto

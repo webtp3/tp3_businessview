@@ -1,0 +1,24 @@
+Host gerit
+  Hostname review.typo3.org
+  Port 29418
+  User thomasruta
+
+Host github.com
+    User git
+    IdentityFile ~tr/.ssh/git_rsa
+
+Host bitbucket.org
+    User thomasruta
+    HostName bitbucket.org
+    IdentityFile ~tr/.ssh/id_rsa
+
+Host srv400
+    User root
+    HostName 217.19.182.58
+    IdentityFile ~tr/.ssh/srv400_rsa
+
+Host localdev.tp3.de
+    User dev
+    Password jpb0OIJlmCmiRT9hP5Pu
+    HostName localdev.tp3.de
+    IdentityFile /develop/rp-dev/private/config/keys/id_rsa
