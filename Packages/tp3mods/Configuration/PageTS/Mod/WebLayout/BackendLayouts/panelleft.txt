@@ -1,0 +1,35 @@
+################################
+#### BACKENDLAYOUT: DEFAULT ####
+################################
+mod {
+    web_layout {
+        BackendLayouts {
+            panelleft {
+                title = PanelLeft
+                icon = EXT:bootstrap_package/Resources/Public/Images/BackendLayouts/default.gif
+                config {
+                       backend_layout {
+                               colCount = 2
+                               rowCount = 1
+                               rows {
+                                     1 {
+                                           columns {
+                                                 1 {
+                                                   name = left
+                                                   colPos = 1
+                                                   maxitems = 10
+                                                 }
+                                                 2 {
+                                                   name = right
+                                                   colPos = 2
+                                                   maxitems = 10
+                                                 }
+                                           }
+                                     }
+                               }
+                       }
+                }
+            }
+        }
+    }
+}

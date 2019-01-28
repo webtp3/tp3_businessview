@@ -1,0 +1,5 @@
+# cat=tp3mods: advanced/190/100; type=string; label=devmode)
+disableDevmode = 1
+
+# cat=tp3mods: advanced/190/100; type=string; label=Snippet type for page (can also be product etc. see https://schema.org/WebPage)
+content_target  = .body-bg

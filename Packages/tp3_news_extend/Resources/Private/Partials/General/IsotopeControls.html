@@ -1,0 +1,57 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="isotop controls">
+	<div class="dropdown controlsticker">
+	<button class="texticon-inner-icon glyphicon glyphicon-search btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
+	<div class="dropdown-menu button-group form-group">
+	<form name="search" class="isotop-search-form">
+		<!--<div>-->
+		<!--<input type="hidden" name="tx_news_pi1[__referrer][@extension]" value="News">-->
+		<!--<input type="hidden" name="tx_news_pi1[__referrer][@vendor]" value="GeorgRinger">-->
+		<!--<input type="hidden" name="tx_news_pi1[__referrer][@controller]" value="News">-->
+		<!--<input type="hidden" name="tx_news_pi1[__referrer][@action]" value="searchForm">-->
+		<!--</div>-->
+		<div class="form-group">
+		<!--<label for="news-subject">-->
+		<!--Text-->
+		<!--</label>-->
+		<input class="form-control" id="isotope-subject" placeholder="Text" type="text" name="tx_news_pi1[search][subject]">
+		</div>
+		<!--<div class="form-group">-->
+		<!--<label for="news-minimumDate">-->
+		<!--Datum (Untergrenze)-->
+		<!--</label>-->
+		<!--<input class="form-control" id="news-minimumDate" type="date" name="tx_news_pi1[search][minimumDate]">-->
+		<!--</div>-->
+		<!--<div class="form-group">-->
+		<!--<label for="news-maximumDate">-->
+		<!--Datum (Obergrenze)-->
+		<!--</label>-->
+		<!--<input class="form-control" id="news-maximumDate" type="date" name="tx_news_pi1[search][maximumDate]">-->
+		<!--</div>-->
+		<button class="btn btn-primary glyphicon glyphicon-search hidden" type="submit" value="Suchen"></button>
+	</form>
+	</div>
+	</div>
+	<div class="dropdown controlsticker">
+		<button class="texticon-inner-icon glyphicon glyphicon-sort btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" title="sortieren"><span class="caret"></span></button>
+		<ul class="dropdown-menu button-group sort-by-button-group js-radio-button-group ">
+			<li><button class="button btn btn-primary" data-sort-by="headline"><span class="caret"></span>Title</button></li>
+			<li><button class="button btn btn-primary" data-sort-by="time"><span class="caret"></span>Datum</button></li>
+			<li><button class="button btn btn-primary" data-sort-by="category"><span class="caret"></span>Kategorie</button></li>
+
+		</ul>
+	</div>
+	<div class="dropdown controlsticker">
+
+		<button class="texticon-inner-icon glyphicon glyphicon-filter btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"  title="filtern"><span class="caret"></span></button>
+		<ul class="dropdown-menu button-group filter-button-group ">
+			<li><button class="button btn btn-secondary" data-filter="*"><span class="caret"></span>alle</button></li>
+			<li>
+			<button class="button btn btn-secondary" data-filter=".Presse"><span class="caret"></span>Presse</button></li>
+			<li>
+			<button class="button btn btn-secondary" data-filter=".News"><span class="caret"></span>News</button></li>
+			<li>
+			<button class="button btn btn-secondary" data-filter=".Veranstaltungen"><span class="caret"></span>Termine</button></li>
+		</ul>
+	</div>
+</div>

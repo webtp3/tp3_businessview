@@ -1,0 +1,28 @@
+{
+    "name": "tp3/tp3-parallax",
+    "type": "typo3-cms-extension",
+    "description": "Add Images to containers for parallax scrolling",
+    "authors": [
+        {
+            "name": "Thomas Ruta",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "typo3/cms-core": "^8.7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tp3\\Tp3Parallax\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tp3\\Tp3Parallax\\Tests\\": "Tests"
+        }
+    },
+    "replace": {
+        "tp3_parallax": "self.version",
+        "typo3-ter/tp3-parallax": "self.version"
+    }
+}

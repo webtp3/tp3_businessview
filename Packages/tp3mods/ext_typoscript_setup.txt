@@ -1,0 +1,35 @@
+
+config.tx_extbase {
+  persistence {
+    classes {
+
+      Tp3\Tp3mods\Domain\Model\Tp3Adress {
+        mapping {
+          tableName = tt_address
+          recordType = 0
+          columns {
+            microdata_adress.mapOnProperty = microdata_adress
+          }
+        }
+      }
+      Tp3\Tp3mods\Domain\Model\Tp3Mods {
+        mapping {
+          recordType = Tx_Tp3mods_Tp3Mods
+          tableName = tx_tp3mods_domain_model_tp3mods
+          columns {
+            pages.mapOnProperty = uid_foreign
+            sorting.mapOnProperty = sorting
+            pages.mapOnProperty = uid_foreign
+            address.mapOnProperty = address
+          }
+
+        }
+        subclasses {
+          0 = Tp3\Tp3mods\Domain\Model\Tp3Adress
+
+        }
+      }
+
+    }
+  }
+}

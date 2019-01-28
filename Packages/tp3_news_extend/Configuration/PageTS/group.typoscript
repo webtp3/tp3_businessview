@@ -1,0 +1,25 @@
+#**********************************************************************
+# date/time    : 11.03.2013 - 12:00 - tf
+# project      : Fließend-Sein master TS
+# developer    : TF
+# parameter    :
+# description  : ts setup
+#
+# remarks      : for TYPO3 >= 6.2.0
+#
+#*********************************************************************
+
+#*****
+# to be tested
+#*****
+
+#*** options in BE
+options{
+
+	clearCache{
+		pages = 1
+		system = 0
+		all = 0
+	}
+
+}

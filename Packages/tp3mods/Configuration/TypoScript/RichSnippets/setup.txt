@@ -1,0 +1,107 @@
+plugin.tx_tp3mods_tp3micro{
+    settings{
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=Site Name
+        tp3sitetitle = {$plugin.tx_tp3mods_tp3micro.settings.tp3sitetitle}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        facebook_profile = {$plugin.tx_tp3mods_tp3micro.settings.facebook_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= FB AppID
+        facebook_appid = {$plugin.tx_tp3mods_tp3micro.settings.facebook_appid}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        twitter_profile = {$plugin.tx_tp3mods_tp3micro.settings.twitter_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        google_profile = {$plugin.tx_tp3mods_tp3micro.settings.google_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        insta_profile = {$plugin.tx_tp3mods_tp3micro.settings.insta_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        linkedin_profile = {$plugin.tx_tp3mods_tp3micro.settings.linkedin_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        baseUrl = {$plugin.tx_tp3mods_tp3micro.settings.baseUrl}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
+        logo = {$plugin.tx_tp3mods_tp3micro.settings.logo}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
+        logo_width = {$plugin.tx_tp3mods_tp3micro.settings.logo_width}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
+        logo_inv = {$plugin.tx_tp3mods_tp3micro.settings.logo_inv}
+    }
+}
+page.footerData {
+
+    1117 = TEXT
+    1117.data = getenv : REQUEST_URI
+    1117.wrap = <meta itemprop="url" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}|" />
+    // Flip ahead browsing for IE10/11
+    // http://msdn.microsoft.com/en-us/library/ie/jj883726(v=vs.85).aspx
+    1120 = HMENU
+    1120 {
+        special = browse
+        special {
+            items = prev|next
+        }
+        1 = TMENU
+        1.NO {
+            allWrap = <link rel="prev" href="|"> |*| <link rel="next" href="|">
+            doNotLinkIt = 1
+            stdWrap {
+                typolink {
+                    parameter.data = field:uid
+                    useCacheHash = 1
+                    returnLast = url
+                }
+            }
+        }
+    }
+    #    1118.= TEXT
+    #    1118.value (
+    #         <g itemscope itemtype="http://schema.org/LocalBusiness">
+    #            <meta itemprop="logo" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}/{$plugin.tx_tp3mods_tp3micro.settings.logo}">
+    #            <meta itemprop="url" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}">
+    #            <meta itemprop="name" content="{$plugin.tx_tp3mods_tp3micro.settings.tp3sitetitle}">
+    #            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.facebook_profile}">
+    #            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.twitter_profile}">
+    #            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.google_profile}">
+    #            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.insta_profile}">
+    #
+    #         </g>
+    #    )
+    1119.= TEXT
+    1119.value (
+        <g itemscope itemtype="http://schema.org/WebApplication">
+            <meta itemprop="image" content="http://web.tp3.de/fileadmin/user_upload/tp3/logo_125.png">
+            <meta itemprop="url" content="http://web.tp3.de">
+            <meta itemprop="name" content="tp3 ">
+            <meta itemprop="sameAs" content="https://www.facebook.com/tp3service">
+            <meta itemprop="sameAs" content="https://plus.google.com/+Tp3De">
+            <meta itemprop="sameAs" content="https://twitter.com/tp3_web">
+            <meta itemprop="about" content="typo3 development & consulting">
+            <meta itemprop="alternativeHeadline" content="typo3 continuous integration - hosting">
+            <meta itemprop="operatingSystem" content="ubuntu">
+            <meta itemprop="applicationSuite" content="typo3">
+            <meta itemprop="applicationCategory" content="web & mobile apps">
+            <meta itemprop="license" content="http://www.gnu.org/licenses/gpl-2.0.html">
+            <meta itemprop="operatingSystem" content="ubuntu">
+            <meta itemprop="text" content="tp3 ist eine von der R&P IT Consulting entwickelte Anpassung von typo3. Die Plattform wird als Software as a Service (SaaS) für Kunden bereitgestellt.">
+            <g  itemprop="provider" itemscope itemtype="http://schema.org/LocalBusiness">
+                <meta itemprop="name" content="R&P IT Consulting GmbH" />
+                <meta itemprop="description" content="solid software & apps for innovative technical solutions" />
+                <meta itemprop="image" content="http://r-p-it.com/fileadmin/user/rp/rp_logo.png" />
+                <meta itemprop="sameAs" content="https://www.facebook.com/r.p.it.consulting">
+                <meta itemprop="sameAs" content="https://twitter.com/rp_it">
+                <meta itemprop="sameAs" content="https://www.linkedin.com/company/r&p-it-consulting-gmbh">
+                <g itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
+                    <meta itemprop="streetAddress" content="Christof-Ruthof-Weg 14" />
+                    <meta  itemprop="postalCode" content="55252" />
+                    <meta itemprop="addressLocality" content="Mainz-Kastel"/>
+                </g>
+            </g>
+            <g itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                <meta itemprop="price" content="29.00" />
+                <meta itemprop="priceCurrency" content="EUR" />
+                <link itemprop="availability" href="http://schema.org/OnlineOnly" content="online" />
+            </g>
+        </g>
+
+
+
+    )
+
+}

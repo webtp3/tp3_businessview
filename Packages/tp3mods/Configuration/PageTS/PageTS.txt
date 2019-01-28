@@ -1,0 +1,91 @@
+########################
+#### BACKENDLAYOUTS ####
+########################
+TCAdefaults{
+	# *** set imagecol to 1 col
+	tt_content{
+		imagecols = 0
+		image_zoom = 1
+	}
+}
+#
+TCEFORM {
+    pages {
+        layout {
+            addItems{
+             100 = Newsletter
+            }
+        }
+    }
+    tt_content {
+        header_layout {
+            altLabels {
+                1 = H1
+                2 = H2
+                3 = H3
+                4 = H4
+                5 = H5
+            }
+        }
+        layout {
+            removeItems = 1,2,3
+            disableNoMatchingValueElement = 1
+            types {
+                uploads {
+                    removeItems = 3
+                    altLabels {
+                        0 = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:uploadslayout.default
+                        1 = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:uploadslayout.icons
+                        2 = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:uploadslayout.iconsandpreview
+                    }
+                }
+            }
+        }
+        table_class {
+            addItems {
+                hover = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:tablelayout.hover
+                condensed = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:tablelayout.condensed
+            }
+        }
+        imageborder {
+            disabled = 1
+        }
+        imagecols {
+            removeItems = 5,7,8
+        }
+        image_zoom {
+            types {
+                media {
+                    disabled = 1
+                }
+            }
+        }
+        imageorient {
+            addItems {
+                29 = TextpicInLeft
+                30 =  TextpicInRight
+            }
+            types {
+
+                image {
+                    disabled = 0
+                }
+                media {
+                    disabled = 0
+                }
+            }
+        }
+        icon {
+            itemsProcFunc {
+                directory = EXT:bootstrap_package/Resources/Public/Images/Icons/Glyphicons/
+            }
+        }
+        accessibility_title {
+            disabled = 1
+        }
+        // Disable imageheight and imagewidth for textpic and image
+        // to avoid incorrect rendering in frontend
+        imageheight.disabled = 0
+        imagewidth.disabled = 0
+    }
+}

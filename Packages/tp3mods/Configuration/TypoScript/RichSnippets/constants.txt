@@ -1,0 +1,32 @@
+plugin.tx_tp3mods_tp3micro{
+    settings{
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label=Site Name
+        tp3sitetitle = {$footertext}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        facebook_profile = {$facebook_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= FB AppID
+        facebook_appid = {$facebookid}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        twitter_profile = {$twitter_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        google_profile = {$google_profile_url}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        insta_profile = {$finst_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        linkedin_profile = {$linkedin_profile}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
+        baseUrl = http://{$baseUrl}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
+        logo = {$page.logo.file}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
+        logo_width = {$page.logo.width}
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
+        logo_inv = {$page.logo.file}
+    }
+}
+
+
+# *** SSL
+[globalString = ENV:HTTPS=on]
+    plugin.tx_tp3mods_tp3micro.settings.baseUrl = https://{$baseUrl}
+[global]

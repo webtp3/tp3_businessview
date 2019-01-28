@@ -1,0 +1,47 @@
+#**********************************************************************
+# date/time    : 11.03.2013 - 12:00 - tf
+# project      : tp3
+# developer    : TF
+# parameter    :
+# description  : ts setup
+#
+# remarks      : for TYPO3 >= 6.2.0
+#
+#*********************************************************************
+
+
+# *** tce main
+TCEMAIN {
+	# *** group permissions
+	permissions {
+		groupid = 3
+		group = show,edit,new,editcontent,delete
+		user = show,edit,new,editcontent,delete
+	}
+}
+
+#
+# *** show left, normal, right and border section only
+#mod{
+#	SHARED.colPos_list = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14
+#	web_layout.menu.function.0 = 0
+#}
+
+# neuen Datasatz nicht als hidden deklarieren
+TCAdefaults{
+	# *** set imagecol to 1 col
+	tt_content{
+		imagecols = 0
+		image_zoom = 1
+	}
+}
+#
+# *** Template selector tx news
+tx_news{
+	# *** set templates for dropdown in news plugin
+	templateLayouts {
+		11 = News Liste
+		14 = News Boxes
+		15 = News Isoptop
+	}
+}

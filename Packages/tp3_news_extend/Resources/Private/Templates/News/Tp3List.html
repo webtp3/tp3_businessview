@@ -1,0 +1,311 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:n="http://typo3.org/ns/GeorgRinger/News/ViewHelpers"
+	  xmlns:vh="http://typo3.org/ns/Tp3/Filmcomission/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+<f:layout name="General" />
+<!--
+	=====================
+		Templates/News/List.html
+-->
+
+<f:section name="content">
+	<!--TYPO3SEARCH_end-->
+	<f:if condition="{news}">
+		<f:then>
+			<f:comment>startseite newslist</f:comment>
+			<f:if condition="{settings.templateLayout} == 1">
+				<div class="news-list-view newsLatestHome" id="news-container-{contentObjectData.uid}">
+					<f:if condition="{settings.hidePagination}">
+						<f:then>
+							<f:for each="{news}" as="newsItem" iteration="iterator">
+								<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+							</f:for>
+						</f:then>
+						<f:else>
+							<n:widget.paginate objects="{news}" as="paginatedNews" configuration="{settings.list.paginate}" initial="{offset:settings.offset,limit:settings.limit}">
+								<f:for each="{paginatedNews}" as="newsItem" iteration="iterator">
+									<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+								</f:for>
+							</n:widget.paginate>
+						</f:else>
+					</f:if>
+				</div>
+			</f:if>
+
+			<f:comment>normale newslist</f:comment>
+			<f:if condition="{settings.templateLayout} == 11">
+				<div class="news-list-view" id="news-container-{contentObjectData.uid}">
+					<f:if condition="{settings.hidePagination}">
+						<f:then>
+							<f:for each="{news}" as="newsItem" iteration="iterator">
+								<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+							</f:for>
+						</f:then>
+						<f:else>
+							<n:widget.paginate objects="{news}" as="paginatedNews" configuration="{settings.list.paginate}" initial="{offset:settings.offset,limit:settings.limit}">
+								<f:for each="{paginatedNews}" as="newsItem" iteration="iterator">
+									<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+								</f:for>
+							</n:widget.paginate>
+						</f:else>
+					</f:if>
+				</div>
+			</f:if>
+
+			<f:comment>startseite eventliste</f:comment>
+			<f:if condition="{settings.templateLayout} == 2">
+				<div class="news-list-view eventsLatestHome" id="news-container-{contentObjectData.uid}">
+					<f:if condition="{settings.hidePagination}">
+						<f:then>
+							<f:for each="{news}" as="newsItem" iteration="iterator">
+								<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+							</f:for>
+						</f:then>
+						<f:else>
+							<n:widget.paginate objects="{news}" as="paginatedNews" configuration="{settings.list.paginate}" initial="{offset:settings.offset,limit:settings.limit}">
+								<f:for each="{paginatedNews}" as="newsItem" iteration="iterator">
+									<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+								</f:for>
+							</n:widget.paginate>
+						</f:else>
+					</f:if>
+				</div>
+			</f:if>
+
+			<f:comment>normale eventliste</f:comment>
+			<f:if condition="{settings.templateLayout} == 12">
+				<div class="news-list-view events" id="news-container-{contentObjectData.uid}">
+					<f:if condition="{settings.hidePagination}">
+						<f:then>
+							<div class="row">
+								<div class="col-md-3">
+									<ul id="newsMonths">
+										<vh:groupedForDateTime each="{news}" as="myitemsyear" groupBy="date" format="%Y%m" groupKey="year" dateTimeKey="yearKey">
+											<li class="monthSelector" data-class="{year}"></li>
+										</vh:groupedForDateTime>
+									</ul>
+								</div>
+								<div class="col-md-9">
+									<vh:groupedForDateTime each="{news}" as="myitemsyear" groupBy="date" format="%Y%m" groupKey="year" dateTimeKey="yearKey">
+										<div class="{year} monthGroup">
+											<f:for each="{myitemsyear}" as="item">
+												<f:render partial="List/Item" arguments="{newsItem: item,settings:settings,iterator:iterator}" />
+											</f:for>
+										</div>
+									</vh:groupedForDateTime>
+									<div class="noEvents monthGroup">
+										<f:translate key="LLL:fileadmin/sys/locallang.xml:news.label.noEventsFound" default="news.label.noEventsFound" />
+									</div>
+
+									<script type="text/javascript">
+                                        // *** Language selector
+                                        if(iLangUid == 1) {
+                                            var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                                        } else {
+                                            var monthNames = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+                                        }
+
+                                        document.addEventListener("loaded",function(){
+
+                                            // *** Put current year/month to string (format: yyyymm)
+                                            var d = new Date();
+                                            var n = d.getMonth()+1;
+                                            if(n < 10) {
+                                                n = '0' + String(n);
+                                            }
+                                            var currentYearMonth = String(d.getFullYear()) + String(n);
+
+                                            // *** Remove outdated months(should better be done in CE config?!)
+                                            $('#newsMonths li').each(function(){
+                                                if(parseInt($(this).attr('data-class')) < parseInt(currentYearMonth)) {
+                                                    // *** Remove news list for month
+                                                    $('.monthGroup.'+$(this).attr('data-class')).remove();
+
+                                                    // *** Remove month button
+                                                    $(this).remove();
+
+                                                }
+                                            });
+
+                                            // *** Put month and year to button label
+                                            $('#newsMonths li').each(function(){
+                                                var iMonth = parseInt($(this).attr('data-class').substr(4,2));
+                                                var iYear = parseInt($(this).attr('data-class').substr(0,4));
+                                                $(this).html(monthNames[iMonth-1] + ' ' + iYear);
+                                            });
+
+                                            // *** Show remaining month buttons
+                                            $('#newsMonths li').css('display', 'inline-block');
+
+                                            // *** Switch month on click
+                                            $('#newsMonths li').click(function(){
+                                                var sClass = '.' + $(this).attr('data-class').replace(' ', '.');
+                                                $('.monthGroup').css('display', 'none');
+                                                $(sClass).css('display', 'inline-block');
+                                            });
+
+                                            // *** If no events in current month -> jump to next month with events
+                                            while($('.'+currentYearMonth+'.monthGroup').length == 0) {
+                                                currentYearMonth++;
+
+                                                var yearPart = parseInt(String(currentYearMonth).substring(0,4));
+                                                var monthPart = parseInt(String(currentYearMonth).substring(4,6));
+
+                                                // *** next year reached?
+                                                if(monthPart==13) {
+                                                    yearPart++;
+                                                    currentYearMonth = yearPart+'01';
+                                                }
+
+                                                // *** Stop loop if no future events are available
+                                                if(yearPart == 2199) {
+                                                    break;
+                                                }
+                                            }
+
+                                            // *** Show next month with events, if available
+                                            if($('.'+currentYearMonth+'.monthGroup').length > 0){
+                                                $('.'+currentYearMonth+'.monthGroup').css('display', 'block');
+                                            } else {
+                                                // *** No future events at all
+                                                $('.noEvents.monthGroup').fadeIn(500);
+                                            }
+                                        });
+									</script>
+								</div>
+							</div>
+							<f:comment>
+								<f:groupedFor each="{news}" as="newsGrouped" groupBy="{f:format.date(date: datetime.date, format: 'M')}" groupKey="uid2">
+									uid2:{uid2}
+
+									<f:for each="{newsGrouped}" as="newsItem" iteration="iterator">
+										{f:format.date (date:'datetime',format:'m')}
+										<pre><f:format.date format="d.m.Y - H:i:s">{newsItem.datetime}</f:format.date></pre>
+									</f:for>
+								</f:groupedFor>
+							</f:comment>
+						</f:then>
+						<f:else>
+							<n:widget.paginate objects="{news}" as="paginatedNews" configuration="{settings.list.paginate}" initial="{offset:settings.offset,limit:settings.limit}">
+								<f:for each="{paginatedNews}" as="newsItem" iteration="iterator">
+									<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+								</f:for>
+							</n:widget.paginate>
+						</f:else>
+					</f:if>
+				</div>
+			</f:if>
+
+			<f:comment>startseite press</f:comment>
+			<f:if condition="{settings.templateLayout} == 3">
+				<div class="news-list-view newsLatestHome pressLatestHome" id="news-container-{contentObjectData.uid}">
+					<f:if condition="{settings.hidePagination}">
+						<f:then>
+							<f:for each="{news}" as="newsItem" iteration="iterator">
+								<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+							</f:for>
+						</f:then>
+						<f:else>
+							<n:widget.paginate objects="{news}" as="paginatedNews" configuration="{settings.list.paginate}" initial="{offset:settings.offset,limit:settings.limit}">
+								<f:for each="{paginatedNews}" as="newsItem" iteration="iterator">
+									<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+								</f:for>
+							</n:widget.paginate>
+						</f:else>
+					</f:if>
+				</div>
+			</f:if>
+
+			<f:comment>normale presseliste</f:comment>
+			<f:if condition="{settings.templateLayout} == 13">
+				<div class="news-list-view press"  id="news-container-{contentObjectData.uid}">
+					<f:if condition="{settings.hidePagination}">
+						<f:then>
+							<f:for each="{news}" as="newsItem" iteration="iterator">
+								<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+							</f:for>
+						</f:then>
+						<f:else>
+							<n:widget.paginate objects="{news}" as="paginatedNews" configuration="{settings.list.paginate}" initial="{offset:settings.offset,limit:settings.limit}">
+								<f:for each="{paginatedNews}" as="newsItem" iteration="iterator">
+									<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+								</f:for>
+							</n:widget.paginate>
+						</f:else>
+					</f:if>
+				</div>
+			</f:if>
+			<f:comment>news boxes</f:comment>
+			<f:if condition="{settings.templateLayout} == 14">
+				<div class="news-list-view boxes" id="news-container-{contentObjectData.uid}">
+					<f:if condition="{settings.hidePagination}">
+						<f:then>
+							<f:for each="{news}" as="newsItem" iteration="iterator">
+								<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+							</f:for>
+						</f:then>
+						<f:else>
+							<n:widget.paginate objects="{news}" as="paginatedNews" configuration="{settings.list.paginate}" initial="{offset:settings.offset,limit:settings.limit,recordId:contentObjectData.uid}">
+								<f:for each="{paginatedNews}" as="newsItem" iteration="iterator">
+									<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+								</f:for>
+							</n:widget.paginate>
+						</f:else>
+					</f:if>
+				</div>
+			</f:if>
+		</f:then>
+		<f:comment>news boxes</f:comment>
+		<f:if condition="{settings.templateLayout} == 15">
+			<div class="news-list-view isotop" id="news-container-{contentObjectData.uid}">
+				<f:if condition="{settings.hidePagination}">
+					<f:then>
+						<f:for each="{news}" as="newsItem" iteration="iterator">
+							<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+						</f:for>
+					</f:then>
+					<f:else>
+						<n:widget.paginate objects="{news}" as="paginatedNews" configuration="{settings.list.paginate}" initial="{offset:settings.offset,limit:settings.limit,recordId:contentObjectData.uid}">
+							<f:for each="{paginatedNews}" as="newsItem" iteration="iterator">
+								<f:render partial="List/Item" arguments="{newsItem: newsItem,settings:settings,iterator:iterator}" />
+							</f:for>
+						</n:widget.paginate>
+					</f:else>
+				</f:if>
+			</div>
+		</f:if>
+		</f:then>
+		<f:else>
+			<div class="no-news-found">
+				<f:if condition="{settings.templateLayout}">
+					<f:then>
+						<f:if condition="{settings.templateLayout} == 1">
+							<f:translate key="LLL:fileadmin/sys/locallang.xml:news.label.noEventsFound" default="news.label.noEventsFound" />
+						</f:if>
+						<f:if condition="{settings.templateLayout} == 11">
+							<f:translate key="LLL:fileadmin/sys/locallang.xml:news.label.noEventsFound" default="events.label.noEventsFound" />
+						</f:if>
+						<f:if condition="{settings.templateLayout} == 2">
+							<f:translate key="LLL:fileadmin/sys/locallang.xml:events.label.noEventsFound" default="press.label.noEventsFound" />
+						</f:if>
+						<f:if condition="{settings.templateLayout} == 12">
+							<f:translate key="LLL:fileadmin/sys/locallang.xml:events.label.noEventsFound" default="news.label.noEventsFound" />
+						</f:if>
+						<f:if condition="{settings.templateLayout} == 3">
+							<f:translate key="LLL:fileadmin/sys/locallang.xml:press.label.noEventsFound" default="events.label.noEventsFound" />
+						</f:if>
+						<f:if condition="{settings.templateLayout} == 13">
+							<f:translate key="LLL:fileadmin/sys/locallang.xml:press.label.noEventsFound" default="press.label.noEventsFound" />
+						</f:if>
+					</f:then>
+					<f:else>
+						<f:translate key="list_nonewsfound" />
+					</f:else>
+				</f:if>
+			</div>
+		</f:else>
+	</f:if>
+
+	<!--TYPO3SEARCH_begin-->
+</f:section>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-12-10T13:11:46Z" product-name="tp3_parallax">
+		<header/>
+		<body>
+			<trans-unit id="tx_tp3parallax_domain_model_collections">
+				<source>Collections</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3parallax_domain_model_collections.parallax_page">
+				<source>Parallax Page</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3parallax_domain_model_collections.parallax_content">
+				<source>Parallax Content</source>
+			</trans-unit>
+			<trans-unit id="sys_file_collection.tx_extbase_type.Tx_Tp3Parallax_Collections">
+				<source>tp3 Parallax Collections</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
