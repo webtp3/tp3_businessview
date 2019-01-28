@@ -1,7 +1,7 @@
 # list servers
 # -------------
 dev:
-    host: localdev.tp3.de
+    hostname: localdev.tp3.de
     port: 22
     user: 'dev'
     public_key:  'config/keys/id_rsa.pub'
@@ -32,7 +32,8 @@ dev:
     branch: develop
 
 stage:
-    host: praxis.tp3.de
+    hostname: praxis.tp3.de
+    hostName: praxis.tp3.de
     port: 22
     user: r_p_it_praxis
     public_key:  'config/keys/id_rsa.pub'
@@ -42,8 +43,8 @@ stage:
     identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
-    stage: stage
-    deploy_path: ../../private/
+    stage: staging
+    deploy_path: /var/www/praxis.tp3.de/private/
     typo3_webroot: ../web/
     branch: develop
     #// Project path
@@ -61,3 +62,184 @@ stage:
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp']
 
+lacuisine:
+    hostname: test.lacuisine.de
+    port: 22
+    user: lacuisine_composer
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
+    password:    'jpb0OIJlmCmiRT9hP5Pu'
+    configFile: config/keys/ssh_config
+    identityFile: config/keys/id_rsa
+    forwardAgent: true
+    multiplexing: true
+    stage: production
+    deploy_path: /var/www/test.lacuisine.de/private/
+    typo3_webroot: ../web/
+    branch: develop
+    #// Project path
+    application: tmp/
+
+    #// Project repository
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
+    git_tty: true
+    keep_releases: 4
+
+    #// Shared files/dirs between deploys
+    shared_files: ['composer.json']
+    shared_dirs: ['Build','config','bin']
+
+    #// Writable dirs by web server
+    writable_dirs: ['../tmp/','_temp']
+
+tr:
+    hostname: dev.thomasruta.de
+    port: 22
+    user: thomasruta_tudy
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
+    password:    'jpb0OIJlmCmiRT9hP5Pu'
+    configFile: config/keys/ssh_config
+    identityFile: config/keys/id_rsa
+    forwardAgent: true
+    multiplexing: true
+    stage: staging
+    deploy_path: /var/www/dev.thomasruta.de/private/
+    typo3_webroot: ../web/
+    branch: develop
+    #// Project path
+    application: tmp/
+
+    #// Project repository
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
+    git_tty: true
+    keep_releases: 4
+
+    #// Shared files/dirs between deploys
+    shared_files: ['composer.json']
+    shared_dirs: ['Build','config','bin']
+
+    #// Writable dirs by web server
+    writable_dirs: ['../tmp/','_temp']
+
+
+cdu:
+    hostname: old.r-p-it.com
+    port: 22
+    user: thomasruta_tudy
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
+    password:    'jpb0OIJlmCmiRT9hP5Pu'
+    configFile: config/keys/ssh_config
+    identityFile: config/keys/id_rsa
+    forwardAgent: true
+    multiplexing: true
+    stage: production
+    deploy_path: /var/www/old.r-p-it.com/private/
+    typo3_webroot: ../web/
+    branch: develop
+    #// Project path
+    application: tmp/
+
+    #// Project repository
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
+    git_tty: true
+    keep_releases: 4
+
+    #// Shared files/dirs between deploys
+    shared_files: ['composer.json']
+    shared_dirs: ['Build','config','bin']
+
+    #// Writable dirs by web server
+    writable_dirs: ['../tmp/','_temp']
+
+
+tp3:
+    hostname: dev.tp3.de
+    port: 22
+    user: thomasruta_tudy
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
+    password:    'jpb0OIJlmCmiRT9hP5Pu'
+    configFile: config/keys/ssh_config
+    identityFile: config/keys/id_rsa
+    forwardAgent: true
+    multiplexing: true
+    stage: production
+    deploy_path: /var/www/dev.tp3.de/private/
+    typo3_webroot: ../web/
+    branch: develop
+    #// Project path
+    application: tmp/
+
+    #// Project repository
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
+    git_tty: true
+    keep_releases: 4
+
+    #// Shared files/dirs between deploys
+    shared_files: ['composer.json']
+    shared_dirs: ['Build','config','bin']
+
+    #// Writable dirs by web server
+    writable_dirs: ['../tmp/','_temp']
+
+rp:
+    hostname: dev.r-p-it.com
+    port: 22
+    user: r_p_it_rp
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
+    password:    'jpb0OIJlmCmiRT9hP5Pu'
+    configFile: config/keys/ssh_config
+    identityFile: config/keys/id_rsa
+    forwardAgent: true
+    multiplexing: true
+    stage: production
+    deploy_path: /var/www/dev.r-p-it.com/private/
+    typo3_webroot: ../web/
+    branch: develop
+    #// Project path
+    application: tmp/
+
+    #// Project repository
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
+    git_tty: true
+    keep_releases: 2
+
+    #// Shared files/dirs between deploys
+    shared_files: ['composer.json']
+    shared_dirs: ['Build','config','bin']
+
+    #// Writable dirs by web server
+    writable_dirs: ['../tmp/','_temp']
+
+srt:
+    hostname: srt-wiesbaden.de
+    port: 22
+    user: srt_ssh
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
+    password:    'jpb0OIJlmCmiRT9hP5Pu'
+    configFile: config/keys/ssh_config
+    identityFile: config/keys/id_rsa
+    forwardAgent: true
+    multiplexing: true
+    stage: production
+    deploy_path: /var/www/srt-sanierung.de/private/
+    typo3_webroot: ../web/
+    branch: develop
+    #// Project path
+    application: tmp/
+
+    #// Project repository
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
+    git_tty: true
+    keep_releases: 2
+
+    #// Shared files/dirs between deploys
+    shared_files: ['composer.json']
+    shared_dirs: ['Build','config','bin']
+
+    #// Writable dirs by web server
+    writable_dirs: ['../tmp/','_temp']

@@ -11,8 +11,8 @@ use Symfony\Component\Yaml\Yaml;
 if(!class_exists(\Composer\Autoload\ClassLoader::class)) require dirname(__DIR__).'/Build/vendor/autoload.php';
 var_dump(dirname(__DIR__ ));
 require './Build/vendor/deployer/deployer/recipe/typo3.php';
-//inventory('./config/servers.yaml');
-
+inventory('./config/servers.yaml');
+$input_ = new \Symfony\Component\Console\Input\ArgvInput();
 $input = 'dev';//$_SERVER["argv"][1] ? $_SERVER["argv"][1] : "dev";
 $yaml = Yaml::parse(file_get_contents('./config/servers.yaml'));
 //$yamlString = Yaml::dump($yaml);
@@ -28,7 +28,7 @@ set('typo3_webroot', $yaml[$input]['typo3_webroot']);
 set('http_user', $yaml[$input]['user']);
 // Project repository
 set('repository', $yaml[$input]['repository']);
-set('composer_options', 'install -vvv -d {{deploy_path}}/releases/{{release_name}}');
+set('composer_options', 'install '.$yaml[$input]['stage'] != "dev" ? '--no-dev' : '' .' -v -d {{deploy_path}}releases/{{release_name}}');
 //set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
 
 // [Optional] Allocate tty for git clone. Default value is false.
@@ -44,44 +44,65 @@ add('writable_dirs', $yaml[$input]['writable_dirs']);
 
 //
 //// Hosts
-  host($input)
-        ->user($yaml[$input]['user'])
-        ->port($yaml[$input]['port'] > 1 ? $yaml[$input]['port'] : 22)
-        ->configFile($yaml[$input]['configFile'])
-        ->identityFile($yaml[$input]['identityFile'])
-        ->forwardAgent($yaml[$input]['forwardAgent'])
-        ->multiplexing($yaml[$input]['multiplexing'])
+host($input)
+    ->user($yaml[$input]['user'])
+    ->hostname($yaml[$input]['hostname'])
+    ->port($yaml[$input]['port'] > 1 ? $yaml[$input]['port'] : 22)
+    ->configFile($yaml[$input]['configFile'])
+    ->identityFile($yaml[$input]['identityFile'])
+    ->forwardAgent($yaml[$input]['forwardAgent'])
+    ->multiplexing($yaml[$input]['multiplexing'])
+    ->addSshOption('UserKnownHostsFile', '/dev/null')
+    ->addSshOption('StrictHostKeyChecking', 'no');
+foreach ($yaml as $key => $y) {
+
+    host($y['hostname'])
+        ->user($y['user'])
+        ->port($y['port'] > 1 ? $y['port'] : 22)
+        ->configFile($y['configFile'])
+        ->hostname('217.19.182.58')
+        ->identityFile($y['identityFile'])
+        ->forwardAgent($y['forwardAgent'])
+        ->multiplexing($y['multiplexing'])
         ->addSshOption('UserKnownHostsFile', '/dev/null')
-        ->addSshOption('StrictHostKeyChecking', 'no');
-//foreach ($yaml as $key => $y) {
-//
-//    host($key)
-//        ->user($y['user'])
-//        ->port($y['port'] > 1 ? $y['port'] : 22)
-//        ->configFile($y['configFile'])
-//        ->identityFile($y['identityFile'])
-//        ->forwardAgent($y['forwardAgent'])
-//        ->multiplexing($y['multiplexing'])
-//        ->addSshOption('UserKnownHostsFile', '/dev/null')
-//        ->addSshOption('StrictHostKeyChecking', 'no');
-//
-//    set('deploy_path', $y['deploy_path']);
-//    set('typo3_webroot', $y['typo3_webroot']);
-//
-//// user
-//    set('http_user', $y['user']);
-//// Project repository
-//    set('repository', $y['repository']);
-//    set('composer_options', 'config  repositories.local path \'Packages/*\' -d  {{deploy_path}}');
-//    set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader -d {{deploy_path}}');
-//
-//}
+        ->set('deploy_path', $y['deploy_path'])
+        ->addSshOption('StrictHostKeyChecking', 'no')
+        ->set('typo3_webroot', $y['typo3_webroot'])
+// user
+    ->set('http_user', $y['user'])
+// Project repository
+    ->set('repository', $y['repository'])
+    ->set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader '. $y['stage'] != "dev" ? '--no-dev' : '' .' -d {{deploy_path}}')
+    ->set('deploy_path', $y['deploy_path'])
+    ->set('typo3_webroot', $y['typo3_webroot'])
+
+// user
+    ->set('http_user', $y['user'])
+// Project repository
+    ->set('repository', $y['repository'])
+    ->set('composer_options', 'install '.$y['stage'] != "dev" ? '--no-dev' : '' .' -v -d {{deploy_path}}releases/{{release_name}}')
+//->set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
+
+// [Optional] Allocate tty for git clone. Default value is false.
+    ->set('git_tty', $y['git_tty'])
+    ->set('keep_releases',  $y['keep_releases'])
+
+// Shared files/dirs between deploys
+    ->add('shared_files', $y['shared_files'])
+    ->add('shared_dirs', $y['shared_dirs'])
+
+// Writable dirs by web server
+    ->add('writable_dirs', $y['writable_dirs']);
+
+
+
+}
 // Tasks
 
 task('build', function () {
     run('cd {{deploy_path}}');
-    run('/usr/bin/composer -v -d {{deploy_path}}  install');
-    run('/usr/bin/composer  -d {{deploy_path}} CAG_test:core-tests');
+    run('/usr/bin/php /usr/bin/composer -v -d {{deploy_path}} install');
+    run('/usr/bin/php /usr/bin/composer -d {{deploy_path}} CAG_test:core-tests');
 })->local();
 
 //// [Optional] if deploy fails automatically unlock.
