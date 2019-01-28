@@ -49,7 +49,6 @@ foreach ($yaml as $key => $y) {
         ->port($y['port'] > 1 ? $y['port'] : 22)
         ->configFile($y['configFile'])
         ->hostname($y['hostname'].'.deployer.tp3.de')
-        ->identityFile($y['identityFile'])
         ->forwardAgent($y['forwardAgent'])
         ->multiplexing($y['multiplexing'])
         ->addSshOption('UserKnownHostsFile', '/dev/null')
@@ -82,7 +81,10 @@ foreach ($yaml as $key => $y) {
 
 // Writable dirs by web server
     ->add('writable_dirs', $y['writable_dirs']);
-
+    if($y['identityFile'] != ""){
+        host($y['hostname'])
+            ->identityFile($y['identityFile']);
+    }
 
 
 }

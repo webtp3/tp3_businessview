@@ -39,7 +39,7 @@ stage:
     private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
-    identityFile: config/keys/id_rsa
+    identityFile: ''
     forwardAgent: true
     multiplexing: true
     stage: staging
