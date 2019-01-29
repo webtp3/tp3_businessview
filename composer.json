@@ -152,7 +152,7 @@
 		"friendsofphp/php-cs-fixer": "^2.0",
 		"phpunit/phpunit": "*",
 		"nimut/testing-framework": "*",
-        "web-tp3/cag_tests":"develop",
+        "web-tp3/cag_tests":"dev-develop",
 		"evoweb/ew-llxml2xliff":"^2",
 		"phpspec/phpspec":"^1",
         "facebook/webdriver":"^1",
