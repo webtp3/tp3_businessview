@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "99171bbc63126bd69cfdae33c70670c7",
+    "content-hash": "7cf1d3d46a6d2b960ae204a72d9ba915",
     "packages": [
         {
             "name": "apen/additional_reports",
@@ -1067,7 +1067,7 @@
             "version": "4.0.2",
             "dist": {
                 "type": "path",
-                "url": "./Packages/tt_address",
+                "url": "Packages/tt_address",
                 "reference": "6389b9890082720cd90e2c71d482a5603645c203",
                 "shasum": null
             },
@@ -1931,7 +1931,7 @@
             "version": "2.0.1",
             "dist": {
                 "type": "path",
-                "url": "./Packages/bootstrap_grids",
+                "url": "Packages/bootstrap_grids",
                 "reference": "59b7ffc8079bb5928402d5fe4110e342bdcc4363",
                 "shasum": null
             },
@@ -2197,7 +2197,7 @@
             "version": "6.5.1",
             "dist": {
                 "type": "path",
-                "url": "./Packages/static_info_tables",
+                "url": "Packages/static_info_tables",
                 "reference": "2f3efc486ab10b749c36ed43b367274d7e1c1e71",
                 "shasum": null
             },
@@ -2237,7 +2237,7 @@
             "version": "6.5.1",
             "dist": {
                 "type": "path",
-                "url": "./Packages/static_info_tables_de",
+                "url": "Packages/static_info_tables_de",
                 "reference": "2a459e1ffea5665da2072111442157ff67b9b0f9",
                 "shasum": null
             },
@@ -2890,7 +2890,7 @@
             "version": "1.12.1",
             "dist": {
                 "type": "path",
-                "url": "./Packages/cal",
+                "url": "Packages/cal",
                 "reference": "555ac87e912bdac692da00f7831b6367342b9eba",
                 "shasum": null
             },
@@ -3486,7 +3486,7 @@
             "version": "1.1.0",
             "dist": {
                 "type": "path",
-                "url": "./Packages/tp3_news_extend",
+                "url": "Packages/tp3_news_extend",
                 "reference": "028cbb1a756a18cc7f28fbc416eb4efb2910a3b5",
                 "shasum": null
             },
@@ -3632,7 +3632,7 @@
             "version": "1.4.0",
             "dist": {
                 "type": "path",
-                "url": "./Packages/tp3mods",
+                "url": "Packages/tp3mods",
                 "reference": "42e040a539ad1ae228f64ecc0cbe56e8f2321d67",
                 "shasum": null
             },
@@ -3733,7 +3733,7 @@
             "version": "4.1.4",
             "dist": {
                 "type": "path",
-                "url": "./Packages/wec_map",
+                "url": "Packages/wec_map",
                 "reference": "1cd65b6629fdbf3647d0829c1479755194969857",
                 "shasum": null
             },
@@ -3781,7 +3781,7 @@
             "version": "3.0.5",
             "dist": {
                 "type": "path",
-                "url": "./Packages/yoast_seo",
+                "url": "Packages/yoast_seo",
                 "reference": "f9fc3347b7e969c6b34fce7a3ecb33584c0cdc16",
                 "shasum": null
             },
@@ -4128,16 +4128,16 @@
         },
         {
             "name": "composer/xdebug-handler",
-            "version": "1.3.1",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/xdebug-handler.git",
-                "reference": "dc523135366eb68f22268d069ea7749486458562"
+                "reference": "d17708133b6c276d6e42ef887a877866b909d892"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/xdebug-handler/zipball/dc523135366eb68f22268d069ea7749486458562",
-                "reference": "dc523135366eb68f22268d069ea7749486458562",
+                "url": "https://api.github.com/repos/composer/xdebug-handler/zipball/d17708133b6c276d6e42ef887a877866b909d892",
+                "reference": "d17708133b6c276d6e42ef887a877866b909d892",
                 "shasum": ""
             },
             "require": {
@@ -4168,7 +4168,7 @@
                 "Xdebug",
                 "performance"
             ],
-            "time": "2018-11-29T10:59:02+00:00"
+            "time": "2019-01-28T20:25:53+00:00"
         },
         {
             "name": "consolidation/annotated-command",
@@ -8236,12 +8236,11 @@
         },
         {
             "name": "web-tp3/cag_tests",
-            "version": "1.2.2",
-            "dist": {
-                "type": "path",
-                "url": "./Packages/cag_tests",
-                "reference": "c51700b15ce34faab23b5408e16182899cb26c3f",
-                "shasum": null
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://thomasruta@bitbucket.org/web-tp3/cag_tests.git",
+                "reference": "b86a2478ab27c3167952a14c065c606e7f37f4de"
             },
             "require": {
                 "typo3/cms-core": "*"
@@ -8263,14 +8262,14 @@
                     "@php vendor/phpunit/phpunit/phpunit -c vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml"
                 ],
                 "CAG_test:core-tests": [
-                    "@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log",
-                    "@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/UnitTestsDeprecated.xml  --teamcity --log-junit  UnitTestsDeprecated.log",
-                    "@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/FunctionalTests.xml  --teamcity --log-junit  FunctionalTests.log"
+                    "@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/UnitTests.xml  --log-junit UnitTests.log",
+                    "@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/UnitTestsDeprecated.xml  --log-junit  UnitTestsDeprecated.log",
+                    "@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Core/Build/FunctionalTests.xml  --log-junit  FunctionalTests.log"
                 ],
                 "CAG_test:extension-tests": [
-                    "@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTests.xml  --teamcity --log-junit UnitTests.log",
-                    "@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTestsDeprecated.xml   --teamcity --log-junit  UnitTestsDeprecated.log",
-                    "@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/FunctionalTests.xml   --teamcity --log-junit  FunctionalTests.log"
+                    "@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTests.xml   --log-junit UnitTests.log",
+                    "@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/UnitTestsDeprecated.xml  --log-junit  UnitTestsDeprecated.log",
+                    "@php bin/phpunit --configuration web/typo3conf/ext/cag_tests/Resources/Ext/Build/FunctionalTests.xml  --log-junit  FunctionalTests.log"
                 ]
             },
             "license": [
@@ -8287,9 +8286,7 @@
                 }
             ],
             "description": "Connecta AG :: Basic Testing and Samples",
-            "transport-options": {
-                "symlink": true
-            }
+            "time": "2019-01-29T09:34:47+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -8356,6 +8353,7 @@
         "typo3/cms": 20,
         "dmitryd/typo3-dd-googlesitemap": 20,
         "web-tp3/tp3businessview": 20,
+        "web-tp3/cag_tests": 20,
         "devlog/devlog": 20
     },
     "prefer-stable": false,
