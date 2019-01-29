@@ -47,7 +47,7 @@ stage:
       UserKnownHostsFile: /dev/null
       StrictHostKeyChecking: no
     deploy_path: /var/www/praxis.tp3.de/private/
-    typo3_webroot: ../web/
+ typo3_webroot: ../../../web/
     branch: develop
     #// Project path
     application: tmp/
@@ -58,11 +58,11 @@ stage:
     keep_releases: 4
 
     #// Shared files/dirs between deploys
-    shared_files: ['composer.json']
-    shared_dirs: ['Build','config','bin']
+    shared_files: ['.env']
+    shared_dirs: ['config']
 
     #// Writable dirs by web server
-    writable_dirs: ['../tmp/','_temp']
+    writable_dirs: ['../tmp/','_temp', 'web','var']
 
 lacuisine:
     hostname: test.lacuisine.de
@@ -77,7 +77,7 @@ lacuisine:
     multiplexing: true
     stage: production
     deploy_path: /var/www/test.lacuisine.de/private/
-    typo3_webroot: ../web/
+    typo3_webroot: ../../../web/
     branch: develop
     #// Project path
     application: tmp/
@@ -88,11 +88,11 @@ lacuisine:
     keep_releases: 4
 
     #// Shared files/dirs between deploys
-    shared_files: ['composer.json']
-    shared_dirs: ['Build','config','bin']
+    shared_files: ['.env']
+    shared_dirs: ['config']
 
     #// Writable dirs by web server
-    writable_dirs: ['../tmp/','_temp']
+    writable_dirs: ['../tmp/','_temp', 'web','var']
 
 tr:
     hostname: dev.thomasruta.de
@@ -107,7 +107,7 @@ tr:
     multiplexing: true
     stage: staging
     deploy_path: /var/www/dev.thomasruta.de/private/
-    typo3_webroot: ../web/
+ typo3_webroot: ../../../web/
     branch: develop
     #// Project path
     application: tmp/
@@ -118,11 +118,11 @@ tr:
     keep_releases: 4
 
     #// Shared files/dirs between deploys
-    shared_files: ['composer.json']
-    shared_dirs: ['Build','config','bin']
+    shared_files: ['.env']
+    shared_dirs: ['config']
 
     #// Writable dirs by web server
-    writable_dirs: ['../tmp/','_temp']
+    writable_dirs: ['../tmp/','_temp', 'web','var']
 
 
 cdu:
@@ -138,7 +138,7 @@ cdu:
     multiplexing: true
     stage: production
     deploy_path: /var/www/old.r-p-it.com/private/
-    typo3_webroot: ../web/
+ typo3_webroot: ../../../web/
     branch: develop
     #// Project path
     application: tmp/
@@ -149,11 +149,11 @@ cdu:
     keep_releases: 4
 
     #// Shared files/dirs between deploys
-    shared_files: ['composer.json']
-    shared_dirs: ['Build','config','bin']
+    shared_files: ['.env']
+    shared_dirs: ['config']
 
     #// Writable dirs by web server
-    writable_dirs: ['../tmp/','_temp']
+    writable_dirs: ['../tmp/','_temp', 'web','var']
 
 
 tp3:
@@ -169,7 +169,7 @@ tp3:
     multiplexing: true
     stage: production
     deploy_path: /var/www/dev.tp3.de/private/
-    typo3_webroot: ../web/
+ typo3_webroot: ../../../web/
     branch: develop
     #// Project path
     application: tmp/
@@ -180,11 +180,11 @@ tp3:
     keep_releases: 4
 
     #// Shared files/dirs between deploys
-    shared_files: ['composer.json']
-    shared_dirs: ['Build','config','bin']
+    shared_files: ['.env']
+    shared_dirs: ['config']
 
     #// Writable dirs by web server
-    writable_dirs: ['../tmp/','_temp']
+    writable_dirs: ['../tmp/','_temp', 'web','var']
 
 rp:
     hostname: dev.r-p-it.com
