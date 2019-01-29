@@ -68,7 +68,7 @@ foreach ($yaml as $key => $y) {
     ->set('http_user', $y['user'])
 // Project repository
     ->set('repository', $y['repository'])
-    ->set('composer_options', 'install '.$y['stage'] != "dev" ? '--no-dev' : '' .' -v -d {{deploy_path}}releases/{{release_name}}')
+    ->set('composer_options', 'install  -v -d {{deploy_path}}releases/{{release_name}}')
 //->set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
 
 // [Optional] Allocate tty for git clone. Default value is false.
@@ -103,21 +103,21 @@ host($yaml[$input]['hostname'])
     ->addSshOption('UserKnownHostsFile', '/dev/null')
     ->addSshOption('StrictHostKeyChecking', 'no');
 // Tasks
-
-task('build', function () {
-    run('cd {{deploy_path}}');
-    run('/usr/bin/php /usr/bin/composer -v -d {{deploy_path}} install');
-    run('/usr/bin/php /usr/bin/composer -d {{deploy_path}} CAG_test:core-tests');
-})->local();
+desc('Build composer Package');
+task('deploy:build', function () {
+    run('cd {{deploy_path}}releases/{{release_name}}');
+    run('/usr/bin/php /usr/bin/composer -v -d {{deploy_path}}releases/{{release_name}} install');
+    //run('/usr/bin/php /usr/bin/composer -d {{deploy_path}}releases/{{release_name}} CAG_test:core-tests');
+});
 
 //// [Optional] if deploy fails automatically unlock.
-////after('deploy:failed', 'deploy:unlock');
-//task('deploy:start', function ()
-//{
-//    cd('~');
-//    run("if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi");
-//    cd('{{deploy_path}}');
-//})->setPrivate();
+after('deploy:failed', 'deploy:unlock');
+task('deploy:start', function ()
+{
+    cd('~');
+    run("if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi");
+    cd('{{deploy_path}}');
+})->setPrivate();
 
 /**
  * Deploy configure
@@ -182,11 +182,26 @@ task('deploy', [
     'deploy:vendors',
     'deploy:writable',
     'deploy:symlink',
+    'deploy:build',
     'deploy:unlock',
     'cleanup',
 ])->desc('Deploy your project');
 after('deploy', 'success');
 
+desc('Creating symlink to release');
+task('deploy:symlink', function () {
+    if (get('use_atomic_symlink')) {
+        run("mv -T {{deploy_path}}/release {{deploy_path}}/current");
+    } else {
+        // Atomic symlink does not supported.
+        // Will use simple≤ two steps switch.
+
+        run("cd {{deploy_path}} && {{bin/symlink}} {{release_path}} current"); // Atomic override symlink.
+        run("cd {{deploy_path}} && rm release"); // Remove release link.
+
+    }
+    run("cd {{deploy_path}}releases/{{release_name}} && mv web web.bak && {{bin/symlink}} {{typo3_webroot}} web");
+});
 /**
  * Shared directories
  */
