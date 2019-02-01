@@ -4,7 +4,7 @@ SYS:
     sqlDebug: 1
     enableDeprecationLog: file
     exceptionalErrors: 28930
-    systemLogLevel: 0
+    systemLogLevel: 2
 BE:
     debug: true
 FE:

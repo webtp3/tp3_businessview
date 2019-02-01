@@ -1,17 +1,17 @@
 <?php
+declare(strict_types=1);
 namespace Deployer;
 
-use Symfony\Component\Console;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Yaml\Yaml;
 
-if(!class_exists(\Composer\Autoload\ClassLoader::class)) require dirname(__DIR__).'/Build/vendor/autoload.php';
+if (!class_exists(\Composer\Autoload\ClassLoader::class)) {
+    require dirname(__DIR__) . '/Build/vendor/autoload.php';
+}
 var_dump(dirname(__DIR__ ));
 require './Build/vendor/deployer/deployer/recipe/typo3.php';
-//inventory('./config/servers.yaml');
+inventory('./config/servers.yaml');
 $input_ = new \Symfony\Component\Console\Input\ArgvInput();
 $input = 'dev';//$_SERVER["argv"][1] ? $_SERVER["argv"][1] : "dev";
 $yaml = Yaml::parse(file_get_contents('./config/servers.yaml'));
@@ -28,7 +28,7 @@ set('typo3_webroot', $yaml[$input]['typo3_webroot']);
 set('http_user', $yaml[$input]['user']);
 // Project repository
 set('repository', $yaml[$input]['repository']);
-set('composer_options', 'install '.$yaml[$input]['stage'] != "dev" ? '--no-dev' : '' .' -v -d {{deploy_path}}releases/{{release_name}}');
+set('composer_options', 'install --no-dev  -v -d {{deploy_path}}releases/{{release_name}}');
 //set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
 
 // [Optional] Allocate tty for git clone. Default value is false.
@@ -43,7 +43,6 @@ add('shared_dirs', $yaml[$input]['shared_dirs']);
 add('writable_dirs', $yaml[$input]['writable_dirs']);
 
 foreach ($yaml as $key => $y) {
-
     host($y['hostname'])
         ->user($y['user'])
         ->port($y['port'] > 1 ? $y['port'] : 22)
@@ -60,7 +59,7 @@ foreach ($yaml as $key => $y) {
     ->set('http_user', $y['user'])
 // Project repository
     ->set('repository', $y['repository'])
-    ->set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader '. $y['stage'] != "dev" ? '--no-dev' : '' .' -d {{deploy_path}}')
+    ->set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader ')
     ->set('deploy_path', $y['deploy_path'])
     ->set('typo3_webroot', $y['typo3_webroot'])
 
@@ -68,7 +67,6 @@ foreach ($yaml as $key => $y) {
     ->set('http_user', $y['user'])
 // Project repository
     ->set('repository', $y['repository'])
-    ->set('composer_options', 'install  -v -d {{deploy_path}}releases/{{release_name}}')
 //->set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
 
 // [Optional] Allocate tty for git clone. Default value is false.
@@ -81,12 +79,10 @@ foreach ($yaml as $key => $y) {
 
 // Writable dirs by web server
     ->add('writable_dirs', $y['writable_dirs']);
-    if($y['identityFile'] != ""){
+    if ($y['identityFile'] != '') {
         host($y['hostname'])
             ->identityFile($y['identityFile']);
     }
-
-
 }
 
 //
@@ -106,16 +102,15 @@ host($yaml[$input]['hostname'])
 desc('Build composer Package');
 task('deploy:build', function () {
     run('cd {{deploy_path}}releases/{{release_name}}');
-    run('/usr/bin/php /usr/bin/composer -v -d {{deploy_path}}releases/{{release_name}} install');
-    //run('/usr/bin/php /usr/bin/composer -d {{deploy_path}}releases/{{release_name}} CAG_test:core-tests');
+    //run('/usr/bin/php /usr/bin/composer  -v -d {{deploy_path}}releases/{{release_name}}');
+   // run('/usr/bin/php /usr/bin/composer CAG_test:core-tests');
 });
 
 //// [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
-task('deploy:start', function ()
-{
+task('deploy:start', function () {
     cd('~');
-    run("if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi");
+    run('if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi');
     cd('{{deploy_path}}');
 })->setPrivate();
 
@@ -123,8 +118,7 @@ task('deploy:start', function ()
  * Deploy configure
  */
 desc('Make configure files for your stage');
-task('deploy:configure', function ()
-{
+task('deploy:configure', function () {
     /**
      * Paser value for template compiler
      *
@@ -140,6 +134,7 @@ task('deploy:configure', function ()
         } else {
             $value = $matches[0];
         }
+
         return $value;
     };
 
@@ -154,19 +149,16 @@ task('deploy:configure', function ()
 
         return $contents;
     };
-
 });
 
 /**
  * Deploy start, prepare deploy directory
  */
-task('deploy:start', function ()
-{
+task('deploy:start', function () {
     cd('~');
-    run("if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi");
+    run('if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi');
     cd('{{deploy_path}}');
 })->setPrivate();
-
 
 /**
  * Main TYPO3 task
@@ -188,34 +180,33 @@ task('deploy', [
 ])->desc('Deploy your project');
 after('deploy', 'success');
 
-desc('Creating symlink to release');
-task('deploy:symlink', function () {
-    if (get('use_atomic_symlink')) {
-        run("mv -T {{deploy_path}}/release {{deploy_path}}/current");
-    } else {
-        // Atomic symlink does not supported.
-        // Will use simple≤ two steps switch.
-
-        run("cd {{deploy_path}} && {{bin/symlink}} {{release_path}} current"); // Atomic override symlink.
-        run("cd {{deploy_path}} && rm release"); // Remove release link.
-
-    }
-    run("cd {{deploy_path}}releases/{{release_name}} && mv web web.bak && {{bin/symlink}} {{typo3_webroot}} web");
-});
+//desc('Creating symlink to release');
+//task('deploy:symlink', function () {
+//    if (get('use_atomic_symlink')) {
+//        run('mv -T {{deploy_path}}/release {{deploy_path}}/current');
+//    } else {
+//        // Atomic symlink does not supported.
+//        // Will use simple≤ two steps switch.
+//
+//        run('cd {{deploy_path}} && {{bin/symlink}} {{release_path}} current'); // Atomic override symlink.
+//        run('cd {{deploy_path}} && rm release'); // Remove release link.
+//    }
+//    run('cd {{deploy_path}}releases/{{release_name}} && mv web web.bak && {{bin/symlink}} {{typo3_webroot}} web');
+//});
 /**
  * Shared directories
  */
 set('shared_dirs', [
     '{{typo3_webroot}}/fileadmin',
     '{{typo3_webroot}}/typo3temp',
-    '{{typo3_webroot}}/uploads'
+    '{{typo3_webroot}}/uploads',
 ]);
 
 /**
  * Shared files
  */
 set('shared_files', [
-    '{{typo3_webroot}}/.htaccess'
+    '{{typo3_webroot}}/.htaccess',
 ]);
 
 /**
@@ -225,9 +216,8 @@ set('writable_dirs', [
     '{{typo3_webroot}}/fileadmin',
     '{{typo3_webroot}}/typo3temp',
     '{{typo3_webroot}}/typo3conf',
-    '{{typo3_webroot}}/uploads'
+    '{{typo3_webroot}}/uploads',
 ]);
-
 
 before('deploy:configure', 'deploy:start');
 after('deploy:failed', 'deploy:unlock');
@@ -242,5 +232,3 @@ after('deploy', 'success');
 //    include $filename;
 //}
 //\Symfony\Component\Config\Loader\Loader(__DIR__ . 'config/servers.yml');
-
-

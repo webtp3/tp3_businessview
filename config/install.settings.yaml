@@ -60,7 +60,7 @@ databaseSelect:
             description: 'Name of the database'
             option: '--database-name'
             type: string
-            value: 	c1_demo_5
+            value: 	c1_demo_7
 
 databaseData:
     type: install
