@@ -21,7 +21,7 @@ databaseConnect:
             description: 'User password for database server'
             option: '--database-user-password'
             type: hidden
-            value: zs1yOCf@U
+            value: XrILG1MwrFrCKa2dpWuE
             default: ''
 
         databaseHostName:

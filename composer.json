@@ -17,7 +17,7 @@
 		"bin-dir": "bin",
 		"vendor-dir":"Build/vendor/",
 		"sort-packages": false,
-		"web-root": "../../../web/"
+		"web-root": "../../web/"
 
 	},
 	"repositories":  {
@@ -175,8 +175,8 @@
 	},
 	"extra": {
 		"typo3/cms": {
-			"app-dir": "../../../web",
-			"web-dir": "../../../web",
+			"app-dir": "../../web",
+			"web-dir": "../../web",
 			"bin-dir": "bin",
 			"cms-package-dir": "Build/vendor/typo3/cms"
 		},
@@ -237,9 +237,7 @@
 		"pre-update-cmd": [
 			"CAG\\Composer\\PackageHandler::preUpdate"
 		],
-		"pre-install-cmd": [
-			"@cag:install"
-		],
+
 		"test:php:unit": [
 			"@php -v",
 			"@php vendor/phpunit/phpunit/phpunit -c vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml"

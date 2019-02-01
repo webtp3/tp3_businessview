@@ -15,16 +15,7 @@ SYS:
 BE:
     sessionTimeout: 31536000
     installToolPassword: $pbkdf2-sha256$25000$IOPdo.v8l7ClE.xzD2VrjA$ve2ttFyoKfOpg4ft4hAQJZwGYklF9TwIuWhDFBseABQ
-DB:
-    Connections:
-        Default:
-            dbname: c1typo3
-            driver: mysqli
-            host: 2.2.2.50
-            password: zs1yOCf@U
-            port: 3306
-            unix_socket: /run/mysqld/mysqld.sock
-            user: c1typo3
+
 MAIL:
     transport: sendmail
     transport_sendmail_command: '/usr/sbin/sendmail -t -i '

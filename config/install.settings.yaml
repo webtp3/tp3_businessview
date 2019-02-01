@@ -14,21 +14,21 @@ databaseConnect:
             description: 'User name for database server'
             option: '--database-user-name'
             type: string
-            value: c1typo3
+            value: tester
             default: 'root'
 
         databaseUserPassword:
             description: 'User password for database server'
             option: '--database-user-password'
             type: hidden
-            value: zs1yOCf@U
+            value: XrILG1MwrFrCKa2dpWuE
             default: ''
 
         databaseHostName:
             description: 'Host name of database server'
             option: '--database-host-name'
             type: string
-            value: 2.2.2.50
+            value: 192.168.178.250
             default: '127.0.0.1'
 
         databasePort:
@@ -53,14 +53,14 @@ databaseSelect:
             description: 'Use already existing database?'
             option: '--use-existing-database'
             type: bool
-            value: true
+            value: false
             default: false
 
         databaseName:
             description: 'Name of the database'
             option: '--database-name'
             type: string
-            value: 	c1_demo
+            value: 	c1_demo_5
 
 databaseData:
     type: install
