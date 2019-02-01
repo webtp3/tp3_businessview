@@ -29,7 +29,7 @@ dev:
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp']
-    branch: develop
+    branch: 8.x-dev
 
 stage:
     hostname: praxis.tp3.de
@@ -58,7 +58,7 @@ stage:
     keep_releases: 4
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env','config/local.settings.yaml]
+    shared_files: ['.env','config/local.settings.yaml']
     shared_dirs: ['']
 
     #// Writable dirs by web server
