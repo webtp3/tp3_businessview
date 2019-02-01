@@ -47,7 +47,7 @@ stage:
       UserKnownHostsFile: /dev/null
       StrictHostKeyChecking: no
     deploy_path: /var/www/praxis.tp3.de/private/
- typo3_webroot: ../../../web/
+    typo3_webroot: ../../../web/
     branch: develop
     #// Project path
     application: tmp/
@@ -107,7 +107,7 @@ tr:
     multiplexing: true
     stage: staging
     deploy_path: /var/www/dev.thomasruta.de/private/
- typo3_webroot: ../../../web/
+    typo3_webroot: ../../../web/
     branch: develop
     #// Project path
     application: tmp/
@@ -138,7 +138,7 @@ cdu:
     multiplexing: true
     stage: production
     deploy_path: /var/www/old.r-p-it.com/private/
- typo3_webroot: ../../../web/
+    typo3_webroot: ../../../web/
     branch: develop
     #// Project path
     application: tmp/
@@ -169,7 +169,7 @@ tp3:
     multiplexing: true
     stage: production
     deploy_path: /var/www/dev.tp3.de/private/
- typo3_webroot: ../../../web/
+    typo3_webroot: ../../../web/
     branch: develop
     #// Project path
     application: tmp/

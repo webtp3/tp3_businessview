@@ -35,8 +35,8 @@ EXT:
             todoSubtype: event
             treeOrderBy: uid
             useInternalCaching: '1'
-            useLocationStructure: tt_address
-            useOrganizerStructure: tt_address
+            useLocationStructure: tx_tt_address
+            useOrganizerStructure: tx_tt_address
             useTeaser: '1'
         devlog:
             entriesPerPage: '25'
@@ -136,7 +136,7 @@ EXT:
             mediaPreview: 'false'
             prependAtCopy: '1'
             resourceFolderImporter: /news_import
-            rteForTeaser: '1'
+            rteForTeaser: '0'
             showAdministrationModule: '1'
             showImporter: '0'
             storageUidImporter: '1'
@@ -155,12 +155,12 @@ EXT:
             configFile: typo3conf/realurl_conf.php
             enableAutoConf: '1'
             enableDevLog: '0'
-            moduleIcon: '3'
+            moduleIcon: '0'
             segTitleFieldList: ''
         rsaauth:
             temporaryDirectory: ''
         rte_ckeditor:
-            ckeditorVersion: '1'
+            ckeditorVersion: latest
         saltedpasswords:
             BE:
                 forceSalted: 0
@@ -229,18 +229,27 @@ EXT:
             wrap_2: ''
         tp3_businessview:
             debugMode: '0'
+            disableBeModuleBusinessAdress: '0'
+            disableBeModuleBusinessView: '0'
+            disableBeModuleDesigner: '0'
         tp3_jobs:
             debug: '0'
         tp3mods:
             backendModule: '0'
+            basicAuthentication: ''
             cookieconsent: '1'
             debugMode: '0'
             disableConfigRTE: '0'
             disablePageTs: '0'
             disablePageTsBackendLogo: '0'
+            doktypeNumError404page: '4040404'
+            doktypeTp3modsError404page: '104'
+            enableErrorLog: '0'
+            excludeErrorLogPattern: ''
         tp3ratings:
             debug: '1'
         tt_address:
+            activatePiBase: '0'
             backwardsCompatFormat: '%1$s %3$s'
             readOnlyNameField: '1'
             storeBackwardsCompatName: '1'
