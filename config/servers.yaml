@@ -19,7 +19,7 @@ dev:
     application: /tmp
 
     #// Project repository
-    repository: https://thomasruta@bitbucket.org/web-tp3/dev-rp.git
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
     keep_releases: 4
 
@@ -53,7 +53,7 @@ stage:
     application: tmp/
 
     #// Project repository
-    repository: https://thomasruta@bitbucket.org/web-tp3/dev-rp.git
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
     keep_releases: 4
 
@@ -83,7 +83,7 @@ lacuisine:
     application: tmp/
 
     #// Project repository
-    repository: https://thomasruta@bitbucket.org/web-tp3/dev-rp.git
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
     keep_releases: 4
 
@@ -113,7 +113,7 @@ tr:
     application: tmp/
 
     #// Project repository
-    repository: https://thomasruta@bitbucket.org/web-tp3/dev-rp.git
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
     keep_releases: 4
 
@@ -144,7 +144,7 @@ cdu:
     application: tmp/
 
     #// Project repository
-    repository: https://thomasruta@bitbucket.org/web-tp3/dev-rp.git
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
     keep_releases: 4
 
@@ -175,7 +175,7 @@ tp3:
     application: tmp/
 
     #// Project repository
-    repository: https://thomasruta@bitbucket.org/web-tp3/dev-rp.git
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
     keep_releases: 4
 
@@ -205,7 +205,7 @@ rp:
     application: tmp/
 
     #// Project repository
-    repository: https://thomasruta@bitbucket.org/web-tp3/dev-rp.git
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
     keep_releases: 2
 
@@ -235,7 +235,7 @@ srt:
     application: tmp/
 
     #// Project repository
-    repository: https://thomasruta@bitbucket.org/web-tp3/dev-rp.git
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
     keep_releases: 2
 
