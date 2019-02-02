@@ -29,7 +29,7 @@ dev:
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp']
-    branch: 8.x-dev
+    branch: develop
 
 stage:
     hostname: praxis.tp3.de
