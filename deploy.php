@@ -11,7 +11,7 @@ if (!class_exists(\Composer\Autoload\ClassLoader::class)) {
 }
 var_dump(dirname(__DIR__ ));
 require './Build/vendor/deployer/deployer/recipe/typo3.php';
-inventory('./config/servers.yaml');
+//inventory('./config/servers.yaml');
 $input_ = new \Symfony\Component\Console\Input\ArgvInput();
 $input = 'dev';//$_SERVER["argv"][1] ? $_SERVER["argv"][1] : "dev";
 $yaml = Yaml::parse(file_get_contents('./config/servers.yaml'));
@@ -43,7 +43,7 @@ add('shared_dirs', $yaml[$input]['shared_dirs']);
 add('writable_dirs', $yaml[$input]['writable_dirs']);
 
 foreach ($yaml as $key => $y) {
-    host($key)
+    host($y['hostname'])
         ->user($y['user'])
         ->port($y['port'] > 1 ? $y['port'] : 22)
         ->configFile($y['configFile'])
