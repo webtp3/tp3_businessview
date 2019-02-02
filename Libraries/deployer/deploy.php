@@ -7,7 +7,7 @@ require 'recipe/typo3.php';
 set('application', '~/../../');
 
 // Project repository
-set('repository', 'https://thomasruta@bitbucket.org/web-tp3/dev-rp.git');
+set('repository', 'git@bitbucket.org:web-tp3/dev-rp.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);

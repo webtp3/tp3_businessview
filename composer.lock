@@ -8239,7 +8239,7 @@
             "version": "dev-develop",
             "source": {
                 "type": "git",
-                "url": "https://thomasruta@bitbucket.org/web-tp3/cag_tests.git",
+                "url": "git@bitbucket.org:web-tp3/cag_tests.git",
                 "reference": "d63e1a35c28d56d049430d5cf2fbe92f93d7bff9"
             },
             "require": {
