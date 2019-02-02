@@ -34,7 +34,7 @@
 		},
 		"2":{
 			"type": "vcs",
-			"url": "https://thomasruta@bitbucket.org/web-tp3/cag_tests.git"
+			"url": "git@bitbucket.org:web-tp3/cag_tests.git"
 		}
 
 

@@ -107,12 +107,11 @@ task('deploy:build', function () {
 });
 
 //// [Optional] if deploy fails automatically unlock.
-after('deploy:failed', 'deploy:unlock');
-task('deploy:start', function () {
-    cd('~');
-    run('if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi');
-    cd('{{deploy_path}}');
-})->setPrivate();
+//task('deploy:start', function () {
+//    cd('~');
+//    run('if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi');
+//    cd('{{deploy_path}}');
+//})->setPrivate();
 
 /**
  * Deploy configure
