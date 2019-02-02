@@ -48,7 +48,7 @@ stage:
       StrictHostKeyChecking: no
     deploy_path: /var/www/praxis.tp3.de/private/
     typo3_webroot: ../../../web/
-    branch: dev
+    branch: develop
     #// Project path
     application: tmp/
 
