@@ -43,7 +43,7 @@ add('shared_dirs', $yaml[$input]['shared_dirs']);
 add('writable_dirs', $yaml[$input]['writable_dirs']);
 
 foreach ($yaml as $key => $y) {
-    host($y['hostname'])
+    host($key)
         ->user($y['user'])
         ->port($y['port'] > 1 ? $y['port'] : 22)
         ->configFile($y['configFile'])

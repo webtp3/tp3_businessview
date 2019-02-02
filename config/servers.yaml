@@ -42,13 +42,13 @@ stage:
     identityFile: ''
     forwardAgent: true
     multiplexing: true
-    stage: staging
+    stage: dev
     sshOptions:
       UserKnownHostsFile: /dev/null
       StrictHostKeyChecking: no
     deploy_path: /var/www/praxis.tp3.de/private/
     typo3_webroot: ../../../web/
-    branch: develop
+    branch: dev
     #// Project path
     application: tmp/
 
@@ -58,8 +58,8 @@ stage:
     keep_releases: 4
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env','config/local.settings.yaml']
-    shared_dirs: ['']
+    shared_files: ['.env']
+    shared_dirs: ['config']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web','var']
