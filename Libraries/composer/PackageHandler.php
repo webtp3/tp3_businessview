@@ -82,7 +82,7 @@ class PackageHandler
         if (!preg_match('/\d+\.\d+\.\d+/', $version)) {
             throw new Exception('No valid version number provided!', 1468672604);
         }
-        self::$version = $version;
+       return self::$version = $version;
 
 //        $extEmConfFile = __DIR__ . '/../../../Resources/Private/ExtensionArtifacts/ext_emconf.php';
 //        $content = file_get_contents($extEmConfFile);

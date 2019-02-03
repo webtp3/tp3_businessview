@@ -89,7 +89,7 @@ lacuisine:
 
     #// Shared files/dirs between deploys
     shared_files: ['.env']
-    shared_dirs: ['config']
+    shared_dirs: []
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web','var']

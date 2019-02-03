@@ -106,12 +106,16 @@ task('deploy:build', function () {
    // run('/usr/bin/php /usr/bin/composer CAG_test:core-tests');
 });
 
-//// [Optional] if deploy fails automatically unlock.
-//task('deploy:start', function () {
-//    cd('~');
-//    run('if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi');
-//    cd('{{deploy_path}}');
-//})->setPrivate();
+// [Optional] if deploy fails automatically unlock.
+task('deploy:start', function () {
+    cd('~');
+    run('if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi');
+    cd('{{deploy_path}}');
+    run('if [ ! -d {{deploy_path}}/shared ]; then mkdir -p {{deploy_path}}/shared && cd shared/ && ln -s ../config/local.settings.yaml; fi');
+    cd('{{deploy_path}}');
+    run('if [ ! -d {{deploy_path}}/web ]; then mkdir -p {{deploy_path}}/web && cd ../web/ && ln -s ../private/web/index.php &&  ln -s ../private/web/fileadmin/ &&  ln -s ../private/web/typo3 &&  ln -s ../private/web/typo3conf && ln -s ../private/web/typo3temp && ln -s ../private/web/uploads && rm typo3conf/ext/*;  fi');
+
+})->setPrivate();
 
 /**
  * Deploy configure
