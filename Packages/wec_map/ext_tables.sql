@@ -22,3 +22,7 @@ CREATE TABLE `tx_wecmap_external` (
 	
 	PRIMARY KEY (uid)
 );
+
+CREATE TABLE `tt_address` (
+	tx_wecmap_map varchar(255) NOT NULL default '',
+);

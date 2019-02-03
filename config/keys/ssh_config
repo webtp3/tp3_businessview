@@ -5,17 +5,17 @@ Host gerit
 
 Host github.com
     User git
-    IdentityFile ~tr/.ssh/git_rsa
+    IdentityFile ~/.ssh/git_rsa
 
 Host bitbucket.org
     User thomasruta
     HostName bitbucket.org
-    IdentityFile config/keys/id_rsa
+    IdentityFile ~/.ssh/id_rsa
 
 Host srv400
     User root
     HostName 217.19.182.58
-    IdentityFile ~tr/.ssh/srv400_rsa
+    IdentityFile ~/.ssh/srv400_rsa
 
 Host test.lacuisine.de
     User lacuisine_composer

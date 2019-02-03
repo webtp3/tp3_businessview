@@ -100,10 +100,13 @@ host($yaml[$input]['hostname'])
     ->addSshOption('StrictHostKeyChecking', 'no');
 // Tasks
 desc('Build composer Package');
-task('deploy:build', function () {
+task(/**
+ *
+ */
+    'deploy:build', function () {
     run('cd {{deploy_path}}releases/{{release_name}}');
-    //run('/usr/bin/php /usr/bin/composer  -v -d {{deploy_path}}releases/{{release_name}}');
-   // run('/usr/bin/php /usr/bin/composer CAG_test:core-tests');
+  //  run('/usr/bin/php /usr/bin/composer -v -o --apcu-autoloader update');
+    //run('/usr/bin/php bin/typo3cms -v database:update');
 });
 
 // [Optional] if deploy fails automatically unlock.
@@ -113,7 +116,9 @@ task('deploy:start', function () {
     cd('{{deploy_path}}');
     run('if [ ! -d {{deploy_path}}/shared ]; then mkdir -p {{deploy_path}}/shared && cd shared/ && ln -s ../config/local.settings.yaml; fi');
     cd('{{deploy_path}}');
-    run('if [ ! -d {{deploy_path}}/web ]; then mkdir -p {{deploy_path}}/web && cd ../web/ && ln -s ../private/web/index.php &&  ln -s ../private/web/fileadmin/ &&  ln -s ../private/web/typo3 &&  ln -s ../private/web/typo3conf && ln -s ../private/web/typo3temp && ln -s ../private/web/uploads && rm typo3conf/ext/*;  fi');
+    run('if [ ! -d {{deploy_path}}/web ]; then mkdir -p {{deploy_path}}/web && mv {{deploy_path}}/../web/* ./ cd {{deploy_path}}/../web/ && ln -s ../private/web/index.php &&  ln -s ../private/web/fileadmin/ &&  ln -s ../private/web/typo3 &&  ln -s ../private/web/typo3conf && ln -s ../private/web/typo3temp && ln -s ../private/web/uploads && rm {{deploy_path}}/web/typo3conf/ext/*;  fi');
+    run('cp -R  config/keys ~/config/');
+
 
 })->setPrivate();
 

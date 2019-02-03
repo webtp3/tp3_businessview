@@ -156,10 +156,40 @@ cdu:
     writable_dirs: ['../tmp/','_temp', 'web','var']
 
 
+rnn:
+  hostname: rnn-web.de
+  port: 22
+  user: r_p_it_rnn
+  public_key:  'config/keys/id_rsa.pub'
+  private_key: 'config/keys/id_rsa'
+  password:    'jpb0OIJlmCmiRT9hP5Pu'
+  configFile: config/keys/ssh_config
+  identityFile: config/keys/id_rsa
+  forwardAgent: true
+  multiplexing: true
+  stage: production
+  deploy_path: /var/www/rnn-web.de/private/
+  typo3_webroot: ../../../web/
+  branch: develop
+  #// Project path1
+  application: tmp/1
+
+  #// Project repository
+  repository: git@bitbucket.org:web-tp3/dev-rp.git
+  git_tty: true
+  keep_releases: 4
+
+  #// Shared files/dirs between deploys
+  shared_files: ['.env','config/local.settings.yaml']
+  shared_dirs: []
+
+  #// Writable dirs by web server
+  writable_dirs: ['../tmp/','_temp', 'web','var']
+
 tp3:
     hostname: dev.tp3.de
     port: 22
-    user: thomasruta_tudy
+    user: r_p_it_tp3
     public_key:  'config/keys/id_rsa.pub'
     private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
@@ -175,7 +205,7 @@ tp3:
     application: tmp/
 
     #// Project repository
-    repository: git@bitbucket.org:web-tp3/dev-rp.git
+    repository: https://thomasruta@bitbucket.org/web-tp3/dev-rp.git
     git_tty: true
     keep_releases: 4
 
@@ -214,7 +244,7 @@ rp:
     shared_dirs: []
 
     #// Writable dirs by web server
-    writable_dirs: ['../tmp/','_temp']
+    writable_dirs: ['../tmp/','_temp', 'web','var']
 
 srt:
     hostname: srt-wiesbaden.de
@@ -244,4 +274,4 @@ srt:
     shared_dirs: []
 
     #// Writable dirs by web server
-    writable_dirs: ['../tmp/','_temp']
+    writable_dirs: ['../tmp/','_temp', 'web','var']
