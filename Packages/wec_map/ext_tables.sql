@@ -25,4 +25,6 @@ CREATE TABLE `tx_wecmap_external` (
 
 CREATE TABLE `tt_address` (
 	tx_wecmap_map varchar(255) NOT NULL default '',
+	tx_wecmap_geocode varchar(255) NOT NULL default '',
+
 );
