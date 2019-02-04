@@ -115,11 +115,11 @@ tr:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 4
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env']
-    shared_dirs: ['config']
+    shared_files: ['.env','config/local.settings.yaml']
+    shared_dirs: []
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web','var']
@@ -146,7 +146,7 @@ cdu:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 4
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml']
@@ -172,12 +172,12 @@ rnn:
   typo3_webroot: ../../../web/
   branch: develop
   #// Project path1
-  application: tmp/1
+  application: tmp
 
   #// Project repository
   repository: git@bitbucket.org:web-tp3/dev-rp.git
   git_tty: true
-  keep_releases: 4
+  keep_releases: 2
 
   #// Shared files/dirs between deploys
   shared_files: ['.env','config/local.settings.yaml']
@@ -205,7 +205,7 @@ tp3:
     application: tmp/
 
     #// Project repository
-    repository: https://thomasruta@bitbucket.org/web-tp3/dev-rp.git
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
     keep_releases: 4
 

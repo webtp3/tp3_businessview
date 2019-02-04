@@ -40,5 +40,6 @@ bin/typo3cms extension:activate dd_googlesitemap
 bin/typo3cms extension:activate bootstrap_grids
 bin/typo3cms extension:activate additional_reports
 bin/typo3cms extension:activate extractor
+bin/typo3cms extension:activate cal
 
 rm -R AdditionalConfiguration.php bin bitbucket-pipelines.yml.dist Build composer.json composer.lock docker-compose.yml Dockerfile Libraries Migrations Packages README.md RoboFile.php Tests -rf

@@ -132,9 +132,9 @@ class Cache
             if ($length == 2) {
 
 //                // try to find a country with that two character code
-//                $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('cn_short_en', 'static_countries', 'cn_iso_2=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($country, static_countries));
-//                $newCountry = $rows[0]['cn_short_en'];
-                $newCountry = $countryRepo->findAllowedByIsoCodeA2($country)->getFirst();
+                $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('cn_short_en', 'static_countries', 'cn_iso_2=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($country, static_countries));
+                $newCountry = $rows[0]['cn_short_en'];
+               // $newCountry = $countryRepo->findAllowedByIsoCodeA2($country)->getFirst();
 
                 if (!empty($newCountry)) {
                     $country = $newCountry;

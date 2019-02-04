@@ -195,7 +195,7 @@ WecMap.addBubble( "' . $this->mapName . '", ' . $this->groupId . ', ' . $this->i
      **/
     public function setDraggable($flag)
     {
-        $this->isDraggable = flag;
+        $this->isDraggable = $flag;
     }
 
     /**

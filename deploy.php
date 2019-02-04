@@ -54,6 +54,8 @@ foreach ($yaml as $key => $y) {
         ->set('deploy_path', $y['deploy_path'])
         ->addSshOption('StrictHostKeyChecking', 'no')
         ->set('typo3_webroot', $y['typo3_webroot'])
+        ->stage($y['stage'])
+        ->roles('app')
        // ->stage('dev')
 // user
     ->set('http_user', $y['user'])
@@ -95,7 +97,7 @@ host($yaml[$input]['hostname'])
     ->identityFile($yaml[$input]['identityFile'])
     ->forwardAgent($yaml[$input]['forwardAgent'])
     ->multiplexing($yaml[$input]['multiplexing'])
-
+    ->stage($yaml[$input]['stage'])
     ->addSshOption('UserKnownHostsFile', '/dev/null')
     ->addSshOption('StrictHostKeyChecking', 'no');
 // Tasks
@@ -109,18 +111,18 @@ task(/**
     //run('/usr/bin/php bin/typo3cms -v database:update');
 });
 
-// [Optional] if deploy fails automatically unlock.
-task('deploy:start', function () {
-    cd('~');
-    run('if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi');
-    cd('{{deploy_path}}');
-    run('if [ ! -d {{deploy_path}}/shared ]; then mkdir -p {{deploy_path}}/shared && cd shared/ && ln -s ../config/local.settings.yaml; fi');
-    cd('{{deploy_path}}');
-    run('if [ ! -d {{deploy_path}}/web ]; then mkdir -p {{deploy_path}}/web && mv {{deploy_path}}/../web/* ./ cd {{deploy_path}}/../web/ && ln -s ../private/web/index.php &&  ln -s ../private/web/fileadmin/ &&  ln -s ../private/web/typo3 &&  ln -s ../private/web/typo3conf && ln -s ../private/web/typo3temp && ln -s ../private/web/uploads && rm {{deploy_path}}/web/typo3conf/ext/*;  fi');
-    run('cp -R  config/keys ~/config/');
-
-
-})->setPrivate();
+//// [Optional] if deploy fails automatically unlock.
+//task('deploy:start', function () {
+//    cd('~');
+//    run('if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi');
+//    cd('{{deploy_path}}');
+//    run('if [ ! -d {{deploy_path}}/shared ]; then mkdir -p {{deploy_path}}/shared && cd shared/ && ln -s ../config/local.settings.yaml; fi');
+//    cd('{{deploy_path}}');
+//    run('if [ ! -d {{deploy_path}}/web ]; then mkdir -p {{deploy_path}}/web && mv {{deploy_path}}/../web/* ./ cd {{deploy_path}}/../web/ && ln -s ../private/web/index.php &&  ln -s ../private/web/fileadmin/ &&  ln -s ../private/web/typo3 &&  ln -s ../private/web/typo3conf && ln -s ../private/web/typo3temp && ln -s ../private/web/uploads && rm {{deploy_path}}/web/typo3conf/ext/*;  fi');
+//    run('cp -R  config/keys ~/config/');
+//
+//
+//})->setPrivate();
 
 /**
  * Deploy configure
