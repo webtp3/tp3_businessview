@@ -105,7 +105,7 @@ tr:
     identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
-    stage: staging
+    stage: production
     deploy_path: /var/www/dev.thomasruta.de/private/
     typo3_webroot: ../../../web/
     branch: develop
