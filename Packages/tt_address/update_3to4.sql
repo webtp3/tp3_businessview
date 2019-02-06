@@ -70,7 +70,7 @@ update  tt_content SET pi_flexform = CONCAT('<?xml version="1.0" encoding="utf-8
             </language>
         </sheet>
     </data>
-</T3FlexForms>') ,  list_type = 'ttaddress_listview' where list_type like "tt_address_pi1";
+</T3FlexForms>') ,  list_type = "ttaddress_listview" where list_type like "tt_address_pi1";
 
 
 

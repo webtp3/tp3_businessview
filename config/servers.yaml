@@ -29,7 +29,7 @@ dev:
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp']
-    branch: develop
+    branch: 8.x-dev
 
 stage:
     hostname: praxis.tp3.de
@@ -275,3 +275,63 @@ srt:
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web','var']
+
+yreim:
+  hostname: yreim.de
+  port: 22
+  user: yreim_yreim
+  public_key:  'config/keys/id_rsa.pub'
+  private_key: 'config/keys/id_rsa'
+  password:    'jpb0OIJlmCmiRT9hP5Pu'
+  configFile: config/keys/ssh_config
+  identityFile: config/keys/id_rsa
+  forwardAgent: true
+  multiplexing: true
+  stage: production
+  deploy_path: /var/www/yreim.de/private/
+  typo3_webroot: ../../../web/
+  branch: develop
+  #// Project path
+  application: tmp/
+
+  #// Project repository
+  repository: git@bitbucket.org:web-tp3/dev-rp.git
+  git_tty: true
+  keep_releases: 2
+
+  #// Shared files/dirs between deploys
+  shared_files: ['.env','config/local.settings.yaml']
+  shared_dirs: []
+
+  #// Writable dirs by web server
+  writable_dirs: ['../tmp/','_temp', 'web','var']
+
+laroe:
+  hostname: kinderzahnarzt-badsoden.de
+  port: 22
+  user: laroe_ssh
+  public_key:  'config/keys/id_rsa.pub'
+  private_key: 'config/keys/id_rsa'
+  password:    'jpb0OIJlmCmiRT9hP5Pu'
+  configFile: config/keys/ssh_config
+  identityFile: config/keys/id_rsa
+  forwardAgent: true
+  multiplexing: true
+  stage: production
+  deploy_path: /var/www/kinderzauberzaehne.de/private/
+  typo3_webroot: ../../../web/
+  branch: develop
+  #// Project path
+  application: tmp/
+
+  #// Project repository
+  repository: git@bitbucket.org:web-tp3/dev-rp.git
+  git_tty: true
+  keep_releases: 2
+
+  #// Shared files/dirs between deploys
+  shared_files: ['.env','config/local.settings.yaml']
+  shared_dirs: []
+
+  #// Writable dirs by web server
+  writable_dirs: ['../tmp/','_temp', 'web','var']

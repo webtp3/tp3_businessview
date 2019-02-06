@@ -7,18 +7,31 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Yaml\Yaml;
 
 if (!class_exists(\Composer\Autoload\ClassLoader::class)) {
-    require dirname(__DIR__) . '/Build/vendor/autoload.php';
+    require dirname(__DIR__) . '/build/vendor/autoload.php';
 }
-var_dump(dirname(__DIR__ ));
-require './Build/vendor/deployer/deployer/recipe/typo3.php';
+/*
+ *  load config
+ */
+require $_ENV["TYPO3_PATH_COMPOSER_ROOT"] .'/Build/vendor/deployer/deployer/recipe/typo3.php';
+
+/*
+ * for static config just uncomment
+ */
 //inventory('./config/servers.yaml');
 $input_ = new \Symfony\Component\Console\Input\ArgvInput();
 $input = 'dev';//$_SERVER["argv"][1] ? $_SERVER["argv"][1] : "dev";
-$yaml = Yaml::parse(file_get_contents('./config/servers.yaml'));
-//$yamlString = Yaml::dump($yaml);
 
+/*
+ * or config is loaded wit symfony
+ */
+
+$yaml = Yaml::parse(file_get_contents($_ENV["TYPO3_PATH_COMPOSER_ROOT"] . '/config/servers.yaml'));
+
+//$yamlString = Yaml::dump($yaml);
+//#todo input param via cli
 //if(InputArgument::OPTIONAL)argument('stage', InputArgument::OPTIONAL, 'Run tasks only on this host or stage.');
 //if(InputArgument::VALUE_OPTIONAL)option('tag', null, InputOption::VALUE_OPTIONAL, 'Tag to deploy.');
+
 // Project name
 //set('application', $yaml[$input]['deploy_path']);
 set('deploy_path', $yaml[$input]['deploy_path']);
@@ -100,6 +113,7 @@ host($yaml[$input]['hostname'])
     ->stage($yaml[$input]['stage'])
     ->addSshOption('UserKnownHostsFile', '/dev/null')
     ->addSshOption('StrictHostKeyChecking', 'no');
+
 // Tasks
 desc('Build composer Package');
 task(/**
@@ -107,6 +121,9 @@ task(/**
  */
     'deploy:build', function () {
     run('cd {{deploy_path}}releases/{{release_name}}');
+    /*
+     * #todo run build & tests
+     */
   //  run('/usr/bin/php /usr/bin/composer -v -o --apcu-autoloader update');
     //run('/usr/bin/php bin/typo3cms -v database:update');
 });
@@ -172,6 +189,7 @@ task('deploy:start', function () {
 
 /**
  * Main TYPO3 task
+ * #todo setup deployment flow
  */
 task('deploy', [
     'deploy:info',
@@ -190,19 +208,6 @@ task('deploy', [
 ])->desc('Deploy your project');
 after('deploy', 'success');
 
-//desc('Creating symlink to release');
-//task('deploy:symlink', function () {
-//    if (get('use_atomic_symlink')) {
-//        run('mv -T {{deploy_path}}/release {{deploy_path}}/current');
-//    } else {
-//        // Atomic symlink does not supported.
-//        // Will use simple≤ two steps switch.
-//
-//        run('cd {{deploy_path}} && {{bin/symlink}} {{release_path}} current'); // Atomic override symlink.
-//        run('cd {{deploy_path}} && rm release'); // Remove release link.
-//    }
-//    run('cd {{deploy_path}}releases/{{release_name}} && mv web web.bak && {{bin/symlink}} {{typo3_webroot}} web');
-//});
 /**
  * Shared directories
  */
@@ -235,10 +240,3 @@ after('deploy:shared', 'deploy:writable');
 before('deploy', 'deploy:start');
 after('deploy', 'success');
 
-/**
- * Load stage and list server
- */
-//foreach (glob(__DIR__ . '/stage/*.php') as $filename) {
-//    include $filename;
-//}
-//\Symfony\Component\Config\Loader\Loader(__DIR__ . 'config/servers.yml');
