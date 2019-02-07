@@ -554,10 +554,10 @@ tp3_app.onpage = function(){
             e.preventDefault();
         }else if($(this.hash).length > 0){
             $('.navbar-collapse.in').collapse('hide');
-            $('html,body').animate({scrollTop: $(this.hash)}, 500);
-            if(ga){ ga('send','event','scroll',
-                this.hash + ' Window: ' + $(window).height() + 'px; Document: ' + $(document).height() + 'px; Time: ' + Math.round((new Date - scrollTimeStart )/1000,1) + 's',
-                {'nonInteraction':1}
+			$('html,body').animate({scrollTop: $(this.hash)}, 500);
+			if(ga){ ga('send','event','scroll',
+				this.hash + ' Window: ' + $(window).height() + 'px; Document: ' + $(document).height() + 'px; Time: ' + Math.round((new Date - scrollTimeStart )/1000,1) + 's',
+				{'nonInteraction':1}
             );
             }
             window.history.pushState({}, '', this.hash);
@@ -621,7 +621,7 @@ tp3_app.parallax = function(){
     //$j('#content.main-section  > .section , #content.main-section  > .row.frame').css({"min-height":screen.height});
     //$j('#content.main-section').first().css({"min-height":screen.height});
 //$j('body > .body-bg').attr("data-speed","6").css({"background-image":"url(fileadmin/user_upload/neodental/Technician-in-dental-lab-presenting-a-prosthesis-into-the-camera-000025618872_Double.jpg)"});
-  //  $(window).trigger("scroll")
+    $j(window).trigger("scroll")
 };
 //$j('.main-section > .section.section-light').attr("data-speed","3").css({"background-size":"cover;","background-image":"url(fileadmin/locations/LocationGuide-Titelbilder/ATELIERS-GALERIEN-documenta10_Seitenlichthalle__documenta_gGmbH.jpg)"});
 $j('.body-bg').attr("data-speed","-50")
@@ -766,6 +766,7 @@ tp3_app.controls = function(){
                 complete: function () {
                     console.log('Animation is done box');
                     tp3_app.controls();
+					$j(window).trigger("scroll")
 
 
                 }
