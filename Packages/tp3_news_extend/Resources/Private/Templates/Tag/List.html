@@ -11,7 +11,6 @@
 		Templates/Tag/List.html
 -->
 <f:section name="content">
-	<f:debug>{_all}</f:debug>
 
 
 	<f:if condition="{tags}">
@@ -23,14 +22,12 @@
 					{n:tag.count(tagUid:tag.uid) -> f:variable(name: 'tagUsageCount')}
 
 					<f:for each="{tags}" as="tag" >
-						<v:iterator.random from="1" to="10" iteration="i">
 							<span  data-weight={tagUsageCount}" class="{f:if(condition:'{tag.uid} == {overwriteDemand.tags}',then:'active',else:'')}">
 								<f:link.page title="{tag.title}" pageUid="{settings.listPid}" additionalParams="{tx_news_pi1:{overwriteDemand:{tags: tag}}}">
 									{tag.title}
 								</f:link.page>
 								<f:if condition="{tagUsageCount}">({tagUsageCount})</f:if>
 							</span>
-						</v:iterator.random>
 
 					</f:for>
 				</div>
