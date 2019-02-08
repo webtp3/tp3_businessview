@@ -1865,16 +1865,16 @@
         },
         {
             "name": "james-heinrich/getid3",
-            "version": "v1.9.16",
+            "version": "v1.9.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JamesHeinrich/getID3.git",
-                "reference": "7aec0d4f5fc156612f71e415d07996aee6ab8d82"
+                "reference": "d2e45f2c4f75cc7443e158757ad2d678e318685d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JamesHeinrich/getID3/zipball/7aec0d4f5fc156612f71e415d07996aee6ab8d82",
-                "reference": "7aec0d4f5fc156612f71e415d07996aee6ab8d82",
+                "url": "https://api.github.com/repos/JamesHeinrich/getID3/zipball/d2e45f2c4f75cc7443e158757ad2d678e318685d",
+                "reference": "d2e45f2c4f75cc7443e158757ad2d678e318685d",
                 "shasum": ""
             },
             "require": {
@@ -1924,7 +1924,7 @@
                 "php",
                 "tags"
             ],
-            "time": "2018-10-17T17:19:36+00:00"
+            "time": "2019-02-07T17:30:03+00:00"
         },
         {
             "name": "laxap/bootstrap-grids",
@@ -2983,12 +2983,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3/TYPO3.CMS.git",
-                "reference": "8b26ad408d0d1d08d60b0250407d0956c4ce0f9a"
+                "reference": "3e13d6a7de91a6120b26da4b51f8999f8019987c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3/TYPO3.CMS/zipball/8b26ad408d0d1d08d60b0250407d0956c4ce0f9a",
-                "reference": "8b26ad408d0d1d08d60b0250407d0956c4ce0f9a",
+                "url": "https://api.github.com/repos/TYPO3/TYPO3.CMS/zipball/3e13d6a7de91a6120b26da4b51f8999f8019987c",
+                "reference": "3e13d6a7de91a6120b26da4b51f8999f8019987c",
                 "shasum": ""
             },
             "require": {
@@ -3181,7 +3181,7 @@
                 "extbase",
                 "typo3"
             ],
-            "time": "2019-02-01T19:50:56+00:00"
+            "time": "2019-02-06T15:22:10+00:00"
         },
         {
             "name": "typo3/cms-cli",
@@ -3486,11 +3486,11 @@
         },
         {
             "name": "web-tp3/tp3_news_extend",
-            "version": "1.1.0",
+            "version": "1.1.2",
             "dist": {
                 "type": "path",
                 "url": "Packages/tp3_news_extend",
-                "reference": "028cbb1a756a18cc7f28fbc416eb4efb2910a3b5",
+                "reference": "7f4a3a57a6b9ac924e1a942fd82e5a6ca97c5257",
                 "shasum": null
             },
             "require": {
@@ -3519,7 +3519,7 @@
             ],
             "description": "tx_news extend layouts with isotope and canonial,...",
             "transport-options": {
-                "symlink": true
+                "symlink": false
             }
         },
         {
@@ -3559,16 +3559,16 @@
         },
         {
             "name": "web-tp3/tp3businessview",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/thomasruta/tp3_businessview.git",
-                "reference": "05556d71da7542c7305e5aa5ea372ee55b181851"
+                "reference": "85ae1ce656a81c73c66000ef12be8903da5c6132"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/thomasruta/tp3_businessview/get/05556d71da7542c7305e5aa5ea372ee55b181851.zip",
-                "reference": "05556d71da7542c7305e5aa5ea372ee55b181851",
+                "url": "https://bitbucket.org/thomasruta/tp3_businessview/get/85ae1ce656a81c73c66000ef12be8903da5c6132.zip",
+                "reference": "85ae1ce656a81c73c66000ef12be8903da5c6132",
                 "shasum": ""
             },
             "require": {
@@ -3593,7 +3593,7 @@
             ],
             "description": "google businessview für tp3 - 360° Panorama Designer für Ihren virtuellen Rundgang",
             "homepage": "https://bitbucket.org/thomasruta/tp3_businessview",
-            "time": "2019-01-16T16:07:13+00:00"
+            "time": "2019-02-05T08:11:11+00:00"
         },
         {
             "name": "web-tp3/tp3jobs",
@@ -3632,11 +3632,11 @@
         },
         {
             "name": "web-tp3/tp3mods",
-            "version": "1.4.0",
+            "version": "1.4.4",
             "dist": {
                 "type": "path",
                 "url": "Packages/tp3mods",
-                "reference": "42e040a539ad1ae228f64ecc0cbe56e8f2321d67",
+                "reference": "a139d1c0ba4dc6be578f381a9da3a9fe4de2a894",
                 "shasum": null
             },
             "require": {
@@ -3658,7 +3658,7 @@
             ],
             "description": "ratings & microdata 4 tp3",
             "transport-options": {
-                "symlink": true
+                "symlink": false
             }
         },
         {
@@ -8243,10 +8243,10 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:web-tp3/cag_tests.git",
-                "reference": "e797d8e67eb6b1c72982ef2bb0f1e6b826cca08f"
+                "reference": "a1007fa6173bf1fb042208a71374dd450e819a10"
             },
             "require": {
-                "typo3/cms-core": "*"
+                "typo3/cms-core": "^8 || ^9"
             },
             "type": "typo3-cms-extension",
             "autoload": {
@@ -8289,7 +8289,7 @@
                 }
             ],
             "description": "Connecta AG :: Basic Testing and Samples",
-            "time": "2019-02-03T17:45:49+00:00"
+            "time": "2019-02-05T12:11:01+00:00"
         },
         {
             "name": "webmozart/assert",

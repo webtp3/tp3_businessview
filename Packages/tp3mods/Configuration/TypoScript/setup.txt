@@ -28,6 +28,7 @@ plugin.tx_tp3mods_tp3micro {
         Tp3Css = {$plugin.tx_tp3mods_tp3micro.settings.Tp3Css}
         Tp3Isotop = {$plugin.tx_tp3mods_tp3micro.settings.Tp3Isotop}
         Tp3Flip = {$plugin.tx_tp3mods_tp3micro.settings.Tp3Flip}
+        Tp3TagCloud = {$plugin.tx_tp3mods_tp3micro.settings.Tp3TagCloud}
         account = {$google_analytics}
         trackexternal  = {$plugin.tx_tp3mods_tp3micro.settings.trackexternal}
         anonymized = {$plugin.tx_tp3mods_tp3micro.settings.anonymized}
@@ -500,7 +501,13 @@ page {
         }
     }
 }
+[globalVar = LIT:1 = {$plugin.tx_tp3mods_tp3micro.settings.Tp3TagCloud}]
+    page.includeJSFooterlibs {
 
+        tp3_cloud = EXT:tp3mods/Resources/Public/JavaScript/jquery.tagcloud.js
+        tp3_cloud.async = 0
+    }
+[end]
 [globalVar = LIT:1 = {$plugin.tx_tp3mods_tp3micro.settings.Tp3App}]
     page.includeJSFooterlibs {
 

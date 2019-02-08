@@ -40,8 +40,10 @@ TCAdefaults{
 tx_news{
 	# *** set templates for dropdown in news plugin
 	templateLayouts {
+
 		11 = News Liste
 		14 = News Boxes
 		15 = News Isoptop
+		21 = Tag Liste
 	}
 }

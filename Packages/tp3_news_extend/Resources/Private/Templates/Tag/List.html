@@ -1,6 +1,8 @@
 <html
 		xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 		xmlns:n="http://typo3.org/ns/GeorgRinger/News/ViewHelpers"
+		xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+
 		data-namespace-typo3-fluid="true">
 <f:layout name="General" />
 
@@ -8,20 +10,50 @@
 	=====================
 		Templates/Tag/List.html
 -->
-
 <f:section name="content">
+	<f:debug>{_all}</f:debug>
+
+
 	<f:if condition="{tags}">
-		<ul class="nav nav-sidebar tag-menu-view">
-			{n:tag.count(tagUid:tag.uid) -> f:variable(name: 'tagUsageCount')}
-			<f:for each="{tags}" as="tag">
-				<li class="{f:if(condition:'{tag.uid} == {overwriteDemand.tags}',then:'active',else:'')}">
-					<f:link.page title="{tag.title}" pageUid="{settings.listPid}" additionalParams="{tx_news_pi1:{overwriteDemand:{tags: tag}}}">
-						{tag.title}
-					</f:link.page>
-					<f:if condition="{tagUsageCount}">({tagUsageCount})</f:if>
-				</li>
-			</f:for>
-		</ul>
+		<f:then>
+		<f:comment>tag</f:comment>
+		<f:if condition="{settings.templateLayout} == 21">
+			<f:then>
+				<div class="nav nav-sidebar tag-menu-view">
+					{n:tag.count(tagUid:tag.uid) -> f:variable(name: 'tagUsageCount')}
+
+					<f:for each="{tags}" as="tag" >
+						<v:iterator.random from="1" to="10" iteration="i">
+							<span  data-weight={tagUsageCount}" class="{f:if(condition:'{tag.uid} == {overwriteDemand.tags}',then:'active',else:'')}">
+								<f:link.page title="{tag.title}" pageUid="{settings.listPid}" additionalParams="{tx_news_pi1:{overwriteDemand:{tags: tag}}}">
+									{tag.title}
+								</f:link.page>
+								<f:if condition="{tagUsageCount}">({tagUsageCount})</f:if>
+							</span>
+						</v:iterator.random>
+
+					</f:for>
+				</div>
+
+
+			</f:then>
+		</f:if>
+		</f:then>
+		<f:else>
+			<ul class="nav nav-sidebar tag-menu-view">
+				{n:tag.count(tagUid:tag.uid) -> f:variable(name: 'tagUsageCount')}
+
+				<f:for each="{tags}" as="tag" >
+						<li  data-weight={tagUsageCount}" class="{f:if(condition:'{tag.uid} == {overwriteDemand.tags}',then:'active',else:'')}">
+							<f:link.page title="{tag.title}" pageUid="{settings.listPid}" additionalParams="{tx_news_pi1:{overwriteDemand:{tags: tag}}}">
+								{tag.title}
+							</f:link.page>
+							<f:if condition="{tagUsageCount}">({tagUsageCount})</f:if>
+						</li>
+
+				</f:for>
+			</ul>
+		</f:else>
 	</f:if>
 </f:section>
 </html>

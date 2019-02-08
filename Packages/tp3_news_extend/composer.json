@@ -1,7 +1,7 @@
 {
   "name": "web-tp3/tp3_news_extend",
   "type": "typo3-cms-extension",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "tx_news extend layouts with isotope and canonial,...",
   "license": "GPL-2.0+",
   "authors": [
