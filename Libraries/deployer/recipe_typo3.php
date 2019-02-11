@@ -12,7 +12,7 @@ require_once __DIR__ . '/common.php';
 /**
  * DocumentRoot / WebRoot for the TYPO3 installation
  */
-set('typo3_webroot', 'Web');
+set('typo3_webroot', 'web');
 
 /**
  * Main TYPO3 task

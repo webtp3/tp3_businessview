@@ -175,8 +175,8 @@
 	},
 	"extra": {
 		"typo3/cms": {
-			"app-dir": "../../web",
-			"web-dir": "../../web",
+			"app-dir": "web",
+			"web-dir": "web",
 			"bin-dir": "bin",
 			"cms-package-dir": "Build/vendor/typo3/cms"
 		},

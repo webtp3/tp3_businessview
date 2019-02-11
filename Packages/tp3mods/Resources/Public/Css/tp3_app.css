@@ -15,6 +15,12 @@ img.lazyload {
     transition: all  0.3s ease-in 0s;
     transform: rotateX(15deg);
 }
+.main-section section:first-child {
+	padding-top: 0px;
+}
+.frame:first-child{
+	padding-top: 0;
+}
 .pswp{
     z-index: 9999;
 }
