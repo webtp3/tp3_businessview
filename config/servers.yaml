@@ -14,7 +14,7 @@ dev:
     multiplexing: true
     stage: dev
     deploy_path: /develop/dev-rp/private/
-    typo3_webroot: ../../../web/
+    typo3_webroot: ../web/
     #// Project path
     application: /tmp
 
@@ -24,7 +24,7 @@ dev:
     keep_releases: 4
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env','config/local.settings.yaml']
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
     shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads']
 
     #// Writable dirs by web server
@@ -47,7 +47,7 @@ stage:
       UserKnownHostsFile: /dev/null
       StrictHostKeyChecking: no
     deploy_path: /var/www/praxis.tp3.de/private/
-    typo3_webroot: ../../../web/
+    typo3_webroot: ../web/
     branch: develop
     #// Project path
     application: tmp/

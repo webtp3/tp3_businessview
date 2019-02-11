@@ -120,26 +120,37 @@ task(/**
  *
  */
     'deploy:build', function () {
-    run('cd {{deploy_path}}releases/{{release_name}}');
-    /*
-     * #todo run build & tests
-     */
-  //  run('/usr/bin/php /usr/bin/composer -v -o --apcu-autoloader update');
-    //run('/usr/bin/php bin/typo3cms -v database:update');
-});
+  //  run('cd {{deploy_path}}releases/{{release_name}}');
 
-//// [Optional] if deploy fails automatically unlock.
-//task('deploy:start', function () {
-//    cd('~');
-//    run('if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi');
-//    cd('{{deploy_path}}');
+    cd('{{deploy_path}}{{typo3_webroot}}');
+    run('mv .htaccess {{deploy_path}}shared');
+    run('rm {{deploy_path}}{{typo3_webroot}}/typo3 {{deploy_path}}{{typo3_webroot}}/index.php {{deploy_path}}{{typo3_webroot}}/typo3conf {{deploy_path}}{{typo3_webroot}}/typo3temp {{deploy_path}}{{typo3_webroot}}/fileadmin {{deploy_path}}{{typo3_webroot}}/uploads');
+    run('if [ ! -d typo3 ]; then ln -s ../private/current/web/typo3; ln -s ../private/current/web/index.php; fi');
+    run('if [ ! -d typo3conf ]; then ln -s ../private/current/web/typo3conf; fi');
+    run('if [ ! -d typo3temp ]; then ln -s ../private/current/web/typo3temp; fi');
+    run('if [ ! -d fileadmin ]; then ln -s ../private/current/web/fileadmin; fi');
+    run('if [ ! -d uploads ]; then ln -s ../private/current/web/uploads; fi');
 //    run('if [ ! -d {{deploy_path}}/shared ]; then mkdir -p {{deploy_path}}/shared && cd shared/ && ln -s ../config/local.settings.yaml; fi');
 //    cd('{{deploy_path}}');
 //    run('if [ ! -d {{deploy_path}}/web ]; then mkdir -p {{deploy_path}}/web && mv {{deploy_path}}/../web/* ./ cd {{deploy_path}}/../web/ && ln -s ../private/web/index.php &&  ln -s ../private/web/fileadmin/ &&  ln -s ../private/web/typo3 &&  ln -s ../private/web/typo3conf && ln -s ../private/web/typo3temp && ln -s ../private/web/uploads && rm {{deploy_path}}/web/typo3conf/ext/*;  fi');
 //    run('cp -R  config/keys ~/config/');
-//
-//
-//})->setPrivate();
+    /*
+ln -s ../private/shared/.htaccess
+ln -s ../private/shared/uploads
+ln -s ../private/shared/fileadmin
+ln -s ../private/shared/typo3temp
+
+     *
+ln -s ../private/current/web/index.php
+ln -s ../private/current/web/typo3
+ln -s ../private/current/web/typo3conf
+     */
+    /*
+     * #todo run build & tests
+     */
+    //run('/usr/bin/php /usr/bin/composer -v -o --apcu-autoloader update');
+    //run('/usr/bin/php bin/typo3cms -v database:update');
+});
 
 /**
  * Deploy configure
@@ -185,6 +196,8 @@ task('deploy:start', function () {
     cd('~');
     run('if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi');
     cd('{{deploy_path}}');
+    run('if [ ! -d {{deploy_path}}/shared/web/ ]; then mkdir -p {{deploy_path}}shared/web/ &&  mkdir -p {{deploy_path}}shared/config/  &&  mv {{deploy_path}}/web/* {{deploy_path}}shared/web/; fi');
+
 })->setPrivate();
 
 /**
