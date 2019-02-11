@@ -643,8 +643,18 @@ tp3_app.controls = function(){
 
 	var ts_style = ts_style || {border: false, mousespeed: 1.3, size:"500", smallestsize:8, biggestsize:22, clicktostart:true};
 
-	$j('.tag-menu-view').each(function(){
-		var arr = $j(this).children().splice(0,20).remove()
+	$j('.tag-cloud').each(function(){
+		var arr = $j(this).children();
+		if(arr.length > 50){
+			for (var i = arr.length - 1; i > 0; i--) {
+				var j = Math.floor(Math.random() * (i + 1));
+				var temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+		}
+		arr.splice(0,50);
+		$j(this).replaceWith(arr);
 
 		$tagsphere($j(this).parents('.news').get(0), ts_style);
 	})

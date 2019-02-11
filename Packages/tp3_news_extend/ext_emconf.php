@@ -4,7 +4,7 @@ $EM_CONF[$_EXTKEY] = array (
 	'title' => 'Extend News',
 	'description' => '',
 	'category' => 'be',
-    'version' => '1.1.1',
+    'version' => '1.1.3',
 	'state' => 'stable',
 	'uploadfolder' => true,
 	'createDirs' => '',
@@ -16,8 +16,8 @@ $EM_CONF[$_EXTKEY] = array (
 	array (
 		'depends' =>
 		array (
-			'php' => '5.2.0-0.0.0',
-			'news' => '3.2.0',
+			'php' => '7.0.0-0.0.0',
+			'news' => '*',
             'typo3' => '8.7.0-9.9.99'
 		),
 		'conflicts' =>
