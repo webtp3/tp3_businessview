@@ -24,7 +24,7 @@ dev:
     keep_releases: 4
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
     shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads']
 
     #// Writable dirs by web server
@@ -35,11 +35,11 @@ stage:
     hostname: praxis.tp3.de
     port: 22
     user: r_p_it_praxis
-    public_key:  'config/keys/id_rsa.pub'
-    private_key: 'config/keys/id_rsa'
+    public_key:  '~/.ssh/id_rsa.pub'
+    private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
-    identityFile: ''
+    identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: develop
@@ -55,45 +55,46 @@ stage:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 4
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env','config/local.settings.yaml']
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
     shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
 
-#lacuisine:
-#    hostname: test.lacuisine.de
-#    port: 22
-#    user: lacuisine_composer
-#    public_key:  '~/.ssh/id_rsa.pub'
-#    private_key: '~/.ssh/id_rsa'
-#    password:    'jpb0OIJlmCmiRT9hP5Pu'
-#    configFile: config/keys/ssh_config
-#    identityFile: ~/.ssh/id_rsa
-#    forwardAgent: true
-#    multiplexing: true
-#    stage: production
-#    deploy_path: /var/www/test.lacuisine.de/private/
-#    typo3_webroot: ../web/
+lacuisine:
+    hostname: test.lacuisine.de
+    port: 22
+    user: lacuisine_composer
+    public_key:  '~/.ssh/id_rsa.pub'
+    private_key: '~/.ssh/id_rsa'
+    password:    'jpb0OIJlmCmiRT9hP5Pu'
+    configFile: config/keys/ssh_config
+    identityFile: ~/.ssh/id_rsa
+    forwardAgent: true
+    multiplexing: true
+    stage: production
+    deploy_path: /var/www/test.lacuisine.de/private/
+    typo3_webroot: ../web/
 
-#    branch: develop
-#    #// Project path
-#    application: tmp/
-#
-#    #// Project repository
-#    repository: git@bitbucket.org:web-tp3/dev-rp.git
-#    git_tty: true
-#    keep_releases: 4
-#
-#    #// Shared files/dirs between deploys
-#    shared_files: ['.env','config/local.settings.yaml']
-#    shared_dirs: []
-#
-#    #// Writable dirs by web server
-#    writable_dirs: ['../tmp/','_temp', 'web','var']
+    branch: develop
+    #// Project path
+    application: tmp/
+
+    #// Project repository
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
+    git_tty: true
+    keep_releases: 4
+
+    #// Shared files/dirs between deploys
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads']
+
+    #// Writable dirs by web server
+    writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
+
 
 tr:
     hostname: dev.thomasruta.de
@@ -120,7 +121,7 @@ tr:
     keep_releases: 2
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
     shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads']
 
     #// Writable dirs by web server
@@ -153,7 +154,7 @@ cdu:
     keep_releases: 2
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
     shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads']
 
     #// Writable dirs by web server
@@ -186,7 +187,7 @@ rnn:
     keep_releases: 2
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
     shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads']
 
     #// Writable dirs by web server
@@ -218,7 +219,7 @@ tp3:
     keep_releases: 2
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
     shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads']
 
     #// Writable dirs by web server
@@ -249,7 +250,7 @@ rp:
     keep_releases: 2
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
     shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads']
 
     #// Writable dirs by web server
@@ -281,7 +282,7 @@ srt:
     keep_releases: 2
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
     shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads']
 
    #// Writable dirs by web server
@@ -313,7 +314,7 @@ yreim:
     keep_releases: 2
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
     shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads']
 
     #// Writable dirs by web server
@@ -345,7 +346,7 @@ laroe:
     keep_releases: 2
 
     #// Shared files/dirs between deploys
-    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
     shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads']
 
     #// Writable dirs by web server

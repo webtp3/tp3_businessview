@@ -123,13 +123,29 @@ task(/**
   //  run('cd {{deploy_path}}releases/{{release_name}}');
 
     cd('{{deploy_path}}{{typo3_webroot}}');
-    run('mv .htaccess {{deploy_path}}shared');
-    run('rm {{deploy_path}}{{typo3_webroot}}/typo3 {{deploy_path}}{{typo3_webroot}}/index.php {{deploy_path}}{{typo3_webroot}}/typo3conf {{deploy_path}}{{typo3_webroot}}/typo3temp {{deploy_path}}{{typo3_webroot}}/fileadmin {{deploy_path}}{{typo3_webroot}}/uploads');
-    run('if [ ! -d typo3 ]; then ln -s ../private/current/web/typo3; ln -s ../private/current/web/index.php; fi');
-    run('if [ ! -d typo3conf ]; then ln -s ../private/current/web/typo3conf; fi');
-    run('if [ ! -d typo3temp ]; then ln -s ../private/current/web/typo3temp; fi');
-    run('if [ ! -d fileadmin ]; then ln -s ../private/current/web/fileadmin; fi');
-    run('if [ ! -d uploads ]; then ln -s ../private/current/web/uploads; fi');
+    // put htaccess to shared #todo shared files
+    run('if [ ! -f .htaccess ]; then mv .htaccess {{deploy_path}}shared; ln -s {{deploy_path}}shared/.htaccess; fi');
+    //clean webroot
+    run('if [ -d typo3 ]; then rm {{deploy_path}}{{typo3_webroot}}/typo3 -rf; fi');
+    run('if [ -f index.php ]; then rm  {{deploy_path}}{{typo3_webroot}}/index.php; fi');
+    run('if [ -d typo3conf ]; then rm  {{deploy_path}}{{typo3_webroot}}/typo3conf; fi');
+    run('if [ -d typo3temp ]; then rm  {{deploy_path}}{{typo3_webroot}}/typo3temp; fi');
+    run('if [ -d fileadmin ]; then rm  {{deploy_path}}{{typo3_webroot}}/fileadmin; fi');
+    run('if [ -d uploads ]; then rm {{deploy_path}}{{typo3_webroot}}/uploads; fi');
+
+    run('if [ -L index.php ]; then rm {{deploy_path}}{{typo3_webroot}}/index.php; fi');
+    run('if [ -L typo3 ]; then rm {{deploy_path}}{{typo3_webroot}}/typo3; fi');
+    run('if [ -L typo3conf ]; then rm  {{deploy_path}}{{typo3_webroot}}/typo3conf; fi');
+    run('if [ -L typo3temp ]; then rm  {{deploy_path}}{{typo3_webroot}}/typo3temp; fi');
+    run('if [ -L fileadmin ]; then rm  {{deploy_path}}{{typo3_webroot}}/fileadmin; fi');
+    run('if [ -L uploads ]; then rm {{deploy_path}}{{typo3_webroot}}/uploads; fi');
+
+    //symlink webroot to current
+    run('if [ ! -d typo3 ]; then ln -s {{deploy_path}}/current/web/typo3; ln -s {{deploy_path}}current/web/index.php; fi');
+    run('if [ ! -d typo3conf ]; then ln -s {{deploy_path}}current/web/typo3conf; fi');
+    run('if [ ! -d typo3temp ]; then ln -s {{deploy_path}}current/web/typo3temp; fi');
+    run('if [ ! -d fileadmin ]; then ln -s {{deploy_path}}current/web/fileadmin; fi');
+    run('if [ ! -d uploads ]; then ln -s {{deploy_path}}current/web/uploads; fi');
 //    run('if [ ! -d {{deploy_path}}/shared ]; then mkdir -p {{deploy_path}}/shared && cd shared/ && ln -s ../config/local.settings.yaml; fi');
 //    cd('{{deploy_path}}');
 //    run('if [ ! -d {{deploy_path}}/web ]; then mkdir -p {{deploy_path}}/web && mv {{deploy_path}}/../web/* ./ cd {{deploy_path}}/../web/ && ln -s ../private/web/index.php &&  ln -s ../private/web/fileadmin/ &&  ln -s ../private/web/typo3 &&  ln -s ../private/web/typo3conf && ln -s ../private/web/typo3temp && ln -s ../private/web/uploads && rm {{deploy_path}}/web/typo3conf/ext/*;  fi');
