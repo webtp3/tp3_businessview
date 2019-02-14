@@ -111,7 +111,7 @@ host($yaml[$input]['hostname'])
     ->forwardAgent($yaml[$input]['forwardAgent'])
     ->multiplexing($yaml[$input]['multiplexing'])
     ->stage($yaml[$input]['stage'])
-    ->addSshOption('UserKnownHostsFile', '/dev/null')
+    ->addSshOption('UserKnownHostsFile', '~/.ssh/known_hosts')
     ->addSshOption('StrictHostKeyChecking', 'no');
 
 // Tasks

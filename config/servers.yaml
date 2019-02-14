@@ -55,7 +55,7 @@ stage:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 2
+    keep_releases: 1
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
@@ -86,7 +86,7 @@ lacuisine:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 4
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
@@ -118,7 +118,7 @@ tr:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 2
+    keep_releases: 1
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
@@ -151,7 +151,7 @@ cdu:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 2
+    keep_releases: 1
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
@@ -184,7 +184,7 @@ rnn:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 2
+    keep_releases: 1
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
@@ -216,7 +216,7 @@ tp3:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 2
+    keep_releases: 1
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
@@ -247,7 +247,7 @@ rp:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 2
+    keep_releases: 1
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
@@ -279,7 +279,7 @@ srt:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 2
+    keep_releases: 1
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
@@ -311,7 +311,7 @@ yreim:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 2
+    keep_releases: 1
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
@@ -343,7 +343,7 @@ laroe:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 2
+    keep_releases: 1
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']

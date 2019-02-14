@@ -21,6 +21,8 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 class Cache
 {
+    const static_countries = 'static_countries';
+
     public static function lookup($street, $city, $state, $zip, $country, $forceLookup=false)
     {
         $fakeObject = null;
@@ -132,7 +134,7 @@ class Cache
             if ($length == 2) {
 
 //                // try to find a country with that two character code
-                $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('cn_short_en', 'static_countries', 'cn_iso_2=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($country, static_countries));
+                $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('cn_short_en', 'static_countries', 'cn_iso_2=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($country, self::static_countriesstatic_countries));
                 $newCountry = $rows[0]['cn_short_en'];
                // $newCountry = $countryRepo->findAllowedByIsoCodeA2($country)->getFirst();
 
@@ -141,7 +143,7 @@ class Cache
                 }
             } elseif ($length == 3) {
                 // try to find a country with that two character code
-                $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('cn_short_en', 'static_countries', 'cn_iso_3=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($country, static_countries));
+                $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('cn_short_en', 'static_countries', 'cn_iso_3=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($country, self::static_countries));
                 //$newCountry = $countryRepo->findAllowedByIsoCodeA3($country)->getFirst();
                 $newCountry = $rows[0]['cn_short_en'];
                 if (!empty($newCountry)) {
@@ -149,7 +151,7 @@ class Cache
                 }
             } elseif ($length > 0)  {
                 // try to find a country with that two character code
-                $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('cn_short_en', 'static_countries', 'cn_short_local=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($country, 'static_countries'));
+                $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('cn_short_en', 'static_countries', 'cn_short_local=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($country, self::static_countries));
                // $newCountry = $countryRepo->findByOfficialNameLocal($country);
                 $newCountry = $rows[0]['cn_short_en'];
                 if (!empty($newCountry)) {
