@@ -220,9 +220,7 @@
 		],
 		"cag-update": [
 			"CAG\\Composer\\PackageHandler::preUpdate",
-			"@composer -v -o --apcu-autoloader u"
-
-
+			"@composer -v -o --apcu-autoloader update"
 		],
 
 		"cag-install": [

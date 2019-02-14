@@ -3,13 +3,13 @@
 dev:
     hostname: localdev.tp3.de
     port: 22
-    user: 'dev'
-    public_key:  'config/keys/id_rsa.pub'
-    private_key: 'config/keys/id_rsa'
+    user: 'tr'
+    public_key:  '~/.ssh/id_rsa.pub'
+    private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
 
     configFile: config/keys/ssh_config
-    identityFile: config/keys/id_rsa
+    identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: dev
