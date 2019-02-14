@@ -126,7 +126,7 @@ class Cache
         // 1. check if static_info_tables is available
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('static_info_tables')) {
 
-                $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
             $countryRepo= $objectManager->get(\SJBR\StaticInfoTables\Domain\Repository\CountryRepository::class);
 
             // 2. check the length of the country and do lookup only if it's 2 or 3 characters
@@ -134,9 +134,9 @@ class Cache
             if ($length == 2) {
 
 //                // try to find a country with that two character code
-                $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('cn_short_en', 'static_countries', 'cn_iso_2=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($country, self::static_countriesstatic_countries));
+                $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('cn_short_en', 'static_countries', 'cn_iso_2=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($country, self::static_countries));
                 $newCountry = $rows[0]['cn_short_en'];
-               // $newCountry = $countryRepo->findAllowedByIsoCodeA2($country)->getFirst();
+                // $newCountry = $countryRepo->findAllowedByIsoCodeA2($country)->getFirst();
 
                 if (!empty($newCountry)) {
                     $country = $newCountry;
@@ -152,7 +152,7 @@ class Cache
             } elseif ($length > 0)  {
                 // try to find a country with that two character code
                 $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('cn_short_en', 'static_countries', 'cn_short_local=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($country, self::static_countries));
-               // $newCountry = $countryRepo->findByOfficialNameLocal($country);
+                // $newCountry = $countryRepo->findByOfficialNameLocal($country);
                 $newCountry = $rows[0]['cn_short_en'];
                 if (!empty($newCountry)) {
                     $country = $newCountry;
