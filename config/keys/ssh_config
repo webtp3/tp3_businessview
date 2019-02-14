@@ -8,7 +8,7 @@ Host github.com
     IdentityFile ~/.ssh/git_rsa
 
 Host bitbucket.org
-    User thomasruta
+    User git
     HostName bitbucket.org
     IdentityFile ~/.ssh/id_rsa
 

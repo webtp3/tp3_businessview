@@ -26,7 +26,7 @@ use TYPO3\TestingFramework\Core\Functional\Framework\DataHandling\ActionService;
 /**
  * Test case for TYPO3\CMS\Backend\Controller\Page\LocalizationController
  */
-class LocalizationControllerTest extends \TYPO3\TestingFramework\Core\Functional\FunctionalTestCase
+class LocalizationControllerTest extends \CAG\CagTests\Core\Functional\FunctionalTestCase
 {
     /**
      * @var LocalizationController

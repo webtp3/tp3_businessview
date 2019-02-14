@@ -27,7 +27,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 /**
  * Test case
  */
-class FrontendLoginControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
+class FrontendLoginControllerTest extends \CAG\CagTests\Core\Unit\UnitTestCase
 {
     /**
      * @var \TYPO3\CMS\Felogin\Controller\FrontendLoginController|\TYPO3\TestingFramework\Core\AccessibleObjectInterface

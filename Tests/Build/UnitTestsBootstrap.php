@@ -27,7 +27,7 @@
  *     typo3/sysext/core/Tests/Unit/DataHandling/DataHandlerTest.php
  */
 call_user_func(function () {
-    $testbase = new \TYPO3\TestingFramework\Core\Testbase();
+    $testbase = new \CAG\CagTests\Core\Testbase();
     $testbase->enableDisplayErrors();
     $testbase->defineBaseConstants();
     $testbase->defineSitePath();
@@ -44,8 +44,19 @@ call_user_func(function () {
     define('TYPO3_DLOG', false);
 
     // Retrieve an instance of class loader and inject to core bootstrap
-    $classLoaderFilepath = TYPO3_PATH_PACKAGES . 'autoload.php';
-    if (!file_exists($classLoaderFilepath)) {
+
+
+    if (file_exists($classLoaderFilepath = dirname(PATH_site). '/current/build/vendor/autoload.php')) {
+        // Console is root package, thus vendor folder is .Build/vendor
+        $classLoader = require $classLoaderFilepath;
+    } elseif (file_exists($vendorAutoLoadFile = dirname(dirname(dirname(__DIR__))) . '/autoload.php')) {
+        // Console is a dependency, thus located in vendor/helhum/typo3-console
+        $classLoader = require $vendorAutoLoadFile;
+    } elseif (file_exists($typo3AutoLoadFile = $_SERVER["PWD"] . '/current/build/vendor/autoload.php')) {
+        // Console is extension
+        $classLoader = require $typo3AutoLoadFile;
+    }
+    else if (!file_exists($classLoaderFilepath = TYPO3_PATH_PACKAGES . 'autoload.php')) {
         die('ClassLoader can\'t be loaded. Please check your path or set an environment variable \'TYPO3_PATH_ROOT\' to your root path.');
     }
     $classLoader = require $classLoaderFilepath;
