@@ -186,7 +186,7 @@ task('deploy:tests', function () {
 //    run('php -S 0.0.0.0:8000 >/devclass_name: AcceptanceTester /null 2>&1 &');
 //    run('sleep 3');
 // start the test
-    run('typo3DatabaseName='.getenv('typo3DatabaseName').' typo3DatabaseHost='.getenv('typo3DatabaseHost').' typo3DatabaseUsername='.getenv('typo3DatabaseUsername').' typo3DatabasePassword='.getenv('typo3DatabasePassword').'  \
+    run('typo3DatabaseName=\''.getenv('typo3DatabaseName').'\' typo3DatabaseHost=\''.getenv('typo3DatabaseHost').'\' typo3DatabaseUsername=\''.getenv('typo3DatabaseUsername').'\' typo3DatabasePassword=\''.getenv('typo3DatabasePassword').'\'  \
     bin/codecept run Acceptance -c Tests/Build/AcceptanceTests.yml');
 });
 
