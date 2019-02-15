@@ -236,6 +236,10 @@
 			"@php  bin/phpunit --configuration Tests/Build/SmokeTests.xml   --log-junit SmokeTests.log"
 
 		],
+		"cag-accept": [
+			"@php  bin/codecept run Acceptance -c ./Tests/Build/AcceptanceTests.yml"
+
+		],
 		"pre-update-cmd": [
 			"CAG\\Composer\\PackageHandler::preUpdate"
 		],

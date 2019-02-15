@@ -26,10 +26,10 @@ class CacheServiceTest extends UnitTestCase
 
     /**
      * Initializes configuration mock and sets the given configuration to the subject
-     *
-     * @param array $mockedConfiguration
+     *\Helhum\Typo3Console\Service\Configuration\ConfigurationService
+     * @param  array $mockedConfiguration
      */
-    protected function createCacheServiceWithConfiguration($mockedConfiguration)
+    protected function createCacheServiceWithConfiguration(array $mockedConfiguration)
     {
         $this->subject = new CacheService($mockedConfiguration);
     }
