@@ -6,7 +6,7 @@ modules:
     - Asserts
   config:
     WebDriver:
-      url: 'https://%env(TYPO3_INSTALL_DEFAULT_DOMAIN)%'
+      url: '%env(TYPO3_INSTALL_DEFAULT_DOMAIN)%'
       browser: chrome
       port: 9515
       capabilities:
