@@ -16,7 +16,7 @@
 >
 	<testsuites>
 		<testsuite name="cag core functional tests">
-			<directory>../Visual/</directory>
+			<directory>../Smoke/</directory>
 		</testsuite>
 
 
