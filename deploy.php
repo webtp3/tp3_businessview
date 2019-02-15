@@ -180,8 +180,8 @@ task('deploy:tests', function () {
     /*
      * #todo run build acceptance ext. tests
      */
-    run('mkdir -p ../var/tests');
-    run('./bin/chromedriver --url-base=/wd/hub > /dev/null 2>&1 &');
+  //  run('mkdir -p var/tests');
+    run('bin/chromedriver --url-base=/wd/hub > /dev/null 2>&1 &');
     //no need for server -> external!
 //    run('php -S 0.0.0.0:8000 >/devclass_name: AcceptanceTester /null 2>&1 &');
 //    run('sleep 3');
