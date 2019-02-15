@@ -232,6 +232,10 @@
 			"@php bin/dep deploy"
 
 		],
+		"cag-smoke": [
+			"@php  bin/phpunit --configuration Tests/Build/SmokeTests.xml   --log-junit SmokeTests.log"
+
+		],
 		"pre-update-cmd": [
 			"CAG\\Composer\\PackageHandler::preUpdate"
 		],

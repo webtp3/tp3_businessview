@@ -117,3 +117,5 @@ Thumbs.db
 /var/*.log
 /web/
 
+/SmokeTests.log
+/UnitTests.log

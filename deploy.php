@@ -69,31 +69,31 @@ foreach ($yaml as $key => $y) {
         ->set('typo3_webroot', $y['typo3_webroot'])
         ->stage($y['stage'])
         ->roles('app')
-       // ->stage('dev')
+        // ->stage('dev')
 // user
-    ->set('http_user', $y['user'])
+        ->set('http_user', $y['user'])
 // Project repository
-    ->set('repository', $y['repository'])
-    ->set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader ')
-    ->set('deploy_path', $y['deploy_path'])
-    ->set('typo3_webroot', $y['typo3_webroot'])
+        ->set('repository', $y['repository'])
+        ->set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader ')
+        ->set('deploy_path', $y['deploy_path'])
+        ->set('typo3_webroot', $y['typo3_webroot'])
 
 // user
-    ->set('http_user', $y['user'])
+        ->set('http_user', $y['user'])
 // Project repository
-    ->set('repository', $y['repository'])
+        ->set('repository', $y['repository'])
 //->set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
 
 // [Optional] Allocate tty for git clone. Default value is false.
-    ->set('git_tty', $y['git_tty'])
-    ->set('keep_releases',  $y['keep_releases'])
+        ->set('git_tty', $y['git_tty'])
+        ->set('keep_releases',  $y['keep_releases'])
 
 // Shared files/dirs between deploys
-    ->add('shared_files', $y['shared_files'])
-    ->add('shared_dirs', $y['shared_dirs'])
+        ->add('shared_files', $y['shared_files'])
+        ->add('shared_dirs', $y['shared_dirs'])
 
 // Writable dirs by web server
-    ->add('writable_dirs', $y['writable_dirs']);
+        ->add('writable_dirs', $y['writable_dirs']);
     if ($y['identityFile'] != '') {
         host($y['hostname'])
             ->identityFile($y['identityFile']);
@@ -115,12 +115,25 @@ host($yaml[$input]['hostname'])
     ->addSshOption('StrictHostKeyChecking', 'no');
 
 // Tasks
-desc('Build composer Package');
-task(/**
+desc('Build Package path setup');
+task(
+/**
+ * Setup typo3_webroot in composer.json config
  *
+ *  {{deploy_path}}{{typo3_webroot}}/index.php
+ln -s {{deploy_path}}{{typo3_webroot}}/shared/.htaccess
+ln -s {{deploy_path}}{{typo3_webroot}}/shared/uploads
+ln -s {{deploy_path}}{{typo3_webroot}}/shared/fileadmin
+ln -s {{deploy_path}}{{typo3_webroot}}/shared/typo3temp
+
+ *
+ln -s  {{deploy_path}}{{typo3_webroot}}/index.php
+ln -s {{deploy_path}}{{typo3_webroot}}/current/web/typo3
+ln -s {{deploy_path}}{{typo3_webroot}}/current/web/typo3conf
+
  */
     'deploy:build', function () {
-  //  run('cd {{deploy_path}}releases/{{release_name}}');
+    //  run('cd {{deploy_path}}releases/{{release_name}}');
 
     cd('{{deploy_path}}{{typo3_webroot}}');
     // put htaccess to shared #todo shared files
@@ -150,23 +163,48 @@ task(/**
 //    cd('{{deploy_path}}');
 //    run('if [ ! -d {{deploy_path}}/web ]; then mkdir -p {{deploy_path}}/web && mv {{deploy_path}}/../web/* ./ cd {{deploy_path}}/../web/ && ln -s ../private/web/index.php &&  ln -s ../private/web/fileadmin/ &&  ln -s ../private/web/typo3 &&  ln -s ../private/web/typo3conf && ln -s ../private/web/typo3temp && ln -s ../private/web/uploads && rm {{deploy_path}}/web/typo3conf/ext/*;  fi');
 //    run('cp -R  config/keys ~/config/');
-    /*
-ln -s ../private/shared/.htaccess
-ln -s ../private/shared/uploads
-ln -s ../private/shared/fileadmin
-ln -s ../private/shared/typo3temp
 
-     *
-ln -s ../private/current/web/index.php
-ln -s ../private/current/web/typo3
-ln -s ../private/current/web/typo3conf
+
+});
+
+
+desc('test smoking');
+/**
+ * Little Tests example -  if things are running
+ */
+task('deploy:tests', function () {
+    //  run('cd {{deploy_path}}releases/{{release_name}}');
+
+    cd('{{deploy_path}}releases/{{release_name}}');
+
+    /*
+     * #todo run build acceptance ext. tests
      */
+    run('mkdir -p ../web/typo3temp/var/tests');
+    run('./bin/chromedriver --url-base=/wd/hub > /dev/null 2>&1 &');
+    //no need for server -> external!
+//    run('php -S 0.0.0.0:8000 >/devclass_name: AcceptanceTester /null 2>&1 &');
+//    run('sleep 3');
+// start the test
+    run('typo3DatabaseName='.getenv('typo3DatabaseName').' typo3DatabaseHost='.getenv('typo3DatabaseHost').' typo3DatabaseUsername='.getenv('typo3DatabaseUsername').' typo3DatabasePassword='.getenv('typo3DatabasePassword').'  \
+    bin/codecept run Acceptance -c Tests/Build/AcceptanceTests.yml');
+});
+
+
+desc('test smoking');
+/**
+ * Little Tests example -  if things are running
+ */
+task('deploy:smoke', function () {
+    //  run('cd {{deploy_path}}releases/{{release_name}}');
+
+    cd('{{deploy_path}}releases/{{release_name}}');
+
     /*
      * #todo run build & tests
      */
-    //run('/usr/bin/php /usr/bin/composer -v -o --apcu-autoloader update');
-    //run('/usr/bin/php bin/typo3cms -v database:update');
-});
+    run('/usr/bin/php /usr/bin/composer cag-smoke');
+})->setPrivate();
 
 /**
  * Deploy configure
@@ -232,7 +270,9 @@ task('deploy', [
     'deploy:writable',
     'deploy:symlink',
     'deploy:build',
+    'deploy:smoke',
     'deploy:unlock',
+    'deploy:tests',
     'cleanup',
 ])->desc('Deploy your project');
 after('deploy', 'success');
