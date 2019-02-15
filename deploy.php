@@ -272,7 +272,7 @@ task('deploy', [
     'deploy:build',
     'deploy:smoke',
     'deploy:unlock',
-    'deploy:tests',
+   // 'deploy:tests',
     'cleanup',
 ])->desc('Deploy your project');
 after('deploy', 'success');

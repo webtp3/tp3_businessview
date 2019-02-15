@@ -122,7 +122,7 @@ As Fetch the TYPO3 sources and installed composer dependencies and start the chr
 
 
 ```bash
-mkdir -p ../web/typo3temp/var/tests 
+mkdir -p web/typo3temp/var/tests 
 bin/chromedriver --url-base=/wd/hub > /dev/null 2>&1 &
 php -S 0.0.0.0:8000 >/devclass_name: AcceptanceTester /null 2>&1 &
 sleep 3;
