@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
+use CAG\CagTests\Core\Functional\FunctionalTestCase;
 
 /**
  * Test case for TYPO3\CMS\Backend\Controller\Page\LocalizationController
@@ -45,8 +45,8 @@ class FormInlineAjaxControllerTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->importDataSet('PACKAGE:typo3/testing-framework/Resources/Core/Functional/Fixtures/pages.xml');
-        $this->importDataSet('PACKAGE:typo3/testing-framework/Resources/Core/Functional/Fixtures/sys_language.xml');
+        $this->importDataSet('PACKAGE:Tests/Functional/Fixtures/pages.xml');
+        $this->importDataSet('PACKAGE:Tests/Functional/Fixtures/sys_language.xml');
         $this->importDataSet(ORIGINAL_ROOT . 'typo3/sysext/core/Tests/Functional/Fixtures/pages_language_overlay.xml');
         $this->importDataSet(ORIGINAL_ROOT . 'typo3/sysext/backend/Tests/Functional/Fixtures/tx_irretutorial_1ncsv_hotel.xml');
 

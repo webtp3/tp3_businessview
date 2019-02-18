@@ -21,7 +21,7 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\TestingFramework\Core\Functional\Framework\DataHandling\ActionService;
+use CAG\CagTests\Core\Functional\Framework\DataHandling\ActionService;
 
 /**
  * Test case for TYPO3\CMS\Backend\Controller\Page\LocalizationController
@@ -34,7 +34,7 @@ class LocalizationControllerTest extends \CAG\CagTests\Core\Functional\Functiona
     protected $subject;
 
     /**
-     * @var \TYPO3\TestingFramework\Core\Functional\Framework\DataHandling\ActionService
+     * @var \CAG\CagTests\Core\Functional\Framework\DataHandling\ActionService
      */
     protected $actionService;
 
@@ -62,7 +62,7 @@ class LocalizationControllerTest extends \CAG\CagTests\Core\Functional\Functiona
         $this->actionService = GeneralUtility::makeInstance(ActionService::class);
 
         $this->importDataSet(__DIR__ . '/Fixtures/pages.xml');
-        $this->importDataSet('PACKAGE:typo3/testing-framework/Resources/Core/Functional/Fixtures/sys_language.xml');
+        $this->importDataSet('PACKAGE:Tests/Functional/Fixtures/sys_language.xml');
         $this->importDataSet(ORIGINAL_ROOT . 'typo3/sysext/backend/Tests/Functional/Controller/Page/Fixtures/tt_content-default-language.xml');
 
         $this->subject = new LocalizationController();

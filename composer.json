@@ -3,7 +3,7 @@
 	"type": "library",
 	"version": "1.0.0",
 	"description":"develop Testings for tp3",
-	"minimum-stability": "dev",
+	"minimum-stability": "beta",
 	"license":"proprietary",
 	"authors": [
 		{
@@ -25,7 +25,7 @@
 			"type": "path",
 			"url": "Packages/*",
 			"options": {
-				"symlink": false
+				"symlink": true
 			}
 		},
 		"1": {
@@ -139,17 +139,19 @@
 	},
 	"require-dev": {
 		"helhum/dotenv-connector": "^2.0",
-		"typo3-console/php-server-command": "^0.2.0",
+		"typo3-console/create-reference-command": "@dev",
+		"typo3-console/php-server-command": "*",
 		"typo3-console/composer-typo3-auto-install": "^0.2",
-		"deployer/deployer": "^6",
-		"consolidation/robo": "^1",
+		"deployer/deployer": "^6.4",
+		"consolidation/robo": "^1.4",
 		"codeception/codeception":"*",
-		"squizlabs/php_codesniffer": "^3.3",
 		"phpmd/phpmd": "*",
 		"typo3/testing-framework": "^2",
 		"se/selenium-server-standalone":"*",
-		"fiunchinho/phpunit-randomizer": "~3.0.0",
-		"friendsofphp/php-cs-fixer": "^2.0",
+		"typo3/cms-styleguide": "^8 || ^9",
+		"phpstan/phpstan": "0.11.1",
+		"squizlabs/php_codesniffer": "^3.4",
+		"fiunchinho/phpunit-randomizer": "*",
 		"phpunit/phpunit": "*",
 		"nimut/testing-framework": "*",
         "web-tp3/cag_tests":"dev-develop",
@@ -188,7 +190,8 @@
 			]
 		},
 		"branch-alias": {
-			"dev-TYPO3_8-7": "8.x-dev"
+			"dev-TYPO3_8-7": "8.x-dev",
+			"dev-TYPO3_9-5": "9.5.x-dev"
 		},
 		"helhum/typo3-console": {
 			"install-extension-dummy": false
@@ -210,6 +213,15 @@
 	},
 
 	"scripts": {
+		"analyze:php": "phpstan analyse --ansi --no-progress --configuration=phpstan.neon --level=5 web/typo3conf/ext/",
+		"typo3-cms-scripts": [
+			"typo3cms install:fixfolderstructure",
+			"typo3cms install:generatepackagestates"
+		],
+		"post-autoload-dump": [
+			"@typo3-cms-scripts"
+		],
+
 		"post-update-cmd": [
 			"CAG\\Composer\\PackageHandler::postPackageUpdate"
 

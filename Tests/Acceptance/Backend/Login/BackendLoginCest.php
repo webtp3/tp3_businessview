@@ -29,12 +29,11 @@ class BackendLoginCest
     public function loginCagUser(\AcceptanceTester $I)
     {
         $I->amOnPage('/typo3/');
-        $I->fillField('username', 'tp3min');
-        $I->fillField('p_field', 'Init1111');
+        $I->fillField('username', getenv('typo3InstallAdminUser'));
+        $I->fillField('#t3-password', getenv('typo3InstallAdminPass'));
         $I->click('commandLI');
         $I->waitForElement('.nav', 30);
         $I->waitForElement('.scaffold-content iframe', 30);
-        $I->waitForElement('#extdd-1');
         $I->see(getenv('HOST_TITLE'));
         #todo  logout again
       //  $I->seeCurrentURLEquals('/typo3/index.php');

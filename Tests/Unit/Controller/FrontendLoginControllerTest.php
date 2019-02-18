@@ -30,7 +30,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 class FrontendLoginControllerTest extends \CAG\CagTests\Core\Unit\UnitTestCase
 {
     /**
-     * @var \TYPO3\CMS\Felogin\Controller\FrontendLoginController|\TYPO3\TestingFramework\Core\AccessibleObjectInterface
+     * @var \TYPO3\CMS\Felogin\Controller\FrontendLoginController|\CAG\CagTests\Core\AccessibleObjectInterface
      */
     protected $accessibleFixture;
 

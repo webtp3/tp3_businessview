@@ -23,7 +23,7 @@ use TYPO3\CMS\Core\Http\ServerRequest;
 class FileControllerTest extends \CAG\CagTests\Core\Unit\UnitTestCase
 {
     /**
-     * @var \TYPO3\CMS\Backend\Controller\File\FileController|\TYPO3\TestingFramework\Core\AccessibleObjectInterface
+     * @var \TYPO3\CMS\Backend\Controller\File\FileController|\CAG\CagTests\Core\AccessibleObjectInterface
      */
     protected $fileController;
 
