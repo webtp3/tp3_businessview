@@ -3,7 +3,7 @@
 	"type": "library",
 	"version": "1.0.0",
 	"description":"develop Testings for tp3",
-	"minimum-stability": "dev",
+	"minimum-stability": "beta",
 	"license":"proprietary",
 	"authors": [
 		{
