@@ -74,7 +74,7 @@ foreach ($yaml as $key => $y) {
         ->set('http_user', $y['user'])
 // Project repository
         ->set('repository', $y['repository'])
-        ->set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader ')
+        ->set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader ')
         ->set('deploy_path', $y['deploy_path'])
         ->set('typo3_webroot', $y['typo3_webroot'])
 
@@ -250,7 +250,7 @@ task('deploy:start', function () {
     cd('~');
     run('if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi');
     cd('{{deploy_path}}');
-    run('if [ ! -d {{deploy_path}}/shared/web/ ]; then mkdir -p {{deploy_path}}shared/web/ &&  mkdir -p {{deploy_path}}shared/config/  &&  mv {{deploy_path}}/web/* {{deploy_path}}shared/web/; fi');
+    run('if [ ! -d {{deploy_path}}/shared/web/ ]; then mkdir -p {{deploy_path}}shared/web; fi');
 
 })->setPrivate();
 
@@ -270,7 +270,7 @@ task('deploy', [
     'deploy:writable',
     'deploy:symlink',
     'deploy:build',
-    'deploy:smoke',
+    //'deploy:smoke',
     'deploy:unlock',
    // 'deploy:tests',
     'cleanup',
