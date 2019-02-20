@@ -117,12 +117,12 @@
         "sjbr/static-info-tables-de":"^6",
 		"sjbr/sr-feuser-register": "*",
 		"web-tp3/tp3businessview": "^1 || dev-develop",
-		"web-tp3/tp3_openhours":"dev-master",
-		"web-tp3/tp3jobs": "dev-master",
+		"web-tp3/tp3_openhours":"dev-develop",
+		"web-tp3/tp3jobs": "dev-develop",
 		"web-tp3/tp3mods": "^1",
-		"web-tp3/tp3social": "dev-master",
-		"web-tp3/tp3-facebook": "dev-master",
-		"web-tp3/tp3ratings": "dev-master",
+		"web-tp3/tp3social": "dev-develop",
+		"web-tp3/tp3-facebook": "dev-develop",
+		"web-tp3/tp3ratings": "dev-develop",
 		"web-tp3/tp3_news_extend":"^1.1",
       	"friendsoftypo3/tt-address": "4.0.2",
 		"fluidtypo3/vhs":"*",
@@ -133,8 +133,7 @@
 		"typo3-ter/cal":"^1.12",
 		"web-tp3/wec_map": "^4.1.4",
 		"causal/extractor":"^1",
-		"snowflakeops/varnish":"^3.0",
-		"vaites/php-apache-tika":"*"
+		"snowflakeops/varnish":"^3.0"
 
 
 	},
@@ -147,6 +146,7 @@
 		"consolidation/robo": "^1.4",
 		"codeception/codeception":"*",
 		"phpmd/phpmd": "*",
+		"friendsofphp/php-cs-fixer": "*",
 		"typo3/testing-framework": "^2",
 		"se/selenium-server-standalone":"*",
 		"typo3/cms-styleguide": "^8",
