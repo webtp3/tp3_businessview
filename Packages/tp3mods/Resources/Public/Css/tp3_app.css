@@ -161,7 +161,17 @@ div.main-section .frame-jumbotron [class^="col"] {
 .modal-open .modal-side {
     overflow: auto!important;
 }
-
+/*
+News Tag List
+ */
+span.news-list-tags, .news-list-tags {
+	clear: both;
+	width: 100%;
+	display: inline-block;
+}
+.news-list-tags .label.label-info {
+	float: left;
+}
 /*
 Carousel CSS Adds
  */

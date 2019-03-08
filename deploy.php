@@ -159,6 +159,7 @@ ln -s {{deploy_path}}{{typo3_webroot}}/current/web/typo3conf
     run('if [ ! -d typo3temp ]; then ln -s {{deploy_path}}current/web/typo3temp; fi');
     run('if [ ! -d fileadmin ]; then ln -s {{deploy_path}}current/web/fileadmin; fi');
     run('if [ ! -d uploads ]; then ln -s {{deploy_path}}current/web/uploads; fi');
+   // run('chown -R www-data {{deploy_path}}shared/var/log/');
 //    run('if [ ! -d {{deploy_path}}/shared ]; then mkdir -p {{deploy_path}}/shared && cd shared/ && ln -s ../config/local.settings.yaml; fi');
 //    cd('{{deploy_path}}');
 //    run('if [ ! -d {{deploy_path}}/web ]; then mkdir -p {{deploy_path}}/web && mv {{deploy_path}}/../web/* ./ cd {{deploy_path}}/../web/ && ln -s ../private/web/index.php &&  ln -s ../private/web/fileadmin/ &&  ln -s ../private/web/typo3 &&  ln -s ../private/web/typo3conf && ln -s ../private/web/typo3temp && ln -s ../private/web/uploads && rm {{deploy_path}}/web/typo3conf/ext/*;  fi');
