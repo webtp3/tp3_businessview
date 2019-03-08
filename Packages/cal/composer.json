@@ -6,7 +6,7 @@
     "version":"2.1.2",
     "require": {
         "php": ">=7.0 < 7.3",
-        "typo3/cms-core": "8.2 || ^9"
+        "typo3/cms-core": "^8 || ^9"
     },
     "autoload": {
         "psr-4": {
