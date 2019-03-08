@@ -6,7 +6,7 @@ modules:
     - Asserts
   config:
     WebDriver:
-      url: '%env(TYPO3_INSTALL_DEFAULT_DOMAIN)%'
+      url: http://test.localdev.tp3.de
       browser: chrome
       port: 9515
       capabilities:

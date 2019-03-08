@@ -36,8 +36,8 @@ SYS:
         cacheConfigurations:
             extbase_object:
                 backend: TYPO3\CMS\Core\Cache\Backend\ApcuBackend
-    devIPmask: '*'
-    displayErrors: true
-    enableDeprecationLog: true
+    devIPmask: ''
+    displayErrors: false
+    enableDeprecationLog: false
     reverseProxyIP: 2.2.2.2
     systemLogLevel: '2'
