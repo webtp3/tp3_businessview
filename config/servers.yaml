@@ -25,7 +25,7 @@ dev:
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
-    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
@@ -55,16 +55,49 @@ stage:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 1
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
-    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
 
 toasternet:
+    hostname: toasternet.eu
+    port: 22
+    user: toaster_www
+    public_key:  '~/.ssh/id_rsa.pub'
+    private_key: '~/.ssh/id_rsa'
+    password:    'jpb0OIJlmCmiRT9hP5Pu'
+    configFile: config/keys/ssh_config
+    identityFile: ~/.ssh/id_rsa
+    forwardAgent: true
+    multiplexing: true
+    stage: production
+    sshOptions:
+      UserKnownHostsFile: /dev/null
+      StrictHostKeyChecking: no
+    deploy_path: /var/www/toasternet.eu/private/
+    typo3_webroot: ../web/
+    branch: develop
+    #// Project path
+    application: tmp/
+
+    #// Project repository
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
+    git_tty: true
+    keep_releases: 2
+
+    #// Shared files/dirs between deploys
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
+
+    #// Writable dirs by web server
+    writable_dirs: ['web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
+
+devtoasternet:
     hostname: dev.toasternet.eu
     port: 22
     user: toaster_ssh
@@ -88,11 +121,11 @@ toasternet:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 1
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
-    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
 
     #// Writable dirs by web server
     writable_dirs: ['web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
@@ -123,7 +156,7 @@ lacuisine:
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
-    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
@@ -155,7 +188,7 @@ _dev:
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
-    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
@@ -183,11 +216,11 @@ tr:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 1
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
-    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
@@ -216,11 +249,11 @@ cdu:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 1
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
-    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
@@ -249,11 +282,11 @@ rnn:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 1
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
-    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
@@ -281,11 +314,11 @@ tp3:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 1
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
-    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
@@ -312,11 +345,11 @@ rp:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 1
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
-    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
@@ -344,11 +377,11 @@ srt:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 1
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
-    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
 
    #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
@@ -376,11 +409,11 @@ yreim:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 1
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
-    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
@@ -408,11 +441,11 @@ laroe:
     #// Project repository
     repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
-    keep_releases: 1
+    keep_releases: 2
 
     #// Shared files/dirs between deploys
     shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
-    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']

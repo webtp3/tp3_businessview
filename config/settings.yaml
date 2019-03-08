@@ -39,6 +39,5 @@ SYS:
     devIPmask: '*'
     displayErrors: true
     enableDeprecationLog: true
-    errorHandlerErrors: 0
     reverseProxyIP: 2.2.2.2
     systemLogLevel: '2'

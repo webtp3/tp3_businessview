@@ -5,6 +5,9 @@ SYS:
     enableDeprecationLog: file
     exceptionalErrors: 28930
     systemLogLevel: 2
+    enable_DLOG: true
+    enable_errorDLOG: true
+    enable_exceptionDLOG: true
 BE:
     debug: true
 FE:
