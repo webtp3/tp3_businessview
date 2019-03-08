@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the typo3-ter/cal.
+ * This file is part of the web-tp3/cal.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -10,7 +10,7 @@ if (! defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$ll = 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:';
+$ll = 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:';
 
 /**
  * Add extra fields to the sys_category record
@@ -21,8 +21,8 @@ $newCalSysCategoryColumns = [
                 'l10n_mode' => 'mergeIfNotBlank',
                 'label' => $ll . 'tx_cal_category.image',
                 'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                        'images',
-                        [
+                    'images',
+                    [
                                 'appearance' => [
                                         'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference',
                                         'showPossibleLocalizationRecords' => 1,
@@ -36,7 +36,7 @@ $newCalSysCategoryColumns = [
                                         'table_local' => 'sys_file',
                                 ],
                         ],
-                        $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
+                    $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
                 )
         ],
         'single_pid' => [

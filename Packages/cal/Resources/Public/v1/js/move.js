@@ -111,10 +111,10 @@ Ext.extend(CalEvent.dd.MyDropTarget, Ext.dd.DropTarget, {
 
 Ext.onReady(CalEvent.dd.init, CalEvent.dd);
 
-var events = [];
-var dragZones = [];
-var dropTargets = [];
-var eventArray = [];
+var events = new Array();
+var dragZones = new Array();
+var dropTargets = new Array();
+var eventArray = new Array();
 
 function addEvents() {
 	var dh = Ext.DomHelper;

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the typo3-ter/cal.
+ * This file is part of the web-tp3/cal.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -184,16 +184,13 @@ class NewDayView extends \TYPO3\CMS\Cal\View\NewTimeView
                         }
                     } else {
                         for ($j = 0; $j < $nbrGridCols; $j ++) {
-                            if(is_array($t_array [$i_formatted] [$j])){
-                                if (count($t_array [$i_formatted] [$j]) == 0 || ! isset($t_array [$i_formatted] [$j])) {
-                                    $pos_array [$eventMappingKey] = $j;
-                                    $t_array [$i_formatted] [$j] = [
+                            if (count($t_array [$i_formatted] [$j]) == 0 || ! isset($t_array [$i_formatted] [$j])) {
+                                $pos_array [$eventMappingKey] = $j;
+                                $t_array [$i_formatted] [$j] = [
                                         'begin' => $eventMappingKey
-                                    ];
-                                    break;
-                                }
+                                ];
+                                break;
                             }
-
                         }
                     }
                 }

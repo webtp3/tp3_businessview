@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the typo3-ter/cal.
+ * This file is part of the web-tp3/cal.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -32,7 +32,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
 {
     public $prefixId = 'tx_cal_controller'; // Same as class name
     public $scriptRelPath = 'Classes/Controller/Controller.php'; // Path to this script relative to the extension dir.
-    public $locallangPath = 'Resources/Private/Language/locallang.xml';
+    public $locallangPath = 'Resources/Private/Language/locallang.xlf';
     public $extKey = 'cal'; // The extension key.
     public $pi_checkCHash = false;
     public $dayStart;
@@ -169,7 +169,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
 
     /**
      *
-     * @param boolean
+     * @param bool
      * @return string
      */
     public function getContent($notEmpty = true)

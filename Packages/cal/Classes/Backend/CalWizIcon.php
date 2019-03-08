@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the typo3-ter/cal.
+ * This file is part of the web-tp3/cal.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -42,7 +42,7 @@ class CalWizIcon
 
     public function includeLocalLang()
     {
-        $llFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('cal') . 'Resources/Private/Language/locallang_plugin.xml';
+        $llFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('cal') . 'Resources/Private/Language/locallang_plugin.xlf';
         if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 4006000) {
             $localizationParser = new \TYPO3\CMS\Core\Localization\Parser\LocallangXmlParser();
             $LOCAL_LANG = $localizationParser->getParsedData($llFile, $GLOBALS ['LANG']->lang);

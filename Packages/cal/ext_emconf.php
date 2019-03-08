@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the typo3-ter/cal.
+ * This file is part of the web-tp3/cal.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -11,7 +11,7 @@ $EM_CONF [$_EXTKEY] = [
         'description' => 'A calendar combining all the functions of the existing calendar extensions plus adding some new features. It is based on the ical standard',
         'category' => 'plugin',
         'shy' => 0,
-        'version' => '1.12.1-dev',
+        'version' => '1.11.2-dev',
         'loadOrder' => '',
         'state' => 'stable',
         'uploadfolder' => 0,
@@ -22,14 +22,12 @@ $EM_CONF [$_EXTKEY] = [
         'author_company' => '',
         'constraints' => [
                 'depends' => [
-                        'typo3' => '8.7.0-9.9.99'
+                        'typo3' => '6.1.0-8.9.99'
                 ],
                 'suggests' => [
+                        'css_styled_content' => '6.1.0-8.9.99',
                         'wec_map' => '',
                         'tt_address' => ''
                 ]
-        ],
-        'autoload' => [
-            'psr-4' => ['TYPO3\\CMS\\Cal\\'=> 'Classes']
-        ],
+        ]
 ];

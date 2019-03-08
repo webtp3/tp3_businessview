@@ -1,5 +1,13 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\Model;
+
 /**
  * This file is part of the TYPO3 extension Calendar Base (cal).
  *
@@ -12,35 +20,32 @@ namespace TYPO3\CMS\Cal\Model;
  *
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
-
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Cal\Utility\Functions;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  *
- * @author Mario Matzulla <mario@matzullas.de>
- * @package TYPO3
- * @subpackage cal
  */
-abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
-    var $prefixId = 'tx_cal_controller';
-    var $cObj;
-    var $local_cObj;
-    var $conf;
-    var $serviceKey;
-    var $tempATagParam;
-    var $controller;
-    var $type;
-    var $objectType = '';
-    var $striptags = false;
-    var $hidden = false;
-    var $uid = 0;
-    var $pid = 0;
-    var $image = Array ();
-    var $attachment = Array ();
-    var $cachedValueArray = Array ();
-    var $initializingCacheValues = false;
-    var $templatePath;
+abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel
+{
+    public $prefixId = 'tx_cal_controller';
+    public $cObj;
+    public $local_cObj;
+    public $conf;
+    public $serviceKey;
+    public $tempATagParam;
+    public $controller;
+    public $type;
+    public $objectType = '';
+    public $striptags = false;
+    public $hidden = false;
+    public $uid = 0;
+    public $pid = 0;
+    public $image = [];
+    public $attachment = [];
+    public $cachedValueArray = [];
+    public $initializingCacheValues = false;
+    public $templatePath;
 
     /**
      * Constructor.
@@ -48,9 +53,10 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      * @param $serviceKey String
      *        	serviceKey for this model
      */
-    public function __construct($serviceKey) {
-        $this->controller = &\TYPO3\CMS\Cal\Utility\Registry::Registry ('basic', 'controller');
-        $this->conf = &\TYPO3\CMS\Cal\Utility\Registry::Registry ('basic', 'conf');
+    public function __construct($serviceKey)
+    {
+        $this->controller = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'controller');
+        $this->conf = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'conf');
         $this->serviceKey = &$serviceKey;
 
         $this->images = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
@@ -59,11 +65,12 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
     /**
      * Returns the image marker
      */
-    public function getImageMarker(& $template, & $sims, & $rems, & $wrapped, $view) {
+    public function getImageMarker(& $template, & $sims, & $rems, & $wrapped, $view)
+    {
         $sims ['###IMAGE###'] = '';
-        $this->initLocalCObject ();
+        $this->initLocalCObject();
 
-        $sims ['###IMAGE###'] = $this->local_cObj->cObjGetSingle ($this->conf ['view.'] [$view . '.'] [$this->getObjectType () . '.'] ['image'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType () . '.'] ['image.']);
+        $sims ['###IMAGE###'] = $this->local_cObj->cObjGetSingle($this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['image'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['image.']);
     }
 
     /**
@@ -71,7 +78,8 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      * This method should be adapted in every model to contain all needed values.
      * In short - every get-method (except the getXYMarker) should be in there.
      */
-    public function getValuesAsArray() {
+    public function getValuesAsArray()
+    {
         // check if this locking variable is set - if so, we're currently within a getValuesAsArray call and <br />
         // thus we would end up in a endless recursion. So skip in that case. This can happen, when a method called by this method
         // is initiating the local_cObj f.e.
@@ -81,97 +89,97 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
 
         // for now try to cache the value array. I think the values don't change during final rendering of the event.
         // if this conflicts with anything, then don't cache it.
-        if (! is_array ($this->cachedValueArray) || (is_array ($this->cachedValueArray) && ! count ($this->cachedValueArray))) {
+        if (! is_array($this->cachedValueArray) || (is_array($this->cachedValueArray) && ! count($this->cachedValueArray))) {
             // set locking variable
             $this->initializingCacheValues = true;
 
-            $storeKey = get_class ($this);
-            $cachedValues = $this->controller->cache->get ($storeKey);
+            $storeKey = get_class($this);
+            $cachedValues = $this->controller->cache->get($storeKey);
 
             if ($cachedValues != '') {
                 if ($this->conf ['writeCachingInfoToDevlog'] == 1) {
-                    GeneralUtility::devLog ('CACHE HIT (' . __CLASS__ . '::' . __FUNCTION__ . ')', 'cal', - 1, array ());
+                    GeneralUtility::devLog('CACHE HIT (' . __CLASS__ . '::' . __FUNCTION__ . ')', 'cal', - 1, []);
                 }
-                $cachedValues = unserialize ($cachedValues);
+                $cachedValues = unserialize($cachedValues);
                 $this->classMethodVars = $cachedValues [0];
                 $autoFetchTextFields = $cachedValues [1];
                 $autoFetchTextSplitValue = $cachedValues [2];
             } else {
                 $noAutoFetchMethods = $this->noAutoFetchMethods;
-                if (is_object (parent) && count (parent::getNoAutoFetchMethods ())) {
-                    $noAutoFetchMethods = array_merge (parent::getNoAutoFetchMethods (), $this->getNoAutoFetchMethods ());
+                if (is_object(parent) && count(parent::getNoAutoFetchMethods())) {
+                    $noAutoFetchMethods = array_merge(parent::getNoAutoFetchMethods(), $this->getNoAutoFetchMethods());
                 }
-                $cObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry ('basic', 'cobj');
-                $autoFetchTextFields = explode (',', strtolower ($this->conf ['autoFetchTextFields']));
-                $autoFetchTextSplitValue = $cObj->stdWrap ($this->conf ['autoFetchTextSplitValue'], $this->conf ['autoFetchTextSplitValue.']);
+                $cObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'cobj');
+                $autoFetchTextFields = explode(',', strtolower($this->conf ['autoFetchTextFields']));
+                $autoFetchTextSplitValue = $cObj->stdWrap($this->conf ['autoFetchTextSplitValue'], $this->conf ['autoFetchTextSplitValue.']);
 
                 // new way - get everything dynamically
-                if (! count ($this->classMethodVars)) {
+                if (! count($this->classMethodVars)) {
                     // get all methods of this class and search for apropriate get-methods
-                    $classMethods = get_class_methods ($this);
-                    if (count ($classMethods)) {
-                        $this->classMethods = array ();
+                    $classMethods = get_class_methods($this);
+                    if (count($classMethods)) {
+                        $this->classMethods = [];
                         foreach ($classMethods as $methodName) {
                             // check if the methods name is get method, not a getMarker method and not this method itself (a loop wouldn't be that nice)
-                            if (substr ($methodName, 0, 3) == "get" && substr ($methodName, strlen ($methodName) - 6) != "Marker" && $methodName != 'getValuesAsArray' && $methodName != 'getCustomValuesAsArray' && ! in_array ($methodName, $this->noAutoFetchMethods)) {
-                                $varName = substr ($methodName, 3);
+                            if (substr($methodName, 0, 3) == 'get' && substr($methodName, strlen($methodName) - 6) != 'Marker' && $methodName != 'getValuesAsArray' && $methodName != 'getCustomValuesAsArray' && ! in_array($methodName, $this->noAutoFetchMethods)) {
+                                $varName = substr($methodName, 3);
                                 // as final check that the method name seems to be propper, check if there is also a setter for it
-                                if (method_exists ($this, 'set' . $varName)) {
+                                if (method_exists($this, 'set' . $varName)) {
                                     $this->classMethodVars [] = $varName;
                                 }
                             }
                         }
-                        unset ($varName);
+                        unset($varName);
                     }
                 }
                 if ($this->conf ['writeCachingInfoToDevlog'] == 1) {
-                    GeneralUtility::devLog ('CACHE MISS (' . __CLASS__ . '::' . __FUNCTION__ . ')', 'cal', 2, array ());
+                    GeneralUtility::devLog('CACHE MISS (' . __CLASS__ . '::' . __FUNCTION__ . ')', 'cal', 2, []);
                 }
-                $this->controller->cache->set ($storeKey, serialize (Array (
-                    $this->classMethodVars,
-                    $autoFetchTextFields,
-                    $autoFetchTextSplitValue
-                )), __FUNCTION__);
+                $this->controller->cache->set($storeKey, serialize([
+                        $this->classMethodVars,
+                        $autoFetchTextFields,
+                        $autoFetchTextSplitValue
+                ]), __FUNCTION__);
             }
 
             // prepare the basic value array
-            $valueArray = Array ();
+            $valueArray = [];
             $valueArray = $this->row;
 
             // process the get methods and fill the valueArray dynamically
-            if (count ($this->classMethodVars)) {
+            if (count($this->classMethodVars)) {
                 foreach ($this->classMethodVars as $varName) {
                     $methodName = 'get' . $varName;
-                    $methodValue = $this->$methodName ();
+                    $methodValue = $this->$methodName();
                     // convert any probable array to a comma list, except it contains objects
-                    if (is_array ($methodValue) && ! is_object ($methodValue [0])) {
-                        if (in_array (strtolower ($varName), $autoFetchTextFields)) {
-                            $methodValue = implode ($autoFetchTextSplitValue, $methodValue);
+                    if (is_array($methodValue) && ! is_object($methodValue [0])) {
+                        if (in_array(strtolower($varName), $autoFetchTextFields)) {
+                            $methodValue = implode($autoFetchTextSplitValue, $methodValue);
                         } else {
-                            $methodValue = implode (',', $methodValue);
+                            $methodValue = implode(',', $methodValue);
                         }
                     }
                     // now fill the array, except the methods return value is a object, which can't be used in TS
-                    if (! is_object ($methodValue)) {
-                        $valueArray [strtolower ($varName)] = $methodValue;
+                    if (! is_object($methodValue)) {
+                        $valueArray [strtolower($varName)] = $methodValue;
                     }
                 }
             }
 
-            $additionalValues = $this->getAdditionalValuesAsArray ();
+            $additionalValues = $this->getAdditionalValuesAsArray();
 
-            $mergedValues = array_merge ($valueArray, $additionalValues);
+            $mergedValues = array_merge($valueArray, $additionalValues);
 
-            $hookObjectsArr = \TYPO3\CMS\Cal\Utility\Functions::getHookObjectsArray ('tx_cal_base_model', 'postGetValuesAsArray', 'model');
+            $hookObjectsArr = \TYPO3\CMS\Cal\Utility\Functions::getHookObjectsArray('tx_cal_base_model', 'postGetValuesAsArray', 'model');
             // Hook: postGetValuesAsArray
             foreach ($hookObjectsArr as $hookObj) {
-                if (method_exists ($hookObj, 'postGetValuesAsArray')) {
-                    $hookObj->postGetValuesAsArray ($this, $mergedValues);
+                if (method_exists($hookObj, 'postGetValuesAsArray')) {
+                    $hookObj->postGetValuesAsArray($this, $mergedValues);
                 }
             }
 
             // now cache the result to win some ms
-            $this->cachedValueArray = (Array) $mergedValues;
+            $this->cachedValueArray = (array) $mergedValues;
             $this->initializingCacheValues = false;
         }
         return $this->cachedValueArray;
@@ -182,8 +190,9 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      * This method is ment to be overwritten from inside a model, whereas the method getValuesAsArray should stay untouched from inside a model.
      * @ return		array
      */
-    public function getAdditionalValuesAsArray() {
-        return array ();
+    public function getAdditionalValuesAsArray()
+    {
+        return [];
     }
 
     /**
@@ -192,7 +201,8 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      * @param $images blob
      *        	more images
      */
-    public function setImage($image) {
+    public function setImage($image)
+    {
         if (is_array($image)) {
             $this->image = $image;
         }
@@ -201,13 +211,15 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
     /**
      * Returns the image blob
      */
-    public function getImage() {
+    public function getImage()
+    {
         return $this->image;
     }
 
-    public function getImages() {
+    public function getImages()
+    {
         $fileRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\FileRepository');
-        return $fileRepository->findByRelation('tx_cal_'.$this->getObjectType(), 'image', $this->getUid());
+        return $fileRepository->findByRelation('tx_cal_' . $this->getObjectType(), 'image', $this->getUid());
     }
 
     /**
@@ -215,7 +227,8 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      *
      * @param $url String
      */
-    public function addImage($image) {
+    public function addImage($image)
+    {
         $this->image [] = $image;
     }
 
@@ -224,10 +237,11 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      *
      * @param $url String
      */
-    public function removeImage($image) {
-        for ($i = 0; $i < count ($this->image); $i ++) {
+    public function removeImage($image)
+    {
+        for ($i = 0; $i < count($this->image); $i ++) {
             if ($this->image [$i] == $image) {
-                array_splice ($this->image, $i);
+                array_splice($this->image, $i);
                 return true;
             }
         }
@@ -237,13 +251,15 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
     /**
      * Returns the attachment url
      */
-    public function getAttachment() {
+    public function getAttachment()
+    {
         return $this->attachment;
     }
 
-    public function getAttachments() {
+    public function getAttachments()
+    {
         $fileRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\FileRepository');
-        return $fileRepository->findByRelation('tx_cal_'.$this->getObjectType(), 'attachment', $this->getUid());
+        return $fileRepository->findByRelation('tx_cal_' . $this->getObjectType(), 'attachment', $this->getUid());
     }
 
     /**
@@ -251,7 +267,8 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      *
      * @param $url String
      */
-    public function addAttachment($url) {
+    public function addAttachment($url)
+    {
         $this->attachment [] = $url;
     }
 
@@ -261,7 +278,8 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      * @param $attachmentArray Array
      *        	array
      */
-    public function setAttachment($attachmentArray) {
+    public function setAttachment($attachmentArray)
+    {
         $this->attachment = $attachmentArray;
     }
 
@@ -270,21 +288,24 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      *
      * @param $url String
      */
-    public function removeAttachmentURL($url) {
-        for ($i = 0; $i < count ($this->attachment); $i ++) {
+    public function removeAttachmentURL($url)
+    {
+        for ($i = 0; $i < count($this->attachment); $i ++) {
             if ($this->attachment == $url) {
-                array_splice ($this->attachment, $i);
+                array_splice($this->attachment, $i);
                 return true;
             }
         }
         return false;
     }
 
-    public function isUserAllowedToEdit($feUserUid = '', $feGroupsArray = array ()) {
+    public function isUserAllowedToEdit($feUserUid = '', $feGroupsArray = [])
+    {
         return false;
     }
 
-    public function isUserAllowedToDelete($feUserUid = '', $feGroupsArray = array ()) {
+    public function isUserAllowedToDelete($feUserUid = '', $feGroupsArray = [])
+    {
         return false;
     }
 
@@ -293,7 +314,8 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      *
      * @return Integer type.
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
@@ -304,31 +326,38 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      * @param $type String
      *        	type
      */
-    public function setType($type) {
+    public function setType($type)
+    {
         $this->type = $type;
     }
 
-    public function getObjectType() {
+    public function getObjectType()
+    {
         return $this->objectType;
     }
 
-    public function setObjectType($type) {
+    public function setObjectType($type)
+    {
         $this->objectType = $type;
     }
 
-    public function getUid() {
+    public function getUid()
+    {
         return $this->uid;
     }
 
-    public function setUid($t) {
+    public function setUid($t)
+    {
         $this->uid = $t;
     }
 
-    public function setPid($pid) {
+    public function setPid($pid)
+    {
         $this->pid = $pid;
     }
 
-    public function getPid() {
+    public function getPid()
+    {
         return $this->pid;
     }
 
@@ -337,7 +366,8 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      *
      * @return Integer == true, 0 == false.
      */
-    public function getHidden() {
+    public function getHidden()
+    {
         return $this->hidden;
     }
 
@@ -346,7 +376,8 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      *
      * @return Integer == true, 0 == false.
      */
-    public function isHidden() {
+    public function isHidden()
+    {
         return $this->hidden;
     }
 
@@ -356,117 +387,122 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      * @param $hidden Integer
      *        	== true, 0 == false.
      */
-    public function setHidden($hidden) {
+    public function setHidden($hidden)
+    {
         $this->hidden = $hidden;
     }
 
-    public function getDescriptionMarker(& $template, & $sims, & $rems, & $wrapped, $view) {
+    public function getDescriptionMarker(& $template, & $sims, & $rems, & $wrapped, $view)
+    {
         if (($view == 'ics') || ($view == 'single_ics')) {
-            $description = preg_replace ('/,/', '\,', preg_replace ('/' . chr (10) . '|' . chr (13) . '/', '\r\n', html_entity_decode (preg_replace ('/&nbsp;/', ' ', strip_tags ($this->getDescription ())))));
+            $description = preg_replace('/,/', '\,', preg_replace('/' . chr(10) . '|' . chr(13) . '/', '\r\n', html_entity_decode(preg_replace('/&nbsp;/', ' ', strip_tags($this->getDescription())))));
         } else {
-            $description = $this->getDescription ();
+            $description = $this->getDescription();
         }
 
-        $this->initLocalCObject ();
-        $this->local_cObj->setCurrentVal ($description);
+        $this->initLocalCObject();
+        $this->local_cObj->setCurrentVal($description);
         $this->local_cObj->data['bodytext'] = $description;
         if ($this->striptags) {
-            $sims ['###DESCRIPTION_STRIPTAGS###'] = strip_tags ($this->local_cObj->cObjGetSingle ($this->conf ['view.'] [$view . '.'] [$this->getObjectType () . '.'] ['description'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType () . '.'] ['description.']));
+            $sims ['###DESCRIPTION_STRIPTAGS###'] = strip_tags($this->local_cObj->cObjGetSingle($this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['description'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['description.']));
         } else {
             if ($this->isPreview) {
-                $sims ['###DESCRIPTION###'] = $this->local_cObj->cObjGetSingle ($this->conf ['view.'] [$view . '.'] [$this->getObjectType () . '.'] ['preview'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType () . '.'] ['preview.']);
+                $sims ['###DESCRIPTION###'] = $this->local_cObj->cObjGetSingle($this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['preview'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['preview.']);
             } else {
-                $sims ['###DESCRIPTION###'] = $this->local_cObj->cObjGetSingle ($this->conf ['view.'] [$view . '.'] [$this->getObjectType () . '.'] ['description'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType () . '.'] ['description.']);
+                $sims ['###DESCRIPTION###'] = $this->local_cObj->cObjGetSingle($this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['description'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['description.']);
             }
         }
     }
 
-    public function getHeadingMarker(& $template, & $sims, & $rems, & $wrapped, $view) {
+    public function getHeadingMarker(& $template, & $sims, & $rems, & $wrapped, $view)
+    {
         // controller = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic','controller');
-        $sims ['###HEADING###'] = $this->controller->pi_getLL ('l_' . $this->getObjectType ());
+        $sims ['###HEADING###'] = $this->controller->pi_getLL('l_' . $this->getObjectType());
     }
 
-    public function getEditPanelMarker(& $template, & $sims, & $rems, & $wrapped, $view) {
+    public function getEditPanelMarker(& $template, & $sims, & $rems, & $wrapped, $view)
+    {
         // controller = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic','controller');
-        $sims ['###EDIT_PANEL###'] = $this->controller->pi_getEditPanel ($this->row, 'tx_cal_' . $this->getObjectType ());
+        $sims ['###EDIT_PANEL###'] = $this->controller->pi_getEditPanel($this->row, 'tx_cal_' . $this->getObjectType());
     }
 
-    public function getMarker(& $template, & $sims, & $rems, & $wrapped, $view = '', $base = 'view') {
+    public function getMarker(& $template, & $sims, & $rems, & $wrapped, $view = '', $base = 'view')
+    {
         // controller = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic','controller');
         if ($view == '' && $base == 'view') {
-            $view = ! empty ($this->conf ['alternateRenderingView']) && is_array ($this->conf [$base . '.'] [$this->conf ['alternateRenderingView'] . '.']) ? $this->conf ['alternateRenderingView'] : $this->conf ['view'];
+            $view = ! empty($this->conf ['alternateRenderingView']) && is_array($this->conf [$base . '.'] [$this->conf ['alternateRenderingView'] . '.']) ? $this->conf ['alternateRenderingView'] : $this->conf ['view'];
         }
-        $match = array();
-        preg_match_all ('!\<\!--[a-zA-Z0-9 ]*###([A-Z0-9_-|]*)\###[a-zA-Z0-9 ]*-->!is', $template, $match);
-        $allMarkers = array_unique ($match [1]);
+        $match = [];
+        preg_match_all('!\<\!--[a-zA-Z0-9 ]*###([A-Z0-9_-|]*)\###[a-zA-Z0-9 ]*-->!is', $template, $match);
+        $allMarkers = array_unique($match [1]);
 
         foreach ($allMarkers as $marker) {
             switch ($marker) {
-                default :
-                    if (preg_match ('/MODULE__([A-Z0-9_-])*/', $marker)) {
-                        $module = GeneralUtility::makeInstanceService (substr ($marker, 8), 'module');
-                        if (is_object ($module)) {
-                            $rems ['###' . $marker . '###'] = $module->start ($this);
+                default:
+                    if (preg_match('/MODULE__([A-Z0-9_-])*/', $marker)) {
+                        $module = GeneralUtility::makeInstanceService(substr($marker, 8), 'module');
+                        if (is_object($module)) {
+                            $rems ['###' . $marker . '###'] = $module->start($this);
                         }
                     }
-                    $funcFromMarker = 'get' . str_replace (' ', '', ucwords (str_replace ('_', ' ', strtolower ($marker)))) . 'Marker';
-                    if (method_exists ($this, $funcFromMarker)) {
-                        $this->$funcFromMarker ($template, $sims, $rems, $wrapped, $view);
+                    $funcFromMarker = 'get' . str_replace(' ', '', ucwords(str_replace('_', ' ', strtolower($marker)))) . 'Marker';
+                    if (method_exists($this, $funcFromMarker)) {
+                        $this->$funcFromMarker($template, $sims, $rems, $wrapped, $view);
                     }
                     break;
             }
         }
 
-        preg_match_all ('!\###([A-Z0-9_-|]*)\###!is', $template, $match);
-        $allSingleMarkers = array_unique ($match [1]);
-        $allSingleMarkers = array_diff ($allSingleMarkers, $allMarkers);
-        $modules = array();
+        preg_match_all('!\###([A-Z0-9_-|]*)\###!is', $template, $match);
+        $allSingleMarkers = array_unique($match [1]);
+        $allSingleMarkers = array_diff($allSingleMarkers, $allMarkers);
+        $modules = [];
 
         foreach ($allSingleMarkers as $marker) {
             switch ($marker) {
-                case 'ACTIONURL' :
-                case 'L_ENTER_EMAIL' :
-                case 'L_CAPTCHA_TEXT' :
-                case 'CAPTCHA_SRC' :
-                case 'IMG_PATH' :
+                case 'ACTIONURL':
+                case 'L_ENTER_EMAIL':
+                case 'L_CAPTCHA_TEXT':
+                case 'CAPTCHA_SRC':
+                case 'IMG_PATH':
                     // do nothing
                     break;
-                default :
+                default:
                     // translation of label markers is now done in the method 'finish'.
                     /*
                      * if(preg_match('/.*_LABEL/',$marker)){ $sims['###'.$marker.'###'] = $controller->pi_getLL('l_'.$this->getObjectType().'_'.strtolower(substr($marker,0,strlen($marker)-6))); continue; }
                      */
-                    if (preg_match ('/.*_LABEL$/', $marker) || preg_match ('/^L_.*/', $marker)) {
+                    if (preg_match('/.*_LABEL$/', $marker) || preg_match('/^L_.*/', $marker)) {
                         continue;
                     }
-                    $funcFromMarker = 'get' . str_replace (' ', '', ucwords (str_replace ('_', ' ', strtolower ($marker)))) . 'Marker';
-                    if (method_exists ($this, $funcFromMarker)) {
-                        $this->$funcFromMarker ($template, $sims, $rems, $wrapped, $view);
-                    } else if (preg_match ('/MODULE__([A-Z0-9_-|])*/', $marker)) {
-                        $tmp = explode ('___', substr ($marker, 8));
+                    $funcFromMarker = 'get' . str_replace(' ', '', ucwords(str_replace('_', ' ', strtolower($marker)))) . 'Marker';
+                    if (method_exists($this, $funcFromMarker)) {
+                        $this->$funcFromMarker($template, $sims, $rems, $wrapped, $view);
+                    } elseif (preg_match('/MODULE__([A-Z0-9_-|])*/', $marker)) {
+                        $tmp = explode('___', substr($marker, 8));
                         $modules [$tmp [0]] [] = $tmp [1];
-                    } else if ($this->conf [$base . '.'] [$view . '.'] [$this->getObjectType () . '.'] [strtolower ($marker)]) {
+                    } elseif ($this->conf [$base . '.'] [$view . '.'] [$this->getObjectType() . '.'] [strtolower($marker)]) {
                         $current = '';
 
                         // first, try to fill $current with a method of the model matching the markers name
-                        $functionName = 'get' . str_replace (' ', '', ucwords (str_replace ('_', ' ', strtolower ($marker))));
-                        if (method_exists ($this, $functionName)) {
-                            $tmp = $this->$functionName ();
-                            if (! is_object ($tmp) && ! is_array ($tmp)) {
+                        $functionName = 'get' . str_replace(' ', '', ucwords(str_replace('_', ' ', strtolower($marker))));
+                        if (method_exists($this, $functionName)) {
+                            $tmp = $this->$functionName();
+                            if (! is_object($tmp) && ! is_array($tmp)) {
                                 $current = $tmp;
                             }
-                            unset ($tmp);
+                            unset($tmp);
                         }
                         // if $current is still empty and we have a db-field matching the markers name, use this one
-                        if ($current == '' && $this->row [strtolower ($marker)] != '') {
-                            $current = $this->row [strtolower ($marker)];
+                        if ($current == '' && $this->row [strtolower($marker)] != '') {
+                            $current = $this->row [strtolower($marker)];
                         }
 
-                        $this->initLocalCObject ();
-                        $this->local_cObj->setCurrentVal ($current);
-                        $sims ['###' . $marker . '###'] = $this->local_cObj->cObjGetSingle ($this->conf [$base . '.'] [$view . '.'] [$this->getObjectType () . '.'] [strtolower ($marker)], $this->conf [$base . '.'] [$view . '.'] [$this->getObjectType () . '.'] [strtolower ($marker) . '.']);
+                        $this->initLocalCObject();
+                        $this->local_cObj->setCurrentVal($current);
+                        $sims ['###' . $marker . '###'] = $this->local_cObj->cObjGetSingle($this->conf [$base . '.'] [$view . '.'] [$this->getObjectType() . '.'] [strtolower($marker)], $this->conf [$base . '.'] [$view . '.'] [$this->getObjectType() . '.'] [strtolower($marker) . '.']);
                     } else {
-                        $sims ['###' . $marker . '###'] = $this->row [strtolower ($marker)];
+                        $sims ['###' . $marker . '###'] = $this->row [strtolower($marker)];
                     }
                     break;
             }
@@ -478,28 +514,27 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
         // this allows to spread the Module-Markers over complete template instead of one time
         // also work with old way of MODULE__-Marker
 
-        if (is_array ($modules)) { // MODULE-MARKER FOUND
+        if (is_array($modules)) { // MODULE-MARKER FOUND
             foreach ($modules as $themodule => $markerArray) {
-                $module = GeneralUtility::makeInstanceService ($themodule, 'module');
-                if (is_object ($module)) {
+                $module = GeneralUtility::makeInstanceService($themodule, 'module');
+                if (is_object($module)) {
                     if ($markerArray [0] == '') {
-                        $sims ['###MODULE__' . $themodule . '###'] = $module->start ($this); // ld way
+                        $sims ['###MODULE__' . $themodule . '###'] = $module->start($this); // ld way
                     } else {
-                        $moduleMarker = $module->start ($this, TRUE); // get Markerarray from Module
-                        if(is_array($moduleMarker)) {
+                        $moduleMarker = $module->start($this, true); // get Markerarray from Module
+                        if (is_array($moduleMarker)) {
                             foreach ($markerArray as $key => $requestedKey) {
-                                if (array_key_exists('###'.$requestedKey.'###', $moduleMarker)) {
-                                    $val = $moduleMarker['###'.$requestedKey.'###'];
-                                    if ($this->conf [$base . '.'] [$view . '.'] [$this->getObjectType () . '.'] ['module__' . strtolower ($themodule) . '___' . strtolower ($requestedKey)]) {
-                                        $this->local_cObj->setCurrentVal ($val);
-                                        $sims ['###MODULE__' . $themodule . '___' . strtoupper ($requestedKey) . '###'] = $this->local_cObj->cObjGetSingle ($this->conf [$base . '.'] [$view . '.'] [$this->getObjectType () . '.'] ['module__' . strtolower ($themodule) . '___' . strtolower ($requestedKey)], $this->conf [$base . '.'] [$view . '.'] [$this->getObjectType () . '.'] ['module__' . strtolower ($themodule) . '___' . strtolower ($requestedKey) . '.']);
+                                if (array_key_exists('###' . $requestedKey . '###', $moduleMarker)) {
+                                    $val = $moduleMarker['###' . $requestedKey . '###'];
+                                    if ($this->conf [$base . '.'] [$view . '.'] [$this->getObjectType() . '.'] ['module__' . strtolower($themodule) . '___' . strtolower($requestedKey)]) {
+                                        $this->local_cObj->setCurrentVal($val);
+                                        $sims ['###MODULE__' . $themodule . '___' . strtoupper($requestedKey) . '###'] = $this->local_cObj->cObjGetSingle($this->conf [$base . '.'] [$view . '.'] [$this->getObjectType() . '.'] ['module__' . strtolower($themodule) . '___' . strtolower($requestedKey)], $this->conf [$base . '.'] [$view . '.'] [$this->getObjectType() . '.'] ['module__' . strtolower($themodule) . '___' . strtolower($requestedKey) . '.']);
                                     } else {
-                                        $sims ['###MODULE__' . $themodule . '___' . strtoupper ($requestedKey) . '###'] = $val;
+                                        $sims ['###MODULE__' . $themodule . '___' . strtoupper($requestedKey) . '###'] = $val;
                                     }
                                 } else {
-                                    $sims ['###MODULE__' . $themodule . '___' . strtoupper ($requestedKey) . '###'] = 'Could not find the marker "'.$requestedKey.'" in the module '.$themodule.' template.';
+                                    $sims ['###MODULE__' . $themodule . '___' . strtoupper($requestedKey) . '###'] = 'Could not find the marker "' . $requestedKey . '" in the module ' . $themodule . ' template.';
                                 }
-
                             }
                         }
                     }
@@ -507,11 +542,11 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
             }
         }
 
-        $hookObjectsArr = \TYPO3\CMS\Cal\Utility\Functions::getHookObjectsArray ('tx_cal_base_model', 'searchForObjectMarker', 'model');
+        $hookObjectsArr = \TYPO3\CMS\Cal\Utility\Functions::getHookObjectsArray('tx_cal_base_model', 'searchForObjectMarker', 'model');
         // Hook: postSearchForObjectMarker
         foreach ($hookObjectsArr as $hookObj) {
-            if (method_exists ($hookObj, 'postSearchForObjectMarker')) {
-                $hookObj->postSearchForObjectMarker ($this, $template, $sims, $rems, $wrapped, $view);
+            if (method_exists($hookObj, 'postSearchForObjectMarker')) {
+                $hookObj->postSearchForObjectMarker($this, $template, $sims, $rems, $wrapped, $view);
             }
         }
     }
@@ -521,44 +556,46 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      *
      * @return processed content/output
      */
-    public function finish(&$content) {
-        $hookObjectsArr = \TYPO3\CMS\Cal\Utility\Functions::getHookObjectsArray ('tx_cal_base_model', 'finishModelRendering', 'model');
+    public function finish(&$content)
+    {
+        $hookObjectsArr = \TYPO3\CMS\Cal\Utility\Functions::getHookObjectsArray('tx_cal_base_model', 'finishModelRendering', 'model');
         // Hook: preFinishModelRendering
         foreach ($hookObjectsArr as $hookObj) {
-            if (method_exists ($hookObj, 'preFinishModelRendering')) {
-                $hookObj->preFinishModelRendering ($this, $content);
+            if (method_exists($hookObj, 'preFinishModelRendering')) {
+                $hookObj->preFinishModelRendering($this, $content);
             }
         }
 
         // translate output
-        $this->translateLanguageMarker ($content);
+        $this->translateLanguageMarker($content);
 
         // Hook: postFinishModelRendering
         foreach ($hookObjectsArr as $hookObj) {
-            if (method_exists ($hookObj, 'postFinishModelRendering')) {
-                $hookObj->postFinishModelRendering ($this, $content);
+            if (method_exists($hookObj, 'postFinishModelRendering')) {
+                $hookObj->postFinishModelRendering($this, $content);
             }
         }
         return $content;
     }
 
-    public function translateLanguageMarker(&$content) {
+    public function translateLanguageMarker(&$content)
+    {
         // translate leftover markers
-        $match = array();
-        preg_match_all ('!(###|%%%)([A-Z0-9_-|]*)\_LABEL\1!is', $content, $match);
-        $allLanguageMarkers = array_unique ($match [2]);
-        if (count ($allLanguageMarkers)) {
-            $sims = array ();
+        $match = [];
+        preg_match_all('!(###|%%%)([A-Z0-9_-|]*)\_LABEL\1!is', $content, $match);
+        $allLanguageMarkers = array_unique($match [2]);
+        if (count($allLanguageMarkers)) {
+            $sims = [];
             foreach ($allLanguageMarkers as $key => $marker) {
                 $wrapper = $match [1] [$key];
-                $label = $this->controller->pi_getLL ('l_' . strtolower ($this->getObjectType () . '_' . $marker));
+                $label = $this->controller->pi_getLL('l_' . strtolower($this->getObjectType() . '_' . $marker));
                 if ($label == '') {
-                    $label = $this->controller->pi_getLL ('l_event_' . strtolower ($marker));
+                    $label = $this->controller->pi_getLL('l_event_' . strtolower($marker));
                 }
                 $sims [$wrapper . $marker . '_LABEL' . $wrapper] = $label;
             }
-            if (count ($sims)) {
-                $content = \TYPO3\CMS\Cal\Utility\Functions::substituteMarkerArrayNotCached ($content, $sims, array (), array ());
+            if (count($sims)) {
+                $content = \TYPO3\CMS\Cal\Utility\Functions::substituteMarkerArrayNotCached($content, $sims, [], []);
             }
         }
         return $content;
@@ -569,7 +606,8 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      *
      * @return int => less, equals, greater
      */
-    public function compareTo($object) {
+    public function compareTo($object)
+    {
         return - 1;
     }
 
@@ -579,14 +617,15 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
      * @param $customData array
      *        	key => value pairs that should be used as fake db-values for TS rendering instead of the values of the current object
      */
-    public function initLocalCObject($customData = false) {
-        if (! is_object ($this->local_cObj)) {
-            $this->local_cObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry ('basic', 'local_cObj');
+    public function initLocalCObject($customData = false)
+    {
+        if (! is_object($this->local_cObj)) {
+            $this->local_cObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'local_cObj');
         }
-        if ($customData && is_array ($customData)) {
+        if ($customData && is_array($customData)) {
             $this->local_cObj->data = $customData;
         } else {
-            $this->local_cObj->data = $this->getValuesAsArray ();
+            $this->local_cObj->data = $this->getValuesAsArray();
         }
         // Sets the $TSFE->cObjectDepthCounter in BE mode because cObjGetSingle() of ContentObjectRenderer relies on this setting
         if (TYPO3_MODE === 'BE' && !isset($GLOBALS['TSFE'])) {
@@ -595,12 +634,13 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
         }
     }
 
-    public function isSharedUser($userId, $groupIdArray) {
-        if (is_array ($this->getSharedUsers ()) && in_array ($userId, $this->getSharedUsers ())) {
+    public function isSharedUser($userId, $groupIdArray)
+    {
+        if (is_array($this->getSharedUsers()) && in_array($userId, $this->getSharedUsers())) {
             return true;
         }
         foreach ($groupIdArray as $id) {
-            if (is_array ($this->getSharedGroups ()) && in_array ($id, $this->getSharedGroups ())) {
+            if (is_array($this->getSharedGroups()) && in_array($id, $this->getSharedGroups())) {
                 return true;
             }
         }
@@ -608,41 +648,44 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
         return false;
     }
 
-    public function getIsAllowedToEdit() {
-        return $this->isUserAllowedToEdit () ? 1 : 0;
+    public function getIsAllowedToEdit()
+    {
+        return $this->isUserAllowedToEdit() ? 1 : 0;
     }
 
-    public function getIsAllowedToDelete() {
-        return $this->isUserAllowedToDelete () ? 1 : 0;
+    public function getIsAllowedToDelete()
+    {
+        return $this->isUserAllowedToDelete() ? 1 : 0;
     }
 
-    public function setIsAllowedToEdit() {
+    public function setIsAllowedToEdit()
+    {
         // Dummy function to get the value filled automatically of the getIsAllowedToEdit function
     }
 
-    public function setIsAllowedToDelete() {
+    public function setIsAllowedToDelete()
+    {
         // Dummy function to get the value filled automatically of the getIsAllowedToDelete function
     }
 
-    public function fillTemplate($subpartMarker) {
-        $cObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry ('basic', 'cobj');
+    public function fillTemplate($subpartMarker)
+    {
+        $cObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'cobj');
 
-        $page = Functions::getContent ($this->templatePath);
+        $page = Functions::getContent($this->templatePath);
 
         if ($page == '') {
-            return \TYPO3\CMS\Cal\Utility\Functions::createErrorMessage ('No ' . $this->objectType . ' template file found at: >' . $this->templatePath . '<.', 'Please make sure the path is correct and that you included the static template and double-check the path using the Typoscript Object Browser.');
+            return \TYPO3\CMS\Cal\Utility\Functions::createErrorMessage('No ' . $this->objectType . ' template file found at: >' . $this->templatePath . '<.', 'Please make sure the path is correct and that you included the static template and double-check the path using the Typoscript Object Browser.');
         }
-        $page = $cObj->getSubpart ($page, $subpartMarker);
+        $page = $cObj->getSubpart($page, $subpartMarker);
 
         if (! $page) {
-            return \TYPO3\CMS\Cal\Utility\Functions::createErrorMessage ('Could not find the >' . str_replace ('###', '', $subpartMarker) . '< subpart-marker in ' . $this->templatePath, 'Please add the subpart >' . str_replace ('###', '', $subpartMarker) . '< to your ' . $this->templatePath);
+            return \TYPO3\CMS\Cal\Utility\Functions::createErrorMessage('Could not find the >' . str_replace('###', '', $subpartMarker) . '< subpart-marker in ' . $this->templatePath, 'Please add the subpart >' . str_replace('###', '', $subpartMarker) . '< to your ' . $this->templatePath);
         }
-        $rems = array ();
-        $sims = array ();
-        $wrapped = array ();
-        $this->getMarker ($page, $sims, $rems, $wrapped);
-        return $this->finish (\TYPO3\CMS\Cal\Utility\Functions::substituteMarkerArrayNotCached ($page, $sims, $rems, $wrapped));
+        $rems = [];
+        $sims = [];
+        $wrapped = [];
+        $this->getMarker($page, $sims, $rems, $wrapped);
+        return $this->finish(\TYPO3\CMS\Cal\Utility\Functions::substituteMarkerArrayNotCached($page, $sims, $rems, $wrapped));
     }
 }
-
-?>

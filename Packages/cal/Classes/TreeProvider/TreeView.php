@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the typo3-ter/cal.
+ * This file is part of the web-tp3/cal.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -124,7 +124,7 @@ class TreeView
             foreach ($config ['items'] as $itemName => $itemValue) {
                 if ($itemValue [0]) {
                     $ITitle = $this->pObj->sL($itemValue [0]);
-                    $defItems [] = '<a href="#" onclick="setFormValueFromBrowseWin(\'data[' . $table . '][' . $row ['uid'] . '][' . $field . '][data][sDEF][lDEF][categorySelection][vDEF]\',' . $itemValue [1] . ',\'' . $ITitle . "\') return false;\" style=\"text-decoration:none;\">'" . $ITitle . '</a>';
+                    $defItems [] = '<a href="#" onclick="setFormValueFromBrowseWin(\'data[' . $table . '][' . $row ['uid'] . '][' . $field . '][data][sDEF][lDEF][categorySelection][vDEF]\',' . $itemValue [1] . ',\'' . $ITitle . '\'); return false;" style="text-decoration:none;">' . $ITitle . '</a>';
                 }
             }
         }
@@ -567,7 +567,7 @@ class TreeView
                             foreach ($config ['items'] as $itemName => $itemValue) {
                                 if ($itemValue [0]) {
                                     $ITitle = $this->pObj->sL($itemValue [0]);
-                                    $defItems [] = '<a href="#" onclick="setFormValueFromBrowseWin(\'data[' . $table . '][' . $row ['uid'] . '][' . $field . '][data][sDEF][lDEF][categorySelection][vDEF]\',' . $itemValue [1] . ',\'' . $ITitle . "\') return false;\" style=\"text-decoration:none;\">'" . $ITitle . '</a>';
+                                    $defItems [] = '<a href="#" onclick="setFormValueFromBrowseWin(\'data[' . $table . '][' . $row ['uid'] . '][' . $field . '][data][sDEF][lDEF][categorySelection][vDEF]\',' . $itemValue [1] . ',\'' . $ITitle . '\'); return false;" style="text-decoration:none;">' . $ITitle . '</a>';
                                 }
                             }
                         }

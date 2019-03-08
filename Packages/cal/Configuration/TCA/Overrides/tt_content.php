@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the typo3-ter/cal.
+ * This file is part of the web-tp3/cal.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -17,7 +17,7 @@ $pluginSignature = strtolower($extensionName) . '_controller';
  * Plugin
  */
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin([
-        'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tt_content.list_type',
+        'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tt_content.list_type',
         $_EXTKEY . '_controller'
 ], 'list_type');
 
@@ -26,9 +26,9 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 
 $extConf = unserialize($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']);
 if ($extConf ['categoryService'] == 'sys_category') {
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_cal_sys_category.xml');
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_cal_sys_category.xlf');
 } else {
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_cal.xml');
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_cal.xlf');
 }
 
 /***************

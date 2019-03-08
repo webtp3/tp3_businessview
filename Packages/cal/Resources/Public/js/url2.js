@@ -3,7 +3,8 @@ function ExtUrlUI (containerID, storageID, rowClass, rowHTML) {
 	this.storageID = storageID;
 	this.rowClass = rowClass;
 	this.rowHTML = rowHTML;
-}
+};
+
 ExtUrlUI.prototype = {
 
 	addUrl: function(defaultNote, defaultUrl){
@@ -72,7 +73,7 @@ function escapeRegExp(str) {
 
 function ExtUrlInstanceUI (containerID, storageID, rowClass, rowHTML) {
 	ExtUrlUI.call(this, containerID, storageID, rowClass, rowHTML);
-}
+};
 ExtUrlInstanceUI.prototype = Object.create(ExtUrlUI.prototype, {
 	storageToHash: function(url) {
 		urlValue = url;
