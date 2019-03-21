@@ -44,8 +44,9 @@ class CalWizIcon
     {
         $llFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('cal') . 'Resources/Private/Language/locallang_plugin.xlf';
         if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 4006000) {
-            $localizationParser = new \TYPO3\CMS\Core\Localization\Parser\LocallangXmlParser();
-            $LOCAL_LANG = $localizationParser->getParsedData($llFile, $GLOBALS ['LANG']->lang);
+            //$localizationParser = new \TYPO3\CMS\Core\Localization\Parser\LocallangXmlParser();
+          //  $LOCAL_LANG = $localizationParser->getParsedData($llFile, $GLOBALS ['LANG']->lang);
+            $LOCAL_LANG = \TYPO3\CMS\Core\Utility\GeneralUtility::readLLfile($llFile, $GLOBALS ['LANG']->lang);
         } else {
             $LOCAL_LANG = \TYPO3\CMS\Core\Utility\GeneralUtility::readLLfile($llFile, $GLOBALS ['LANG']->lang);
         }
