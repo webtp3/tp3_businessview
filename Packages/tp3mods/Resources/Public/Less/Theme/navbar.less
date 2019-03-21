@@ -21,7 +21,7 @@
             display: block;
         }
         > .navbar-brand-logo-inverted {
-        display: none;
+        	display: block;
         }
 
 }
@@ -71,11 +71,12 @@
 
             }
             > .navbar-brand-logo-inverted {
-                display: none;
+                display: block;
 
             }
             > img {
                 backface-visibility: hidden;
+				position: absolute;
             }
         }
     }
@@ -96,7 +97,7 @@
 
         .navbar-brand {
             > .navbar-brand-logo-normal {
-                display: none;
+                display: block;
 
             }
             > .navbar-brand-logo-inverted {
@@ -105,6 +106,7 @@
             }
             > img {
                 backface-visibility: hidden;
+				position: absolute;
 
             }
 
@@ -120,7 +122,7 @@
         .navbar-header-main .navbar-brand,
         .navbar-main > li > .navbar-text,
         .navbar-main > li > a {
-            line-height: @line-height-computed;
+            line-height: round(@navbar-height /2);
             height: @navbar-height;
         }
         .navbar-brand {
@@ -134,7 +136,7 @@
             }
             > img {
                 backface-visibility: hidden;
-             //   position: absolute;
+		    	position: absolute;
             //    animation: spinCube .1s linear ease-in-out;
 
             }

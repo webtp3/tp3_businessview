@@ -854,7 +854,7 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 
 (scroll = function(event) {
-	if(headerwidth < 992){
+	if(headerwidth < 992 || mobile){
 		mobile = true;
 		$j('body').addClass('ismobile');
 		//$j('.body-bg').css({"padding-top":0 + "px"});

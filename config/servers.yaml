@@ -48,7 +48,7 @@ stage:
       StrictHostKeyChecking: no
     deploy_path: /var/www/praxis.tp3.de/private/
     typo3_webroot: ../web/
-    branch: develop
+    branch: 8.x-dev
     #// Project path
     application: tmp/
 
@@ -81,7 +81,40 @@ toasternet:
       StrictHostKeyChecking: no
     deploy_path: /var/www/toasternet.eu/private/
     typo3_webroot: ../web/
-    branch: develop
+    branch: 8.x-dev
+    #// Project path
+    application: tmp/
+
+    #// Project repository
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
+    git_tty: true
+    keep_releases: 2
+
+    #// Shared files/dirs between deploys
+    shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
+    shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
+
+    #// Writable dirs by web server
+    writable_dirs: ['web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
+
+dnadirekt:
+    hostname: vaterschaftstest.tp3.de
+    port: 22
+    user: toaster_dnsdirekt
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
+    password:    ''
+    configFile: config/keys/ssh_config
+    identityFile: config/keys/id_rsa
+    forwardAgent: true
+    multiplexing: true
+    stage: production
+    sshOptions:
+      UserKnownHostsFile: /dev/null
+      StrictHostKeyChecking: no
+    deploy_path: /var/www/vaterschaftstest.tp3.de/private/
+    typo3_webroot: ../web/
+    branch: 8.x-dev
     #// Project path
     application: tmp/
 
@@ -114,7 +147,7 @@ devtoasternet:
       StrictHostKeyChecking: no
     deploy_path: /var/www/dev.toasternet.eu/private/
     typo3_webroot: ../web/
-    branch: develop
+    branch: 8.x-dev
     #// Project path
     application: tmp/
 
@@ -145,7 +178,7 @@ lacuisine:
     deploy_path: /var/www/test.lacuisine.de/private/
     typo3_webroot: ../web/
 
-    branch: develop
+    branch: 8.x-dev
     #// Project path
     application: tmp/
 
@@ -162,7 +195,7 @@ lacuisine:
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
 
 
-_dev:
+lacuisine_dev:
     hostname: dev.lacuisine.de
     port: 22
     user: lacuisine_dev
@@ -177,7 +210,7 @@ _dev:
     deploy_path: /var/www/dev.lacuisine.de/private/
     typo3_webroot: ../web/
 
-    branch: develop
+    branch: 8.x-dev
     #// Project path
     application: tmp/
 
@@ -209,7 +242,7 @@ tr:
     deploy_path: /var/www/dev.thomasruta.de/private/
     typo3_webroot: ../web/
 
-    branch: develop
+    branch: 8.x-dev
     #// Project path
     application: tmp/
 
@@ -242,7 +275,7 @@ cdu:
     deploy_path: /var/www/old.r-p-it.com/private/
     typo3_webroot: ../web/
 
-    branch: develop
+    branch: 8.x-dev
     #// Project path
     application: tmp/
 
@@ -275,7 +308,7 @@ rnn:
     deploy_path: /var/www/rnn-web.de/private/
     typo3_webroot: ../web/
 
-    branch: develop
+    branch: 8.x-dev
     #// Project path1
     application: tmp
 
@@ -307,7 +340,7 @@ tp3:
     deploy_path: /var/www/dev.tp3.de/private/
     typo3_webroot: ../web/
 
-    branch: develop
+    branch: 8.x-dev
     #// Project path
     application: tmp/
 
@@ -338,7 +371,7 @@ rp:
     deploy_path: /var/www/dev.r-p-it.com/private/
     typo3_webroot: ../web/
 
-    branch: develop
+    branch: 8.x-dev
     #// Project path
     application: tmp/
 
@@ -370,7 +403,7 @@ srt:
     deploy_path: /var/www/srt-sanierung.de/private/
     typo3_webroot: ../web/
 
-    branch: develop
+    branch: 8.x-dev
     #// Project path
     application: tmp/
 
@@ -402,7 +435,7 @@ yreim:
     deploy_path: /var/www/yreim.de/private/
     typo3_webroot: ../web/
 
-    branch: develop
+    branch: 8.x-dev
     #// Project path
     application: tmp/
 
@@ -434,7 +467,7 @@ laroe:
     deploy_path: /var/www/kinderzauberzaehne.de/private/
     typo3_webroot: ../web/
 
-    branch: develop
+    branch: 8.x-dev
     #// Project path
     application: tmp/
 

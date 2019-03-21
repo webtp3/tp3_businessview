@@ -117,7 +117,7 @@
 		"in2code/powermail": "*",
 		"causal/tscobj":"*",
 		"apen/additional_reports":"*",
-		"web-tp3/cal":"^2.1",
+		"web-tp3/cal":"2.1.2",
 		"web-tp3/wec_map": "^4.1.4",
 		"causal/extractor":"^1",
 		"snowflakeops/varnish":"^3.0"
