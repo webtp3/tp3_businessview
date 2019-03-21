@@ -138,9 +138,9 @@ page {
 
     theme {
         # cat=bootstrap package: basic/160/100; type=options[Default=default, Default Transition=default-transition, Inverse=inverse, Inverse Transition=inverse-transition]; label=Navigation Style
-        navigationstyle = default-transition
+        navigationstyle = inverse-transition
         # cat=bootstrap package: basic/160/101; type=options[Default=, Fixed Top=top, Fixed Bottom=bottom]; label=Navigation Type
-        navigationtype = top
+        navigationtype =
         # cat=bootstrap package: basic/160/110; type=boolean; label=Breadcrumb: Enable to display the breadcrumb
         breadcrumb = 1
         # cat=bootstrap package: basic/160/111; type=int+; label=Breadcrumb Enable Level: Enable breadcrumb menu is greater or equal this value

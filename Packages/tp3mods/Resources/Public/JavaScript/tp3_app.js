@@ -857,15 +857,15 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 	if(headerwidth < 992){
 		mobile = true;
 		$j('body').addClass('ismobile');
-		$j('.body-bg').css({"padding-top":0 + "px"});
-		$j('header.navbar-top').width("100%").css({position:"relative",top:"0px","z-index":"99"});
+		//$j('.body-bg').css({"padding-top":0 + "px"});
+		$j('.body-bg-top header.navbar-top').width("100%").css({position:"relative",top:"0px","z-index":"99"});
 
 	}
 	else{
 		mobile = false;
 		$j('body').removeClass('ismobile');
-		$j('.body-bg').css({"padding-top":headerheight + "px"});
-		$j('header.navbar-top').width("100%").css({position:"fixed",top:"0px","z-index":"99"});
+		//$j('.body-bg').css({"padding-top":headerheight + "px"});
+		$j('.body-bg-top header.navbar-top').width("100%").css({position:"fixed",top:"0px","z-index":"99"});
 	}
 	if(scroll_pos  == (headerPos)) {
 		$j('header.navbar-top').addClass("toppos");
@@ -887,10 +887,6 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 			show = setTimeout(function() {
 				$j(this).toggleClass('anim');
 				$j('header.navbar-top').removeClass("flat");
-				$j('a.navbar-brand-image, #logo, .logo').width( "auto").height(headerheight );
-				//   $j('.navbar-collapse .nav > li > a, .headerslogan').css({"line-height": (headerheight - toolbarheight)  +"px"});
-				//$j('.headerslogan').css({"padding-left":"140px"});
-
 			}, 400);
 
 			init = false;
@@ -906,11 +902,9 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 					$j('header.navbar-top').addClass("flat");
 					$j(this).toggleClass('anim');
 
-					$j('a.navbar-brand-image, #logo, .logo').width( "auto").height(logoheight /2 );
 				}, 400);
 			}
 
-			//$j('header.navbar-top').addClass('attached').css({'top' : (scrollPos-headerPos)+'px'});
 
 		} else if(scrollPos < headerPos && scroll_pos >= scrollPos) {
 			clearTimeout(show);
@@ -920,7 +914,6 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 				go = setTimeout(function() {
 					$j(this).toggleClass('anim');
-					$j('a.navbar-brand, a.navbar-brand img ,#logo, .logo').width( "auto").height(logoheight /2 );
 					$j('header.navbar-top').removeClass("flat");
 				}, 400);
 			}
@@ -931,7 +924,6 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 			console.log("init")
 			clearTimeout(go);
 			once = true;
-			//$j('header.navbar-top .breadcrumb-section').hide();
 			show = setTimeout(function() {
 				$j(this).addClass('anim');
 
