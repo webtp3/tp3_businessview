@@ -12,6 +12,7 @@ DB:
         Default:
             charset: utf8
 EXTCONF:
+
     helhum-typo3-console:
         initialUpgradeDone: '8.7'
     lang:
