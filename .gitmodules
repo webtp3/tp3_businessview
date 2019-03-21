@@ -1,0 +1,4 @@
+[submodule "web-tp3/cag_tests"]
+    path =Packages/cag_tests
+    url = git@bitbucket.org:web-tp3/cag_tests.git
+    branch = develop
