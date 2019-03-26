@@ -143,7 +143,7 @@
 		"fiunchinho/phpunit-randomizer": "*",
 		"phpunit/phpunit": "*",
 		"nimut/testing-framework": "*",
-        "web-tp3/cag_tests":"dev-develop",
+        "web-tp3/cag_tests":"^1.2",
 		"evoweb/ew-llxml2xliff":"^2",
 		"phpspec/phpspec":"^1",
         "facebook/webdriver":"^1",

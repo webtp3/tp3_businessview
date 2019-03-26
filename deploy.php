@@ -18,7 +18,7 @@ require $_ENV["TYPO3_PATH_COMPOSER_ROOT"] .'/Build/vendor/deployer/deployer/reci
  * for static config just uncomment
  */
 //inventory('./config/servers.yaml');
-$input_ = new \Symfony\Component\Console\Input\ArgvInput();
+//$input_ = new \Symfony\Component\Console\Input\ArgvInput();
 $input = 'dev';//$_SERVER["argv"][1] ? $_SERVER["argv"][1] : "dev";
 
 /*

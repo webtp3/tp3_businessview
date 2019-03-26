@@ -29,7 +29,7 @@ dev:
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
-    branch: develop
+    branch: 8.x-dev
 
 stage:
     hostname: praxis.tp3.de
@@ -268,7 +268,7 @@ cdu:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
