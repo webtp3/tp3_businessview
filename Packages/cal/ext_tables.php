@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the web-tp3/cal.
+ * This file is part of the typo3-ter/cal.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -72,7 +72,7 @@ if (TYPO3_MODE == 'BE') {
                     'access' => 'admin',
                     'name' => 'tools_txcalM1',
                     'icon' => 'EXT:cal/Classes/Backend/Modul/icon_tx_cal_indexer2.svg',
-                    'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_indexer_mod.xlf'
+                    'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_indexer_mod.xml'
             ]
         );
     }

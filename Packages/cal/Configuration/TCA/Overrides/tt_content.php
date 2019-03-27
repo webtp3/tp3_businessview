@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the web-tp3/cal.
+ * This file is part of the typo3-ter/cal.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -17,7 +17,7 @@ $pluginSignature = strtolower($extensionName) . '_controller';
  * Plugin
  */
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin([
-        'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tt_content.list_type',
+        'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tt_content.list_type',
         $_EXTKEY . '_controller'
 ], 'list_type');
 

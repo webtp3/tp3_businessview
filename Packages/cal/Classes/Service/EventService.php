@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the web-tp3/cal.
+ * This file is part of the typo3-ter/cal.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -2096,13 +2096,13 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService
         } else {
             $event->setByMonthDay(implode(',', array_filter(
                 $event->getByMonthDay(),
-                function ($value) {
-                    $value = intval($value);
-                    if ($value < - 12 || $value > 12 || $value == 0) {
-                        return false;
+                    function ($value) {
+                        $value = intval($value);
+                        if ($value < - 12 || $value > 12 || $value == 0) {
+                            return false;
+                        }
+                        return true;
                     }
-                    return true;
-                }
             )));
         }
     }
@@ -2113,13 +2113,13 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService
         } else {
             $event->setByYearDay(implode(',', array_filter(
                 $event->getByYearDay(),
-                function ($value) {
-                    $value = intval($value);
-                    if ($value < - 31 || $value > 31 || $value == 0) {
-                        return false;
+                    function ($value) {
+                        $value = intval($value);
+                        if ($value < - 31 || $value > 31 || $value == 0) {
+                            return false;
+                        }
+                        return true;
                     }
-                    return true;
-                }
             )));
         }
     }
@@ -2129,13 +2129,13 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService
         if ($event->getFreq() == 'yearly') {
             $event->setByWeekNo(implode(',', array_filter(
                 $event->getByWeekNo(),
-                function ($value) {
-                    $value = intval($value);
-                    if ($value < - 53 || $value > 53 || $value == 0) {
-                        return false;
+                    function ($value) {
+                        $value = intval($value);
+                        if ($value < - 53 || $value > 53 || $value == 0) {
+                            return false;
+                        }
+                        return true;
                     }
-                    return true;
-                }
             )));
         } else {
             $event->setByWeekNo('');
