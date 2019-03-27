@@ -3,7 +3,7 @@
 	"type": "library",
 	"version": "1.0.0",
 	"description":"develop Testings for tp3",
-	"minimum-stability": "beta",
+	"minimum-stability": "dev",
 	"license":"proprietary",
 	"authors": [
 		{
@@ -112,6 +112,7 @@
 		"web-tp3/tp3ratings": "dev-develop",
 		"web-tp3/tp3_news_extend":"^1.1",
       	"friendsoftypo3/tt-address": "4.0.3",
+		"friendsoftypo3/typo3db-legacy":"^8.7",
 		"fluidtypo3/vhs":"*",
 		"yoast-seo-for-typo3/yoast_seo": "3.0.5",
 		"in2code/powermail": "*",

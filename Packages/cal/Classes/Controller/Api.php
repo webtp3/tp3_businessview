@@ -20,8 +20,12 @@ namespace TYPO3\CMS\Cal\Controller;
  *
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
+
+use TYPO3\CMS\Cal\Service\RightsService;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 
 /**
  * API for calendar base (cal)
@@ -37,6 +41,22 @@ class Api
     public $conf;
     public $prefixId = 'tx_cal_controller';
     public $unsetTSFEOnDestruct = false;
+    /** @var ConnectionPool $connectionPool */
+    public $connectionPool;
+    /**
+     * @var ObjectManager
+     */
+    protected $objectManager;
+
+    public function __construct()
+    {
+        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+      //  $this->connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+        $this->rightsObj = $this->objectManager->get(RightsService::class);
+        $this->modelObj = $this->objectManager->get(ModelController::class);
+
+    }
+
 
     /**
      * Example:
@@ -72,11 +92,11 @@ class Api
 
         \TYPO3\CMS\Cal\Controller\Controller::initRegistry($this->controller);
         $this->rightsObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'rightscontroller');
-        $this->rightsObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstanceService('cal_rights_model', 'rights');
         $this->rightsObj->setDefaultSaveToPage();
 
         $this->modelObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'modelcontroller');
-        $this->modelObj = new \TYPO3\CMS\Cal\Controller\ModelController();
+        //$this->modelObj = new \TYPO3\CMS\Cal\Controller\ModelController();
+
 
         $this->viewObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'viewcontroller');
         $this->viewObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Cal\\Controller\\ViewController');
