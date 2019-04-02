@@ -3,7 +3,6 @@
 	"description": "WEC Google Maps",
 	"type": "typo3-cms-extension",
 	"license": "GPL-2.0+",
-	"version": "4.1.4",
 	"authors": [
 		{
 			"name": "Christian Technology Ministries International Inc.",
@@ -25,9 +24,15 @@
 		}
 	},
 	"require": {
-		"typo3/cms-core": ">=8.7",
-		"php": ">=7.0",
+		"typo3/cms-core": "^8.7 || ^9.5",
+		"php": ">=7.0.0 <=7.2.99",
 		"typo3/class-alias-loader": "^1.0"
+
+	},
+	"require-dev": {
+		"friendsofphp/php-cs-fixer": "^2.0",
+		"nimut/testing-framework": "^1.0 || ^2.0 || ^3.0 || ^4.0",
+		"web-tp3/cag_tests":"^1.2"
 
 	},
 	"replace": {
@@ -35,11 +40,24 @@
 		"typo3-ter/wec-map": "self.version",
 		"web-tp3/wec-map": "self.version"
 	},
-	"typo3/class-alias-loader": {
-		"always-add-alias-loader": true,
-		"autoload-case-sensitivity": false,
-		"class-alias-maps": [
-			"Migrations/Code/ClassAliasMap.php"
+	"extra": {
+		"typo3/class-alias-loader": {
+			"always-add-alias-loader": true,
+			"autoload-case-sensitivity": false,
+			"class-alias-maps": [
+				"Migrations/Code/ClassAliasMap.php"
+			]
+		}
+	},
+	"scripts": {
+		"test:php:unit": [
+			"@php -v",
+			"@php .Build/bin/phpunit Tests/Unit"
 		]
+
+	},
+	"config": {
+		"vendor-dir": ".Build/vendor",
+		"bin-dir": ".Build/bin"
 	}
 }
