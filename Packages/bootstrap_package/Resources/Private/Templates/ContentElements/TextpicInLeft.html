@@ -4,13 +4,13 @@
 <f:section name="Main">
 
     <div class="row">
-        <div class="col-md-6 col-xs-12">
-            <f:render partial="Media/Gallery" arguments="{_all}"/>
-        </div>
-        <div class="col-md-6 col-xs-12">
-            <f:render partial="Header/All" arguments="{_all}"/>
-            <f:format.html>{data.bodytext}</f:format.html>
 
+        <div class="col-md-12 col-xs-12">
+            <f:render partial="Header/All" arguments="{_all}"/>
+            <div class="align-left col-md-6 col-xs-12">
+                <f:render partial="Media/Gallery" arguments="{_all}"/>
+            </div>
+            <f:format.html>{data.bodytext}</f:format.html>
         </div>
     </div>
 

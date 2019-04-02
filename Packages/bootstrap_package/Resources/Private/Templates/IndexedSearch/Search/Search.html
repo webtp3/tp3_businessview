@@ -1,6 +1,7 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:is="http://typo3.org/ns/TYPO3/CMS/IndexedSearch/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:is="http://typo3.org/ns/TYPO3/CMS/IndexedSearch/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:alias map="{sword: searchParams.sword}">
-    <f:render partial="Form" arguments="{_all}" />
+    <f:render partial="Form" arguments="{_all}"/>
 </f:alias>
 <f:for each="{resultsets}" as="result">
     <f:if condition="{result.categoryTitle}">
@@ -11,10 +12,12 @@
         <p>
             <f:if condition="{key} > 0">
                 <f:then>
-                    <f:translate key="searchFor.{searchWord.oper}" /> <strong>{searchWord.sword}</strong>
+                    <f:translate key="searchFor.{searchWord.oper}"/>
+                    <strong>{searchWord.sword}</strong>
                 </f:then>
                 <f:else>
-                    <f:translate key="searchFor" /> <strong>{searchWord.sword}</strong>
+                    <f:translate key="searchFor"/>
+                    <strong>{searchWord.sword}</strong>
                 </f:else>
             </f:if>
         </p>
@@ -26,7 +29,8 @@
     <f:if condition="{result.count} > 0">
         <f:then>
             <p>
-                <is:pageBrowsingResults numberOfResults="{result.count}" currentPage="{searchParams.pointer}" resultsPerPage="{searchParams.numberOfResults}" />
+                <is:pageBrowsingResults numberOfResults="{result.count}" currentPage="{searchParams.pointer}"
+                                        resultsPerPage="{searchParams.numberOfResults}"/>
                 {result.sectionText}
             </p>
             <!-- render the anchor-links to the sections inside the displayed result rows -->
@@ -36,11 +40,14 @@
                         <a href="#anchor_{sectionId}" class="list-group-item">
                             <span class="badge">
                                 {sectionData.1}
-                                <f:translate key="{f:if(condition: '{sectionData.1} > 1', then: 'word_pages', else: 'word_pages')}" />
+                                <f:translate
+                                        key="{f:if(condition: '{sectionData.1} > 1', then: 'word_pages', else: 'word_pages')}"/>
                             </span>
                             <f:if condition="{sectionData.0}">
                                 <f:then>{sectionData.0}</f:then>
-                                <f:else><f:translate key="result.unnamedSection" /></f:else>
+                                <f:else>
+                                    <f:translate key="result.unnamedSection"/>
+                                </f:else>
                             </f:if>
                         </a>
                     </f:for>
@@ -53,21 +60,23 @@
                             <h2>
                                 <f:format.html>{row.sectionTitle}</f:format.html>
                                 <span class="tx-indexedsearch-result-count">
-                                    {row.numResultRows} <f:translate key="{f:if(condition: '{row.numResultRows} > 1', then: 'result.pages', else: 'result.page')}" />
+                                    {row.numResultRows} <f:translate
+                                        key="{f:if(condition: '{row.numResultRows} > 1', then: 'result.pages', else: 'result.page')}"/>
                                 </span>
                             </h2>
                         </div>
                     </f:then>
                     <f:else>
-                        <f:render partial="Searchresult" arguments="{row: row}" />
+                        <f:render partial="Searchresult" arguments="{row: row}"/>
                     </f:else>
                 </f:if>
             </f:for>
-            <is:pageBrowsing numberOfResults="{result.count}" maximumNumberOfResultPages="{settings.page_links}" currentPage="{searchParams.pointer}" resultsPerPage="{searchParams.numberOfResults}" />
+            <is:pageBrowsing numberOfResults="{result.count}" maximumNumberOfResultPages="{settings.page_links}"
+                             currentPage="{searchParams.pointer}" resultsPerPage="{searchParams.numberOfResults}"/>
         </f:then>
         <f:else>
             <div class="alert alert-info">
-                <f:translate key="result.noResult" />
+                <f:translate key="result.noResult"/>
             </div>
         </f:else>
     </f:if>
