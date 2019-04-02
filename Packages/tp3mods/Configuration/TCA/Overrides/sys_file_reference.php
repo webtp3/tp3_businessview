@@ -30,7 +30,7 @@ $newSysFileReferenceColumns = [
     'speed' => [
         'exclude' => true,
         'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:sys_file_reference.speed',
-        'displayCond' => 'FIELD:page.tp3parallax:=:1',
+      //  'displayCond' => 'FIELD:parallax:>:0',
         'config' =>  [
             'type' => 'input',
             'default' => '-20',
@@ -48,7 +48,7 @@ $newSysFileReferenceColumns = [
     ],
     'parallax' => [
         'exclude' => true,
-        'displayCond' => 'FIELD:page.tp3parallax:=:1',
+       // 'displayCond' => 'FIELD:tp3parallax:>:0',
         'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:sys_file_reference.parallax',
         'config' => [
             'type' => 'check',

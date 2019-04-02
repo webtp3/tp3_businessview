@@ -752,8 +752,8 @@ config {
 [globalVar = GP:L = 2]
     config {
         sys_language_uid = 2
-        language = da
-        locale_all = da_DA.UTF-8
+        language = nl
+        locale_all = nl_NL.UTF-8
     }
 [global]
 [globalVar = GP:L = 3]
