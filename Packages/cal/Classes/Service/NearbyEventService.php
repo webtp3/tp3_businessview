@@ -20,8 +20,7 @@ namespace TYPO3\CMS\Cal\Service;
  *
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
-use TYPO3\CMS\Cal\Controller\ModelController;
-use TYPO3\CMS\Cal\Service\RightsService;
+
 /**
  * A concrete model for the calendar.
  *
@@ -31,8 +30,7 @@ class NearbyEventService extends \TYPO3\CMS\Cal\Service\EventService
     public function __construct()
     {
         parent::__construct();
-        $this->rightsObj = $this->objectManager->get(RightsService::class);
-        $this->modelObj = $this->objectManager->get(ModelController::class);
+
         // Lets see if the user is logged in
         if ($this->rightsObj->isLoggedIn() && ! $this->rightsObj->isCalAdmin() && \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('wec_map') && $this->conf ['view.'] ['calendar.'] ['nearbyDistance'] > 0 && class_exists('\JBartels\WecMap\Utility\Cache')) {
             $user = $GLOBALS ['TSFE']->fe_user->user;

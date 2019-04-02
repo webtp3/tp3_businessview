@@ -69,6 +69,9 @@ class ApiControllerTest extends \CAG\CagTests\Core\Functional\FunctionalTestCase
     public function canFindByUidTest(): array
     {
         /*
+         * * require_once ('class.tx_cal_api.php');
+	 * $calAPI = new Api($this->cObj, &$conf);
+	 * $event = $calAPI->findEvent('2','tx_cal_phpicalendar');
       * @param int $uid
       *            to search for
       * @param string $pidList

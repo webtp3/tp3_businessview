@@ -22,7 +22,6 @@ namespace TYPO3\CMS\Cal\Service;
  */
 use TYPO3\CMS\Cal\Controller\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * A base service.
@@ -118,21 +117,13 @@ abstract class BaseService extends \TYPO3\CMS\Core\Service\AbstractService
     public $fileFunc;
     public $extConf;
 
-    /**
-     * @var ObjectManager
-     */
-    protected $objectManager;
-
     public function __construct()
     {
-        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $this->controller = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'controller');
         $this->conf = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'conf');
         $this->rightsObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'rightscontroller');
-        //$this->rightsObj = $this->objectManager->get(RightsService::class);
         $this->cObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'cobj');
         $this->modelObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'modelcontroller');
-       // $this->modelObj = $this->objectManager->get(ModelController::class);
         $this->extConf = unserialize($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']);
         if (! isset($this->extConf ['categoryService'])) {
             $this->extConf ['categoryService'] = 'tx_cal_category';
