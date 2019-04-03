@@ -96,7 +96,7 @@
 		"fab/vidi":"^2",
 		"fab/media":"^4.5",
 		"gridelementsteam/gridelements":"^8.3",
-		"laxap/bootstrap-grids":"2.0.2",
+		"laxap/bootstrap-grids":"2.0.1",
 		"georgringer/news":"^7",
 		"dmitryd/typo3-realurl":"*",
 		"dmitryd/typo3-dd-googlesitemap":"^2.1 || dev-development",
@@ -119,7 +119,8 @@
 		"web-tp3/cal":"1.11.3",
 		"web-tp3/wec_map": "^4.1.4",
 		"causal/extractor":"^1",
-		"snowflakeops/varnish":"^3.0"
+		"snowflakeops/varnish":"^3.0",
+		"georgringer/news-importicsxml": "dev-master"
 
 
 	},

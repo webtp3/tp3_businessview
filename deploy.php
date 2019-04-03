@@ -204,7 +204,8 @@ task('deploy:smoke', function () {
     /*
      * #todo run build & tests
      */
-    run('/usr/bin/php /usr/bin/composer cag-smoke');
+   // run('/usr/bin/php /usr/bin/composer cag-smoke');
+    run('/usr/bin/php bin/typo3cms database:update');
 })->setPrivate();
 
 /**
@@ -271,7 +272,7 @@ task('deploy', [
     'deploy:writable',
     'deploy:symlink',
     'deploy:build',
-    //'deploy:smoke',
+    'deploy:smoke',
     'deploy:unlock',
    // 'deploy:tests',
     'cleanup',
