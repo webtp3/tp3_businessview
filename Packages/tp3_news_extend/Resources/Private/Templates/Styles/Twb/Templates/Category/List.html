@@ -1,5 +1,4 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-
 <f:layout name="General" />
 <!--
 	=====================
@@ -9,9 +8,7 @@
 <f:section name="content">
 	<f:if condition="{categories}">
 		<f:then>
-
-
-			<f:render section="categoryTree" arguments="{categories:categories,overwriteDemand:overwriteDemand}" />
+			<f:render section="categoryTree" arguments="{categories:categories,overwriteDemand:overwriteDemand,class:'nav nav-sidebar category-menu-view'}" />
 		</f:then>
 		<f:else>
 			<f:translate key="list_nocategoriesfound" />
@@ -20,7 +17,7 @@
 </f:section>
 
 <f:section name="categoryTree">
-	<ul>
+	<ul class="{class}">
 		<f:for each="{categories}" as="category">
 			<li>
 				<f:if condition="{category.item.uid} == {overwriteDemand.categories}">
@@ -37,7 +34,7 @@
 				</f:if>
 
 				<f:if condition="{category.children}">
-					<f:render section="categoryTree" arguments="{categories: category.children,overwriteDemand:overwriteDemand}" />
+					<f:render section="categoryTree" arguments="{categories: category.children,overwriteDemand:overwriteDemand,class:''}" />
 				</f:if>
 			</li>
 		</f:for>

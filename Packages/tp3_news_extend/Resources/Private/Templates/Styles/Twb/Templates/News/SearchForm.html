@@ -6,9 +6,7 @@
 -->
 
 <f:section name="content">
-	<div class="news-search-form">
-		<f:form object="{search}" name="search" pageUid="{settings.listPid}">
-			<fieldset>
+	<f:form class="news-search-form" object="{search}" name="search" pageUid="{settings.listPid}">
 		<div class="form-group">
 			<label for="news-subject">
 				<f:translate key="search-subject" />
@@ -31,8 +29,6 @@
 		</div>
 
 		<f:form.submit value="{f:translate(key:'search-start')}" class="btn btn-default" />
-			</fieldset>
 	</f:form>
-	</div>
 </f:section>
 </html>
