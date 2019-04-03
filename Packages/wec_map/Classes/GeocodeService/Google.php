@@ -63,7 +63,7 @@ class Google extends \TYPO3\CMS\Core\Service\AbstractService
             ->from('static_countries');
 
         if ($country != '') {
-            $statement = $statement->where($queryBuilder->expr()->logicalOr(
+            $statement = $statement->where($queryBuilder->expr()->orX(
                 $queryBuilder->expr()->like(
                     'cn_official_name_local',
                     $queryBuilder->createNamedParameter('%' . $queryBuilder->escapeLikeWildcards(trim($country)) . '%')
@@ -78,22 +78,26 @@ class Google extends \TYPO3\CMS\Core\Service\AbstractService
                 )
             ));
         } elseif ($isonr != '') {
-            $statement = $statement->where($queryBuilder->eq(
+            $statement = $statement->where($queryBuilder->expr()->eq(
                 'cn_iso_nr',
                 $queryBuilder->createNamedParameter(trim($isonr))
             ));
         } elseif ($iso2 != '') {
-            $statement = $statement->where($queryBuilder->eq(
+            $statement = $statement->where($queryBuilder->expr()->eq(
                 'cn_iso_2',
                 $queryBuilder->createNamedParameter(trim($isonr))
             ));
         } elseif ($iso3 !='') {
-            $statement = $statement->where($queryBuilder->eq(
+            $statement = $statement->where($queryBuilder->expr()->eq(
                 'cn_iso_3',
                 $queryBuilder->createNamedParameter(trim($isonr))
             ));
         } else {
-            $statement = $statement->where($queryBuilder->eq('1', '0'));
+            //$statement = $statement->where($queryBuilder->expr()->eq('1', '0'));
+            $statement = $statement->where($queryBuilder->expr()->eq(
+                'cn_iso_3',
+                $queryBuilder->createNamedParameter(trim('DEU'))
+            ));
         }
 
         $rcArray = $statement->execute()->fetchAll();

@@ -33,5 +33,8 @@ module.tx_wecmap {
         templateRootPath = EXT:wec_map/Resources/Private/Backend/Templates/
         partialRootPath = EXT:wec_map/Resources/Private/Partials/
         layoutRootPath = EXT:wec_map/Resources/Private/Layouts/
+        widget.JBartels\WecMap\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = EXT:wec_map/Resources/Private/Templates/Styles/Twb/Templates/
+
     }
+
 }

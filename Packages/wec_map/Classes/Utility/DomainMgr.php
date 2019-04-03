@@ -41,7 +41,14 @@ class DomainMgr
             return $url;
         }
     }
-
+    public function getContantBrowserKey()
+    {
+        return 'AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg';
+    }
+    public function getContantServerKey()
+    {
+        return 'AIzaSyDXfFWzaRDLEzkkJn7dxY20WLaLKwy6TXs';
+    }
     /**
      * Returns the browserKey
      *
@@ -55,7 +62,8 @@ class DomainMgr
         if ($domainRecord == null) {
             return '';
         }
-        return $domainRecord->getBrowserKey();
+
+        return $domainRecord->getBrowserKey() != '' ? $domainRecord->getBrowserKey() : $this->getContantBrowserKey();
     }
 
     public function getServerKey($domain = null)
@@ -64,7 +72,7 @@ class DomainMgr
         if ($domainRecord == null) {
             return '';
         }
-        return $domainRecord->getServerKey();
+        return $domainRecord->getServerKey() != '' ? $domainRecord->getServerKey() : $this->getContantServerKey();
     }
 
     public function getStaticKey($domain = null)
