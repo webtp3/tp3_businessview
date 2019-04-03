@@ -96,7 +96,7 @@
 		"fab/vidi":"^2",
 		"fab/media":"^4.5",
 		"gridelementsteam/gridelements":"^8.3",
-		"laxap/bootstrap-grids":"2.0.1",
+		"laxap/bootstrap-grids":"2.0.2",
 		"georgringer/news":"^7",
 		"dmitryd/typo3-realurl":"*",
 		"dmitryd/typo3-dd-googlesitemap":"^2.1 || dev-development",
