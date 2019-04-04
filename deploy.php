@@ -206,6 +206,8 @@ task('deploy:smoke', function () {
      */
    // run('/usr/bin/php /usr/bin/composer cag-smoke');
     run('/usr/bin/php bin/typo3cms database:update');
+    run('/usr/bin/php bin/typo3cms cache:flush');
+
 })->setPrivate();
 
 /**
