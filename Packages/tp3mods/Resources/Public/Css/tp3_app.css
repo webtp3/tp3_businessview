@@ -341,8 +341,8 @@ tt_address
     .toolbar.ismobile {
         display: inline-flex;
         font-size: 10px;
-        top: 10%;
-        right: 15%;
+		position: absolute;
+		right: 0;
     }
     #calendar-event .Bild.pic{
         float: none!important;

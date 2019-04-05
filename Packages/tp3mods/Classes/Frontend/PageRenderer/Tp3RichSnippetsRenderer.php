@@ -316,8 +316,8 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
         $json =      ' {
          "@context": "http://schema.org",
          "@type": "' . $microdata['konfiguration'] . '",
-         "logo": "' . $microdata['address_object']->getWww() . '/' . $microdata['logo'] . '",
-         "image": ["' . $microdata['address_object']->getWww() . '/' . $microdata['logo'] . '"],                       
+         "logo": "https://' . $microdata['address_object']->getWww() . '/' . $microdata['logo'] . '",
+         "image": ["https://' . $microdata['address_object']->getWww() . '/' . $microdata['logo'] . '"],                       
          "url": "' . $microdata['address_object']->getWww() . '",                       
          "email": "' . $microdata['address_object']->getEmail() . '",
          "telephone": "' . $microdata['address_object']->getPhone() . '",
