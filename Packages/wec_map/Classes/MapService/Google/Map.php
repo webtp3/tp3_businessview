@@ -239,12 +239,12 @@ class Map extends \JBartels\WecMap\MapService\Map
             $jsFile3 = $jsDir . 'wecmap_backend.js';
 
             if (TYPO3_MODE == 'FE') {
-                $this->pageRenderer->addJsFooterLibrary('wec_map_googleMaps_apiURL', $apiURL, 'text/javascript', false, false, '', true, '|', true, '');
-                $this->pageRenderer->addJsFooterLibrary('wec_map_googleMaps_mmURL', $mmURL, 'text/javascript', true, false, '', false, '|', false, '');
-                $this->pageRenderer->addJsFooterLibrary('wec_map_googleMaps_ibURL', $ibURL, 'text/javascript', true, false, '', false, '|', false, '');
-                $this->pageRenderer->addJsFooterLibrary('wec_map_googleMaps_omURL', $omURL, 'text/javascript', true, false, '', false, '|', false, '');
-                $this->pageRenderer->addJsFooterLibrary('wec_map_jsFile', $jsFile, 'text/javascript', true, false, '', false, '|', true, '');
-                $this->pageRenderer->addJsFooterLibrary('wec_map_jsFile2', $jsFile2, 'text/javascript', true, false, '', false, '|', true, '');
+                $this->pageRenderer->addJsFooterLibrary('wec_map_googleMaps_apiURL', $apiURL, 'text/javascript', false, false, '', true, '|', false, '');
+                $this->pageRenderer->addJsFooterLibrary('wec_map_googleMaps_mmURL', $mmURL, 'text/javascript', true, false, '', true, '|', false, '');
+                $this->pageRenderer->addJsFooterLibrary('wec_map_googleMaps_ibURL', $ibURL, 'text/javascript', true, false, '', true, '|', false, '');
+                $this->pageRenderer->addJsFooterLibrary('wec_map_googleMaps_omURL', $omURL, 'text/javascript', true, false, '', true, '|', false, '');
+                $this->pageRenderer->addJsFooterLibrary('wec_map_jsFile', $jsFile, 'text/javascript', true, false, '', true, '|', false, '');
+                $this->pageRenderer->addJsFooterLibrary('wec_map_jsFile2', $jsFile2, 'text/javascript', true, false, '', true, '|', false, '');
             } else {
                 $htmlContent .= '<script defer async="false" src="' . $apiURL . '" type="text/javascript"></script>';
                 if (true) {
