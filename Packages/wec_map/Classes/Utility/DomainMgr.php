@@ -43,6 +43,7 @@ class DomainMgr
     }
     public function getContantBrowserKey()
     {
+        // #todo geht key from contants
         return 'AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg';
     }
     public function getContantServerKey()
