@@ -1,23 +1,64 @@
 {
-    "name": "web-tp3/tp3businessview",
-    "type": "typo3-cms-extension",
-    "title" : "tp3 BusinsessView (google Streetview)",
-    "description" : "google businessview für tp3 - 360° Panorama Designer für Ihren virtuellen Rundgang",
-    "license": "GPL-2.0+",
-    "require": {
-        "php": ">=7.0 <7.3",
-        "typo3/cms-core": "^7.6|| ^8.2 || ^9"
-    },
-    "autoload": {
-        "psr-4": {
-            "Tp3\\Tp3Businessview\\": "Classes"
-        }
-    },
-    "replace": {
-        "tp3_businessview": "self.version"
-    },
-    "suggest": {
-        "web-tp3/tp3openhours": "*"
+  "name": "web-tp3/tp3businessview",
+  "type": "typo3-cms-extension",
+  "description" : "google businessview für tp3 - 360° Panorama Designer für Ihren virtuellen Rundgang",
+  "license": "GPL-2.0+",
+  "homepage": "https://web.tp3.de/manual/tp3-businessview.html",
+  "require": {
+    "php": ">=7.0 <7.3",
+    "typo3/cms-core": "^7.6|| ^8.2 || ^9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Tp3\\Tp3Businessview\\": "Classes"
     }
-    
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.0",
+    "web-tp3/cag_tests":"^1.2",
+    "phpunit/phpunit": "*",
+    "helhum/typo3-console": "^5",
+    "typo3/testing-framework": "*"
+
+  },
+  "suggest": {
+    "web-tp3/tp3openhours": "*"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tp3\\Tp3Businessview\\Tests\\": "Tests"
+    }
+  },
+  "replace": {
+    "tp3_businessview": "self.version",
+    "web-tp3/tp3businessview": "self.version"
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "tp3_businessview"
+    }
+  },
+  "config": {
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin"
+  },
+  "scripts": {
+    "typo3-cms-scripts": [
+      "typo3cms install:fixfolderstructure",
+      "typo3cms install:generatepackagestates"
+    ],
+    "post-autoload-dump": [
+      "@typo3-cms-scripts"
+    ],
+    "test:php:unit": [
+      "@php -v",
+      "@php bin/phpunit -c Tests/Build/UnitTests.xml"
+    ],
+    "test:php:func": [
+      "@php -v",
+      "@php bin/phpunit -c Tests/Build/FunctionalTests.xml"
+    ]
+
+  }
+
 }
