@@ -615,7 +615,7 @@ page {
 
 
 
-var btn = $('<button/>',{id :"privacyPopup-open", class:"btn fa fa-eye"}).appendTo($('footer .footer-section-meta .frame.meta'));
+var btn = $('<button/>',{id :"privacyPopup-open", class:"btn fa fa-eye"}).appendTo($('footer .frame.copyright'));
 
 $('#privacyPopup-open').click(function (e) {
     if(p.isOpen())p.close();
@@ -640,7 +640,7 @@ $('#privacyPopup-open').click(function (e) {
  <script>
 var p = p || {},gaOptout = gaOptout || false, gaOptin = gaOptin || false, tp3_app = tp3_app || {};
 
-var btn = $('<button/>',{id :"privacyPopup-open", class:"btn fa fa-eye"}).appendTo($('footer .footer-section-meta .frame.meta'));
+var btn = $('<button/>',{id :"privacyPopup-open", class:"btn fa fa-eye"}).appendTo($('footer .frame.copyright'));
 
 $('#privacyPopup-open').on('click',  function(e) {
         tp3_app.privacyPopup();

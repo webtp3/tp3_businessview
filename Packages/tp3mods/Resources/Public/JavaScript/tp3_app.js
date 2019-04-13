@@ -2,8 +2,6 @@ $ = $j = jQuery.noConflict();
 
 
 $('iframe[src^="javascript"]').prev('script').appendTo('.tx-tp3-social')
-$('iframe[src^="javascript"]').appendTo('.tx-tp3-social')
-
 $('span.IN-widget').appendTo('.tx-tp3-social');
 
 //	var docReady = $.Deferred();
@@ -662,6 +660,10 @@ tp3_app.controls = function(){
 		$j(this).insertBefore($j(this).parent('label'));
 		$j(this).on("change", function(){$j(this).next("label").find("input").val($j(this).is(':checked') ? "checked" : "")})
 	})
+	$j('input[type="radio"]').each(function(){
+		$j(this).insertBefore($j(this).parent('label'));
+		$j(this).on("change", function(){$j(this).next("label").find("input").val($j(this).is(':checked') ? "checked" : "")})
+	})
 	$j('.ajaxModal, [data-toggle="ajaxModal"], #calendar-event a[href*="/koch-events/kulinarium/"]').not('.tp3rederer').on('click',
 		function(e) {
 			$j('#ajaxModal').remove();
@@ -809,9 +811,9 @@ tp3_app.controls = function(){
 	})
 	if($j('.media-list').length > 0){
 		var $sbtn = $j('<a href="JavaScript:return false;"><div class="texticon-icon texticon-size-default texticon-type-default"><span class="texticon-inner-icon glyphicon glyphicon-search" style="cursor: pointer;"></span></div></a>').css({ "position":"absolute","right": "10px","top": "10px"}),
-			$sinp =  $j('<input class="form-control" id="media_search" type="text" name="media_search" value="">').insertBefore('.media-list').hide();
+			$sinp =  $j('<input class="form-control" id="media_search" type="text" name="media_search" value="">').insertBefore($j('.media-list').first()).hide();
 
-		$sbtn.insertBefore('.media-list').click(function(){
+		$sbtn.insertBefore($j('.media-list').first()).click(function(){
 			var $rows = $j('li.media');
 			$sinp.toggle();
 			$sinp.focus();
@@ -858,7 +860,7 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 		mobile = true;
 		$j('body').addClass('ismobile');
 		//$j('.body-bg').css({"padding-top":0 + "px"});
-		$j('.body-bg-top header.navbar-top').width("100%").css({position:"relative",top:"0px","z-index":"99"});
+		$j('.body-bg-top header.navbar-top').not('.navbar-fixed-top').width("100%").css({position:"relative",top:"0px","z-index":"99"});
 
 	}
 	else{
@@ -938,7 +940,7 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 		$j('.toolbar').insertAfter('header .navbar-header-main');
 		greeting.prependTo('#content')
 
-		$j('a.navbar-brand, a.navbar-brand img ,#logo, .logo').width( "auto").height(logoheight );
+		//$j('a.navbar-brand, a.navbar-brand img ,#logo, .logo').width( "auto").height(logoheight );
 		if($j('#logo').length > 0) $j(' a.navbar-brand img').hide()
 		$j('header .container').first().height(headerheight);
 		if(headerwidth < 992)$j('.toolbar').insertAfter('.navbar-toggle').addClass('ismobile');

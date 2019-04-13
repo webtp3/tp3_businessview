@@ -274,7 +274,7 @@ tt_address
 @media (min-width:992px){.meta-section ul,.meta-section p{margin:0}
     .meta-section .copyright{text-align:right}
     footer .row{
-        display: inline-flex;
+		display: inline-flex;
         padding: 10px;
         width: 100%;
     }
@@ -376,6 +376,12 @@ tt_address
         width: 100%;
         transform: scale(0.9);
     }
+	div.toolbar.ismobile {
+		display: block;
+		font-size: 10px;
+		position: relative;
+		right: 0;
+	}
     .navbar-header-main .navbar-brand.navbar-brand-image {
         padding-top: 10px;
     }
@@ -428,8 +434,7 @@ tt_address
         padding: 5px;
     }
     .row {
-        display: inline-flex;
-        padding: 10px;
+        padding: 10px 0;
         width: 100%;
         margin-left: 0px;
     }
@@ -464,11 +469,7 @@ tt_address
         text-align: right
     }
 
-    .row {
-        display: inline-flex;
-        padding: 10px;
-        width: 100%;
-    }
+
     .section_image{
         background-size: 150%;
         overflow: hidden;

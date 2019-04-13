@@ -154,12 +154,12 @@
     .navbar-brand {
         padding-top: 0;
         padding-bottom: 0;
-        font-size: round(@font-size-base * 1.4);
+        font-size: round(@font-size-base);
         font-family: @headings-font-family;
         font-weight: bold;
         text-transform: uppercase;
-        line-height: round(@navbar-height*2);
-        height: round(@navbar-height*2);
+        line-height: round(@navbar-height);
+        height: round(@navbar-height);
         .transition(opacity .15s ease-in-out 0s);
         &:hover {
             opacity: 0.8;
@@ -330,7 +330,7 @@
             }
             > .navbar-text,
             > a {
-                line-height: round(@navbar-height*2);
+                line-height: round(@navbar-height);
                 padding: 0px @navbar-padding-horizontal;
                 .caret {
                     display: none;
