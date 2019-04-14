@@ -133,7 +133,7 @@ class Google extends \TYPO3\CMS\Core\Service\AbstractService
             } else {
                 if ($country != '') {
                     $queryBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
-                        ->getQueryBuilderForTable('static_countries');
+                    ->getQueryBuilderForTable('static_countries');
                     $queryBuilder->getRestrictions()
                         ->removeAll();
                     $statement = $queryBuilder
@@ -161,7 +161,6 @@ class Google extends \TYPO3\CMS\Core\Service\AbstractService
                     $countryArray = self::fetchCountries($country, '', '', '');
                 }
             }
-
 
             \TYPO3\CMS\Core\Utility\GeneralUtility::devLog('Google V3: countryArray for ' . $country, 'wec_map_geocode', -1, $countryArray);
 

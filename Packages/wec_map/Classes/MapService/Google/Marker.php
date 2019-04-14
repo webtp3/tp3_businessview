@@ -8,7 +8,6 @@
 
 namespace JBartels\WecMap\MapService\Google;
 
-
 /**
  * Marker implementation for the Google Maps mapping service.
  *

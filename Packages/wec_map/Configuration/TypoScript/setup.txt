@@ -36,5 +36,4 @@ module.tx_wecmap {
         widget.JBartels\WecMap\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = EXT:wec_map/Resources/Private/Templates/Styles/Twb/Templates/
 
     }
-
 }
