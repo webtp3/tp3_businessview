@@ -15,9 +15,10 @@
 	"config": {
 		"optimize-autoloader": true,
 		"bin-dir": "bin",
+		"app-dir": "web",
 		"vendor-dir":"Build/vendor/",
 		"sort-packages": false,
-		"web-root": "../../web/"
+		"web-root": "web"
 
 	},
 	"repositories":  {
@@ -65,7 +66,6 @@
 		"typo3/minimal": "^8 || ^9",
 		"typo3/cms-cli": "*",
 		"typo3/cms-fluid": "^8.7 || ^9",
-		"typo3/cms-rsaauth":"^8.7 || ^9",
 		"typo3/cms-sys-action":"^8.7 || ^9.5",
 		"typo3/cms-taskcenter":"^8.7 || ^9.5",
 		"typo3/cms-beuser":"^8.7 || ^9.5",
@@ -92,6 +92,8 @@
 		"typo3/cms-linkvalidator":"^8",
 		"bk2k/bootstrap-package": "*",
 		"typo3/cms-introduction":"*",
+		"typo3/cms-rsaauth":"^8.7 || ^9",
+
 		"fab/vidi":"^2",
 		"fab/media":"^4.5",
 		"gridelementsteam/gridelements":"8.2.3",
@@ -275,7 +277,6 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"TYPO3\\CMS\\Backend\\Tests\\": "typo3/sysext/backend/Tests/",
 			"TYPO3\\CMS\\Belog\\Tests\\": "typo3/sysext/belog/Tests/",
 			"TYPO3\\CMS\\Beuser\\Tests\\": "typo3/sysext/beuser/Tests/",
 			"TYPO3\\CMS\\Core\\Tests\\": "typo3/sysext/core/Tests/",
