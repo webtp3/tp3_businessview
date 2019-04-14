@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the typo3-ter/cal.
+ * This file is part of the web-tp3/cal.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -324,7 +324,7 @@ class OrganizerFeUserService extends \TYPO3\CMS\Cal\Service\BaseService
 
     /**
      * Checks if this service is allowed to be processed
-     * @return boolean
+     * @return bool
      */
     public function isAllowedService()
     {

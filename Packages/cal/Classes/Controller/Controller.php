@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the typo3-ter/cal.
+ * This file is part of the web-tp3/cal.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -169,7 +169,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
 
     /**
      *
-     * @param boolean
+     * @param bool
      * @return string
      */
     public function getContent($notEmpty = true)

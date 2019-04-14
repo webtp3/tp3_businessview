@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the typo3-ter/cal.
+ * This file is part of the web-tp3/cal.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -157,8 +157,8 @@ class CalIndexer extends \TYPO3\CMS\Backend\Module\BaseScriptClass
             ->makeMenuItem()
             ->setHref(
                 BackendUtility::getModuleUrl(
-                        $this->moduleName,
-                        [
+                    $this->moduleName,
+                    [
                                 'id' => $this->id,
                                 'SET' => [
                                         'function' => $controller
@@ -361,11 +361,11 @@ class CalIndexer extends \TYPO3\CMS\Backend\Module\BaseScriptClass
     {
         /** @var $flashMessage FlashMessage */
         $flashMessage = GeneralUtility::makeInstance(
-                'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
-                htmlspecialchars($message),
-                '',
-                $type,
-                true
+            'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
+            htmlspecialchars($message),
+            '',
+            $type,
+            true
         );
         /** @var $flashMessageService \TYPO3\CMS\Core\Messaging\FlashMessageService */
         $flashMessageService = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessageService');
