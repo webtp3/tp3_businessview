@@ -51,7 +51,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
      * uid
-     * @var integer
+     * @var int
      */
     public $uid = '';
 
@@ -62,7 +62,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $propertiesArray = [];
     /**
      * pid
-     * @var integer
+     * @var int
      */
     public $pid = '';
 

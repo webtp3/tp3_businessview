@@ -100,7 +100,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * socialGallery
      *
-     * @var boolean
+     * @var bool
      */
     protected $socialGallery = '';
 

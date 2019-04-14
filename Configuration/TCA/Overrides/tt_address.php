@@ -63,7 +63,7 @@ $tmp_tp3_businessview_columns = [
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
     'tt_address',
     'social',
-     ' --linebreak--, googleplus, --linebreak--, cid, --linebreak--, tp3businessview, --linebreak--,'
+    ' --linebreak--, googleplus, --linebreak--, cid, --linebreak--, tp3businessview, --linebreak--,'
 );
 
 //if (isset($GLOBALS['TCA']['tt_address']['types']['0']['showitem'])) {

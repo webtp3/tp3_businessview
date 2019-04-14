@@ -108,8 +108,8 @@ class PanoramasRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     {
         $query = $this->createQuery();
         $query->matching(
-                $query->equals('pid', $pid),
-                $query->logicalAnd(
+            $query->equals('pid', $pid),
+            $query->logicalAnd(
                     $query->equals('hidden', 0),
                     $query->equals('deleted', 0)
                 )
