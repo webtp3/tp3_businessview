@@ -117,7 +117,7 @@
 		"causal/tscobj":"*",
 		"apen/additional_reports":"*",
 		"web-tp3/cal":"1.11.3",
-		"web-tp3/wec_map": "^4.1.4",
+		"web-tp3/wec_map": "^4.4",
 		"causal/extractor":"^1",
 		"snowflakeops/varnish":"^3.0",
 		"georgringer/news-importicsxml": "dev-master"
