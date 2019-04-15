@@ -114,6 +114,7 @@
       	"friendsoftypo3/tt-address": "4.0.3",
 		"fluidtypo3/vhs":"*",
 		"yoast-seo-for-typo3/yoast_seo": "3.0.5",
+		"haassie/yoast_news": "^1",
 		"in2code/powermail": "*",
 		"causal/tscobj":"*",
 		"apen/additional_reports":"*",
