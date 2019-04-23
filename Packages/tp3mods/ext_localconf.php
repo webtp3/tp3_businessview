@@ -34,9 +34,8 @@ $GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = \Tp3\Tp3mods\Utilit
 
 // Define global hooks array
 if (!isset($tp3modsConfig['errorHandlers'])) {
-    $tp3modsConfig['errorHandlers'] = array();
+    $tp3modsConfig['errorHandlers'] = [];
 }
-
 
 if (TYPO3_MODE == 'BE') {
     /***************
@@ -102,14 +101,12 @@ if (TYPO3_MODE == 'BE') {
             }
         }
     }
-}
-else{
+} else {
 
     /*
     * Rich snippets hook in postrenderer
     */
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3mods\Frontend\PageRenderer\Tp3RichSnippetsRenderer::class . '->render';
-
 
     //call only on FE
     /*
@@ -190,6 +187,3 @@ $GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] .= ($GLOBALS['TYPO3_CONF_
           }
      }'
   );*/
-
-
-

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3mods\Configuration;
 
 /*                                                                        *
@@ -15,8 +21,8 @@ namespace Tp3\Tp3mods\Configuration;
  * Public License for more details.                                       *
  *                                                                        */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * PageTsConfiguration.
@@ -27,7 +33,7 @@ class PageTsConfigManager implements \TYPO3\CMS\Core\SingletonInterface
 {
     const TSCONFIG_KEY = 'tx_tp3mods';
 
-    protected $pageTsConfig = array();
+    protected $pageTsConfig = [];
 
     /**
      * TypoScriptService.
@@ -49,7 +55,7 @@ class PageTsConfigManager implements \TYPO3\CMS\Core\SingletonInterface
         $pageUid = (int) $pageUid;
         if (!isset($this->pageTsConfig[$pageUid])) {
             $pageTsConfig = $this->typoScriptService->convertTypoScriptArrayToPlainArray(BackendUtility::getPagesTSconfig($pageUid));
-            $configuration = array();
+            $configuration = [];
             if (isset($pageTsConfig[self::TSCONFIG_KEY])) {
                 $configuration = (array) $pageTsConfig[self::TSCONFIG_KEY];
             }

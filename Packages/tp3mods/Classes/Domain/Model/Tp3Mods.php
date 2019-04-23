@@ -66,22 +66,21 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var \Tp3\Tp3mods\Domain\Model\Tp3Adress
      */
-
     protected $address = '';
 
     /**
      * login_page
      *
-     * @var integer
+     * @var int
      */
     protected $loginPage = '';
 
     /**
      * Returns the loginPage
      *
-     * @return integer $loginPage
+     * @return int $loginPage
      */
-    public function getLoginPage ()
+    public function getLoginPage()
     {
         return $this->loginPage;
     }
@@ -99,16 +98,16 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * search_page
      *
-     * @var integer
+     * @var int
      */
     protected $searchPage = '';
 
     /**
      * Returns the searchPage
      *
-     * @return integer $searchPage
+     * @return int $searchPage
      */
-    public function getSearchPage ()
+    public function getSearchPage()
     {
         return $this->searchPage;
     }
@@ -126,16 +125,16 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * newsPage
      *
-     * @var integer
+     * @var int
      */
     protected $newsPage = '';
 
     /**
      * Returns the newsPage
      *
-     * @return integer $newsPage
+     * @return int $newsPage
      */
-    public function getNewsPage ()
+    public function getNewsPage()
     {
         return $this->newsPage;
     }
@@ -154,14 +153,14 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * privacy_page
      *
-     * @var integer
+     * @var int
      */
     protected $privacyPage = '';
 
     /**
      * Returns the privacyPage
      *
-     * @return integer $privacyPage
+     * @return int $privacyPage
      */
     public function getPrivacyPage()
     {
@@ -171,7 +170,7 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the privacyPage
      *
-     * @param integer $privacyPage
+     * @param int $privacyPage
      * @return void
      */
     public function setPrivacyPage($privacyPage)
@@ -182,14 +181,14 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * terms_page
      *
-     * @var integer
+     * @var int
      */
     protected $termsPage = '';
 
     /**
      * Returns the address
      *
-     * @return integer $termsPage
+     * @return int $termsPage
      */
     public function getTermsPage()
     {
@@ -210,14 +209,14 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * $error_page
      *
-     * @var integer
+     * @var int
      */
     protected $errorPage = '';
 
     /**
      * Returns the errorPage
      *
-     * @return integer $errorPage
+     * @return int $errorPage
      */
     public function getErrorPage()
     {
@@ -227,7 +226,7 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the errorPage
      *
-     * @param integer $errorPage
+     * @param int $errorPage
      * @return void
      */
     public function setErrorPage($errorPage)
@@ -238,7 +237,7 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * address
      *
-     * @var integer
+     * @var int
      */
     protected $profilePage = '';
 
@@ -255,14 +254,13 @@ class Tp3Mods extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the profilePage
      *
-     * @param integer $profilePage
+     * @param int $profilePage
      * @return void
      */
     public function setProfilePage($profilePage)
     {
         $this->profilePage = $profilePage;
     }
-
 
     /**
      * __construct

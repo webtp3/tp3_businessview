@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3mods\Utility;
 
 /**
@@ -18,8 +25,8 @@ class ConfigLoaderFactory
      * @param string $fixedCacheIdentifier
      * @return \Helhum\ConfigLoader\CachedConfigurationLoader
      */
-    public static function buildLoader($context, $rootDir, $fixedCacheIdentifier = null, array $additionalFileWatches = array()) {
-
+    public static function buildLoader($context, $rootDir, $fixedCacheIdentifier = null, array $additionalFileWatches = [])
+    {
         $confDir = $rootDir . '/web/typo3conf/ext/tp3mods/Configuration/Typo3ConfVars/'; // add trailing slash!
         $cacheDir = $rootDir . '/var/cache/';
         $contextConfFile = ucfirst($context) . '.php'; // eg. Development.php, Production.php
@@ -43,18 +50,17 @@ class ConfigLoaderFactory
             );
             $cacheIdentifier = self::getCacheIdentifier($context, $fileWatches);
         }
-        return new \Helhum\ConfigLoader\CachedConfigurationLoader
-        (
+        return new \Helhum\ConfigLoader\CachedConfigurationLoader(
             $cacheDir,
             $cacheIdentifier,
-            function() use ($confDir, $defaultConfFile, $contextConfFile, $overrideConfFile) {
+            function () use ($confDir, $defaultConfFile, $contextConfFile, $overrideConfFile) {
                 return new \Helhum\ConfigLoader\ConfigurationLoader(
-                    array(
+                    [
                         new \Helhum\ConfigLoader\Reader\PhpFileReader($confDir . $defaultConfFile),
                         new \Helhum\ConfigLoader\Reader\PhpFileReader($confDir . $contextConfFile),
                         new \Helhum\ConfigLoader\Reader\EnvironmentReader('TYPO3'),
                         new \Helhum\ConfigLoader\Reader\PhpFileReader($confDir . $overrideConfFile),
-                    )
+                    ]
                 );
             }
         );
@@ -65,7 +71,7 @@ class ConfigLoaderFactory
      * @param array $fileWatches
      * @return string
      */
-    protected static function getCacheIdentifier($context, array $fileWatches = array())
+    protected static function getCacheIdentifier($context, array $fileWatches = [])
     {
         $identifier = $context;
         foreach ($fileWatches as $fileWatch) {

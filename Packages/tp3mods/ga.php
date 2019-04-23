@@ -100,15 +100,15 @@
     ];
       if (!empty($_GET['utmdebug'])) {
           $data = file_get_contents(
-          $utmUrl,
-          false,
-          stream_context_create($options)
+              $utmUrl,
+              false,
+              stream_context_create($options)
       );
       } else {
           $data = @file_get_contents(
-          $utmUrl,
-          false,
-          stream_context_create($options)
+              $utmUrl,
+              false,
+              stream_context_create($options)
       );
       }
   }
@@ -164,10 +164,10 @@
 
       // Always try and add the cookie to the response.
       setrawcookie(
-        COOKIE_NAME,
-        $visitorId,
-        $timeStamp + COOKIE_USER_PERSISTENCE,
-        COOKIE_PATH
+          COOKIE_NAME,
+          $visitorId,
+          $timeStamp + COOKIE_USER_PERSISTENCE,
+          COOKIE_PATH
     );
 
       $utmGifLocation = 'http://www.google-analytics.com/__utm.gif';

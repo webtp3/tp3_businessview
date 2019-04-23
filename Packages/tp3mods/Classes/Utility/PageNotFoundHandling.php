@@ -1,83 +1,90 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3mods\Utility;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-class PageNotFoundHandling {
 
-
+class PageNotFoundHandling
+{
     public static function addDoktype($extKey, $doktype, $iconName)
     {
         // Add new page type:
-        $GLOBALS['PAGES_TYPES'][$doktype] = array(
+        $GLOBALS['PAGES_TYPES'][$doktype] = [
             'type' => 'web',
             'allowedTables' => '*',
-        );
-        $identifier = 'apps-pagetree-'.strtolower($iconName);
+        ];
+        $identifier = 'apps-pagetree-' . strtolower($iconName);
         // Provide icon for page tree, list view, ... :
         $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Imaging\\IconRegistry');
         $iconRegistry->registerIcon(
             $identifier,
             'TYPO3\\CMS\\Core\\Imaging\\IconProvider\\SvgIconProvider',
-            array(
-                'source' => 'EXT:'.$extKey.'/Resources/Public/Icons/'.$identifier.'.svg',
-            )
+            [
+                'source' => 'EXT:' . $extKey . '/Resources/Public/Icons/' . $identifier . '.svg',
+            ]
         );
         $iconRegistry->registerIcon(
-            $identifier.'-hideinmenu',
+            $identifier . '-hideinmenu',
             'TYPO3\\CMS\\Core\\Imaging\\IconProvider\\SvgIconProvider',
-            array(
-                'source' => 'EXT:'.$extKey.'/Resources/Public/Icons/'.$identifier.'-hideinmenu.svg',
-            )
+            [
+                'source' => 'EXT:' . $extKey . '/Resources/Public/Icons/' . $identifier . '-hideinmenu.svg',
+            ]
         );
         // Allow backend users to drag and drop the new page type:
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig(
-            'options.pageTree.doktypesToShowInNewPageDragArea := addToList('.$doktype.')'
+            'options.pageTree.doktypesToShowInNewPageDragArea := addToList(' . $doktype . ')'
         );
     }
     public static function addDoktypeToPages($extKey, $doktype, $iconName, $alias = null)
     {
-        $identifier = 'apps-pagetree-'.strtolower($iconName);
+        $identifier = 'apps-pagetree-' . strtolower($iconName);
         $extRelPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($extKey);
-        $customPageIcon = $extRelPath.'Resources/Public/Icons/'.$identifier.'.svg';
+        $customPageIcon = $extRelPath . 'Resources/Public/Icons/' . $identifier . '.svg';
         // Add new page type as possible select item:
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
             'pages',
             'doktype',
-            array(
-                'LLL:EXT:'.$extKey.'/Resources/Private/Language/locallang_be.xlf:pages.doktype.'.(($alias === null) ? $doktype : $alias),
+            [
+                'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_be.xlf:pages.doktype.' . (($alias === null) ? $doktype : $alias),
                 $doktype,
                 $customPageIcon,
-            ),
+            ],
             '1',
             'after'
         );
         // Add icon for new page type:
         \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule(
             $GLOBALS['TCA']['pages'],
-            array(
-                'ctrl' => array(
-                    'typeicon_classes' => array(
+            [
+                'ctrl' => [
+                    'typeicon_classes' => [
                         $doktype => $identifier,
-                        $doktype.'-hideinmenu' => $identifier.'-hideinmenu',
-                    ),
-                ),
-            )
+                        $doktype . '-hideinmenu' => $identifier . '-hideinmenu',
+                    ],
+                ],
+            ]
         );
     }
     public static function addDoktypeToPagesLanguageOverlay($extKey, $doktype, $iconName, $alias = null)
     {
-        $identifier = 'apps-pagetree-'.strtolower($iconName);
+        $identifier = 'apps-pagetree-' . strtolower($iconName);
         $extRelPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($extKey);
-        $customPageIcon = $extRelPath.'Resources/Public/Icons/'.$identifier.'.svg';
+        $customPageIcon = $extRelPath . 'Resources/Public/Icons/' . $identifier . '.svg';
         // Add new page type as possible select item:
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
             'pages_language_overlay',
             'doktype',
-            array(
-                'LLL:EXT:'.$extKey.'/Resources/Private/Language/locallang_be.xlf:pages.doktype.'.(($alias === null) ? $doktype : $alias),
+            [
+                'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_be.xlf:pages.doktype.' . (($alias === null) ? $doktype : $alias),
                 $doktype,
                 $customPageIcon,
-            ),
+            ],
             '1',
             'after'
         );
@@ -89,7 +96,8 @@ class PageNotFoundHandling {
      * @param array $params "currentUrl", "reasonText" and "pageAccessFailureReasons"
      * @param \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $tsfeObj
      */
-    public function pageNotFound($params, $tsfeObj) {
+    public function pageNotFound($params, $tsfeObj)
+    {
         /*
          * If a non-existing page with a RealURL path was requested (www.mydomain.tld/foobar), a fe_group value for an empty
          * key is set:
@@ -102,12 +110,12 @@ class PageNotFoundHandling {
             $this->initTSFE(1);
             /** @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $cObj */
             $cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
-            $loginUrl = $cObj->typoLink_URL(array(
+            $loginUrl = $cObj->typoLink_URL([
                 'parameter' => $GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling_loginPageID'],
-                'useCacheHash' => FALSE,
-                'forceAbsoluteUrl' => TRUE,
+                'useCacheHash' => false,
+                'forceAbsoluteUrl' => true,
                 'additionalParams' => '&redirect_url=' . $params['currentUrl']
-            ));
+            ]);
             TYPO3\CMS\Core\Utility\HttpUtility::redirect($loginUrl);
         } else {
             // page not found
@@ -139,15 +147,16 @@ class PageNotFoundHandling {
      * @param int $id
      * @param int $typeNum
      */
-    protected function initTSFE($id = 1, $typeNum = 0) {
+    protected function initTSFE($id = 1, $typeNum = 0)
+    {
         \TYPO3\CMS\Frontend\Utility\EidUtility::initTCA();
         if (!is_object($GLOBALS['TT'])) {
             $GLOBALS['TT'] = new \TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
             $GLOBALS['TT']->start();
         }
-        $GLOBALS['TSFE'] = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',  $GLOBALS['TYPO3_CONF_VARS'], $id, $typeNum);
+        $GLOBALS['TSFE'] = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController', $GLOBALS['TYPO3_CONF_VARS'], $id, $typeNum);
         $GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
-        $GLOBALS['TSFE']->sys_page->init(TRUE);
+        $GLOBALS['TSFE']->sys_page->init(true);
         $GLOBALS['TSFE']->connectToDB();
         $GLOBALS['TSFE']->initFEuser();
         $GLOBALS['TSFE']->determineId();

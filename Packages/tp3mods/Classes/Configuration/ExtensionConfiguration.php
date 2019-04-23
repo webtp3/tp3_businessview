@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/tp3mods.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3mods\Configuration;
 
 /*                                                                        *
@@ -30,7 +36,7 @@ class ExtensionConfiguration implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * @var array
      */
-    protected $configuration = array();
+    protected $configuration = [];
 
     public function __construct()
     {
@@ -64,8 +70,8 @@ class ExtensionConfiguration implements \TYPO3\CMS\Core\SingletonInterface
 
     public function __call($method, $arguments)
     {
-        if (method_exists($this, '_'.$method)) {
-            return call_user_func_array(array($this, '_'.$method), $arguments);
+        if (method_exists($this, '_' . $method)) {
+            return call_user_func_array([$this, '_' . $method], $arguments);
         }
         throw new \RuntimeException("Method $method doesn't exist", 1461958193);
     }
@@ -74,6 +80,6 @@ class ExtensionConfiguration implements \TYPO3\CMS\Core\SingletonInterface
     {
         $instance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tp3\\Tp3mods\Configuration\\ExtensionConfiguration');
 
-        return call_user_func_array(array($instance, $method), $arguments);
+        return call_user_func_array([$instance, $method], $arguments);
     }
 }
