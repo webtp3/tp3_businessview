@@ -1,6 +1,6 @@
 <?php
 
-namespace Cag\Robo\Deployer;
+namespace CAG\Robo\Deployer;
 
 /**
  * DeployTask

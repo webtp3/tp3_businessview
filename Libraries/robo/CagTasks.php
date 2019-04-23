@@ -1,5 +1,5 @@
 <?php
-namespace Cag\Robo;
+namespace CAG\Robo;
 
 /**
  * This is project's console commands configuration for Robo task runner.
@@ -9,8 +9,8 @@ namespace Cag\Robo;
  */
 if(!class_exists(\Composer\Autoload\ClassLoader::class))require_once ("../build/vendor/autoload.php");
 
-use Cag\Robo\Deployer\Task\DeployerTask;
-use Cag\Robo\Deployer\Task\DeployTask;
+use CAG\Robo\Deployer\Task\DeployerTask;
+use CAG\Robo\Deployer\Task\DeployTask;
 
 class CagTasks extends \Robo\Tasks
 {

@@ -1,10 +1,10 @@
 <?php
 namespace CAG\Composer;
 
+use CAG\Deployer\CagDeploy;
 use Composer\Script\Event as ScriptEvent;
 use Composer\Installer\PackageEvent;
 use Composer\Installer\InstallerEvent;
-use Helhum\Typo3Console\Exception;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
@@ -26,7 +26,7 @@ class PackageHandler
     /**
      * @param Event $event
      * @internal
-     * @throws Exception
+     * @throws \Exception
      */
     public static function init($e){
         //self::verifyAutoloadInfoInLibraries();
@@ -180,7 +180,7 @@ class PackageHandler
         if (file_exists($file = $vendorDir . '/autoload.php')) {
             require $vendorDir . '/autoload.php';
         }
-        \CAG\Deployer\CagDeploy::deploy();
+        CagDeploy::deploy();
 
     }
     /**

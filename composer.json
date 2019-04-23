@@ -99,6 +99,7 @@
 		"gridelementsteam/gridelements":"8.2.3",
 		"laxap/bootstrap-grids":"2.0.1",
 		"georgringer/news":"^7",
+		"georgringer/news-importicsxml": "dev-master",
 		"dmitryd/typo3-realurl":"*",
 		"dmitryd/typo3-dd-googlesitemap":"^2.1 || dev-development",
 		"sjbr/static-info-tables":"^6.7",
@@ -118,11 +119,10 @@
 		"in2code/powermail": "*",
 		"causal/tscobj":"*",
 		"apen/additional_reports":"*",
-		"web-tp3/cal":"1.11.3",
+		"web-tp3/cal":"2.2.0",
 		"web-tp3/wec_map": "^4.4",
 		"causal/extractor":"^1",
 		"snowflakeops/varnish":"^3.0",
-		"georgringer/news-importicsxml": "dev-master",
 		"roave/security-advisories": "@dev"
 
 

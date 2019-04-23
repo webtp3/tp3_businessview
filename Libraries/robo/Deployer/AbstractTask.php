@@ -1,5 +1,5 @@
 <?php
-namespace Cag\Robo\Deployer\Task;
+namespace CAG\Robo\Deployer\Task;
 
 use Robo\Common\ExecOneCommand;
 use Robo\Contract\PrintedInterface;

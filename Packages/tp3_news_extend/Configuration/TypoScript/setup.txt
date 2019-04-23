@@ -251,3 +251,4 @@ module.tx_news {
 	settings.list.paginate.itemsPerPage = 50
 }
 
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:yoast_news/Configuration/TSconfig/Page.tsconfig">

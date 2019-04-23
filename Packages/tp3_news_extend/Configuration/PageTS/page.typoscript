@@ -47,3 +47,4 @@ tx_news{
 		21 = Tag Liste
 	}
 }
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:yoast_news/Configuration/TSconfig/Page.tsconfig">

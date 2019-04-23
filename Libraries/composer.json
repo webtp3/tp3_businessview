@@ -1,19 +1,18 @@
 {
+	"version": "1.0.0",
 	"config": {
 		"platform": {
 			"php": "7.0.8"
 		},
 		"classmap-authoritative": true,
-		"prepend-autoloader": true
+		"prepend-autoloader": true,
+		"bin-dir": "bin"
+
 	},
 	"autoload": {
 		"psr-4": {
-			"CAG\\CagTests\\": [
-				"../Classes/Console/",
-				"../Classes/Core/"
-			],
 			"CAG\\Composer\\": "Libraries/composer",
-			"Cag\\Robo\\": "Libraries/robo",
+			"CAG\\Robo\\": "Libraries/robo",
 			"CAG\\Deployer\\": "Libraries/deployer"
 		}
 	},
@@ -24,6 +23,8 @@
 		"deployer/deployer": "^6",
 		"consolidation/robo": "^1",
 		"codeception/codeception":"*"
-	}
-
+	},
+	"bin": [
+		"bin/cag"
+	]
 }

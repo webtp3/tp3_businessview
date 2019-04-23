@@ -20,8 +20,8 @@ class ConfigLoaderFactory
      */
     public static function buildLoader($context, $rootDir, $fixedCacheIdentifier = null, array $additionalFileWatches = array()) {
 
-        $confDir = $rootDir . '../web/typo3conf/ext/tmpl/Configuration/Typo3ConfVars/'; // add trailing slash!
-        $cacheDir = $rootDir . '/build/var/cache';
+        $confDir = $rootDir . '/web/typo3conf/ext/tp3mods/Configuration/Typo3ConfVars/'; // add trailing slash!
+        $cacheDir = $rootDir . '/var/cache/';
         $contextConfFile = ucfirst($context) . '.php'; // eg. Development.php, Production.php
         $defaultConfFile = 'Default.php';
         $overrideConfFile = 'Override.php';
@@ -32,8 +32,8 @@ class ConfigLoaderFactory
         } else {
             $fileWatches = array_merge(
                 [
-                    $rootDir . '../web/typo3conf/LocalConfiguration.php',
-                    $rootDir . '../web/typo3conf/AdditionalConfiguration.php',
+                    $rootDir . '/web/typo3conf/LocalConfiguration.php',
+                    $rootDir . '/web/typo3conf/AdditionalConfiguration.php',
                     $rootDir . '/.env',
                     $confDir . $defaultConfFile,
                     $confDir . $contextConfFile,
