@@ -60,7 +60,7 @@ class PageTsConfigManager implements \TYPO3\CMS\Core\SingletonInterface
                 $configuration = (array) $pageTsConfig[self::TSCONFIG_KEY];
             }
 
-            $this->pageTsConfig[$pageUid] = GeneralUtility::makeInstance('Tp3\\Tp3mods\Configuration\\PageTsConfig', $configuration, $pageUid);
+            $this->pageTsConfig[$pageUid] = GeneralUtility::makeInstance('Tp3\\Tp3mods\\Configuration\\PageTsConfig', $configuration, $pageUid);
         }
 
         return $this->pageTsConfig[$pageUid];

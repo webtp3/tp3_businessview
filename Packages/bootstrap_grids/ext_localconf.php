@@ -41,6 +41,11 @@ call_user_func(
             \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
             ['source' => 'EXT:bootstrap_grids/Resources/Public/Icons/grid_accordion.png']
         );
+        $iconRegistry->registerIcon(
+            'tx-bootstrapgrids-slider',
+            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+            ['source' => 'EXT:bootstrap_grids/Resources/Public/Icons/grid_slider.png']
+        );
 
         // Add pageTS config
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:bootstrap_grids/Configuration/TypoScript/tsconfig.ts">');
@@ -55,4 +60,4 @@ call_user_func(
 
     },$_EXTCONF
 );
-?>
+

@@ -1,0 +1,39 @@
+{
+  "name": "web-tp3/sr-feuser-register",
+  "description": "A self-registration variant of Kasper Skårhøj's Front End User Admin extension.",
+  "type": "typo3-cms-extension",
+  "version": "5.1.2",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Stanislas Rolland",
+      "role": "Developer"
+    }
+  ],
+  "homepage": "https://forge.typo3.org/projects/extension-sr_feuser_register",
+  "support": {
+	"issues": "https://forge.typo3.org/projects/extension-sr_feuser_register/issues"
+  },
+  "replace": {
+    "sr_feuser_register": "*",
+	  "sjbr/sr_feuser_register": "*",
+	  "web-tp3/sr-feuser-register": "*",
+	  "typo3-ter/sr-feuser-register": "self.version"
+  },
+  "require": {
+  	 "typo3/cms-core": ">=7.6.0,<9.0",
+  	 "typo3/cms-felogin": ">=7.6.0,<9.0",
+  	 "typo3/cms-rsaauth": ">=7.6.0,<9.0",
+  	 "typo3/cms-saltedpasswords": ">=7.6.0,<9.0",
+  	 "sjbr/static-info-tables": ">=6.4.2,<6.8"
+  },
+  "suggest": {
+  	 "sjbr/sr-freecap": "Allows to add a captcha to the registration form.",
+  	 "directmailteam/direct-mail" : "Allows to send newsletters to registered users."
+  },
+  "autoload": {
+    "psr-4": {
+      "SJBR\\SrFeuserRegister\\": "Classes/"
+    }
+  }
+}

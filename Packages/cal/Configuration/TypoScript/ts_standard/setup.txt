@@ -675,7 +675,11 @@ plugin.tx_cal_controller {
 					field = start
 					strftime = %Y%m%dT%H%M00
 				}
-				
+				microformat_end = TEXT
+				microformat_end {
+					field = end
+					strftime = %Y%m%dT%H%M00
+				}
 				
 				# @description	Add an additional part to the sql statement for events with categories
 				additionalCategoryWhere = TEXT

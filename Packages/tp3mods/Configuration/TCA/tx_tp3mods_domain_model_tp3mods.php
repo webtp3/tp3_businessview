@@ -181,14 +181,18 @@ return [
             'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.pages',
             'config' => [
                 'type' => 'select',
-                'renderType' => 'selectSingle',
+                'renderType' => 'selectTree',
                 'foreign_table' => 'pages',
-             //   'MM' => 'tx_tp3mods_domain_model_mm',
-             //   'MM_opposite_field' => 'tp3microdata',
-                'maxitems' => 100,
-                'enableMultiSelectFilterTextfield' => true,
-                'behaviour' => [
-                    'localizationMode' => 'select',
+                //   'MM' => 'tx_tp3mods_domain_model_mm',
+                //   'MM_opposite_field' => 'tp3microdata',
+                'maxitems' => 1,
+                'treeConfig' => [
+                    'parentField' => 'pid',
+                    'appearance' => [
+                        'expandAll' => false,
+                        'showHeader' => true,
+                        'maxLevels' => 5
+                    ],
                 ],
             ],
         ],
@@ -197,12 +201,16 @@ return [
             'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.login_page',
             'config' => [
                 'type' => 'select',
-                'renderType' => 'selectMultipleSideBySide',
+                'renderType' => 'selectTree',
                 'foreign_table' => 'pages',
                 'maxitems' => 1,
-                'enableMultiSelectFilterTextfield' => true,
-                'behaviour' => [
-                    'localizationMode' => 'select',
+                'treeConfig' => [
+                    'parentField' => 'pid',
+                    'appearance' => [
+                        'expandAll' => false,
+                        'showHeader' => true,
+                        'maxLevels' => 5
+                    ],
                 ],
             ],
         ],
@@ -211,12 +219,16 @@ return [
             'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.privacy_page',
             'config' => [
                 'type' => 'select',
-                'renderType' => 'selectMultipleSideBySide',
+                'renderType' => 'selectTree',
                 'foreign_table' => 'pages',
                 'maxitems' => 1,
-                'enableMultiSelectFilterTextfield' => true,
-                'behaviour' => [
-                    'localizationMode' => 'select',
+                'treeConfig' => [
+                    'parentField' => 'pid',
+                    'appearance' => [
+                        'expandAll' => false,
+                        'showHeader' => true,
+                        'maxLevels' => 5
+                    ],
                 ],
             ],
         ],
@@ -225,12 +237,17 @@ return [
             'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.terms_page',
             'config' => [
                 'type' => 'select',
-                'renderType' => 'selectMultipleSideBySide',
+                'renderType' => 'selectTree',
                 'foreign_table' => 'pages',
                 'maxitems' => 1,
-                'enableMultiSelectFilterTextfield' => true,
-                'behaviour' => [
-                    'localizationMode' => 'select',
+                'treeConfig' => [
+                    'parentField' => 'pid',
+                    'appearance' => [
+                        'expandAll' => false,
+                        'showHeader' => true,
+                        'maxLevels' => 5,
+
+                    ],
                 ],
             ],
         ],
@@ -239,12 +256,17 @@ return [
             'label' => 'LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:tx_tp3mods_domain_model_tp3mods.error_page',
             'config' => [
                 'type' => 'select',
-                'renderType' => 'selectMultipleSideBySide',
+                'renderType' => 'selectTree',
                 'foreign_table' => 'pages',
                 'maxitems' => 1,
-                'enableMultiSelectFilterTextfield' => true,
-                'behaviour' => [
-                    'localizationMode' => 'select',
+                'treeConfig' => [
+                    'parentField' => 'pid',
+                    'appearance' => [
+                        'expandAll' => false,
+                        'showHeader' => true,
+                        'maxLevels' => 5,
+
+                    ],
                 ],
             ],
         ],
@@ -256,9 +278,14 @@ return [
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'pages',
                 'maxitems' => 1,
-                'enableMultiSelectFilterTextfield' => true,
-                'behaviour' => [
-                    'localizationMode' => 'select',
+                'treeConfig' => [
+                    'parentField' => 'pid',
+                    'appearance' => [
+                        'expandAll' => false,
+                        'showHeader' => true,
+                        'maxLevels' => 5,
+
+                    ],
                 ],
             ],
         ],

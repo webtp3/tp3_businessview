@@ -78,7 +78,7 @@ class ExtensionConfiguration implements \TYPO3\CMS\Core\SingletonInterface
 
     public static function __callStatic($method, $arguments)
     {
-        $instance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tp3\\Tp3mods\Configuration\\ExtensionConfiguration');
+        $instance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tp3\\Tp3mods\\Configuration\\ExtensionConfiguration');
 
         return call_user_func_array([$instance, $method], $arguments);
     }

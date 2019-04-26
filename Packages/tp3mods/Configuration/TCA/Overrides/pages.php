@@ -24,7 +24,7 @@ $extensionKey = 'tp3mods';
                     [ ''],
                 ],
                 'appearance' => [
-                    'collapseAll' => 1,
+                    'collapseAll' => 0,
                     'expandSingle' => 1,
                 ],
 

@@ -29,6 +29,20 @@ bin/typo3cms extension:activate dd_googlesitemap
 bin/typo3cms extension:activate bootstrap_grids
 bin/typo3cms extension:activate additional_reports
 bin/typo3cms extension:activate extractor
+bin/typo3cms extension:activate recycler
+bin/typo3cms extension:activate rte_ckeditor
+bin/typo3cms extension:activate setup
+bin/typo3cms extension:activate sys_action
+bin/typo3cms extension:activate tscobj
+bin/typo3cms extension:activate wizard_sortpages
+bin/typo3cms extension:activate workspaces
+bin/typo3cms extension:activate yoast_news
+bin/typo3cms extension:activate yoast_seo
+bin/typo3cms extension:activate bootstrap_package
+bin/typo3cms extension:activate gridelements
+bin/typo3cms extension:activate tt_address
+bin/typo3cms extension:activate cal
+
 
 bin/typo3cms extension:activate tp3_googlemaps
 bin/typo3cms extension:activate tp3_ddgooglesitemap_extend
