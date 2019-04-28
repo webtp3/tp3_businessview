@@ -652,7 +652,7 @@ function InitWecMapGoogleV3Labels() {
         $js =  'var tp3_app = tp3_app || {};
         var WECInit =  function(){
 	
-if ( !window["WecMap"] )
+if ( !window["WecMap"]  && typeof(window["WecMap"]) != "object")
 	WecMap = createWecMap();
 WecMap.init();
 InitWecMapGoogleV3Labels();

@@ -1,7 +1,7 @@
 {
 	"name": "thomasruta/tp3_tests",
 	"type": "library",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description":"develop Testings for tp3",
 	"minimum-stability": "beta",
 	"license":"proprietary",
@@ -93,11 +93,10 @@
 		"bk2k/bootstrap-package": "*",
 		"typo3/cms-introduction":"*",
 		"typo3/cms-rsaauth":"^8.7 || ^9",
-
 		"fab/vidi":"^2",
 		"fab/media":"^4.5",
 		"gridelementsteam/gridelements":"8.2.3",
-		"laxap/bootstrap-grids":"2.0.1",
+		"web-tp3/bootstrap-grids":"2.0.1",
 		"georgringer/news":"^7",
 		"georgringer/news-importicsxml": "dev-master",
 		"dmitryd/typo3-realurl":"*",

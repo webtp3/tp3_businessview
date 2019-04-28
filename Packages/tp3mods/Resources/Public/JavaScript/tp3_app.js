@@ -104,9 +104,9 @@ var bottomPadding = 80;
 var wndW = window.availWidth- (windowPadding * 2);
 var wndH = window.availHeight- (windowPadding * 2 );
 $.each($('.tx-wecmap-map'),function(){
-	wndW = $(this).parents(".container").width();
-	wndH = $(this).parents(".container").height();
-	$(this).css({"max-width":"100%","max-height":"100%"});
+	wndW = wndW < $(this).parents(".container").width() ? wndW :$(this).parents(".container").width();
+	wndH = wndH < $(this).parents(".container").height()? wndH : $(this).parents(".container").height();
+	$(this).css({"width":wndW+"px","max-width":"100%","max-height":"100%"});
 })
 $( window ).on("resize",function() {
 	var wndW = window.availWidth- (windowPadding * 2);
@@ -116,9 +116,9 @@ $( window ).on("resize",function() {
 		$('iframe:not([id^="oauth2relay"]), .tx-wecmap-map').css({"max-width":"100%","max-height":"100%"});
 	else{
 		$.each($('iframe:not([id^="oauth2relay"]), .tx-wecmap-map'),function(){
-			wndW = $(this).parents(".container").width();
-			wndH = $(this).parents(".container").height();
-			$(this).css({"max-width":"100%","max-height":"100%"});
+			wndW = wndW < $(this).parents(".container").width() ? wndW :$(this).parents(".container").width();
+			wndH = wndH < $(this).parents(".container").height()? wndH : $(this).parents(".container").height();
+			$(this).css({"width":wndW+"px","max-width":"100%","max-height":"100%"});
 		})
 	}
 });
@@ -131,7 +131,7 @@ tp3_app.initialize=function(){
 
 			google.maps.event.addDomListener(window,"load", function () {
 				if (  WECInit != undefined && $j.type(WECInit) == "function" ) {
-					if($j.type( createWecMap) == "function")WECInit();
+					if($j.type( createWecMap) == "function" && typeof(window["WecMap"]) != "object")WECInit();
 				}
 
 				tp3_app.init = true;
@@ -942,7 +942,8 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 		//$j('a.navbar-brand, a.navbar-brand img ,#logo, .logo').width( "auto").height(logoheight );
 		if($j('#logo').length > 0) $j(' a.navbar-brand img').hide()
-		$j('header .container').first().height(headerheight);
+	//$j('header .container').first().height(headerheight);
+		$j('.body-bg.body-bg-top').css({"padding-top":headerheight + "px"});
 		if(headerwidth < 992)$j('.toolbar').insertAfter('.navbar-toggle').addClass('ismobile');
 		$j('body').addClass('ismobile');
 		/*

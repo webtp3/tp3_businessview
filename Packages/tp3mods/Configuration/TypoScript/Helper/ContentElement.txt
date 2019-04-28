@@ -49,6 +49,27 @@ lib.contentElement {
                 crop = {$plugin.bootstrap_package_contentelements.menu_thumbnail.abstract.crop}
             }
         }
+        timeline {
+                date {
+                    format = {$plugin.bootstrap_package_contentelements.timeline.date.format}
+                }
+            }
+        menucard {
+                    icon {
+                        enable = {$plugin.bootstrap_package_contentelements.menu_card.icon.enable}
+                        height = {$plugin.bootstrap_package_contentelements.menu_card.icon.height}
+                        width = {$plugin.bootstrap_package_contentelements.menu_card.icon.width}
+                    }
+                    title {
+                        crop = {$plugin.bootstrap_package_contentelements.menu_card.title.crop}
+                    }
+                    subtitle {
+                        crop = {$plugin.bootstrap_package_contentelements.menu_card.subtitle.crop}
+                    }
+                    abstract {
+                        crop = {$plugin.bootstrap_package_contentelements.menu_card.abstract.crop}
+                    }
+                }
         uploads {
             preview {
                 height = {$plugin.bootstrap_package_contentelements.uploads.preview.height}

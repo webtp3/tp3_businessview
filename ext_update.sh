@@ -85,3 +85,22 @@ bin/typo3cms language:update workspaces
 bin/typo3cms language:update media
 bin/typo3cms language:update news
 
+bin/typo3cms language:update gridelements
+bin/typo3cms language:update bootstrap_grids
+bin/typo3cms language:update dd_googlesitemap
+bin/typo3cms language:update bootstrap_grids
+bin/typo3cms language:update additional_reports
+bin/typo3cms language:update extractor
+bin/typo3cms language:update recycler
+bin/typo3cms language:update rte_ckeditor
+bin/typo3cms language:update setup
+bin/typo3cms language:update sys_action
+bin/typo3cms language:update tscobj
+bin/typo3cms language:update wizard_sortpages
+bin/typo3cms language:update workspaces
+bin/typo3cms language:update yoast_news
+bin/typo3cms language:update yoast_seo
+bin/typo3cms language:update bootstrap_package
+bin/typo3cms language:update gridelements
+bin/typo3cms language:update tt_address
+bin/typo3cms language:update cal

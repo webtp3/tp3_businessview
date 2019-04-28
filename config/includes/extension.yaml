@@ -73,19 +73,19 @@ EXT:
             automaticInstallation: '1'
             offlineMode: '0'
         extractor:
-            auto_extract: '1'
+            auto_extract: '0'
             enable_php: '1'
             enable_tika: '0'
-            enable_tools_exiftool: '1'
-            enable_tools_pdfinfo: '1'
+            enable_tools_exiftool: '0'
+            enable_tools_pdfinfo: '0'
             mapping_base_directory: 'EXT:extractor/Configuration/Services/'
             mapping_configuration: ''
             tika_jar_path: ''
             tika_mode: jar
             tika_server_host: ''
             tika_server_port: '9998'
-            tools_exiftool: '/usr/bin/exiftool'
-            tools_pdfinfo: '/usr/bin/pdfinfo'
+            tools_exiftool: ''
+            tools_pdfinfo: ''
         gridelements:
             additionalStylesheet: ''
             nestingInListModule: '0'
@@ -124,7 +124,7 @@ EXT:
             image_thumbnail: 100x100
             load_rte_configuration: '0'
         news:
-            advancedMediaPreview: 'true'
+            advancedMediaPreview: '1'
             archiveDate: date
             categoryBeGroupTceFormsRestriction: '0'
             categoryRestriction: ''
@@ -247,7 +247,7 @@ EXT:
             enableErrorLog: '0'
             excludeErrorLogPattern: ''
         tp3ratings:
-            debug: '1'
+            debug: '0'
         tt_address:
             activatePiBase: '0'
             backwardsCompatFormat: '%1$s %3$s'
