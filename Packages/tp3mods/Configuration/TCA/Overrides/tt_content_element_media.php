@@ -16,7 +16,7 @@ $GLOBALS['TCA']['tt_content']['ctrl']['typeicon_classes']['media'] = 'mimetypes-
     'tt_content',
     'CType',
     [
-        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.media',
+        'LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.media',
         'media',
         'mimetypes-x-content-multimedia'
     ],

@@ -64,6 +64,42 @@ if (TYPO3_MODE == 'BE') {
         ['source' => 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/user_plugin_tp3micro.svg']
     );
 
+    $icons = [
+        'accordion',
+        'accordion-item',
+        'card-group',
+        'card-group-item',
+        'carousel',
+        'carousel-item',
+        'carousel-item-backgroundimage',
+        'carousel-item-calltoaction',
+        'carousel-item-header',
+        'carousel-item-html',
+        'carousel-item-image',
+        'carousel-item-textandimage',
+        'beside-text-img-centered-left',
+        'beside-text-img-centered-right',
+        'csv',
+        'externalmedia',
+        'icon-group',
+        'icon-group-item',
+        'listgroup',
+        'menu-card',
+        'social-links',
+        'tab',
+        'tab-item',
+        'texticon',
+        'timeline',
+        'timeline-item'
+    ];
+    foreach ($icons as $icon) {
+        $iconRegistry->registerIcon(
+            'content-bootstrappackage-' . $icon,
+            \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+            ['source' => 'EXT:tp3mods/Resources/Public/Icons/ContentElements/' . $icon . '.svg']
+        );
+    }
+
     /***************
      * Backend Styling for CMS8
      * Please see \BK2K\BootstrapPackage\Service\BrandingService for CMS9

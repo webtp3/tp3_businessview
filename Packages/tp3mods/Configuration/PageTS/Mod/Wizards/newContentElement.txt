@@ -2,54 +2,101 @@
 #### INTERACTIVE ####
 #####################
 mod.wizards.newContentElement.wizardItems {
-    interactive.header = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_group.interactive
+    interactive.header = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_group.interactive
     interactive.elements {
         accordion {
             iconIdentifier = content-bootstrappackage-accordion
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.accordion
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.accordion.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.accordion
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.accordion.description
             tt_content_defValues {
                 CType = accordion
             }
         }
         carousel {
             iconIdentifier = content-bootstrappackage-carousel
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.carousel
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.carousel.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.carousel
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.carousel.description
             tt_content_defValues {
                 CType = carousel
             }
         }
         carousel_small {
             iconIdentifier = content-bootstrappackage-carousel
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.carousel_small
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.carousel_small.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.carousel_small
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.carousel_small.description
             tt_content_defValues {
                 CType = carousel_small
             }
         }
         carousel_fullscreen {
             iconIdentifier = content-bootstrappackage-carousel
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.carousel_fullscreen
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.carousel_fullscreen.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.carousel_fullscreen
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.carousel_fullscreen.description
             tt_content_defValues {
                 CType = carousel_fullscreen
             }
         }
         tab {
             iconIdentifier = content-bootstrappackage-tab
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.tab
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.tab.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.tab
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.tab.description
             tt_content_defValues {
                 CType = tab
             }
         }
+        timeline {
+            iconIdentifier = content-bootstrappackage-timeline
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.timeline
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.timeline.description
+            tt_content_defValues {
+                CType = timeline
+            }
+        }
+        card_group {
+            iconIdentifier = content-bootstrappackage-card-group
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.card_group
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.card_group.description
+            tt_content_defValues {
+                CType = card_group
+            }
+        }
+        menu_card_dir {
+            iconIdentifier = content-bootstrappackage-menu-card
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.card_dir
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.card_dir.description
+            tt_content_defValues {
+                CType = menu_card_dir
+            }
+        }
+        menu_card_list {
+            iconIdentifier = content-bootstrappackage-menu-card
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.card_list
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.card_list.description
+            tt_content_defValues {
+                CType = menu_card_list
+            }
+        }
+        social_links {
+            iconIdentifier = content-bootstrappackage-social-links
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.social_links
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.social_links.description
+            tt_content_defValues {
+                CType = social_links
+            }
+        }
     }
+
     interactive.show := addToList(accordion)
     interactive.show := addToList(tab)
     interactive.show := addToList(carousel)
     interactive.show := addToList(carousel_fullscreen)
     interactive.show := addToList(carousel_small)
+    interactive.show := addToList(timeline)
+    interactive.show := addToList(card_group)
+    interactive.show := addToList(menu_card_dir)
+    interactive.show := addToList(social_links)
+
+
 }
 
 
@@ -57,12 +104,12 @@ mod.wizards.newContentElement.wizardItems {
 #### MEDIA ####
 ###############
 mod.wizards.newContentElement.wizardItems {
-    media.header = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_group.media
+    media.header = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_group.media
     media.elements {
         audio {
             iconIdentifier = content-audio
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.audio
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.audio.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.audio
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.audio.description
             tt_content_defValues {
                 CType = audio
             }
@@ -77,16 +124,16 @@ mod.wizards.newContentElement.wizardItems {
         }
         external_media {
             iconIdentifier = content-bootstrappackage-externalmedia
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.external_media
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.external_media.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.external_media
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.external_media.description
             tt_content_defValues {
                 CType = external_media
             }
         }
         media {
             iconIdentifier = mimetypes-x-content-multimedia
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.media
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.media.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.media
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.media.description
             tt_content_defValues {
                 CType = media
             }
@@ -130,7 +177,7 @@ mod.wizards.newContentElement.wizardItems {
 #### TEXT ####
 ##############
 mod.wizards.newContentElement.wizardItems {
-    text.header = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_group.text
+    text.header = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_group.text
     text.elements {
         header {
             iconIdentifier = content-header
@@ -150,24 +197,24 @@ mod.wizards.newContentElement.wizardItems {
         }
         texticon {
             iconIdentifier = content-bootstrappackage-texticon
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.texticon
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.texticon.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.texticon
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.texticon.description
             tt_content_defValues {
                 CType = texticon
             }
         }
         textcolumn {
             iconIdentifier = content-text-columns
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.textcolumn
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.textcolumn.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.textcolumn
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.textcolumn.description
             tt_content_defValues {
                 CType = textcolumn
             }
         }
         textteaser {
             iconIdentifier = content-text-teaser
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.textteaser
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.textteaser.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.textteaser
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.textteaser.description
             tt_content_defValues {
                 CType = textteaser
             }
@@ -198,24 +245,24 @@ mod.wizards.newContentElement.wizardItems {
         }
         panel {
             iconIdentifier = content-panel
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.panel
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.panel.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.panel
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.panel.description
             tt_content_defValues {
                 CType = panel
             }
         }
         quote {
             iconIdentifier = content-quote
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.quote
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.quote.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.quote
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.quote.description
             tt_content_defValues {
                 CType = quote
             }
         }
         listgroup {
             iconIdentifier = content-bootstrappackage-listgroup
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.listgroup
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.listgroup.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.listgroup
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.listgroup.description
             tt_content_defValues {
                 CType = listgroup
             }
@@ -251,16 +298,16 @@ mod.wizards.newContentElement.wizardItems {
     menu.elements {
         menu_thumbnail_list {
             iconIdentifier = content-menu-thumbnail
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:menu.thumbnail_list
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:menu.thumbnail_list.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.thumbnail_list
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.thumbnail_list.description
             tt_content_defValues {
                 CType = menu_thumbnail_list
             }
         }
         menu_thumbnail_dir {
             iconIdentifier = content-menu-thumbnail
-            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:menu.thumbnail_dir
-            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:menu.thumbnail_dir.description
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.thumbnail_dir
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.thumbnail_dir.description
             tt_content_defValues {
                 CType = menu_thumbnail_dir
             }

@@ -9,11 +9,22 @@
              data-wrap="{f:if(condition:data.pi_flexform.wrap,then:'true',else:'false')}" data-ride="carousel">
             <div class="carousel-inner" role="listbox">
                 <f:for each="{records}" as="item" iteration="iteration">
-                    <f:variable name="itemStyleImage">
-                        <f:if condition="{item.backgroundImage.0}">background-image:
-                            url('{f:uri.image(image:'{item.backgroundImage.0}',maxWidth:'{data.pi_flexform.background_image_maxwidth}')}');
-                        </f:if>
-                    </f:variable>
+									<f:if condition="{item.data.item_type}=video">
+										<f:then>
+										<f:variable name="itemStyleImage">
+													<f:if condition="{item.backgroundImage.0}">
+														{f:uri.resource(path:'{item.backgroundImage.0}')}
+													</f:if>
+											</f:variable>
+										</f:then>
+										<f:else>
+											<f:variable name="itemStyleImage">
+												<f:if condition="{item.backgroundImage.0}">background-image:
+													url('{f:uri.image(image:'{item.backgroundImage.0}',maxWidth:'{data.pi_flexform.background_image_maxwidth}')}');
+												</f:if>
+											</f:variable>
+										</f:else>
+									</f:if>
                     <f:variable name="itemStyleColor">
                         <f:if condition="{item.data.background_color}">background-color: {item.data.background_color};
                         </f:if>
@@ -31,8 +42,10 @@
                                     <f:render partial="Carousel/Item/TextAndImage" arguments="{_all}"/>
                                 </f:link.page>
                             </f:case>
-                            <f:case value="html">{item.data.bodytext->f:format.raw()}</f:case>
-                        </f:switch>
+                            <f:case value="html">.{item.data.bodytext->f:format.raw()}</f:case>
+														<f:case value="video">.{item.data.image->f:format.raw()}</f:case>
+
+												</f:switch>
                     </div>
                 </f:for>
             </div>
