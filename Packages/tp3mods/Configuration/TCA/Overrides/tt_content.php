@@ -14,6 +14,20 @@ defined('TYPO3_MODE') || die();
     'tp3 microdata'
 );
 
+/***************
+ * Add content element group to selector list
+ */
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
+    'tt_content',
+    'CType',
+    [
+        'LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:theme_name',
+        '--div--'
+    ],
+    '--div--',
+    'before'
+);
+
 /*
  * add contentelement to "Type" dropdown
  */
