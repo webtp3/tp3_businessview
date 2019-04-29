@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of the package bk2k/bootstrap-package.
@@ -7,17 +8,16 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace BK2K\BootstrapPackage\ViewHelpers;
+namespace BK2K\BootstrapPackage\ViewHelpers\TypoScript;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
- * ExplodeViewHelper
+ * ConstantViewHelper
  */
-class ExplodeViewHelper extends AbstractViewHelper
+class ConstantViewHelper extends AbstractViewHelper
 {
     use CompileWithRenderStatic;
 
@@ -34,30 +34,30 @@ class ExplodeViewHelper extends AbstractViewHelper
     public function initializeArguments()
     {
         parent::initializeArguments();
-        $this->registerArgument('data', 'string', 'The input string', true);
-        $this->registerArgument('as', 'string', 'Name of variable to create', false, 'items');
-        $this->registerArgument('delimiter', 'string', 'The boundary string', false, LF);
+        $this->registerArgument('constant', 'string', 'TypoScript constant');
     }
 
     /**
      * @param array $arguments
      * @param \Closure $renderChildrenClosure
      * @param RenderingContextInterface $renderingContext
-     * @return mixed
+     * @return string
      */
     public static function renderStatic(
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
     ) {
-        $content = '';
-        if (isset($arguments['data'])) {
-            $variableProvider = $renderingContext->getVariableProvider();
-            $items = GeneralUtility::trimExplode($arguments['delimiter'], $arguments['data']);
-            $variableProvider->add($arguments['as'], $items);
-            $content = $renderChildrenClosure();
-            $variableProvider->remove($arguments['as']);
+        $constant = trim($arguments['constant']);
+        if ($GLOBALS['TSFE']->tmpl->flatSetup === null
+            || !is_array($GLOBALS['TSFE']->tmpl->flatSetup)
+            || count($GLOBALS['TSFE']->tmpl->flatSetup) === 0) {
+            $GLOBALS['TSFE']->tmpl->generateConfig();
         }
-        return $content;
+        if (!array_key_exists($constant, $GLOBALS['TSFE']->tmpl->flatSetup)) {
+            return '';
+        }
+
+        return $GLOBALS['TSFE']->tmpl->flatSetup[$constant];
     }
 }
