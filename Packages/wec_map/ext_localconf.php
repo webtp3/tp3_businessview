@@ -53,3 +53,26 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['proc
         'className' => 'JBartels\\WecMap\\GeocodeService\\Google'
     ]
 );
+if (TYPO3_MODE == 'BE') {
+
+    /***************
+     * Register Icons
+     */
+    $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+
+
+    $icons = [
+        'pi1',
+        'pi2',
+        'pi3',
+
+    ];
+    foreach ($icons as $icon) {
+        $iconRegistry->registerIcon(
+            'plugin-wecmap-' . $icon,
+            \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+            ['source' => 'EXT:wec_map/Resources/Public/Icons/' . $icon . '.svg']
+        );
+    }
+
+}

@@ -3,6 +3,7 @@ mod.wizards {
         plugins {
             elements {
                 plugins_wecmap_pi1 {
+                    iconIdentifier = plugin-wecmap-pi1
                     icon = EXT:wec_map/Resources/Public/Icons/Module.svg
                     title = LLL:EXT:wec_map/Resources/Private/Languages/Plugin/SimpleMap/locallang.xlf:pi1_title
                     description = LLL:EXT:wec_map/Resources/Private/Languages/Plugin/SimpleMap/locallang.xlf:pi1_plus_wiz_description
@@ -12,6 +13,7 @@ mod.wizards {
                     }
                 },
                 plugins_wecmap_pi2 {
+                    iconIdentifier = plugin-wecmap-pi2
                     icon = EXT:wec_map/Resources/Public/Icons/Module.svg
                     title = LLL:EXT:wec_map/Resources/Private/Languages/Plugin/FEUserMap/locallang.xlf:pi2_title
                     description = LLL:EXT:wec_map/Resources/Private/Languages/Plugin/FEUserMap/locallang.xlf:pi2_plus_wiz_description
@@ -21,6 +23,7 @@ mod.wizards {
                     }
                 },
                 plugins_tx_wecmap_pi3 {
+                    iconIdentifier = plugin-wecmap-pi3
                     icon = EXT:wec_map/Resources/Public/Icons/Module.svg
                     title = LLL:EXT:wec_map/Resources/Private/Languages/Plugin/DataTableMap/locallang.xlf:pi3_title
                     description = LLL:EXT:wec_map/Resources/Private/Languages/Plugin/DataTableMap/locallang.xlf:pi3_plus_wiz_description

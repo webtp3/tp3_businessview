@@ -44,46 +44,7 @@ mod.wizards.newContentElement.wizardItems {
                 CType = tab
             }
         }
-        timeline {
-            iconIdentifier = content-bootstrappackage-timeline
-            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.timeline
-            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.timeline.description
-            tt_content_defValues {
-                CType = timeline
-            }
-        }
-        card_group {
-            iconIdentifier = content-bootstrappackage-card-group
-            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.card_group
-            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.card_group.description
-            tt_content_defValues {
-                CType = card_group
-            }
-        }
-        menu_card_dir {
-            iconIdentifier = content-bootstrappackage-menu-card
-            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.card_dir
-            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.card_dir.description
-            tt_content_defValues {
-                CType = menu_card_dir
-            }
-        }
-        menu_card_list {
-            iconIdentifier = content-bootstrappackage-menu-card
-            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.card_list
-            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.card_list.description
-            tt_content_defValues {
-                CType = menu_card_list
-            }
-        }
-        social_links {
-            iconIdentifier = content-bootstrappackage-social-links
-            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.social_links
-            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.social_links.description
-            tt_content_defValues {
-                CType = social_links
-            }
-        }
+
     }
 
     interactive.show := addToList(accordion)
@@ -91,10 +52,7 @@ mod.wizards.newContentElement.wizardItems {
     interactive.show := addToList(carousel)
     interactive.show := addToList(carousel_fullscreen)
     interactive.show := addToList(carousel_small)
-    interactive.show := addToList(timeline)
-    interactive.show := addToList(card_group)
-    interactive.show := addToList(menu_card_dir)
-    interactive.show := addToList(social_links)
+
 
 
 }
@@ -235,6 +193,14 @@ mod.wizards.newContentElement.wizardItems {
                 CType = textmedia
             }
         }
+        icon_group {
+            iconIdentifier = content-bootstrappackage-icon-group
+            title = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.icon_group
+            description = LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:content_element.icon_group.description
+            tt_content_defValues {
+                CType = icon_group
+            }
+        }
         table {
             iconIdentifier = content-table
             title = LLL:EXT:backend/Resources/Private/Language/locallang_db_new_content_el.xlf:common_table_title
@@ -275,6 +241,31 @@ mod.wizards.newContentElement.wizardItems {
                 CType = bullets
             }
         }
+        timeline {
+            iconIdentifier = content-bootstrappackage-timeline
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.timeline
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.timeline.description
+            tt_content_defValues {
+                CType = timeline
+            }
+        }
+        card_group {
+            iconIdentifier = content-bootstrappackage-card-group
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.card_group
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.card_group.description
+            tt_content_defValues {
+                CType = card_group
+            }
+        }
+
+        social_links {
+            iconIdentifier = content-bootstrappackage-social-links
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.social_links
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:content_element.social_links.description
+            tt_content_defValues {
+                CType = social_links
+            }
+        }
     }
     text.show := addToList(header)
     text.show := addToList(text)
@@ -283,11 +274,15 @@ mod.wizards.newContentElement.wizardItems {
     text.show := addToList(textteaser)
     text.show := addToList(textpic)
     text.show := addToList(textmedia)
+    text.show := addToList(icon_group)
     text.show := addToList(table)
     text.show := addToList(panel)
     text.show := addToList(quote)
     text.show := addToList(listgroup)
     text.show := addToList(bullets)
+    text.show := addToList(timeline)
+    text.show := addToList(card_group)
+    text.show := addToList(social_links)
 }
 
 
@@ -312,7 +307,26 @@ mod.wizards.newContentElement.wizardItems {
                 CType = menu_thumbnail_dir
             }
         }
+        menu_card_dir {
+            iconIdentifier = content-bootstrappackage-menu-card
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.card_dir
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.card_dir.description
+            tt_content_defValues {
+                CType = menu_card_dir
+            }
+        }
+        menu_card_list {
+            iconIdentifier = content-bootstrappackage-menu-card
+            title = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.card_list
+            description = LLL:EXT:tp3mods/Resources/Private/Language/Backend.xlf:menu.card_list.description
+            tt_content_defValues {
+                CType = menu_card_list
+            }
+        }
     }
     menu.show := addToList(menu_thumbnail_list)
     menu.show := addToList(menu_thumbnail_dir)
+    menu.show := addToList(menu_card_dir)
+    menu.show := addToList(menu_card_list)
+
 }
