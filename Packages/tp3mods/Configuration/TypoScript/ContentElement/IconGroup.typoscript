@@ -1,15 +1,15 @@
-######################################
-#### CTYPE: BOOTSTRAP PACKAGE TAB ####
-######################################
+#####################
+#### CTYPE: HTML ####
+#####################
 
-tt_content.tab >
-tt_content.tab =< lib.contentElement
-tt_content.tab {
+tt_content.icon_group >
+tt_content.icon_group =< lib.contentElement
+tt_content.icon_group {
 
     ################
     ### TEMPLATE ###
     ################
-    templateName = Tab
+    templateName = IconGroup
 
     ##########################
     ### DATA PREPROCESSING ###
@@ -18,7 +18,7 @@ tt_content.tab {
         10 = BK2K\BootstrapPackage\DataProcessing\FlexFormProcessor
         20 = TYPO3\CMS\Frontend\DataProcessing\DatabaseQueryProcessor
         20 {
-            table = tx_bootstrappackage_tab_item
+            table = tx_bootstrappackage_icon_group_item
             pidInList.field = pid
             where {
                 data = field:uid
@@ -29,7 +29,8 @@ tt_content.tab {
             dataProcessing {
                 10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
                 10 {
-                    references.fieldName = media
+                    references.fieldName = icon_file
+                    as = iconFile
                 }
             }
         }

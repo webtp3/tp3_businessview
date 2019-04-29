@@ -1,15 +1,15 @@
-########################################
-#### CTYPE: MENU THUMBNAIL SUBPAGES ####
-########################################
+#####################
+#### CTYPE: MENU ####
+#####################
 
-tt_content.menu_thumbnail_list >
-tt_content.menu_thumbnail_list =< lib.contentElement
-tt_content.menu_thumbnail_list {
+tt_content.menu_pages >
+tt_content.menu_pages =< lib.contentElement
+tt_content.menu_pages {
 
     ################
     ### TEMPLATE ###
     ################
-    templateName = MenuThumbnailList
+    templateName = MenuPages
 
     ##########################
     ### DATA PREPROCESSING ###
@@ -19,6 +19,7 @@ tt_content.menu_thumbnail_list {
         10 {
             special = list
             special.value.field = pages
+            includeNotInMenu = 1
             dataProcessing {
                 10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
                 10 {
