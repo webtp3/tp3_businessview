@@ -93,9 +93,9 @@ $extensionKey = 'tp3mods';
     'EXT:tp3mods : New Content Element Wizards'
 );
 
-\Tp3\Tp3mods\Utility\PageNotFoundDokType::addDoktypeToPages(
+\Tp3\Tp3mods\Utility\PageNotFoundHandling::addDoktypeToPages(
     \Tp3\Tp3mods\Configuration\ExtensionConfiguration::EXT_KEY,
-    \Tp3\Tp3mods\Configuration\ExtensionConfiguration::get('Tp3modsError404page'),
+    \Tp3\Tp3mods\Configuration\ExtensionConfiguration::get('doktypeError404page'),
     'tp3mods',
     '404'
 );
