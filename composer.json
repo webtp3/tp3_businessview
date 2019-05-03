@@ -26,7 +26,7 @@
 			"type": "path",
 			"url": "Packages/*",
 			"options": {
-				"symlink": false
+				"symlink": true
 			}
 		},
 		"1": {
@@ -134,6 +134,7 @@
 		"typo3-console/composer-auto-commands": "*",
 		"typo3-console/composer-typo3-auto-install": "^0.2",
 		"deployer/deployer": "^6.4",
+		"deployer/recipes" : "*",
 		"consolidation/robo": "^1.4",
 		"codeception/codeception":"*",
 		"phpmd/phpmd": "*",
@@ -272,16 +273,13 @@
 			"CAG\\Composer\\PackageHandler::verifyAutoloadInfoInLibraries"
 		]
 	},
-	"autoload": {
+
+	"autoload-dev": {
 		"psr-4": {
 			"CAG\\Composer\\": "Libraries/composer/",
 			"CAG\\Robo\\": "Libraries/robo/",
 			"CAG\\Deployer\\": "Libraries/deployer/",
-			"Typo3Console\\Typo3AutoInstall\\": "src"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
+			"TYPO3\\CMS\\Backend\\Tests\\": "typo3/sysext/backend/Tests/",
 			"TYPO3\\CMS\\Belog\\Tests\\": "typo3/sysext/belog/Tests/",
 			"TYPO3\\CMS\\Beuser\\Tests\\": "typo3/sysext/beuser/Tests/",
 			"TYPO3\\CMS\\Core\\Tests\\": "typo3/sysext/core/Tests/",

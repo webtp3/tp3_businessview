@@ -13,6 +13,7 @@ if (!class_exists(\Composer\Autoload\ClassLoader::class)) {
  *  load config
  */
 require $_ENV["TYPO3_PATH_COMPOSER_ROOT"] .'/Build/vendor/deployer/deployer/recipe/typo3.php';
+require $_ENV["TYPO3_PATH_COMPOSER_ROOT"] .'/Build/vendor/deployer/deployer/recipe/slack.php';
 
 /*
  * for static config just uncomment
@@ -33,27 +34,28 @@ $yaml = Yaml::parse(file_get_contents($_ENV["TYPO3_PATH_COMPOSER_ROOT"] . '/conf
 //if(InputArgument::VALUE_OPTIONAL)option('tag', null, InputOption::VALUE_OPTIONAL, 'Tag to deploy.');
 
 // Project name
-//set('application', $yaml[$input]['deploy_path']);
-set('deploy_path', $yaml[$input]['deploy_path']);
-set('typo3_webroot', $yaml[$input]['typo3_webroot']);
-
-// user
-set('http_user', $yaml[$input]['user']);
-// Project repository
-set('repository', $yaml[$input]['repository']);
-set('composer_options', 'install --no-dev  -v -d {{deploy_path}}releases/{{release_name}}');
-//set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
-
-// [Optional] Allocate tty for git clone. Default value is false.
-set('git_tty', $yaml[$input]['git_tty']);
-set('keep_releases',  $yaml[$input]['keep_releases']);
-
-// Shared files/dirs between deploys 
-add('shared_files', $yaml[$input]['shared_files']);
-add('shared_dirs', $yaml[$input]['shared_dirs']);
-
-// Writable dirs by web server 
-add('writable_dirs', $yaml[$input]['writable_dirs']);
+////set('application', $yaml[$input]['deploy_path']);
+//set('deploy_path', $yaml[$input]['deploy_path']);
+//set('typo3_webroot', $yaml[$input]['typo3_webroot']);
+//
+//// user
+//set('http_user', $yaml[$input]['user']);
+//// Project repository
+//set('repository', $yaml[$input]['repository']);
+//set('composer_options', 'install --no-dev  -v -d {{deploy_path}}releases/{{release_name}}');
+////set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
+//if($yaml[$input]['slack_suffix'] != "")set('slack_webhook', 'https://hooks.slack.com/services/'.$yaml[$input]['slack_suffix']);
+//
+//// [Optional] Allocate tty for git clone. Default value is false.
+//set('git_tty', $yaml[$input]['git_tty']);
+//set('keep_releases',  $yaml[$input]['keep_releases']);
+//
+//// Shared files/dirs between deploys
+//add('shared_files', $yaml[$input]['shared_files']);
+//add('shared_dirs', $yaml[$input]['shared_dirs']);
+//
+//// Writable dirs by web server
+//add('writable_dirs', $yaml[$input]['writable_dirs']);
 
 foreach ($yaml as $key => $y) {
     host($y['hostname'])
@@ -77,13 +79,7 @@ foreach ($yaml as $key => $y) {
         ->set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader ')
         ->set('deploy_path', $y['deploy_path'])
         ->set('typo3_webroot', $y['typo3_webroot'])
-
-// user
-        ->set('http_user', $y['user'])
-// Project repository
-        ->set('repository', $y['repository'])
-//->set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
-
+        ->set('application', $y['hostname'])
 // [Optional] Allocate tty for git clone. Default value is false.
         ->set('git_tty', $y['git_tty'])
         ->set('keep_releases',  $y['keep_releases'])
@@ -98,21 +94,27 @@ foreach ($yaml as $key => $y) {
         host($y['hostname'])
             ->identityFile($y['identityFile']);
     }
+    if($y['slack_suffix'] && $y['slack_suffix'] != ""){
+        host($y['hostname'])
+            ->set('slack_webhook', 'https://hooks.slack.com/services/'.$y['slack_suffix']);
+    }
+
+
 }
 
 //
 //// Hosts
-host($yaml[$input]['hostname'])
-    ->user($yaml[$input]['user'])
-    ->hostname($yaml[$input]['hostname'])
-    ->port($yaml[$input]['port'] > 1 ? $yaml[$input]['port'] : 22)
-    ->configFile($yaml[$input]['configFile'])
-    ->identityFile($yaml[$input]['identityFile'])
-    ->forwardAgent($yaml[$input]['forwardAgent'])
-    ->multiplexing($yaml[$input]['multiplexing'])
-    ->stage($yaml[$input]['stage'])
-    ->addSshOption('UserKnownHostsFile', '~/.ssh/known_hosts')
-    ->addSshOption('StrictHostKeyChecking', 'no');
+//host($yaml[$input]['hostname'])
+//    ->user($yaml[$input]['user'])
+//    ->hostname($yaml[$input]['hostname'])
+//    ->port($yaml[$input]['port'] > 1 ? $yaml[$input]['port'] : 22)
+//    ->configFile($yaml[$input]['configFile'])
+//    ->identityFile($yaml[$input]['identityFile'])
+//    ->forwardAgent($yaml[$input]['forwardAgent'])
+//    ->multiplexing($yaml[$input]['multiplexing'])
+//    ->stage($yaml[$input]['stage'])
+//    ->addSshOption('UserKnownHostsFile', '~/.ssh/known_hosts')
+//    ->addSshOption('StrictHostKeyChecking', 'no');
 
 // Tasks
 desc('Build Package path setup');

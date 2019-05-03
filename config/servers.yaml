@@ -39,6 +39,7 @@ stage:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
     identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
@@ -72,6 +73,7 @@ toasternet:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
+    slack_suffix: TBBV2KZCL/BJF5606K1/KW2u4skssVoWo88sI4lfM1Dq
     identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
