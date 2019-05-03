@@ -30,12 +30,12 @@ if (!is_array($tp3modsConfig)) {
 }
 
 // Override local page not found handling configuration
-$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = \Tp3\Tp3mods\Utility\PageNotFoundHandling::class . '->pageNotFound';
-
-// Define global hooks array
-if (!isset($tp3modsConfig['errorHandlers'])) {
-    $tp3modsConfig['errorHandlers'] = [];
-}
+////$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = \Tp3\Tp3mods\Utility\PageNotFoundHandling::class . '->pageNotFound';
+//
+//// Define global hooks array
+//if (!isset($tp3modsConfig['errorHandlers'])) {
+//    $tp3modsConfig['errorHandlers'] = [];
+//}
 
 if (TYPO3_MODE == 'BE') {
     /***************
