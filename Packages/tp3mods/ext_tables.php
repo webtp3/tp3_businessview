@@ -30,6 +30,12 @@ call_user_func(
             $tp3modsConfig = unserialize($tp3modsConfig);
         }
 
+        \Tp3\Tp3mods\Utility\PageNotFoundDokType::addDoktype(
+            'tp3mods',
+            \Tp3\Tp3mods\Configuration\ExtensionConfiguration::get('doktypeTp3modsError404page'),
+            'Error404'
+        );
+
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             'Tp3.Tp3mods',
             'Tp3micro',

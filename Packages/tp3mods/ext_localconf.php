@@ -30,7 +30,7 @@ if (!is_array($tp3modsConfig)) {
 }
 
 // Override local page not found handling configuration
-$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = 'USER_FUNCTION:'.\Tp3\Tp3mods\Utility\PageNotFoundHandling::class . '->pageNotFound';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = 'USER_FUNCTION:'.\Tp3\Tp3mods\Hook\ErrorHandlerHook::class . '->pageNotFound';
 
 // Define global hooks array
 if (!isset($tp3modsConfig['errorHandlers'])) {
@@ -153,21 +153,7 @@ if (TYPO3_MODE == 'BE') {
         $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['consent'] = \Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class . '::setTracking';//Tp3\Tp3ratings\Controller\RatingsdataController::class . '->RatingAction';//
     }
 }
-//// Cache configuration
-////if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations'][\R3H6\Error404page\Domain\Cache\ErrorHandlerCache::IDENTIFIER])) {
-////    $TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations'][\R3H6\Error404page\Domain\Cache\ErrorHandlerCache::IDENTIFIER] = array();
-////}
-//
-//// Debug log
-//if (\Tp3\Tp3mods\Configuration\ExtensionConfiguration::is('debugMode')) {
-//    $GLOBALS['TYPO3_CONF_VARS']['LOG']['R3H6']['Error404page']['writerConfiguration'] = array(
-//        \TYPO3\CMS\Core\Log\LogLevel::DEBUG => array(
-//            'TYPO3\\CMS\\Core\\Log\\Writer\\FileWriter' => array(
-//                'logFile' => 'typo3temp/logs/debug.log',
-//            ),
-//        ),
-//    );
-//}
+
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'Tp3.Tp3mods',
