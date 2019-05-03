@@ -16,7 +16,7 @@ namespace Tp3\Tp3mods\Domain\Model;
  *                                                                        */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use R3H6\Error404page\Http\Request;
+//use Tp3\Tp3Mods\Http\Request;
 
 /**
  * Page.

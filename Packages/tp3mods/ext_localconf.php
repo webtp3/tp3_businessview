@@ -26,7 +26,7 @@ if (class_exists('TYPO3\CMS\Core\Configuration\ExtensionConfiguration')) {
     }
 }
 if (!is_array($tp3modsConfig)) {
-    $tp3modsConfig = unserialize($tp3modsConfig);
+    $tp3modsConfig = unserializeF($tp3modsConfig);
 }
 
 // Override local page not found handling configuration

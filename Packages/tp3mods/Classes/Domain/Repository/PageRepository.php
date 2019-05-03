@@ -16,9 +16,9 @@ namespace Tp3\Tp3mods\Domain\Repository;
  *                                                                        */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use R3H6\Error404page\Configuration\ExtensionConfiguration;
-use R3H6\Error404page\Domain\Model\Error;
-use R3H6\Error404page\Domain\Model\Page;
+use Tp3\Tp3Mods\Configuration\ExtensionConfiguration;
+use Tp3\Tp3Mods\Domain\Model\Error;
+use Tp3\Tp3Mods\Domain\Model\Page;
 
 /**
  * PageRepository.
@@ -26,7 +26,7 @@ use R3H6\Error404page\Domain\Model\Page;
 class PageRepository implements \TYPO3\CMS\Core\SingletonInterface
 {
     /**
-     * @var \R3H6\Error404page\Domain\Repository\DomainRepository
+     * @var \Tp3\Tp3Mods\Domain\Repository\DomainRepository
      * @inject
      */
     protected $domainRepository;
@@ -38,7 +38,7 @@ class PageRepository implements \TYPO3\CMS\Core\SingletonInterface
     protected $pageRepository;
 
     /**
-     * @var \R3H6\Error404page\Configuration\ExtensionConfiguration
+     * @var \Tp3\Tp3Mods\Configuration\ExtensionConfiguration
      * @inject
      */
     protected $extensionConfiguration;
@@ -65,7 +65,7 @@ class PageRepository implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * @param Error $error [description]
      *
-     * @return \R3H6\Error404page\Domain\Model\Page|null
+     * @return \Tp3\Tp3Mods\Domain\Model\Page|null
      */
     public function findLoginPageForError(Error $error)
     {
@@ -101,7 +101,7 @@ class PageRepository implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param Error $error [description]
      *
-     * @return \R3H6\Error404page\Domain\Model\Page|null
+     * @return \Tp3\Tp3Mods\Domain\Model\Page|null
      */
     public function find404PageForError(Error $error)
     {
@@ -130,7 +130,7 @@ class PageRepository implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param string $host
      *
-     * @return \R3H6\Error404page\Domain\Model\Page|null
+     * @return \Tp3\Tp3Mods\Domain\Model\Page|null
      */
     protected function findRootPageByHost($host)
     {
@@ -160,14 +160,14 @@ class PageRepository implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param string $host The domain name.
      *
-     * @return null|\R3H6\Error404page\Domain\Model\Page Page record row on success.
+     * @return null|\Tp3\Tp3Mods\Domain\Model\Page Page record row on success.
      */
     protected function findFirstByHostAndDoktype($host, $doktype)
     {
-        /** @var array<\R3H6\Error404page\Domain\Model\Page> $pages */
+        /** @var array<\Tp3\Tp3Mods\Domain\Model\Page> $pages */
         $pages = $this->findAllByDoktype($doktype);
 
-        /** @var \R3H6\Error404page\Domain\Model\Page $rootPage */
+        /** @var \Tp3\Tp3Mods\Domain\Model\Page $rootPage */
         $rootPage = $this->findRootPageByHost($host);
 
         if ($rootPage !== null) {
@@ -191,7 +191,7 @@ class PageRepository implements \TYPO3\CMS\Core\SingletonInterface
 
     protected function findFirstWithoutHostByDoktype($doktype)
     {
-        /** @var array<\R3H6\Error404page\Domain\Model\Page> $pages */
+        /** @var array<\Tp3\Tp3Mods\Domain\Model\Page> $pages */
         $pages = $this->findAllByDoktype($doktype);
 
         $domains = $this->domainRepository->findAll();
@@ -220,7 +220,7 @@ class PageRepository implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Returns all accessible error pages from all websites.
      *
-     * @return array<\R3H6\Error404page\Domain\Model\Page>
+     * @return array<\Tp3\Tp3Mods\Domain\Model\Page>
      */
     protected function findAllByDoktype($doktype)
     {
