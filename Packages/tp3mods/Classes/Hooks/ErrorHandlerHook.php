@@ -74,7 +74,7 @@ class ErrorHandlerHook implements \TYPO3\CMS\Core\SingletonInterface
      */
     protected function getErrorHandler()
     {
-        return GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class)->get(Tp3\Tp3mods\ErrorHandling\Error\ErrorHandler::class);
+        return GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')->get('R3H6\\Error404page\\Domain\\Handler\\ErrorHandler');
     }
 
     /**

@@ -250,7 +250,7 @@ class PageRepository implements \TYPO3\CMS\Core\SingletonInterface
 
     protected function createDomainObject($data)
     {
-        return GeneralUtility::makeInstance('Tp3\\Tp3mods\\Domain\\Model\\Page', $data);
+        return GeneralUtility::makeInstance('R3H6\\Error404page\\Domain\\Model\\Page', $data);
     }
 
     /**
