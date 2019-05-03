@@ -13,7 +13,7 @@ if (!class_exists(\Composer\Autoload\ClassLoader::class)) {
  *  load config
  */
 require $_ENV["TYPO3_PATH_COMPOSER_ROOT"] .'/Build/vendor/deployer/deployer/recipe/typo3.php';
-require $_ENV["TYPO3_PATH_COMPOSER_ROOT"] .'/Build/vendor/deployer/deployer/recipe/slack.php';
+require $_ENV["TYPO3_PATH_COMPOSER_ROOT"] .'/Build/vendor/deployer/recipes/recipe/slack.php';
 
 /*
  * for static config just uncomment
@@ -94,9 +94,13 @@ foreach ($yaml as $key => $y) {
         host($y['hostname'])
             ->identityFile($y['identityFile']);
     }
-    if($y['slack_suffix'] && $y['slack_suffix'] != ""){
+    if(isset($y['slack_suffix'])){
         host($y['hostname'])
             ->set('slack_webhook', 'https://hooks.slack.com/services/'.$y['slack_suffix']);
+        before('deploy', 'slack:notify');
+        after('success', 'slack:notify:success');
+
+
     }
 
 

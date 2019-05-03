@@ -73,7 +73,7 @@ toasternet:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
-    slack_suffix: TBBV2KZCL/BJF5606K1/KW2u4skssVoWo88sI4lfM1Dq
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
     identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
@@ -104,10 +104,11 @@ dnadirekt:
     port: 22
     user: toaster_dnsdirekt
     public_key:  'config/keys/id_rsa.pub'
-    private_key: 'config/keys/id_rsa'
+    private_key: '~/.ssh/id_rsa'
     password:    ''
     configFile: config/keys/ssh_config
-    identityFile: config/keys/id_rsa
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
+    identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -140,6 +141,7 @@ devtoasternet:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
     identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
@@ -173,6 +175,7 @@ lacuisine:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
     identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
@@ -205,6 +208,7 @@ lacuisine_dev:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
     identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
@@ -237,6 +241,7 @@ tr:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
     identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
@@ -270,7 +275,8 @@ cdu:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
-    identityFile: config/keys/id_rsa
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
+    identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -303,6 +309,7 @@ rnn:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
     identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
@@ -335,6 +342,7 @@ tp3:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
     identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
@@ -366,6 +374,7 @@ rp:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
     identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
@@ -398,6 +407,7 @@ srt:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
     identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
@@ -430,6 +440,7 @@ yreim:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
     identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
@@ -462,6 +473,7 @@ laroe:
     private_key: '~/.ssh/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
+    slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
     identityFile: ~/.ssh/id_rsa
     forwardAgent: true
     multiplexing: true
