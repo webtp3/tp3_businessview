@@ -798,6 +798,20 @@ iframe {
         }
     }
 }
+########################
+#### PAGETYPE error####
+########################
+errorPage < page
+errorPage {
+
+    typeNum = 404
+    10 {
+        variables {
+            showHeader.value = 0
+            showFooter.value = 0
+        }
+    }
+}
 
 [globalVar = GP:type = 2000]
     config.htmlTag_setParams = lang="de" dir="ltr" prefix="og: http://ogp.me/ns#" class="{$app_name} isiframe no-js" itemscope itemtype="http://schema.org/WebSite"
