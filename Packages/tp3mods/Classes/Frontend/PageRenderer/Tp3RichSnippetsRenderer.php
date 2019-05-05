@@ -261,13 +261,13 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
         $json = ' {
          "@context": "http://schema.org",
          "@type": "' . $microdata['snippet_type'] . '",
-         "url": "' . $GLOBALS['_SERVER']['REQUEST_SCHEME'] . '://' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/' . $_SERVER['REQUEST_URI'] . '",
-         "name": "' . $GLOBALS['TSFE']->cObj->data['title'] . ' :: ' . $GLOBALS['TSFE']->tmpl->sitetitle . '",
+         "url": "' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/' . $_SERVER['REQUEST_URI'] . '",
+         "name": "' . str_replace("\"","",$GLOBALS['TSFE']->cObj->data['title'] . ' :: ' . $GLOBALS['TSFE']->tmpl->sitetitle ). '",
          "keywords": "' . $GLOBALS['TSFE']->cObj->data['keywords'] . '",
-         "description": "' . $GLOBALS['TSFE']->cObj->data['description'] . '",
+         "description": "' . str_replace("\"","",$GLOBALS['TSFE']->cObj->data['description'] ). '",
              "potentialAction": {
                 "@type": "SearchAction",
-                "target": "' . $GLOBALS['_SERVER']['REQUEST_SCHEME'] . '://' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}",
+                "target": "' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}",
                 "query-input": "required name=skeyword"
               }' .
             $microdata['pageAggregateRating'] .
@@ -284,11 +284,11 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
         $json = ' {
          "@context": "http://schema.org",
          "@type": "WebSite",
-         "url": "' . $GLOBALS['_SERVER']['REQUEST_SCHEME'] . '://' . $GLOBALS['_SERVER']['SERVER_NAME'] . '",
+         "url": "' . $GLOBALS['_SERVER']['SERVER_NAME'] . '",
          "name": "' . $GLOBALS['TSFE']->tmpl->sitetitle . '",
          "potentialAction": {
             "@type": "SearchAction",
-            "target": "' . $GLOBALS['_SERVER']['REQUEST_SCHEME'] . '://' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}",
+            "target": "' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}",
             "query-input": "required name=skeyword"
           }
           ' . $microdata['aggregateRating'] . '
@@ -316,8 +316,8 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
         $json =      ' {
          "@context": "http://schema.org",
          "@type": "' . $microdata['konfiguration'] . '",
-         "logo": "https://' . $microdata['address_object']->getWww() . '/' . $microdata['logo'] . '",
-         "image": ["https://' . $microdata['address_object']->getWww() . '/' . $microdata['logo'] . '"],                       
+         "logo": "' . $microdata['address_object']->getWww() . '/' . $microdata['logo'] . '",
+         "image": ["' . $microdata['address_object']->getWww() . '/' . $microdata['logo'] . '"],                       
          "url": "' . $microdata['address_object']->getWww() . '",                       
          "email": "' . $microdata['address_object']->getEmail() . '",
          "telephone": "' . $microdata['address_object']->getPhone() . '",
