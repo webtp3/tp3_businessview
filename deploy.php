@@ -99,7 +99,7 @@ foreach ($yaml as $key => $y) {
             ->set('slack_webhook', 'https://hooks.slack.com/services/'.$y['slack_suffix']);
         before('deploy', 'slack:notify');
         after('success', 'slack:notify:success');
-        after('failed', 'slack:notify:failed');
+        after('deploy:failed', 'slack:notify:failed');
 
 
     }

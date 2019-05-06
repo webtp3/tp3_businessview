@@ -15,7 +15,7 @@ plugin.tx_tp3mods_tp3micro{
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
         linkedin_profile = {$linkedin_profile}
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= URL
-        baseUrl = http://{$baseUrl}
+        baseUrl = {$baseUrl}
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
         logo = {$page.logo.file}
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=string; label= path
@@ -28,5 +28,5 @@ plugin.tx_tp3mods_tp3micro{
 
 # *** SSL
 [globalString = ENV:HTTPS=on]
-    plugin.tx_tp3mods_tp3micro.settings.baseUrl = https://{$baseUrl}
+    plugin.tx_tp3mods_tp3micro.settings.baseUrl = {$baseUrl}
 [global]
