@@ -99,6 +99,7 @@ foreach ($yaml as $key => $y) {
             ->set('slack_webhook', 'https://hooks.slack.com/services/'.$y['slack_suffix']);
         before('deploy', 'slack:notify');
         after('success', 'slack:notify:success');
+        after('failed', 'slack:notify:failed');
 
 
     }
@@ -213,6 +214,9 @@ task('deploy:smoke', function () {
    // run('/usr/bin/php /usr/bin/composer cag-smoke');
     run('/usr/bin/php bin/typo3cms database:update');
     run('/usr/bin/php bin/typo3cms cache:flush');
+    run('rm config/keys -rf');
+    run('rm config/setup -rf');
+    run('rm config/servers.yaml');
 
 })->setPrivate();
 

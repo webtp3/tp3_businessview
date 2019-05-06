@@ -21,6 +21,10 @@ img.lazyload {
 .frame:first-child{
 	padding-top: 0;
 }
+.gallery-row > .gallery-item {
+	padding-bottom: 10px;
+	margin-left: -5px;
+}
 .pswp{
     z-index: 9999;
 }
