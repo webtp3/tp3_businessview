@@ -90,8 +90,7 @@ class GoogleAnalyticsFehook extends \Tp3\Tp3mods\Hooks\GoogleAnalytics implement
     {
         $config = isset($GLOBALS['TSFE']->tmpl->setup) ? $GLOBALS['TSFE']->tmpl->setup : [];
         if (is_array($config)
-        ) {    // $tx_wegoogleanalytics = new tx_wegoogleanalytics();
-            //$tx_wegoogleanalytics = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Tp3\Tp3mods\Hooks\);
+        ) {
             $tracking = $request->getQueryParams();
             if (!$GLOBALS['TSFE'] instanceof \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController) {
                 $this->getTypoScriptFrontendController();
@@ -146,8 +145,8 @@ class GoogleAnalyticsFehook extends \Tp3\Tp3mods\Hooks\GoogleAnalytics implement
       //  $frontend->getConfigArray();
     }
 }
-/*
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/we_google_analytics/class.tx_wegoogleanalytics_fehook.php']) {
-    require_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/we_google_analytics/class.tx_wegoogleanalytics_fehook.php']);
+
+if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS'][\Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class]) {
+    require_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS'][\Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class]);
 }
-*/
+

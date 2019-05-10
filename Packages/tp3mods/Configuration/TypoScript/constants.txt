@@ -31,6 +31,8 @@ plugin.tx_tp3mods_tp3micro {
         Tp3Isotop = 1
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3Flip
         Tp3Flip = 1
+        # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3Flip
+        Tp3WebApp = 0
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3TagCloud
         Tp3TagCloud = 1
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include glyphicons
@@ -145,7 +147,16 @@ page {
         breadcrumb = 1
         # cat=bootstrap package: basic/160/111; type=int+; label=Breadcrumb Enable Level: Enable breadcrumb menu is greater or equal this value
         breadcrumbEnableLevel = 2
+        webApp{
+            # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3WebApp
+            enable = {$plugin.tx_tp3mods_tp3micro.settings.Tp3WebApp}
 
+        }
+        socialicons{
+            # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include socialicons
+            enable = 1
+
+        }
         footersection {
             # cat=bootstrap package: basic/166/129; type=boolean; label=FooterSection: Enable to display the FooterSection at bottom
             enable = 1

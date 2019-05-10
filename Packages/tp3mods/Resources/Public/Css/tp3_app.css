@@ -75,7 +75,10 @@ header .navbar-nav {
         float: right;
         margin: 0;
 }
+.maincontent-wrap > .row >.col-md-6 {
+	padding-left: 0;
 
+}
 .btn-icon svg,
 .btn-icon img{
 	max-width: 100%;

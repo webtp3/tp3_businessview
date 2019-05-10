@@ -269,7 +269,7 @@
     display: inline-flex;
 
     > li {
-      float: right;
+      float: left;
       > a {
         padding-top:    @navbar-padding-vertical;
         padding-bottom: @navbar-padding-vertical;
@@ -399,6 +399,38 @@
 
   .navbar-brand {
     color: @navbar-default-brand-color;
+    > .cube {
+      position: relative;
+      transform-style: preserve-3d;
+      transform: translateZ(-100px);
+      transition: transform 1s;
+
+      > .cube__face {
+        position: absolute;
+      }
+      > .cube__face--front  { transform: rotateY(360deg) translateZ(100px); }
+      > .cube__face--right  { transform: rotateY(90deg) translateZ(100px); }
+      > .cube__face--back   { transform: rotateY(180deg) translateZ(100px); }
+      > .cube__face--left   { transform: rotateY(-90deg) translateZ(100px); }
+      > .cube__face--top    { transform: rotateX( 90deg) translateZ(100px); }
+      > .cube__face--bottom { transform: rotateX(-90deg) translateZ(100px); }
+    }
+    > .cube.anim {
+      animation: spin 2s 1 ease-in-out;
+    }
+    > .navbar-brand-logo-normal {
+      display: block;
+      transform: rotateY(-360deg);
+
+    }
+    > .navbar-brand-logo-inverted {
+      transform: rotateY(180deg);
+      display: block;
+    }
+    > img {
+      backface-visibility: hidden;
+      position: absolute;
+    }
     &:hover,
     &:focus {
       color: @navbar-default-brand-hover-color;
@@ -533,6 +565,38 @@
 
   .navbar-brand {
     color: @navbar-inverse-brand-color;
+    > .cube {
+      position: relative;
+      transform-style: preserve-3d;
+      transform: translateZ(-100px);
+      transition: transform 1s;
+
+      > .cube__face {
+        position: absolute;
+      }
+      > .cube__face--front  { transform: rotateY(360deg) translateZ(100px); }
+      > .cube__face--right  { transform: rotateY(90deg) translateZ(100px); }
+      > .cube__face--back   { transform: rotateY(180deg) translateZ(100px); }
+      > .cube__face--left   { transform: rotateY(-90deg) translateZ(100px); }
+      > .cube__face--top    { transform: rotateX( 90deg) translateZ(100px); }
+      > .cube__face--bottom { transform: rotateX(-90deg) translateZ(100px); }
+    }
+    > .cube.anim {
+      animation: spin 2s 1 ease-in-out;
+    }
+    > .navbar-brand-logo-normal {
+      display: block;
+      transform: rotateY(-180deg);
+
+    }
+    > .navbar-brand-logo-inverted {
+      transform: rotateY(360deg);
+      display: block;
+    }
+    > img {
+      backface-visibility: hidden;
+      position: absolute;
+    }
     &:hover,
     &:focus {
       color: @navbar-inverse-brand-hover-color;
@@ -546,12 +610,12 @@
 
   .navbar-nav {
     > li > a {
-      color: @navbar-inverse-link-color;
+      color: @navbar-default-link-color;
 
       &:hover,
       &:focus {
-        color: @navbar-inverse-link-hover-color;
-        background-color: @navbar-inverse-link-hover-bg;
+        color: @navbar-default-link-hover-color;
+        background-color: @navbar-default-link-hover-bg;
       }
     }
     > .active > a {

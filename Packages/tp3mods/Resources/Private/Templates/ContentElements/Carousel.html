@@ -31,8 +31,8 @@
                                     <f:render partial="Carousel/Item/TextAndImage" arguments="{_all}"/>
                                 </f:link.page>
                             </f:case>
-                            <f:case value="html">.{item.data.bodytext->f:format.raw()}</f:case>
-														<f:case value="video">.{item.data.image->f:format.raw()}</f:case>
+                            <f:case value="html">{item.data.bodytext->f:format.raw()}</f:case>
+														<f:case value="video">{item.data.image->f:format.raw()}</f:case>
 
 												</f:switch>
                     </div>

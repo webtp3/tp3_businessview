@@ -8,6 +8,7 @@
     &.navbar-fixed-top,
     &.navbar-fixed-bottom {
         position: fixed;
+        z-index: 99;
     }
 }
 
@@ -23,9 +24,106 @@
         > .navbar-brand-logo-inverted {
         	display: block;
         }
+        > img {
+          backface-visibility: hidden;
+          position: absolute;
+        }
+        > .cube {
+            position: relative;
+            transform-style: preserve-3d;
+            //transform: translateZ(-100px);
+            transition: transform 1s;
+            backface-visibility: hidden;
+            > .show-front  { transform: translateZ(-100px) rotateY(   0deg); }
+            > .show-right  { transform: translateZ(-100px) rotateY( -90deg); }
+            > .show-back   { transform: translateZ(-100px) rotateY(-180deg); }
+            > .show-left   { transform: translateZ(-100px) rotateY(  90deg); }
+            > .show-top    { transform: translateZ(-100px) rotateX( -90deg); }
+            > .show-bottom { transform: translateZ(-100px) rotateX(  90deg); }
+            > .cube__face {
+                position: absolute;
+                box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.6);
+                background-color: lighten(@navbar-default-bg,15%);
+            }
+            > .cube__face--front  { transform: rotateY(0deg) translateZ(100px); }
+            > .cube__face--right  { transform: rotateY(90deg) translateZ(100px); }
+            > .cube__face--back   { transform: rotateY(180deg) translateZ(100px); }
+            > .cube__face--left   { transform: rotateY(-90deg) translateZ(100px); }
+            > .cube__face--top    { transform: rotateX( 90deg) translateZ(100px); }
+            > .cube__face--bottom { transform: rotateX(-90deg) translateZ(100px); }
+        }
+        > .cube.anim {
+            animation: spin 2s 1 ease-in-out;
+        }
 
 }
 
+.navbar-default-transition{
+    > .navbar-brand {
+		transition: transform 2s;
+		transform-style: preserve-3d;
+        > .navbar-brand-logo-normal {
+            display: block;
+            transform: rotateY(180deg);
+
+        }
+        > .navbar-brand-logo-inverted {
+            transform: rotateY(0deg);
+            display: block;
+        }
+        > img {
+            backface-visibility: hidden;
+            position: absolute;
+        }
+    }
+}
+.navbar-default-transition.flat{
+	> .navbar-brand {
+
+		> .navbar-brand-logo-normal {
+			display: block;
+			transform: rotateY(360deg);
+
+		}
+		> .navbar-brand-logo-inverted {
+			transform: rotateY(18deg);
+			display: block;
+		}
+
+	}
+}
+.navbar-inverse-transition{
+	> .navbar-brand {
+		transition: transform 2s;
+		transform-style: preserve-3d;
+		> .navbar-brand-logo-normal {
+			display: block;
+			transform: rotateY(360deg);
+
+		}
+		> .navbar-brand-logo-inverted {
+			transform: rotateY(180deg);
+			display: block;
+		}
+		> img {
+			backface-visibility: hidden;
+			position: absolute;
+		}
+	}
+}
+.navbar-inverse-transition.flat{
+
+	> .navbar-brand-logo-normal {
+		display: block;
+		transform: rotateY(180deg);
+
+	}
+	> .navbar-brand-logo-inverted {
+		transform: rotateY(0deg);
+		display: block;
+	}
+
+}
 @media (min-width: @grid-float-breakpoint) {
     .navbar-brand-image {
         position: relative;
@@ -66,11 +164,31 @@
             }
         }
         .navbar-brand {
+            > .cube {
+                position: relative;
+                transform-style: preserve-3d;
+                transform: translateZ(-100px);
+                transition: transform 2s;
+                > .cube__face {
+                    position: absolute;
+                    background-color: lighten(@navbar-default-bg,15%);
+                    box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.6);
+                }
+                > .cube__face--front  { transform: rotateY(360deg) translateZ(100px); }
+                > .cube__face--right  { transform: rotateY(-90deg) translateZ(100px); }
+                > .cube__face--back   { transform: rotateY(180deg) translateZ(100px); }
+                > .cube__face--left   { transform: rotateY(90deg) translateZ(100px); }
+                > .cube__face--top    { transform: rotateX(-90deg) translateZ(100px); }
+                > .cube__face--bottom { transform:  rotateX(90deg) translateZ(100px); }
+            }
             > .navbar-brand-logo-normal {
                 display: block;
+              transform: rotateY(-180deg);
+
 
             }
             > .navbar-brand-logo-inverted {
+              transform: rotateY(-360deg);
                 display: block;
 
             }
@@ -96,11 +214,36 @@
         }
 
         .navbar-brand {
+            > .cube {
+                position: relative;
+                transform-style: preserve-3d;
+                transform: translateZ(-100px);
+                transition: transform 1s;
+
+                > .cube__face {
+                    position: absolute;
+                    background-color: darken(@navbar-default-bg,15%);
+                    box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.6);
+
+                }
+                > .cube__face--front  { transform: rotateY(180deg) translateZ(100px); }
+                > .cube__face--right  { transform: rotateY(-90deg) translateZ(100px); }
+                > .cube__face--back   { transform: rotateY(360deg) translateZ(100px); }
+                > .cube__face--left   { transform: rotateY(90deg) translateZ(100px); }
+                > .cube__face--top    { transform: rotateX(-90deg) translateZ(100px); }
+                > .cube__face--bottom { transform: rotateX(90deg) translateZ(100px); }
+            }
+            > .logo.anim {
+                animation: spin 2s 1 ease-in-out;
+            }
             > .navbar-brand-logo-normal {
                 display: block;
+              transform: rotateY(360deg);
+
 
             }
             > .navbar-brand-logo-inverted {
+              transform: rotateY(180deg);
                 display: block;
 
             }
@@ -126,13 +269,30 @@
             height: @navbar-height;
         }
         .navbar-brand {
+            > .cube {
+                position: relative;
+                transform-style: preserve-3d;
+                transform: translateZ(-100px);
+                transition: transform 1s;
+
+                > .cube__face {
+                    position: absolute;
+                    background-color: lighten(@navbar-default-bg,15%);
+                    box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.6);
+                }
+                > .cube__face--front  { transform: rotateY(36deg) translateZ(100px); }
+                > .cube__face--right  { transform: rotateY(90deg) translateZ(100px); }
+                > .cube__face--back   { transform: rotateY(180deg) translateZ(100px); }
+                > .cube__face--left   { transform: rotateY(-90deg) translateZ(100px); }
+                > .cube__face--top    { transform: rotateX( 90deg) translateZ(100px); }
+                > .cube__face--bottom { transform: rotateX(-90deg) translateZ(100px); }
+            }
             > .navbar-brand-logo-normal {
                 display: block;
 
             }
             > .navbar-brand-logo-inverted {
-                display: none;
-
+              display: block;
             }
             > img {
                 backface-visibility: hidden;

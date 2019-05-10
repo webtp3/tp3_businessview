@@ -50,19 +50,21 @@ page.footerData {
             }
         }
     }
-    #    1118.= TEXT
-    #    1118.value (
-    #         <g itemscope itemtype="http://schema.org/LocalBusiness">
-    #            <meta itemprop="logo" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}/{$plugin.tx_tp3mods_tp3micro.settings.logo}">
-    #            <meta itemprop="url" content="{$plugin.tx_tp3mods_tp3micro.settings.baseUrl}">
-    #            <meta itemprop="name" content="{$plugin.tx_tp3mods_tp3micro.settings.tp3sitetitle}">
-    #            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.facebook_profile}">
-    #            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.twitter_profile}">
-    #            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.google_profile}">
-    #            <meta itemprop="sameAs" content="{$plugin.tx_tp3mods_tp3micro.settings.insta_profile}">
-    #
-    #         </g>
-    #    )
+    1118.= TEXT
+    1118.value (
+         <link rel="manifest" href="/index.php?eID=webapp">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="application-name" content="tp3">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="{$plugin.tx_tp3mods_tp3micro.settings.tp3sitetitle}">
+        <link rel="icon" sizes="192x192" href="{$plugin.tx_tp3mods_tp3micro.settings.logo}">
+        <link rel="apple-touch-icon" href="{$plugin.tx_tp3mods_tp3micro.settings.logo}">
+        <meta name="msapplication-TileImage" content="{$plugin.tx_tp3mods_tp3micro.settings.logo}">
+        <meta name="msapplication-TileColor" content="{$plugin.bootstrap_package.settings.less.navbar-default-color}">
+        <meta name="theme-color" content="{$plugin.bootstrap_package.settings.less.brand-primary}">
+
+    )
     1119.= TEXT
     1119.value (
         <g itemscope itemtype="http://schema.org/WebApplication">
