@@ -52,7 +52,7 @@ page.footerData {
     }
     1118.= TEXT
     1118.value (
-         <link rel="manifest" href="/index.php?eID=webapp">
+         <link rel="manifest" href="/index.php?eID=webapp" />
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="application-name" content="tp3">
