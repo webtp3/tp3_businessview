@@ -104,8 +104,8 @@ var bottomPadding = 80;
 var wndW = window.availWidth- (windowPadding * 2);
 var wndH = window.availHeight- (windowPadding * 2 );
 $.each($('.tx-wecmap-map'),function(){
-	wndW = wndW < $(this).parents(".container").width() ? wndW :$(this).parents(".container").width();
-	wndH = wndH < $(this).parents(".container").height()? wndH : $(this).parents(".container").height();
+	wndW = wndW < $(this).width() ? wndW :$(this).parent(".container").width();
+	wndH = wndH < $(this).height()? wndH : $(this).parent(".container").height();
 	$(this).css({"width":wndW+"px","max-width":"100%","max-height":"100%"});
 })
 $( window ).on("resize",function() {
@@ -116,8 +116,8 @@ $( window ).on("resize",function() {
 		$('iframe:not([id^="oauth2relay"]), .tx-wecmap-map').css({"max-width":"100%","max-height":"100%"});
 	else{
 		$.each($('iframe:not([id^="oauth2relay"]), .tx-wecmap-map'),function(){
-			wndW = wndW < $(this).parents(".container").width() ? wndW :$(this).parents(".container").width();
-			wndH = wndH < $(this).parents(".container").height()? wndH : $(this).parents(".container").height();
+			wndW = wndW < $(this).parent(".container").width() ? wndW :$(this).parent(".container").width();
+			wndH = wndH < $(this).parent(".container").height()? wndH : $(this).parent(".container").height();
 			$(this).css({"width":wndW+"px","max-width":"100%","max-height":"100%"});
 		})
 	}
