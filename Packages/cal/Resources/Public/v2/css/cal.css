@@ -86,7 +86,12 @@
 	font-size: 10px;
 	text-align: right;
 }
-
+.tx-cal-controller td.monthToday {
+	background: rgba(50,50,50,0.1)!important;
+	color: green;
+	text-decoration: double;
+	font-weight: bold;
+}
 .tx-cal-controller .month-small,
 .tx-cal-controller .month-medium,
 .tx-cal-controller .month-large {
