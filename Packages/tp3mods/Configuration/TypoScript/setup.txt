@@ -737,7 +737,7 @@ page.jsFooterInline {
         10.data = getenv : REQUEST_URI
         10.wrap (
       if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/typo3conf/ext/tp3mods/Resources/Public/JavaScript/WebApp/sw.js', { scope: '|' })
+        navigator.serviceWorker.register('/sw.js', { scope: '|' })
           .then(function(registration) {
                 console.log('Service Worker Registered');
           });
