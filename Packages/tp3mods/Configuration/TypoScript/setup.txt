@@ -729,9 +729,9 @@ page.jsFooterInline {
     # Google Analytics
     10 = COA
     10 {
-#        if {
-#            isTrue = {$page.tracking.google.trackingID}
-#        }
+        if {
+            isTrue = {$plugin.tx_tp3mods_tp3micro.settings.Tp3WebApp}
+        }
 
         10 = TEXT
         10.data = getenv : REQUEST_URI
