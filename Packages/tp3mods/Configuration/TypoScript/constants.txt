@@ -4,7 +4,7 @@ disableDevmode = 0
 
 # cat=tp3mods: advanced/190/100; type=string; label=Snippet type for page (can also be product etc. see https://schema.org/WebPage)
 snippet_type = WebPage
-app_name = Tp3App-
+app_name = Tp3
 plugin.tx_tp3mods_tp3micro {
     view {
         # cat=plugin.tx_tp3mods_tp3micro/file; type=string; label=Path to template root (FE)
