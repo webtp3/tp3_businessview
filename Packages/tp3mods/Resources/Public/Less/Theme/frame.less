@@ -27,6 +27,7 @@
 .frame {
     padding-top: 1em;
     padding-bottom: 1em;
+	position: relative;
     @media (min-width: @screen-sm) {
         padding-top: 1.5em;
         padding-bottom: 1.5em;
@@ -39,6 +40,15 @@
         margin-bottom: 0;
     }
 }
+.frame-inner {
+    > *:last-child {
+        margin-bottom: 0;
+    }
+}
+
+//
+// Frame Styles
+//
 .frame-ruler-before {
     border-top: 1px solid @page-header-border-color;
     margin-top: 2em;
@@ -209,9 +219,13 @@
 .frame-backgroundimage-container {
 	overflow: hidden;
 }
-.frame-backgroundimage-container,
-.frame-backgroundimage {
+.frame-backgroundimage-container{
 	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+.frame-backgroundimage {
+	position: relative;
 	top: 0;
 	left: 0;
 	height: 100%;

@@ -4,7 +4,7 @@ disableDevmode = 0
 
 # cat=tp3mods: advanced/190/100; type=string; label=Snippet type for page (can also be product etc. see https://schema.org/WebPage)
 snippet_type = WebPage
-
+app_name = Tp3App-
 plugin.tx_tp3mods_tp3micro {
     view {
         # cat=plugin.tx_tp3mods_tp3micro/file; type=string; label=Path to template root (FE)
@@ -32,7 +32,7 @@ plugin.tx_tp3mods_tp3micro {
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3Flip
         Tp3Flip = 1
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3Flip
-        Tp3WebApp = 0
+        Tp3WebApp = 1
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3TagCloud
         Tp3TagCloud = 1
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include glyphicons
