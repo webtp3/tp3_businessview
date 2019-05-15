@@ -24,13 +24,14 @@ self.addEventListener('install', e => {
     caches.open(cacheName).then(cache => {
       return cache.addAll([
         `/`,
-        `/index.html`,
-        `/styles/main.css`,
-        `/scripts/main.min.js`,
-        `/scripts/comlink.global.js`,
-        `/scripts/messagechanneladapter.global.js`,
-        `/scripts/pwacompat.min.js`,
-        `/sounds/airhorn.mp3`
+        `/index.php`,
+	    `/typo3conf/ext/tp3mods/Resources/Public/Css/tp3_app.css`,
+	    `/typo3conf/ext/tp3mods/Resources/Public/JavaScript/tp3_app.js`,
+        `/typo3conf/ext/tp3mods/Resources/Public/JavaScript/WebApp/scripts/main.min.js`,
+        `/typo3conf/ext/tp3mods/Resources/Public/JavaScript/WebApp/scripts/comlink.global.js`,
+        `/typo3conf/ext/tp3mods/Resources/Public/JavaScript/WebApp/scripts/messagechanneladapter.global.js`,
+        `/typo3conf/ext/tp3mods/Resources/Public/JavaScript/WebApp/scripts/pwacompat.min.js`
+
       ])
           .then(() => self.skipWaiting());
     })

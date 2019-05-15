@@ -1,6 +1,6 @@
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:tp3mods/Configuration/TypoScript/RichSnippets/constants.txt">
 # cat=tp3mods: advanced/190/100; type=string; label=devmode)
-disableDevmode = 0
+disableDevmode = 1
 
 # cat=tp3mods: advanced/190/100; type=string; label=Snippet type for page (can also be product etc. see https://schema.org/WebPage)
 snippet_type = WebPage

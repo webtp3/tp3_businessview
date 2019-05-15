@@ -135,6 +135,9 @@ header .navbar-nav {
     display: none;
     font-size: 10px;
 }
+.toolbar .texticon-inner-icon {
+	display: inline-block;
+}
 .flat .toolbar  .texticon-content {
     font-size: 15px;
 }
