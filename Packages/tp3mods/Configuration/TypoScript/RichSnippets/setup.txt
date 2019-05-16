@@ -24,7 +24,7 @@ plugin.tx_tp3mods_tp3micro{
         logo_inv = {$plugin.tx_tp3mods_tp3micro.settings.logo_inv}
     }
 }
-page.footerData {
+page.headerData {
 
     1117 = TEXT
     1117.data = getenv : REQUEST_URI
