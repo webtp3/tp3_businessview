@@ -4,8 +4,9 @@
     <f:if condition="{item.data.background_image_options.parallax}"><f:variable name="backgroundImageClasses">{backgroundImageClasses} carousel-backgroundimage-parallax</f:variable></f:if>
     <f:if condition="{item.data.background_image_options.fade}"><f:variable name="backgroundImageClasses">{backgroundImageClasses} carousel-backgroundimage-fade</f:variable></f:if>
     <f:if condition="{item.data.background_image_options.filter}"><f:variable name="backgroundImageClasses">{backgroundImageClasses} carousel-backgroundimage-{item.data.background_image_options.filter}</f:variable></f:if>
-    <div class="carousel-backgroundimage-container">
-        <div id="carousel-backgroundimage-{data.uid}-{item.data.uid}" class="{backgroundImageClasses}">
+	  <f:if condition="{item.data.background_image_options.speed}"><f:variable name="backgroundImageClasses">{backgroundImageClasses} carousel-backgroundimage-{item.data.background_image_options.speed}</f:variable></f:if>
+	<div class="carousel-backgroundimage-container">
+        <div id="carousel-backgroundimage-{data.uid}-{item.data.uid}" data-speed="{data.background_image_options.speed}"  class="{backgroundImageClasses}">
             <f:variable name="styles" value=""/>
             <f:for each="{variants}" key="name" as="variant">
                 <f:variable name="variantStyle">
@@ -17,7 +18,7 @@
                                 @media (min-width: {breakpoint}px) { #carousel-backgroundimage-{data.uid}-{item.data.uid} { background-image: url('{f:uri.image(image: item.backgroundImage.0, cropVariant: name, maxWidth: width)}'); }}
                             </f:then>
                             <f:else>
-                                #carousel-backgroundimage-{data.uid}-{item.data.uid} { background-image: url('{f:uri.image(image: item.backgroundImage.0, cropVariant: name, maxWidth: width)}'); }
+                                #carousel-backgroundimage-{data.uid}-{item.data.uid} { background-image: url('{f:uri.image(image: item.backgroundImage.0, cropVariant: name, maxWidth: width)}');background-speed:'{data.background_image_options.speed}'; }
                             </f:else>
                         </f:if>
                     </f:if>

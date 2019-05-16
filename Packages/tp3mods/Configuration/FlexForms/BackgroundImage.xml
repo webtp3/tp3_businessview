@@ -67,6 +67,27 @@
                             </config>
                         </TCEforms>
                     </filter>
+                    <speed>
+                        <TCEforms>
+                            <label>LLL:EXT:tp3mods/Resources/Private/Language/locallang_db.xlf:sys_file_reference.speed</label>
+                            <config>
+                                <type>input</type>
+                                <default>-20</default>
+                                <eval>trim</eval>
+                                <range>
+                                    <lower>-100</lower>
+                                    <upper>100</upper>
+                                </range>
+                                <wizards>
+                                    <slider>
+                                        <type>slider</type>
+                                        <step>5</step>
+                                        <width>200</width>
+                                    </slider>
+                                </wizards>
+                            </config>
+                        </TCEforms>
+                    </speed>
                 </el>
             </ROOT>
         </sDEF>

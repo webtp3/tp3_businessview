@@ -575,7 +575,7 @@ var tp3parallax = tp3parallax || false;
 tp3_app.parallax = function(){
 //.body-bg .section_image,
 	if(!tp3parallax)return;
-	$j(' .carousel-inner .item.active,  #content.main-section  > .section , #content.main-section  > .row.frame, .section_image').each(function(){
+	$j(' .carousel-inner .item.active,  #content.main-section  > .section , #content.main-section  > .row.frame, .section_image, .frame-backgroundimage-container > .frame-backgroundimage-parallax').each(function(){
 		// declare the variable to affect the defined data-type
 		var $scroll = $(this);
 
@@ -591,7 +591,7 @@ tp3_app.parallax = function(){
 			// move the background
 			$scroll.css({
 				backgroundPosition: coords,
-
+				backgroundRepeat: 'repeat',
 			})
 			// if($scroll.hasClass("section_image")){
 			//     $scroll.css({

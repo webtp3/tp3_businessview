@@ -4,8 +4,9 @@
 	<f:if condition="{data.background_image_options.parallax}"><f:variable name="frameBackgroundImageClasses">{frameBackgroundImageClasses} frame-backgroundimage-parallax</f:variable></f:if>
 	<f:if condition="{data.background_image_options.fade}"><f:variable name="frameBackgroundImageClasses">{frameBackgroundImageClasses} frame-backgroundimage-fade</f:variable></f:if>
 	<f:if condition="{data.background_image_options.filter}"><f:variable name="frameBackgroundImageClasses">{frameBackgroundImageClasses} frame-backgroundimage-{data.background_image_options.filter}</f:variable></f:if>
+	<f:if condition="{data.background_image_options.speed}"><f:variable name="frameBackgroundImageClasses">{frameBackgroundImageClasses} frame-backgroundimage-{data.background_image_options.speed}</f:variable></f:if>
 	<div class="frame-backgroundimage-container">
-		<div id="frame-backgroundimage-{data.uid}" class="{frameBackgroundImageClasses}">
+		<div id="frame-backgroundimage-{data.uid}" data-speed="{data.background_image_options.speed}" class="{frameBackgroundImageClasses}">
 			<f:variable name="styles" value=""/>
 			<f:for each="{variants}" key="name" as="variant">
 				<f:variable name="variantStyle">
@@ -17,7 +18,7 @@
 								@media (min-width: {breakpoint}px) { #frame-backgroundimage-{data.uid} { background-image: url('{f:uri.image(image: backgroundImage.0, cropVariant: name, maxWidth: width)}'); }}
 							</f:then>
 							<f:else>
-								#frame-backgroundimage-{data.uid} { background-image: url('{f:uri.image(image: backgroundImage.0, cropVariant: name, maxWidth: width)}'); }
+								#frame-backgroundimage-{data.uid} { background-image: url('{f:uri.image(image: backgroundImage.0, cropVariant: name, maxWidth: width)}');background-speed:'{data.background_image_options.speed}'; }
 							</f:else>
 						</f:if>
 					</f:if>
