@@ -31,7 +31,25 @@ if (!is_array($tp3modsConfig)) {
 
 // Override local page not found handling configuration
 $GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = \Tp3\Tp3mods\Utility\PageNotFoundHandling::class . '->pageNotFound';
+/*
+ * webapp
+ *
+ */
+$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['webapp'] = \Tp3\Tp3mods\Hooks\GoogleWebApp::class . '::getManifest';
 
+/*
+* Rich snippets hook in postrenderer
+*/
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3mods\Frontend\PageRenderer\Tp3RichSnippetsRenderer::class . '->render';
+
+//call only on FE
+/*
+* dsvgo hook
+*/
+if (!$tp3modsConfig['cookieconsent'] == 0) {
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class . '->intPages';
+    $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['consent'] = \Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class . '::setTracking';//Tp3\Tp3ratings\Controller\RatingsdataController::class . '->RatingAction';//
+}
 // Define global hooks array
 if (!isset($tp3modsConfig['errorHandlers'])) {
     $tp3modsConfig['errorHandlers'] = [];
@@ -139,25 +157,7 @@ if (TYPO3_MODE == 'BE') {
     }
 } else {
 
-    /*
-     * webapp
-     *
-     */
-    $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['webapp'] = \Tp3\Tp3mods\Hooks\GoogleWebApp::class . '::getManifest';
 
-    /*
-    * Rich snippets hook in postrenderer
-    */
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3mods\Frontend\PageRenderer\Tp3RichSnippetsRenderer::class . '->render';
-
-    //call only on FE
-    /*
-    * dsvgo hook
-    */
-    if (!$tp3modsConfig['cookieconsent'] == 0) {
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class . '->intPages';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['consent'] = \Tp3\Tp3mods\Hooks\GoogleAnalyticsFehook::class . '::setTracking';//Tp3\Tp3ratings\Controller\RatingsdataController::class . '->RatingAction';//
-    }
 }
 //// Cache configuration
 ////if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations'][\R3H6\Error404page\Domain\Cache\ErrorHandlerCache::IDENTIFIER])) {

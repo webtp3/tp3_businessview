@@ -228,6 +228,10 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
 
             try {
                 if (is_object($tp3micro[0]['address_object'])) {
+                    if($tp3micro[0]['address_object']->getCid()!=""){
+                        $tp3micro[0]['map'] = '"hasMap": "https://maps.google.com/maps?cid="'.$tp3micro[0]['address_object']->getCid().'",';
+
+                    }
                     if ($tp3micro[0]['address_object']->getLatitude() != '' &&  $tp3micro[0]['address_object']->getLongitude() != '') {
                         $tp3micro[0]['geo'] = ',
                         "geo": {
@@ -240,10 +244,7 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
                 } else {
                     // #todo without address
                 }
-                if($tp3micro[0]['address_object']->getCid()!=""){
-                    $tp3micro[0]['map'] = '"hasMap": "https://maps.google.com/maps?cid="'.$tp3micro[0]['address_object']->getCid().'",';
 
-                }
                 if (in_array('SearchAction', $this->tp3Microdata)) {
                     $parameters['jsInline'] .='<script type="application/ld+json"> ' . $this->JsonWeb($tp3micro[0], $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']) . '</script>';
                 }
@@ -312,7 +313,7 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
          */
 
 
-        $json =      ' {
+        $json =      '{
          "@context": "http://schema.org",
          "@type": "' . $microdata['konfiguration'] . '",
          "logo": "' . $microdata['address_object']->getWww() . '/' . $microdata['logo'] . '",
@@ -339,8 +340,9 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
           }' .
             $microdata['OpeningHoursSpecification'] .
             $microdata['aggregateRating'] .
-            $microdata['geo'] .
             $microdata['map'] .
+            $microdata['geo'] .
+
             '
             }';
 
