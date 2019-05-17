@@ -138,6 +138,11 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $linkedin;
+    /**
+     * google maps cid
+     * @var string
+     */
+    protected $cid;
 
     /**
      * Slack
@@ -641,6 +646,27 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->slack;
     }
+
+    /**
+     * sets the name attribute
+     *
+     * @param string $cid
+     */
+    public function setCid($cid)
+    {
+        $this->cid = $cid;
+    }
+
+    /**
+     * returns the name attribute
+     *
+     * @return string
+     */
+    public function getCid()
+    {
+        return $this->cid;
+    }
+
 
     /**
      * sets the email attribute

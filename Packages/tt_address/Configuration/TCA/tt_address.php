@@ -312,6 +312,17 @@ return [
                 'placeholder' => 'tp3-web'
             ]
         ],
+        'cid' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tt_address/Resources/Private/Language/locallang_db.xlf:tt_address.cid',
+            'config' => [
+                'type' => 'input',
+                'size' => 20,
+                'eval' => 'trim',
+                'max' => 255,
+                'placeholder' => '12345'
+            ]
+        ],
         'company' => [
             'exclude' => true,
             'label' => 'LLL:EXT:tt_address/Resources/Private/Language/locallang_db.xlf:tt_address.organization',
