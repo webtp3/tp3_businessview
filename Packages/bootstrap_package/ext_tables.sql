@@ -82,6 +82,7 @@ CREATE TABLE tx_bootstrappackage_accordion_item (
     bodytext text,
     media int(11) unsigned DEFAULT '0',
     mediaorient tinyint(4) unsigned DEFAULT '0' NOT NULL,
+    imagecols tinyint(4) unsigned DEFAULT '1' NOT NULL,
 
     tstamp int(11) unsigned DEFAULT '0' NOT NULL,
     crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -125,6 +126,7 @@ CREATE TABLE tx_bootstrappackage_tab_item (
     bodytext text,
     media int(11) unsigned DEFAULT '0',
     mediaorient tinyint(4) unsigned DEFAULT '0' NOT NULL,
+    imagecols tinyint(4) unsigned DEFAULT '1' NOT NULL,
 
     tstamp int(11) unsigned DEFAULT '0' NOT NULL,
     crdate int(11) unsigned DEFAULT '0' NOT NULL,
