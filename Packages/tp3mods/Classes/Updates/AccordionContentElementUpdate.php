@@ -1,0 +1,111 @@
+<?php
+declare(strict_types = 1);
+
+/*
+ * This file is part of the package bk2k/bootstrap-package.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
+namespace Tp3\Tp3mods\Updates;
+
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+/**
+ * AccordionContentElementUpdate
+ */
+
+class AccordionContentElementUpdate extends \TYPO3\CMS\Install\Updates\AbstractUpdate
+{
+    /**
+     * @var string
+     */
+    protected $title = '[BootstrapPackage] Migrate accordion content element';
+
+
+    /**
+     * @return string
+     */
+    public function getIdentifier(): string
+    {
+        return self::class;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return '[Bootstrap Package] Migrate accordion content element';
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return '';
+    }
+
+    /**
+     * @return array
+     */
+    public function getPrerequisites(): array
+    {
+        return [
+            DatabaseUpdatedPrerequisite::class
+        ];
+    }
+
+    public function checkForUpdate(&$description)
+    {
+        if ($this->isWizardDone()) {
+            return false;
+        }
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_content');
+        $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+        $elementCount = $queryBuilder->count('uid')
+            ->from('tt_content')
+            ->where(
+                $queryBuilder->expr()->eq('CType', $queryBuilder->createNamedParameter('bootstrap_package_accordion', \PDO::PARAM_STR))
+            )
+            ->execute()->fetchColumn(0);
+        return (bool)$elementCount;
+    }
+
+    /**
+     * Performs the database update
+     *
+     * @param array &$databaseQueries Queries done in this update
+     * @param string &$customMessage Custom message
+     * @return bool
+     */
+    public function performUpdate(array &$databaseQueries, &$customMessage)
+    {
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tt_content');
+        $queryBuilder = $connection->createQueryBuilder();
+        $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+        $statement = $queryBuilder->select('uid')
+            ->from('tt_content')
+            ->where(
+                $queryBuilder->expr()->eq('CType', $queryBuilder->createNamedParameter('bootstrap_package_accordion', \PDO::PARAM_STR))
+            )
+            ->execute();
+        while ($record = $statement->fetch()) {
+            $queryBuilder = $connection->createQueryBuilder();
+            $queryBuilder->update('tt_content')
+                ->where(
+                    $queryBuilder->expr()->eq(
+                        'uid',
+                        $queryBuilder->createNamedParameter($record['uid'], \PDO::PARAM_INT)
+                    )
+                )
+                ->set('CType', 'accordion');
+            $queryBuilder->execute();
+        }
+        return true;
+    }
+}

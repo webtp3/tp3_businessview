@@ -120,7 +120,7 @@ if (TYPO3_MODE == 'BE') {
 
     /***************
      * Backend Styling for CMS8
-     * Please see \BK2K\BootstrapPackage\Service\BrandingService for CMS9
+     * Please see \Tp3\Tp3mods\Service\BrandingService for CMS9
      */
     if (TYPO3_MODE == 'BE' && !class_exists('TYPO3\CMS\Core\Configuration\ExtensionConfiguration')) {
         if (!$tp3modsConfig['disablePageTsBackendLogo'] == 0 || $tp3modsConfig['disablePageTsBackendLogo'] == false) {
@@ -229,3 +229,14 @@ $GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] .= ($GLOBALS['TYPO3_CONF_
           }
      }'
   );*/
+
+#update content elements
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][\Tp3\Tp3mods\Updates\AccordionContentElementUpdate::class]
+    = \Tp3\Tp3mods\Updates\AccordionContentElementUpdate::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][\Tp3\Tp3mods\Updates\AccordionMediaOrientUpdate::class]
+    = \Tp3\Tp3mods\Updates\AccordionMediaOrientUpdate::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][\Tp3\Tp3mods\Updates\CarouselContentElementUpdate::class]
+    = \Tp3\Tp3mods\Updates\CarouselContentElementUpdate::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][\Tp3\Tp3mods\Updates\CarouselItemTypeUpdate::class]
+    = \Tp3\Tp3mods\Updates\CarouselItemTypeUpdate::class;

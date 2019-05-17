@@ -57,6 +57,12 @@
             <trans-unit id="tt_address.linkedin">
                 <target>LinkedIn:</target>
             </trans-unit>
+			<trans-unit id="tt_address.slack">
+				<target>Slack:</target>
+			</trans-unit>
+			<trans-unit id="tt_address.cid">
+				<target>google Maps cid:</target>
+			</trans-unit>
             <trans-unit id="tt_address.latitude">
                 <target>Breitengrad:</target>
             </trans-unit>
