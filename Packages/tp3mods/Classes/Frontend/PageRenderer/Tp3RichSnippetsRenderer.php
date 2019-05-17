@@ -229,7 +229,7 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
             try {
                 if (is_object($tp3micro[0]['address_object'])) {
                     if($tp3micro[0]['address_object']->getCid()!=""){
-                        $tp3micro[0]['map'] = '"hasMap": "https://maps.google.com/maps?cid="'.$tp3micro[0]['address_object']->getCid().'",';
+                        $tp3micro[0]['map'] = ',"hasMap": "https://maps.google.com/maps?cid="'.$tp3micro[0]['address_object']->getCid().'",';
 
                     }
                     if ($tp3micro[0]['address_object']->getLatitude() != '' &&  $tp3micro[0]['address_object']->getLongitude() != '') {
