@@ -301,6 +301,17 @@ return [
                 'placeholder' => 'johndoe'
             ]
         ],
+        'slack' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tt_address/Resources/Private/Language/locallang_db.xlf:tt_address.slack',
+            'config' => [
+                'type' => 'input',
+                'size' => 20,
+                'eval' => 'trim',
+                'max' => 255,
+                'placeholder' => 'tp3-web'
+            ]
+        ],
         'company' => [
             'exclude' => true,
             'label' => 'LLL:EXT:tt_address/Resources/Private/Language/locallang_db.xlf:tt_address.organization',

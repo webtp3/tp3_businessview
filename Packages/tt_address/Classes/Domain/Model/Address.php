@@ -140,6 +140,12 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $linkedin;
 
     /**
+     * Slack
+     * @var string
+     */
+    protected $slack;
+
+    /**
      * Email
      * @var string
      */
@@ -614,6 +620,26 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getLinkedin()
     {
         return $this->linkedin;
+    }
+
+    /**
+     * sets the Slack attribute
+     *
+     * @param string $slack
+     */
+    public function setSlack($slack)
+    {
+        $this->slack = $slack;
+    }
+
+    /**
+     * returns the LinkedIn attribute
+     *
+     * @return string
+     */
+    public function getSlack()
+    {
+        return $this->slack;
     }
 
     /**

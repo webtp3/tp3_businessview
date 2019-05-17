@@ -8,6 +8,10 @@
 
 namespace Tp3\Tp3mods\Domain\Model;
 
+use TYPO3\CMS\Extbase\Domain\Model\Category;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /***
  *
  * This file is part of the "tp3 Mods" Extension for TYPO3 CMS.
@@ -97,6 +101,9 @@ class Tp3Adress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         if ($this->getFacebook() != '') {
             array_push($profiles, '"https://www.facebook.com/' . $this->getFacebook() . '"');
         }
+        if ($this->getSlack() != '') {
+            array_push($profiles, '"https://' . $this->getSlack() . '.slack.com/"');
+        }
         return $profiles;
     }
 
@@ -181,7 +188,6 @@ class Tp3Adress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * copied stuff
      *
      */
-
     /**
      * Gender
      * @var string
@@ -300,7 +306,13 @@ class Tp3Adress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * LinkedIn
      * @var string
      */
-    protected $linkedIn;
+    protected $linkedin;
+
+    /**
+     * Slack
+     * @var string
+     */
+    protected $slack;
 
     /**
      * Email
@@ -718,7 +730,7 @@ class Tp3Adress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function setTwitter($twitter)
     {
-        if (substr($twitter, 0, 1) !== '@') {
+        if ($twitter[0] !== '@') {
             throw new \InvalidArgumentException('twitter name must start with @', 1357530444);
         }
 
@@ -742,7 +754,7 @@ class Tp3Adress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function setFacebook($facebook)
     {
-        if (substr($facebook, 0, 1) !== '/') {
+        if ($facebook[0] !== '/') {
             throw new \InvalidArgumentException('Facebook name must start with /', 1357530471);
         }
 
@@ -762,11 +774,11 @@ class Tp3Adress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * sets the LinkedIn attribute
      *
-     * @param string $linkedIn
+     * @param string $linkedin
      */
-    public function setLinkedIn($linkedIn)
+    public function setLinkedin($linkedin)
     {
-        $this->linkedIn = $linkedIn;
+        $this->linkedin = $linkedin;
     }
 
     /**
@@ -774,9 +786,29 @@ class Tp3Adress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getLinkedIn()
+    public function getLinkedin()
     {
-        return $this->linkedIn;
+        return $this->linkedin;
+    }
+
+    /**
+     * sets the Slack attribute
+     *
+     * @param string $slack
+     */
+    public function setSlack($slack)
+    {
+        $this->slack = $slack;
+    }
+
+    /**
+     * returns the LinkedIn attribute
+     *
+     * @return string
+     */
+    public function getSlack()
+    {
+        return $this->slack;
     }
 
     /**
@@ -942,11 +974,28 @@ class Tp3Adress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the images
      *
-     * @return ObjectStorage<FileReference>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Get first image
+     *
+     * @return FileReference|null
+     */
+    public function getFirstImage()
+    {
+        $images = $this->getImage();
+        if ($images) {
+            foreach ($images as $image) {
+                return $image;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -999,3 +1048,4 @@ class Tp3Adress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->categories = $categories;
     }
 }
+

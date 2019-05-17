@@ -411,6 +411,7 @@ class LegacyPluginController extends AbstractPlugin
         $markerArray['###TWITTER###'] = $lcObj->stdWrap($address['twitter'], $lConf['twitter.']);
         $markerArray['###FACEBOOK###'] = $lcObj->stdWrap($address['facebook'], $lConf['facebook.']);
         $markerArray['###LINKEDIN###'] = $lcObj->stdWrap($address['linkedin'], $lConf['linkedin.']);
+        $markerArray['###SLACK###'] = $lcObj->stdWrap($address['slack'], $lConf['slack.']);
         $markerArray['###MAINGROUP###'] = $lcObj->stdWrap($address['groups'][0]['title'], $lConf['mainGroup.']);
         $markerArray['###GROUPLIST###'] = $lcObj->stdWrap($address['groupList'], $lConf['groupList.']);
 

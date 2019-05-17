@@ -107,6 +107,14 @@
                  <meta itemprop="sameAs" content="https://www.linkedin.com/in/{address.linkedin}"/>
              </li>
          </f:if>
+			 <f:if condition="{address.slack}">
+			 <li class="list-inline-item">
+				 <i class="fab fa  fa-slack" aria-hidden title="{f:translate(key:'label.slack')}"></i>
+				 <span class="sr-only">{f:translate(key:'label.slack')}:</span>
+				 <a href="https://{address.slack}.slack.com" target="_blank">{address.slack}</a>
+				 <meta itemprop="sameAs" content="https://{address.slack}.slack.com"/>
+			 </li>
+		 </f:if>
      </ul>
  </f:if>
 </f:section>

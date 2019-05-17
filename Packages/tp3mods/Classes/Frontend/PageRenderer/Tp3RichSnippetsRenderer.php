@@ -240,6 +240,10 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
                 } else {
                     // #todo without address
                 }
+                if($tp3micro[0]['address_object']->getCid()!=""){
+                    $tp3micro[0]['map'] = '"hasMap": "https://maps.google.com/maps?cid="'.$tp3micro[0]['address_object']->getCid().'",';
+
+                }
                 if (in_array('SearchAction', $this->tp3Microdata)) {
                     $parameters['jsInline'] .='<script type="application/ld+json"> ' . $this->JsonWeb($tp3micro[0], $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']) . '</script>';
                 }
@@ -303,16 +307,11 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
     {
 
         /*
-         * "logo": "' . $microdata['address_object']->getImage() . '",
-         *
-         *  "contactPoint": [{
-           "@type": "ContactPoint",
-           "telephone": "' . $microdata['address_object']->getPhone() . '",
-           "email": "' . $GLOBALS["TSFE"]->tmpl->setup_constants["email"] . '",
-           "contactType": "customer service"
-         }],
+         * Render Richsnippet for Local Business
 
          */
+
+
         $json =      ' {
          "@context": "http://schema.org",
          "@type": "' . $microdata['konfiguration'] . '",
@@ -341,6 +340,7 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
             $microdata['OpeningHoursSpecification'] .
             $microdata['aggregateRating'] .
             $microdata['geo'] .
+            $microdata['map'] .
             '
             }';
 

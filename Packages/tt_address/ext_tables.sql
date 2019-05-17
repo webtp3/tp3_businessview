@@ -34,6 +34,7 @@ CREATE TABLE tt_address (
     fax varchar(30) DEFAULT '' NOT NULL,
     description text,
     skype varchar(255) DEFAULT '',
+    slack varchar(255) DEFAULT '',
     twitter varchar(255) DEFAULT '',
     facebook varchar(255) DEFAULT '',
     linkedin varchar(255) DEFAULT '',
