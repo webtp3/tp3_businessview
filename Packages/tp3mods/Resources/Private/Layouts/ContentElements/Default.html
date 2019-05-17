@@ -20,7 +20,7 @@
 
 			<f:variable name="backgroundImageClass">{f:if(condition: backgroundImage.0, then: 'frame-has-backgroundimage', else: 'frame-no-backgroundimage')}</f:variable>
 			<div id="c{data.uid}"
-					 class="frame frame-{data.frame_class} frame-type-{data.CType} frame-layout-{data.layout}{f:if(condition: data.space_before_class, else: ' frame-space-before-none', then: ' frame-space-before-{data.space_before_class}')}{f:if(condition: data.space_after_class, else: ' frame-space-after-none', then: ' frame-space-after-{data.space_after_class}')} " itemscope="" itemtype="http://schema.org/WebPageElement">
+					 class="frame frame-{data.frame_class} frame-type-{data.CType} {backgroundClass} {backgroundImageClass} frame-layout-{data.layout}{f:if(condition: data.space_before_class, else: ' frame-space-before-none', then: ' frame-space-before-{data.space_before_class}')}{f:if(condition: data.space_after_class, else: ' frame-space-after-none', then: ' frame-space-after-{data.space_after_class}')} " itemscope="" itemtype="http://schema.org/WebPageElement">
 				<f:render partial="Frame/General/BackgroundImage" arguments="{_all}" />
 				<div class="frame-container">
 					<div class="frame-inner">
