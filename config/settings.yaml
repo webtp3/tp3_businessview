@@ -5,7 +5,6 @@ imports:
     - { resource: local.settings.yaml }
 
 BE:
-    debug: '1'
     explicitADmode: explicitAllow
     loginSecurityLevel: rsa
 DB:
@@ -21,7 +20,6 @@ EXTCONF:
             - de
 FE:
     addRootLineFields: 'subtitle,author,keywords,description,media,title,abstract,tsconfig,tp3microdata'
-    debug: '1'
     loginSecurityLevel: rsa
     pageNotFoundOnCHashError: false
 GFX:
@@ -39,7 +37,7 @@ SYS:
             extbase_object:
                 backend: TYPO3\CMS\Core\Cache\Backend\ApcuBackend
     devIPmask: '80.151.59.179,1.1.1.128'
-    displayErrors: '1'
+    displayErrors: 0
     enableDeprecationLog: false
     reverseProxyIP: 2.2.2.2
     sqlDebug: '1'
