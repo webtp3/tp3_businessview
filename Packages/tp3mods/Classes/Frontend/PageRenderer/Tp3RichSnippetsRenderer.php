@@ -266,13 +266,13 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
         $json = ' {
          "@context": "http://schema.org",
          "@type": "' . $microdata['snippet_type'] . '",
-         "url": "' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/' . $_SERVER['REQUEST_URI'] . '",
+         "url": "https://' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/' . $_SERVER['REQUEST_URI'] . '",
          "name": "' . str_replace("\"","",$GLOBALS['TSFE']->cObj->data['title'] . ' :: ' . $GLOBALS['TSFE']->tmpl->sitetitle ). '",
          "keywords": "' . $GLOBALS['TSFE']->cObj->data['keywords'] . '",
          "description": "' . str_replace("\"","",$GLOBALS['TSFE']->cObj->data['description'] ). '",
              "potentialAction": {
                 "@type": "SearchAction",
-                "target": "' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}",
+                "target": "https://' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}",
                 "query-input": "required name=skeyword"
               }' .
             $microdata['pageAggregateRating'] .
@@ -289,11 +289,11 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
         $json = ' {
          "@context": "http://schema.org",
          "@type": "WebSite",
-         "url": "' . $GLOBALS['_SERVER']['SERVER_NAME'] . '",
+         "url": "https://' . $GLOBALS['_SERVER']['SERVER_NAME'] . '",
          "name": "' . $GLOBALS['TSFE']->tmpl->sitetitle . '",
          "potentialAction": {
             "@type": "SearchAction",
-            "target": "' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}",
+            "target": "https://' . $GLOBALS['_SERVER']['SERVER_NAME'] . '/?tx_indexedsearch_pi2%5Baction%5D=search&tx_indexedsearch_pi2%5Bcontroller%5D=Search&tx_indexedsearch_pi2%5Bsearch%5D%5Bsword%5D={skeyword}",
             "query-input": "required name=skeyword"
           }
           ' . $microdata['aggregateRating'] . '

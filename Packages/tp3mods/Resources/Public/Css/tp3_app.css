@@ -382,9 +382,13 @@ tt_address
     }
     .toolbar .frame {
         padding-top: 0;
-        padding-bottom: 5px;
+        padding-bottom: 15px;
     }
-
+	/*.toolbar .frame-inner {*/
+	/*	border-radius: 25px;*/
+	/*	padding: 10px;*/
+	/*	margin: 0 auto;*/
+	/*}*/
     .row {
         margin-left: 0;
     }

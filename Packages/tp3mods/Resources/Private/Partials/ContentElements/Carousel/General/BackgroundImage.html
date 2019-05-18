@@ -5,7 +5,7 @@
     <f:if condition="{item.data.background_image_options.fade}"><f:variable name="backgroundImageClasses">{backgroundImageClasses} carousel-backgroundimage-fade</f:variable></f:if>
     <f:if condition="{item.data.background_image_options.filter}"><f:variable name="backgroundImageClasses">{backgroundImageClasses} carousel-backgroundimage-{item.data.background_image_options.filter}</f:variable></f:if>
 	  <f:if condition="{item.data.background_image_options.speed}"><f:variable name="backgroundImageClasses">{backgroundImageClasses} carousel-backgroundimage-{item.data.background_image_options.speed}</f:variable></f:if>
-	<div class="carousel-backgroundimage-container">
+	<f:link.typolink parameter="{item.data.link}" additionalAttributes="{draggable:'false'}">
         <div id="carousel-backgroundimage-{data.uid}-{item.data.uid}" data-speed="{data.background_image_options.speed}"  class="{backgroundImageClasses}">
             <f:variable name="styles" value=""/>
             <f:for each="{variants}" key="name" as="variant">
@@ -27,6 +27,6 @@
             </f:for>
             <style>{styles -> f:format.raw()}</style>
         </div>
-    </div>
+	</f:link.typolink>
 </f:if>
 </html>
