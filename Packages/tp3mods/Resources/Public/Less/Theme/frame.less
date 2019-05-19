@@ -155,20 +155,9 @@
 // --------------------------------------------------
 .container {
 	.frame-has-backgroundimage {
-		padding-left: @frame-inner-spacing;
-		padding-right: @frame-inner-spacing;
-		@media (min-width: @screen-sm) {
-			padding-left: (@frame-inner-spacing * @frame-inner-spacing-scaling-sm);
-			padding-right: (@frame-inner-spacing * @frame-inner-spacing-scaling-sm);
-		}
-		@media (min-width: @screen-md) {
-			padding-left: (@frame-inner-spacing * @frame-inner-spacing-scaling-md);
-			padding-right: (@frame-inner-spacing * @frame-inner-spacing-scaling-md);
-		}
-		@media (min-width: @screen-lg) {
-			padding-left: (@frame-inner-spacing * @frame-inner-spacing-scaling-lg);
-			padding-right: (@frame-inner-spacing * @frame-inner-spacing-scaling-lg);
-		}
+		padding-left: 0;
+		padding-right: 0;
+
 	}
 }
 //.frame-collapsible {
