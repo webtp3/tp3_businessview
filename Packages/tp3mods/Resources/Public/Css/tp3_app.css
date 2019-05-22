@@ -194,7 +194,7 @@ span.news-list-tags, .news-list-tags {
 /*
 Carousel CSS Adds
  */
-.carousel-inner .item.carousel-item-type-header .valign{
+.carousel-inner .item .valign{
     transform-style: preserve-3d;
     transform-origin: center center;
     transition: transform 5s;
@@ -203,25 +203,23 @@ Carousel CSS Adds
     text-shadow: rgba(2, 2, 2, 1) 2px 2px 1px;
     text-align: left;
 }
-.item.carousel-item-type.carousel-item-type-header.next,
-.item.carousel-item-type.carousel-item-type-header.active.right {
+.item.carousel-item-type.next,
+.item.carousel-item-type.active.right {
     transform: rotateY( -180deg );
     transition: transform 1s;
 
 }
-.item.carousel-item-type.carousel-item-type-header.prev,
-.item.carousel-item-type.carousel-item-type-header.active.left {
+.item.carousel-item-type.prev,
+.item.carousel-item-type.active.left {
     transform: rotateY( 180deg );
     transition: transform 1s;
-
-
 }
-.item.carousel-item-type.carousel-item-type-header.next.left,
-.item.carousel-item-type.carousel-item-type-header.prev.right,
-.item.carousel-item-type.carousel-item-type-header.active {
+.item.carousel-item-type.next.left,
+.item.carousel-item-type.prev.right,
+.item.carousel-item-type.active {
     transform: rotateY( 0deg );
     transition: transform 1s;
-
+	background-size: cover;
 }
 
 .item.carousel-item-type.carousel-item-type-header.prev .valign > .vcontainer,
