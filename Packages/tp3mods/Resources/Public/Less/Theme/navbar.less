@@ -258,16 +258,28 @@
     }
     .navbar-inverse-transition{
         background-color: @navbar-inverse-bg;
+		.navbar-header-main .navbar-brand,
+		.navbar-main > li > .navbar-text,
+		.navbar-main > li > a {
+			line-height: round(@navbar-height /2);
+			height: round(@navbar-height /2);
+		}
     }
     .navbar-default-transition.flat{
         background-color: @navbar-default-bg;
+		.navbar-header-main .navbar-brand,
+		.navbar-main > li > .navbar-text,
+		.navbar-main > li > a {
+			line-height: round(@navbar-height /2);
+			height: round(@navbar-height /2);
+		}
     }
     .navbar-transition {
         .navbar-header-main .navbar-brand,
         .navbar-main > li > .navbar-text,
         .navbar-main > li > a {
             line-height: round(@navbar-height /2);
-            height: @navbar-height;
+            height: round(@navbar-height /2);
         }
         .navbar-brand {
             > .cube {

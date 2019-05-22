@@ -512,7 +512,7 @@ page {
         tp3_cloud = EXT:tp3mods/Resources/Public/JavaScript/jquery.tagcloud.js
         tp3_cloud.async = 0
     }
-[end
+[end]
 [globalVar = LIT:1 = {$plugin.tx_tp3mods_tp3micro.settings.Tp3App}]
     page.includeJSFooterlibs {
 

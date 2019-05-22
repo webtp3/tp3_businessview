@@ -30,7 +30,7 @@ if (!is_array($tp3modsConfig)) {
 }
 
 // Override local page not found handling configuration
-$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = \Tp3\Tp3mods\Utility\PageNotFoundHandling::class . '->pageNotFound';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = 'index.php?type=404';//\Tp3\Tp3mods\Utility\PageNotFoundHandling::class . '->pageNotFound';
 /*
  * webapp
  *
