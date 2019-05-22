@@ -147,7 +147,7 @@ plugin.tx_news {
 					maxHeight = 280
 				}
 
-				dummyImage = fileadmin/data/logo/icon.png
+				dummyImage = {$logo}
 			}
 
 			# Paginate configuration.
