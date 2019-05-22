@@ -506,6 +506,7 @@ page {
         }
     }
 }
+
 [globalVar = LIT:1 = {$plugin.tx_tp3mods_tp3micro.settings.Tp3TagCloud}]
     page.includeJSFooterlibs {
 
@@ -846,6 +847,7 @@ iframe {
         }
     }
 }
+[globalVar = TSFE:type = 404]
 ########################
 #### PAGETYPE error####
 ########################
@@ -859,8 +861,12 @@ errorPage {
             showFooter.value = 0
         }
     }
-}
+    10.select {
+        pidInList = {$page.10.variables.rootPage}
 
+    }
+}
+[end]
 [globalVar = GP:type = 2000]
     config.htmlTag_setParams = lang="de" dir="ltr" prefix="og: http://ogp.me/ns#" class="{$app_name} isiframe no-js" itemscope itemtype="http://schema.org/WebSite"
     page.bodyTagCObject.wrap = <body id="pid-|" data-{$app_name}role="page" data-spy="scroll" data-target=".navbar-collapse" class="isiframe {$css_class}" itemscope="" itemtype="http://schema.org/{$snippet_type}">
