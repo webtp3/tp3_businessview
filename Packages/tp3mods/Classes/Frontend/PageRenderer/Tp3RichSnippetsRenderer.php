@@ -229,7 +229,8 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
             try {
                 if (is_object($tp3micro[0]['address_object'])) {
                     if($tp3micro[0]['address_object']->getCid()!=""){
-                        $tp3micro[0]['map'] = ',"hasMap": "https://maps.google.com/maps?cid='.$tp3micro[0]['address_object']->getCid().'"';
+                        $tp3micro[0]['map'] = ',
+                        "hasMap": "https://maps.google.com/maps?cid='.$tp3micro[0]['address_object']->getCid().'"';
 
                     }
                     if ($tp3micro[0]['address_object']->getLatitude() != '' &&  $tp3micro[0]['address_object']->getLongitude() != '') {
@@ -238,7 +239,7 @@ class Tp3RichSnippetsRenderer implements SingletonInterface
                             "@type": "GeoCoordinates",
                                 "latitude": ' . $tp3micro[0]['address_object']->getLatitude() . ',
                                 "longitude": ' . $tp3micro[0]['address_object']->getLongitude() . '
-                              },';
+                              }';
                     }
                     $parameters['jsInline'] .='<script type="application/ld+json"> ' . $this->JsonRenderer($tp3micro[0], $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3mods_tp3micro.']['settings.']) . '</script>';
                 } else {
