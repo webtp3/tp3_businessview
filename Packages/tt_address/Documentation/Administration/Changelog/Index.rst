@@ -16,5 +16,8 @@ Changelog
    :titlesonly:
    :glob:
 
+   v/4-3-0
+   v/4-2-0
+   v/4-1-0
    v/4-0-1
    v/4-0-0

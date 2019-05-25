@@ -10,11 +10,15 @@ namespace FriendsOfTYPO3\TtAddress\Controller;
  */
 use FriendsOfTYPO3\TtAddress\Domain\Model\Dto\Demand;
 use FriendsOfTYPO3\TtAddress\Domain\Repository\AddressRepository;
+use FriendsOfTYPO3\TtAddress\Utility\CacheUtility;
 use FriendsOfTYPO3\TtAddress\Utility\TypoScript;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
  * AddressController
@@ -42,17 +46,25 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->redirectToUri($this->uriBuilder->reset()->setTargetPageUid($GLOBALS['TSFE']->id)->build());
         }
         $this->view->assign('address', $address);
+
+        CacheUtility::addCacheTagsByAddressRecords([$address]);
     }
 
     /**
      * Lists addresses by settings in waterfall principle.
      * singleRecords take precedence over categories which take precedence over records from pages
      *
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @param array $override Optional overriding demand
+     * @throws InvalidQueryException
      */
-    public function listAction()
+    public function listAction(array $override = [])
     {
         $demand = $this->createDemandFromSettings();
+
+        if (!empty($override) && $this->settings['allowOverride']) {
+            $this->overrideDemand($demand, $override);
+        }
+
         if ($demand->getSingleRecords()) {
             $addresses = $this->addressRepository->getAddressesByCustomSorting($demand);
         } else {
@@ -63,6 +75,10 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             'demand' => $demand,
             'addresses' => $addresses
         ]);
+
+        CacheUtility::addCacheTagsByAddressRecords(
+            $addresses instanceof QueryResultInterface ? $addresses->toArray() : $addresses
+        );
     }
 
     /**
@@ -82,7 +98,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         );
 
         // correct the array to be in same shape like the _SETTINGS array
-        $tsSettings = $this->removeDots($tsSettings['plugin.']['tx_ttaddress.']);
+        $tsSettings = $this->removeDots((array)$tsSettings['plugin.']['tx_ttaddress.']);
 
         // get original settings
         // original means: what extbase does by munching flexform and TypoScript together, but leaving empty flexform-settings empty ...
@@ -110,6 +126,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $demand->setCategories((string)$this->settings['groups']);
         $categoryCombination = (int)$this->settings['groupsCombination'] === 1 ? 'or' : 'and';
         $demand->setCategoryCombination($categoryCombination);
+        $demand->setIncludeSubCategories((bool)$this->settings['includeSubcategories']);
 
         if ($this->settings['pages']) {
             $demand->setPages($this->getPidList());
@@ -117,7 +134,28 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $demand->setSingleRecords((string)$this->settings['singleRecords']);
         $demand->setSortBy((string)$this->settings['sortBy']);
         $demand->setSortOrder((string)$this->settings['sortOrder']);
+        $demand->setIgnoreWithoutCoordinates((bool)$this->settings['ignoreWithoutCoordinates']);
 
+        return $demand;
+    }
+
+    protected function overrideDemand(Demand $demand, array $override): Demand
+    {
+        $ignoredValues = ['singleRecords', 'sortBy', 'pages'];
+        $ignoredValuesLower = array_map('strtolower', $ignoredValues);
+
+        foreach ($ignoredValues as $property) {
+            unset($override[$property]);
+        }
+
+        foreach ($override as $propertyName => $propertyValue) {
+            if (in_array(strtolower($propertyName), $ignoredValuesLower, true)) {
+                continue;
+            }
+            if ($propertyValue !== '' || $this->settings['allowEmptyStringsForOverwriteDemand']) {
+                ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
+            }
+        }
         return $demand;
     }
 

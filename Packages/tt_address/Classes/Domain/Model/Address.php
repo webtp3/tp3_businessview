@@ -138,17 +138,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $linkedin;
-    /**
-     * google maps cid
-     * @var string
-     */
-    protected $cid;
-
-    /**
-     * Slack
-     * @var string
-     */
-    protected $slack;
 
     /**
      * Email
@@ -539,6 +528,16 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         return $this->www;
     }
 
+    public function getWwwSimplified()
+    {
+        $www = trim($this->www);
+        if (!$www) {
+            return '';
+        }
+        $parts = str_replace(['\\\\', '\\"'], ['\\', '"'], str_getcsv($www, ' '));
+        return $parts[0];
+    }
+
     /**
      * sets the Skype attribute
      *
@@ -626,47 +625,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->linkedin;
     }
-
-    /**
-     * sets the Slack attribute
-     *
-     * @param string $slack
-     */
-    public function setSlack($slack)
-    {
-        $this->slack = $slack;
-    }
-
-    /**
-     * returns the LinkedIn attribute
-     *
-     * @return string
-     */
-    public function getSlack()
-    {
-        return $this->slack;
-    }
-
-    /**
-     * sets the name attribute
-     *
-     * @param string $cid
-     */
-    public function setCid($cid)
-    {
-        $this->cid = $cid;
-    }
-
-    /**
-     * returns the name attribute
-     *
-     * @return string
-     */
-    public function getCid()
-    {
-        return $this->cid;
-    }
-
 
     /**
      * sets the email attribute
@@ -903,5 +861,21 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setCategories(ObjectStorage $categories)
     {
         $this->categories = $categories;
+    }
+
+    /**
+     * Get full name including title, first, middle and last name
+     *
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        $list = [
+            $this->getTitle(),
+            $this->getFirstName(),
+            $this->getMiddleName(),
+            $this->getLastName(),
+        ];
+        return implode(' ', array_filter($list));
     }
 }

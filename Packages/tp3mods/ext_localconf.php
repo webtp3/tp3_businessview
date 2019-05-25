@@ -31,11 +31,6 @@ if (!is_array($tp3modsConfig)) {
 
 // Override local page not found handling configuration
 $GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = 'index.php?type=404';//\Tp3\Tp3mods\Utility\PageNotFoundHandling::class . '->pageNotFound';
-/*
- * webapp
- *
- */
-$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['webapp'] = \Tp3\Tp3mods\Hooks\GoogleWebApp::class . '::getManifest';
 
 /*
 * Rich snippets hook in postrenderer
@@ -229,6 +224,11 @@ $GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] .= ($GLOBALS['TYPO3_CONF_
           }
      }'
   );*/
+/*
+ * webapp
+ *
+ */
+$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['webapp'] = \Tp3\Tp3mods\Hooks\GoogleWebApp::class . '::getManifest';
 
 #update content elements
 

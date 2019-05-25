@@ -152,7 +152,7 @@ class LegacyPluginController extends AbstractPlugin
         $this->conf['sortOrder'] = strtoupper($sortOrder) === 'DESC' ? SORT_DESC : SORT_ASC;
 
         // overwrite TS pidList if set in flexform
-        $pages = !empty($this->ffData['pages']) ?:
+        $pages = !empty($this->ffData['pages']) ? $this->ffData['pages'] :
             trim($this->cObj->stdWrap($this->conf['pidList'], $this->conf['pidList.']));
         $pages = $pages ?
             implode(GeneralUtility::intExplode(',', $pages), ',') :
@@ -411,7 +411,6 @@ class LegacyPluginController extends AbstractPlugin
         $markerArray['###TWITTER###'] = $lcObj->stdWrap($address['twitter'], $lConf['twitter.']);
         $markerArray['###FACEBOOK###'] = $lcObj->stdWrap($address['facebook'], $lConf['facebook.']);
         $markerArray['###LINKEDIN###'] = $lcObj->stdWrap($address['linkedin'], $lConf['linkedin.']);
-        $markerArray['###SLACK###'] = $lcObj->stdWrap($address['slack'], $lConf['slack.']);
         $markerArray['###MAINGROUP###'] = $lcObj->stdWrap($address['groups'][0]['title'], $lConf['mainGroup.']);
         $markerArray['###GROUPLIST###'] = $lcObj->stdWrap($address['groupList'], $lConf['groupList.']);
 

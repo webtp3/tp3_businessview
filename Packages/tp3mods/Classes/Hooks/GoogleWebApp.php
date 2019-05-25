@@ -126,7 +126,7 @@ class GoogleWebApp implements SingletonInterface
     "theme_color": "#2196F3"
   }
 */
-            $logo = $config['page.']['10.']['settings.']['logo.']['file'];
+            $logo = '/'.$config['page.']['10.']['settings.']['logo.']['file'];
 
             //#todo image sizes
             $json = '{
