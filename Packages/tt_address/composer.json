@@ -1,6 +1,7 @@
 {
   "name": "friendsoftypo3/tt-address",
   "type": "typo3-cms-extension",
+	"version": "4.3.1",
   "description": "Displays a list of addresses from an address table on the page.",
   "keywords": [
     "TYPO3",

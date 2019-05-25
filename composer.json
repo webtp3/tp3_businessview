@@ -113,7 +113,7 @@
 		"web-tp3/tp3-facebook": "dev-develop",
 		"web-tp3/tp3ratings": "dev-develop",
 		"web-tp3/tp3_news_extend":"^1.1",
-      	"friendsoftypo3/tt-address": "4.0.3",
+      	"friendsoftypo3/tt-address": "4.3.1",
 		"fluidtypo3/vhs":"*",
 		"yoast-seo-for-typo3/yoast_seo": "3.0.5",
 		"haassie/yoast_news": "^1",
