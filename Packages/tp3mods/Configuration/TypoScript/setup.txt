@@ -847,6 +847,32 @@ iframe {
         }
     }
 }
+########################
+#### PAGETYPE error####
+########################
+WevAppPage  = PAGE
+WevAppPage {
+
+    typeNum = 44444
+    config {
+        disableAllHeaderCode = 1
+        admPanel = 0
+        removeDefaultJS = 1
+        xhtml_cleaning = 0
+        removeDefaultCss = 1
+        removePageCss = 1
+        additionalHeaders = Content-Type:application/xml;charset=utf-8
+        additionalHeaders.10 {
+            header = Content-Type:application/xml;charset=utf-8
+            replace = 1
+        }
+    }
+
+    10 = USER
+    10.userFunc =  Tp3\Tp3mods\Hooks\GoogleWebApp->getManifest
+}
+
+
 [globalVar = TSFE:type = 404]
 ########################
 #### PAGETYPE error####

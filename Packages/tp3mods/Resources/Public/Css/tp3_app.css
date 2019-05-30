@@ -210,6 +210,16 @@ Carousel CSS Adds
     transition: transform 1s;
 
 }
+.carousel .left .carousel-control-icon {
+	left: 0;
+}
+.carousel .left .carousel-control-icon:before {
+	-webkit-transform: rotate(225deg);
+	-ms-transform: rotate(225deg);
+	-o-transform: rotate(225deg);
+	transform: rotate(225deg);
+
+}
 .item.carousel-item-type.prev,
 .item.carousel-item-type.active.left {
     transform: rotateY( 180deg );

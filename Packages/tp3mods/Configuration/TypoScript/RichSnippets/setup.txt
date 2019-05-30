@@ -50,7 +50,7 @@ page.headerData {
             }
         }
     }
-    1118.= TEXT
+    1118 = TEXT
     1118.value (
          <link rel="manifest" href="/index.php?eID=webapp" />
         <meta name="mobile-web-app-capable" content="yes">
@@ -65,7 +65,7 @@ page.headerData {
         <meta name="theme-color" content="{$plugin.bootstrap_package.settings.less.brand-primary}">
 
     )
-    1119.= TEXT
+    1119 = TEXT
     1119.value (
         <g itemscope itemtype="http://schema.org/WebApplication">
             <meta itemprop="image" content="http://web.tp3.de/fileadmin/user_upload/tp3/logo_125.png">
