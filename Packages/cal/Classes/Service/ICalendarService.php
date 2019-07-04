@@ -737,11 +737,13 @@ class ICalendarService extends \TYPO3\CMS\Cal\Service\BaseService
     private function storeAttachment($externalUrl, $insertFields, $eventUid, $pid)
     {
         if (! $this->fileFunc) {
-            $this->fileFunc = new \TYPO3\CMS\Core\Utility\File\BasicFileUtility();
+        //    $this->fileFunc = new \TYPO3\CMS\Core\Utility\File\BasicFileUtility();
+            $this->fileFunc = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Utility\File\BasicFileUtility::class);
+
             $all_files = [];
             $all_files ['webspace'] ['allow'] = '*';
             $all_files ['webspace'] ['deny'] = '';
-            $this->fileFunc->init('', $all_files);
+            $this->fileFunc->setFileExtensionPermissions( $all_files ['webspace'] ['allow'],$all_files ['webspace'] ['deny'] );
         }
 
         $qParts = parse_url($externalUrl);

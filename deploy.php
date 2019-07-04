@@ -56,7 +56,8 @@ $yaml = Yaml::parse(file_get_contents($_ENV["TYPO3_PATH_COMPOSER_ROOT"] . '/conf
 //
 //// Writable dirs by web server
 //add('writable_dirs', $yaml[$input]['writable_dirs']);
-
+exec('git rev-parse --verify HEAD 2> /dev/null', $output);
+$githash = $output[0];
 foreach ($yaml as $key => $y) {
     host($y['hostname'])
         ->user($y['user'])
@@ -69,6 +70,7 @@ foreach ($yaml as $key => $y) {
         ->set('deploy_path', $y['deploy_path'])
         ->addSshOption('StrictHostKeyChecking', 'no')
         ->set('typo3_webroot', $y['typo3_webroot'])
+        ->set('version', $githash)
         ->stage($y['stage'])
         ->roles('app')
         // ->stage('dev')
@@ -97,7 +99,7 @@ foreach ($yaml as $key => $y) {
     if(isset($y['slack_suffix'])){
         host($y['hostname'])
             ->set('slack_webhook', 'https://hooks.slack.com/services/'.$y['slack_suffix'])
-            ->set('slack_success_text', '{{user}}_ deploying `{{branch}}` to {{target}}');
+            ->set('slack_success_text', '{{user}} deploying  `{{branch}}` v {{version}}`#`{{release_name}}` to {{target}}');
         before('deploy', 'slack:notify');
         after('success', 'slack:notify:success');
         after('deploy:failed', 'slack:notify:failure');

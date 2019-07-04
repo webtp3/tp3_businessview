@@ -54,7 +54,7 @@ stage:
     application: tmp/
 
     #// Project repository
-    repository: git@bitbucket.org:web-tp3/dev-rp.git
+    repository: https://thomasruta@bitbucket.org/web-tp3/dev-rp.git
     git_tty: true
     keep_releases: 2
 
@@ -436,8 +436,8 @@ yreim:
     hostname: yreim.de
     port: 22
     user: yreim_yreim
-    public_key:  '~/.ssh/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
@@ -496,4 +496,37 @@ laroe:
 
     #// Writable dirs by web server
     writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
+
+
+sonnenberger:
+  hostname: sonnenberger.tp3.de
+  port: 22
+  user: ig_sonnenberg_ssh
+  public_key:  '~/.ssh/id_rsa.pub'
+  private_key: '~/.ssh/id_rsa'
+  password:    'jpb0OIJlmCmiRT9hP5Pu'
+  configFile: config/keys/ssh_config
+  slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
+  identityFile: ~/.ssh/id_rsa
+  forwardAgent: true
+  multiplexing: true
+  stage: production
+  deploy_path: /var/www/ig-sonnenberger-vereine.de/private/
+  typo3_webroot: ../web/
+
+  branch: 8.x-dev
+  #// Project path
+  application: tmp/
+
+  #// Project repository
+  repository: git@bitbucket.org:web-tp3/dev-rp.git
+  git_tty: true
+  keep_releases: 2
+
+  #// Shared files/dirs between deploys
+  shared_files: ['.env','config/local.settings.yaml','web/typo3conf/realurl_conf.php','web/typo3conf/LocalConfiguration.php','web/typo3conf/AdditionalConfiguration.php','web/typo3conf/PackageStates.php']
+  shared_dirs: ['web/fileadmin','web/typo3temp','web/uploads','web/typo3conf/l10n','var']
+
+  #// Writable dirs by web server
+  writable_dirs: ['../tmp/','_temp', 'web/fileadmin','web/typo3temp','web/typo3conf','web/uploads','var']
 
