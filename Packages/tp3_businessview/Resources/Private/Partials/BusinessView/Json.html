@@ -1,0 +1,12 @@
+
+            <f:if condition="{logoFile}">
+                <f:then>
+                    <f:link.page pageUid="{rootPage}" class="navbar-brand navbar-brand-image">
+                        <img src="{f:uri.image(src: logoFile)}" alt="{logoAlt}" height="{logoHeight}" width="{logoWidth}">
+                    </f:link.page>
+                </f:then>
+                <f:else>
+                    <f:link.page pageUid="{rootPage}" class="navbar-brand">{siteTitle}</f:link.page>
+                </f:else>
+            </f:if>
+ 
