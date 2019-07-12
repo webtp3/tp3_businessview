@@ -24,7 +24,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
@@ -373,20 +372,5 @@ class CalIndexer extends \TYPO3\CMS\Backend\Module\BaseScriptClass
         $defaultFlashMessageQueue = $flashMessageService->getMessageQueueByIdentifier();
         $defaultFlashMessageQueue->enqueue($flashMessage);
         return $defaultFlashMessageQueue->renderFlashMessages();
-    }
-    /**
-     * Get a CSRF token
-     * /index.php?M=tools_txcalM1&moduleToken=70fb81af03bb80a34a4a24b504bf5043db8bc238
-     * @param bool $tokenOnly Set it to TRUE to get only the token, otherwise including the &moduleToken= as prefix
-     * @return string
-     */
-    protected function getToken($tokenOnly = false)
-    {
-        $token = FormProtectionFactory::get()->generateToken('tools_txcalM1', 'index');
-        if ($tokenOnly) {
-            return $token;
-        } else {
-            return '&moduleToken=' . $token;
-        }
     }
 }

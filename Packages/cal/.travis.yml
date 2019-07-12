@@ -23,6 +23,6 @@ script:
 #    echo "Running func tests";
 #    echo;
 #    echo;
-#    php ./.Build/bin/phpunit /Tests/Functional  --log-junit FunctionalTests.log;
+#    php ./.Build/bin/phpunit --configuration ./Tests/Build/FunctionalTests.xml  --log-junit FunctionalTests.log;
 
 
