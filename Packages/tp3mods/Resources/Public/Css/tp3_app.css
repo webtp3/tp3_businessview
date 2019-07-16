@@ -330,7 +330,7 @@ tt_address
         display: block;
         white-space: normal!important;
     }
-    .tx-cal-controller td{
+    .tx-cal-controller td ,.tx-cal-controller  th{
         display: table-cell;
     }
     tr {
