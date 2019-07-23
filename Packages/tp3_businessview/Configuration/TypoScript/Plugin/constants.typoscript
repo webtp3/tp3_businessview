@@ -32,8 +32,8 @@ plugin.tx_tp3businessview_tp3businessview {
     panoRotationTimer=30
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationFactor in ° (default 0.015)
     panoRotationFactor=0.060
-    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=panoJumpsRandom random(trrue) or linear(false)
-    panoJumpsRandom=true
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=panoJumpsRandom random(true) or linear(false)
+    panoJumpsRandom=false
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=FEControls show play pause in FE
     FEControls=true
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=storage

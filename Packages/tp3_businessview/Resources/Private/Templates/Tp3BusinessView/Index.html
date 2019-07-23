@@ -78,7 +78,7 @@
 
                 <f:if condition="{Iterator.index} < 1">
                     <f:then>
-                        window.businessviewJson =  <f:format.raw>{Json}</f:format.raw>;
+                        window.businessviewJson =  window.businessviewJson || <f:format.raw>{Json}</f:format.raw>;
                     </f:then>
                 </f:if>
 

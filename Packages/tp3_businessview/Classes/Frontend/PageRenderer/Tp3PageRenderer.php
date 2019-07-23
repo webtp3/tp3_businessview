@@ -138,7 +138,7 @@ class Tp3PageRenderer implements SingletonInterface
                     }
                     $bw['contact'] = $addresslist[0];
                     //$bw['panorama'] = $panoramas_list[0];
-                    $bw['panoramas'] = [$panoramas_list];
+                    $bw['panoramas'] = array_merge([],$panoramas_list);
                     $bw['panorama'] = $panorama[0];
 
                     // Social Gallery
@@ -218,12 +218,13 @@ class Tp3PageRenderer implements SingletonInterface
 
         $pano_array = [];
         foreach ($panoramas as $panorama) {
-            $pano_array[] =  [ 'id'=>$panorama['pano_id'],
+            $pano_array[] =  [
+                'id'=>$panorama['pano_id'] > 0 ? $panorama['pano_id'] : $panorama['panoId'],
                 'areas'=>[],
                 'infoPoints'=>[],
                 'pano' => [
                     'heading'=>$panorama['heading'],
-                    'panoId'=>$panorama['pano_id'],
+                    'panoId'=>$panorama['pano_id'] > 0 ? $panorama['pano_id'] : $panorama['panoId'],
                     'pitch'=>$panorama['pitch'],
                     'zoom'=>is_numeric($panorama['zoom']) ? $panorama['zoom'] : 0 ,
                 ],
@@ -280,7 +281,7 @@ class Tp3PageRenderer implements SingletonInterface
                 'name'=>$businessview['title'],
                 'panoEntry'=>[
                     'heading'=>$businessview['panorama']['heading'],
-                    'panoId'=>$businessview['panorama']['pano_id'],
+                    'panoId'=>$businessview['panorama']['pano_id'] > 0 ? $businessview['panorama']['pano_id'] : $businessview['panorama']['panoId'],
                     'pitch'=>$businessview['panorama']['pitch'],
                     'zoom'=>is_numeric($businessview['panorama']['zoom']) ? $businessview['panorama']['zoom'] : 0 ,
                 ],

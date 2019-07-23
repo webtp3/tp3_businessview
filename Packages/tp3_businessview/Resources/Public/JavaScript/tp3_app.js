@@ -330,7 +330,7 @@ function animateBusinessview(to) {
 
     }
     var panoAnimation = window.businessviewJson.details.modules.panoAnimation;
-    var counter = 0;
+    // var counter = 0;
     /* animation jumps
     *
     */
@@ -341,70 +341,73 @@ function animateBusinessview(to) {
     if (panoAnimation.jumps && !panoJumpTimer) {
         tp3_app.AnmationHandler.lastPano.id = panorama.getPano();
         panoJumpTimer = window.setInterval(function () {
-            if (tp3_app.AnmationHandler.lastPano.id == panorama.getPano()) {
-                if (window.businessviewJson.details.panoramas.length > 1 && window.businessviewJson.details.type == "businessview") {
-                    links = window.businessviewJson.details.panoramas;
+			if (window.businessviewJson.details.panoramas.length > 1 && window.businessviewJson.details.type == "businessview") {
+				links = window.businessviewJson.details.panoramas;
 
-                }
-                else {
-                    var glinks = panorama.getLinks();
-                    if(glinks != undefined){
-                        window.businessviewJson.details.type = "googleshow";
-                       for (i = 0; glinks.length > i; i++) {
-                            var array = glinks[i];
-                            array.actions = [];
-                            array.areas = [];
-                            array.infoPoints = [];
-                            array.id = array.pano;
-                            window.businessviewJson.details.panoramas.push(array);
-                        }
-                    }
+			}
+			else if (window.businessviewJson.details.panoramas.length > 1 ) {
+				var glinks = panorama.getLinks();
+				if(glinks != undefined){
+					window.businessviewJson.details.type = "googleshow";
+					for (i = 0; glinks.length > i; i++) {
+						var array = glinks[i];
+						array.actions = [];
+						array.areas = [];
+						array.infoPoints = [];
+						array.id = array.pano;
+						window.businessviewJson.details.panoramas.push(array);
+					}
+					//$.extend(window.businessviewJson.details.panoramas,glinks)
+
+				}
 
 
-                    links = window.businessviewJson.details.panoramas;
-                }
+				links = window.businessviewJson.details.panoramas;
+			}
 
-                if (links.length > 1 && tp3_app.AnmationOptions.panoJumpsRandom > 0) {
-                    do {
-                        var loc = getRandomInt(0, links.length - 1);
-                        tp3_app.AnmationHandler.nextPano = links[loc];
-                    }
-                    while (tp3_app.AnmationHandler.nextPano == tp3_app.AnmationHandler.lastPano);
-                    tp3_app.AnmationHandler.backPano = tp3_app.AnmationHandler.lastPano;
-                    tp3_app.AnmationHandler.lastPano = tp3_app.AnmationHandler.nextPano;
-                } else if (links.length > 1 && tp3_app.AnmationOptions.panoJumpsRandom < 1) {
-                    do {
-                        if (counter >= links.length) counter = 0;
-                        tp3_app.AnmationHandler.nextPano = links[counter];
-                        counter++;
-                    }
-                    while (tp3_app.AnmationHandler.nextPano == tp3_app.AnmationHandler.lastPano);
-                    tp3_app.AnmationHandler.backPano = tp3_app.AnmationHandler.lastPano;
-                    tp3_app.AnmationHandler.lastPano = tp3_app.AnmationHandler.nextPano;
-                } else {
-                    tp3_app.AnmationHandler.backPano = tp3_app.AnmationHandler.lastPano;
-                    tp3_app.AnmationHandler.lastPano = tp3_app.AnmationHandler.nextPano;
-                    tp3_app.AnmationHandler.nextPano = links[0];
-                }
+			// if (links.length > 1 && tp3_app.AnmationOptions.panoJumpsRandom) {
+			//
+			// 	tp3_app.AnmationHandler.nextPano = links[Math.floor(Math.random() * links.length)];
+			// 	tp3_app.AnmationHandler.backPano = tp3_app.AnmationHandler.lastPano;
+			// 	tp3_app.AnmationHandler.lastPano = tp3_app.AnmationHandler.nextPano;
+			// } else
+			if (links.length > 1 && (!tp3_app.AnmationOptions.panoJumpsRandom || tp3_app.AnmationOptions.panoJumpsRandom  == "")) {
+				//var counter = counter || 0;
+				if (tp3_app.AnmationOptions.counter >= links.length) tp3_app.AnmationOptions.counter = 0;
 
-                if (tp3_app.AnmationHandler.nextPano.pano != undefined && $.type(tp3_app.AnmationHandler.nextPano.pano) == "object") {
-                    panorama.setPano(tp3_app.AnmationHandler.nextPano.pano.panoId);
-                    panorama.setPov({
-                        heading: Number(tp3_app.AnmationHandler.nextPano.pano.heading),
-                        pitch: Number(tp3_app.AnmationHandler.nextPano.pano.pitch),
-                        zoom: Number(tp3_app.AnmationHandler.nextPano.pano.zoom)
-                    });
-                    panorama.setVisible(true);
-                }
-                else if (tp3_app.AnmationHandler.nextPano.pano != undefined) {
-                    panorama.setPano(tp3_app.AnmationHandler.nextPano.pano);
-                    /*panorama.setPov({
-                        heading: Number(tp3_app.AnmationHandler.nextPano.pano.heading),
-                        pitch: Number(tp3_app.AnmationHandler.nextPano.pano.pitch)
-                    });*/
-                    panorama.setVisible(true);
-                }
+			} else if (links.length > 1 && tp3_app.AnmationOptions.panoJumpsRandom ) {
 
+				tp3_app.AnmationOptions.counter = Math.floor(Math.random() * links.length);
+				tp3_app.AnmationHandler.nextPano = links[tp3_app.AnmationOptions.counter];
+				//$.extend(window.businessviewJson.details.panoramas[tp3_app.AnmationOptions.counter],panorama.getPov())
+
+			}
+			tp3_app.AnmationHandler.nextPano = links[tp3_app.AnmationOptions.counter];
+			tp3_app.AnmationHandler.backPano = tp3_app.AnmationHandler.lastPano;
+			if (tp3_app.AnmationHandler.nextPano.pano != undefined && $.type(tp3_app.AnmationHandler.nextPano.pano) == "object") {
+				window.businessviewJson.details.panoramas[tp3_app.AnmationOptions.counter].pano =  $.extend(
+					$.extend(
+						window.businessviewJson.details.panoramas[tp3_app.AnmationOptions.counter].pano,{}),
+					panorama.getPov())
+				panorama.setPano(tp3_app.AnmationHandler.nextPano.pano.panoId);
+				panorama.setPov({
+					heading: Number(tp3_app.AnmationHandler.nextPano.pano.heading),
+					pitch: Number(tp3_app.AnmationHandler.nextPano.pano.pitch),
+					zoom: Number(tp3_app.AnmationHandler.nextPano.pano.zoom)
+				});
+				panorama.setVisible(true);
+			}
+			else if (tp3_app.AnmationHandler.nextPano.pano != undefined) {
+				panorama.setPano(tp3_app.AnmationHandler.nextPano.pano);
+				/*panorama.setPov({
+                    heading: Number(tp3_app.AnmationHandler.nextPano.pano.heading),
+                    pitch: Number(tp3_app.AnmationHandler.nextPano.pano.pitch)
+                });*/
+				panorama.setVisible(true);
+			}
+			tp3_app.AnmationHandler.lastPano = tp3_app.AnmationHandler.nextPano;
+			tp3_app.AnmationOptions.counter++;
+			
                 if (panoAnimation.rotation) {
                     var lastPov = panorama.getPov();
                     if ($.type(lastPov) == "object") {
@@ -423,7 +426,7 @@ function animateBusinessview(to) {
                     }
 
                 }
-            }
+
 
         }, tp3_app.AnmationOptions.panoJumpTimer);
     }
