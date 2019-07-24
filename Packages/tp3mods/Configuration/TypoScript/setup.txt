@@ -451,6 +451,7 @@ page {
                 width = {$page.logo.width}
                 linktitle = {$page.logo.linktitle}
             }
+            icon = {$page.favicon.file}
 
             breadcrumb {
                 enable = {$page.theme.breadcrumb}
