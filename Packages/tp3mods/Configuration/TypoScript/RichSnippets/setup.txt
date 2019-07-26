@@ -58,7 +58,7 @@ page.headerData {
         <meta name="application-name" content="{$app_name}">
         <meta name="apple-mobile-web-app-status-bar-style" content="{$plugin.bootstrap_package.settings.less.brand-primary}">
         <meta name="apple-mobile-web-app-title" content="{$plugin.tx_tp3mods_tp3micro.settings.tp3sitetitle}">
-        <link rel="icon" sizes="192x192" href="{$plugin.tx_tp3mods_tp3micro.settings.logo}">
+        <link rel="icon" sizes="192x192" href="{$page.favicon.file}">
         <link rel="apple-touch-icon" href="{$page.favicon.file}">
         <meta name="msapplication-TileImage" content="{$page.favicon.file}">
         <meta name="msapplication-TileColor" content="{$plugin.bootstrap_package.settings.less.navbar-default-color}">
