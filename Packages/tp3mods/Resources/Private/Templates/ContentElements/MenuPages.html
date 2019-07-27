@@ -4,7 +4,7 @@
 
     <f:if condition="{menu}">
         <f:render partial="Menu/SkipNavigation" arguments="{_all}"/>
-        <ul>
+        <ul class="nav nav-sidebar">
             <f:for each="{menu}" as="page">
                 <li>
                     <a href="{page.link}" {f:if(condition: page.target, then: ' target="{page.target}"')}

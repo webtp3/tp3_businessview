@@ -4,7 +4,7 @@
 
     <f:if condition="{content}">
         <f:render partial="Menu/SkipNavigation" arguments="{_all}"/>
-        <ul>
+			<ul class="nav nav-section">
             <f:for each="{content}" as="element">
                 <li>
                     <f:link.page pageUid="{element.data.pid}" section="{element.data.uid}"

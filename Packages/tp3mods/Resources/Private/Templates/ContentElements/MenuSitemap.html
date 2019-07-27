@@ -11,7 +11,7 @@
 <f:section name="Menu">
 
     <f:if condition="{menu}">
-        <ul>
+			<ul class="nav nav-sitemap">
             <f:for each="{menu}" as="page">
                 <li class="sitemap_section {page.title}">
                     <a href="{page.link}" {f:if(condition: page.target, then: ' target="{page.target}"')}
