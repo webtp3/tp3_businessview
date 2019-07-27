@@ -831,7 +831,20 @@ tp3_app.watchdog = function () {
        if($j.type(tp3_app.controls == "function"))tp3_app.controls();
     })
 };
+(function () {
+	if ( typeof window.CustomEvent === "function" ) return false; //If not IE
 
+	function CustomEvent ( event, params ) {
+		params = params || { bubbles: false, cancelable: false, detail: undefined };
+		var evt = document.createEvent( 'CustomEvent' );
+		evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+		return evt;
+	}
+
+	CustomEvent.prototype = window.Event.prototype;
+
+	window.CustomEvent = CustomEvent;
+})();
 $j(document).promise().done(function( ) {
 
 
@@ -846,5 +859,14 @@ $j(document).promise().done(function( ) {
         var evt = document.createEvent('Event');
         window.dispatchEvent( evt);
         evt.initEvent("loaded", true, true);
+		// Define that the event name is 'build'.
+
+// Listen for the event.
+		document.addEventListener('loaded', function (e) {
+			// e.target matches elem
+		}, false);
+
+// Target can be any Element or other EventTarget.
+		document.dispatchEvent(evt);
     }
 });
