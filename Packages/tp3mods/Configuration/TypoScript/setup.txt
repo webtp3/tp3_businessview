@@ -148,13 +148,13 @@ lib.containerBackgroundImagejs {
         }
 
     }
-    2.wrap = section_image.push( | );
+    2.wrap = section_image.push( | {background:""} );
     3 < .2
     3.10.renderObj {
         data = file:current:speed
         wrap = {speed:"|"},
     }
-    3.wrap = section_speed.push( | );
+    3.wrap = section_speed.push( | {speed:""}  );
     10 = TEXT
     10.value = </script>
 

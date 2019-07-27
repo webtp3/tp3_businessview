@@ -171,7 +171,7 @@ tp3_app.backmove = function (e) {
 	if (e == undefined) e = $j('body').first();
 	if( $j('.section_image').length > 2) $j('.section_image').first().remove()
 	if (section_image && $j.type(section_image) == "array" && section_image.length > 0 && section_image[0].background ) {
-		var img = section_image[sl].background;
+		var img = section_image[sl].background, gb = false;
 		//get the index of the start of the part of the URL we want to keep
 		if( img.toLowerCase().match(/\.(jpeg|jpg|gif|png|svg)$/) != null)
 		{
@@ -188,7 +188,7 @@ tp3_app.backmove = function (e) {
 			}
 
 
-			var gb =  $j("<div></div>").appendTo( $j('.body-bg').first())
+			gb =  $j("<div></div>").appendTo( $j('.body-bg').first())
 			gb.addClass("section_image")
 			gb.addClass("p" + $j(e).attr("id").split("-")[1]+"_"+sl)
 				.attr("data-speed",section_speed[sl].speed != "" ? section_speed[sl].speed : -Math.floor((Math.random() * 10) + 1))
@@ -206,7 +206,7 @@ tp3_app.backmove = function (e) {
 
 		}
 		else if ( img.toLowerCase().match(/\.(avi|mpg|flv|mov|mp4|ogg|flac|opus|webm|youtube|vimeo)$/) != null ){
-			var gb =  $j("<video controls=\"\" class=\"embed-responsive-item\"><source src=\""+img+"\" type=\"video/mp4\"></video>").appendTo( $j('.body-bg').first())
+			gb =  $j("<video controls=\"\" class=\"embed-responsive-item\"><source src=\""+img+"\" type=\"video/mp4\"></video>").appendTo( $j('.body-bg').first())
 			gb.addClass("section_image ")
 				.addClass("section_video")
 				.attr("data-speed",section_speed[sl].speed != "" ? section_speed[sl].speed : -Math.floor((Math.random() * 10) + 1))
@@ -223,10 +223,12 @@ tp3_app.backmove = function (e) {
 				})
 
 		}
-		gb.fadeIn("slow", function () {
-			if( $j('.section_image').length > 1)   $j('.section_image').first().fadeOut("slow", function () {
+		if(gb){
+			gb.fadeIn("slow", function () {
+				if( $j('.section_image').length > 1)   $j('.section_image').first().fadeOut("slow", function () {
+				})
 			})
-		})
+		}
 
 		if($j.type(tp3_app.parallax == "function"))tp3_app.parallax();
 
