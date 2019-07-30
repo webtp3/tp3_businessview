@@ -38,7 +38,7 @@ abstract class NewTimeView
     private $monthNameLength = 100;
     private $weekDayFormat = '%A';
     protected $current = false;
-    private $selected = false;
+    protected $selected = false;
     private $parentMonth;
 
     /**

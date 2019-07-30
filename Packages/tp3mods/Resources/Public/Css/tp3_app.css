@@ -159,6 +159,10 @@ header .navbar-nav {
     margin: -5px 0;
     float:right;
 }
+.nav.nav-sitemap .nav {
+	padding-left: 5%;
+	box-shadow: rgba(0,0,0,0.5) -2px 1px 1px;
+}
 div.main-section .frame-jumbotron [class^="col"] {
     background: transparent;
 }

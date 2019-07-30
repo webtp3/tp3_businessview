@@ -184,7 +184,7 @@ class NewDayView extends \TYPO3\CMS\Cal\View\NewTimeView
                         }
                     } else {
                         for ($j = 0; $j < $nbrGridCols; $j ++) {
-                            if (count($t_array [$i_formatted] [$j]) == 0 || ! isset($t_array [$i_formatted] [$j])) {
+                            if (is_array($t_array) && (count($t_array [$i_formatted] [$j]) == 0 || ! isset($t_array [$i_formatted] [$j]))) {
                                 $pos_array [$eventMappingKey] = $j;
                                 $t_array [$i_formatted] [$j] = [
                                         'begin' => $eventMappingKey
