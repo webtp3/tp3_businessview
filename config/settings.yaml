@@ -37,8 +37,8 @@ SYS:
             extbase_object:
                 backend: TYPO3\CMS\Core\Cache\Backend\RedisBackend
     devIPmask: '80.151.59.179,1.1.1.128'
-    displayErrors: 0
+    displayErrors: false
     enableDeprecationLog: false
     reverseProxyIP: 2.2.2.2
-    sqlDebug: '1'
+    sqlDebug: '0'
     systemLogLevel: '2'
