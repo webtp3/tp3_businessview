@@ -85,13 +85,13 @@ foreach ($yaml as $key => $y) {
 // [Optional] Allocate tty for git clone. Default value is false.
         ->set('git_tty', $y['git_tty'])
         ->set('keep_releases',  $y['keep_releases'])
-
 // Shared files/dirs between deploys
         ->add('shared_files', $y['shared_files'])
         ->add('shared_dirs', $y['shared_dirs'])
-
 // Writable dirs by web server
         ->add('writable_dirs', $y['writable_dirs']);
+
+
     if ($y['identityFile'] != '') {
         host($y['hostname'])
             ->identityFile($y['identityFile']);
@@ -99,7 +99,7 @@ foreach ($yaml as $key => $y) {
     if(isset($y['slack_suffix'])){
         host($y['hostname'])
             ->set('slack_webhook', 'https://hooks.slack.com/services/'.$y['slack_suffix'])
-            ->set('slack_success_text', '{{user}} deploying  `{{branch}}` v <a href="https://bitbucket.org/web-tp3/dev-rp/commits/{{version}}" target="_blank" >{{version}}</a> #`{{release_name}}` to {{target}}');
+            ->set('slack_success_text', '{{user}} deploying  `{{branch}}` v https://bitbucket.org/web-tp3/dev-rp/commits/{{version}} #`{{release_name}}` to {{target}}');
         before('deploy', 'slack:notify');
         after('success', 'slack:notify:success');
         after('deploy:failed', 'slack:notify:failure');

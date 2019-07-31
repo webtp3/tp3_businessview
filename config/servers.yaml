@@ -54,7 +54,7 @@ stage:
     application: tmp/
 
     #// Project repository
-    repository: https://thomasruta@bitbucket.org/web-tp3/dev-rp.git
+    repository: git@bitbucket.org:web-tp3/dev-rp.git
     git_tty: true
     keep_releases: 2
 
