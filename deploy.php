@@ -99,7 +99,7 @@ foreach ($yaml as $key => $y) {
     if(isset($y['slack_suffix'])){
         host($y['hostname'])
             ->set('slack_webhook', 'https://hooks.slack.com/services/'.$y['slack_suffix'])
-            ->set('slack_success_text', '{{user}} deploying  `{{branch}}` v {{version}}`#`{{release_name}}` to {{target}}');
+            ->set('slack_success_text', '{{user}} deploying  `{{branch}}` v <a href="https://bitbucket.org/web-tp3/dev-rp/commits/{{version}}" target="_blank" >{{version}}</a> #`{{release_name}}` to {{target}}');
         before('deploy', 'slack:notify');
         after('success', 'slack:notify:success');
         after('deploy:failed', 'slack:notify:failure');

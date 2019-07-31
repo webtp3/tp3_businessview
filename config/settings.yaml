@@ -35,7 +35,7 @@ SYS:
     caching:
         cacheConfigurations:
             extbase_object:
-                backend: TYPO3\CMS\Core\Cache\Backend\ApcuBackend
+                backend: TYPO3\CMS\Core\Cache\Backend\RedisBackend
     devIPmask: '80.151.59.179,1.1.1.128'
     displayErrors: 0
     enableDeprecationLog: false
