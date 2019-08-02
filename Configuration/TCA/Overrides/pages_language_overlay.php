@@ -1,15 +1,8 @@
 <?php
 
-/*
- * This file is part of the web-tp3/tp3businessview.
- * For the full copyright and license information, please read the
- * LICENSE file that was distributed with this source code.
- */
-
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
-    'pages',
+    'pages_language_overlay',
     [
-
         'tx_tp3businessview_onpage' => [
             'label' => 'Display Businessview on page',
             'exclude' => true,
@@ -30,22 +23,12 @@
                     [ ''],
                 ],
                 'appearance' => [
-                    'collapseAll' => false,
+                    'collapseAll' => 0,
                     'levelLinksPosition' => 'top',
-                    'useSortable' => true,
-                    'showSynchronizationLink' => true,
-                    'showAllLocalizationLink' => true,
-                    'showPossibleLocalizationRecords' => false,
-                    'showRemovedLocalizationRecords' => false,
-                    'expandSingle' => true,
-                    'enabledControls' => [
-                        'localize' => false,
-                    ]
+                    'showSynchronizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'showAllLocalizationLink' => 1
                 ],
-                'behaviour' => [
-                    'mode' => 'select',
-                    'localizeChildrenAtParentLocalization' => true,
-                ]
             ]
         ],
         'tx_tp3businessview_injetionpoint' => [
@@ -61,7 +44,7 @@
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
-    'pages',
+    'pages_language_overlay',
     'layout',
     '
     --linebreak--, tx_tp3businessview_onpage,

@@ -39,7 +39,7 @@
                                 <td><b>Sorting</b></td>
                             </tr>
                             <f:for each="{businessview.panoramas}" as="panorama">
-                                <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama:panorama}" />
+                                <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama:panorama, settings:settings}" />
                             </f:for>
                         </table>
                     </f:for>
@@ -54,7 +54,7 @@
                         <td><b>Sorting</b></td>
                     </tr>
                     <f:for each="{panoramas_all}" as="panorama">
-                        <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama:panorama}" />
+                        <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama:panorama, settings:settings}" />
                     </f:for>
                 </table><br>
                 <h2>Business </h2>
@@ -64,7 +64,7 @@
                         <td><b>geo</b></td></tr>
                     <f:for each="{addresses}" as="addressest">
                         <f:for each="{addressest}" as="address">
-                            <f:render partial="Tp3BusinessView/Address" arguments="{address:address}" />
+                            <f:render partial="Tp3BusinessView/Address" arguments="{address:address, settings:settings}" />
                         </f:for>
                     </f:for>
                 </table>
@@ -78,7 +78,7 @@
 
                 <f:if condition="{Iterator.index} < 1">
                 <f:then>
-            window.businessviewJson =  <f:format.raw>{Json}</f:format.raw>;
+            window.businessviewJson =  window.businessviewJson ||  <f:format.raw>{Json}</f:format.raw>;
             </f:then>
             </f:if>
 

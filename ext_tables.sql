@@ -90,6 +90,14 @@ CREATE TABLE pages (
 	tx_tp3businessview_injetionpoint varchar(255) DEFAULT '' NOT NULL,
 );
 
+#
+# Table structure for table 'pages'
+#
+CREATE TABLE pages_language_overlay (
+	tx_tp3businessview_onpage tinyint(4) DEFAULT '0' NOT NULL,
+	tx_tp3businessview_panorama int(11) DEFAULT NULL,
+	tx_tp3businessview_injetionpoint varchar(255) DEFAULT '' NOT NULL,
+);
 CREATE TABLE `tx_tp3businessview_domain_model_panoramas_mm` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
   `uid_local` int(11) NOT NULL,

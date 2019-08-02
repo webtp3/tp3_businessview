@@ -138,14 +138,14 @@ class Tp3PageRenderer implements SingletonInterface
                     }
                     $bw['contact'] = $addresslist[0];
                     //$bw['panorama'] = $panoramas_list[0];
-                    $bw['panoramas'] = [$panoramas_list];
+                    $bw['panoramas'] = array_merge([],$panoramas_list);
                     $bw['panorama'] = $panorama[0];
 
                     // Social Gallery
 
                     // $businessview['contact'] = $this->businessAdressRepository->findByUid($businessview['contact'])[0];
                 }
-                $parameters['jsInline'] .='<script> window.businessviewJson = window.businessviewJson || ' . $this->JsonRenderer($bw, $panoramas_list, $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']) . ';window.tp3_app = window.tp3_app || {};window.tp3_app.AnmationOptions  = {  panoJumpTimer:' .
+                $parameters['jsInline'] .='<script> window.businessviewJson = window.businessviewJson || ' . $this->JsonRenderer($bw, $panoramas_list, $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']) . ';window.tp3_app = window.tp3_app || {};window.tp3_app.AnmationOptions  = {  counter:0,panoJumpTimer:' .
                     ($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['panoJumpTimer'] != '' ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['panoJumpTimer'] : 5000) . ', panoRotationTimer:' .
                     ($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['panoRotationTimer'] != '' ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['panoRotationTimer'] : 10) . ', panoRotationFactor:' .
                     ($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['panoRotationFactor'] != '' ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['panoRotationFactor'] : 0.060) . ', panoJumpsRandom:' .
@@ -161,7 +161,7 @@ class Tp3PageRenderer implements SingletonInterface
                 $parameters['cssFiles'] .='<link rel="stylesheet" type="text/css" href="typo3conf/ext/tp3_businessview/Resources/Public/Css/Tp3App.css"></link>';
             } catch (Exception $e) {
                 //   $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
-             //   throw new \RuntimeException($message);
+                //   throw new \RuntimeException($message);
             }
         }
     }
@@ -174,11 +174,11 @@ class Tp3PageRenderer implements SingletonInterface
     {
         if (!is_array($settings)) {
             $settings = [
-           'color'=>'#fff',
-           'backgroundColor'=>'rgba(98, 98, 98, 0.8)',
-           'textColor'=> '#fff',
-           'align'=>'right',
-               ];
+                'color'=>'#fff',
+                'backgroundColor'=>'rgba(98, 98, 98, 0.8)',
+                'textColor'=> '#fff',
+                'align'=>'right',
+            ];
         }
         if ($businessview['panoAnimation']  && !is_array($businessview['panoAnimation'])) {
             $pano_animation = explode(',', $businessview['panoAnimation']);
@@ -218,12 +218,13 @@ class Tp3PageRenderer implements SingletonInterface
 
         $pano_array = [];
         foreach ($panoramas as $panorama) {
-            $pano_array[] =  [ 'id'=>$panorama['pano_id'],
+            $pano_array[] =  [
+                'id'=>!is_null($panorama['pano_id'] ) ? $panorama['pano_id'] : $panorama['panoId'],
                 'areas'=>[],
                 'infoPoints'=>[],
                 'pano' => [
                     'heading'=>$panorama['heading'],
-                    'panoId'=>$panorama['pano_id'],
+                    'panoId'=> !is_null($panorama['pano_id'] ) ? $panorama['pano_id'] : $panorama['panoId'],
                     'pitch'=>$panorama['pitch'],
                     'zoom'=>is_numeric($panorama['zoom']) ? $panorama['zoom'] : 0 ,
                 ],
@@ -240,16 +241,16 @@ class Tp3PageRenderer implements SingletonInterface
                 'legalNoticeUrl'=>'http://' . urlencode($businessview['external_links'] != '' ? $businessview['external_links'] : $businessview['externalLinks']),
                 'location'=>['formattedAddress'=>$businessview['contact']['address'] . ', ' . $businessview['contact']['zip'] . ' ' . $businessview['contact']['city'] . ',' . $businessview['contact']['country'], 'position'=>['latitude'=>$businessview['contact']['latitude'], 'longitude'=>$businessview['contact']['longitude']]],
                 'createdBy'=>['name'=>($businessview['created_by'] != '' ? $businessview['created_by'] : $businessview['createdBy']) . ',' . urlencode($businessview['external_links'] != '' ? $businessview['external_links'] : $businessview['externalLinks']), 'status'=>true],
-                 'modules'=>[
+                'modules'=>[
                     'contact'=> ['fields'=>[
-                                'name'=>['value'=>$businessview['contact']['name'], 'visible'=>($businessview['contact']['name'] !='' ? true : false)],
-                                'street'=>['value'=>$businessview['contact']['address'], 'visible'=>($businessview['contact']['address'] !='' ? true : false)],
-                                'zip'=>['value'=>$businessview['contact']['zip'], 'visible'=>($businessview['contact']['zip'] !='' ? true : false)],
-                                'city'=>['value'=>$businessview['contact']['city'], 'visible'=>($businessview['contact']['city'] !='' ? true : false)],
-                                'phone'=>['value'=>$businessview['contact']['phone'], 'visible'=>($businessview['contact']['phone'] !='' ? true : false)],
-                                'email'=>['value'=>$businessview['contact']['email'], 'visible'=>($businessview['contact']['email'] !='' ? true : false)],
-                                'website'=>['value'=>$businessview['contact']['www'], 'visible'=>($businessview['contact']['www'] !='' ? true : false)],
-                        ],
+                        'name'=>['value'=>$businessview['contact']['name'], 'visible'=>($businessview['contact']['name'] !='' ? true : false)],
+                        'street'=>['value'=>$businessview['contact']['address'], 'visible'=>($businessview['contact']['address'] !='' ? true : false)],
+                        'zip'=>['value'=>$businessview['contact']['zip'], 'visible'=>($businessview['contact']['zip'] !='' ? true : false)],
+                        'city'=>['value'=>$businessview['contact']['city'], 'visible'=>($businessview['contact']['city'] !='' ? true : false)],
+                        'phone'=>['value'=>$businessview['contact']['phone'], 'visible'=>($businessview['contact']['phone'] !='' ? true : false)],
+                        'email'=>['value'=>$businessview['contact']['email'], 'visible'=>($businessview['contact']['email'] !='' ? true : false)],
+                        'website'=>['value'=>$businessview['contact']['www'], 'visible'=>($businessview['contact']['www'] !='' ? true : false)],
+                    ],
                         'color'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['color'] != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['color'] : $settings['color'],
                         'backgroundColor'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['backgroundColor'] != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['backgroundColor'] : $settings['backgroundColor'],
                         'textColor'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['textColor']  != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['textColor'] : $settings['textColor'],
@@ -257,20 +258,20 @@ class Tp3PageRenderer implements SingletonInterface
 
                     ],
                     'custom'=>[],
-                        'externalLinks'=> ['status'=>true, 'align'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['alignSocial'] != '' ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['alignSocial'] : 'left', 'links'=>[
-                            ['icon'=>'fa-twitter', 'url'=>'https://twitter.com/' . $businessview['contact']['twitter'] . '/', 'target'=>false, 'visible'=>($businessview['contact']['twitter'] !='' && ($businessview['social_gallery'] ||  $businessview['socialGallery'])? true : false)],
-                            ['icon'=>'fa-facebook', 'url'=>'https://www.facebook.com/' . $businessview['contact']['facebook'] . '', 'target'=>false, 'visible'=>($businessview['contact']['facebook'] !='' && ($businessview['social_gallery'] ||  $businessview['socialGallery']) ? true : false)],
-                            ['icon'=>'fa-google-plus', 'url'=>'https://plus.google.com/' . $businessview['contact']['googleplus'] . '/about', 'target'=>false, 'visible'=>($businessview['contact']['googleplus'] !='' && ($businessview['social_gallery'] ||  $businessview['socialGallery']) ? true : false)
-                            ]
+                    'externalLinks'=> ['status'=>true, 'align'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['alignSocial'] != '' ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['alignSocial'] : 'left', 'links'=>[
+                        ['icon'=>'fa-twitter', 'url'=>'https://twitter.com/' . $businessview['contact']['twitter'] . '/', 'target'=>false, 'visible'=>($businessview['contact']['twitter'] !='' && ($businessview['social_gallery'] ||  $businessview['socialGallery'])? true : false)],
+                        ['icon'=>'fa-facebook', 'url'=>'https://www.facebook.com/' . $businessview['contact']['facebook'] . '', 'target'=>false, 'visible'=>($businessview['contact']['facebook'] !='' && ($businessview['social_gallery'] ||  $businessview['socialGallery']) ? true : false)],
+                        ['icon'=>'fa-google-plus', 'url'=>'https://plus.google.com/' . $businessview['contact']['googleplus'] . '/about', 'target'=>false, 'visible'=>($businessview['contact']['googleplus'] !='' && ($businessview['social_gallery'] ||  $businessview['socialGallery']) ? true : false)
                         ]
+                    ]
                     ],
                     'gallery'=>[],
-                     'intro'=>[
-                         'headline'=>$businessview['name'], 'message'=> $businessview['description'] != null ? htmlentities($businessview['description']) : '',
-                         'backgroundColor'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['backgroundColor'] != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['backgroundColor'] : $settings['backgroundColor'],
-                         'textColor'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['textColor']  != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['textColor'] : $settings['textColor'],
-                         'status'=>$businessview['intro']
-                     ],
+                    'intro'=>[
+                        'headline'=>$businessview['name'], 'message'=> $businessview['description'] != null ? htmlentities($businessview['description']) : '',
+                        'backgroundColor'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['backgroundColor'] != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['backgroundColor'] : $settings['backgroundColor'],
+                        'textColor'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['textColor']  != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['textColor'] : $settings['textColor'],
+                        'status'=>$businessview['intro']
+                    ],
                     'openingHours'=> $businessview['openingHours'],
                     'opentable'=>[],
                     'panoAnimation'=>['jumps'=>$businessview['pano_animation']['jumps'] ? true : false , 'rotation'=>$businessview['pano_animation']['rotation'] ? true : false],
@@ -280,7 +281,7 @@ class Tp3PageRenderer implements SingletonInterface
                 'name'=>$businessview['title'],
                 'panoEntry'=>[
                     'heading'=>$businessview['panorama']['heading'],
-                    'panoId'=>$businessview['panorama']['pano_id'],
+                    'panoId'=>empty($panorama['pano_id'])? $businessview['panorama']['pano_id'] : $businessview['panorama']['panoId'],
                     'pitch'=>$businessview['panorama']['pitch'],
                     'zoom'=>is_numeric($businessview['panorama']['zoom']) ? $businessview['panorama']['zoom'] : 0 ,
                 ],

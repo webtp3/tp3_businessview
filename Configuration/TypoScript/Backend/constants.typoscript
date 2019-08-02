@@ -12,8 +12,9 @@ module.tx_tp3businessview_web_tp3businessviewmodule {
     storagePid = {$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
   }
   settings{
-    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Maps api key for (BE) https://console.developers.google.com/apis/
+    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/googleMapsJavaScriptApiKey; type=string; label=Maps api key for (BE) https://console.developers.google.com/apis/
     googleMapsJavaScriptApiKey = {$plugin.tx_tp3businessview_tp3businessview.settings.googleMapsJavaScriptApiKey}
-
+    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/editmode; type=bool; label=Designer editmode
+    editmode = false
   }
 }
