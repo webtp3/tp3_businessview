@@ -37,5 +37,58 @@ config.tx_extbase{
 				tableName = tx_news_domain_model_news
 			}
 		}
+
+}
+# ==============================================
+# Persistence object mapping configuration
+# ==============================================
+config.tx_extbase.persistence.classes {
+	GeorgRinger\News\Domain\Model\FileReference {
+		mapping {
+			tableName = sys_file_reference
+		}
+	}
+
+	GeorgRinger\News\Domain\Model\TtContent {
+		mapping {
+			tableName = tt_content
+			columns {
+				altText.mapOnProperty = altText
+				titleText.mapOnProperty = titleText
+				colPos.mapOnProperty = colPos
+				CType.mapOnProperty = CType
+			}
+		}
+	}
+
+	GeorgRinger\News\Domain\Model\Category {
+		mapping {
+			tableName = sys_category
+			columns {
+				parent.mapOnProperty = parentcategory
+			}
+		}
+	}
+}
+
+config.tx_extbase {
+	persistence {
+		classes {
+			GeorgRinger\News\Domain\Model\News {
+				subclasses {
+					# hier wichtig: index 0 überschreiben für die
+					# normale News-Ansicht
+					# 0 == Typ-Auswahl an News-Datensatz
+					0 = Tp3\Tp3NewsExtend\Domain\Model\NewsExtend
+				}
+			}
+
+			Tp3\Tp3NewsExtend\Domain\Model\NewsExtend {
+				mapping {
+					recordType = 0
+					tableName = tx_news_domain_model_news
+				}
+			}
+		}
 	}
 }

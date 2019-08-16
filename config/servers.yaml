@@ -9,7 +9,7 @@ dev:
     password:    'jpb0OIJlmCmiRT9hP5Pu'
 
     configFile: config/keys/ssh_config
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: dev
@@ -35,12 +35,12 @@ stage:
     hostname: praxis.tp3.de
     port: 22
     user: r_p_it_praxis
-    public_key:  '~/.ssh/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: develop
@@ -69,12 +69,12 @@ toasternet:
     hostname: toasternet.eu
     port: 22
     user: toaster_www
-    public_key:  '~/.ssh/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -104,11 +104,11 @@ dnadirekt:
     port: 22
     user: toaster_dnsdirekt
     public_key:  'config/keys/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    private_key: 'config/keys/id_rsa'
     password:    ''
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -137,12 +137,12 @@ devtoasternet:
     hostname: dev.toasternet.eu
     port: 22
     user: toaster_ssh
-    public_key:  '~/.ssh/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -171,12 +171,12 @@ lacuisine:
     hostname: test.lacuisine.de
     port: 22
     user: lacuisine_composer
-    public_key:  '~/.ssh/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -204,12 +204,12 @@ lacuisine_dev:
     hostname: dev.lacuisine.de
     port: 22
     user: lacuisine_dev
-    public_key:  '~/.ssh/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -237,12 +237,12 @@ tr:
     hostname: dev.thomasruta.de
     port: 22
     user: thomasruta_tudy
-    public_key:  '~/.ssh/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -271,12 +271,12 @@ cdu:
     hostname: old.r-p-it.com
     port: 22
     user: r_p_it_cdu
-    public_key:  '~/.ssh/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -305,12 +305,12 @@ rnn:
     hostname: rnn-web.de
     port: 22
     user: r_p_it_rnn
-    public_key:  '~/.ssh/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -339,7 +339,7 @@ tp3:
     port: 22
     user: r_p_it_tp3
     public_key:  '~/.ssh/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    private_key: '~/.ssh//id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
@@ -370,12 +370,12 @@ rp:
     hostname: dev.r-p-it.com
     port: 22
     user: r_p_it_rp
-    public_key:  '~/.ssh/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -403,12 +403,12 @@ srt:
     hostname: srt-wiesbaden.de
     port: 22
     user: srt_ssh
-    public_key:  '~/.ssh/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -441,7 +441,7 @@ yreim:
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -469,12 +469,12 @@ laroe:
     hostname: kinderzahnarzt-badsoden.de
     port: 22
     user: laroe_ssh
-    public_key:  '~/.ssh/id_rsa.pub'
-    private_key: '~/.ssh/id_rsa'
+    public_key:  'config/keys/id_rsa.pub'
+    private_key: 'config/keys/id_rsa'
     password:    'jpb0OIJlmCmiRT9hP5Pu'
     configFile: config/keys/ssh_config
     slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-    identityFile: ~/.ssh/id_rsa
+    identityFile: config/keys/id_rsa
     forwardAgent: true
     multiplexing: true
     stage: production
@@ -502,12 +502,12 @@ sonnenberger:
   hostname: sonnenberger.tp3.de
   port: 22
   user: ig_sonnenberg_ssh
-  public_key:  '~/.ssh/id_rsa.pub'
-  private_key: '~/.ssh/id_rsa'
+  public_key:  'config/keys/id_rsa.pub'
+  private_key: 'config/keys/id_rsa'
   password:    'jpb0OIJlmCmiRT9hP5Pu'
   configFile: config/keys/ssh_config
   slack_suffix: TBBV2KZCL/BJ21YU7SN/tDANrimaAskvTBENchW234Iq
-  identityFile: ~/.ssh/id_rsa
+  identityFile: config/keys/id_rsa
   forwardAgent: true
   multiplexing: true
   stage: production

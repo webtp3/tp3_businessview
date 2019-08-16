@@ -76,7 +76,7 @@ tp3_app.compomemts["backmove"] = function (e) {
                     "min-height":"100%",
                     "z-index":"-1",
                     "top":"0",
-                    "max-height":screen.height,
+                    "max-height":window.height,
                 })
             }
 
@@ -89,7 +89,7 @@ tp3_app.compomemts["backmove"] = function (e) {
                     "position":"absolute",
                     "width":"100%",
                     "z-index":"-3",
-                    "height":screen.height,
+                    "height":window.height,
                     "min-height":"100%",
                     "display":"none",
                     "top":0,
@@ -218,7 +218,7 @@ tp3_app.isotop = function( selector){
     };
 
     // bind filter button click
-    $j('#filters').on( 'click', 'button', function() {
+    $j('.filter-button-group').on( 'click', 'button', function() {
         var filterValue = $j( this ).attr('data-filter');
         // use filterFn if matches value
         filterValue = filterFns[ filterValue ] || filterValue;
@@ -226,7 +226,7 @@ tp3_app.isotop = function( selector){
     });
 
     // bind sort button click
-    $j('#sorts').on( 'click', 'button', function() {
+    $j('.sort-by-button-group').on( 'click', 'button', function() {
         var sortByValue = $j(this).attr('data-sort-by');
         $container.isotope({ sortBy: sortByValue });
     });
