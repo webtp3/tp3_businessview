@@ -6,7 +6,7 @@ module.tx_tp3businessview_web_tp3businessviewmodule{
   }
   settings{
     googleMapsJavaScriptApiKey = {$plugin.tx_tp3businessview_tp3businessview.settings.googleMapsJavaScriptApiKey}
-    editmode = {$plugin.tx_tp3businessview_tp3businessview.settings.editmode}
+    editmode = {$plugin.tx_tp3businessview_web_tp3businessviewmodule.settings.editmode}
     color={$plugin.tx_tp3businessview_tp3businessview.settings.color}
     backgroundColor={$plugin.tx_tp3businessview_tp3businessview.settings.backgroundColor}
     textColor={$plugin.tx_tp3businessview_tp3businessview.settings.textColor}

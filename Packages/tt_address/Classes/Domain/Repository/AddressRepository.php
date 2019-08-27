@@ -30,7 +30,7 @@ class AddressRepository extends Repository
     public function initializeObject()
     {
         $this->defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
-        $this->defaultQuerySettings->setRespectStoragePage(false);
+        $this->defaultQuerySettings->setRespectStoragePage(true);
     }
 
     /**

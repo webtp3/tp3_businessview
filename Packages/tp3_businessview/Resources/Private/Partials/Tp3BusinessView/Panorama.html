@@ -16,24 +16,11 @@
             <button class="btn btn-secondary actions-view">
                 			{core:icon(identifier:'actions-view')}
             </button>
-            <f:if condition="{settings.editmode}">
-                <f:then>
-                    <f:form.textfield additionalAttributes=""  type="text" name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][pano_id]"  value="{panorama.pano_id}"  class="formvalue"  >
-                    </f:form.textfield>
-                </f:then>
-                <f:else >
-                    <f:if condition="{panorama.pano_id}">
-                        <f:then>
+
+
                             <f:form.hidden   name="panoramas[pano_id]" value="{panorama.pano_id}"  class="formvalue pano_id"  />
-                            <f:format.crop maxCharacters="10">{panorama.pano_id}</f:format.crop>
-                        </f:then>
-                        <f:else >
-                                <f:form.hidden   name="panoramas[pano_id]" value="{panorama.panoId}"  class="formvalue pano_id"  />
-                                <f:format.crop maxCharacters="10">{panorama.panoId}</f:format.crop>
-                        </f:else>
-                    </f:if>
-                </f:else>
-            </f:if>
+                            <f:format.crop maxCharacters="10">{panorama.pano_id}{panorama.panoId}</f:format.crop>
+
 
         </td>
        <td >

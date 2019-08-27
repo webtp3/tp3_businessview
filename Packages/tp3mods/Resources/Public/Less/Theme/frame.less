@@ -22,17 +22,26 @@
 	.frame-inner {
 		padding-top: 1em;
 		padding-bottom: 1em;
+		padding-left: 10px;
+		padding-right: 10px;
 		position: relative;
 		@media (min-width: @screen-sm) {
 			padding-top: 1.5em;
 			padding-bottom: 1.5em;
 		}
+		@media (max-width: @screen-sm) {
+			max-width: 98%;
+		}
 		@media (min-width: @screen-md) {
 			padding-top: 2em;
 			padding-bottom: 2em;
+			max-width: 100%;
 		}
 		> *:last-child {
 			margin-bottom: 0;
+		}
+		> *:first-child {
+			padding-top: 0;
 		}
 	}
 }

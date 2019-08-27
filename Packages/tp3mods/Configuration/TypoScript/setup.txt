@@ -288,7 +288,7 @@ page {
     includeJSFooterlibs {
         responsiveimages >
         responsiveimages = EXT:tp3mods/Resources/Public/JavaScript/jquery.responsiveimages.js
-
+        responsivecontent = EXT:tp3mods/Resources/Public/JavaScript/jquery.responsivecontent.js
         tp3 = fileadmin/user_upload/{$username}/tp3.js
         tp3_app = EXT:tp3mods/Resources/Public/JavaScript/tp3_app.js
         tp3_app.async = 1
