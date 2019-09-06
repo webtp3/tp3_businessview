@@ -2,29 +2,39 @@
 <div class="extra">
 	<!-- author -->
 	<f:if condition="{newsItem.author}">
+		<div class="extraitem">
 		<span class="glyphicon glyphicon-user"></span>
 		<f:translate key="author" arguments="{0:newsItem.author}"/>
-		|
+		</div>
 	</f:if>
 
 	<!-- date -->
+	<div class="extraitem">
 	<span class="glyphicon glyphicon-calendar"> </span>
 	<time itemprop="datePublished" datetime="{f:format.date(date:newsItem.datetime, format:'Y-m-d')}">
 		<f:format.date format="{f:translate(key:'dateFormat')}">{newsItem.datetime}</f:format.date>
 	</time>
+	</div>
 
 	<!-- category -->
 	<f:if condition="{newsItem.firstCategory}">
-		| <span class="glyphicon glyphicon-tags"> </span>&nbsp;
+			<div class="extraitem">
+				 <span class="glyphicon glyphicon-tags"> </span>&nbsp;
 		<span class="label label-info">{newsItem.firstCategory.title}</span>
+			</div>
 	</f:if>
 
 	<f:if condition="{newsItem.tags}">
-		| <span class="glyphicon glyphicon-tags"> </span> <span class="news-list-tags" itemprop="keywords">
+			<div class="extraitem">
+				 <span class="glyphicon glyphicon-tags"> </span> <span class="news-list-tags" itemprop="keywords">
 		<f:for each="{newsItem.tags}" as="tag">
-			<span class="label label-info">{tag.title}</span>
+			<span class="label label-info">
+				<f:link.page title="{tag.title}" pageUid="{settings.listPid}" additionalParams="{tx_news_pi1:{overwriteDemand:{tags: tag}}}">
+						{tag.title}
+					</f:link.page>
+			</span>
 		</f:for>
 	</span>
+			</div>
 	</f:if>
 </div>
-</html>

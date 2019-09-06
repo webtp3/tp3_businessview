@@ -50,10 +50,11 @@ plugin.tx_news {
 		format = html
 
 		# general settings
-		overrideFlexformSettingsIfEmpty = cropMaxCharacters,dateField,timeRestriction,orderBy,orderDirection,backPid,listPid,startingpoint,recursive,list.paginate.itemsPerPage,list.paginate.templatePath
+		overrideFlexformSettingsIfEmpty = cropMaxCharacters,dateField,timeRestriction,archiveRestriction,orderBy,orderDirection,backPid,listPid,startingpoint,recursive,list.paginate.itemsPerPage,list.paginate.templatePath
 		allowEmptyStringsForOverwriteDemand = 0
 
 		includeSubCategories = 0
+		respectSysLanguageInFindInList = 0
 
 		analytics {
 			social {
@@ -199,12 +200,13 @@ plugin.tx_news {
 }
 
 # EXT:fluid_styled_content uses different constants
-[globalVar = LIT:0<{$styles.content.textmedia.maxW}]
+[globalVar = LIT:0<{$styles.content.imgtext.maxW}]
 	plugin.tx_news.settings.detail.media.image.lightbox {
-		enabled = {$styles.content.textmedia.linkWrap.lightboxEnabled}
-		class = {$styles.content.textmedia.linkWrap.lightboxCssClass}
-		width = {$styles.content.textmedia.linkWrap.width}
-		height = {$styles.content.textmedia.linkWrap.height}
+		enabled = 1
+		class = {$plugin.bootstrap_package_contentelements.lightbox.cssClass}
+		width = {$plugin.bootstrap_package_contentelements.lightbox.image.maxWidth}
+		height = {$plugin.bootstrap_package_contentelements.lightbox.image.maxHeight}
+		rel = {$plugin.bootstrap_package_contentelements.lightbox.prefix}
 	}
 [global]
 

@@ -112,6 +112,9 @@
                 this.$element.attr("src", source);
                 this.$element.css("opacity", 1);
                 this.$element.css("transform", "rotateX(0deg)");
+				if($(this.$element).parent('news-panel').hasClass('isotop') || $(this.$element).parent('news-panel').hasClass("boxes")){
+					$(this.$element).parent('news-panel').isotope('layout');
+				}
                 $(window).trigger('loaded.bk2k.responsiveimage');
                 this.loaded	= true;
             }

@@ -53,43 +53,39 @@
 					</f:if>
 				</n:simplePrevNext>
 			</f:if>
-			<div class="header">
-				<h3 itemprop="headline">{newsItem.title}</h3>
+
+			<f:if condition="{newsItem.mediaNonPreviews}">
+				<f:then>
+					<f:render section="headline" arguments="{_all}" />
+					<div class="row">
+						<div class="col-md-12">
+							<f:render section="inner-content" arguments="{_all}" />
 			</div>
-			<div class="footer">
-				<p>
-					<!-- date -->
-					<span class="news-list-date">
-						<time itemprop="datePublished" datetime="{f:format.date(date:newsItem.datetime, format:'Y-m-d')}">
-							<f:format.date format="{f:translate(key:'dateFormat')}">{newsItem.datetime}</f:format.date>
-						</time>
-					</span>
-
-					<f:if condition="{newsItem.categories}">
-						<f:render partial="Category/Items" arguments="{categories:newsItem.categories, settings:settings}" />
+					</div>
+				</f:then>
+				<f:else>
+					<f:render section="headline" arguments="{_all}" />
+					<f:render section="inner-content" arguments="{_all}" />
+				</f:else>
 					</f:if>
-
-					<f:if condition="{newsItem.tags}">
-						<!-- Tags -->
-						<span class="news-list-tags" itemprop="keywords">
-						<f:for each="{newsItem.tags}" as="tag">
-							{tag.title}
-						</f:for>
-						</span>
+		</f:then>
 					</f:if>
+</f:section>
 
-					<f:if condition="{newsItem.author}">
-						<!-- author -->
-						<span class="news-list-author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
-							<f:translate key="author_simple" /> <span itemprop="name">{newsItem.author}</span>
-						</span>
-					</f:if>
-				</p>
+<f:section name="headline">
+	<h1 itemprop="headline">{newsItem.title}</h1>
+	<f:render partial="General/AdditionalInformation" arguments="{settings:settings,newsItem:newsItem}" />
+</f:section>
+
+<f:section name="inner-content">
+	<n:renderMedia news="{newsItem}" imgClass="img-responsive" videoClass="video-wrapper" audioClass="audio-wrapper">
+		<div class=" col-12 col-sm-12 col-md-6 col-lg-6 right">
+			<f:render partial="Detail/MediaContainer" arguments="{media: newsItem.mediaNonPreviews, settings:settings}" />
+
 			</div>
-			<n:renderMedia news="{newsItem}" imgClass="img-responsive" videoClass="video-wrapper" audioClass="audio-wrapper">
 				<f:if condition="{newsItem.teaser}">
 					<!-- teaser -->
-					<div class="teaser-text" itemprop="description">
+			<div class="lead" itemprop="description">
 						<f:format.html>{newsItem.teaser}</f:format.html>
 					</div>
 				</f:if>
@@ -99,7 +95,6 @@
 					<f:cObject typoscriptObjectPath="lib.tx_news.contentElementRendering">{newsItem.contentElementIdList}</f:cObject>
 				</f:if>
 
-				<f:render partial="Detail/MediaContainer" arguments="{media: newsItem.mediaNonPreviews, settings:settings}" />
 
 				<!-- main text -->
 				<div class="news-text-wrap" itemprop="articleBody">
@@ -109,11 +104,9 @@
 
 			<f:if condition="{settings.backPid}">
 				<!-- Link Back -->
-				<div class="news-backlink-wrap">
-					<f:link.page pageUid="{settings.backPid}">
+		<f:link.page class="btn btn-default" pageUid="{settings.backPid}">
 						<f:translate key="back-link" />
 					</f:link.page>
-				</div>
 			</f:if>
 
 			<f:if condition="{settings.detail.showSocialShareButtons}">
@@ -205,10 +198,6 @@
 					</div>
 				</f:if>
 			</div>
-		</f:then>
-		<f:else>
 
-		</f:else>
-	</f:if>
 </f:section>
 </html>

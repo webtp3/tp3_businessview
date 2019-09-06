@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/tp3_news_extend.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3NewsExtend\ViewHelpers;
 
 /***************************************************************
@@ -26,9 +32,10 @@ namespace Tp3\Tp3NewsExtend\ViewHelpers;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-class CanonicalTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class CanonicalTagViewHelper extends AbstractViewHelper
+{
 
     /**
      * As this ViewHelper renders HTML, the output must not be escaped.
@@ -44,20 +51,20 @@ class CanonicalTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 	 * @param array $settings
 	 * @return void
 	 */
-	public function render($newsItem = NULL, $settings = array()) {
-
+    public function render($newsItem = null, $settings = [])
+    {
 		if((is_object($newsItem)) && (count($settings) > 0)) {
 			if($newsItem->getCategories()->count() > 1) {
 				$uriBuilder = $this->controllerContext->getUriBuilder();
 
 				$url = $uriBuilder->reset()
 					->setTargetPageUid($settings['defaultDetailPid'])
-					->setCreateAbsoluteUri(TRUE)
-					->setArguments(array(
+                    ->setCreateAbsoluteUri(true)
+                    ->setArguments([
 						'tx_news_pi1[news]' => $newsItem->getUid(),
 						'tx_news_pi1[controller]' => 'News',
 						'tx_news_pi1[action]' => 'detail',
-						))
+                        ])
 					->buildFrontendUri();
 
 				$pageRenderer = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');

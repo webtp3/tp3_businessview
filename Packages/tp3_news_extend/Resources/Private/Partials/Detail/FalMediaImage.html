@@ -1,6 +1,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 	  xmlns:n="http://typo3.org/ns/GeorgRinger/News/ViewHelpers"
 	  xmlns:vh="http://typo3.org/ns/Tp3/Filmcomission/ViewHelpers"
+		xmlns:bk2k="http://typo3.org/ns/BK2K/BootstrapPackage/ViewHelpers"
 	  data-namespace-typo3-fluid="true">
 
 <div class="mediaelement mediaelement-image">
@@ -13,12 +14,41 @@
 		<f:else>
 			<f:if condition="{settings.detail.media.image.lightbox.enabled}">
 				<f:then>
-					<a href="{f:uri.image(src:'{mediaElement.uid}', treatIdAsReference:1, width:'{settings.detail.media.image.lightbox.width}', height:'{settings.detail.media.image.lightbox.height}')}" title="{mediaElement.originalResource.properties.caption}<br/>&copy; {mediaElement.originalResource.properties.copyright}" class="{settings.detail.media.image.lightbox.class}" rel="{settings.detail.media.image.lightbox.rel}">
-						<f:image src="{mediaElement.uid}" class="img-responsive" treatIdAsReference="1" title="{mediaElement.title}" alt="{mediaElement.alternative}" maxWidth="{settings.detail.media.image.maxWidth}" maxHeight="{settings.detail.media.image.maxHeight}" />
+					<a
+						href="{f:uri.image(image: file, maxHeight: settings.lightbox.image.maxHeight, maxWidth: settings.lightbox.image.maxWidth)}"
+						title="{file.properties.title}"
+						data-lightbox-caption="{file.properties.description}"
+						class="{settings.lightbox.cssClass} img-responsive"
+						data-lightbox-width="{bk2k:lastImageInfo(property: 'width')}"
+						data-lightbox-height="{bk2k:lastImageInfo(property: 'height')}"
+						rel="{settings.lightbox.prefix}-{data.uid}">
+						<img src="{f:uri.image(src: 'EXT:bootstrap_package/Resources/Public/Images/blank.gif')}"
+								 data-src="{f:uri.image(image: mediaElement)}"
+								 data-large="{f:uri.image(image: mediaElement, cropVariant: 'default', maxWidth: 1140)}"
+								 data-medium="{f:uri.image(image: mediaElement, cropVariant: 'medium', maxWidth: 940)}"
+								 data-small="{f:uri.image(image: mediaElement, cropVariant: 'small', maxWidth: 720)}"
+								 data-extrasmall="{f:uri.image(image: mediaElement, cropVariant: 'extrasmall', maxWidth: 320)}" title="{mediaElement.title}"
+								 alt="{mediaElement.alternative}" class="lazyload"
+								 data-preload="{f:if(condition: settings.preload.images, then: 'true', else: 'false')}"
+								 data-speed="{mediaElement.speed}" data-parallax="{mediaElement.parallax}" />
+						<noscript>
+							<img src="{f:uri.image(image: mediaElement)}" title="{mediaElement.title}" alt="{mediaElement.alternative}"/>
+						</noscript>
 					</a>
 				</f:then>
 				<f:else>
-					<f:image src="{mediaElement.uid}" class="img-responsive" treatIdAsReference="1" title="{mediaElement.title}" alt="{mediaElement.alternative}" maxWidth="{settings.detail.media.image.maxWidth}" maxHeight="{settings.detail.media.image.maxHeight}" />
+					<img src="{f:uri.image(src: 'EXT:bootstrap_package/Resources/Public/Images/blank.gif')}"
+							 data-src="{f:uri.image(image: mediaElement)}"
+							 data-large="{f:uri.image(image: mediaElement, cropVariant: 'default', maxWidth: 1140)}"
+							 data-medium="{f:uri.image(image: mediaElement, cropVariant: 'medium', maxWidth: 940)}"
+							 data-small="{f:uri.image(image: mediaElement, cropVariant: 'small', maxWidth: 720)}"
+							 data-extrasmall="{f:uri.image(image: mediaElement, cropVariant: 'extrasmall', maxWidth: 320)}" title="{mediaElement.title}"
+							 alt="{mediaElement.alternative}" class="lazyload"
+							 data-preload="{f:if(condition: settings.preload.images, then: 'true', else: 'false')}"
+							 data-speed="{mediaElement.speed}" data-parallax="{mediaElement.parallax}" />
+					<noscript>
+						<img src="{f:uri.image(image: mediaElement)}" title="{mediaElement.title}" alt="{mediaElement.alternative}"/>
+					</noscript>
 				</f:else>
 			</f:if>
 		</f:else>

@@ -163,6 +163,10 @@
                 });
                 this.loaded	= true;
             }
+            else if($(this.$element).parents('.news-list-view').hasClass('isotop') || $(this.$element).parents('.news-list-view').hasClass("boxes")){
+					$(this.$element).parents('.news-panel').isotope('layout');
+
+            }
         }
     };
 

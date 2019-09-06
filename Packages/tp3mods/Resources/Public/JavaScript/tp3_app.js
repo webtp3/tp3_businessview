@@ -459,7 +459,17 @@ tp3_app.isotop = function(ele){
 	var show_isotop =  show_isotop || false;
 	if(!$j(ele))ele = '.news-list-item'
 	if ($j.type($j.fn.isotope) == "function"){
+		if($j('[id=c690]').length > 1 ) {
+			$j('[id=c690]').last().remove();
+		}
 		if($j('#c690 ul').length > 0 ) {
+
+				$j('#c690 ul').find('a').each(function(){
+					if($(this).attr("href") == location.pathname){
+						$(this).parent("li").addClass("active");
+					}
+				})
+			}
 			section_box = $j('#c690 ul').isotope({
 				itemSelector: 'li',
 		layoutMode: 'fitRows',
@@ -472,7 +482,8 @@ tp3_app.isotop = function(ele){
 				// }
 			});
 			show_isotop = true;
-		}
+
+
 
 		if($j('.news-list-view.boxes').length > 0 && window.$container == undefined) {
 			window.$container = $j('.news-list-view.boxes .news-panel').isotope({
@@ -643,8 +654,15 @@ $window = $j(window);
 var tp3parallax = tp3parallax || false;
 tp3_app.parallax = function(){
 //.body-bg .section_image,
-	if(!tp3parallax)return;
-
+	if(!tp3parallax){
+		$(".frame-backgroundimage-fade, .main-section .frame-container").each(function() {
+			$(this).addClass("animated");
+			if (isScrolledIntoView(this) === true) {
+				$(this).addClass("fadeInLeft");
+			}
+		});
+		}
+	else{
 		// declare the variable to affect the defined data-type
 		console.log("parallax");
 		$(window).scroll(function() {
@@ -674,6 +692,9 @@ tp3_app.parallax = function(){
 
 
 		}); // end window scroll
+	}
+
+
 
 
 
@@ -874,11 +895,11 @@ tp3_app.controls = function(){
 		}
 		x++;
 	})
-	if($j('.media-list').length > 0){
+	if($j('.media-list').length > 3 && $j('#media_search').length < 1){
 		var $sbtn = $j('<a href="JavaScript:return false;"><div class="texticon-icon texticon-size-default texticon-type-default"><span class="texticon-inner-icon glyphicon glyphicon-search" style="cursor: pointer;"></span></div></a>').css({ "position":"absolute","right": "10px","top": "10px"}),
 			$sinp =  $j('<input class="form-control" id="media_search" type="text" name="media_search" value="">').insertBefore($j('.media-list').first()).hide();
 
-		$sbtn.insertBefore($j('.media-list').first()).click(function(){
+		$sbtn.prependTo($j('.media-list').first().parent('.frame-inner')).click(function(){
 			var $rows = $j('li.media');
 			$sinp.toggle();
 			$sinp.focus();
@@ -916,7 +937,7 @@ tp3_app.controls = function(){
 								$j('.news-panel').append(this);
 								// add and lay out newly prepended items
 								var item = this;
-								window.$container.isotope()
+								$($newscontainer).find('.news-panel').isotope()
 									.append( item )
 									.isotope( 'appended', item )
 									.isotope('layout');
@@ -938,7 +959,7 @@ tp3_app.controls = function(){
 
 		if($j('#toolbar-handle').length<1){
 			opener =   $j('<div class="opender-handle"><button id="toolbar-handle" class="texticon-inner-icon glyphicon glyphicon-book btn" style="'+
-			'position: relative;  margin: 15px; width:40px;height: 30px; float: right;border: 0; background: transparent;color: #fff;"></button></div>').insertAfter('button.navbar-toggle');
+				'position: relative;  width:40px;height: 30px; float: right;border: 0; background: transparent;color: #fff;"></button></div>').insertAfter('button.navbar-toggle');
 		}
 		$j('.bg-panel').hide().removeClass("hidden")
 		$j('.toolbar').addClass("bg-panel").insertBefore(".main-section")
