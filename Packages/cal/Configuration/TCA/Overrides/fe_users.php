@@ -1,11 +1,4 @@
 <?php
-
-/*
- * This file is part of the web-tp3/cal.
- * For the full copyright and license information, please read the
- * LICENSE file that was distributed with this source code.
- */
-
 defined('TYPO3_MODE') or die();
 
 $sPid = '###CURRENT_PID###'; // storage pid????
@@ -31,10 +24,6 @@ $tempColumns = [
                         'title' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_calendar.createNew',
                     ]
                 ]
-            ],
-            'wizards' => [
-                '_PADDING' => 2,
-                '_VERTICAL' => 1,
             ]
         ]
     ],
@@ -57,10 +46,6 @@ $tempColumns = [
                         'title' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_calendar.createNew',
                     ]
                 ]
-            ],
-            'wizards' => [
-                '_PADDING' => 2,
-                '_VERTICAL' => 1,
             ]
         ]
     ]
@@ -68,4 +53,7 @@ $tempColumns = [
 
 // Add the calendar selector for backend users.
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $tempColumns);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'tx_cal_calendar,tx_cal_calendar_subscription');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+    'fe_users',
+    'tx_cal_calendar,tx_cal_calendar_subscription'
+);

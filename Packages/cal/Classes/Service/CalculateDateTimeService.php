@@ -482,7 +482,7 @@ class CalculateDateTimeService
      */
     public static function setTZbyID(DateTime $dateTime, string $timeZone): DateTime
     {
-        $dateTime->setTimezone(new DateTimeZone($timeZone));
+        $dateTime->setTimezone(new \DateTimeZone($timeZone));
         return $dateTime;
     }
 }

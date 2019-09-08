@@ -1,11 +1,5 @@
 <?php
 
-/*
- * This file is part of the web-tp3/cal.
- * For the full copyright and license information, please read the
- * LICENSE file that was distributed with this source code.
- */
-
 namespace TYPO3\CMS\Cal\Slot;
 
 /**
@@ -21,6 +15,9 @@ namespace TYPO3\CMS\Cal\Slot;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 use TYPO3\CMS\Backend\Form\DataPreprocessor;
+use TYPO3\CMS\Cal\Hooks\TceFormsGetmainfields;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 /**
  * Slot class for the FormEngine DataPreprocessor
@@ -31,10 +28,10 @@ class FormDataPreprocessorSlot
 {
     public static function register()
     {
-        \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class)->connect(
-            \TYPO3\CMS\Backend\Form\DataPreprocessor::class,
+        GeneralUtility::makeInstance(Dispatcher::class)->connect(
+            DataPreprocessor::class,
             'fetchRecordPostProcessing',
-            self::class,
+            __CLASS__,
             'fetchCalRecordPostProcessing'
         );
     }
@@ -43,7 +40,6 @@ class FormDataPreprocessorSlot
      * Fetch the tx_cal_* records and manipulate them
      *
      * @param DataPreprocessor $recordData
-     * @return void
      */
     public function fetchCalRecordPostProcessing(DataPreprocessor $recordData)
     {
@@ -52,9 +48,9 @@ class FormDataPreprocessorSlot
         }
 
         foreach ($recordData->regTableItems_data as $key => $value) {
-            $table = substr($key, 0, -(strlen($key) - strripos($key, '_')));
+            $table = substr($key, 0, -(strlen($key) - strrpos($key, '_')));
 
-            $mainFields = new \TYPO3\CMS\Cal\Hooks\TceFormsGetmainfields();
+            $mainFields = new TceFormsGetmainfields();
             $mainFields->getMainFields_preProcess($table, $value, null);
 
             $recordData->regTableItems_data[$key] = $value;

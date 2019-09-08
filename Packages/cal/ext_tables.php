@@ -1,18 +1,12 @@
 <?php
 
-/*
- * This file is part of the web-tp3/cal.
- * For the full copyright and license information, please read the
- * LICENSE file that was distributed with this source code.
- */
-
 use TYPO3\CMS\Cal\Backend\Modul\CalIndexer;
 use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-if (! defined('TYPO3_MODE')) {
+if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
@@ -98,18 +92,18 @@ $iconRegistry->registerIcon(
 );
 
 if (TYPO3_MODE === 'BE') {
-        // Add module
+    // Add module
     ExtensionManagementUtility::addModule(
-            'tools',
-            'txcalM1',
-            '',
-            '',
-            [
+        'tools',
+        'txcalM1',
+        '',
+        '',
+        [
             'routeTarget' => CalIndexer::class . '::mainAction',
-                    'access' => 'admin',
-                    'name' => 'tools_txcalM1',
+            'access' => 'admin',
+            'name' => 'tools_txcalM1',
             'icon' => 'EXT:cal/Resources/Public/Icons/Module.svg',
-            'labels' => 'LLL:EXT:cal/Resources/Private/Language/locallang_indexer_mod.xlf'
-            ]
-        );
-    }
+            'labels' => 'LLL:EXT:cal/Resources/Private/Language/locallang_indexer_mod.xml'
+        ]
+    );
+}

@@ -8,6 +8,8 @@
 
 namespace TYPO3\CMS\Cal\Model\ICalendar;
 
+use TYPO3\CMS\Cal\Model\ICalendar;
+
 /**
  * Class representing vAlarms.
  *
@@ -20,17 +22,19 @@ namespace TYPO3\CMS\Cal\Model\ICalendar;
  *
  * @since Horde 3.0
  */
-class valarm extends \TYPO3\CMS\Cal\Model\ICalendar
+class valarm extends ICalendar
 {
-    public function getType()
+    public function getType() : string
     {
         return 'vAlarm';
     }
-    public function parsevCalendar($data, $base = 'VCALENDAR', $charset = 'utf8', $clear = true)
+
+    public function parsevCalendar($data, $base = 'VCALENDAR', $charset = 'utf8', $clear = true) : bool
     {
-        parent::parsevCalendar($data, 'VALARM');
+        return parent::parsevCalendar($data, 'VALARM');
     }
-    public function exportvCalendar()
+
+    public function exportvCalendar() : string
     {
         return parent::_exportvData('VALARM');
     }

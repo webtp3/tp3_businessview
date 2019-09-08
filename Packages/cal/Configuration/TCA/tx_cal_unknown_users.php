@@ -1,11 +1,4 @@
 <?php
-
-/*
- * This file is part of the web-tp3/cal.
- * For the full copyright and license information, please read the
- * LICENSE file that was distributed with this source code.
- */
-
 defined('TYPO3_MODE') or die();
 
 $tx_cal_unknown_users = [
@@ -19,7 +12,7 @@ $tx_cal_unknown_users = [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'versioningWS' => true,
-        'iconfile' => 'EXT:cal/Resources/Public/icons/icon_tx_cal_unknown_users.gif',
+        'iconfile' => 'EXT:cal/Resources/Public/Icons/tx_cal_unknown_users.svg',
         'searchFields' => 'email'
     ],
     'feInterface' => [
@@ -34,7 +27,7 @@ $tx_cal_unknown_users = [
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
-                'default' => '0'
+                'default' => 0
             ]
         ],
         'email' => [
@@ -42,8 +35,8 @@ $tx_cal_unknown_users = [
             'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_unknown_users.email',
             'config' => [
                 'type' => 'input',
-                'size' => '30',
-                'max' => '64',
+                'size' => 30,
+                'max' => 64,
                 'eval' => 'required'
             ]
         ]

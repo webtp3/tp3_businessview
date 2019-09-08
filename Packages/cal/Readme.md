@@ -1,15 +1,15 @@
 # TYPO3 Extension ``cal``
-[![Latest Stable Version](https://poser.pugx.org/web-tp3/cal/v/stable)](https://packagist.org/packages/web-tp3/cal)
-[![Daily Downloads](https://poser.pugx.org/web-tp3/cal/d/daily)](https://packagist.org/packages/web-tp3/cal)
-[![Total Downloads](https://poser.pugx.org/web-tp3/cal/downloads)](https://packagist.org/packages/web-tp3/cal)
-[![License](https://poser.pugx.org/web-tp3/cal/license)](https://packagist.org/packages/web-tp3/cal)
-[![Build Status](https://travis-ci.org/webtp3/cal.svg?branch=master)](https://travis-ci.org/webtp3/cal)
+
+[![Latest Stable Version](https://poser.pugx.org/janhelke/cal/v/stable)](https://packagist.org/packages/janhelke/cal)
+[![Monthly Downloads](https://poser.pugx.org/janhelke/cal/d/monthly)](https://packagist.org/packages/janhelke/cal)
+[![License](https://poser.pugx.org/janhelke/cal/license)](https://packagist.org/packages/janhelke/cal)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/JanHelke/9.99)
 
 ## Installation
 
 ### Using Composer
 
-The recommended way to install the extension is by using (Composer)[1]. In your Composer based TYPO3 project root, just do `composer require web-tp3/cal`. 
+The recommended way to install the extension is by using (Composer)[1]. In your Composer based TYPO3 project root, just do `composer require janhelke/cal`. 
 
 ### As extension from TYPO3 Extension Repository (TER)
 
@@ -27,7 +27,8 @@ Download and install the extension with the extension manager module.
 
 | Cal           | TYPO3      | PHP       | Support/Development                     |
 | ------------- | ---------- | ----------|---------------------------------------- |
-| 2.x           | 8.7 - 9.5  | 7.0 - 7.2 | Bugfixes, Security Updates, FeTemplates |
+| 3.x (planned) | 9.5 - 10.x | 7.2       | Features, Bugfixes, Security Updates    |
+| 2.x           | 8.7 - 9.5  | 7.0 - 7.2 | Bugfixes, Security Updates              |
 | 1.x           | <= 8.7     | 5.5 - 5.6 | Security Updates                        |
 
 ### Release Management
@@ -39,8 +40,7 @@ Cal uses **semantic versioning** which basically means for you, that
 
 ### Contribution
 
-
-**Forks**, **Pull requests** or **Commits** to support develop are welcome in general! Nevertheless please don't forget to add an issue and connect it to your pull requests. This
+**Pull requests** are welcome in general! Nevertheless please don't forget to add an issue and connect it to your pull requests. This
 is very helpful to understand what kind of issue the **PR** is going to solve.
 
 - Bugfixes: Please describe what kind of bug your fix solve and give us feedback how to reproduce the issue. We're going

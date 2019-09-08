@@ -39,7 +39,7 @@ class WecMap
         $data = $params ['data'];
         $markerObj = $params ['markerObj'];
 
-        $locationStructure = $this->confArr ['useLocationStructure'] ? $this->confArr ['useLocationStructure'] : 'tx_cal_location';
+        $locationStructure = $this->confArr ['useLocationStructure'] ? $this->confArr ['useLocationStructure'] : 'tt_address';
 
         if ($table == $locationStructure && is_object($markerObj)) {
             $tx_cal_api = GeneralUtility::makeInstance('TYPO3\\CMS\\Cal\\Controller\\Api');
@@ -49,6 +49,8 @@ class WecMap
             $conf ['view.'] ['allowedViews'] = 'location';
 
             $tx_cal_api = &$tx_cal_api->tx_cal_api_with($cObj, $conf);
+            $tx_cal_api->modelObj = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Controller\ModelController::class);
+
             $location = $tx_cal_api->modelObj->findLocation($data ['uid'], $locationStructure, $data ['pid']);
 
             if (is_object($location)) {

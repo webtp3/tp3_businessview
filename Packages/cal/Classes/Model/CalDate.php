@@ -61,7 +61,7 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date
      *
      * @return int => less, equals, greater
      */
-    public function compareTo($object)
+    public function compareTo($object) : int
     {
         if (is_subclass_of($object, 'TYPO3\CMS\Cal\Model\Pear\Date')) {
             return $this->compare($this, $object);
@@ -70,7 +70,7 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date
     }
 
     // @override
-    public function equals($compareDate)
+    public function equals($compareDate) :bool
     {
         $a = floatval($compareDate->format('%Y%m%d%H%M%S'));
         $b = floatval($this->format('%Y%m%d%H%M%S'));
@@ -81,7 +81,7 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date
     }
 
     // @override
-    public function before($compareDate)
+    public function before($compareDate) :bool
     {
         $a = floatval($compareDate->format('%Y%m%d%H%M%S'));
         $b = floatval($this->format('%Y%m%d%H%M%S'));
@@ -92,7 +92,7 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date
     }
 
     // @override
-    public function after($compareDate)
+    public function after($compareDate) :bool
     {
         $a = floatval($compareDate->format('%Y%m%d%H%M%S'));
         $b = floatval($this->format('%Y%m%d%H%M%S'));
@@ -103,7 +103,7 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date
     }
 
     // @override
-    public function compare($compareDateA, $compareDateB)
+    public function compare($compareDateA, $compareDateB) :int
     {
         $a = floatval($compareDateA->format('%Y%m%d%H%M%S'));
         $b = floatval($compareDateB->format('%Y%m%d%H%M%S'));
@@ -117,7 +117,7 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date
     }
 
     // @override
-    public function subtractSeconds($seconds = 0)
+    public function subtractSeconds($seconds = 0) : void
     {
         if ($seconds != 0) {
             parent::subtractSeconds($seconds);
@@ -125,7 +125,7 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date
     }
 
     // @override
-    public function addSeconds($seconds = 0)
+    public function addSeconds($seconds = 0) : void
     {
         if ($seconds != 0) {
             parent::addSeconds($seconds);
@@ -223,7 +223,7 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date
      * @return string date/time in given format
      * @access public
      */
-    public function format($format)
+    public function format($format) : string
     {
         $output = '';
 

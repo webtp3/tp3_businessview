@@ -1,11 +1,5 @@
 <?php
 
-/*
- * This file is part of the web-tp3/cal.
- * For the full copyright and license information, please read the
- * LICENSE file that was distributed with this source code.
- */
-
 namespace TYPO3\CMS\Cal\View;
 
 /**
@@ -25,29 +19,23 @@ use TYPO3\CMS\Cal\Utility\Functions;
 /**
  * A concrete view for the calendar.
  * It is based on the phpicalendar project
- *
  */
-class YearView extends \TYPO3\CMS\Cal\View\MonthView
+class YearView extends MonthView
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Draws the year view
      *
-     * @param
-     *        	array			The events to be drawn.
+     * @param $master_array
+     * @param $getdate
      * @return string HTML output.
      */
-    public function drawYear(&$master_array, $getdate)
+    public function drawYear(&$master_array, $getdate): string
     {
         $this->_init($master_array);
 
-        $page = Functions::getContent($this->conf ['view.'] ['year.'] ['yearTemplate']);
-        if ($page == '') {
-            return '<h3>calendar: no template file found:</h3>' . $this->conf ['view.'] ['year.'] ['yearTemplate'] . '<br />Please check your template record and add both cal items at "include static (from extension)"';
+        $page = Functions::getContent($this->conf['view.']['year.']['yearTemplate']);
+        if ($page === '') {
+            return '<h3>calendar: no template file found:</h3>' . $this->conf['view.']['year.']['yearTemplate'] . '<br />Please check your template record and add both cal items at "include static (from extension)"';
         }
         $array = [];
         return $this->finish($page, $array);

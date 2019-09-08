@@ -2,6 +2,8 @@
 
 namespace TYPO3\CMS\Cal\Model;
 
+use TYPO3\CMS\Cal\Model\Pear\Date;
+
 /**
  * This file is part of the TYPO3 extension Calendar Base (cal).
  *
@@ -67,8 +69,8 @@ class CalendarDateTime extends \DateTime
      */
     public function equals(CalendarDateTime $compareDate): bool
     {
-        $a = floatval($compareDate->format('YmdHMS'));
-        $b = floatval($this->format('YmdHMS'));
+        $a = floatval($compareDate->format('YmdHis'));
+        $b = floatval($this->format('YmdHis'));
         return $a === $b;
     }
 
@@ -78,8 +80,8 @@ class CalendarDateTime extends \DateTime
      */
     public function before(CalendarDateTime $compareDate): bool
     {
-        $a = floatval($compareDate->format('YmdHMS'));
-        $b = floatval($this->format('YmdHMS'));
+        $a = floatval($compareDate->format('YmdHis'));
+        $b = floatval($this->format('YmdHis'));
         return $a > $b;
     }
 
@@ -89,8 +91,8 @@ class CalendarDateTime extends \DateTime
      */
     public function after(CalendarDateTime $compareDate): bool
     {
-        $a = floatval($compareDate->format('YmdHMS'));
-        $b = floatval($this->format('YmdHMS'));
+        $a = floatval($compareDate->format('YmdHis'));
+        $b = floatval($this->format('YmdHis'));
         return $a < $b;
     }
 
@@ -101,8 +103,8 @@ class CalendarDateTime extends \DateTime
      */
     public function compare(CalendarDateTime $compareDateA, CalendarDateTime $compareDateB): int
     {
-        $a = floatval($compareDateA->format('YmdHMS'));
-        $b = floatval($compareDateB->format('YmdHMS'));
+        $a = floatval($compareDateA->format('YmdHis'));
+        $b = floatval($compareDateB->format('YmdHis'));
         if ($a === $b) {
             return 0;
         }
@@ -266,8 +268,9 @@ class CalendarDateTime extends \DateTime
     /**
      * @param $date
      */
-    public function copy(CalendarDateTime $date)
+    public function copy($date)
     {
+       if($date == "")$date= new CalendarDateTime();
         $this->setYear($date->getYear());
         $this->setMonth($date->getMonth());
         $this->setDay($date->getDay());
@@ -298,7 +301,7 @@ class CalendarDateTime extends \DateTime
      */
     public function getDay(): int
     {
-        return (int)$this->format('d');
+        return (int)$this->format('d')+1;
     }
 
     /**
@@ -372,4 +375,23 @@ class CalendarDateTime extends \DateTime
     {
         $this->setTime($this->format('H'), $this->format('i'), $s);
     }
+    /**
+     * Determine if this date is in the future
+     *
+     * Determine if this date is in the future
+     *
+     * @return bool true if this date is in the future
+     * @deprecated since ext:cal version 2.x. Will be removed in version 3.0.0
+     */
+    public function isFuture(): bool
+    {
+        //trigger_error('This function will be removed together with all remains of PEAR in version 3.0.0 of ext:cal.', E_USER_DEPRECATED);
+
+        $now =  new \DateTime("now");
+        if (!$this->diff($now)) {
+            return true;
+        }
+        return false;
+    }
+
 }

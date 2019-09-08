@@ -1,11 +1,17 @@
 <?php
 
-/*
- * This file is part of the web-tp3/cal.
+/**
+ * This file is part of the TYPO3 extension Calendar Base (cal).
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
  * For the full copyright and license information, please read the
- * LICENSE file that was distributed with this source code.
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
-
 namespace TYPO3\CMS\Cal\Cron;
 
 use TYPO3\CMS\Cal\Service\ICalendarService;
@@ -19,16 +25,9 @@ class CalendarScheduler extends AbstractTask
     public $uid;
 
     /**
-     * PHP4 wrapper for constructor,
-     * have to be here even though the constructor is not defined in the derived class,
-     * else the constructor of the parent class will not be called in PHP4
+     * @return bool
      */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function execute()
+    public function execute(): bool
     {
         $success = true;
         $service = new ICalendarService();
@@ -37,11 +36,17 @@ class CalendarScheduler extends AbstractTask
         return $success;
     }
 
+    /**
+     * @return mixed
+     */
     public function getUID()
     {
         return $this->uid;
     }
 
+    /**
+     * @param $uid
+     */
     public function setUID($uid)
     {
         $this->uid = $uid;

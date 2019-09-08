@@ -1,11 +1,5 @@
 <?php
 
-/*
- * This file is part of the web-tp3/cal.
- * For the full copyright and license information, please read the
- * LICENSE file that was distributed with this source code.
- */
-
 namespace TYPO3\CMS\Cal\Utility;
 
 /**
@@ -32,9 +26,7 @@ class Registry
      * $mybar = new Something();
      *
      * @param string $namespace
-     *        	A namespace to prevent clashes
      * @param string $var
-     *        	The variable to retrieve.
      * @return mixed A reference to the variable. If not set it will be null.
      */
     public static function &Registry($namespace, $var)
@@ -43,6 +35,6 @@ class Registry
         // remove to get case-insensitive namespace
         $namespace = strtolower($namespace);
         $var = strtolower($var);
-        return $instances [$namespace] [$var];
+        return $instances[$namespace][$var];
     }
 }
