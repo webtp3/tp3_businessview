@@ -120,7 +120,7 @@
 		"in2code/powermail": "*",
 		"causal/tscobj":"*",
 		"apen/additional_reports":"*",
-		"web-tp3/cal":"^1.30",
+		"web-tp3/cal":"^2.5",
 		"web-tp3/wec_map": "^4.4",
 		"causal/extractor":"^1",
 		"snowflakeops/varnish":"^3.0",

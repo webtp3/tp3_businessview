@@ -2396,7 +2396,7 @@ plugin.tx_cal_controller {
                 # @description    Configures the cal build-in result browser for the list.
                 default {
                     # @description Wrap for the active page
-                    actPage_stdWrap.wrap = <span><b>|</b></span>
+                    actPage_stdWrap.wrap = <li class="nav active" >|</li>
 
                     # @description Rendering definition of the 'next' link
                     nextLink =< plugin.tx_cal_controller.view.defaultLinkSetup
@@ -2404,7 +2404,7 @@ plugin.tx_cal_controller {
                         current = 0
                         value = &gt;&gt;
                         typolink.title.override.override.dataWrap = %%%NEXT%%%
-                        wrap = <span>|</span>
+                        wrap = <li class="nav" >|</li>
                     }
 
                     # @description Rendering definition of the 'prev' link, copied from 'next' link.
@@ -2417,7 +2417,7 @@ plugin.tx_cal_controller {
                     # @description Rendering definition of the 'page' links
                     pageLink =< plugin.tx_cal_controller.view.defaultLinkSetup
                     pageLink {
-                        wrap = <span>|</span>
+                        wrap = <li class="nav" >|</li>
                         typolink.title.override.override.dataWrap = %%%PAGE%%% {current:1}
                     }
 
@@ -2425,7 +2425,7 @@ plugin.tx_cal_controller {
                     spacer = TEXT
                     spacer {
                         value = ...
-                        wrap = <span><b>|</b></span>
+                        wrap = <li class="nav" >|</li>
                     }
                 }
 
@@ -2469,13 +2469,16 @@ plugin.tx_cal_controller {
                     hscText = 1
 
                     # @description    This is the wrap for the complete pagebowser (results and browse links).
-                    browseBoxWrap =
+                    browseBoxWrap =   <ul class="pagination ">|</ul>
+
+
+
 
                     # @description    This wraps the text "Displaying results...".
                     showResultsWrap = |<br />
 
                     # @description    Wrap for the browse links.
-                    browseLinksWrap = |
+                    browseLinksWrap = <li class="nav" >|</li>
 
                     # @description    Wrap for the numbers in the text: "Displaying results 1 to 4 out of 22 ".
                     showResultsNumbersWrap =
@@ -2484,10 +2487,10 @@ plugin.tx_cal_controller {
                     disabledLinkWrap = <span style="color:#bbb;">|</span>
 
                     # @description    Wrap for inactive links (normal links).
-                    inactiveLinkWrap = |
+                    inactiveLinkWrap = <li class="nav inactive" >|</li>
 
                     # @description    Wrap for active links.
-                    activeLinkWrap = <strong>|</strong>
+                    activeLinkWrap = <li class="nav active" >|</li>
                 }
             }
 
