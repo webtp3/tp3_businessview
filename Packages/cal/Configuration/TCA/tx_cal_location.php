@@ -161,7 +161,6 @@ $tx_cal_location = [
             'config' => [
                 'type' => 'input',
                 'size' => 25,
-                'max' => 128,
                 'checkbox' => '',
                 'eval' => 'trim',
                 'default' => '',

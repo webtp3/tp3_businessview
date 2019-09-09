@@ -2068,7 +2068,7 @@ plugin.tx_cal_controller {
                 # @description    Configures the cal build-in result browser for the list.
                 default {
                     # @description Wrap for the active page
-                    actPage_stdWrap.wrap = <li class="nav active" >|</li>
+                    actPage_stdWrap.wrap = <li class=" active" ><span>|</span></li>
 
                     # @description Rendering definition of the 'next' link
                     nextLink =< plugin.tx_cal_controller.view.defaultLinkSetup
@@ -2076,7 +2076,7 @@ plugin.tx_cal_controller {
                         current = 0
                         value = &gt;&gt;
                         typolink.title.override.override.dataWrap = %%%NEXT%%%
-                        wrap = <li class="nav" >|</li>
+                        wrap = <li class="last" ><span>|</span></li>
                     }
 
                     # @description Rendering definition of the 'prev' link, copied from 'next' link.
@@ -2084,12 +2084,13 @@ plugin.tx_cal_controller {
                     prevLink {
                         value = &lt;&lt;
                         typolink.title.override.override.dataWrap = %%%PREV%%%
+                        wrap = <li class="previous" ><span>|</span></li>
                     }
 
                     # @description Rendering definition of the 'page' links
                     pageLink =< plugin.tx_cal_controller.view.defaultLinkSetup
                     pageLink {
-                        wrap = <li class="nav" >|</li>
+                        wrap = <li class="" ><span>|</span></li>
                         typolink.title.override.override.dataWrap = %%%PAGE%%% {current:1}
                     }
 
@@ -2097,7 +2098,7 @@ plugin.tx_cal_controller {
                     spacer = TEXT
                     spacer {
                         value = ...
-                        wrap = <li class="nav" >|</li>
+                        wrap = <li class="nav" ><span>|</span></li>
                     }
                 }
 
