@@ -333,7 +333,6 @@ plugin.tx_cal_controller {
                 alldayTitle < .title
 
                 # @description    Content object for the event start date
-                # @description    Content object for the event start date
                 startdate = TEXT
                 startdate {
                     current = 1
