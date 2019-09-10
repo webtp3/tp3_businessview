@@ -301,7 +301,7 @@ class CalendarDateTime extends \DateTime
      */
     public function getDay(): int
     {
-        return (int)$this->format('d')+1;
+        return (int)$this->format('d');
     }
 
     /**
