@@ -658,7 +658,7 @@ tp3_app.parallax = function(){
 		$(".frame-backgroundimage-fade, .main-section .frame-container").each(function() {
 			$(this).addClass("animated");
 			if (isScrolledIntoView(this) === true) {
-				$(this).addClass("fadeInLeft");
+				if(!$(this).hasClass("fadeInLeft"))$(this).addClass("fadeInLeft");
 			}
 		});
 		}
@@ -778,7 +778,7 @@ tp3_app.controls = function(){
 				$j('form[name="anfordern"]').autosubmit({
 					"request": "data"
 				});
-
+				$modal.find(".frame-backgroundimage-fade, .main-section .frame-container").addClass("animated").addClass("fadeInLeft");
 				$modal.find('input[type="checkbox"]').each(function(){
 					var tgt =  $j(this).prev('input[type="hidden"]');
 					$j(this).insertBefore($j(this).parent('label')).on("change",function(){
@@ -1275,8 +1275,11 @@ $j.fn.autosubmit = function(options) {
 				console.log(data);
 				form.hide();
 				$j(data).insertAfter(form);
-				// tp3_app.scriptsload(data);
-				$j(document).trigger("loaded");
+				$(form).find(".frame-backgroundimage-fade, .main-section .frame-container").each(function() {
+					$(this).addClass("animated");
+					$(this).addClass("fadeInLeft");
+
+				});				$j(document).trigger("loaded");
 
 			},
 		}).done(function() {

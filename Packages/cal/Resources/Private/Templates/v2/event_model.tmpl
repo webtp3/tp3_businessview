@@ -47,14 +47,11 @@ value = HelloWorld<br/>
     <h2 itemprop="name">###TITLE###</h2>
 ###EDIT_LINK###
 
-###STARTDATE###
-###ENDDATE###
-###STARTTIME###
-###ENDTIME###
-###STATUS### ###PRIORITY### ###COMPLETED###
+###STARTDATE### ###STARTTIME### - ###ENDDATE### ###ENDTIME###
+	###STATUS### ###PRIORITY### ###COMPLETED###
     <span class="organizer" itemprop="organizer" itemscope itemtype="http://schema.org/Organization">###ORGANIZER###</span>
-        <span class="location" itemprop="location" itemscope itemtype="http://schema.org/Place"><div itemprop="name">###LOCATION###</div></span>
-    <div class="description"  itemprop="description" >###DESCRIPTION###</div>
+        <span class="location" itemprop="location" itemscope itemtype="http://schema.org/Place"><div itemprop="address">###LOCATION###</div></span>
+    <div class="description"  itemprop="name" >###DESCRIPTION###</div>
 ###ATTACHMENT###
     <div itemprop="attendee" itemscope itemtype="http://schema.org/Person">###ATTENDEE###</div>
 <!-- ###ICS_LINK### start --><img src="###IMG_PATH###/ics.gif" border="0"/><!-- ###ICS_LINK### end -->
@@ -138,7 +135,7 @@ Stop monitoring this event? <input type="hidden" id="userid" value="1"/> <input 
 	                    <dd>
 	                      <span class="summary">###TITLE###</span>
   <span class="organizer" itemprop="organizer" itemscope itemtype="http://schema.org/Organization">###ORGANIZER###</span>
-        <span class="location" itemprop="location" itemscope itemtype="http://schema.org/Place"><div itemprop="name">###LOCATION###</div></span>
+        <span class="location" itemprop="location" itemscope itemtype="http://schema.org/Place"><div itemprop="address">###LOCATION###</div></span>
 	                    </dd>
 	                  </dl>
 	                <!-- ###EVENT_LINK### end -->
@@ -155,7 +152,7 @@ Stop monitoring this event? <input type="hidden" id="userid" value="1"/> <input 
                     <dd>
                       <span class="summary">###TITLE###</span>
   <span class="organizer" itemprop="organizer" itemscope itemtype="http://schema.org/Organization">###ORGANIZER###</span>
-        <span class="location" itemprop="location" itemscope itemtype="http://schema.org/Place"><div itemprop="name">###LOCATION###</div></span>
+        <span class="location" itemprop="location" itemscope itemtype="http://schema.org/Place"><div itemprop="address">###LOCATION###</div></span>
                     </dd>
                   </dl>
                   <!-- ###EVENT_LINK### end -->
@@ -234,7 +231,7 @@ Stop monitoring this event? <input type="hidden" id="userid" value="1"/> <input 
 ###ENDTIME###
    <div class="description"  itemprop="description" >###DESCRIPTION###</div>###MORE_LINK###
   <span class="organizer" itemprop="organizer" itemscope itemtype="http://schema.org/Organization">###ORGANIZER###</span>
-    <span class="location" itemprop="location" itemscope itemtype="http://schema.org/Place"><div itemprop="name">###LOCATION###</div></span>
+    <span class="location" itemprop="location" itemscope itemtype="http://schema.org/Place"><div itemprop="address">###LOCATION###</div></span>
 
 <!--###TEMPLATE_PHPICALENDAR_EVENT_PREVIEW### end -->
 

@@ -307,6 +307,8 @@ class ModelController extends BaseController
     {
         /** @var LocationService $service */
         $service = $this->getServiceObjByKey('cal_location_model', 'location', $type);
+        if($uid == 0)
+            return false;
         $location = $service->find($uid, $pidList);
         return $location;
     }
@@ -362,6 +364,7 @@ class ModelController extends BaseController
     public function findOrganizer(int $uid, $type = 'tx_cal_organizer', $pidList = ''): Organizer
     {
         /** @var OrganizerService $service */
+        if($uid == 0)return false;
         $service = $this->getServiceObjByKey('cal_organizer_model', 'organizer', $type);
         $organizer = $service->find($uid, $pidList);
         return $organizer;

@@ -5,7 +5,6 @@ namespace TYPO3\CMS\Cal\Service;
 use RuntimeException;
 use TYPO3\CMS\Cal\Model\LocationAddress;
 use TYPO3\CMS\Cal\Utility\Functions;
-
 /**
  * This file is part of the TYPO3 extension Calendar Base (cal).
  *
@@ -34,9 +33,9 @@ class LocationAddressService extends BaseService
      *
      * @param int $uid
      * @param string $pidList
-     * @return OrganizerPartnerService tx_cal_organizer_partner object
+     * @return LocationAddress  tx_tt_address object
      */
-    public function find($uid, $pidList): OrganizerPartnerService
+    public function find($uid, $pidList): LocationAddress
     {
         $locationArray = $this->getLocationFromTable($pidList, ' AND ' . $this->tableId . '.uid=' . $uid);
         return $locationArray[0];

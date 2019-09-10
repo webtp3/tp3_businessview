@@ -103,7 +103,8 @@
 		var loading = loading || false
         if (inview) {
             var source = $(this.$element).data("link");
-            if (!loading && source) {
+			$(this).addClass("fadeInLeft");
+			if (!loading && source) {
 				loading = true;
 
                 console.log("ResponsiveContent load");
@@ -200,7 +201,7 @@
     $.fn.responsiveContent.Constructor = ResponsiveContent;
 
     $(window).on('load.tp3.responsiveContent', function() {
-        $('.news .responsiveContent').responsiveContent();
+        $('.news .responsiveContent, .frame-backgroundimage-fade, .main-section .frame-container').responsiveContent();
         // EVENTS
         // ======
         $(window)

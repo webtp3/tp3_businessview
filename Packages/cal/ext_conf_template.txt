@@ -5,9 +5,9 @@ hideLocationTextfield = 0
 # cat=basic/enable/160; type=boolean; label= Hide organizer textfield: Here you choose if users should be able to have a separate textfield for organizer. By default this textfield is visible. If this is not wanted set "hideOrganizerTextfield" to 1.
 hideOrganizerTextfield = 0
 # cat=basic/enable/200; type=options[Calendar Base Location (Built-in)=tx_cal_location,tt_address=tx_tt_address,Partner Framework=tx_partner_main]; label= Select the cal location data model: Here you choose which data structure you want to use (tx_cal_location/tx_tt_address/tx_partner_main).
-useLocationStructure = tx_cal_location
+useLocationStructure = tx_tt_address
 # cat=basic/enable/200; type=options[Calendar Base Organizer (Built-in)=tx_cal_organizer,tt_address=tx_tt_address,Partner Framework=tx_partner_main,Frontend Users=tx_feuser]; label= Select the cal organizer data model: Here you choose which data structure you want to use (tx_cal_organizer/tx_tt_address/tx_partner_main/tx_feuser).
-useOrganizerStructure = tx_cal_organizer
+useOrganizerStructure = tx_tt_address
 # cat=basic/enable/220; type=options[Inline=event,Separate=todo]; label= Define the way Todos shall be displayed: like events (inline) or in a separate box (separate).
 todoSubtype = event
 

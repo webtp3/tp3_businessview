@@ -340,7 +340,7 @@ plugin.tx_cal_controller {
                 title = TEXT
                 title {
                     current = 1
-                    dataWrap = <div>%%%TITLE_LABEL%%%:&nbsp; |</div>
+                    dataWrap = <div class="%%%TITLE_LABEL%%%"> |</div>
                 }
 
                 # @description    Content object for the event title of allDay Events
@@ -350,7 +350,7 @@ plugin.tx_cal_controller {
                 startdate = TEXT
                 startdate {
                     current = 1
-                    dataWrap = <div>%%%STARTDATE_LABEL%%%:&nbsp; |</div>
+                    dataWrap = <span class="%%%STARTDATE_LABEL%%%"> |</span>
                 }
 
                 # @description    Content object for the event end date
@@ -359,21 +359,21 @@ plugin.tx_cal_controller {
                     current = 1
                     noTrimWrap = | - ||
                     required = 1
-                    dataWrap = <div>%%%ENDDATE_LABEL%%%:&nbsp; |</div>
+                    dataWrap = <span class="%%%ENDDATE_LABEL%%%"> |</span>
                 }
 
                 # @description    Content object for the event start time
                 starttime = TEXT
                 starttime {
                     current = 1
-                    dataWrap = <div>%%%STARTTIME_LABEL%%%:&nbsp; |</div>
+                    dataWrap = <span class="%%%STARTTIME_LABEL%%%"> |</span>
                 }
 
                 # @description    Content object for the event end time
                 endtime = TEXT
                 endtime {
                     current = 1
-                    dataWrap = <div>%%%ENDTIME_LABEL%%%:&nbsp; |</div>
+                    dataWrap = <span class="%%%ENDTIME_LABEL%%%"> |</span>
                 }
 
                 # @description    Content object for the event category
@@ -414,14 +414,14 @@ plugin.tx_cal_controller {
                 organizer =< plugin.tx_cal_controller.view.defaultLinkSetup
                 organizer {
                     required = 1
-                    dataWrap = <div>%%%ORGANIZER%%%:&nbsp; |</div>
+                    dataWrap = <div class="organizer">%%%ORGANIZER%%%:&nbsp; |</div>
                 }
 
                 # @description    Content object for the event location
                 location =< plugin.tx_cal_controller.view.defaultLinkSetup
                 location {
                     required = 1
-                    dataWrap = <div>%%%LOCATION%%%:&nbsp; |</div>
+                    dataWrap = <div class="location">%%%LOCATION%%%:&nbsp; |</div>
                 }
 
                 # @description    Content object for event teaser
@@ -449,7 +449,7 @@ plugin.tx_cal_controller {
                     field = description
                     required = 1
                     stdWrap.parseFunc < lib.parseFunc_RTE
-                    dataWrap = <div>%%%DESCRIPTION_LABEL%%%:&nbsp; |</div>
+                    dataWrap = <div class="description"> |</div>
                 }
 
                 # @description    Content object for event image
@@ -470,7 +470,7 @@ plugin.tx_cal_controller {
                     }
 
                     stdWrap.required = 1
-                    stdWrap.dataWrap = <div>%%%IMAGE_LABEL%%%:&nbsp; |</div>
+                    stdWrap.dataWrap = <div class="%%%IMAGE_LABEL%%%"> |</div>
                 }
 
                 # @description_image    Content object for rendering the description and the images with the regular 'text with image' (TEXTPIC) cObject
@@ -2396,7 +2396,7 @@ plugin.tx_cal_controller {
                 # @description    Configures the cal build-in result browser for the list.
                 default {
                     # @description Wrap for the active page
-                    actPage_stdWrap.wrap = <span><b>|</b></span>
+                    actPage_stdWrap.wrap = <li class=" active" ><span>|</span></li>
 
                     # @description Rendering definition of the 'next' link
                     nextLink =< plugin.tx_cal_controller.view.defaultLinkSetup
@@ -2404,7 +2404,7 @@ plugin.tx_cal_controller {
                         current = 0
                         value = &gt;&gt;
                         typolink.title.override.override.dataWrap = %%%NEXT%%%
-                        wrap = <span>|</span>
+                        wrap = <li class="last" ><span>|</span></li>
                     }
 
                     # @description Rendering definition of the 'prev' link, copied from 'next' link.
@@ -2412,12 +2412,13 @@ plugin.tx_cal_controller {
                     prevLink {
                         value = &lt;&lt;
                         typolink.title.override.override.dataWrap = %%%PREV%%%
+                        wrap = <li class="previous" ><span>|</span></li>
                     }
 
                     # @description Rendering definition of the 'page' links
                     pageLink =< plugin.tx_cal_controller.view.defaultLinkSetup
                     pageLink {
-                        wrap = <span>|</span>
+                        wrap = <li class="" ><span>|</span></li>
                         typolink.title.override.override.dataWrap = %%%PAGE%%% {current:1}
                     }
 
@@ -2425,7 +2426,7 @@ plugin.tx_cal_controller {
                     spacer = TEXT
                     spacer {
                         value = ...
-                        wrap = <span><b>|</b></span>
+                        wrap = <li class="nav" ><span>|</span></li>
                     }
                 }
 
@@ -2469,13 +2470,16 @@ plugin.tx_cal_controller {
                     hscText = 1
 
                     # @description    This is the wrap for the complete pagebowser (results and browse links).
-                    browseBoxWrap =
+                    browseBoxWrap =   <ul class="pagination ">|</ul>
+
+
+
 
                     # @description    This wraps the text "Displaying results...".
                     showResultsWrap = |<br />
 
                     # @description    Wrap for the browse links.
-                    browseLinksWrap = |
+                    browseLinksWrap = <li class="nav" >|</li>
 
                     # @description    Wrap for the numbers in the text: "Displaying results 1 to 4 out of 22 ".
                     showResultsNumbersWrap =
@@ -2484,10 +2488,10 @@ plugin.tx_cal_controller {
                     disabledLinkWrap = <span style="color:#bbb;">|</span>
 
                     # @description    Wrap for inactive links (normal links).
-                    inactiveLinkWrap = |
+                    inactiveLinkWrap = <li class="nav inactive" >|</li>
 
                     # @description    Wrap for active links.
-                    activeLinkWrap = <strong>|</strong>
+                    activeLinkWrap = <li class="nav active" >|</li>
                 }
             }
 

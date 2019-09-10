@@ -10,7 +10,7 @@
 	<dl>
 		<f:for each="{eventView.master_array}" as="entriesOfADay" key="day">
 			<f:if
-				condition="{day} >= {f:format.date(format:'Ymd' date:'@{eventView.starttime.time}')}">
+				condition="{day} >= {f:format.date(format:'Ymd' date:'{eventView.starttime.time}')}">
 				<f:for each="{entriesOfADay}" as="entriesOfAnHour">
 					<f:for each="{entriesOfAnHour}" as="event">
 						<f:render partial="List/event"

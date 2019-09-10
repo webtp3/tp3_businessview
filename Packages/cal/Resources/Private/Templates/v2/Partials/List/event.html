@@ -1,11 +1,14 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+			xmlns:n="http://typo3.org/ns/GeorgRinger/News/ViewHelpers"
+			data-namespace-typo3-fluid="true">
 <dt class="vevent">
 	<div class="dtstart-container">
 		<abbr
-			title="<f:format.date format='Ymd\THi00'>@{event.start.time}</f:format.date>"
+			title="<f:format.date format='Ymd\THi00'>{event.start.time}</f:format.date>"
 			class="dtstart">
-			<f:format.date format='F d '>@{event.start.time}</f:format.date>
+			<f:format.date format='F d '>{event.start.time}</f:format.date>
 			<f:if condition="{event.allday} != 1">
-				<f:format.date format='g:i a'>@{event.start.time}</f:format.date>
+				<f:format.date format='g:i a'>{event.start.time}</f:format.date>
 			</f:if>
 		</abbr>
 	</div>

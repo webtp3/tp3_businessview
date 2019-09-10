@@ -15,8 +15,6 @@ namespace TYPO3\CMS\Cal\Model;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 use SJBR\StaticInfoTables\PiBaseApi;
-use SJBR\StaticInfoTables\PiBaseApi;
-use SJBR\StaticInfoTables\PiBaseApi;
 use SJBR\StaticInfoTables\Utility\LocalizationUtility;
 use TYPO3\CMS\Cal\Utility\Registry;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;

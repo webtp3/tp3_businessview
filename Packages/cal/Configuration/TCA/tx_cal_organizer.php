@@ -159,7 +159,6 @@ $tx_cal_organizer = [
             'config' => [
                 'type' => 'input',
                 'size' => 25,
-                'max' => 128,
                 'checkbox' => '',
                 'eval' => 'trim',
                 'default' => '',

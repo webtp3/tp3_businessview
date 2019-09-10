@@ -55,11 +55,11 @@ class TceMainProcessdatamap
     {
         /* If we have an existing calendar event */
         if ($table === 'tx_cal_event' && count($fieldArray) > 1) {
-            if ($fieldArray ['start_date']) {
+            if ($fieldArray ['start_date'] && !is_null($fieldArray ['start_date'])) {
                 $fieldArray ['start_date'] = self::convertBackendDateToYMD($fieldArray ['start_date']);
             }
 
-            if ($fieldArray ['end_date']) {
+            if ($fieldArray ['end_date'] && !is_null($fieldArray ['end_date'])) {
                 $fieldArray ['end_date'] = self::convertBackendDateToYMD($fieldArray ['end_date']);
             }
 
@@ -68,7 +68,7 @@ class TceMainProcessdatamap
                 $fieldArray ['end_date'] = $fieldArray ['start_date'];
             }
 
-            if ($fieldArray ['until']) {
+            if ($fieldArray ['until'] && !is_null($fieldArray ['until'])) {
                 $fieldArray ['until'] = self::convertBackendDateToYMD($fieldArray ['until']);
             }
 
@@ -132,11 +132,11 @@ class TceMainProcessdatamap
         }
 
         if ($table === 'tx_cal_exception_event' && count($fieldArray) > 1) {
-            if ($fieldArray ['start_date']) {
+            if ($fieldArray ['start_date'] && !is_null($fieldArray ['start_date'])) {
                 $fieldArray ['start_date'] = self::convertBackendDateToYMD($fieldArray ['start_date']);
             }
 
-            if ($fieldArray ['end_date']) {
+            if ($fieldArray ['end_date'] && !is_null($fieldArray ['end_date'])) {
                 $fieldArray ['end_date'] = self::convertBackendDateToYMD($fieldArray ['end_date']);
             }
 
@@ -145,7 +145,7 @@ class TceMainProcessdatamap
                 $fieldArray ['end_date'] = $fieldArray ['start_date'];
             }
 
-            if ($fieldArray ['until']) {
+            if ($fieldArray ['until'] && !is_null($fieldArray ['until'])) {
                 $fieldArray ['until'] = self::convertBackendDateToYMD($fieldArray ['until']);
             }
         }
@@ -203,7 +203,7 @@ class TceMainProcessdatamap
      */
     public static function processDatamap_afterDatabaseOperations($status, $table, $id, &$fieldArray, &$tcemain)
     {
-
+        #todo fix vertical list edit backend
         /* If we have a new calendar event */
         if (($table === 'tx_cal_event' || $table === 'tx_cal_exception_event') && count($fieldArray) > 1) {
             $event = BackendUtility::getRecord($table, $status === 'new' ? $tcemain->substNEWwithIDs [$id] : $id);
@@ -361,7 +361,7 @@ class TceMainProcessdatamap
              *
              * @todo Default date calculations do not take any timezone information into account.
              */
-            if ($incomingFieldArray ['freq'] !== $event ['freq']) {
+            if ($incomingFieldArray ['freq'] && $incomingFieldArray ['freq'] !== $event ['freq']) {
                 $date = self::convertBackendDateToPear($incomingFieldArray ['start_date']);
                 $date->addSeconds($incomingFieldArray ['start_time']);
                 $dayArray = self::getWeekdayOccurrence($date);
