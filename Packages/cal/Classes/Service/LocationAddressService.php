@@ -35,7 +35,7 @@ class LocationAddressService extends BaseService
      * @param string $pidList
      * @return LocationAddress  tx_tt_address object
      */
-    public function find($uid, $pidList): LocationAddress
+    public function find($uid, $pidList)
     {
         $locationArray = $this->getLocationFromTable($pidList, ' AND ' . $this->tableId . '.uid=' . $uid);
         return $locationArray[0];

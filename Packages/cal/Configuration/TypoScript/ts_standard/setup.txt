@@ -77,6 +77,8 @@ plugin.tx_cal_controller {
     fluidPartialsPath = EXT:cal/Resources/Private/Templates/v2/Partials
 
     view {
+
+        widget.Typo3\Cal\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = EXT:cal/Resources/Private/Templates/
         # @description    Allowed calendar views. First one in the list is the default view.
         #                Options are day,week,month,year,list,event,search_all,search_event,search_location,search_organizer,organizer,location,admin,create_event,confirm_event,save_event,edit_event,delete_event,remove_event,create_location,confirm_location,save_location,edit_loaction,delete_location,remove_location,create_organizer,confirm_organizer,save_organizer,edit_organizer,delete_organizer,remove_organizer,create_calendar,confirm_calendar,save_calendar,edit_calendar,delete_calendar,remove_calendar,create_category,confirm_category,save_category,edit_category,delete_category,remove_category.
         # @also            FlexForm
@@ -2184,7 +2186,15 @@ plugin.tx_cal_controller {
                 odd = LIST_ODD
                 even = LIST_EVEN
             }
-
+            # Paginate configuration.
+            paginate {
+                itemsPerPage = 10
+                insertAbove = 0
+                insertBelow = 1
+                prevNextHeaderTags = 1
+                maximumNumberOfLinks = 10
+                templatePath = typo3conf/ext/cal/Resources/Private/Templates/ViewHelpers/Widget/Paginate/IndexAjax.html
+            }
             # @description Restarts the alternation of the layouts after each day, when enableDayWrapper is used.
             # @also    enableDayWrapper
             restartAlternationAfterDayWrapper = 0

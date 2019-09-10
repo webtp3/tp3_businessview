@@ -885,23 +885,9 @@
 	background-color: #FAFAFA;
 }
 
-.tx-cal-controller .list-view .vevent,
-.tx-cal-controller .list-view .vtodo {
-	color: #000000;
+.tx-cal-controller  a.url {
+	overflow: hidden;
 }
-
-.tx-cal-controller .list-view .vevent .dtstart-container,
-.tx-cal-controller .list-view .vtodo .dtstart-container {
-	float: left;
-	margin-right: 1em;
-	text-align: right;
-	width: 12em;
-}
-
-.tx-cal-controller .list-view .vevent .summary,
-.tx-cal-controller .list-view .vtodo .summary {
-}
-
 .tx-cal-controller h1, .tx-cal-controller .found, .tx-cal-controller .pagebrowser {
 	text-align: center;
 }

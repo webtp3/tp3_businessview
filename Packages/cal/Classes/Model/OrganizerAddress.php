@@ -55,6 +55,8 @@ class OrganizerAddress extends Organizer
         $this->setEmail($row['email']);
         $this->setImage(GeneralUtility::trimExplode(',', $row['image'], 1));
         $this->setLink($row['www']);
+        $this->setLongitude($row['longitude']);
+        $this->setLatitude($row['latitude']);
         $this->row = $row;
     }
 }

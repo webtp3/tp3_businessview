@@ -1,25 +1,10 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 			xmlns:n="http://typo3.org/ns/GeorgRinger/News/ViewHelpers"
 			xmlns:rx="http://typo3.org/ns/Reelworx/RxShariff/ViewHelper"
+			xmlns:ttaddr="http://typo3.org/ns/FriendsOfTYPO3/TtAddress/ViewHelper"
 			data-namespace-typo3-fluid="true">
 
 <h2>{event.title}</h2>
-<f:for each="{event.categories}" as="category" iteration="itemIteration">
-	<i>{category.title}</i>
-</f:for>
-<div class="image-intext-left image-intext">
-	<div class="image-wrap">
-		<f:for each="{event.images}" as="image" iteration="itemIteration">
-			<figure class="image">
-				<f:image src="{image.uid}" alt="{image.originalResource.title}" width="{settings.view.event.event.image.maxW}"
-								 treatIdAsReference="1"/>
-			</figure>
-		</f:for>
-	</div>
-	<div class="text">
-		<f:format.html>{event.description}</f:format.html>
-	</div>
-</div>
 
 <h3>
 	<f:translate key="LLL:EXT:cal/Resources/Private/Language/locallang.xml:l_event_start"/>
@@ -60,6 +45,23 @@
 	</f:else>
 </f:if>
 
+<f:for each="{event.categories}" as="category" iteration="itemIteration">
+	<i>{category.title}</i>
+</f:for>
+<div class="image-intext-left image-intext">
+	<div class="image-wrap">
+		<f:for each="{event.images}" as="image" iteration="itemIteration">
+			<figure class="image">
+				<f:image src="{image.uid}" alt="{image.originalResource.title}" width="{settings.view.event.event.image.maxW}"
+								 treatIdAsReference="1"/>
+			</figure>
+		</f:for>
+	</div>
+	<div class="text">
+		<f:format.html>{event.description}</f:format.html>
+	</div>
+</div>
+
 <f:if condition="{event.organizerObject}">
 	<f:then>
 		<h3>
@@ -80,7 +82,9 @@
 	<f:render partial="Event/Shariff" />
 </n:extensionLoaded>
 <n:extensionLoaded extensionKey="tt_address">
-	<f:render partial="Event/Maps" />
+	<f:if condition="{event.organizerObject} != ''">
+	<f:render partial="Event/Maps" section="leaflet" arguments="{address:event.organizerObject, settings:settings}" />
+	</f:if>
 </n:extensionLoaded>
 <f:if condition="{event.locationObject}">
 	<f:then>

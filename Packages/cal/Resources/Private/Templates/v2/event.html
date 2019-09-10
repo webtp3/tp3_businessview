@@ -1,3 +1,9 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+			xmlns:n="http://typo3.org/ns/GeorgRinger/News/ViewHelpers"
+			xmlns:rx="http://typo3.org/ns/Reelworx/RxShariff/ViewHelper"
+			xmlns:ttaddr="http://typo3.org/ns/FriendsOfTYPO3/TtAddress/ViewHelper"
+			data-namespace-typo3-fluid="true">
+
 <div id="calendar-event">
 	<f:if condition="{event}">
 		<f:render partial="Event/event" arguments="{event:event, settings:settings, eventView:eventView}"/>

@@ -15,6 +15,7 @@ namespace TYPO3\CMS\Cal\Controller;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 use PDO;
+use phpDocumentor\Reflection\Types\Mixed_;
 use TYPO3\CMS\Cal\Model\AttendeeModel;
 use TYPO3\CMS\Cal\Model\CalendarDateTime;
 use TYPO3\CMS\Cal\Model\CategoryModel;
@@ -303,12 +304,10 @@ class ModelController extends BaseController
      * @param string $pidList
      * @return Location
      */
-    public function findLocation($uid, $type = 'tx_cal_location', $pidList = ''): Location
+    public function findLocation($uid, $type = 'tx_cal_location', $pidList = '')// avoid 0 collision : Location
     {
         /** @var LocationService $service */
         $service = $this->getServiceObjByKey('cal_location_model', 'location', $type);
-        if($uid == 0)
-            return false;
         $location = $service->find($uid, $pidList);
         return $location;
     }
@@ -361,10 +360,9 @@ class ModelController extends BaseController
      * @param string $pidList
      * @return Organizer
      */
-    public function findOrganizer(int $uid, $type = 'tx_cal_organizer', $pidList = ''): Organizer
+    public function findOrganizer(int $uid, $type = 'tx_cal_organizer', $pidList = '')// avoid 0 collision : Organizer
     {
         /** @var OrganizerService $service */
-        if($uid == 0)return false;
         $service = $this->getServiceObjByKey('cal_organizer_model', 'organizer', $type);
         $organizer = $service->find($uid, $pidList);
         return $organizer;

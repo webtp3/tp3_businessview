@@ -14,6 +14,8 @@ namespace TYPO3\CMS\Cal\Model;
  *
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
+
+use TYPO3\CMS\Cal\Controller\ModelController;
 use TYPO3\CMS\Cal\Model\Pear\Date\Calc;
 use TYPO3\CMS\Cal\Utility\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -1456,7 +1458,7 @@ abstract class Model extends BaseModel
         if (!$this->organizerObject) {
             $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['cal']);
             $useOrganizerStructure = ($confArr['useOrganizerStructure'] ?: 'tx_cal_organizer');
-            $modelObj = &Registry::Registry('basic', 'modelcontroller');
+            $modelObj = GeneralUtility::makeInstance(ModelController::class);//&Registry::Registry('basic', 'modelcontroller');
             $this->organizerObject = $modelObj->findOrganizer(
                 $this->getOrganizerId(),
                 $useOrganizerStructure,
