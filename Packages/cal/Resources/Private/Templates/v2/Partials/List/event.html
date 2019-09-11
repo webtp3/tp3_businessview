@@ -16,11 +16,11 @@
 		</abbr>
 			<f:format.date format='d.m.Y'>{event.start}</f:format.date>
 				<f:if condition="{event.allday} != 1">
-					<f:format.date format='h:i'>{event.start}</f:format.date>
+					<f:format.date format='H:i'>{event.start}</f:format.date>
 					<f:if condition="{event.end}">
 						<f:if condition="{event.allday} != 1">
 							-
-							<f:format.date format='h:i'>{event.end}</f:format.date>
+							<f:format.date format='H:i'>{event.end}</f:format.date>
 						</f:if>
 					</f:if>
 				</f:if>
@@ -29,5 +29,10 @@
 			{event.title} {event.locationObject.city}
 
 	</div>
+		<f:for each="{event.images}" as="image" iteration="i">
+			<f:if condition="{i.cycle} == 1">
+				<f:image  image="{image}" title="{image.title}" alt="{image.alternative}" maxWidth="200" maxHeight="200" />
+			</f:if>
+		</f:for>
 	</f:link.page>
 </li>

@@ -11,14 +11,20 @@
 <h3>
 	<f:translate key="LLL:EXT:cal/Resources/Private/Language/locallang.xlf:l_event_start"/>
 </h3>
+<g itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" >
+	<meta itemprop="availability" href="http://schema.org/LimitedAvailability"/>
+	<f:link.page class="url" pageUid="{settings.view.event.eventViewPid}" additionalAttributes="itemprop:'url'"
+							 additionalParams="{tx_cal_controller: '{view: \'event\',type: event.type, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day  }'}">
+	</f:link.page>
+</g>
 
 <f:format.date format='d.m.Y'>{event.start}</f:format.date>
 <f:if condition="{event.allday} != 1">
-	<f:format.date format='h:i'>{event.start}</f:format.date>
+	<f:format.date format='H:i'>{event.start}</f:format.date>
 	<f:if condition="{event.end}">
 		<f:if condition="{event.allday} != 1">
 			-
-			<f:format.date format='h:i'>{event.end}</f:format.date>
+			<f:format.date format='H:i'>{event.end}</f:format.date>
 		</f:if>
 	</f:if>
 </f:if>

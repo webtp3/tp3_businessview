@@ -103,7 +103,7 @@
 		var loading = loading || false
         if (inview) {
             var source = $(this.$element).data("link");
-			$(this).addClass("fadeInLeft");
+			$(this.$element).addClass("fadeInLeft").addClass("animated");
 			if (!loading && source) {
 				loading = true;
 

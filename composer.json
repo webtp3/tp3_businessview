@@ -100,6 +100,7 @@
 		"web-tp3/bootstrap-grids":"2.0.1",
 		"georgringer/news":"^7",
 		"georgringer/news-importicsxml": "dev-master",
+		"reelworx/rx-shariff": "*",
 		"dmitryd/typo3-realurl":"*",
 		"dmitryd/typo3-dd-googlesitemap":"^2.1 || dev-development",
 		"sjbr/static-info-tables":"^6.7",
