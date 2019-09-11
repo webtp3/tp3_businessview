@@ -11,7 +11,8 @@ plugin.tx_cal_controller {
 
     # cat=Calendar Base (General)/dims/150; type=int+; label= List Image Max Width: Max width for an image displayed in List view.
     listMaxW = 120
-
+    # cat=Calendar Base (General)/dims/160; type=boolean; label= enable lightbox for an image displayed in Event view.
+    lightbox = 1
     # cat=Calendar Base (General)/general/uploadPath/1; type=string; label= Image Upload Path: Path where image files get uploaded. Normally this has not to be changed unless you modify the settings in TCA.
     uploadPath.image = uploads/tx_cal/pics/
     # cat=Calendar Base (General)/general/uploadPath/2; type=string; label= Media Upload Path: Path where media files (f.e. attachments) get uploaded. Normally this has not to be changed unless you modify the settings in TCA.

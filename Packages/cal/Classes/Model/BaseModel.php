@@ -129,6 +129,11 @@ abstract class BaseModel extends AbstractModel
     protected $isPreview = false;
 
     /**
+     * @var bool
+     */
+    protected $hasMap = false;
+
+    /**
      * @var array
      */
     public $image = [];
@@ -1041,5 +1046,20 @@ abstract class BaseModel extends AbstractModel
     public function setSharedGroups($groupIds)
     {
         $this->sharedGroups = $groupIds;
+    }
+    /**
+     * @return boolean
+     */
+    public function getHasMap(): bool
+    {
+        return $this->hasMap;
+    }
+
+    /**
+     * @param boolean $hasMap
+     */
+    public function setHasMap($hasMap)
+    {
+        $this->hasMap = $hasMap;
     }
 }

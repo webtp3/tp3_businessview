@@ -19,7 +19,7 @@ if (ExtensionManagementUtility::isLoaded('tt_address')) {
         $tempColumns = [
             'tx_cal_controller_islocation' => [
                 'exclude' => 1,
-                'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.islocation',
+                'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.islocation',
                 'config' => [
                     'type' => 'check',
                     'default' => 1
@@ -37,7 +37,7 @@ if (ExtensionManagementUtility::isLoaded('tt_address')) {
         $tempColumns = [
             'tx_cal_controller_isorganizer' => [
                 'exclude' => 1,
-                'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.isorganizer',
+                'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.isorganizer',
                 'config' => [
                     'type' => 'check',
                     'default' => 0

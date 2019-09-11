@@ -3,7 +3,7 @@ defined('TYPO3_MODE') or die();
 
 $tx_cal_unknown_users = [
     'ctrl' => [
-        'title' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_unknown_users',
+        'title' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_unknown_users',
         'label' => 'email',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -32,7 +32,7 @@ $tx_cal_unknown_users = [
         ],
         'email' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_unknown_users.email',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_unknown_users.email',
             'config' => [
                 'type' => 'input',
                 'size' => 30,

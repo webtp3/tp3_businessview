@@ -3,7 +3,7 @@ defined('TYPO3_MODE') or die();
 
 $tx_cal_exception_event_group = [
     'ctrl' => [
-        'title' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_exception_event_group',
+        'title' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_exception_event_group',
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -34,7 +34,7 @@ $tx_cal_exception_event_group = [
         ],
         'title' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_exception_event_group.title',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_exception_event_group.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -44,7 +44,7 @@ $tx_cal_exception_event_group = [
         ],
         'exception_event_cnt' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_exception_event_group.exception_event_cnt',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_exception_event_group.exception_event_cnt',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',

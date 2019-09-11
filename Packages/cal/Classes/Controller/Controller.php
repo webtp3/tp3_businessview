@@ -51,7 +51,7 @@ class Controller extends AbstractPlugin
     /**
      * @var string
      */
-    public $locallangPath = 'Resources/Private/Language/locallang.xml';
+    public $locallangPath = 'Resources/Private/Language/locallang.xlf';
 
     /**
      * @var string
@@ -3445,7 +3445,12 @@ class Controller extends AbstractPlugin
                 $this->pi_getFFvalue($piFlexForm, 'isPreview', 's_Event_View')
             );
         }
-
+        if ((int)$this->conf ['dontListenToFlexForm.'] ['event.'] ['hasMap'] !== 1) {
+            self::updateIfNotEmpty(
+                $this->conf ['view.'] ['event.'] ['hasMap'],
+                $this->pi_getFFvalue($piFlexForm, 'hasMap', 's_Event_View')
+            );
+        }
         if ((int)$this->conf ['dontListenToFlexForm.'] ['list.'] ['listViewPid'] !== 1) {
             self::updateIfNotEmpty(
                 $this->conf ['view.'] ['list.'] ['listViewPid'],

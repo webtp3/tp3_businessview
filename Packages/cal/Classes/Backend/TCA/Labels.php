@@ -83,7 +83,7 @@ class Labels
             $feUserRec = BackendUtility::getRecord('fe_users', $rec['fe_user_id']);
             $label = $feUserRec['name'] != '' ? $feUserRec['name'] : $feUserRec['username'];
         }
-        $label .= ' (' . $GLOBALS['LANG']->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_attendee.attendance.' . $rec['attendance']) . ' -> ' . $rec['status'] . ')';
+        $label .= ' (' . $GLOBALS['LANG']->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_attendee.attendance.' . $rec['attendance']) . ' -> ' . $rec['status'] . ')';
 
         // Write to the label
         $params['title'] = $label;
@@ -121,7 +121,7 @@ class Labels
         }
 
         // Write to the label
-        $params['title'] = $label . ' (' . $GLOBALS['LANG']->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_fe_user_event.offset') . ': ' . $rec['offset'] . ')';
+        $params['title'] = $label . ' (' . $GLOBALS['LANG']->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_fe_user_event.offset') . ': ' . $rec['offset'] . ')';
     }
 
     /**
@@ -139,7 +139,7 @@ class Labels
         // Get complete record
         $rec = BackendUtility::getRecord($params['table'], $params['row']['uid']);
 
-        $label = $GLOBALS['LANG']->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.deviation') . ': ';
+        $label = $GLOBALS['LANG']->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.deviation') . ': ';
 
         if ($rec['orig_start_date']) {
             $dateObj = new CalendarDateTime($rec['orig_start_date'] . '000000');

@@ -142,6 +142,6 @@ class ElementHelper
 
     public static function init()
     {
-        $GLOBALS['LANG']->includeLLFile(ExtensionManagementUtility::extPath('cal') . 'Resources/Private/Language/locallang_db.xml');
+        $GLOBALS['LANG']->includeLLFile(ExtensionManagementUtility::extPath('cal') . 'Resources/Private/Language/locallang_db.xlf');
     }
 }

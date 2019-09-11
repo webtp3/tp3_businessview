@@ -103,7 +103,7 @@ if (TYPO3_MODE === 'BE') {
             'access' => 'admin',
             'name' => 'tools_txcalM1',
             'icon' => 'EXT:cal/Resources/Public/Icons/Module.svg',
-            'labels' => 'LLL:EXT:cal/Resources/Private/Language/locallang_indexer_mod.xml'
+            'labels' => 'LLL:EXT:cal/Resources/Private/Language/locallang_indexer_mod.xlf'
         ]
     );
 }

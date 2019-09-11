@@ -8,7 +8,7 @@ defined('TYPO3_MODE') or die();
 
 $tx_cal_organizer = [
     'ctrl' => [
-        'title' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer',
+        'title' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer',
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -45,7 +45,7 @@ $tx_cal_organizer = [
         ],
         'name' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.name',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.name',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -55,7 +55,7 @@ $tx_cal_organizer = [
         ],
         'description' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.description',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.description',
             'config' => [
                 'type' => 'text',
                 'cols' => 30,
@@ -74,7 +74,7 @@ $tx_cal_organizer = [
         ],
         'street' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.street',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.street',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -84,7 +84,7 @@ $tx_cal_organizer = [
         ],
         'zip' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.zip',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.zip',
             'config' => [
                 'type' => 'input',
                 'size' => 15,
@@ -94,7 +94,7 @@ $tx_cal_organizer = [
         ],
         'city' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.city',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.city',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -104,7 +104,7 @@ $tx_cal_organizer = [
         ],
         'phone' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.phone',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.phone',
             'config' => [
                 'type' => 'input',
                 'size' => 15,
@@ -114,7 +114,7 @@ $tx_cal_organizer = [
         ],
         'fax' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.fax',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.fax',
             'config' => [
                 'type' => 'input',
                 'size' => 15,
@@ -124,7 +124,7 @@ $tx_cal_organizer = [
         ],
         'email' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.email',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.email',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -135,7 +135,7 @@ $tx_cal_organizer = [
         ],
         'image' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.image',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.image',
             'config' => ExtensionManagementUtility::getFileFieldTCAConfig('image', [
                 'maxitems' => 5,
                 // Use the imageoverlayPalette instead of the basicoverlayPalette
@@ -155,7 +155,7 @@ $tx_cal_organizer = [
         ],
         'link' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.link',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.link',
             'config' => [
                 'type' => 'input',
                 'size' => 25,
@@ -178,7 +178,7 @@ $tx_cal_organizer = [
         ],
         'shared_user_cnt' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.shared_user',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.shared_user',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -257,7 +257,7 @@ $tx_cal_organizer = [
 if (ExtensionManagementUtility::isLoaded('static_info_tables')) {
     $tx_cal_organizer['columns']['country_zone'] = [
         'exclude' => 1,
-        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.countryzone',
+        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.countryzone',
         'config' => [
             'type' => 'select',
             'renderType' => 'selectSingle',
@@ -278,7 +278,7 @@ if (ExtensionManagementUtility::isLoaded('static_info_tables')) {
     ];
     $tx_cal_organizer['columns']['country'] = [
         'exclude' => 1,
-        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.country',
+        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.country',
         'config' => [
             'type' => 'select',
             'renderType' => 'selectSingle',

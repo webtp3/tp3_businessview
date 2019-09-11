@@ -14,7 +14,7 @@ $pluginSignature = strtolower($extensionName) . '_controller';
  */
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
     [
-        'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tt_content.list_type',
+        'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tt_content.list_type',
         'cal_controller'
     ],
     'list_type',

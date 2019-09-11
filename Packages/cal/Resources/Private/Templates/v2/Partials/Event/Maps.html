@@ -1,7 +1,6 @@
 <div xmlns:ttaddr="http://typo3.org/ns/FriendsOfTYPO3/TtAddress/ViewHelper" data-namespace-typo3-fluid="true">
 
 <f:section name="leaflet">
-	<f:debug>{_all}</f:debug>
 
     <f:render section="rendering" arguments="{_all}"/>
 
@@ -16,9 +15,11 @@
         <div class="col-md-3">
             <ul class="list-group">
                     <li id="ttaddress__label-{address.uid}" class="ttaddress__label list-group-item">
-                        <strong>{address.fullName}</strong><br>
+                        <strong itemprop="name">{address.name}</strong><br>
                         <f:render partial="Event/Address" section="address" arguments="{_all}"/>
-                        <a href="#" data-iteration-id="{i.index}" class="ttaddress__markerlink">{f:translate(key:'show_on_map')}</a>
+                        <a href="#" data-iteration-id="0" class="ttaddress__markerlink">
+													<f:translate key="LLL:EXT:tt_address/Resources/Private/Language/locallang.xlf:show_on_map"/>
+												</a>
                     </li>
             </ul>
         </div>

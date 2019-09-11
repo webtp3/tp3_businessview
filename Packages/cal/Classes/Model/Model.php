@@ -1533,7 +1533,7 @@ abstract class Model extends BaseModel
         if (!$this->locationObject) {
             $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['cal']);
             $useLocationStructure = ($confArr['useLocationStructure'] ?: 'tx_cal_location');
-            $modelObj = &Registry::Registry('basic', 'modelcontroller');
+            $modelObj =  GeneralUtility::makeInstance(ModelController::class);//&Registry::Registry('basic', 'modelcontroller');
             $this->locationObject = $modelObj->findLocation(
                 $this->getLocationId(),
                 $useLocationStructure,
