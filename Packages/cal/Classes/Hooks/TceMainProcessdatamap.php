@@ -295,8 +295,8 @@ class TceMainProcessdatamap
                 $table = 'tx_cal_index';
                 $where = ['event_deviation_uid' => $id];
                 $insertFields = [
-                    'start_datetime' => $startDate->format('Ymd') . $startDate->format('HMS'),
-                    'end_datetime' => $endDate->format('Ymd') . $endDate->format('HMS')
+                    'start_datetime' => $startDate->format('Ymd') . $startDate->format('His'),
+                    'end_datetime' => $endDate->format('Ymd') . $endDate->format('His')
                 ];
                 /** @var ConnectionPool $connectionPool */
                 $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
@@ -620,7 +620,7 @@ class TceMainProcessdatamap
     {
        // if(is_int($dateString))$dateString = '@'.$dateString;
         //$date = new CalendarDateTime($dateString);
-        $date = CalendarDateTime::createFromFormat( 'U', $dateString );
+        $date = CalendarDateTime::createFromFormat( 'U', $dateString )->setTimezone(new \DateTimeZone(date('T')));
 
         return $date->format('Ymd');
     }

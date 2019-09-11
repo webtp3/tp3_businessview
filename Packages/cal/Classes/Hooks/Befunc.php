@@ -14,6 +14,7 @@ namespace TYPO3\CMS\Cal\Hooks;
  *
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
+use TYPO3\CMS\Cal\Model\CalendarDateTime;
 
 /**
  * This hook extends the befunc class.

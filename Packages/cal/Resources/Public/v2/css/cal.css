@@ -880,11 +880,19 @@
 
 /*--- TODO: to be checked from here on to the end!! ---*/
 /*------------- list styles ------------*/
-
+div#content .list-view .vevent .dtstart-container, div#content .list-view .vtodo .dtstart-container {
+	margin-right: 0;
+	text-align: left;
+	width: 220px;
+	font-size: 12pt;
+}
 .tx-cal-controller .even {
 	background-color: #FAFAFA;
 }
-
+.cal-panel img {
+	float: left;
+	clear: left;
+}
 .tx-cal-controller  a.url {
 	overflow: hidden;
 }
