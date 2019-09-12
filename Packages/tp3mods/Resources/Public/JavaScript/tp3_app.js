@@ -656,9 +656,9 @@ tp3_app.parallax = function(){
 //.body-bg .section_image,
 	if(!tp3parallax){
 		$(".frame-backgroundimage-fade, .main-section .frame-container").each(function() {
-			$(this).addClass("animated");
+			$(this).not($(this).parents('.modal')).addClass("animated");
 			if (isScrolledIntoView(this) === true) {
-				if(!$(this).hasClass("fadeInLeft"))$(this).addClass("fadeInLeft");
+				if(!$(this).hasClass("fadeInLeft") && $(this).parents('.modal').length < 1)$(this).addClass("fadeInLeft");
 			}
 		});
 		}

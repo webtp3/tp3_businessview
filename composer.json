@@ -118,6 +118,7 @@
 		"fluidtypo3/vhs":"*",
 		"yoast-seo-for-typo3/yoast_seo": "3.0.5",
 		"haassie/yoast_news": "^1",
+		"web-tp3/yoast_cal": "^1",
 		"in2code/powermail": "*",
 		"causal/tscobj":"*",
 		"apen/additional_reports":"*",

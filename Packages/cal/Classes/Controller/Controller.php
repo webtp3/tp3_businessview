@@ -30,6 +30,7 @@ use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
+use function Deployer\Support\array_flatten;
 
 /**
  * Main controller for the calendar base.
@@ -1155,14 +1156,16 @@ class Controller extends AbstractPlugin
      */
     public function event(): string
     {
-        $uid = $this->conf ['uid'];
-        $type = $this->conf ['type'];
+        //for yoast_cal preview
+        $uid = GeneralUtility::_GP('type') == 1480321830 ? GeneralUtility::_GP('id') : $this->conf ['uid'];
+        $type =  GeneralUtility::_GP('type') == 1480321830 ? 'tx_cal_preview' : $this->conf ['type'];
         $pidList = $this->conf ['pidList'];
         $getdate = $this->conf ['getdate'];
         $hookObjectsArr = $this->getHookObjectsArray('drawEventClass');
         $modelObj = &Registry::Registry('basic', 'modelcontroller');
         $availableTypes = $modelObj->getServiceTypes('cal_event_model', 'event');
-        if (!in_array($type, $availableTypes, true)) {
+        array_push($availableTypes,'tx_cal_preview');
+        if (!in_array($type,$availableTypes , true)  ) {
             $type = null;
         }
         $modelObj = &Registry::Registry('basic', 'modelcontroller');

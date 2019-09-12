@@ -4,7 +4,7 @@
 			xmlns:ttaddr="http://typo3.org/ns/FriendsOfTYPO3/TtAddress/ViewHelper"
 			data-namespace-typo3-fluid="true">
 
-<div id="calendar-event">
+<div id="calendar-event" itemscope itemtype="http://schema.org/Event" >
 	<f:if condition="{event}">
 		<f:render partial="Event/event" arguments="{event:event, settings:settings, eventView:eventView}"/>
 	</f:if>

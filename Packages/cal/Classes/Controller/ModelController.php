@@ -80,6 +80,9 @@ class ModelController extends BaseController
     ): EventModel {
         if ($type === '') {
             $type = 'tx_cal_phpicalendar';
+        }else if($type === 'tx_cal_preview'){
+            $type = 'tx_cal_phpicalendar';
+            $showHiddenEvents = true;
         }
         $event = $this->find(
             'cal_event_model',
