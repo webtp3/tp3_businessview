@@ -98,7 +98,7 @@
 		"fab/media":"^4.5",
 		"gridelementsteam/gridelements":"8.2.3",
 		"web-tp3/bootstrap-grids":"2.0.1",
-		"georgringer/news":"^7",
+		"georgringer/news":"7.2.3",
 		"georgringer/news-importicsxml": "dev-master",
 		"reelworx/rx-shariff": "*",
 		"dmitryd/typo3-realurl":"*",

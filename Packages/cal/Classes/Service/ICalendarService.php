@@ -777,9 +777,9 @@ class ICalendarService extends BaseService
             //$this->date =GeneralUtility::makeInstance(CalendarDateTime::class);
             if (is_array($value)) {
 
-                $dateTime = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Model\CalendarDateTime::class)->createFromFormat('Ymdhmsu',$value['year'] . $value['month'] . $value['mday'] . '000000');
+                $dateTime = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Model\CalendarDateTime::class)->createFromFormat('Ymdhmsu',$value['year'] . $value['month'] . $value['mday'] . '000000')->setTimezone(new \DateTimeZone(date('T')));
             } else {
-                $dateTime = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Model\CalendarDateTime::class)->createFromFormat('U',$value);
+                $dateTime = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Model\CalendarDateTime::class)->createFromFormat('U',$value)->setTimezone(new \DateTimeZone(date('T')));
             }
             $params = $component->getAttributeParameters($attribute);
             $timezone = $params['TZID'];
@@ -1407,7 +1407,7 @@ class ICalendarService extends BaseService
 
                 if ($component->getAttribute('DURATION')) {
                     $enddate = $insertFields['start_time'] + $component->getAttribute('DURATION');
-                    $dateTime = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Model\CalendarDateTime::class)->createFromFormat('U',$insertFields['start_date']);
+                    $dateTime = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Model\CalendarDateTime::class)->createFromFormat('U',$insertFields['start_date'])->setTimezone(new \DateTimeZone(date('T')));
                     $dateTime->addSeconds($enddate);
                     $params = $component->getAttributeParameters('DURATION');
                     $timezone = $params['TZID'];

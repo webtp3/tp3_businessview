@@ -461,7 +461,7 @@ class Controller extends AbstractPlugin
             }
         }
 
-        $this->getDateTimeObject->setTZbyID('UTC');
+        $this->getDateTimeObject->setTimezone(new \DateTimeZone(date('T')));
         $this->conf ['day'] = $this->getDateTimeObject->getDay();
         $this->conf ['month'] = $this->getDateTimeObject->getMonth();
         $this->conf ['year'] = $this->getDateTimeObject->getYear();
@@ -1233,8 +1233,8 @@ class Controller extends AbstractPlugin
         if (!in_array($type, $availableTypes, true)) {
             $type = '';
         }
-        $timeObj = new CalendarDateTime($this->conf ['getdate'] . '000000');
-        $timeObj->setTZbyID('UTC');
+        $timeObj = CalendarDateTime::createFromFormat( 'Ymd', $this->conf ['getdate']  )->setTimezone(new \DateTimeZone(date('T')));
+       // $timeObj->setTZbyID('UTC');
         $master_array = $modelObj->findEventsForDay($timeObj, $type, $pidList);
         // Hook: preDayRendering
         foreach ($hookObjectsArr as $hookObj) {
@@ -1269,8 +1269,8 @@ class Controller extends AbstractPlugin
         if (!in_array($type, $availableTypes, true)) {
             $type = '';
         }
-        $timeObj = new CalendarDateTime($this->conf ['getdate'] . '000000');
-        $timeObj->setTZbyID('UTC');
+        $timeObj = CalendarDateTime::createFromFormat( 'Ymd', $this->conf ['getdate']  )->setTimezone(new \DateTimeZone(date('T')));
+        //$timeObj->setTZbyID('UTC');
         $master_array = $modelObj->findEventsForWeek($timeObj, $type, $pidList);
 
         // Hook: preWeekRendering
@@ -1313,8 +1313,8 @@ class Controller extends AbstractPlugin
                 $type = '';
             }
 
-            $timeObj = new CalendarDateTime($this->conf ['getdate'] . '000000');
-            $timeObj->setTZbyID('UTC');
+            $timeObj =CalendarDateTime::createFromFormat( 'Ymd', $this->conf ['getdate']  )->setTimezone(new \DateTimeZone(date('T')));
+            //$timeObj->setTZbyID('UTC');
             $master_array = $modelObj->findEventsForMonth($timeObj, $type, $pidList);
         }
         // Hook: preMonthRendering
@@ -1349,8 +1349,8 @@ class Controller extends AbstractPlugin
         if (!in_array($type, $availableTypes, true)) {
             $type = '';
         }
-        $timeObj = new CalendarDateTime($this->conf ['getdate'] . '000000');
-        $timeObj->setTZbyID('UTC');
+        $timeObj =CalendarDateTime::createFromFormat( 'Ymd', $this->conf ['getdate']  )->setTimezone(new \DateTimeZone(date('T')));
+        //$timeObj->setTZbyID('UTC');
         $master_array = $modelObj->findEventsForYear($timeObj, $type, $pidList);
         // Hook: preYearRendering
         foreach ($hookObjectsArr as $hookObj) {
@@ -2486,12 +2486,13 @@ class Controller extends AbstractPlugin
         if (intval($this->piVars ['start_day']) === 0) {
             $starttime = $this->getListViewTime($this->conf ['view.'] ['search.'] ['defaultValues.'] ['start_day']);
         } else {
-            $starttime = new CalendarDateTime(intval($this->piVars ['start_day']) . '000000');
+            $starttime = CalendarDateTime::createFromFormat( 'Ymd', intval($this->piVars ['start_day']) )->setTimezone(new \DateTimeZone(date('T')));
         }
         if (intval($this->piVars ['end_day']) === 0) {
             $endtime = $this->getListViewTime($this->conf ['view.'] ['search.'] ['defaultValues.'] ['end_day']);
         } else {
-            $endtime = new CalendarDateTime(intval($this->piVars ['end_day']) . '000000');
+            $endtime = CalendarDateTime::createFromFormat( 'Ymd', intval($this->piVars ['end_day']) )->setTimezone(new \DateTimeZone(date('T')));
+            //new CalendarDateTime(intval($this->piVars ['end_day']) . '000000');
         }
         $searchword = strip_tags($this->piVars ['query']);
         if ($searchword === '') {
