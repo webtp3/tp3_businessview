@@ -86,8 +86,8 @@ class DateParser
     public function parse($value, $conf = [], $timeObj = null)
     {
         if ($timeObj === null) {
-            $timeObj = new CalendarDateTime();
-            $timeObj->setTZbyID('UTC');
+            $timeObj = new \CalendarDateTime();
+            $timeObj->setTimezone(new \DateTimeZone(date('T')));
         }
         $this->timeObj = $timeObj;
         $this->conf = &$conf;

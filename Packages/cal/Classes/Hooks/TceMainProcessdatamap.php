@@ -118,7 +118,7 @@ class TceMainProcessdatamap
                         $fileInfo = GeneralUtility::split_fileref($oldPath);
                         $GLOBALS ['TSFE']->tmpl->allowedPaths [] = $fileInfo ['path'];
 
-                        $notificationService->controller->getDateTimeObject = new CalendarDateTime($event ['start_date'] . '000000');
+                        $notificationService->controller->getDateTimeObject = CalendarDateTime::createFromFormat( 'Ymd', $event ['start_date'] )->setTimezone(new \DateTimeZone(date('T')));
                         $notificationService->notifyOfChanges($event, $fieldArray);
                         if ($fieldArray ['send_invitation']) {
                             $notificationService->invite($event);
@@ -240,7 +240,7 @@ class TceMainProcessdatamap
                         $fileInfo = GeneralUtility::split_fileref($oldPath);
                         $GLOBALS ['TSFE']->tmpl->allowedPaths [] = $fileInfo ['path'];
 
-                        $notificationService->controller->getDateTimeObject = new CalendarDateTime($event ['start_date'] . '000000');
+                        $notificationService->controller->getDateTimeObject = CalendarDateTime::createFromFormat( 'Ymd', $event ['start_date'] )->setTimezone(new \DateTimeZone(date('T')));
 
                         if ($status === 'new') {
                             $notificationService->notify($event);
@@ -605,7 +605,8 @@ class TceMainProcessdatamap
     public static function convertBackendDateToPear($dateString): CalendarDateTime
     {
         $ymdString = self::convertBackendDateToYMD($dateString);
-        return new CalendarDateTime($ymdString . '000000');
+        return CalendarDateTime::createFromFormat( 'Ymd', $ymdString )->setTimezone(new \DateTimeZone(date('T')));
+        //new CalendarDateTime($ymdString . '000000');
     }
 
     /**
@@ -620,7 +621,9 @@ class TceMainProcessdatamap
     {
        // if(is_int($dateString))$dateString = '@'.$dateString;
         //$date = new CalendarDateTime($dateString);
-        $date = CalendarDateTime::createFromFormat( 'U', $dateString )->setTimezone(new \DateTimeZone(date('T')));
+        //get UTC offset
+        $offset = \DateTime::createFromFormat('U', $dateString)->setTimezone(new \DateTimeZone(date('T')))->getOffset();
+        $date = CalendarDateTime::createFromFormat( 'U', $dateString)->setTimezone(new \DateTimeZone(date('T')))->add(new \DateInterval('PT' . $offset . 'S'));
 
         return $date->format('Ymd');
     }
