@@ -655,21 +655,21 @@ var tp3parallax = tp3parallax || false;
 tp3_app.parallax = function(){
 //.body-bg .section_image,
 	if(!tp3parallax){
-		$(".frame-backgroundimage-fade, .main-section .frame-container").each(function() {
-			$(this).not($(this).parents('.modal')).addClass("animated");
-			if (isScrolledIntoView(this) === true) {
-				if(!$(this).hasClass("fadeInLeft") && $(this).parents('.modal').length < 1)$(this).addClass("fadeInLeft");
-			}
-		});
+		// $(".frame-backgroundimage-fade, .main-section .frame-container").each(function() {
+		// 	$(this).not($(this).parents('.modal')).addClass("animated");
+		// 	if (isScrolledIntoView(this) === true) {
+		// 		if(!$(this).hasClass("fadeInLeft") && $(this).parents('.modal').length < 1)$(this).addClass("fadeInLeft");
+		// 	}
+		// });
 		}
 	else{
 		// declare the variable to affect the defined data-type
 		console.log("parallax");
 		$(window).scroll(function() {
-			$(".frame-backgroundimage-fade, .main-section .frame-container").each(function() {
-				$(this).addClass("animated");
+			$(".frame-backgroundimage-fade").each(function() {
+				$(this).not($(this).parents('.modal')).addClass("animated");
 				if (isScrolledIntoView(this) === true) {
-					$(this).addClass("fadeInLeft");
+					$(this).not($(this).parents('.modal')).addClass("fadeInLeft");
 				}
 				$j(' .frame-backgroundimage-parallax, .carousel-inner .item.active,  #content.main-section  > .section , #content.main-section  > .row.frame, .section_image, .frame-backgroundimage-container > .frame-backgroundimage-parallax').each(function(){// HTML5 proves useful for helping with creating JS functions!
 
@@ -778,7 +778,7 @@ tp3_app.controls = function(){
 				$j('form[name="anfordern"]').autosubmit({
 					"request": "data"
 				});
-				$modal.find(".frame-backgroundimage-fade, .main-section .frame-container").addClass("animated").addClass("fadeInLeft");
+				$modal.find(".frame-backgroundimage-fade, .main-section .frame-container").removeClass("animated").removeClass("fadeInLeft");
 				$modal.find('input[type="checkbox"]').each(function(){
 					var tgt =  $j(this).prev('input[type="hidden"]');
 					$j(this).insertBefore($j(this).parent('label')).on("change",function(){

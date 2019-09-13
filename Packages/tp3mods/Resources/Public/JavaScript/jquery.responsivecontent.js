@@ -201,7 +201,7 @@
     $.fn.responsiveContent.Constructor = ResponsiveContent;
 
     $(window).on('load.tp3.responsiveContent', function() {
-        $('.news .responsiveContent, .frame-backgroundimage-fade, .main-section .frame-container').responsiveContent();
+        $('.news .responsiveContent, .frame-backgroundimage-fade').responsiveContent();
         // EVENTS
         // ======
         $(window)

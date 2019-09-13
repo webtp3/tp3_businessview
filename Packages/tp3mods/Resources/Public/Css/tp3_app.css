@@ -195,7 +195,7 @@ animations
 }
 .main-section .frame-container {
 	flex-grow: 1;
-	opacity: 0;
+	opacity: 1;
 }
 /*
 News Tag List
