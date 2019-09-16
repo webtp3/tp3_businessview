@@ -970,7 +970,7 @@ class ICalendarService extends BaseService
 //                    'uid=' . $indexEntry['event_deviation_uid'],
 //                    $insertFields
 //                );
-                $result = $queryBuilder->update($table)>where(
+                $result = $queryBuilder->update($table)->where(
                         $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($indexEntry['event_deviation_uid']))
                     )
                 ->values($insertFields)
@@ -991,10 +991,7 @@ class ICalendarService extends BaseService
                 }
                 $eventDeviationUid = $connection->lastInsertId($table);
             }
-            $result = $queryBuilder->update($table)->values(['event_deviation_uid' => $eventDeviationUid])->where(
-                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($indexEntry['uid']))
-
-            )->execute();
+            $result = $queryBuilder->update($table,['event_deviation_uid' => $eventDeviationUid],['uid'=>$indexEntry['uid']])->execute();
 //            $GLOBALS['TYPO3_DB']->exec_UPDATEquery('tx_cal_index', 'uid=' . $indexEntry['uid'], [
 //                'event_deviation_uid' => $eventDeviationUid
 //            ]);
@@ -1196,9 +1193,11 @@ class ICalendarService extends BaseService
         }
 
         if ($eventRow['uid']) {
-            $queryBuilder->update($table)->where(
-               $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($eventRow['uid'], \PDO::PARAM_INT))
-            )->values($insertFields)->execute();
+//            $queryBuilder->update($table)->where(
+//               $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($eventRow['uid']))
+//            )->values($insertFields)->execute();
+            $result = $connection->update($table,$insertFields,['uid' => (int)$eventRow['uid']]);
+
             return $eventRow['uid'];
         }
         $result = $queryBuilder->insert($table)
