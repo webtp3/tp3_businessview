@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\Controller;
 
 /**
@@ -30,7 +36,6 @@ use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
-use function Deployer\Support\array_flatten;
 
 /**
  * Main controller for the calendar base.
@@ -393,7 +398,7 @@ class Controller extends AbstractPlugin
         if ($this->conf ['getdate'] <= date(
             'Ymd',
             strtotime($this->conf ['view.'] ['startLinkRange'])
-            ) || $this->conf ['getdate'] >= date(
+        ) || $this->conf ['getdate'] >= date(
                 'Ymd',
                 strtotime($this->conf ['view.'] ['endLinkRange'])
             )) {
@@ -1164,8 +1169,8 @@ class Controller extends AbstractPlugin
         $hookObjectsArr = $this->getHookObjectsArray('drawEventClass');
         $modelObj = &Registry::Registry('basic', 'modelcontroller');
         $availableTypes = $modelObj->getServiceTypes('cal_event_model', 'event');
-        array_push($availableTypes,'tx_cal_preview');
-        if (!in_array($type,$availableTypes , true)  ) {
+        array_push($availableTypes, 'tx_cal_preview');
+        if (!in_array($type, $availableTypes, true)) {
             $type = null;
         }
         $modelObj = &Registry::Registry('basic', 'modelcontroller');
@@ -1236,8 +1241,8 @@ class Controller extends AbstractPlugin
         if (!in_array($type, $availableTypes, true)) {
             $type = '';
         }
-        $timeObj = CalendarDateTime::createFromFormat( 'Ymd', $this->conf ['getdate']  )->setTimezone(new \DateTimeZone(date('T')));
-       // $timeObj->setTZbyID('UTC');
+        $timeObj = CalendarDateTime::createFromFormat('Ymd', $this->conf ['getdate'])->setTimezone(new \DateTimeZone(date('T')));
+        // $timeObj->setTZbyID('UTC');
         $master_array = $modelObj->findEventsForDay($timeObj, $type, $pidList);
         // Hook: preDayRendering
         foreach ($hookObjectsArr as $hookObj) {
@@ -1272,7 +1277,7 @@ class Controller extends AbstractPlugin
         if (!in_array($type, $availableTypes, true)) {
             $type = '';
         }
-        $timeObj = CalendarDateTime::createFromFormat( 'Ymd', $this->conf ['getdate']  )->setTimezone(new \DateTimeZone(date('T')));
+        $timeObj = CalendarDateTime::createFromFormat('Ymd', $this->conf ['getdate'])->setTimezone(new \DateTimeZone(date('T')));
         //$timeObj->setTZbyID('UTC');
         $master_array = $modelObj->findEventsForWeek($timeObj, $type, $pidList);
 
@@ -1316,7 +1321,7 @@ class Controller extends AbstractPlugin
                 $type = '';
             }
 
-            $timeObj =CalendarDateTime::createFromFormat( 'Ymd', $this->conf ['getdate']  )->setTimezone(new \DateTimeZone(date('T')));
+            $timeObj =CalendarDateTime::createFromFormat('Ymd', $this->conf ['getdate'])->setTimezone(new \DateTimeZone(date('T')));
             //$timeObj->setTZbyID('UTC');
             $master_array = $modelObj->findEventsForMonth($timeObj, $type, $pidList);
         }
@@ -1352,7 +1357,7 @@ class Controller extends AbstractPlugin
         if (!in_array($type, $availableTypes, true)) {
             $type = '';
         }
-        $timeObj =CalendarDateTime::createFromFormat( 'Ymd', $this->conf ['getdate']  )->setTimezone(new \DateTimeZone(date('T')));
+        $timeObj =CalendarDateTime::createFromFormat('Ymd', $this->conf ['getdate'])->setTimezone(new \DateTimeZone(date('T')));
         //$timeObj->setTZbyID('UTC');
         $master_array = $modelObj->findEventsForYear($timeObj, $type, $pidList);
         // Hook: preYearRendering
@@ -1758,7 +1763,7 @@ class Controller extends AbstractPlugin
             $start_day = new CalendarDateTime(Functions::getYmdFromDateString(
                 $this->conf,
                 $start_day
-                ) . '000000');
+            ) . '000000');
             $start_day->setHour(0);
             $start_day->setMinute(0);
             $start_day->setSecond(0);
@@ -1771,7 +1776,7 @@ class Controller extends AbstractPlugin
             $end_day = new CalendarDateTime(Functions::getYmdFromDateString(
                 $this->conf,
                 $end_day
-                ) . '000000');
+            ) . '000000');
             $end_day->setHour(23);
             $end_day->setMinute(59);
             $end_day->setSecond(59);
@@ -2489,12 +2494,12 @@ class Controller extends AbstractPlugin
         if (intval($this->piVars ['start_day']) === 0) {
             $starttime = $this->getListViewTime($this->conf ['view.'] ['search.'] ['defaultValues.'] ['start_day']);
         } else {
-            $starttime = CalendarDateTime::createFromFormat( 'Ymd', intval($this->piVars ['start_day']) )->setTimezone(new \DateTimeZone(date('T')));
+            $starttime = CalendarDateTime::createFromFormat('Ymd', intval($this->piVars ['start_day']))->setTimezone(new \DateTimeZone(date('T')));
         }
         if (intval($this->piVars ['end_day']) === 0) {
             $endtime = $this->getListViewTime($this->conf ['view.'] ['search.'] ['defaultValues.'] ['end_day']);
         } else {
-            $endtime = CalendarDateTime::createFromFormat( 'Ymd', intval($this->piVars ['end_day']) )->setTimezone(new \DateTimeZone(date('T')));
+            $endtime = CalendarDateTime::createFromFormat('Ymd', intval($this->piVars ['end_day']))->setTimezone(new \DateTimeZone(date('T')));
             //new CalendarDateTime(intval($this->piVars ['end_day']) . '000000');
         }
         $searchword = strip_tags($this->piVars ['query']);
@@ -2786,7 +2791,7 @@ class Controller extends AbstractPlugin
         return '{"fe_users":[' . implode(',', $ajaxUserStringArray) . '],"fe_groups":[' . implode(
             ',',
             $ajaxGroupStringArray
-            ) . ']}';
+        ) . ']}';
     }
 
     /**
@@ -3151,7 +3156,7 @@ class Controller extends AbstractPlugin
         $page = Functions::substituteMarkerArrayNotCached('[' . implode(
             ',',
             $ajaxStringArray
-            ) . ']', $sims, $rems, $wrapped);
+        ) . ']', $sims, $rems, $wrapped);
 
         // Hook: postLoadTodosRendering
         foreach ($hookObjectsArr as $hookObj) {
@@ -3936,7 +3941,7 @@ class Controller extends AbstractPlugin
                     4,
                     '0',
                     STR_PAD_LEFT
-                    ) . str_pad(
+                ) . str_pad(
                         (int)$this->piVars ['month'],
                         2,
                         '0',
@@ -4055,7 +4060,7 @@ class Controller extends AbstractPlugin
             $piVars,
             '',
             true
-            ) . $this->pi_moreParams;
+        ) . $this->pi_moreParams;
         $parameterArray ['link_ATagParams'] = 'class="url"';
 
         // add time/date related parameters to all link objects, so that they can use them e.g. to display the monthname etc.

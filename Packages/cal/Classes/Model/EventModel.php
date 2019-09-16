@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\Model;
 
 /**
@@ -197,7 +203,7 @@ class EventModel extends Model
                         $start = new CalendarDateTime(Functions::getYmdFromDateString(
                             $this->conf,
                             strip_tags($piVars['startdate'] ?: $piVars['getdate'])
-                            ) . '000000');
+                        ) . '000000');
                         if (strlen($piVars['starttime']) === 4) {
                             $tempArray = [];
                             preg_match('/([0-9]{2})([0-9]{2})/', $piVars['starttime'], $tempArray);
@@ -230,7 +236,7 @@ class EventModel extends Model
                         $end = new CalendarDateTime(Functions::getYmdFromDateString(
                             $this->conf,
                             strip_tags($piVars['enddate'] ?: $piVars['getdate'])
-                            ) . '000000');
+                        ) . '000000');
                         if (strlen($piVars['endtime']) === 4) {
                             $tempArray = [];
                             preg_match('/([0-9]{2})([0-9]{2})/', $piVars['endtime'], $tempArray);
@@ -322,7 +328,7 @@ class EventModel extends Model
                         $until = new CalendarDateTime(Functions::getYmdFromDateString(
                             $this->conf,
                             strip_tags($piVars['until'])
-                            ) . '000000');
+                        ) . '000000');
                     } else {
                         $until = new CalendarDateTime('00000000000000');
                     }
@@ -590,7 +596,7 @@ class EventModel extends Model
             }
         }
 
-           if ($row['exception_single_ids']) {
+        if ($row['exception_single_ids']) {
             $ids = explode(',', $row['exception_single_ids']);
             foreach ($ids as $id) {
                 $this->addExceptionSingleId($id);
@@ -649,7 +655,7 @@ class EventModel extends Model
     /**
      * @return EventModel
      */
-    public function cloneEvent(): EventModel
+    public function cloneEvent(): self
     {
         $thisClass = get_class($this);
         /** @var EventModel $event */
@@ -955,7 +961,7 @@ class EventModel extends Model
         if (substr(
             $viewType,
             -6
-            ) !== 'ALLDAY' && ($this->isAllday() || $this->getStart()->format('Ymd') !== $this->getEnd()->format('Ymd'))) {
+        ) !== 'ALLDAY' && ($this->isAllday() || $this->getStart()->format('Ymd') !== $this->getEnd()->format('Ymd'))) {
             $subpartSuffix .= 'ALLDAY';
         }
         $hookObjectsArr = Functions::getHookObjectsArray(
@@ -992,7 +998,7 @@ class EventModel extends Model
                 '###',
                 '',
                 $subpartMarker
-                ) . '< subpart-marker in ' . $templatePath;
+            ) . '< subpart-marker in ' . $templatePath;
         }
         $rems = [];
         $sims = [];
@@ -1133,7 +1139,7 @@ class EventModel extends Model
                                                 'tx_cal_controller[uid]' => $this->getUid(),
                                                 'tx_cal_controller[sid]' => md5($this->getUid() . $email . $this->getCrdate())
                                             ]
-                                        );
+                                    );
 
                                     $local_switch['###EVENT_LINK###'] = GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $this->controller->pi_getPageLink(
                                         $this->conf['view.']['event.']['eventViewPid'],
@@ -1144,7 +1150,7 @@ class EventModel extends Model
                                                 'tx_cal_controller[type]' => $this->getType(),
                                                 'tx_cal_controller[getdate]' => $this->getStart()->format('Ymd')
                                             ]
-                                        );
+                                    );
                                     $htmlTemplate = Functions::substituteMarkerArrayNotCached(
                                         $htmlTemplate,
                                         $local_switch,
@@ -1247,7 +1253,7 @@ class EventModel extends Model
                                                 'tx_cal_controller[uid]' => $this->getUid(),
                                                 'tx_cal_controller[sid]' => md5($this->getUid() . $email . $crdate)
                                             ]
-                                        );
+                                    );
                                     $htmlTemplate = Functions::substituteMarkerArrayNotCached(
                                         $htmlTemplate,
                                         $local_switch,
@@ -1275,7 +1281,7 @@ class EventModel extends Model
                                                 'tx_cal_controller[uid]' => $this->getUid(),
                                                 'tx_cal_controller[sid]' => md5($this->getUid() . $email . $crdate)
                                             ]
-                                        );
+                                    );
                                     $plainTemplate = Functions::substituteMarkerArrayNotCached(
                                         $plainTemplate,
                                         $local_switch,
@@ -2432,7 +2438,7 @@ class EventModel extends Model
         $sims['###DTSTAMP###'] = 'DTSTAMP:' . gmdate('Ymd', $this->getCrdate()) . 'T' . gmdate(
             'His',
             $this->getCrdate()
-            );
+        );
     }
 
     /**
@@ -2806,7 +2812,7 @@ class EventModel extends Model
         $sims['###CREATED###'] = 'CREATED:' . gmdate('Ymd', $this->getCrdate()) . 'T' . gmdate(
             'His',
             $this->getCrdate()
-            ) . 'Z';
+        ) . 'Z';
     }
 
     /**
@@ -2821,7 +2827,7 @@ class EventModel extends Model
         $sims['###LAST_MODIFIED###'] = 'LAST_MODIFIED:' . gmdate('Ymd', $this->getTstamp()) . 'T' . gmdate(
             'His',
             $this->getTstamp()
-            ) . 'Z';
+        ) . 'Z';
     }
 
     /**

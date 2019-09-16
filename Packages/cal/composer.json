@@ -2,7 +2,7 @@
 	"name": "web-tp3/cal",
 	"description": "A calendar combining all the functions of the existing calendar extensions plus adding some new features. It is based on the ical standard",
 	"type": "typo3-cms-extension",
-	"version": "2.5.1",
+	"version": "2.5.3",
 	"license": [
 		"GPL-2.0-or-later"
 	],
@@ -16,6 +16,11 @@
 			"name": "Mario Matzulla",
 			"email": "mario@matzullas.de",
 			"homepage": "https://www.matzullas.de/"
+		},
+		{
+			"name": "Thomas Ruta",
+			"email": "email@thomasruta.de",
+			"homepage": "https://www.thomasruta.de/"
 		}
 	],
 	"require": {

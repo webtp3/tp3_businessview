@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\Controller;
 
 /**
@@ -15,7 +21,6 @@ namespace TYPO3\CMS\Cal\Controller;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 use PDO;
-use phpDocumentor\Reflection\Types\Mixed_;
 use TYPO3\CMS\Cal\Model\AttendeeModel;
 use TYPO3\CMS\Cal\Model\CalendarDateTime;
 use TYPO3\CMS\Cal\Model\CategoryModel;
@@ -80,7 +85,7 @@ class ModelController extends BaseController
     ): EventModel {
         if ($type === '') {
             $type = 'tx_cal_phpicalendar';
-        }else if($type === 'tx_cal_preview'){
+        } elseif ($type === 'tx_cal_preview') {
             $type = 'tx_cal_phpicalendar';
             $showHiddenEvents = true;
         }
