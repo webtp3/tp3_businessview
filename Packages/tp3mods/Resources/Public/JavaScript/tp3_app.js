@@ -993,21 +993,7 @@ tp3_app.controls = function(){
 
 	$j('.isotop.button, .isotop.controls .glyphicon-filter, .isotop.controls .glyphicon-sort').css( 'cursor', 'pointer' )
 
-	$j("a[rel=locationDetail]").fancybox({
-		openEffect: 'elastic',
-		closeEffect: 'elastic',
-		autoSize: true,
-		padding: 2,
-		margin: [75, 15, 10, 15],
-		helpers: {
-			title: {
-				type: 'inside'
-			},
-			overlay : {
-				locked : false
-			}
-		}
-	})
+
 	/*
 	map svg
 	 */
