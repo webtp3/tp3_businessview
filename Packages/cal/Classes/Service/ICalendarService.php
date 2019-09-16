@@ -299,13 +299,12 @@ class ICalendarService extends BaseService
             /* If the calendar has a URL, get a checksum on the contents */
             if ($url != '') {
                 $contents = GeneralUtility::getUrl($url);
-
                 $hookObjectsArr = Functions::getHookObjectsArray(
                     'tx_cal_icalendar_service',
                     'importIcsContent',
                     'service'
                 );
-
+                # todo hook for location
                 // Hook: configuration
                 foreach ($hookObjectsArr as $hookObj) {
                     if (method_exists($hookObj, 'importIcsContent')) {
@@ -775,16 +774,23 @@ class ICalendarService extends BaseService
         if ($component->getAttribute($attribute)) {
             $value = $component->getAttribute($attribute);
             //$this->date =GeneralUtility::makeInstance(CalendarDateTime::class);
-            if (is_array($value)) {
-
-                $dateTime = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Model\CalendarDateTime::class)->createFromFormat('Ymdhmsu',$value['year'] . $value['month'] . $value['mday'] . '000000')->setTimezone(new \DateTimeZone(date('T')));
-            } else {
-                $dateTime = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Model\CalendarDateTime::class)->createFromFormat('U',$value)->setTimezone(new \DateTimeZone(date('T')));
-            }
             $params = $component->getAttributeParameters($attribute);
             $timezone = $params['TZID'];
-            if ($timezone) {
+            if (!$timezone) {
+               // $dateTime->setTimezone(new \DateTimeZone($timezone));
+                $timezone = date('T');
+            }
+            if (is_array($value)) {
+                $dateTime = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Model\CalendarDateTime::class)->createFromFormat('Ymd',$value['year'] . $value['month'] . $value['mday'] );
+                  // $dateTime ->setTimezone(new \DateTimeZone($timezone));
+            } else {
+                $dateTime = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Model\CalendarDateTime::class)->createFromFormat('U',$value);
+            }
+            if (!is_bool($dateTime)){
                 $dateTime->setTimezone(new \DateTimeZone($timezone));
+            }
+            else {
+                return null;
             }
             return $dateTime;
         }
@@ -866,7 +872,7 @@ class ICalendarService extends BaseService
 //                    'title' => $category,
 //                    'calendar_id' => $calId
 //                ]);
-                $result = $queryBuilder->insert($categoryTable,  [
+                $result = $queryBuilder->insert($categoryTable)->values( [
                     'tstamp' => $insertFields['crdate'],
                     'crdate' => $insertFields['crdate'],
                     'pid' => $pid,
@@ -964,13 +970,18 @@ class ICalendarService extends BaseService
 //                    'uid=' . $indexEntry['event_deviation_uid'],
 //                    $insertFields
 //                );
-                $result = $queryBuilder->update($table,$insertFields,['uid' =>$indexEntry['event_deviation_uid']]);
+                $result = $queryBuilder->update($table)>where(
+                        $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($indexEntry['event_deviation_uid']))
+                    )
+                ->values($insertFields)
+                ->execute();
                 $eventDeviationUid = $indexEntry['event_deviation_uid'];
 
             } else {
 //                $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $insertFields);
-                $result = $queryBuilder->insert($table, $insertFields)
-                    ->execute();
+                $result = $queryBuilder->insert($table)
+                                    ->values($insertFields)
+                                    ->execute();
                 if (false === $result) {
 
                     throw new RuntimeException(
@@ -980,7 +991,10 @@ class ICalendarService extends BaseService
                 }
                 $eventDeviationUid = $connection->lastInsertId($table);
             }
-            $result = $queryBuilder->update($table,['event_deviation_uid' => $eventDeviationUid],['uid' => $indexEntry['uid']]);
+            $result = $queryBuilder->update($table)->values(['event_deviation_uid' => $eventDeviationUid])->where(
+                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($indexEntry['uid']))
+
+            )->execute();
 //            $GLOBALS['TYPO3_DB']->exec_UPDATEquery('tx_cal_index', 'uid=' . $indexEntry['uid'], [
 //                'event_deviation_uid' => $eventDeviationUid
 //            ]);
@@ -1182,11 +1196,15 @@ class ICalendarService extends BaseService
         }
 
         if ($eventRow['uid']) {
-            $queryBuilder->update($table, $insertFields, ['uid' => $eventRow['uid']])->execute();
+            $queryBuilder->update($table)->where(
+               $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($eventRow['uid'], \PDO::PARAM_INT))
+            )->values($insertFields)->execute();
             return $eventRow['uid'];
         }
-        $result = $queryBuilder->insert($table, $insertFields)
+        $result = $queryBuilder->insert($table)
+            ->values( $insertFields)
             ->execute();
+        debug($queryBuilder->getSQL());
         if (false === $result) {
             throw new RuntimeException(
                 'Could not write ' . $table . ' record to database: ' .debug($queryBuilder->getSQL()),
@@ -1420,7 +1438,7 @@ class ICalendarService extends BaseService
 
                 // Fix for allday events
                 if ($insertFields['start_time'] == 0 && $insertFields['end_time'] == 0 && $insertFields['start_date'] != 0) {
-                    $date = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Model\CalendarDateTime::class)->createFromFormat('U',$insertFields['end_date'] . '000000');
+                    $date = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Model\CalendarDateTime::class)->createFromFormat('U',$insertFields['end_date'] );
                     $date->setTZbyID('UTC');
                     $date->subtractSeconds(86400);
                     $insertFields['end_date'] = $date->format('Ymd');
@@ -1589,7 +1607,7 @@ class ICalendarService extends BaseService
 
 //        $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_cal_exception_event', $insertFields);
 
-        $result =  $queryBuilder->insert('tx_cal_exception_event',$insertFields)
+        $result =  $queryBuilder->insert('tx_cal_exception_event')->values($insertFields)
             ->execute();
         if (false === $result) {
             throw new RuntimeException(

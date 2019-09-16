@@ -99,7 +99,6 @@ $tx_cal_event = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'max' => 128,
                 'eval' => 'required'
             ]
         ],
@@ -224,7 +223,6 @@ $tx_cal_event = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'max' => 128
             ]
         ],
         'organizer_id' => [
@@ -295,7 +293,6 @@ $tx_cal_event = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'max' => 128
             ]
         ],
         'location_id' => [
@@ -352,10 +349,9 @@ $tx_cal_event = [
             'config' => [
                 'type' => 'input',
                 'size' => 25,
-                'max' => 128,
                 'checkbox' => '',
                 'eval' => 'trim',
-                'default' => 0,
+                'default' => '',
                 'renderType' => 'inputLink',
                 'wizards' => [
                     '_PADDING' => 2,

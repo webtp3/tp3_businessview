@@ -6,8 +6,8 @@ TCEMAIN.preview {
             uid = tx_cal_controller[uid]
         }
         additionalGetParameters {
-            tx_cal_event.controller = Controller
-            tx_cal_event.action = event
+            tx_cal_controller.controller = Controller
+            tx_cal_controller.action = main
         }
     }
 }

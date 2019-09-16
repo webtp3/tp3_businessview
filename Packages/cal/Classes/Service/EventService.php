@@ -1898,7 +1898,7 @@ class EventService extends BaseService
                 $bymonth = $event->getByMonth();
                 $byday = $event->getByDay();
                 $hour = $eventStart->format('H');
-                $minute = $eventStart->format('M');
+                $minute = $eventStart->format('i');
                 // 2007, 2008...
                 foreach ($byyear as $year) {
                     if ($counter < $count && $until->after($nextOccuranceTime) && $added < $maxRecurringEvents) {

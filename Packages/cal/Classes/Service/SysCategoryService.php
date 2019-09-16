@@ -98,7 +98,7 @@ class SysCategoryService extends BaseService
         $this->retrievePostData($insertFields);
         $uid = $this->checkUidForLanguageOverlay($uid, 'sys_category');
         // Creating DB records
-        $result = $queryBuilder->update($table,$insertFields,['uid' => $uid])
+        $result = $connection->update($table,$insertFields,['uid' => $uid])
             ->execute();
        // $GLOBALS['TYPO3_DB']->exec_UPDATEquery($table, $where, $insertFields);
         if(!$result){
@@ -134,7 +134,7 @@ class SysCategoryService extends BaseService
             $table = 'sys_category';
             $where = 'uid = ' . $uid;
            // $GLOBALS['TYPO3_DB']->exec_UPDATEquery($table, $where, $updateFields);
-            $result = $queryBuilder->update($table,$updateFields,['uid' => $uid])
+            $result = $queryBuilder->update($table)->values($updateFields)->where(['uid' => $uid])
                 ->execute();
             // $GLOBALS['TYPO3_DB']->exec_UPDATEquery($table, $where, $insertFields);
             if(!$result){
@@ -221,7 +221,9 @@ class SysCategoryService extends BaseService
         }
 
        // $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $insertFields);
-        $result = $queryBuilder->insert($table, $insertFields)
+        $result =$queryBuilder
+            ->insert($table)
+            ->values( $insertFields)
             ->execute();
         if (false === $result) {
             throw new RuntimeException(

@@ -188,7 +188,7 @@ abstract class BaseService extends AbstractService
                     'tablenames' => $tablename,
                     'sorting' => $key + 1
                 ], $additionalParams);
-                $result = $queryBuilder->insert($mm_table, $insertFields);
+                $result = $queryBuilder->insert($mm_table)->values($insertFields);
                 if (false === $result) {
                     throw new RuntimeException(
                         'Could not write ' . $mm_table . ' record to database: ' . $connection->errorCode(),

@@ -66,6 +66,11 @@ class EventModel extends Model
     public $timezone = 'UTC';
 
     /**
+     * @var string
+     *
+     */
+    public $icsUid = '';
+    /**
      * @var bool
      */
     public $sendOutInvitation = false;
@@ -94,7 +99,7 @@ class EventModel extends Model
     public function __construct($row, $isException, $serviceKey)
     {
         parent::__construct($serviceKey);
-
+        $this->setObjectType('event');
         $this->eventSharedUserMMRepository = GeneralUtility::makeInstance(EventSharedUserMMRepository::class);
         $this->subscriptionRepository = GeneralUtility::makeInstance(SubscriptionRepository::class);
         if (is_array($row)) {
@@ -567,7 +572,10 @@ class EventModel extends Model
             $modelObj = &Registry::Registry('basic', 'modelcontroller');
             $this->setAttendees($modelObj->findEventAttendees($this->getUid()));
         }
-
+        // ics cal event
+        if ($row['type'] === 1) { // meeting
+            $this->setIcsUid($row['icsUid']);
+        }
         $this->setPage($row['page']);
         $this->setExtUrl($row['ext_url']);
         /* new */
@@ -582,7 +590,7 @@ class EventModel extends Model
             }
         }
 
-        if ($row['exception_single_ids']) {
+           if ($row['exception_single_ids']) {
             $ids = explode(',', $row['exception_single_ids']);
             foreach ($ids as $id) {
                 $this->addExceptionSingleId($id);
@@ -650,7 +658,6 @@ class EventModel extends Model
         $event->setIsClone(true);
         return $event;
     }
-
     /**
      * Gets the teaser of the event.
      *
@@ -665,9 +672,27 @@ class EventModel extends Model
      * Sets the teaser of the event.
      * @param string $teaser
      */
-    public function setTeaser($teaser)
+    public function setTeaser($teaser) : void
     {
         $this->teaser = $teaser ?? '';
+    }
+    /**
+     * Gets the icsUid of the event.
+     *
+     * @return string icsUid.
+     */
+    public function getIcsUid(): string
+    {
+        return $this->icsUid;
+    }
+
+    /**
+     * Sets the icsUid of the event.
+     * @param string $icsUid
+     */
+    public function setIcsUid($icsUid) : void
+    {
+        $this->icsUid = $icsUid ?? '';
     }
 
     /**
