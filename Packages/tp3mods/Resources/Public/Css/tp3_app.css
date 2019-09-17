@@ -190,9 +190,9 @@ div.main-section .frame-jumbotron [class^="col"] {
 /*
 animations
  */
-.main-section .frame   {
-	display: flex;
-}
+/*.main-section .frame   {*/
+/*	display: flex;*/
+/*}*/
 .main-section .frame-container {
 	flex-grow: 1;
 	opacity: 1;
