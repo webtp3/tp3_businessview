@@ -45,48 +45,48 @@ $llPrefix = 'LLL:EXT:yoast_cal/Resources/Private/Language/TCA.xlf:';
 
     ]
 );
-//
-//\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
-//    'tx_cal_event',
-//    'yoast-metadata',
-//    '
-//    --linebreak--, tx_yoastseo_snippetpreview,
-//    --linebreak--, alternative_title,
-//    --linebreak--, description,
-//    '
-//);
-//
-//\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
-//    'tx_cal_event',
-//    'yoast-focuskeyword',
-//    '
-//    --linebreak--, tx_yoastseo_focuskeyword,
-//    --linebreak--, tx_yoastseo_focuskeyword_analysis
-//    '
-//);
-//
-//\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
-//    'tx_cal_event',
-//    'yoast-readability',
-//    '
-//    --linebreak--, tx_yoastseo_readability_analysis
-//    '
-//);
-//
-//$GLOBALS['TCA']['tx_cal_event']['palettes']['metatags']['showitem'] =
-//    preg_replace('/description(.*,|.*$)/', '', $GLOBALS['TCA']['tx_cal_event']['palettes']['metatags']['showitem']);
-//
-//$GLOBALS['TCA']['tx_cal_event']['palettes']['alternativeTitles']['showitem'] =
-//    preg_replace('/alternative_title(.*,|.*$)/', '', $GLOBALS['TCA']['tx_cal_event']['palettes']['alternativeTitles']['showitem']);
-//
-//\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
-//    'tx_cal_event',
-//    '
-//    --div--;' . $llPrefix . 'news.tabs.seo,
-//        --palette--;' . $llPrefix . 'news.palettes.metadata;yoast-metadata,
-//        --palette--;' . $llPrefix . 'news.palettes.readability;yoast-readability,
-//        --palette--;' . $llPrefix . 'news.palettes.seo;yoast-focuskeyword,
-//    ',
-//    '',
-//    'after:bodytext'
-//);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+    'tx_cal_event',
+    'yoast-metadata',
+    '
+    --linebreak--, tx_yoastseo_snippetpreview,
+    --linebreak--, alternative_title,
+    --linebreak--, description,
+    '
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+    'tx_cal_event',
+    'yoast-focuskeyword',
+    '
+    --linebreak--, tx_yoastseo_focuskeyword,
+    --linebreak--, tx_yoastseo_focuskeyword_analysis
+    '
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+    'tx_cal_event',
+    'yoast-readability',
+    '
+    --linebreak--, tx_yoastseo_readability_analysis
+    '
+);
+
+$GLOBALS['TCA']['tx_cal_event']['palettes']['metatags']['showitem'] =
+    preg_replace('/description(.*,|.*$)/', '', $GLOBALS['TCA']['tx_cal_event']['palettes']['metatags']['showitem']);
+
+$GLOBALS['TCA']['tx_cal_event']['palettes']['alternativeTitles']['showitem'] =
+    preg_replace('/alternative_title(.*,|.*$)/', '', $GLOBALS['TCA']['tx_cal_event']['palettes']['alternativeTitles']['showitem']);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+    'tx_cal_event',
+    '
+    --div--;' . $llPrefix . 'news.tabs.seo,
+        --palette--;' . $llPrefix . 'news.palettes.metadata;yoast-metadata,
+        --palette--;' . $llPrefix . 'news.palettes.readability;yoast-readability,
+        --palette--;' . $llPrefix . 'news.palettes.seo;yoast-focuskeyword,
+    ',
+    '',
+    'after:bodytext'
+);
