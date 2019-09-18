@@ -164,7 +164,7 @@
                 });
                 this.loaded	= true;
             }
-            else if($(this.$element).parents('.news-list-view').hasClass('isotop') || $(this.$element).parents('.news-list-view').hasClass("boxes")){
+            else if(($(this.$element).parents('.news-list-view').hasClass('isotop') || $(this.$element).parents('.news-list-view').hasClass("boxes")) && $.type($.fn.isotope) == "function" ){
 					$(this.$element).parents('.news-panel').isotope('layout');
 
             }

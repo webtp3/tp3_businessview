@@ -10,7 +10,7 @@
                             <f:then>  style="display:none" </f:then>
                             <f:else><f:if condition="{settings.navigation.style} == 'inverse'">
                                 <f:then> style="display:none"</f:then>
-                            </f:if>  </f:else>
+                            </f:if>  style="transform: rotateY(360deg)" </f:else>
                         </f:if>
                         alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
 
@@ -19,7 +19,7 @@
                             <f:then>  style="display:none"</f:then>
                             <f:else><f:if condition="{settings.navigation.style} == 'default'">
                                 <f:then> style="display:none" </f:then>
-                            </f:if>  </f:else>
+                            </f:if> style="transform: rotateY(360deg)" </f:else>
                         </f:if>
                         alt="{logoAlt}" height="{settings.logo.height}" width="{settings.logo.width}">
 

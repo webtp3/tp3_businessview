@@ -76,10 +76,10 @@
 									<li class="hidden" data-target=".news-panel">
 										<f:if condition="{page.number} > 1">
 											<f:then>
-												<f:widget.link class="responsiveContent" useCacheHash="1" arguments="{currentPage: page.number}" data="{container:recordId,link:'{t:uri.ajaxAction(contextRecord:\'tt_content:{recordId}\', pluginName: \'pi1\',additionalParams:\'{n:widget.ajax.paginateAdditionalParams(page:page.number)}\')}'}">{page.number}</f:widget.link>
+												<f:widget.link class="" useCacheHash="1" arguments="{currentPage: page.number}" data="{container:recordId,link:'{t:uri.ajaxAction(contextRecord:\'tt_content:{recordId}\', pluginName: \'pi1\',additionalParams:\'{n:widget.ajax.paginateAdditionalParams(page:page.number)}\')}'}">{page.number}</f:widget.link>
 											</f:then>
 											<f:else>
-												<f:widget.link class="responsiveContent" data="{container:recordId,link:'{t:uri.ajaxAction(contextRecord:\'tt_content:{recordId}\', pluginName: \'pi1\',additionalParams:\'{n:widget.ajax.paginateAdditionalParams(page:0)}\')}'}">{page.number}</f:widget.link>
+												<f:widget.link class="" data="{container:recordId,link:'{t:uri.ajaxAction(contextRecord:\'tt_content:{recordId}\', pluginName: \'pi1\',additionalParams:\'{n:widget.ajax.paginateAdditionalParams(page:0)}\')}'}">{page.number}</f:widget.link>
 											</f:else>
 										</f:if>
 									</li>

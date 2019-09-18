@@ -217,6 +217,55 @@ span.news-list-tags, .news-list-tags {
 .news-list-tags .label.label-info {
 	float: left;
 }
+
+div.news-list-view.isotop .news-list-item,
+div.news-list-view.boxes .news-list-item{
+	/*width: 18%;*/
+	display: inline-block;
+	padding: 0 0 10px 0;
+	/*background: rgba(255, 255, 255, 0.9);*/
+	margin: 0 2% 10px 0;
+	box-shadow: 1px 2px 2px rgba(190, 45, 54, 1);
+}
+.news .card-body {
+	padding: 10px;
+}
+.news a.btn.btn-default.btn-read-more {
+	float: right;
+}
+.news  .extra,
+.news  .extra{
+	float: left;
+}
+.news-list-item h3 {
+	font-size: 15pt;
+	margin: 3px;
+}
+div.news-list-view .lead {
+	display: none;
+}
+div.news-list-view .label.label-info a {
+	color: #ffdc55;
+}
+
+.news .col-md-6.right {
+	float: right;
+	padding-left: 10px;
+}
+.news .article .news-img-wrap a {
+
+	float: right;
+	width: 100%;
+}
+div.news-single .article .news-img-wrap{
+	width: 100%;
+}
+div.news-single .article .news-img-wrap img {
+	float: none;
+	margin: 0 auto;
+	display: block;
+	width: auto;
+}
 /*
 Carousel CSS Adds
  */
