@@ -37,7 +37,7 @@ use TYPO3\CMS\Cal\Model\Pear\Date\Calc;
 use TYPO3\CMS\Cal\Utility\Functions;
 use TYPO3\CMS\Cal\Utility\RecurrenceGenerator;
 use TYPO3\CMS\Cal\Utility\Registry;
-use  TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class EventService
@@ -271,10 +271,10 @@ class EventService extends BaseService
                 $this->conf['view.'][$this->conf['view'] . '.']['event.']['additionalWhere.']
             );
         }
-
-        if ($addCategoryWhere) {
-            $categoryService->enhanceEventQuery($select, $table, $where, $groupBy, $orderBy);
-        }
+        #todo event categorie service - if no category breaks call (ask before)
+//        if ($addCategoryWhere) {
+//            $categoryService->enhanceEventQuery($select, $table, $where, $groupBy, $orderBy);
+//        }
 
         if ($onlyMeetingsWithoutStatus) {
             $table .= ', tx_cal_attendee';
