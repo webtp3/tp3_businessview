@@ -21,7 +21,7 @@ EXTCONF:
 FE:
     addRootLineFields: 'subtitle,author,keywords,description,media,title,abstract,tsconfig,tp3microdata'
     loginSecurityLevel: rsa
-    pageNotFoundOnCHashError: false
+    pageNotFoundOnCHashError: true
 GFX:
     jpg_quality: '80'
     processor: GraphicsMagick
@@ -35,10 +35,9 @@ SYS:
     caching:
         cacheConfigurations:
             extbase_object:
-                backend: TYPO3\CMS\Core\Cache\Backend\RedisBackend
+                backend: TYPO3\CMS\Core\Cache\Backend\ApcuBackend
     devIPmask: '80.151.59.179,1.1.1.128'
     displayErrors: false
     enableDeprecationLog: false
     reverseProxyIP: 2.2.2.2
-    sqlDebug: '0'
     systemLogLevel: '2'
