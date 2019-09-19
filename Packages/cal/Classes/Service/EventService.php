@@ -1833,6 +1833,7 @@ class EventService extends BaseService
             }
             $GLOBALS['TYPO3_DB']->sql_free_result($deviationResult);
         }
+        #todo geneerate deviations if not found
         $event->setDeviationDates($deviations);
 
         $this->filterFalseCombinations($event);
@@ -1863,7 +1864,7 @@ class EventService extends BaseService
             if ($event->isAllday()) {
                 $master_array[$eventStart->format('Ymd')]['-1'][$event->getUid()] = $event;
             } else {
-                $master_array[$eventStart->format('Ymd')][$eventStart->format('HM')][$event->getUid()] = $event;
+                $master_array[$eventStart->format('Ymd')][$eventStart->format('Hi')][$event->getUid()] = $event;
             }
         }
 

@@ -1001,7 +1001,9 @@ class ICalendarService extends BaseService
                 }
                 $eventDeviationUid = $connection->lastInsertId($table);
             }
-            $result = $queryBuilder->update($table, ['event_deviation_uid' => $eventDeviationUid], ['uid'=>$indexEntry['uid']])->execute();
+            $result = $queryBuilder->update($table)->values(['event_deviation_uid' => $eventDeviationUid])->where(
+                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($indexEntry['uid']))
+            )->execute();
 //            $GLOBALS['TYPO3_DB']->exec_UPDATEquery('tx_cal_index', 'uid=' . $indexEntry['uid'], [
 //                'event_deviation_uid' => $eventDeviationUid
 //            ]);
