@@ -260,7 +260,7 @@ class ICalendarService extends BaseService
                 'tstamp' => time(),
                 'md5' => $newMD5
             ];
-            $result = $connection->update('tx_cal_calendar', $insertFields, ['uid' => $uid]);
+            $result = $connection->update('tx_cal_calendar', $insertFields, ['uid' => $uid])->execute();
             if (false === $result) {
                 throw new RuntimeException(
                     'Could not write new md5 hash to database: ' . debug($queryBuilder->getSQL()),
@@ -405,15 +405,26 @@ class ICalendarService extends BaseService
             $insertFields['cruser_id'] = 0;
             $insertFields['groupName'] = 'cal';
             $insertFields['description'] = 'Calendar Base';
+
             $table = 'tx_scheduler_task_group';
-            $result = $connection->exec_INSERTquery($table, $insertFields);
+            $connection = $this->connectionPool->getConnectionForTable($table);
+            $queryBuilder = $connection->createQueryBuilder();
+            if (TYPO3_MODE == 'BE') {
+                $queryBuilder
+                    ->getRestrictions()
+                    ->removeAll()
+                    ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+            } else {
+                $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+            }
+            $result = $queryBuilder->insert($table)->values($insertFields)->execute();
             if (false === $result) {
                 throw new RuntimeException(
-                    'Could not write ' . $table . ' record to database: ' . $connection->sql_error(),
+                    'Could not write ' . $table . ' record to database: ' . debug($queryBuilder->getSQL()),
                     1431458142
                 );
             }
-            $uid = $connection->sql_insert_id();
+            $uid = $connection->lastInsertId($table);
             $task->setTaskGroup($uid);
         }
         $task->setDescription('Import of external calendar (calendar_id=' . $calendarUid . ')');
@@ -529,7 +540,7 @@ class ICalendarService extends BaseService
                     )
                     ->execute();
             }
-            debug($queryBuilder->getSQL());
+          //  debug($queryBuilder->getSQL());
 
             /* Delete the calendar events */
             $uids = [];
@@ -689,6 +700,7 @@ class ICalendarService extends BaseService
      */
     public function deleteScheduledUpdatesFromCalendar($uid)
     {
+
         $connection = $this->connectionPool->getConnectionForTable('tx_cal_event');
 
         $queryBuilder = $connection->createQueryBuilder();
@@ -1117,6 +1129,7 @@ class ICalendarService extends BaseService
      */
     private function connectCategories($categoryUids, $eventUid)
     {
+
         /* Delete the old category relations */
         $where = ' uid_local=' . $eventUid;
         $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_cal_event_category_mm', $where);
@@ -1200,10 +1213,10 @@ class ICalendarService extends BaseService
         $result = $queryBuilder->insert($table)
             ->values($insertFields)
             ->execute();
-        debug($queryBuilder->getSQL());
+      //  debug($queryBuilder->getSQL());
         if (false === $result) {
             throw new RuntimeException(
-                'Could not write ' . $table . ' record to database: ' . debug($queryBuilder->getSQL()),
+                'Could not write ' . $table . ' record to database: ' . $queryBuilder->getSQL(),
                 1431458144
             );
         }
@@ -1608,18 +1621,25 @@ class ICalendarService extends BaseService
             ->execute();
         if (false === $result) {
             throw new RuntimeException(
-                'Could not write tx_cal_exception_event record to database: ' . $GLOBALS['TYPO3_DB']->sql_error(),
+                'Could not write tx_cal_exception_event record to database: ' . $queryBuilder->getSQL(),
                 1431458147
             );
         }
-        $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_cal_exception_event_mm', [
-            'tablenames' => 'tx_cal_exception_event',
-            'uid_local' => $eventUid,
-            'uid_foreign' => $GLOBALS['TYPO3_DB']->sql_insert_id()
-        ]);
+        $result =  $queryBuilder->insert('tx_cal_exception_event_mm')->values( [
+                'tablenames' => 'tx_cal_exception_event',
+                'uid_local' => $eventUid,
+                'uid_foreign' =>$connection->lastInsertId('tx_cal_exception_event')
+            ])
+            ->execute();
+
+//        $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_cal_exception_event_mm', [
+//            'tablenames' => 'tx_cal_exception_event',
+//            'uid_local' => $eventUid,
+//            'uid_foreign' => $GLOBALS['TYPO3_DB']->sql_insert_id()
+//        ]);
         if (false === $result) {
             throw new RuntimeException(
-                'Could not write tx_cal_exception_event_mm record to database: ' . $GLOBALS['TYPO3_DB']->sql_error(),
+                'Could not write tx_cal_exception_event_mm record to database: ' . $queryBuilder->getSQL(),
                 1431458148
             );
         }
@@ -1634,6 +1654,19 @@ class ICalendarService extends BaseService
      */
     private function createExceptionRule($pid, $cruserId, $eventUid, $exceptionRuleDescription)
     {
+        $table = 'tx_cal_exception_event';
+        $connection = $this->connectionPool->getConnectionForTable($table);
+
+        $queryBuilder = $connection->createQueryBuilder();
+        if (TYPO3_MODE == 'BE') {
+            $queryBuilder
+                ->getRestrictions()
+                ->removeAll()
+                ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+        } else {
+            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+        }
+
         $event = BackendUtilityReplacementUtility::getRawRecord('tx_cal_event', 'uid=' . $eventUid);
 
         $insertFields = [];
@@ -1645,21 +1678,31 @@ class ICalendarService extends BaseService
         $insertFields['start_date'] = $event['start_date'];
         $this->insertRuleValues($exceptionRuleDescription, $insertFields);
 
-        $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_cal_exception_event', $insertFields);
+        //$result = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_cal_exception_event', $insertFields);
+        $result =  $queryBuilder->insert('tx_cal_exception_event')->values($insertFields)
+            ->execute();
+
+
         if (false === $result) {
             throw new RuntimeException(
-                'Could not write tx_cal_exception_event_mm record to database: ' . $GLOBALS['TYPO3_DB']->sql_error(),
+                'Could not write tx_cal_exception_event_mm record to database: ' .$queryBuilder->getSQL(),
                 1431458149
             );
         }
-        $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_cal_exception_event_mm', [
-            'tablenames' => 'tx_cal_exception_event',
-            'uid_local' => $eventUid,
-            'uid_foreign' => $GLOBALS['TYPO3_DB']->sql_insert_id()
-        ]);
+//        $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_cal_exception_event_mm', [
+//            'tablenames' => 'tx_cal_exception_event',
+//            'uid_local' => $eventUid,
+//            'uid_foreign' => $GLOBALS['TYPO3_DB']->sql_insert_id()
+//        ]);
+        $result =  $queryBuilder->insert('tx_cal_exception_event_mm')->values( [
+                'tablenames' => 'tx_cal_exception_event',
+                'uid_local' => $eventUid,
+                'uid_foreign' =>$connection->lastInsertId('tx_cal_exception_event')
+            ])
+            ->execute();
         if (false === $result) {
             throw new RuntimeException(
-                'Could not write tx_cal_exception_event_mm record to database: ' . $GLOBALS['TYPO3_DB']->sql_error(),
+                'Could not write tx_cal_exception_event_mm record to database: ' . $queryBuilder->getSQL(),
                 1431458150
             );
         }

@@ -1168,6 +1168,7 @@ class Controller extends AbstractPlugin
             $uid =  (int)$cal_preview['uid'];
             $type =   'tx_cal_preview';
             $pid = GeneralUtility::_GP('id');
+            $GLOBALS['TSFE']->sys_page->versioningPreview = true;
         }
         else{
             $uid =  $this->conf ['uid'];

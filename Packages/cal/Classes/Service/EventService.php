@@ -37,6 +37,9 @@ use TYPO3\CMS\Cal\Model\Pear\Date\Calc;
 use TYPO3\CMS\Cal\Utility\Functions;
 use TYPO3\CMS\Cal\Utility\RecurrenceGenerator;
 use TYPO3\CMS\Cal\Utility\Registry;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
+use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -2058,6 +2061,19 @@ class EventService extends BaseService
      */
     public function getRecurringDate(&$master_array, &$event, &$addedCount)
     {
+        $connection = $this->connectionPool->getConnectionForTable('tx_cal_index');
+
+        $queryBuilder = $connection->createQueryBuilder();
+        if (TYPO3_MODE == 'BE') {
+            $queryBuilder
+                ->getRestrictions()
+                ->removeAll()
+                ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+        } else {
+            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+        }
+
+
         switch ($event->getRdateType()) {
             case 'date':
                 foreach ($event->getRdateValues() as $rdateValue) {
@@ -2074,19 +2090,21 @@ class EventService extends BaseService
                     $end = $new_event->getEnd();
                     $end->addSeconds($diff);
                     $new_event->setEnd($end);
+                    #todo checkindex
                     if ($end->after($this->starttime) && $start->before($this->endtime)) {
                         $table = 'tx_cal_index';
                         $eventData = [
-                            'start_datetime' => $start->format('Ymd') . $start->format('HMS'),
-                            'end_datetime' => $end->format('Ymd') . $end->format('HMS'),
+                            'start_datetime' => $start->format('Ymd') . $start->format('His'),
+                            'end_datetime' => $end->format('Ymd') . $end->format('His'),
                             'event_uid' => $event->getUid(),
                             'tablename' => $event->isException ? 'tx_cal_exception_event' : 'tx_cal_event'
                         ];
                         $this->updateEventDataWithDeviations($event, $eventData);
-                        $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $eventData);
+                        $result = $queryBuilder->insert($table)->values($eventData)->execute();
+                        //$result = $GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $eventData);
                         if (false === $result) {
                             throw new RuntimeException(
-                                'Could not write event index record to database: ' . $GLOBALS['TYPO3_DB']->sql_error(),
+                                'Could not write event index record to database: ' . $queryBuilder->getSQL(),
                                 1431458131
                             );
                         }
@@ -2150,20 +2168,25 @@ class EventService extends BaseService
 
                     $end->addSeconds($diff);
                     $new_event->setEnd($end);
-
+#todo checkindex
                     if ($end->after($this->starttime) && $start->before($this->endtime)) {
                         $table = 'tx_cal_index';
                         $eventData = [
-                            'start_datetime' => $start->format('Ymd') . $start->format('HMS'),
-                            'end_datetime' => $end->format('Ymd') . $end->format('HMS'),
+                            'start_datetime' => $start->format('Ymd') . $start->format('His'),
+                            'end_datetime' => $end->format('Ymd') . $end->format('His'),
                             'event_uid' => $event->getUid(),
                             'tablename' => $event->isException ? 'tx_cal_exception_event' : 'tx_cal_event'
                         ];
                         $this->updateEventDataWithDeviations($event, $eventData);
-                        $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $eventData);
+
+                        $connection = $this->connectionPool->getConnectionForTable($table);
+
+                        $result = $queryBuilder->insert($table)->values($eventData)->execute();
+
+                       // $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $eventData);
                         if (false === $result) {
                             throw new RuntimeException(
-                                'Could not write event index record to database: ' . $GLOBALS['TYPO3_DB']->sql_error(),
+                                'Could not write event index record to database: ' . $queryBuilder->getSQL(),
                                 1431458132
                             );
                         }
@@ -2202,10 +2225,22 @@ class EventService extends BaseService
                             'tablename' => $event->isException ? 'tx_cal_exception_event' : 'tx_cal_event'
                         ];
                         $this->updateEventDataWithDeviations($event, $eventData);
-                        $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $eventData);
+                        $connection = $this->connectionPool->getConnectionForTable($table);
+                        $queryBuilder = $connection->createQueryBuilder();
+                        if (TYPO3_MODE == 'BE') {
+                            $queryBuilder
+                                ->getRestrictions()
+                                ->removeAll()
+                                ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+                        } else {
+                            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+                        }
+                        $result = $queryBuilder->insert($table)->values($eventData)->execute();
+
+//                        $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $eventData);
                         if (false === $result) {
                             throw new RuntimeException(
-                                'Could not write event index record to database: ' . $GLOBALS['TYPO3_DB']->sql_error(),
+                                'Could not write event index record to database: ' .  $queryBuilder->getSQL(),
                                 1431458133
                             );
                         }
@@ -2312,15 +2347,26 @@ class EventService extends BaseService
             $insertFields['title'] = strip_tags($this->controller->piVars['exception_start_day']) . ' exception';
         }
         $table = 'tx_cal_exception_event';
+        $connection = $this->connectionPool->getConnectionForTable($table);
+        $queryBuilder = $connection->createQueryBuilder();
+        if (TYPO3_MODE == 'BE') {
+            $queryBuilder
+                ->getRestrictions()
+                ->removeAll()
+                ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+        } else {
+            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+        }
+        $result = $queryBuilder->insert($table)->values($insertFields)->execute();
 
-        $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $insertFields);
+       // $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $insertFields);
         if (false === $result) {
             throw new RuntimeException(
-                'Could not write exception event record to database: ' . $GLOBALS['TYPO3_DB']->sql_error(),
+                'Could not write exception event record to database: ' .  $queryBuilder->getSQL(),
                 1431458134
             );
         }
-        $uid = $GLOBALS['TYPO3_DB']->sql_insert_id();
+        $uid = $connection->lastInsertId($table);;// $GLOBALS['TYPO3_DB']->sql_insert_id();
 
         self::insertIdsIntoTableWithMMRelation('tx_cal_exception_event_mm', [
             $uid
@@ -2680,6 +2726,18 @@ class EventService extends BaseService
         &$maxRecurringEvents
     ) {
         $nextOccuranceTime = $startRange;
+        $connection = $this->connectionPool->getConnectionForTable('tx_cal_index');
+
+        $queryBuilder = $connection->createQueryBuilder();
+        if (TYPO3_MODE == 'BE') {
+            $queryBuilder
+                ->getRestrictions()
+                ->removeAll()
+                ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+        } else {
+            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+        }
+
         while ($currentCount < $maxCount && ($nextOccuranceTime->before($endRange) || $nextOccuranceTime->equals($endRange)) && $addedCount < $maxRecurringEvents) {
             if (!$nextOccuranceTime->equals($event->getStart())) {
                 if (($totalCount % $event->getInterval()) === 0) {
@@ -2690,24 +2748,25 @@ class EventService extends BaseService
                         $table = 'tx_cal_index';
                         if ($event->isException) {
                             $eventData = [
-                                'start_datetime' => $nextOccuranceTime->format('Ymd') . $nextOccuranceTime->format('HMS'),
-                                'end_datetime' => $nextOccuranceEndTime->format('Ymd') . $nextOccuranceEndTime->format('HMS'),
+                                'start_datetime' => $nextOccuranceTime->format('Ymd') . $nextOccuranceTime->format('His'),
+                                'end_datetime' => $nextOccuranceEndTime->format('Ymd') . $nextOccuranceEndTime->format('His'),
                                 'event_uid' => $event->getUid(),
                                 'tablename' => $event->getType() === 'tx_cal_phpicalendar' ? ('tx_cal_exception_event') : $event->getType()
                             ];
                         } else {
                             $eventData = [
-                                'start_datetime' => $nextOccuranceTime->format('Ymd') . $nextOccuranceTime->format('HMS'),
-                                'end_datetime' => $nextOccuranceEndTime->format('Ymd') . $nextOccuranceEndTime->format('HMS'),
+                                'start_datetime' => $nextOccuranceTime->format('Ymd') . $nextOccuranceTime->format('His'),
+                                'end_datetime' => $nextOccuranceEndTime->format('Ymd') . $nextOccuranceEndTime->format('His'),
                                 'event_uid' => $event->getUid(),
                                 'tablename' => $event->getType() === 'tx_cal_phpicalendar' ? ('tx_cal_event') : $event->getType()
                             ];
                         }
                         $this->updateEventDataWithDeviations($event, $eventData);
-                        $result = $GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $eventData);
+                        //$result = $GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $eventData);
+                        $result = $queryBuilder->insert($table)->values($eventData)->execute();
                         if (false === $result) {
                             throw new RuntimeException(
-                                'Could not write event index record to database: ' . $GLOBALS['TYPO3_DB']->sql_error(),
+                                'Could not write event index record to database: ' . $queryBuilder->getSQL(),
                                 1431458135
                             );
                         }
@@ -2750,8 +2809,8 @@ class EventService extends BaseService
             }
 
             $eventData['event_deviation_uid'] = $deviationDates[$eventData['start_datetime']]['uid'];
-            $eventData['start_datetime'] = $startDate->format('Ymd') . $startDate->format('HMS');
-            $eventData['end_datetime'] = $endDate->format('Ymd') . $endDate->format('HMS');
+            $eventData['start_datetime'] = $startDate->format('Ymd') . $startDate->format('His');
+            $eventData['end_datetime'] = $endDate->format('Ymd') . $endDate->format('His');
         }
     }
 
