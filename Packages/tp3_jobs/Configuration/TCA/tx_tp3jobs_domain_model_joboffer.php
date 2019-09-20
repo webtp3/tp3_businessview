@@ -30,10 +30,10 @@ return [
         'searchFields' => 'title,descr,tasks,qualification,refid,contactname,contactaddress,contacttel,contactmail',
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, descr, tasks, qualification, refid, jobaddress, contactname, contactaddress, contacttel, contactmail',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, descr, tasks, qualification, refid, date, jobaddress, contactname, contactaddress, contacttel, contactmail',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, descr, tasks, qualification, refid, contactname, jobaddress, contactaddress, contacttel, contactmail, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, descr, tasks, qualification, refid, date, contactname, jobaddress, contactaddress, contacttel, contactmail, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -224,14 +224,19 @@ return [
                 'maxitems' => 1,
             ],
         ],
-        'tstamp' => [
+        'date' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:tp3_jobs/Resources/Private/Language/locallang_db.xlf:tx_tp3jobs_domain_model_joboffer.contactmail',
+            'label' => 'datePosted',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim',
-                'default' => time()
+                'default' => time(),
+                'eval' => 'datetime',
+                'renderType' => 'inputDateTime',
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
+                ],
             ],
         ],
     ],

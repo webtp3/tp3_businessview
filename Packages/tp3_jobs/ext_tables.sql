@@ -17,6 +17,8 @@ CREATE TABLE tx_tp3jobs_domain_model_joboffer (
 	contactmail varchar(255) DEFAULT '' NOT NULL,
     jobaddress int(255) DEFAULT '0' NOT NULL,
     tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+    date varchar(255) DEFAULT '' NOT NULL,
+
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
 	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,

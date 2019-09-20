@@ -108,7 +108,7 @@ class JobOffer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getDate()
     {
-        return $this->tstamp;
+        return $this->date < 0 ? $this->date  : time();
     }
 
     /**
@@ -119,7 +119,7 @@ class JobOffer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function setDate($date)
     {
-        $this->tstamp = $date;
+        $this->date = $date;
     }
     /**
      * Returns the date
