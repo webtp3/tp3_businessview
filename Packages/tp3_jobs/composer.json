@@ -1,0 +1,46 @@
+{
+	"name": "web-tp3/tp3jobs",
+	"type": "typo3-cms-extension",
+	"description" : "JobOffers & Postings with tp3",
+	"license": "GPL-2.0+",
+	"version": "1.2.5",
+	"require": {
+		"php": ">=7.0 <7.3",
+		"typo3/cms-core": "^8.2 || ^9",
+		"friendsoftypo3/tt-address": "^4"
+	},
+	"autoload": {
+		"psr-4": {
+			"Tp3\\Tp3Jobs\\": "Classes"
+		}
+	},
+	"replace": {
+		"typo3-ter/tp3_jobs": "self.version",
+		"web-tp3/tp3_jobs": "self.version"
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tp3\\Tp3Jobs\\": "Tests/"
+		}
+	},
+	"require-dev": {
+		"nimut/testing-framework": "^1.0 || ^2.0 || ^3.0 || ^4.0",
+		"web-tp3/cag_tests":"^1.2",
+		"phpunit/phpunit": "*",
+		"helhum/typo3-console": "^5",
+		"typo3/testing-framework": "*"
+	},
+
+	"scripts": {
+		"test:php:unit": [
+			"@php -v",
+			"@php .Build/bin/phpunit Tests/Unit"
+		]
+
+	},
+	"config": {
+		"vendor-dir": ".Build/vendor",
+		"bin-dir": ".Build/bin"
+	}
+
+}

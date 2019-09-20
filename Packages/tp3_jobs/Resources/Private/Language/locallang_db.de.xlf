@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="de" datatype="plaintext" original="messages" date="2018-02-17T03:02:26Z" product-name="tp3_jobs">
+		<header/>
+		<body>
+			<trans-unit id="tx_tp3_jobs_domain_model_offers">
+				<source>JobOffers</source>
+			</trans-unit>
+			<trans-unit id="tx_tp3_jobs_domain_model_offers.description">
+				<source>Joboffer on tp3</source>
+				<target>Stellenangebot auf tp3</target>
+			</trans-unit>
+			<trans-unit id="tx_tp3jobs_domain_model_joboffer">
+				<source>Job Offer</source>
+				<target>Stellenangebot</target>
+			</trans-unit>
+			<trans-unit id="tx_tp3jobs_domain_model_joboffer.title">
+				<source>Title</source>
+				<target>Title</target>
+			</trans-unit>
+			<trans-unit id="tx_tp3jobs_domain_model_joboffer.descr">
+				<source>Descr</source>
+				<target>Beschreibung</target>
+			</trans-unit>
+			<trans-unit id="tx_tp3jobs_domain_model_joboffer.tasks">
+				<source>Tasks</source>
+				<target>Aufgaben</target>
+			</trans-unit>
+			<trans-unit id="tx_tp3jobs_domain_model_joboffer.qualification">
+				<source>Qualification</source>
+				<target>Qualifikation</target>
+			</trans-unit>
+			<trans-unit id="tx_tp3jobs_domain_model_joboffer.refid">
+				<source>Refid</source>
+				<target>RefNr.</target>
+			</trans-unit>
+			<trans-unit id="tx_tp3jobs_domain_model_joboffer.contactname">
+				<source>Contactname</source>
+				<target>Kontakt</target>
+			</trans-unit>
+			<trans-unit id="tx_tp3jobs_domain_model_joboffer.contactaddress">
+				<source>Contactaddress</source>
+				<target>Kontaktadresse</target>
+
+			</trans-unit>
+			<trans-unit id="tx_tp3jobs_domain_model_joboffer.contacttel">
+				<source>Contacttel</source>
+				<target>Tel.</target>
+			</trans-unit>
+			<trans-unit id="tx_tp3jobs_domain_model_joboffer.contactmail">
+				<source>Contactmail</source>
+				<target>Mail</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
