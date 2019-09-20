@@ -30,7 +30,7 @@ return [
         'searchFields' => 'title,descr,tasks,qualification,refid,contactname,contactaddress,contacttel,contactmail',
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, descr, tasks, qualification, refid, contactname, contactaddress, contacttel, contactmail',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, descr, tasks, qualification, refid, jobaddress, contactname, contactaddress, contacttel, contactmail',
     ],
     'types' => [
         '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, descr, tasks, qualification, refid, contactname, contactaddress, contacttel, contactmail, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],

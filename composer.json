@@ -108,7 +108,7 @@
 		"web-tp3/sr-feuser-register": "5.1.2",
 		"web-tp3/tp3businessview": "^1 || dev-develop",
 		"web-tp3/tp3_openhours":"dev-develop",
-		"web-tp3/tp3jobs": "dev-develop",
+		"web-tp3/tp3jobs": "^1.2",
 		"web-tp3/tp3mods": "^1",
 		"web-tp3/tp3social": "dev-develop",
 		"web-tp3/tp3-facebook": "dev-develop",
