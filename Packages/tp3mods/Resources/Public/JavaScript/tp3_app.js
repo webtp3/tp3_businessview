@@ -724,7 +724,9 @@ tp3_app.initcontrols = tp3_app.initcontrols || false;
 tp3_app.controls = function(){
 
 	if(tp3_app.initcontrols) return;
-
+	$j('.glyphicon.glyphicon-tags').click(function(){
+		$j(this).next('.news-list-tags').toggle();
+	})
 	var ts_style = ts_style || {border: false, mousespeed: 1.3, size:"500", smallestsize:8, biggestsize:22, clicktostart:true};
 
 	$j('.tag-cloud').each(function(){

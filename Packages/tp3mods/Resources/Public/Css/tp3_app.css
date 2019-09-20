@@ -205,6 +205,9 @@ span.news-list-tags, .news-list-tags {
 	width: 100%;
 	display: inline-block;
 }
+#content span.news-list-tags{
+	display: none;
+}
 .news .article .news-img-wrap img {
 
 	width: 100%;
@@ -233,10 +236,10 @@ div.news-list-view.boxes .news-list-item{
 .news a.btn.btn-default.btn-read-more {
 	float: right;
 }
-.news  .extra,
-.news  .extra{
-	float: left;
-}
+/*.news  .extra,*/
+/*.news  .extra{*/
+/*	float: left;*/
+/*}*/
 .news-list-item h3 {
 	font-size: 15pt;
 	margin: 3px;
@@ -245,7 +248,7 @@ div.news-list-view .lead {
 	display: none;
 }
 div.news-list-view .label.label-info a {
-	color: #ffdc55;
+	color: #222;
 }
 
 .news .col-md-6.right {
@@ -273,6 +276,7 @@ Carousel CSS Adds
     transform-style: preserve-3d;
     transform-origin: center bottom;
     transition: transform 5s;
+
 	height: 100%;
 }
 .carousel-text-inner {
@@ -306,6 +310,7 @@ Carousel CSS Adds
     transform: rotateY( 0deg );
     transition: transform 1s;
 	background-size: cover;
+	background-position: center center;
 }
 
 .item.carousel-item-type.carousel-item-type-header.prev .valign > .vcontainer,
