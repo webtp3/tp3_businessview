@@ -11,11 +11,12 @@
 
 
 <f:section name="rendering">
-    <div class="row">
-        <div class="col-md-3">
+
+	<div class="row">
+        <div class="col-md-3"  itemprop="jobLocation" itemscope itemtype="http://schema.org/Place">
             <ul class="list-group">
-                    <li id="ttaddress__label-{address.uid}" class="ttaddress__label list-group-item">
-                        <strong itemprop="name">{address.name}</strong><br>
+                    <li id="ttaddress__label-{address.uid}" class="ttaddress__label list-group-item" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                        <strong itemprop="name">{address.fullName}</strong><br>
                         <f:render partial="JobOffer/Address" section="address" arguments="{_all}"/>
                         <a href="#" data-iteration-id="0" class="ttaddress__markerlink">
 													<f:translate key="LLL:EXT:tt_address/Resources/Private/Language/locallang.xlf:show_on_map"/>
@@ -28,13 +29,15 @@
                  data-default-lng="{address.longitude}" style="width:100%;min-height:300px;"></div>
             <ul id="ttaddress__records" style="display: none">
                     <div id="ttaddress__record-{address.uid}" data-id="{address.uid}" data-lat="{address.latitude}"
+												 itemprop="hiringOrganization" itemscope itemtype="http://schema.org/Organization"
                          data-lng="{address.longitude}" data-icon="icon">
-                        <h6>{address.name}</h6>
-                        <div>
+                        <h6 itemprop="name" name>{address.fullName}</h6>
+                        <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
                             <f:render partial="JobOffer/Address" section="address" arguments="{_all}"/>
-                            <f:render partial="JobOffer/Address" section="contact" arguments="{_all}"/>
                         </div>
-                    </div>
+											<f:render partial="JobOffer/Address" section="contact" arguments="{_all}"/>
+
+										</div>
             </ul>
         </div>
     </div>

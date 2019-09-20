@@ -1,7 +1,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-	  xmlns:bk2k="http://typo3.org/ns/BK2K/BootstrapPackage/ViewHelpers"
-	  xmlns:rx="http://typo3.org/ns/Reelworx/RxShariff/ViewHelper"
-	  xmlns:ttaddr="http://typo3.org/ns/FriendsOfTYPO3/TtAddress/ViewHelper" data-namespace-typo3-fluid="true">
+	    xmlns:rx="http://typo3.org/ns/Reelworx/RxShariff/ViewHelper"
+			xmlns:n="http://typo3.org/ns/GeorgRinger/News/ViewHelpers"
+			xmlns:ttaddr="http://typo3.org/ns/FriendsOfTYPO3/TtAddress/ViewHelper" data-namespace-typo3-fluid="true">
 <div class="tp3_jobs col-md-12" itemscope itemtype="http://schema.org/JobPosting">
 	<h2 itemprop="title">{jobOffer.title}</h2>
 
@@ -18,13 +18,12 @@
 
 	</div>
 
-
 	<f:if condition="{jobOffer.jobaddress}">
 		<f:then>
-			<div class="location " itemprop="jobLocation" itemscope itemtype="http://schema.org/Place">
+			<div class="location ">
 
 				<n:extensionLoaded extensionKey="tt_address">
-					<f:render partial="JobOffer/Maps" section="leaflet" arguments="{address:event.locationObject, settings:settings}" />
+					<f:render partial="JobOffer/Maps" section="leaflet" arguments="{address:jobOffer.jobaddress, settings:settings}" />
 				</n:extensionLoaded>
 			</div>
 		</f:then>
@@ -44,7 +43,7 @@
 			</f:if>
 		</f:else>
 	</f:if>
-
+	<f:debug>{_all}</f:debug>
 	<span itemprop="datePosted"><f:format.date format="Y-m-d H:i:s">{jobOffer.date}</f:format.date></span><br>
 	<span itemprop="identifier">{jobOffer.refid}</span>
 </div>

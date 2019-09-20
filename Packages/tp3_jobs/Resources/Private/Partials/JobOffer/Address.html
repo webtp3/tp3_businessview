@@ -1,10 +1,10 @@
 {namespace ttaddr=FriendsOfTYPO3\TtAddress\ViewHelpers}
 
 <f:section name="address">
-    <f:if condition="{address.street}">
-        <div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <f:if condition="{address.address}">
+        <div class="address" >
             <address>
-                <span itemprop="streetAddress">{address.street}</span><br>
+                <span itemprop="streetAddress">{address.address}</span><br>
                 <span itemprop="postalCode">{address.zip}</span>&nbsp;<span
                     itemprop="addressLocality">{address.city}</span><br>
                 <span itemprop="addressCountry">{address.country}</span>

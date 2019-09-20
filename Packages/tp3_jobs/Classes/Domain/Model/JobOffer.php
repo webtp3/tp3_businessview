@@ -38,7 +38,7 @@ class JobOffer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var \FriendsOfTYPO3\TtAddress\Domain\Model\Address
      */
-    protected $jobaddress = '';
+    public $jobaddress = '';
     /**
      * descr
      *

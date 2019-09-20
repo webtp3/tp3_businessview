@@ -83,9 +83,13 @@ class JobOfferController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function processRequest(\TYPO3\CMS\Extbase\Mvc\RequestInterface $request, \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response)
     {
-        if (count($request->getArguments())> 0 &&  $request->hasArgument('jobid') && $request->getArgument('jobid') > 0) {
+        if ( count($request->getArguments())> 0  &&  ( $request->hasArgument('jobid') &&
+                ($request->getArgument('jobid')) > 0) ||
+            ( $request->hasArgument('jobOffer') && $request->getArgument('jobOffer') > 0)) {
             //&& $this->resolveActionMethodName() == "ratingAction"
-            $jobid = $request->getArgument('jobid');
+           if($request->hasArgument('jobid') ) $jobid = (int)$request->getArgument('jobid');
+            if($request->hasArgument('jobOffer') ) $jobid = (int)$request->getArgument('jobOffer');
+
         }
         try {
             parent::processRequest($request, $response);
