@@ -26,6 +26,10 @@
 				<source>qualification</source>
 				<target>Qualifikation</target>
 			</trans-unit>
+			<trans-unit id="jobaddress.description">
+				<source>Job Address Object</source>
+				<target>Job Adressobjekt</target>
+			</trans-unit>
 			<trans-unit id="refid.description">
 				<source>refid</source>
 				<target>Beschreibung</target>

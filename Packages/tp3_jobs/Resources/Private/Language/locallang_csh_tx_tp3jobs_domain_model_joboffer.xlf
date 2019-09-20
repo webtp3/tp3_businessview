@@ -27,6 +27,9 @@
 			<trans-unit id="contactname.description">
 				<source>contactname</source>
 			</trans-unit>
+			<trans-unit id="jobaddress.description">
+				<source>Job Address Object</source>
+			</trans-unit>
 			<trans-unit id="contactaddress.description">
 				<source>contactaddress</source>
 			</trans-unit>

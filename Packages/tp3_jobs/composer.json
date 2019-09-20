@@ -3,7 +3,7 @@
 	"type": "typo3-cms-extension",
 	"description" : "JobOffers & Postings with tp3",
 	"license": "GPL-2.0+",
-	"version": "1.2.5",
+	"version": "1.2.8",
 	"require": {
 		"php": ">=7.0 <7.3",
 		"typo3/cms-core": "^8.2 || ^9",
@@ -15,6 +15,7 @@
 		}
 	},
 	"replace": {
+    "tp3_jobs": "self.version",
 		"typo3-ter/tp3_jobs": "self.version",
 		"web-tp3/tp3_jobs": "self.version"
 	},
