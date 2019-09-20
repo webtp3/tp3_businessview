@@ -30,6 +30,9 @@
 			<trans-unit id="tx_tp3jobs_domain_model_joboffer.contactname">
 				<source>Contactname</source>
 			</trans-unit>
+			<trans-unit id="tx_tp3jobs_domain_model_joboffer.jobaddress">
+			<source>Job Address Object</source>
+			</trans-unit>
 			<trans-unit id="tx_tp3jobs_domain_model_joboffer.contactaddress">
 				<source>Contactaddress</source>
 			</trans-unit>
