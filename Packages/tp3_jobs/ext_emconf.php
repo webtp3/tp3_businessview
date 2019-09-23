@@ -23,6 +23,7 @@ $EM_CONF[$_EXTKEY] = [
             'depends' =>
                 [
                     'rte_ckeditor' => '*',
+       'tt_address' => '*',
                     'typo3' => '8.7.0-9.9.99',
                 ],
             'conflicts' =>

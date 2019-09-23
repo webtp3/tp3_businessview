@@ -480,14 +480,14 @@ class EventService extends BaseService
                 $this->endtime->copy($tmp_endtime);
 
                 $eventStart = $event->getStart();
-                $events_tmp[$eventStart->format('Ymd')][$event->isAllday() ? '-1' : $eventStart->format('HM')][$event->getUid()] = $event;
+                $events_tmp[$eventStart->format('Ymd')][$event->isAllday() ? '-1' : $eventStart->format('Hi')][$event->getUid()] = $event;
 
                 $eventStart = $event->getStart();
                 foreach ($ex_events_group as $ex_events) {
                     foreach ($ex_events as $ex_event_day) {
                         foreach ($ex_event_day as $ex_event_array) {
                             foreach ($ex_event_array as $ex_event) {
-                                $events_tmp[$eventStart->format('Ymd')][$event->isAllday() ? '-1' : $eventStart->format('HM')][$event->getUid()]->addExceptionEvent($ex_event);
+                                $events_tmp[$eventStart->format('Ymd')][$event->isAllday() ? '-1' : $eventStart->format('Hi')][$event->getUid()]->addExceptionEvent($ex_event);
                             }
                         }
                     }
@@ -509,7 +509,7 @@ class EventService extends BaseService
                     $events_tmp = $this->getRecurringEventsFromIndex($event, $ex_events_dates);
                 } else {
                     $eventStart = $event->getStart();
-                    $events_tmp[$eventStart->format('Ymd')][$event->isAllday() ? '-1' : $eventStart->format('HM')][$event->getUid()] = $event;
+                    $events_tmp[$eventStart->format('Ymd')][$event->isAllday() ? '-1' : $eventStart->format('Hi')][$event->getUid()] = $event;
                 }
             }
 
@@ -1993,12 +1993,12 @@ class EventService extends BaseService
             }
 
             if ($startDate->format('U') > $now->format('U') && !$ex_event_dates[$startDate->format('Ymd')]) {
-                $master_array[$startDate->format('Ymd')][$event->isAllday() ? '-1' : $startDate->format('HM')][$event->getUid()] = &$event;
+                $master_array[$startDate->format('Ymd')][$event->isAllday() ? '-1' : $startDate->format('Hi')][$event->getUid()] = &$event;
             }
         } elseif (!$ex_event_dates[$startDate->format('Ymd')]
             && (!$event->getStart()->after($this->endtime))
             && (!$event->getEnd()->before($this->starttime))) {
-            $master_array[$startDate->format('Ymd')][$event->isAllday() ? '-1' : $startDate->format('HM')][$event->getUid()] = &$event;
+            $master_array[$startDate->format('Ymd')][$event->isAllday() ? '-1' : $startDate->format('Hi')][$event->getUid()] = &$event;
         }
 
         $added = 0;
@@ -2044,7 +2044,7 @@ class EventService extends BaseService
                         if ($new_event->isAllday()) {
                             $master_array[$nextOccuranceTime->format('Ymd')]['-1'][$event->getUid()] = $new_event;
                         } else {
-                            $master_array[$nextOccuranceTime->format('Ymd')][$nextOccuranceTime->format('HM')][$event->getUid()] = $new_event;
+                            $master_array[$nextOccuranceTime->format('Ymd')][$nextOccuranceTime->format('Hi')][$event->getUid()] = $new_event;
                         }
                         $added++;
                     }

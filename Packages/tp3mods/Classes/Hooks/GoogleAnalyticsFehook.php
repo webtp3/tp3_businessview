@@ -128,7 +128,7 @@ class GoogleAnalyticsFehook extends \Tp3\Tp3mods\Hooks\GoogleAnalytics implement
      *
      * @return void
      */
-    private function getTypoScriptFrontendController($pid = 1)
+    private function getTypoScriptFrontendController($pid = 0)
     {
         /** @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $frontend */
         $frontend = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(

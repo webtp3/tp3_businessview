@@ -694,18 +694,6 @@ tp3_app.parallax = function(){
 		}); // end window scroll
 	}
 
-
-
-
-
-
-
-
-	// $j(document).scroll(scroll);
-	// $j(window).resize(wresize);
-	//$j('#content.main-section  > .section , #content.main-section  > .row.frame').css({"min-height":screen.height});
-	//$j('#content.main-section').first().css({"min-height":screen.height});
-//$j('body > .body-bg').attr("data-speed","6").css({"background-image":"url(fileadmin/user_upload/neodental/Technician-in-dental-lab-presenting-a-prosthesis-into-the-camera-000025618872_Double.jpg)"});
 	$j(window).trigger("scroll")
 };
 //$j('.main-section > .section.section-light').attr("data-speed","3").css({"background-size":"cover;","background-image":"url(fileadmin/locations/LocationGuide-Titelbilder/ATELIERS-GALERIEN-documenta10_Seitenlichthalle__documenta_gGmbH.jpg)"});
@@ -727,6 +715,18 @@ tp3_app.controls = function(){
 	$j('.glyphicon.glyphicon-tags').click(function(){
 		$j(this).next('.news-list-tags').toggle();
 	})
+	$j('.toolbar a').hover(function(){
+		$j(this).next('.texticon-content').css({"background":"rgba(255,255,255,0.9)",
+			"font-size": "10px",
+			"width": "300px",
+			"padding": "15px",
+			"border-radius": "10px",
+			"margin-left":"5px",
+			"border": "1pt #222"}).toggle();
+	},
+		function(){
+			$j(this).next('.texticon-content').delay(1300).toggle();
+		})
 	var ts_style = ts_style || {border: false, mousespeed: 1.3, size:"500", smallestsize:8, biggestsize:22, clicktostart:true};
 
 	$j('.tag-cloud').each(function(){

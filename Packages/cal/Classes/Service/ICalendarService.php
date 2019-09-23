@@ -260,7 +260,7 @@ class ICalendarService extends BaseService
                 'tstamp' => time(),
                 'md5' => $newMD5
             ];
-            $result = $connection->update('tx_cal_calendar', $insertFields, ['uid' => $uid])->execute();
+            $result = $connection->update('tx_cal_calendar', $insertFields, ['uid' => $uid]);
             if (false === $result) {
                 throw new RuntimeException(
                     'Could not write new md5 hash to database: ' . debug($queryBuilder->getSQL()),

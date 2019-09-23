@@ -299,7 +299,7 @@ class TceMainProcessdatamap
                     }
                 }
 
-                $table = 'tx_cal_index';
+             //?   $table = 'tx_cal_index';
                 $where = ['event_deviation_uid' => $id];
                 $insertFields = [
                     'start_datetime' => $startDate->format('Ymd') . $startDate->format('His'),
