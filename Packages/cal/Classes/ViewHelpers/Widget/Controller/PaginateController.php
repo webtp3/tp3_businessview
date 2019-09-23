@@ -206,7 +206,7 @@ class PaginateController extends \TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetCont
                 $offset += $this->initialOffset;
                 $modifiedObjects = array_slice ( $this->objects , $offset , $itemsPerPage , true ) ;
 //                $query->setOffset($offset);
-            } elseif ($this->initialOffset > 0) {
+            } else{
                // $query->setOffset($this->initialOffset);
                 $modifiedObjects = array_slice ( $this->objects , $this->initialOffset , $itemsPerPage , true ) ;
 

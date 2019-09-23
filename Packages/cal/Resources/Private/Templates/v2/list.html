@@ -12,11 +12,10 @@
 		<f:then>
 
 			<!--			#todo settings paginate-->
-			<f:if condition="{settings.view.list.paginate.enabled}">
+			<f:if condition="{settings.view.list.paginate}">
 				<f:then>
 				<cal:widget.paginate objects="{listView.master_array}" as="paginatedEvents" configuration="{settings.list.paginate}" initial="{offset:settings.offset,limit:settings.limit}">
-					<f:debug>{_all}</f:debug>
-					<div class="cal-panel">1
+					<div class="cal-panel">
 						<ul class=" nav nav-section">
 							<f:for each="{paginatedEvents}" as="entriesOfADay" key="day">
 								<f:for each="{entriesOfADay}" as="entriesOfAnHour">
@@ -31,7 +30,7 @@
 				</cal:widget.paginate>
 				</f:then>
 				<f:else>
-					<div class="cal-panel">2
+					<div class="cal-panel">
 						<ul class=" nav nav-section">
 							<f:for each="{listView.master_array}" as="entriesOfADay" key="day">
 								<f:for each="{entriesOfADay}" as="entriesOfAnHour">
