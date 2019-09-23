@@ -1833,6 +1833,9 @@ class EventService extends BaseService
             }
             $GLOBALS['TYPO3_DB']->sql_free_result($deviationResult);
         }
+        else{
+            // ?Insert
+        }
         #todo geneerate deviations if not found
         $event->setDeviationDates($deviations);
 

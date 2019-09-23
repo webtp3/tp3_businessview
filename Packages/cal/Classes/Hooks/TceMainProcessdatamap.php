@@ -279,15 +279,15 @@ class TceMainProcessdatamap
             if (is_array($deviationRow)) {
                 $startDate = null;
                 if ($deviationRow['start_date']) {
-                    $startDate = new CalendarDateTime($deviationRow['start_date']);
+                    $startDate = CalendarDateTime::createFromFormat('Ymd', $deviationRow ['start_date'])->setTimezone(new \DateTimeZone(date('T')));//new CalendarDateTime($deviationRow['start_date']);
                 } else {
-                    $startDate = new CalendarDateTime($deviationRow['orig_start_date']);
+                    $startDate = CalendarDateTime::createFromFormat('Ymd', $deviationRow ['orig_start_date'])->setTimezone(new \DateTimeZone(date('T')));//new CalendarDateTime($deviationRow['orig_start_date']);
                 }
                 $endDate = null;
                 if ($deviationRow['end_date']) {
-                    $endDate = new CalendarDateTime($deviationRow['end_date']);
+                    $endDate = CalendarDateTime::createFromFormat('Ymd', $deviationRow ['end_date'])->setTimezone(new \DateTimeZone(date('T')));//new CalendarDateTime($deviationRow['end_date']);
                 } else {
-                    $endDate = new CalendarDateTime($deviationRow['orig_end_date']);
+                    $endDate = CalendarDateTime::createFromFormat('Ymd', $deviationRow ['orig_end_date'])->setTimezone(new \DateTimeZone(date('T')));//new CalendarDateTime($deviationRow['orig_end_date']);
                 }
 
                 if (! $deviationRow['allday']) {
