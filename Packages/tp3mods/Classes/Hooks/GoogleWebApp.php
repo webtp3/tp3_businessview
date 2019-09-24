@@ -126,7 +126,7 @@ class GoogleWebApp implements SingletonInterface
                         "sizes": "512x512"
                       }
                       ],
-                  "start_url": "/?eID='.$manifest["eID"].'&content=start_url,
+                  "start_url": "/?eID='.$manifest["eID"].'&content=start_url",
                   "scope": "/",
                   "display": "standalone",
                   "background_color": "'.$GLOBALS["TSFE"]->tmpl->setup_constants["plugin."]["bootstrap_package."]["settings."]["less."]["body-bg"].'",
