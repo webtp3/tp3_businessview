@@ -253,7 +253,6 @@ module.tx_news {
 	settings.list.paginate.itemsPerPage = 50
 }
 
-<INCLUDE_TYPOSCRIPT: source="FILE:EXT:yoast_news/Configuration/TSconfig/Page.tsconfig">
 tx_news_sitemap = PAGE
 tx_news_sitemap {
 	typeNum = {$plugin.tx_news.settings.sitemap.typeNumber}
@@ -320,3 +319,4 @@ tx_news_sitemap {
 	#20.renderObj.10.10.10.typolink.parameter = Detail pid
 
 }
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:yoast_news/Configuration/TypoScript/setup.typoscript">
