@@ -1,0 +1,21 @@
+{
+    "name": "web-tp3/yoast_cal",
+    "description": "Integrate Yoast SEO for TYPO3 in EXT:cal",
+    "type": "typo3-cms-extension",
+    "license": "GPL-3.0-or-later",
+	"version": "1.1.1",
+    "require": {
+        "yoast-seo-for-typo3/yoast_seo": "^3.0",
+        "web-tp3/cal": "^2.2"
+    },
+    "authors": [
+        {
+            "name": "Richard Haeser",
+            "email": "richardhaeser@gmail.com"
+        },
+		{
+			"name": "Thomas Ruta",
+			"email": "email@thomasruta.de"
+		}
+    ]
+}

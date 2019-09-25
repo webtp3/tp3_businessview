@@ -30,7 +30,7 @@ plugin.tx_tp3mods_tp3micro {
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3Isotop
         Tp3Isotop = 1
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3Flip
-        Tp3Flip = 1
+        Tp3Flip = 0
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3Flip
         Tp3WebApp = 0
         # cat=plugin.tx_tp3mods_tp3micro/settings; type=boolean; label=include Tp3TagCloud

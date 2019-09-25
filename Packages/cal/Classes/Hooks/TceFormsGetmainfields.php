@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\Hooks;
 
 /**
@@ -46,22 +52,22 @@ class TceFormsGetmainfields
                 }
             } elseif (false === strpos($row['uid'], 'NEW')) {
                 if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['USdateFormat'] === '1') {
-                    $format = '%m-%d-%Y';
+                    $format = 'm-d-Y';
                 } else {
-                    $format = '%d-%m-%Y';
+                    $format = 'd-m-Y';
                 }
 
-                $row['start_date'] = $this->formatDate($row['start_date']+1, $format);
-                $row['end_date'] = $this->formatDate($row['end_date']+1, $format);
+                $row['start_date'] = $this->formatDate($row['start_date'], $format);
+                $row['end_date'] = $this->formatDate($row['end_date'], $format);
                 $row['until'] = $this->formatDate($row['until'], $format);
             }
         }
 
         if (($table === 'tx_cal_exception_event') && false === strpos($row['uid'], 'NEW')) {
             if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['USdateFormat'] === '1') {
-                $format = '%m-%d-%Y';
+                $format = 'm-d-Y';
             } else {
-                $format = '%d-%m-%Y';
+                $format = 'd-m-Y';
             }
 
             $row['start_date'] = $this->formatDate($row['start_date'], $format);

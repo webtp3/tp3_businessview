@@ -461,10 +461,14 @@ $TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT'] = [
     'fileName' => [
         'defaultToHTMLsuffixOnPrev'=>1,
         'index' => [
-
-            'rss.xml' => [
+            'cal.xml' => [
                 'keyValues' => [
                     'type' => 100,
+                ],
+            ],
+            'rss.xml' => [
+                'keyValues' => [
+                    'type' => 1480321830,
                 ],
             ],
             'rss091.xml' => [

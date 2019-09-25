@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\Service;
 
 use RuntimeException;
@@ -34,9 +40,9 @@ class LocationAddressService extends BaseService
      *
      * @param int $uid
      * @param string $pidList
-     * @return OrganizerPartnerService tx_cal_organizer_partner object
+     * @return LocationAddress  tx_tt_address object
      */
-    public function find($uid, $pidList): OrganizerPartnerService
+    public function find($uid, $pidList)
     {
         $locationArray = $this->getLocationFromTable($pidList, ' AND ' . $this->tableId . '.uid=' . $uid);
         return $locationArray[0];
@@ -304,7 +310,7 @@ class LocationAddressService extends BaseService
      */
     public function createTranslation($uid, $overlay)
     {
-       //trigger_error('Deprecated since ext:cal v2, will be removed in ext:cal v3.', E_USER_DEPRECATED);
+        //trigger_error('Deprecated since ext:cal v2, will be removed in ext:cal v3.', E_USER_DEPRECATED);
 
         $table = 'tt_address';
         $select = $table . '.*';

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 use SJBR\StaticInfoTables\Hook\Backend\Form\Wizard\SuggestReceiver;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -8,7 +14,7 @@ defined('TYPO3_MODE') or die();
 
 $tx_cal_location = [
     'ctrl' => [
-        'title' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location',
+        'title' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location',
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -44,7 +50,7 @@ $tx_cal_location = [
         ],
         'name' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.name',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.name',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -54,7 +60,7 @@ $tx_cal_location = [
         ],
         'description' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.description',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.description',
             'config' => [
                 'type' => 'text',
                 'cols' => 30,
@@ -76,7 +82,7 @@ $tx_cal_location = [
         ],
         'street' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.street',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.street',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -86,7 +92,7 @@ $tx_cal_location = [
         ],
         'zip' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.zip',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.zip',
             'config' => [
                 'type' => 'input',
                 'size' => 15,
@@ -96,7 +102,7 @@ $tx_cal_location = [
         ],
         'city' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.city',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.city',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -106,7 +112,7 @@ $tx_cal_location = [
         ],
         'phone' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.phone',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.phone',
             'config' => [
                 'type' => 'input',
                 'size' => 15,
@@ -116,7 +122,7 @@ $tx_cal_location = [
         ],
         'fax' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.fax',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.fax',
             'config' => [
                 'type' => 'input',
                 'size' => 15,
@@ -126,7 +132,7 @@ $tx_cal_location = [
         ],
         'email' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.email',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.email',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -137,7 +143,7 @@ $tx_cal_location = [
         ],
         'image' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.image',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.image',
             'config' => ExtensionManagementUtility::getFileFieldTCAConfig('image', [
                 'maxitems' => 5,
                 // Use the imageoverlayPalette instead of the basicoverlayPalette
@@ -157,7 +163,7 @@ $tx_cal_location = [
         ],
         'link' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.link',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.link',
             'config' => [
                 'type' => 'input',
                 'size' => 25,
@@ -172,7 +178,7 @@ $tx_cal_location = [
         ],
         'shared_user_cnt' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.shared_user',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.shared_user',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -186,7 +192,7 @@ $tx_cal_location = [
         ],
         'latitude' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.latitude',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.latitude',
             'config' => [
                 'type' => 'input',
                 'readOnly' => 1,
@@ -195,7 +201,7 @@ $tx_cal_location = [
         ],
         'longitude' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.longitude',
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.longitude',
             'config' => [
                 'type' => 'input',
                 'readOnly' => 1,
@@ -265,6 +271,41 @@ $tx_cal_location = [
     ]
 ];
 
+/* If wec_map is present, define the address fields */
+if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('wec_map')) {
+    $tx_cal_location['ctrl']['EXT']['wec_map'] = [
+        'isMappable' => 1,
+        'addressFields' => [
+            'street' => 'street',
+            'city' => 'city',
+            'state' => 'country_zone',
+            'zip' => 'zip',
+            'country' => 'country'
+        ]
+    ];
+    $tx_cal_location['columns']['tx_wecmap_geocode'] = [
+        'exclude' => 1,
+        'label' => 'LLL:EXT:wec_map/Resources/Private/Languages/locallang_db.xlf:berecord_geocodelabel',
+        'config' => [
+            'type' => 'user',
+            'userFunc' => 'JBartels\\WecMap\\Utility\\Backend->checkGeocodeStatus'
+        ]
+    ];
+    $tx_cal_location['interface']['showRecordFieldList'] .= ', tx_wecmap_geocode';
+    $tx_cal_location['types']['0']['showitem'] .= ', tx_wecmap_geocode';
+
+    $tx_cal_location['columns']['tx_wecmap_map'] = [
+        'exclude' => 1,
+        'label' => 'LLL:EXT:wec_map/Resources/Private/Languages/locallang_db.xlf:berecord_maplabel',
+        'config' => [
+            'type' => 'user',
+            'userFunc' => 'JBartels\\WecMap\\Utility\\Backend->drawMap'
+        ]
+    ];
+    $tx_cal_location['interface']['showRecordFieldList'] .= ', tx_wecmap_map';
+    $tx_cal_location['types']['0']['showitem'] .= ', tx_wecmap_map';
+}
+
 $dummy = [
     'exclude' => 1,
     'label' => 'dummy',
@@ -281,7 +322,7 @@ $tx_cal_location['columns']['imagetitletext'] = $dummy;
 if (ExtensionManagementUtility::isLoaded('static_info_tables')) {
     $tx_cal_location['columns']['country_zone'] = [
         'exclude' => 1,
-        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.countryzone',
+        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.countryzone',
         'config' => [
             'type' => 'select',
             'renderType' => 'selectSingle',
@@ -302,7 +343,7 @@ if (ExtensionManagementUtility::isLoaded('static_info_tables')) {
     ];
     $tx_cal_location['columns']['country'] = [
         'exclude' => 1,
-        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_location.country',
+        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.country',
         'config' => [
             'type' => 'select',
             'renderType' => 'selectSingle',

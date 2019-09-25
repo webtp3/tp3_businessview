@@ -49,17 +49,12 @@ define(['jquery'], function ($) {
             var container = $("#" + escapeRegExp(this.containerID));
             container.find('div.' + this.rowClass).each(function (index, div) {
                 $(div).find('input[type="text"]').each(function (index, input) {
-                    if (input.className === "exturl") {
-                        if (storage.value) {
-                            storage.val(storage.val() + '\n');
-                        }
-                        storage.val(storage.val() + input.value);
+                    if ($(input).hasClass("exturl") && $(input).val()) {
+                          storage.val(storage.val()+$(input).val()+"\n");
                     }
-                    if (input.className === "exturlnote") {
-                        if (storageNotes.val()) {
-                            storageNotes.val(storageNotes.val() + '\n');
-                        }
-                        storageNotes.val(storageNotes.val() + input.value);
+                    if ($(input).hasClass("exturlnotes") && $(input).val()) {
+                          storageNotes.val(storageNotes.val()+$(input).val()+"\n");
+
                     }
                 });
             });

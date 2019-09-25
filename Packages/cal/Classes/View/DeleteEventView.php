@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\View;
 
 /**
@@ -517,8 +523,8 @@ class DeleteEventView extends FeEditingBaseView
             $eventEnd = $this->object->getEnd();
             $local_sims['###EVENT_START_DAY###'] = $eventStart->format('Ymd');
             $local_sims['###EVENT_END_DAY###'] = $eventEnd->format('Ymd');
-            $local_sims['###EVENT_START_TIME###'] = $eventStart->format('HM');
-            $local_sims['###EVENT_END_TIME###'] = $eventEnd->format('HM');
+            $local_sims['###EVENT_START_TIME###'] = $eventStart->format('Hi');
+            $local_sims['###EVENT_END_TIME###'] = $eventEnd->format('Hi');
             $local_sims['###EVENT_UID###'] = $this->object->getUid();
             $rems['###CREATE_EXCEPTION###'] = $this->markerBasedTemplateService->getSubpart($template, '###CREATE_EXCEPTION###');
             $rems['###CREATE_EXCEPTION###'] = Functions::substituteMarkerArrayNotCached(

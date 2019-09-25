@@ -1,0 +1,14 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+			xmlns:bk2k="http://typo3.org/ns/BK2K/BootstrapPackage/ViewHelpers"
+			xmlns:rx="http://typo3.org/ns/Reelworx/RxShariff/ViewHelper"
+			xmlns:ttaddr="http://typo3.org/ns/FriendsOfTYPO3/TtAddress/ViewHelper"
+			data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+<f:section name="main">
+<f:flashMessages />
+<f:render partial="JobOffer/Properties" arguments="{jobOffer:jobOffer}" />
+  <!--<f:link.action action="list">Back to list</f:link.action><br />-->
+
+</f:section>
+</html>

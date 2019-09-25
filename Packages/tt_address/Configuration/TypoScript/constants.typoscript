@@ -7,4 +7,8 @@ plugin.tx_ttaddress {
         # cat=plugin.tx_ttaddress/file; type=string; label=Path to template layouts (FE)
         layoutRootPath = EXT:tt_address/Resources/Private/Layouts/
     }
+    persistence {
+        # cat=plugin.tx_ttaddress//a; type=string; label=Default storage PID
+        storagePid =
+    }
 }

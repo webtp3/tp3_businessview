@@ -51,17 +51,17 @@ class WecMap
             $tx_cal_api = &$tx_cal_api->tx_cal_api_with($cObj, $conf);
             $tx_cal_api->modelObj = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Controller\ModelController::class);
 
-            $location = $tx_cal_api->modelObj->findLocation($data ['uid'], $locationStructure, $data ['pid']);
+            $location = $tx_cal_api->modelObj->findLocation($data ['uid'], 'tx_tt_address', $data ['pid']);
 
             if (is_object($location)) {
-                $events = array_slice((array) $tx_cal_api->controller->findRelatedEvents('location', ' AND location_id = ' . $location->getUid()), 0, 8);
+                $events =  $tx_cal_api->controller->findRelatedEvents('location', ' AND location_id = ' . $location->getUid());
                 // $events = array_slice((array) $location->getEventLinks(), 0, 8);
                 $eventsHTMLArray = [];
 
                 foreach ($events as $eventTimeArray) {
                     foreach ($eventTimeArray as $eventArray) {
                         foreach ($eventArray as $event) {
-                            $eventsHTMLArray [] = $event->getLinkToEvent($event->getTitle(), 'loaction', $event->getStart()->format('%Y%m%d'));
+                            $eventsHTMLArray [] = $event->getLinkToEvent($event->getTitle(), 'loaction', $event->getStart()->format('Ymd'));
                         }
                     }
                 }
@@ -71,7 +71,7 @@ class WecMap
 
                 $eventsHTMLArray = array_slice($eventsHTMLArray, 0, 8);
                 $eventsHTML = $this->stripNL(implode('', $eventsHTMLArray));
-                $markerObj->addTab($tabLabel, '', $eventsHTML);
+                $markerObj->addTab('+' . $tabLabel, '', $eventsHTML);
             }
         }
     }

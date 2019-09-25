@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\Controller;
 
 /**
@@ -79,6 +85,10 @@ class ModelController extends BaseController
     ): EventModel {
         if ($type === '') {
             $type = 'tx_cal_phpicalendar';
+        } elseif ($type === 'tx_cal_preview') {
+            $type = 'tx_cal_phpicalendar';
+            $showHiddenEvents = true;
+            $getAllInstances = true;
         }
         $event = $this->find(
             'cal_event_model',
@@ -303,7 +313,7 @@ class ModelController extends BaseController
      * @param string $pidList
      * @return Location
      */
-    public function findLocation($uid, $type = 'tx_cal_location', $pidList = ''): Location
+    public function findLocation($uid, $type = 'tx_cal_location', $pidList = '')// avoid 0 collision : Location
     {
         /** @var LocationService $service */
         $service = $this->getServiceObjByKey('cal_location_model', 'location', $type);
@@ -359,7 +369,7 @@ class ModelController extends BaseController
      * @param string $pidList
      * @return Organizer
      */
-    public function findOrganizer(int $uid, $type = 'tx_cal_organizer', $pidList = ''): Organizer
+    public function findOrganizer(int $uid, $type = 'tx_cal_organizer', $pidList = '')// avoid 0 collision : Organizer
     {
         /** @var OrganizerService $service */
         $service = $this->getServiceObjByKey('cal_organizer_model', 'organizer', $type);

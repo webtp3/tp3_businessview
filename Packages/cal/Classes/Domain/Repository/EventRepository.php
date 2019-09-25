@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace TYPO3\CMS\Cal\Domain\Repository;
 
-use TYPO3\CMS\Cal\Model\CalDate;
+use TYPO3\CMS\Cal\Model\CalendarDateTime;
 
 /**
  * This file is part of the TYPO3 extension Calendar Base (cal).
@@ -36,11 +36,11 @@ class EventRepository extends DoctrineRepository
     protected $eventIndexRepository;
 
     /**
-     * @param CalDate $starttime
-     * @param CalDate $endtime
+     * @param CalendarDateTime $starttime
+     * @param CalendarDateTime $endtime
      * @return array
      */
-    public function findUidsOfRecurringEvents(CalDate $starttime, CalDate $endtime): array
+    public function findUidsOfRecurringEvents(CalendarDateTime $starttime, CalendarDateTime $endtime): array
     {
         $eventUidArray = [];
         $recurringEvents = $this->eventIndexRepository->findRecurringEvents($starttime, $endtime);

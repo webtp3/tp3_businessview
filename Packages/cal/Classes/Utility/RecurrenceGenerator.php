@@ -1,17 +1,11 @@
 <?php
 
-/**
- * This file is part of the TYPO3 extension Calendar Base (cal).
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
+/*
+ * This file is part of the web-tp3/cal.
  * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
+ * LICENSE file that was distributed with this source code.
  */
+
 namespace TYPO3\CMS\Cal\Utility;
 
 use TYPO3\CMS\Cal\Backend\Modul\CalIndexer;
@@ -38,7 +32,6 @@ class RecurrenceGenerator
      * @var ObjectManager
      */
     protected $objectManager;
-
 
     /**
      * The table name of the index table
@@ -83,11 +76,14 @@ class RecurrenceGenerator
 
         $this->pageIDForPlugin = $pageIDForPlugin;
         if ($starttime == null) {
-            $starttime = $this->getTimeParsed($this->extConf['recurrenceStart'])->format('Ymd');
+            $starttime = GeneralUtility::makeInstance(CalendarDateTime::class)
+                ->createFromFormat('Ymd', $this->extConf['recurrenceStart'])->format("Ymd");
         }
         $this->starttime = $starttime;
         if ($endtime == null) {
-            $endtime = $this->getTimeParsed($this->extConf['recurrenceEnd'])->format('Ymd');
+            $endtime = GeneralUtility::makeInstance(CalendarDateTime::class)
+                ->createFromFormat('Ymd', $this->extConf['recurrenceEnd'])->format("Ymd");
+            //$this->getTimeParsed($this->extConf['recurrenceEnd'])->format('Ymd');
         }
         $this->endtime = $endtime;
     }
@@ -303,7 +299,7 @@ class RecurrenceGenerator
         $this->info .= '<br/><br/><a href="javascript:history.back();">' . LocalizationUtility::translate(
             'l_back',
             'cal'
-            ) . '</a><br/><br/>';
+        ) . '</a><br/><br/>';
     }
 
     /**
@@ -413,9 +409,7 @@ class RecurrenceGenerator
         if (is_object($eventService)) {
             return $eventService;
         }
-        else {
-            return GeneralUtility::makeInstance(EventService::class);
-        }
+
         try {
             $modelObj = &Registry::Registry('basic', 'modelcontroller');
             if (!$modelObj) {
@@ -448,7 +442,7 @@ class RecurrenceGenerator
     protected function getTimeParsed($timeString): CalendarDateTime
     {
         /** @var DateParser $dp */
-        $dp = GeneralUtility::makeInstance(DateParser::class);
+        $dp = GeneralUtility::makeInstance(CalendarDateTime::class);
         $dp->parse($timeString, 0, '');
         return $dp->getDateObjectFromStack();
     }

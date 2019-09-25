@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\Service;
 
 /**
@@ -166,7 +172,7 @@ class TodoService extends EventService
         if ($GLOBALS['TSFE']->sys_language_content > 0 && $this->conf['showRecordsWithoutDefaultTranslation'] == 1 && $this->rightsObj->isAllowedTo(
             'create',
             'translation'
-            )) {
+        )) {
             $insertFields['sys_language_uid'] = $GLOBALS['TSFE']->sys_language_content;
         }
 
@@ -269,7 +275,7 @@ class TodoService extends EventService
                             'tablenames' => 'fe_users',
                             'sorting' => 1
                         ]
-                    );
+                );
                 $ignore = GeneralUtility::trimExplode(
                     ',',
                     $this->conf['rights.']['create.']['todo.']['addFeGroupToNotify.']['ignore'],
@@ -332,7 +338,7 @@ class TodoService extends EventService
                         'tablenames' => 'fe_groups',
                         'sorting' => 1
                     ]
-                );
+            );
         }
         if ($this->conf['rights.']['create.']['todo.']['public']) {
             foreach (GeneralUtility::trimExplode(',', $this->conf['rights.']['create.']['todo.']['notifyUsersOnPublicCreate'], 1) as $key => $userUid) {
@@ -712,7 +718,7 @@ class TodoService extends EventService
             'create',
             'todo',
             'startdate'
-            )) {
+        )) {
             if (is_object($object->getStart())) {
                 $start = $object->getStart();
                 $insertFields['start_date'] = $start->format('Ymd');
@@ -799,7 +805,7 @@ class TodoService extends EventService
                 'edit',
                 'todo',
                 'hidden'
-                    )
+            )
             && !$this->rightsObj->isAllowedTo('create', 'todo', 'hidden')
             && isset($this->conf['rights.']['edit.']['todo.']['fields.']['hidden.']['default'])
         ) {
@@ -832,7 +838,7 @@ class TodoService extends EventService
             'edit',
             'todo',
             'startday'
-            )) {
+        )) {
             if (is_object($object->getStart())) {
                 $start = $object->getStart();
                 $insertFields['start_date'] = $start->format('Ymd');
@@ -938,7 +944,7 @@ class TodoService extends EventService
     {
         $master_array = [];
         $startDate = $event->getStart();
-        $master_array[$startDate->format('Ymd')][$event->isAllDay() ? '-1' : $startDate->format('HM')][$event->getUid()] = &$event;
+        $master_array[$startDate->format('Ymd')][$event->isAllDay() ? '-1' : $startDate->format('Hi')][$event->getUid()] = &$event;
         $select = '*';
         $table = 'tx_cal_index';
         $where = 'event_uid = ' . $event->getUid() . ' AND start_datetime >= ' . $this->starttime->format('YmdHis') . ' AND start_datetime <= ' . $this->endtime->format('YmdHis');
@@ -951,7 +957,7 @@ class TodoService extends EventService
                 if ($new_event->isAllDay()) {
                     $master_array[$nextOccuranceTime->format('Ymd')]['-1'][$event->getUid()] = $new_event;
                 } else {
-                    $master_array[$nextOccuranceTime->format('Ymd')][$nextOccuranceTime->format('HM')][$event->getUid()] = $new_event;
+                    $master_array[$nextOccuranceTime->format('Ymd')][$nextOccuranceTime->format('Hi')][$event->getUid()] = $new_event;
                 }
             }
             $GLOBALS['TYPO3_DB']->sql_free_result($result);

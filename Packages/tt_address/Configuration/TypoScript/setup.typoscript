@@ -36,12 +36,12 @@ plugin.tx_ttaddress {
                 lng = 14.2873126
             }
             googleMaps {
-                key =
+                key = {$mapsAPIkey}
             }
             staticGoogleMaps {
                 parameters {
                     key =
-                    size = 500x400
+                    size = 500x500
                 }
             }
         }

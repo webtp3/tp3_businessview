@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\Model;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -55,6 +61,8 @@ class OrganizerAddress extends Organizer
         $this->setEmail($row['email']);
         $this->setImage(GeneralUtility::trimExplode(',', $row['image'], 1));
         $this->setLink($row['www']);
+        $this->setLongitude($row['longitude']);
+        $this->setLatitude($row['latitude']);
         $this->row = $row;
     }
 }

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\View;
 
 /**
@@ -246,8 +252,8 @@ class DayView extends BaseView
                             $startOfDay->copy($d_start);
 
                             // $d_start -= $gridLength * 60;
-                            foreach ($view_array[$starttime->format('Ymd')][$starttime->format('HM')] as $k => $kValue) {
-                                if (empty($view_array[$starttime->format('Ymd')][$starttime->format('HM')][$k])) {
+                            foreach ($view_array[$starttime->format('Ymd')][$starttime->format('Hi')] as $k => $kValue) {
+                                if (empty($view_array[$starttime->format('Ymd')][$starttime->format('Hi')][$k])) {
                                     break;
                                 }
                             }
@@ -264,13 +270,13 @@ class DayView extends BaseView
                                     $startOfDay->addSeconds(60 * 60 * 24);
                                     $j->copy($startOfDay);
                                     $entries = 0;
-                                    foreach ($view_array[$d_start->format('Ymd')][$startOfDay->format('HM')] as $k => $kValue) {
-                                        if (empty($view_array[$d_start->format('Ymd')][$startOfDay->format('HM')][$k])) {
+                                    foreach ($view_array[$d_start->format('Ymd')][$startOfDay->format('Hi')] as $k => $kValue) {
+                                        if (empty($view_array[$d_start->format('Ymd')][$startOfDay->format('Hi')][$k])) {
                                             break;
                                         }
                                     }
                                 } else {
-                                    $view_array[$j->format('Ymd')][$j->format('HM')][] = $event->getType() . '_' . $event->getUid() . '_' . $eventStart->format('YmdHM');
+                                    $view_array[$j->format('Ymd')][$j->format('Hi')][] = $event->getType() . '_' . $event->getUid() . '_' . $eventStart->format('YmdHM');
                                     $j->addSeconds($gridLength * 60);
                                 }
                                 $entries++;
@@ -397,19 +403,19 @@ class DayView extends BaseView
         $d_start = new CalendarDateTime($dDate[1] . $dDate[2] . $dDate[3] . ' ' . $dTimeStart[1] . ':' . sprintf(
             '%02d',
             $dTimeStart[2]
-            ) . ':00');
+        ) . ':00');
         $d_start->setTZbyID('UTC');
         $d_end = new CalendarDateTime($dDate[1] . $dDate[2] . $dDate[3] . ' ' . $dTimeEnd[1] . ':' . sprintf(
             '%02d',
             $dTimeEnd[2]
-            ) . ':00');
+        ) . ':00');
         $d_end->setTZbyID('UTC');
 
         $i = new CalendarDateTime();
         $i->copy($d_start);
         $i->setTZbyID('UTC');
         while ($i->before($d_end)) {
-            $i_formatted = $i->format('HM');
+            $i_formatted = $i->format('Hi');
             if (is_array($view_array[$i_formatted]) && count($view_array[$i_formatted]) > 0) {
                 foreach ($view_array[$i_formatted] as $eventKey) {
                     $event = &$eventArray[$eventKey];

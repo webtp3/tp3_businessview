@@ -188,7 +188,7 @@ abstract class BaseService extends AbstractService
                     'tablenames' => $tablename,
                     'sorting' => $key + 1
                 ], $additionalParams);
-                $result = $queryBuilder->insert($mm_table, $insertFields);
+                $result = $queryBuilder->insert($mm_table)->values($insertFields)->execute();
                 if (false === $result) {
                     throw new RuntimeException(
                         'Could not write ' . $mm_table . ' record to database: ' . $connection->errorCode(),
@@ -286,7 +286,7 @@ abstract class BaseService extends AbstractService
                 'create',
                 $object,
                 $field
-                    )) || (!$isSave && $this->rightsObj->isAllowedTo('edit', $object, $field))) {
+            )) || (!$isSave && $this->rightsObj->isAllowedTo('edit', $object, $field))) {
                 if ($this->conf['view.'][$this->conf['view'] . '.']['additional_fields.'][$field . '_stdWrap.']) {
                     $insertFields[$field] = $this->cObj->stdWrap(
                         $this->controller->piVars[$field],
@@ -365,7 +365,7 @@ abstract class BaseService extends AbstractService
             $where = 'uid_foreign = ' . $uid . ' AND  tablenames=\'' . $objectType . '\' AND fieldname=\'' . $type . '\' AND uid in (' . implode(
                 ',',
                 array_values($removeFiles)
-                ) . ')';
+            ) . ')';
             $result = $GLOBALS['TYPO3_DB']->exec_DELETEquery('sys_file_reference', $where);
             if (false === $result) {
                 throw new RuntimeException(
@@ -395,7 +395,7 @@ abstract class BaseService extends AbstractService
             $isOnFileadmin = !empty($configuration['basePath']) && GeneralUtility::isFirstPartOfStr(
                 $configuration['basePath'],
                 $fileadminDirectory
-                );
+            );
             if ($isLocalDriver && $isOnFileadmin) {
                 $storage = $tmpStorage;
                 break;
@@ -579,13 +579,15 @@ abstract class BaseService extends AbstractService
         // filter Workspaces preview.
         // Since "enablefields" is ignored in workspace previews it's required to filter out news manually which are not visible in the live version AND the selected workspace.
         if ($GLOBALS['TSFE']->sys_page->versioningPreview) {
-            // execute the complete query
-            $wsSelectconf = $selectConf;
-            $wsSelectconf['selectFields'] = 'uid,pid,tstamp,crdate,deleted,hidden,sys_language_uid,' . $localizationPrefix . '_parent,' . $localizationPrefix . '_diffsource,t3ver_oid,t3ver_id,t3ver_label,t3ver_wsid,t3ver_state,t3ver_stage,t3ver_count,t3ver_tstamp,t3_origuid';
-            $wsRes = $this->cObj->exec_getQuery($table, $wsSelectconf);
-            $tmpWSRes = $GLOBALS['TYPO3_DB']->exec_SELECT_queryArray($wsRes);
+        // execute the complete query
+        $wsSelectconf = $selectConf;
+        $wsSelectconf['selectFields'] = 'uid,pid,tstamp,crdate,deleted,hidden,sys_language_uid,' . $localizationPrefix . '_parent,' . $localizationPrefix . '_diffsource,t3ver_oid,t3ver_id,t3ver_label,t3ver_wsid,t3ver_state,t3ver_stage,t3ver_count,t3ver_tstamp,t3_origuid';
+        //   $wsRes = $this->cObj->exec_getQuery($table, $wsSelectconf);
+            $wsRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($wsSelectconf['selectFields'], $table, $wsSelectconf['where']);
+
+          //  $tmpWSRes = $GLOBALS['TYPO3_DB']->exec_SELECT_queryArray($wsRes);
             $removeUids = [];
-            while ($wsRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($tmpWSRes)) {
+            while ($wsRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($wsRes)) {
                 $orgUid = $wsRow['uid'];
                 $GLOBALS['TSFE']->sys_page->versionOL($table, $wsRow);
                 if (!$wsRow['uid']) { // if versionOL returns nothing the record is not visible in the selected Workspace

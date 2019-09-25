@@ -180,37 +180,21 @@ lib.containerBackgroundImagejs {
     }
 [global]
 
-[globalVar = LIT:0 > {$plugin.tx_tp3mods_tp3micro.settings.Tp3Isotop}]
     page.includeJSFooterlibs {
-        tp3_isotope = EXT:tp3mods/Resources/Public/JavaScript/isotope.pkgd.js
-        tp3_isotope.async =1
+        tp3_isotope = EXT:tp3mods/Resources/Public/JavaScript/isotope.pkgd.min.js
+        tp3_isotope.async =0
 
     }
-[global]
 
 [globalVar = LIT:0 > {$plugin.tx_tp3mods_tp3micro.settings.Tp3Flip}]
     page.includeJSFooterlibs {
         tp3_flip = EXT:tp3mods/Resources/Public/JavaScript/jquery.flip.js
-        tp3_flip.async =1
+        tp3_flip.async =0
 
     }
 [global]
 
-[globalVar = LIT:0 > {$plugin.tx_tp3mods_tp3micro.settings.Tp3Isotop}]
-   page.includeJSFooterlibs {
-       tp3_isotope = EXT:tp3mods/Resources/Public/JavaScript/isotope.pkgd.js
-       tp3_isotope.async =1
 
-   }
-[global]
-
-[globalVar = LIT:0 > {$plugin.tx_tp3mods_tp3micro.settings.Tp3Flip}]
-    page.includeJSFooterlibs {
-        tp3_flip = EXT:tp3mods/Resources/Public/JavaScript/jquery.flip.js
-        tp3_flip.async =1
-
-    }
-[global]
 
 # get toolbar (phone, contact or other items)
 [globalVar = LIT:0 > {$toolbarPid}]

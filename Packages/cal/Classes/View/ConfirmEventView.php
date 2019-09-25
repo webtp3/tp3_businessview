@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\View;
 
 /**
@@ -233,7 +239,7 @@ class ConfirmEventView extends FeEditingBaseView
                 $startDate->format($this->conf['view.']['event.']['event.']['timeFormat']),
                 'starttime_stdWrap'
             );
-            $sims['###STARTTIME_VALUE###'] = htmlspecialchars($startDate->format('HM'));
+            $sims['###STARTTIME_VALUE###'] = htmlspecialchars($startDate->format('Hi'));
         }
     }
 
@@ -251,7 +257,7 @@ class ConfirmEventView extends FeEditingBaseView
                 $endDate->format($this->conf['view.']['event.']['event.']['timeFormat']),
                 'endtime_stdWrap'
             );
-            $sims['###ENDTIME_VALUE###'] = htmlspecialchars($endDate->format('HM'));
+            $sims['###ENDTIME_VALUE###'] = htmlspecialchars($endDate->format('Hi'));
         }
     }
 

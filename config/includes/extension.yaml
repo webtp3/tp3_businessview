@@ -161,6 +161,12 @@ EXT:
             temporaryDirectory: ''
         rte_ckeditor:
             ckeditorVersion: latest
+        rx_shariff:
+            allowedDomains: SERVER_NAME
+            facebook_app_id: ''
+            facebook_secret: ''
+            services: 'Facebook, LinkedIn, Reddit, StumbleUpon, Flattr, Pinterest, Xing, AddThis, Vk'
+            ttl: '3600'
         saltedpasswords:
             BE:
                 forceSalted: 0
@@ -178,6 +184,14 @@ EXT:
             maxLifetime: '1440'
             showSampleTasks: '1'
             useAtdaemon: '0'
+        sphinx:
+            auto_continue: '1'
+            install_rst2pdf: '0'
+            pdf_builder: ''
+            plugins: ''
+            processes: '1'
+            rsync_files: 'rst, txt, yml, gif, jpg, jpeg, png, js, css, sh, cfg'
+            version: ''
         sr_email_subscribe:
             addressTable: tt_address
             imageFolder: ''

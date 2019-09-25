@@ -1,0 +1,29 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+<f:section name="main">
+<f:flashMessages />
+	<div class="table-responsive">
+		<table  class="tx_tp3jobs table" >
+			<tr>
+				<th><f:translate key="tx_tp3jobs_domain_model_joboffer.title" /></th>
+				<th><f:translate key="tx_tp3jobs_domain_model_joboffer.descr" /></th>
+				<th><f:translate key="tx_tp3jobs_domain_model_joboffer.refid" /></th>
+
+				<th> </th>
+				<th> </th>
+			</tr>
+
+			<f:for each="{jobOffers}" as="jobOffer">
+				<tr>
+					<td><f:link.action action="show" arguments="{jobOffer:jobOffer}"><f:format.html>{jobOffer.title}</f:format.html></f:link.action></td>
+					<td><f:link.action action="show" arguments="{jobOffer:jobOffer}"><f:format.html>{jobOffer.descr}</f:format.html></f:link.action></td>
+					<td><f:link.action action="show" arguments="{jobOffer:jobOffer}"><f:format.html>{jobOffer.refid}</f:format.html></f:link.action></td>
+					<!--<td><f:link.action action="edit" arguments="{jobOffer : jobOffer}">Edit</f:link.action></td>
+					<td><f:link.action action="delete" arguments="{jobOffer : jobOffer}">Delete</f:link.action></td>-->
+				</tr>
+			</f:for>
+		</table>
+	</div>
+	<!--<f:link.action action="new">New JobOffer</f:link.action>-->
+</f:section>
+</html>

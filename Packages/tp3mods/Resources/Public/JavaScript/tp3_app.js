@@ -655,21 +655,21 @@ var tp3parallax = tp3parallax || false;
 tp3_app.parallax = function(){
 //.body-bg .section_image,
 	if(!tp3parallax){
-		$(".frame-backgroundimage-fade, .main-section .frame-container").each(function() {
-			$(this).addClass("animated");
-			if (isScrolledIntoView(this) === true) {
-				$(this).addClass("fadeInLeft");
-			}
-		});
+		// $(".frame-backgroundimage-fade, .main-section .frame-container").each(function() {
+		// 	$(this).not($(this).parents('.modal')).addClass("animated");
+		// 	if (isScrolledIntoView(this) === true) {
+		// 		if(!$(this).hasClass("fadeInLeft") && $(this).parents('.modal').length < 1)$(this).addClass("fadeInLeft");
+		// 	}
+		// });
 		}
 	else{
 		// declare the variable to affect the defined data-type
 		console.log("parallax");
 		$(window).scroll(function() {
-			$(".frame-backgroundimage-fade, .main-section .frame-container").each(function() {
-				$(this).addClass("animated");
+			$(".frame-backgroundimage-fade").each(function() {
+				$(this).not($(this).parents('.modal')).addClass("animated");
 				if (isScrolledIntoView(this) === true) {
-					$(this).addClass("fadeInLeft");
+					$(this).not($(this).parents('.modal')).addClass("fadeInLeft");
 				}
 				$j(' .frame-backgroundimage-parallax, .carousel-inner .item.active,  #content.main-section  > .section , #content.main-section  > .row.frame, .section_image, .frame-backgroundimage-container > .frame-backgroundimage-parallax').each(function(){// HTML5 proves useful for helping with creating JS functions!
 
@@ -694,18 +694,6 @@ tp3_app.parallax = function(){
 		}); // end window scroll
 	}
 
-
-
-
-
-
-
-
-	// $j(document).scroll(scroll);
-	// $j(window).resize(wresize);
-	//$j('#content.main-section  > .section , #content.main-section  > .row.frame').css({"min-height":screen.height});
-	//$j('#content.main-section').first().css({"min-height":screen.height});
-//$j('body > .body-bg').attr("data-speed","6").css({"background-image":"url(fileadmin/user_upload/neodental/Technician-in-dental-lab-presenting-a-prosthesis-into-the-camera-000025618872_Double.jpg)"});
 	$j(window).trigger("scroll")
 };
 //$j('.main-section > .section.section-light').attr("data-speed","3").css({"background-size":"cover;","background-image":"url(fileadmin/locations/LocationGuide-Titelbilder/ATELIERS-GALERIEN-documenta10_Seitenlichthalle__documenta_gGmbH.jpg)"});
@@ -724,7 +712,21 @@ tp3_app.initcontrols = tp3_app.initcontrols || false;
 tp3_app.controls = function(){
 
 	if(tp3_app.initcontrols) return;
-
+	$j('.glyphicon.glyphicon-tags').click(function(){
+		$j(this).next('.news-list-tags').toggle();
+	})
+	$j('.toolbar a').hover(function(){
+		$j(this).next('.texticon-content').css({"background":"rgba(255,255,255,0.9)",
+			"font-size": "10px",
+			"width": "300px",
+			"padding": "15px",
+			"border-radius": "10px",
+			"margin-left":"5px",
+			"border": "1pt #222"}).toggle();
+	},
+		function(){
+			$j(this).next('.texticon-content').delay(1300).toggle();
+		})
 	var ts_style = ts_style || {border: false, mousespeed: 1.3, size:"500", smallestsize:8, biggestsize:22, clicktostart:true};
 
 	$j('.tag-cloud').each(function(){
@@ -778,7 +780,7 @@ tp3_app.controls = function(){
 				$j('form[name="anfordern"]').autosubmit({
 					"request": "data"
 				});
-
+				$modal.find(".frame-backgroundimage-fade, .main-section .frame-container").removeClass("animated").removeClass("fadeInLeft");
 				$modal.find('input[type="checkbox"]').each(function(){
 					var tgt =  $j(this).prev('input[type="hidden"]');
 					$j(this).insertBefore($j(this).parent('label')).on("change",function(){
@@ -993,21 +995,7 @@ tp3_app.controls = function(){
 
 	$j('.isotop.button, .isotop.controls .glyphicon-filter, .isotop.controls .glyphicon-sort').css( 'cursor', 'pointer' )
 
-	$j("a[rel=locationDetail]").fancybox({
-		openEffect: 'elastic',
-		closeEffect: 'elastic',
-		autoSize: true,
-		padding: 2,
-		margin: [75, 15, 10, 15],
-		helpers: {
-			title: {
-				type: 'inside'
-			},
-			overlay : {
-				locked : false
-			}
-		}
-	})
+
 	/*
 	map svg
 	 */
@@ -1275,8 +1263,11 @@ $j.fn.autosubmit = function(options) {
 				console.log(data);
 				form.hide();
 				$j(data).insertAfter(form);
-				// tp3_app.scriptsload(data);
-				$j(document).trigger("loaded");
+				$(form).find(".frame-backgroundimage-fade, .main-section .frame-container").each(function() {
+					$(this).addClass("animated");
+					$(this).addClass("fadeInLeft");
+
+				});				$j(document).trigger("loaded");
 
 			},
 		}).done(function() {

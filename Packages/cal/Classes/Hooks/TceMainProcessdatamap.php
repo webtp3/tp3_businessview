@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\Hooks;
 
 /**
@@ -55,11 +62,11 @@ class TceMainProcessdatamap
     {
         /* If we have an existing calendar event */
         if ($table === 'tx_cal_event' && count($fieldArray) > 1) {
-            if ($fieldArray ['start_date']) {
+            if ($fieldArray ['start_date'] && !is_null($fieldArray ['start_date'])) {
                 $fieldArray ['start_date'] = self::convertBackendDateToYMD($fieldArray ['start_date']);
             }
 
-            if ($fieldArray ['end_date']) {
+            if ($fieldArray ['end_date'] && !is_null($fieldArray ['end_date'])) {
                 $fieldArray ['end_date'] = self::convertBackendDateToYMD($fieldArray ['end_date']);
             }
 
@@ -68,7 +75,7 @@ class TceMainProcessdatamap
                 $fieldArray ['end_date'] = $fieldArray ['start_date'];
             }
 
-            if ($fieldArray ['until']) {
+            if ($fieldArray ['until'] && !is_null($fieldArray ['until'])) {
                 $fieldArray ['until'] = self::convertBackendDateToYMD($fieldArray ['until']);
             }
 
@@ -118,7 +125,7 @@ class TceMainProcessdatamap
                         $fileInfo = GeneralUtility::split_fileref($oldPath);
                         $GLOBALS ['TSFE']->tmpl->allowedPaths [] = $fileInfo ['path'];
 
-                        $notificationService->controller->getDateTimeObject = new CalendarDateTime($event ['start_date'] . '000000');
+                        $notificationService->controller->getDateTimeObject = self::convertBackendDateToYMD($event['start_date']);
                         $notificationService->notifyOfChanges($event, $fieldArray);
                         if ($fieldArray ['send_invitation']) {
                             $notificationService->invite($event);
@@ -132,11 +139,11 @@ class TceMainProcessdatamap
         }
 
         if ($table === 'tx_cal_exception_event' && count($fieldArray) > 1) {
-            if ($fieldArray ['start_date']) {
+            if ($fieldArray ['start_date'] && !is_null($fieldArray ['start_date'])) {
                 $fieldArray ['start_date'] = self::convertBackendDateToYMD($fieldArray ['start_date']);
             }
 
-            if ($fieldArray ['end_date']) {
+            if ($fieldArray ['end_date'] && !is_null($fieldArray ['end_date'])) {
                 $fieldArray ['end_date'] = self::convertBackendDateToYMD($fieldArray ['end_date']);
             }
 
@@ -145,7 +152,7 @@ class TceMainProcessdatamap
                 $fieldArray ['end_date'] = $fieldArray ['start_date'];
             }
 
-            if ($fieldArray ['until']) {
+            if ($fieldArray ['until'] && !is_null($fieldArray ['until'])) {
                 $fieldArray ['until'] = self::convertBackendDateToYMD($fieldArray ['until']);
             }
         }
@@ -203,7 +210,7 @@ class TceMainProcessdatamap
      */
     public static function processDatamap_afterDatabaseOperations($status, $table, $id, &$fieldArray, &$tcemain)
     {
-
+        //todo fix vertical list edit backend
         /* If we have a new calendar event */
         if (($table === 'tx_cal_event' || $table === 'tx_cal_exception_event') && count($fieldArray) > 1) {
             $event = BackendUtility::getRecord($table, $status === 'new' ? $tcemain->substNEWwithIDs [$id] : $id);
@@ -240,7 +247,7 @@ class TceMainProcessdatamap
                         $fileInfo = GeneralUtility::split_fileref($oldPath);
                         $GLOBALS ['TSFE']->tmpl->allowedPaths [] = $fileInfo ['path'];
 
-                        $notificationService->controller->getDateTimeObject = new CalendarDateTime($event ['start_date'] . '000000');
+                        $notificationService->controller->getDateTimeObject = CalendarDateTime::createFromFormat('Ymd', $event ['start_date'])->setTimezone(new \DateTimeZone(date('T')));
 
                         if ($status === 'new') {
                             $notificationService->notify($event);
@@ -272,15 +279,15 @@ class TceMainProcessdatamap
             if (is_array($deviationRow)) {
                 $startDate = null;
                 if ($deviationRow['start_date']) {
-                    $startDate = new CalendarDateTime($deviationRow['start_date']);
+                    $startDate = CalendarDateTime::createFromFormat('Ymd', $deviationRow ['start_date'])->setTimezone(new \DateTimeZone(date('T')));//new CalendarDateTime($deviationRow['start_date']);
                 } else {
-                    $startDate = new CalendarDateTime($deviationRow['orig_start_date']);
+                    $startDate = CalendarDateTime::createFromFormat('Ymd', $deviationRow ['orig_start_date'])->setTimezone(new \DateTimeZone(date('T')));//new CalendarDateTime($deviationRow['orig_start_date']);
                 }
                 $endDate = null;
                 if ($deviationRow['end_date']) {
-                    $endDate = new CalendarDateTime($deviationRow['end_date']);
+                    $endDate = CalendarDateTime::createFromFormat('Ymd', $deviationRow ['end_date'])->setTimezone(new \DateTimeZone(date('T')));//new CalendarDateTime($deviationRow['end_date']);
                 } else {
-                    $endDate = new CalendarDateTime($deviationRow['orig_end_date']);
+                    $endDate = CalendarDateTime::createFromFormat('Ymd', $deviationRow ['orig_end_date'])->setTimezone(new \DateTimeZone(date('T')));//new CalendarDateTime($deviationRow['orig_end_date']);
                 }
 
                 if (! $deviationRow['allday']) {
@@ -295,8 +302,8 @@ class TceMainProcessdatamap
                 $table = 'tx_cal_index';
                 $where = ['event_deviation_uid' => $id];
                 $insertFields = [
-                    'start_datetime' => $startDate->format('Ymd') . $startDate->format('HMS'),
-                    'end_datetime' => $endDate->format('Ymd') . $endDate->format('HMS')
+                    'start_datetime' => $startDate->format('Ymd') . $startDate->format('His'),
+                    'end_datetime' => $endDate->format('Ymd') . $endDate->format('His')
                 ];
                 /** @var ConnectionPool $connectionPool */
                 $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
@@ -361,7 +368,7 @@ class TceMainProcessdatamap
              *
              * @todo Default date calculations do not take any timezone information into account.
              */
-            if ($incomingFieldArray ['freq'] !== $event ['freq']) {
+            if ($incomingFieldArray ['freq'] && $incomingFieldArray ['freq'] !== $event ['freq']) {
                 $date = self::convertBackendDateToPear($incomingFieldArray ['start_date']);
                 $date->addSeconds($incomingFieldArray ['start_time']);
                 $dayArray = self::getWeekdayOccurrence($date);
@@ -605,7 +612,8 @@ class TceMainProcessdatamap
     public static function convertBackendDateToPear($dateString): CalendarDateTime
     {
         $ymdString = self::convertBackendDateToYMD($dateString);
-        return new CalendarDateTime($ymdString . '000000');
+        $date =  GeneralUtility::makeInstance(CalendarDateTime::class,"@".$ymdString);
+        return $date;//new CalendarDateTime($ymdString . '000000');
     }
 
     /**
@@ -618,10 +626,20 @@ class TceMainProcessdatamap
      */
     public static function convertBackendDateToYMD($dateString): string
     {
-       // if(is_int($dateString))$dateString = '@'.$dateString;
-        //$date = new CalendarDateTime($dateString);
-        $date = CalendarDateTime::createFromFormat( 'U', $dateString );
+        $src_format = 'U';
+         if(!is_int($dateString)){
+             $dateString = strtotime($dateString);
+         }
+         else if(is_int($dateString) && strlen($dateString) == 8){
+             $src_format = 'Ymd';
+         }
+        $offset = CalendarDateTime::createFromFormat($src_format, $dateString)->setTimezone(new \DateTimeZone(date('T')))->getOffset();
+        $date = CalendarDateTime::createFromFormat($src_format, $dateString)->setTimezone(new \DateTimeZone(date('T')))->add(new \DateInterval('PT' . $offset . 'S'));
 
         return $date->format('Ymd');
+
+        //$date = new CalendarDateTime($dateString);
+        //get UTC offset
+
     }
 }

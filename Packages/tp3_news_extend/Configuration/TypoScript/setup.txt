@@ -120,13 +120,13 @@ plugin.tx_news {
 					maxWidth = 540
 					maxHeight =
 
-					# Get lightbox settings from css_styled_content
+					# Get lightbox settings from fluid_styled_content
 					lightbox {
-						enabled = {$styles.content.imgtext.linkWrap.lightboxEnabled}
-						class = {$styles.content.imgtext.linkWrap.lightboxCssClass}
-						width = {$styles.content.imgtext.linkWrap.width}
-						height = {$styles.content.imgtext.linkWrap.height}
-						rel = lightbox[myImageSet]
+						enabled = 1
+						class = {$plugin.bootstrap_package_contentelements.lightbox.cssClass}
+						width = {$plugin.bootstrap_package_contentelements.lightbox.image.maxWidth}
+						height = {$plugin.bootstrap_package_contentelements.lightbox.image.maxHeight}
+						rel = {$plugin.bootstrap_package_contentelements.lightbox.prefix}
 					}
 				}
 
@@ -153,7 +153,7 @@ plugin.tx_news {
 
 			# Paginate configuration.
 			paginate {
-				itemsPerPage = 10
+				itemsPerPage = 20
 				insertAbove = 0
 				insertBelow = 1
 				prevNextHeaderTags = 1
@@ -253,7 +253,6 @@ module.tx_news {
 	settings.list.paginate.itemsPerPage = 50
 }
 
-<INCLUDE_TYPOSCRIPT: source="FILE:EXT:yoast_news/Configuration/TSconfig/Page.tsconfig">
 tx_news_sitemap = PAGE
 tx_news_sitemap {
 	typeNum = {$plugin.tx_news.settings.sitemap.typeNumber}
@@ -320,3 +319,4 @@ tx_news_sitemap {
 	#20.renderObj.10.10.10.typolink.parameter = Detail pid
 
 }
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:yoast_news/Configuration/TypoScript/setup.typoscript">

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\View;
 
 use TYPO3\CMS\Cal\Model\CalendarDateTime;
@@ -105,7 +111,7 @@ abstract class NewTimeView
                 ' ',
                 '',
                 ucwords(str_replace('_', ' ', strtolower($marker)))
-                ) . 'Marker';
+            ) . 'Marker';
 
             if (method_exists($this, $funcFromMarker)) {
                 $this->$funcFromMarker($template, $sims, $rems, $wrapped, $view);
@@ -133,7 +139,7 @@ abstract class NewTimeView
                         ' ',
                         '',
                         ucwords(str_replace('_', ' ', strtolower($marker)))
-                        ) . 'Marker';
+                    ) . 'Marker';
                     if (method_exists($this, $funcFromMarker)) {
                         $this->$funcFromMarker($template, $sims, $rems, $wrapped, $view);
                     } elseif (preg_match('/MODULE__([A-Z0-9_-|])*/', $marker)) {
@@ -147,7 +153,7 @@ abstract class NewTimeView
                             ' ',
                             '',
                             ucwords(str_replace('_', ' ', strtolower($marker)))
-                            );
+                        );
                         if (method_exists($this, $functionName)) {
                             $tmp = $this->$functionName();
                             if (!is_object($tmp) && !is_array($tmp)) {
@@ -563,7 +569,7 @@ abstract class NewTimeView
                     true,
                     '',
                     '',
-                    $d_start->format('HM')
+                    $d_start->format('Hi')
                 );
             } else {
                 $createLink = '';
@@ -662,11 +668,11 @@ abstract class NewTimeView
             $local_cObj = $this->getLocalCObject();
             $timeParams = '';
             if ($view === 'day' || $view === 'week') {
-                $timeParams = '&tx_cal_controller[gettime]=' . $date->format('HM');
+                $timeParams = '&tx_cal_controller[gettime]=' . $date->format('Hi');
             } elseif ($conf['rights.']['create.']['event.']['fields.']['starttime.']['default'] === 'now') {
                 $now = new CalendarDateTime();
                 $than->setTZbyID('UTC');
-                $timeParams = '&tx_cal_controller[gettime]=' . $now->format('HM');
+                $timeParams = '&tx_cal_controller[gettime]=' . $now->format('Hi');
             }
 
             $local_cObj->setCurrentVal($conf['view.'][$view . '.']['event.']['addIcon']);

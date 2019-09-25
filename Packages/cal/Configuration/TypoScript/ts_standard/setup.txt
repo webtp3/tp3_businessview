@@ -15,7 +15,7 @@ plugin.tx_cal_controller {
     pidList = {$plugin.tx_cal_controller.pidList}
 
     # @description    List of csv of piVars, which should not appear in the url, but should be stored inside the users session. Attention: this works only, if the piVar is the same through a whole single page
-    sessionPiVars = backlink,page_id,lastview
+    sessionPiVars =
 
     # @description    Name of the calendar.
     # @also            FlexForm
@@ -77,6 +77,8 @@ plugin.tx_cal_controller {
     fluidPartialsPath = EXT:cal/Resources/Private/Templates/v2/Partials
 
     view {
+
+        widget.Typo3\Cal\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = EXT:cal/Resources/Private/Templates/
         # @description    Allowed calendar views. First one in the list is the default view.
         #                Options are day,week,month,year,list,event,search_all,search_event,search_location,search_organizer,organizer,location,admin,create_event,confirm_event,save_event,edit_event,delete_event,remove_event,create_location,confirm_location,save_location,edit_loaction,delete_location,remove_location,create_organizer,confirm_organizer,save_organizer,edit_organizer,delete_organizer,remove_organizer,create_calendar,confirm_calendar,save_calendar,edit_calendar,delete_calendar,remove_calendar,create_category,confirm_category,save_category,edit_category,delete_category,remove_category.
         # @also            FlexForm
@@ -222,6 +224,9 @@ plugin.tx_cal_controller {
             # @description    Enables a preview of the event
             isPreview = 0
 
+            # @description    Enables a preview of the event
+            showMap = 1
+
             # @description    stdWrap for the link text of category
             categoryLink_stdWrap {
                 wrap =
@@ -340,7 +345,7 @@ plugin.tx_cal_controller {
                 title = TEXT
                 title {
                     current = 1
-                    dataWrap = <div>%%%TITLE_LABEL%%%:&nbsp; |</div>
+                    dataWrap = <div class="%%%TITLE_LABEL%%%"> |</div>
                 }
 
                 # @description    Content object for the event title of allDay Events
@@ -350,7 +355,7 @@ plugin.tx_cal_controller {
                 startdate = TEXT
                 startdate {
                     current = 1
-                    dataWrap = <div>%%%STARTDATE_LABEL%%%:&nbsp; |</div>
+                    dataWrap = <span class="%%%STARTDATE_LABEL%%%"> |</span>
                 }
 
                 # @description    Content object for the event end date
@@ -359,21 +364,21 @@ plugin.tx_cal_controller {
                     current = 1
                     noTrimWrap = | - ||
                     required = 1
-                    dataWrap = <div>%%%ENDDATE_LABEL%%%:&nbsp; |</div>
+                    dataWrap = <span class="%%%ENDDATE_LABEL%%%"> |</span>
                 }
 
                 # @description    Content object for the event start time
                 starttime = TEXT
                 starttime {
                     current = 1
-                    dataWrap = <div>%%%STARTTIME_LABEL%%%:&nbsp; |</div>
+                    dataWrap = <span class="%%%STARTTIME_LABEL%%%"> |</span>
                 }
 
                 # @description    Content object for the event end time
                 endtime = TEXT
                 endtime {
                     current = 1
-                    dataWrap = <div>%%%ENDTIME_LABEL%%%:&nbsp; |</div>
+                    dataWrap = <span class="%%%ENDTIME_LABEL%%%"> |</span>
                 }
 
                 # @description    Content object for the event category
@@ -414,14 +419,14 @@ plugin.tx_cal_controller {
                 organizer =< plugin.tx_cal_controller.view.defaultLinkSetup
                 organizer {
                     required = 1
-                    dataWrap = <div>%%%ORGANIZER%%%:&nbsp; |</div>
+                    dataWrap = <div class="organizer">%%%ORGANIZER%%%:&nbsp; |</div>
                 }
 
                 # @description    Content object for the event location
                 location =< plugin.tx_cal_controller.view.defaultLinkSetup
                 location {
                     required = 1
-                    dataWrap = <div>%%%LOCATION%%%:&nbsp; |</div>
+                    dataWrap = <div class="location">%%%LOCATION%%%:&nbsp; |</div>
                 }
 
                 # @description    Content object for event teaser
@@ -449,7 +454,7 @@ plugin.tx_cal_controller {
                     field = description
                     required = 1
                     stdWrap.parseFunc < lib.parseFunc_RTE
-                    dataWrap = <div>%%%DESCRIPTION_LABEL%%%:&nbsp; |</div>
+                    dataWrap = <div class="description"> |</div>
                 }
 
                 # @description    Content object for event image
@@ -460,7 +465,6 @@ plugin.tx_cal_controller {
                         uid.data = field:uid
                         fieldName = image
                     }
-
                     renderObj = IMAGE
                     renderObj {
                         required = 1
@@ -468,9 +472,16 @@ plugin.tx_cal_controller {
                         file.height = {$plugin.tx_cal_controller.singleMaxH}m
                         file.import.data = file:current:originalUid//file:current:uid
                     }
+                    lightbox {
+                        enabled = {$plugin.tx_cal_controller.lightbox}
+                        class = {$styles.content.imgtext.linkWrap.lightboxCssClass}
+                        width = {$styles.content.imgtext.linkWrap.width}
+                        height = {$styles.content.imgtext.linkWrap.height}
+                        rel = lightbox[myImageSet]
+                    }
 
                     stdWrap.required = 1
-                    stdWrap.dataWrap = <div>%%%IMAGE_LABEL%%%:&nbsp; |</div>
+                    stdWrap.dataWrap = <div class="%%%IMAGE_LABEL%%%"> |</div>
                 }
 
                 # @description_image    Content object for rendering the description and the images with the regular 'text with image' (TEXTPIC) cObject
@@ -2184,7 +2195,16 @@ plugin.tx_cal_controller {
                 odd = LIST_ODD
                 even = LIST_EVEN
             }
-
+            # Paginate configuration.
+            paginate {
+                enabled = 1
+                itemsPerPage = 10
+                insertAbove = 0
+                insertBelow = 1
+                prevNextHeaderTags = 1
+                maximumNumberOfLinks = 10
+                templatePath = typo3conf/ext/cal/Resources/Private/Templates/ViewHelpers/Widget/Paginate/Index.html
+            }
             # @description Restarts the alternation of the layouts after each day, when enableDayWrapper is used.
             # @also    enableDayWrapper
             restartAlternationAfterDayWrapper = 0

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 use TYPO3\CMS\Cal\Backend\Form\FormDateDataProvider;
 use TYPO3\CMS\Cal\Backend\Form\RenderType\ByDayElement;
 use TYPO3\CMS\Cal\Backend\Form\RenderType\ByMonthDayElement;
@@ -95,11 +101,12 @@ ExtensionManagementUtility::addTypoScript('cal', 'setup', '
 		#dontListenToPiVars = 1
 	}
 ', 43);
-
-ExtensionManagementUtility::addPageTSConfig('
-	options.tx_cal_controller.headerStyles = default_catheader=#557CA3,green_catheader=#53A062,orange_catheader=#E84F25,pink_catheader=#B257A2,red_catheader=#D42020,yellow_catheader=#B88F0B,grey_catheader=#73738C
-	options.tx_cal_controller.bodyStyles = default_catbody=#6699CC,green_catbody=#4FC464,orange_catbody=#FF6D3B,pink_catbody=#EA62D4,red_catbody=#FF5E56,yellow_catbody=#CCB21F,grey_catbody=#9292A1
-');
+////#todo TCEMAIN.preview.tx_cal_event.previewPageId for pageIDForPlugin
+//ExtensionManagementUtility::addPageTSConfig('
+//	options.tx_cal_controller.headerStyles = default_catheader=#557CA3,green_catheader=#53A062,orange_catheader=#E84F25,pink_catheader=#B257A2,red_catheader=#D42020,yellow_catheader=#B88F0B,grey_catheader=#73738C
+//	options.tx_cal_controller.bodyStyles = default_catbody=#6699CC,green_catbody=#4FC464,orange_catbody=#FF6D3B,pink_catbody=#EA62D4,red_catbody=#FF5E56,yellow_catbody=#CCB21F,grey_catbody=#9292A1
+//	options.tx_cal_controller.pageIDForPlugin = plugin.tx_cal_controller.view.event.eventViewPid
+//');
 
 $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['cal_ajax'] = 'EXT:cal/Classes/Ajax/Ajax.php';
 
@@ -1134,6 +1141,8 @@ FormDateDataProvider::register();
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler']['calendar'] = EventLinkHandler::class;
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tce']['formevals']['tx_cal_dateeval'] = DateEval::class;
+$GLOBALS ['TYPO3_CONF_VARS'] ['EXTCONF'] ['tx_wecmap_pi3'] ['markerHook'] ['cal'] = 'TYPO3\\CMS\\Cal\\Hooks\\WecMap->getMarkerContent';
+
 // $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['felogin']['loginFormOnSubmitFuncs'][] = 'TYPO3\\CMS\\Cal\\Hooks\\LogoffPostProcessing:LogoffPostProcessing->clearSessionApiAfterLogoff';
 // $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['felogin']['login_confirmed'][] = 'TYPO3\\CMS\\Cal\\Hooks\\LogoffPostProcessing:LogoffPostProcessing->clearSessionApiAfterLogin';
 
@@ -1240,8 +1249,8 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][MigrateCalCat
 ExtensionManagementUtility::addPageTSConfig('
 mod.wizards.newContentElement.wizardItems.plugins.elements.tx_cal {
     iconIdentifier = tx-cal-wizard
-    title = LLL:EXT:cal/Resources/Private/Language/locallang_plugin.xml:pi1_title
-    description = LLL:EXT:cal/Resources/Private/Language/locallang_plugin.xml:pi1_plus_wiz_description
+    title = LLL:EXT:cal/Resources/Private/Language/locallang_plugin.xlf:pi1_title
+    description = LLL:EXT:cal/Resources/Private/Language/locallang_plugin.xlf:pi1_plus_wiz_description
     tt_content_defValues {
         CType = list
         list_type = cal_controller

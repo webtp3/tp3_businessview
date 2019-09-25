@@ -103,7 +103,8 @@
 		var loading = loading || false
         if (inview) {
             var source = $(this.$element).data("link");
-            if (!loading && source) {
+			$(this.$element).addClass("fadeInLeft").addClass("animated");
+			if (!loading && source) {
 				loading = true;
 
                 console.log("ResponsiveContent load");
@@ -163,7 +164,7 @@
                 });
                 this.loaded	= true;
             }
-            else if($(this.$element).parents('.news-list-view').hasClass('isotop') || $(this.$element).parents('.news-list-view').hasClass("boxes")){
+            else if(($(this.$element).parents('.news-list-view').hasClass('isotop') || $(this.$element).parents('.news-list-view').hasClass("boxes")) && $.type($.fn.isotope) == "function" ){
 					$(this.$element).parents('.news-panel').isotope('layout');
 
             }
@@ -200,7 +201,7 @@
     $.fn.responsiveContent.Constructor = ResponsiveContent;
 
     $(window).on('load.tp3.responsiveContent', function() {
-        $('.news .responsiveContent').responsiveContent();
+        $('.news .responsiveContent, .frame-backgroundimage-fade').responsiveContent();
         // EVENTS
         // ======
         $(window)

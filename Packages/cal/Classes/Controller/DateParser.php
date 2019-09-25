@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\Controller;
 
 /**
@@ -87,7 +93,7 @@ class DateParser
     {
         if ($timeObj === null) {
             $timeObj = new CalendarDateTime();
-            $timeObj->setTZbyID('UTC');
+            $timeObj->setTimezone(new \DateTimeZone(date('T')));
         }
         $this->timeObj = $timeObj;
         $this->conf = &$conf;

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the web-tp3/cal.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace TYPO3\CMS\Cal\Model;
 
 use TYPO3\CMS\Cal\Model\Pear\Date;
@@ -47,6 +53,36 @@ class CalendarDateTime extends \DateTime
 {
 
     /**
+     * (PHP 5 &gt;=5.2.0)<br/>
+     * @link https://php.net/manual/en/datetime.construct.php
+     * @param string $time [optional]
+     * <p>A date/time string. Valid formats are explained in {@link www.php.net/manual/en/datetime.formats.php Date and Time Formats}.</p>
+     * <p>
+     * Enter <b>now</b> here to obtain the current time when using
+     * the <em>$timezone</em> parameter.
+     * </p>
+     * @param DateTimeZone $timezone [optional] <p>
+     * A {@link https://php.net/manual/en/class.datetimezone.php DateTimeZone} object representing the
+     * timezone of <em>$time</em>.
+     * </p>
+     * <p>
+     * If <em>$timezone</em> is omitted,
+     * the current timezone will be used.
+     * </p>
+     * <blockquote><p><b>Note</b>:
+     * </p><p>
+     * The <em>$timezone</em> parameter
+     * and the current timezone are ignored when the
+     *<em>$time</em> parameter either
+     * is a UNIX timestamp (e.g. <em>@946684800</em>)
+     * or specifies a timezone
+     * (e.g. <em>2010-01-28T15:00:00+02:00</em>).
+     * </p> <p></p></blockquote>
+     * @throws Exception Emits Exception in case of an error.
+     */
+//    public function __construct ($time='now', DateTimeZone $timezone=null) {}
+
+    /**
      * define the default weekday abbreviation length
      * used by ::format()
      *
@@ -67,7 +103,7 @@ class CalendarDateTime extends \DateTime
      * @param CalendarDateTime $compareDate
      * @return bool
      */
-    public function equals(CalendarDateTime $compareDate): bool
+    public function equals(self $compareDate): bool
     {
         $a = floatval($compareDate->format('YmdHis'));
         $b = floatval($this->format('YmdHis'));
@@ -78,7 +114,7 @@ class CalendarDateTime extends \DateTime
      * @param CalendarDateTime $compareDate
      * @return bool
      */
-    public function before(CalendarDateTime $compareDate): bool
+    public function before(self $compareDate): bool
     {
         $a = floatval($compareDate->format('YmdHis'));
         $b = floatval($this->format('YmdHis'));
@@ -89,7 +125,7 @@ class CalendarDateTime extends \DateTime
      * @param CalendarDateTime $compareDate
      * @return bool
      */
-    public function after(CalendarDateTime $compareDate): bool
+    public function after(self $compareDate): bool
     {
         $a = floatval($compareDate->format('YmdHis'));
         $b = floatval($this->format('YmdHis'));
@@ -101,7 +137,7 @@ class CalendarDateTime extends \DateTime
      * @param $compareDateB
      * @return int
      */
-    public function compare(CalendarDateTime $compareDateA, CalendarDateTime $compareDateB): int
+    public function compare(self $compareDateA, self $compareDateB): int
     {
         $a = floatval($compareDateA->format('YmdHis'));
         $b = floatval($compareDateB->format('YmdHis'));
@@ -270,14 +306,16 @@ class CalendarDateTime extends \DateTime
      */
     public function copy($date)
     {
-       if($date == "")$date= new CalendarDateTime();
-        $this->setYear($date->getYear());
-        $this->setMonth($date->getMonth());
-        $this->setDay($date->getDay());
-        $this->setHour($date->getHour());
-        $this->setMinute($date->getMinute());
-        $this->setSecond($date->getSecond());
-        $this->setTimezone($date->getTimezone());
+        if ($date == '') {
+            $date= new self();
+        }
+        $this->setYear($date->format('Y'));
+        $this->setMonth($date->format('m'));
+        $this->setDay($date->format('d'));
+        $this->setHour($date->format('H'));
+        $this->setMinute($date->format('i'));
+        $this->setSecond($date->format('s'));
+        $this->setTimezone(new \DateTimeZone('UTC'));
     }
 
     /**
@@ -301,7 +339,7 @@ class CalendarDateTime extends \DateTime
      */
     public function getDay(): int
     {
-        return (int)$this->format('d')+1;
+        return (int)$this->format('d');
     }
 
     /**
@@ -387,11 +425,10 @@ class CalendarDateTime extends \DateTime
     {
         //trigger_error('This function will be removed together with all remains of PEAR in version 3.0.0 of ext:cal.', E_USER_DEPRECATED);
 
-        $now =  new \DateTime("now");
+        $now =  new \DateTime('now');
         if (!$this->diff($now)) {
             return true;
         }
         return false;
     }
-
 }

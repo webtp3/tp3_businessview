@@ -2,7 +2,7 @@
 	"name": "web-tp3/cal",
 	"description": "A calendar combining all the functions of the existing calendar extensions plus adding some new features. It is based on the ical standard",
 	"type": "typo3-cms-extension",
-	"version": "2.5.1",
+	"version": "2.5.3",
 	"license": [
 		"GPL-2.0-or-later"
 	],
@@ -16,6 +16,11 @@
 			"name": "Mario Matzulla",
 			"email": "mario@matzullas.de",
 			"homepage": "https://www.matzullas.de/"
+		},
+		{
+			"name": "Thomas Ruta",
+			"email": "email@thomasruta.de",
+			"homepage": "https://www.thomasruta.de/"
 		}
 	],
 	"require": {
@@ -25,10 +30,23 @@
 	"require-dev": {
 		"editorconfig-checker/editorconfig-checker": "^8.0",
 		"friendsofphp/php-cs-fixer": "^2.13",
-		"typo3/testing-framework": "^1 || ^4 || ^5"
+		"web-tp3/cag_tests": "^1.2",
+		"phpunit/phpunit": "*",
+		"web-tp3/chromedriver": "^2",
+		"helhum/dotenv-connector": "^2.0",
+		"typo3/testing-framework": "*",
+		"nimut/testing-framework": "*",
+		"roave/security-advisories": "@dev",
+		"helhum/typo3-console": "^5"
+
 	},
 	"suggest": {
-		"friendsoftypo3/typo3db-legacy": "^1.1"
+		"friendsoftypo3/typo3db-legacy": "^1.1",
+		"friendsoftypo3/tt-address": "~4",
+		"georgringer/news": "^7",
+		"reelworx/rx-shariff": "~12",
+		"bk2k/bootstrap-package": "^8"
+
 	},
 	"autoload": {
 		"psr-4": {
@@ -41,14 +59,20 @@
 		}
 	},
 	"replace": {
-		"cal": "self.version",
-		"typo3-ter/cal": "self.version"
+		"typo3-ter/cal": "self.version",
+		"janhelke/cal": "self.version",
+		"web-tp3/cal": "self.version"
 	},
 	"config": {
 		"vendor-dir": ".Build/vendor",
 		"bin-dir": ".Build/bin"
 	},
 	"scripts": {
+		"analyze:php": "phpstan analyse --ansi --no-progress --configuration=phpstan.neon --level=5 .Build/Web/typo3conf/ext/",
+		"typo3-cms-scripts": [
+			"typo3cms install:fixfolderstructure",
+			"typo3cms install:generatepackagestates"
+		],
 		"post-autoload-dump": [
 			"mkdir -p .Build/Web/typo3conf/ext/",
 			"[ -L .Build/Web/typo3conf/ext/cal ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/cal"
