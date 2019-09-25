@@ -35,7 +35,7 @@ class EventIndexRepository extends DoctrineRepository
      * @param CalDate $endtime
      * @return array
      */
-    public function findRecurringEvents(CalDate $starttime, CalDate $endtime): array
+    public function findRecurringEvents(CalendarDateTime $starttime, CalendarDateTime $endtime): array
     {
         $queryBuilder = $this->getQueryBuilder();
         return $queryBuilder

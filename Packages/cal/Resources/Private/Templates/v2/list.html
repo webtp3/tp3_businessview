@@ -14,8 +14,7 @@
 			<!--			#todo settings paginate-->
 			<f:if condition="{settings.view.list.paginate}">
 				<f:then>
-				<cal:widget.paginate objects="{listView.master_array}" as="paginatedEvents" configuration="{settings.list.paginate}" initial="{offset:settings.offset,limit:settings.limit}">
-					<div class="cal-panel">
+				<cal:widget.paginate objects="{listView.master_array}" as="paginatedEvents" configuration="{settings.list.paginate}" initial="{offset:settings.offset,limit:settings.limit}"><div class="cal-panel">
 						<ul class=" nav nav-section">
 							<f:for each="{paginatedEvents}" as="entriesOfADay" key="day">
 								<f:for each="{entriesOfADay}" as="entriesOfAnHour">

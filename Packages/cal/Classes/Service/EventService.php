@@ -775,7 +775,7 @@ class EventService extends BaseService
                         /** @var EventModel $event */
                         $eventStart = $event->getStart();
                         $eventEnd = $event->getEnd();
-                        if ($eventStart->format('Ymd') <= strtotime($this->conf['getdate']) && $eventEnd->format('Ymd') >= strtotime($this->conf['getdate']) && $event->getUid() === $uid) {
+                        if ($eventStart->format('Ymd') <= $this->conf['getdate'] && $eventEnd->format('Ymd') >= $this->conf['getdate'] && $event->getUid() === $uid) {
                             return $event;
                         }
                     }
@@ -1142,13 +1142,13 @@ class EventService extends BaseService
                     /** @var CalendarDateTime $start */
                     $start = $event->getStart();
                     $insertFields['start_date'] = $start->format('Ymd');
-                    $insertFields['start_time'] = intval($start->format('H')) * 3600 + intval($start->format('M')) * 60;
+                    $insertFields['start_time'] = intval($start->format('H')) * 3600 + intval($start->format('i')) * 60;
                 }
                 if (is_object($event->getEnd())) {
                     /** @var CalendarDateTime $end */
                     $end = $event->getEnd();
                     $insertFields['end_date'] = $end->format('Ymd');
-                    $insertFields['end_time'] = intval($end->format('H')) * 3600 + intval($end->format('M')) * 60;
+                    $insertFields['end_time'] = intval($end->format('H')) * 3600 + intval($end->format('i')) * 60;
                 }
             }
         } else {
@@ -1542,14 +1542,14 @@ class EventService extends BaseService
             if (is_object($object->getStart())) {
                 $start = $object->getStart();
                 $insertFields['start_date'] = $start->format('Ymd');
-                $insertFields['start_time'] = intval($start->format('H')) * 3600 + intval($start->format('M')) * 60;
+                $insertFields['start_time'] = intval($start->format('H')) * 3600 + intval($start->format('i')) * 60;
             } else {
                 return;
             }
             if (is_object($object->getEnd())) {
                 $end = $object->getEnd();
                 $insertFields['end_date'] = $end->format('Ymd');
-                $insertFields['end_time'] = intval($end->format('H')) * 3600 + intval($end->format('M')) * 60;
+                $insertFields['end_time'] = intval($end->format('H')) * 3600 + intval($end->format('i')) * 60;
             } else {
                 return;
             }
@@ -1650,14 +1650,14 @@ class EventService extends BaseService
             if (is_object($object->getStart())) {
                 $start = $object->getStart();
                 $insertFields['start_date'] = $start->format('Ymd');
-                $insertFields['start_time'] = intval($start->format('H')) * 3600 + intval($start->format('M')) * 60;
+                $insertFields['start_time'] = intval($start->format('H')) * 3600 + intval($start->format('i')) * 60;
             } else {
                 return;
             }
             if (is_object($object->getEnd())) {
                 $end = $object->getEnd();
                 $insertFields['end_date'] = $end->format('Ymd');
-                $insertFields['end_time'] = intval($end->format('H')) * 3600 + intval($end->format('M')) * 60;
+                $insertFields['end_time'] = intval($end->format('H')) * 3600 + intval($end->format('i')) * 60;
             } else {
                 return;
             }
@@ -1816,11 +1816,22 @@ class EventService extends BaseService
         $deviations = [];
         $select = '*';
         $table = 'tx_cal_event_deviation';
-        if (TYPO3_MODE === 'BE') {
+        $connection = $this->connectionPool->getConnectionForTable('tx_cal_calendar');
+
+        $queryBuilder = $connection->createQueryBuilder();
+
+        if (TYPO3_MODE == 'BE') {
             $where = 'parentid = ' . $event->getUid() . BackendUtility::BEenableFields('tx_cal_event_deviation');
+
+            $queryBuilder
+                ->getRestrictions()
+                ->removeAll()
+                ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
         } else {
             $where = 'parentid = ' . $event->getUid() . $this->cObj->enableFields('tx_cal_event_deviation');
+            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
         }
+
         $deviationResult = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $table, $where);
         if ($deviationResult) {
             while ($deviationRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($deviationResult)) {
@@ -1834,7 +1845,19 @@ class EventService extends BaseService
             $GLOBALS['TYPO3_DB']->sql_free_result($deviationResult);
         }
         else{
-            // ?Insert
+//            // ?Insert
+//            //uid, tablename, start_datetime, end_datetime, event_uid, event_deviation_uid
+//            $index = 'tx_cal_index';
+//            $insertFields['event_uid'] = $event->getUid();
+//            $insertFields['start_datetime'] = $event->getUid();
+//            $insertFields['end_datetime'] = $event->getUid();
+//            $insertFields['event_uid'] = $event->getUid();
+//            $insertFields['event_deviation_uid'] = $event->getUid();
+//            $insertFields['tablename'] = $table;
+//
+//
+//            $result = $queryBuilder->insert($index)->values($event)->execute();
+
         }
         #todo geneerate deviations if not found
         $event->setDeviationDates($deviations);
@@ -2048,7 +2071,37 @@ class EventService extends BaseService
                             $master_array[$nextOccuranceTime->format('Ymd')]['-1'][$event->getUid()] = $new_event;
                         } else {
                             $master_array[$nextOccuranceTime->format('Ymd')][$nextOccuranceTime->format('Hi')][$event->getUid()] = $new_event;
+
                         }
+                        //?Insert$new_event
+                        $connection = $this->connectionPool->getConnectionForTable('tx_cal_exception_event');
+                        $queryBuilder = $connection->createQueryBuilder();
+                        if (TYPO3_MODE == 'BE') {
+
+                            $queryBuilder
+                                ->getRestrictions()
+                                ->removeAll()
+                                ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+                        } else {
+                            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+                        }
+                        $new_event->isException = true;
+                        $result = $this->connectionPool->getConnectionForTable($table)->createQueryBuilder()
+                            ->insert($table)->values($new_event)->execute();
+                      //  $this->businessadressrepository->add($adress);
+                        //$this->persistenceManager->persistAll();
+                        //uid, tablename, start_datetime, end_datetime, event_uid, event_deviation_uid
+                        $index = 'tx_cal_index';
+                        $insertFields['event_uid'] = $event->getUid();
+                        $insertFields['start_datetime'] =$nextOccuranceTime->format('Ymd').$nextOccuranceTime->format('Hi');
+                        $insertFields['end_datetime'] = $event->getUid();
+                        $insertFields['event_uid'] = $event->getUid();
+                        $insertFields['event_deviation_uid'] = $event->getUid();
+                        $insertFields['tablename'] = $table;
+
+
+                        $result = $this->connectionPool->getConnectionForTable($index)->createQueryBuilder()
+                            ->insert($index)->values($insertFields)->execute();
                         $added++;
                     }
                 }

@@ -309,13 +309,13 @@ class CalendarDateTime extends \DateTime
         if ($date == '') {
             $date= new self();
         }
-        $this->setYear($date->getYear());
-        $this->setMonth($date->getMonth());
-        $this->setDay($date->getDay());
-        $this->setHour($date->getHour());
-        $this->setMinute($date->getMinute());
-        $this->setSecond($date->getSecond());
-        $this->setTimezone($date->getTimezone());
+        $this->setYear($date->format('Y'));
+        $this->setMonth($date->format('m'));
+        $this->setDay($date->format('d'));
+        $this->setHour($date->format('H'));
+        $this->setMinute($date->format('i'));
+        $this->setSecond($date->format('s'));
+        $this->setTimezone(new \DateTimeZone('UTC'));
     }
 
     /**
