@@ -30,7 +30,7 @@ use TYPO3\CMS\Cal\Domain\Repository\SubscriptionRepository;
 use TYPO3\CMS\Cal\Model\AttendeeModel;
 use TYPO3\CMS\Cal\Model\CalendarDateTime;
 use TYPO3\CMS\Cal\Model\EventModel;
-use TYPO3\CMS\Cal\Model\EventRecDeviationModel;
+use TYPO3\CMS\Cal\Model\EventDeviationModel;
 use TYPO3\CMS\Cal\Model\EventRecModel;
 use TYPO3\CMS\Cal\Model\Model;
 use TYPO3\CMS\Cal\Model\Pear\Date\Calc;
@@ -1831,10 +1831,18 @@ class EventService extends BaseService
             $where = 'parentid = ' . $event->getUid() . $this->cObj->enableFields('tx_cal_event_deviation');
             $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
         }
-
-        $deviationResult = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $table, $where);
+        $deviationResult =  $queryBuilder->select('*')
+            ->from($table)
+            ->where(
+                $queryBuilder->expr()->eq(
+                    'parentid',
+                    $queryBuilder->createNamedParameter($event->getUid(), \PDO::PARAM_INT)
+                )
+            )
+            ->execute();
+       // $deviationResult = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $table, $where);
         if ($deviationResult) {
-            while ($deviationRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($deviationResult)) {
+            while ($deviationRow = $deviationResult->fetch(\PDO::FETCH_ASSOC)) {
                 if ($deviationRow['deleted']) {
                     continue;
                 }
@@ -1842,7 +1850,7 @@ class EventService extends BaseService
                 $origStartDate->addSeconds($deviationRow['orig_start_time']);
                 $deviations[$origStartDate->format('YmdHis')] = $deviationRow;
             }
-            $GLOBALS['TYPO3_DB']->sql_free_result($deviationResult);
+          //  $GLOBALS['TYPO3_DB']->sql_free_result($deviationResult);
         }
         else{
 //            // ?Insert
@@ -1879,6 +1887,10 @@ class EventService extends BaseService
         $eventStart->copy($event->getStart());
         $i = $eventStart->getYear();
         if ($event->getFreq() === 'year') {
+            $i = intval($this->starttime->getYear()) - (($this->starttime->getYear() - $eventStart->getYear()) % $event->getInterval());
+        }
+        else if ($event->getFreq()){
+            $until->setYear($this->endtime->getYear());
             $i = intval($this->starttime->getYear()) - (($this->starttime->getYear() - $eventStart->getYear()) % $event->getInterval());
         }
 
@@ -1932,11 +1944,13 @@ class EventService extends BaseService
             case 'week':
             case 'month':
             case 'year':
+
                 $bymonth = $event->getByMonth();
                 $byday = $event->getByDay();
                 $hour = $eventStart->format('H');
                 $minute = $eventStart->format('i');
                 // 2007, 2008...
+                // walk thru years to index (not event)
                 foreach ($byyear as $year) {
                     if ($counter < $count && $until->after($nextOccuranceTime) && $added < $maxRecurringEvents) {
                         // 1,2,3,4,5,6,7,8,9,10,11,12
@@ -1952,9 +1966,9 @@ class EventService extends BaseService
                                         '0',
                                         STR_PAD_LEFT
                                     )) >= intval($nextOccuranceTime->format('Y') . $nextOccuranceTime->format('m')) && $added < $maxRecurringEvents) {
-                                $bymonthday = $this->getMonthDaysAccordingly($event, $month, $year);
+                                $bymonthday =  cal_days_in_month(CAL_GREGORIAN, $month, $year);//$this->getMonthDaysAccordingly($event, $month, $year);
                                 // 1,2,3,4....31
-                                foreach ($bymonthday as $day) {
+                                for ($day = 1; $day < $bymonthday ; $day++) {
                                     $nextOccuranceTime->setHour($hour);
                                     $nextOccuranceTime->setMinute($minute);
                                     $nextOccuranceTime->setSecond(0);
@@ -1967,18 +1981,21 @@ class EventService extends BaseService
                                         $currentUntil->copy($nextOccuranceTime);
                                         $currentUntil->addSeconds(86399);
                                         if ((int)$nextOccuranceTime->getMonth() === $month && $eventStart->before($nextOccuranceTime) || $eventStart->equals($nextOccuranceTime)) {
-                                            $this->findDailyWithin(
-                                                $master_array,
-                                                $event,
-                                                $nextOccuranceTime,
-                                                $currentUntil,
-                                                $byday,
-                                                $count,
-                                                $counter,
-                                                $total,
-                                                $added,
-                                                $maxRecurringEvents
-                                            );
+
+                                        //# todo insert records
+
+//                                            $this->findDailyWithin(
+//                                                $master_array,
+//                                                $event,
+//                                                $nextOccuranceTime,
+//                                                $currentUntil,
+//                                                $byday,
+//                                                $count,
+//                                                $counter,
+//                                                $total,
+//                                                $added,
+//                                                $maxRecurringEvents
+//                                            );
                                         } else {
                                             continue;
                                         }
@@ -2051,7 +2068,7 @@ class EventService extends BaseService
                         );
                         if ($result2) {
                             while ($row2 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($result2)) {
-                                $new_event = new EventRecDeviationModel(
+                                $new_event = new EventDeviationModel(
                                     $event,
                                     $row2,
                                     $nextOccuranceTime,
@@ -2085,23 +2102,23 @@ class EventService extends BaseService
                         } else {
                             $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
                         }
-                        $new_event->isException = true;
-                        $result = $this->connectionPool->getConnectionForTable($table)->createQueryBuilder()
-                            ->insert($table)->values($new_event)->execute();
-                      //  $this->businessadressrepository->add($adress);
-                        //$this->persistenceManager->persistAll();
-                        //uid, tablename, start_datetime, end_datetime, event_uid, event_deviation_uid
-                        $index = 'tx_cal_index';
-                        $insertFields['event_uid'] = $event->getUid();
-                        $insertFields['start_datetime'] =$nextOccuranceTime->format('Ymd').$nextOccuranceTime->format('Hi');
-                        $insertFields['end_datetime'] = $event->getUid();
-                        $insertFields['event_uid'] = $event->getUid();
-                        $insertFields['event_deviation_uid'] = $event->getUid();
-                        $insertFields['tablename'] = $table;
-
-
-                        $result = $this->connectionPool->getConnectionForTable($index)->createQueryBuilder()
-                            ->insert($index)->values($insertFields)->execute();
+//                        $new_event->isException = true;
+//                        $result = $this->connectionPool->getConnectionForTable($table)->createQueryBuilder()
+//                            ->insert($table)->values($new_event)->execute();
+//                      //  $this->businessadressrepository->add($adress);
+//                        //$this->persistenceManager->persistAll();
+//                        //uid, tablename, start_datetime, end_datetime, event_uid, event_deviation_uid
+//                        $index = 'tx_cal_index';
+//                        $insertFields['event_uid'] = $event->getUid();
+//                        $insertFields['start_datetime'] =$nextOccuranceTime->format('Ymd').$nextOccuranceTime->format('Hi');
+//                        $insertFields['end_datetime'] = $event->getUid();
+//                        $insertFields['event_uid'] = $event->getUid();
+//                        $insertFields['event_deviation_uid'] = $event->getUid();
+//                        $insertFields['tablename'] = $table;
+//
+//
+//                        $result = $this->connectionPool->getConnectionForTable($index)->createQueryBuilder()
+//                            ->insert($index)->values($insertFields)->execute();
                         $added++;
                     }
                 }
@@ -2879,105 +2896,10 @@ class EventService extends BaseService
      */
     public function getMonthDaysAccordingly(&$event, $month, $year): array
     {
-        $byDayArray = $event->getByDay();
-        $byMonthDays = $event->getByMonthDay();
-        $resultDays = [];
-        if (count($byDayArray) === 0) {
-            $resultDays = [
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19,
-                20,
-                21,
-                22,
-                23,
-                24,
-                25,
-                26,
-                27,
-                28,
-                29,
-                30,
-                31
-            ];
-            return $resultDays;
+        $resultDays=[];
+        for($days = 1; cal_days_in_month(CAL_GREGORIAN, $month, $year); $days++){
+            $resultDays[] = $days;
         }
-        foreach ($byDayArray as $i => $iValue) {
-            if (preg_match('/([-\+]{0,1})?([0-9]{1})?([A-Z]{2})/', $byDayArray[$i], $byDaySplit)) {
-                $dayOfWeekday = Calendar::two2threeCharDays($byDaySplit[3], false);
-                $monthStartTime = new CalendarDateTime($year . '-' . sprintf(
-                    '%02d',
-                    $month
-                ) . '-01 00:00:00');
-                $monthStartTime->setTZbyID('UTC');
-                $monthEndTime = Calendar::calculateEndMonthTime($monthStartTime);
-                if ($byDaySplit[2] > 0) {
-                    if ($byDaySplit[1] === '-') {
-                        $monthTime = new CalendarDateTime(Calc::prevDayOfWeek(
-                            $dayOfWeekday,
-                            $monthEndTime->getDay(),
-                            $monthEndTime->getMonth(),
-                            $monthEndTime->getYear(),
-                            '%Y%m%d',
-                            true
-                        ));
-                        $monthTime->setTZbyID('UTC');
-                        $monthTime->subtractSeconds(($byDaySplit[2] - 1) * 604800);
-                    } else {
-                        $monthTime = new CalendarDateTime(Calc::nextDayOfWeek(
-                            $dayOfWeekday,
-                            $monthStartTime->getDay(),
-                            $monthStartTime->getMonth(),
-                            $monthStartTime->getYear(),
-                            '%Y%m%d',
-                            true
-                        ));
-                        $monthTime->setTZbyID('UTC');
-                        $monthTime->addSeconds(($byDaySplit[2] - 1) * 604800);
-                    }
-                    if (($monthTime->getMonth() === $month) && in_array($monthTime->getDay(), $byMonthDays, true)) {
-                        $resultDays[] = $monthTime->getDay();
-                    }
-                } else {
-                    $monthTime = new CalendarDateTime(Calc::prevDayOfWeek(
-                        $dayOfWeekday,
-                        $monthStartTime->getDay(),
-                        $monthStartTime->getMonth(),
-                        $monthStartTime->getYear(),
-                        '%Y%m%d',
-                        true
-                    ));
-                    $monthTime->setTZbyID('UTC');
-                    if ($monthTime->before($monthStartTime)) {
-                        $monthTime->addSeconds(604800);
-                    }
-                    while ($monthTime->before($monthEndTime)) {
-                        $resultDays[] = $monthTime->getDay();
-                        $monthTime->addSeconds(604800);
-                    }
-                }
-            }
-        }
-
-        $resultDays = array_intersect($resultDays, $event->getByMonthDay());
-        sort($resultDays);
-
         return $resultDays;
     }
 
