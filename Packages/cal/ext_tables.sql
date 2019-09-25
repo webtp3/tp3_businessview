@@ -621,4 +621,3 @@ CREATE TABLE tx_cal_cache_tags (
 	KEY cache_tag (tag)
 )
 	ENGINE = InnoDB;
-

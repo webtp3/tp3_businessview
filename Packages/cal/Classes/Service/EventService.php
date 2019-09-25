@@ -41,6 +41,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Cal\Domain\Repository\EventDeviationRepository;
 
 /**
  * Class EventService
@@ -78,6 +79,11 @@ class EventService extends BaseService
      * @var EventSharedUserMMRepository
      */
     protected $eventSharedUserMMRepository;
+
+    /**
+     * @var EventDeviationRepository
+     */
+    protected $eventdeviationRepository;
 
     /**
      * @var SubscriptionRepository
@@ -1811,7 +1817,7 @@ class EventService extends BaseService
      * @param EventModel $event object
      * @return array
      */
-    public function recurringEvent($event): array
+    public function recurringEvent(EventModel $event): array
     {
         $deviations = [];
         $select = '*';
@@ -1841,7 +1847,7 @@ class EventService extends BaseService
             )
             ->execute();
        // $deviationResult = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $table, $where);
-        if ($deviationResult) {
+        if ($deviationResult->rowCount()>0) {
             while ($deviationRow = $deviationResult->fetch(\PDO::FETCH_ASSOC)) {
                 if ($deviationRow['deleted']) {
                     continue;
@@ -1852,27 +1858,16 @@ class EventService extends BaseService
             }
           //  $GLOBALS['TYPO3_DB']->sql_free_result($deviationResult);
         }
-        else{
-            $new_event = new EventDeviationModel(
-                $event,
-                $event,
-                $event->getStart(),
-                $event->getEnd()
-            );
-//            // ?Insert
-//            //uid, tablename, start_datetime, end_datetime, event_uid, event_deviation_uid
-//            $index = 'tx_cal_index';
-//            $insertFields['event_uid'] = $event->getUid();
-//            $insertFields['start_datetime'] = $event->getUid();
-//            $insertFields['end_datetime'] = $event->getUid();
-//            $insertFields['event_uid'] = $event->getUid();
-//            $insertFields['event_deviation_uid'] = $event->getUid();
-//            $insertFields['tablename'] = $table;
+//        else{
+//            $new_event_deviation = new EventDeviationModel(
+//                $event,
+//                $event->getRow(),
+//                $nextOccuranceTime,
+//                $currentUntil
+//            );
 //
-//
-//            $result = $queryBuilder->insert($index)->values($event)->execute();
-
-        }
+//            $queryBuilder->insert($table)->values($new_event_deviation->getRow())->execute();
+//        }
         #todo geneerate deviations if not found
         $event->setDeviationDates($deviations);
 
@@ -1957,6 +1952,19 @@ class EventService extends BaseService
                 $minute = $eventStart->format('i');
                 // 2007, 2008...
                 // walk thru years to index (not event)
+                $table = 'tx_cal_event_deviation';
+                $connection = $this->connectionPool->getConnectionForTable($table);
+                $queryBuilder = $connection->createQueryBuilder();
+                if (TYPO3_MODE == 'BE') {
+
+                    $queryBuilder
+                        ->getRestrictions()
+                        ->removeAll()
+                        ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+                } else {
+                    $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+                }
+
                 foreach ($byyear as $year) {
                     if ($counter < $count && $until->after($nextOccuranceTime) && $added < $maxRecurringEvents) {
                         // 1,2,3,4,5,6,7,8,9,10,11,12
@@ -1990,12 +1998,8 @@ class EventService extends BaseService
 
                                         //# todo insert records
 
-//                                            $new_event = new EventDeviationModel(
-//                                                $event,
-//                                                $event,
-//                                                $nextOccuranceTime,
-//                                                $currentUntil
-//                                            );
+
+                                           // $this->eventdeviationRepository->add($new_event_deviation);
                                             $this->findDailyWithin(
                                                 $master_array,
                                                 $event,
@@ -2008,6 +2012,16 @@ class EventService extends BaseService
                                                 $added,
                                                 $maxRecurringEvents
                                             );
+//                                            $new_event_deviation = new EventDeviationModel(
+//                                                $event,
+//                                                $event->getRow(),
+//                                                $nextOccuranceTime,
+//                                                $currentUntil
+//                                            );
+////
+//
+//
+//                                            $queryBuilder->insert($table)->values($new_event_deviation->getRow())->execute();
                                         } else {
                                             continue;
                                         }
@@ -2897,6 +2911,9 @@ class EventService extends BaseService
             $eventData['event_deviation_uid'] = $deviationDates[$eventData['start_datetime']]['uid'];
             $eventData['start_datetime'] = $startDate->format('Ymd') . $startDate->format('His');
             $eventData['end_datetime'] = $endDate->format('Ymd') . $endDate->format('His');
+        }
+        else{
+            return false;
         }
     }
 

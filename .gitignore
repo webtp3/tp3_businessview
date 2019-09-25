@@ -120,3 +120,5 @@ Thumbs.db
 /SmokeTests.log
 /UnitTests.log
 */.php_cs.cache
+/var/log/typo3-debug.log
+/var/log/sent-mails.log

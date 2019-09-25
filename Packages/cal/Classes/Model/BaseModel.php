@@ -177,7 +177,7 @@ abstract class BaseModel extends AbstractModel
     /**
      * @var array
      */
-    protected $row = [];
+    public $row = [];
 
     /**
      * @var ObjectStorage
@@ -245,6 +245,13 @@ abstract class BaseModel extends AbstractModel
             $this->conf['view.'][$view . '.'][$this->getObjectType() . '.']['image'],
             $this->conf['view.'][$view . '.'][$this->getObjectType() . '.']['image.']
         );
+    }
+
+    /**
+     * @var array
+     */
+    public function getRow(): array {
+        return $this->row;
     }
 
     /**

@@ -21,6 +21,7 @@ namespace TYPO3\CMS\Cal\Model;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 use TYPO3\CMS\Cal\Controller\Controller;
+use TYPO3\CMS\Cal\Domain\Repository\EventDeviationRepository;
 use TYPO3\CMS\Cal\Domain\Repository\EventSharedUserMMRepository;
 use TYPO3\CMS\Cal\Domain\Repository\SubscriptionRepository;
 use TYPO3\CMS\Cal\Service\RightsService;
@@ -97,6 +98,10 @@ class EventModel extends Model
     protected $subscriptionRepository;
 
     /**
+     * @var EventDeviationRepository
+     */
+    protected $eventdeviationRepository;
+    /**
      * EventModel constructor.
      * @param $row
      * @param $isException
@@ -108,6 +113,8 @@ class EventModel extends Model
         $this->setObjectType('event');
         $this->eventSharedUserMMRepository = GeneralUtility::makeInstance(EventSharedUserMMRepository::class);
         $this->subscriptionRepository = GeneralUtility::makeInstance(SubscriptionRepository::class);
+        $this->eventdeviationRepository = GeneralUtility::makeInstance(EventDeviationRepository::class);
+
         if (is_array($row)) {
             $this->createEvent($row, $isException);
         }
