@@ -235,7 +235,7 @@ class WeekView extends BaseView
                             $startOfDay->copy($d_start);
 
                             // get x-array possition
-                            foreach ($view_array[$starttime->format('%Y%m%d')][$starttime->format('%H%M')] as $k => $kValue) {
+                            foreach ($view_array[$starttime->format('Ymd')][$starttime->format('Hi')] as $k => $kValue) {
                                 if (empty($view_array[$starttime->format('Ymd')][$starttime->format('Hi')][$k])) {
                                     break;
                                 }
@@ -261,7 +261,7 @@ class WeekView extends BaseView
                                     $j->setHour($startOfDay->getHour());
                                     $j->setMinute($startOfDay->getMinute());
                                     $j->subtractSeconds($gridLength * 60);
-                                    foreach ($view_array[$startOfDay->format('%Y%m%d')][$startOfDay->format('%H%M')] as $k => $kValue) {
+                                    foreach ($view_array[$startOfDay->format('Ymd')][$startOfDay->format('Hi')] as $k => $kValue) {
                                         if (empty($view_array[$startOfDay->format('Ymd')][$startOfDay->format('Hi')][$k])) {
                                             break;
                                         }

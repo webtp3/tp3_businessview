@@ -1846,13 +1846,19 @@ class EventService extends BaseService
                 if ($deviationRow['deleted']) {
                     continue;
                 }
-                $origStartDate = new CalendarDateTime($deviationRow['orig_start_date']);
-                $origStartDate->addSeconds($deviationRow['orig_start_time']);
+                $origStartDate = GeneralUtility::makeInstance(CalendarDateTime::class)->createFromFormat('U', $deviationRow['orig_start_date']);
+                $origStartDate->add(new \DateInterval('PT' . $deviationRow['orig_start_time'] . 'S'));
                 $deviations[$origStartDate->format('YmdHis')] = $deviationRow;
             }
           //  $GLOBALS['TYPO3_DB']->sql_free_result($deviationResult);
         }
         else{
+            $new_event = new EventDeviationModel(
+                $event,
+                $event,
+                $event->getStart(),
+                $event->getEnd()
+            );
 //            // ?Insert
 //            //uid, tablename, start_datetime, end_datetime, event_uid, event_deviation_uid
 //            $index = 'tx_cal_index';
@@ -1980,22 +1986,28 @@ class EventService extends BaseService
                                         $currentUntil = new CalendarDateTime();
                                         $currentUntil->copy($nextOccuranceTime);
                                         $currentUntil->addSeconds(86399);
-                                        if ((int)$nextOccuranceTime->getMonth() === $month && $eventStart->before($nextOccuranceTime) || $eventStart->equals($nextOccuranceTime)) {
+                                        if (((int)$nextOccuranceTime->getMonth() === $month && $eventStart->before($nextOccuranceTime)) || $eventStart->equals($nextOccuranceTime)) {
 
                                         //# todo insert records
 
-//                                            $this->findDailyWithin(
-//                                                $master_array,
+//                                            $new_event = new EventDeviationModel(
+//                                                $event,
 //                                                $event,
 //                                                $nextOccuranceTime,
-//                                                $currentUntil,
-//                                                $byday,
-//                                                $count,
-//                                                $counter,
-//                                                $total,
-//                                                $added,
-//                                                $maxRecurringEvents
+//                                                $currentUntil
 //                                            );
+                                            $this->findDailyWithin(
+                                                $master_array,
+                                                $event,
+                                                $nextOccuranceTime,
+                                                $currentUntil,
+                                                $byday,
+                                                $count,
+                                                $counter,
+                                                $total,
+                                                $added,
+                                                $maxRecurringEvents
+                                            );
                                         } else {
                                             continue;
                                         }

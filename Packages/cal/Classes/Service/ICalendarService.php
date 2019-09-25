@@ -40,6 +40,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Scheduler\Execution;
 use TYPO3\CMS\Scheduler\Scheduler;
 use TYPO3\CMS\Cal\Model\CalendarDateTime;
+use TYPO3\CMS\Cal\Model\EventDeviationModel;
+
 //
 //define(
 //    'ICALENDAR_PATH',
@@ -1001,9 +1003,35 @@ class ICalendarService extends BaseService
                 }
                 $eventDeviationUid = $connection->lastInsertId($table);
             }
-            $result = $queryBuilder->update($table)->values(['event_deviation_uid' => $eventDeviationUid])->where(
+            $index = 'tx_cal_index';
+
+            $connection = $this->connectionPool->getConnectionForTable($index);
+
+            $queryIndex = $connection->createQueryBuilder();
+            $result = $queryIndex->update($index)->values(['event_deviation_uid' => $eventDeviationUid])->where(
                 $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($indexEntry['uid']))
             )->execute();
+
+                if(!$result) {
+
+                    $new_event = new EventDeviationModel(
+                        $event,
+                        $insertFields,
+                        $event->getStart(),
+                        $event->getEnd()
+                    );
+//                    $insertFields['event_uid'] = $event->getUid();
+//                    $insertFields['start_datetime'] =$nextOccuranceTime->format('Ymd').$nextOccuranceTime->format('Hi');
+//                    $insertFields['end_datetime'] = $event->getUid();
+//                    $insertFields['event_uid'] = $event->getUid();
+//                    $insertFields['event_deviation_uid'] = $event->getUid();
+//                    $insertFields['tablename'] = $table;
+//
+//
+//                    $result = $this->connectionPool->getConnectionForTable($index)->createQueryBuilder()
+//                        ->insert($index)->values($insertFields)->execute();
+                }
+
 //            $GLOBALS['TYPO3_DB']->exec_UPDATEquery('tx_cal_index', 'uid=' . $indexEntry['uid'], [
 //                'event_deviation_uid' => $eventDeviationUid
 //            ]);
