@@ -43,7 +43,9 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
  *
  ***/
-
+use TYPO3\CMS\Core\Resource\File;
+use TYPO3\CMS\Core\Resource\FileReference;
+use \TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 /**
  * BusinessAdress
  */
@@ -53,7 +55,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Tp3BusinessView
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView>
+     * @var \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
      * @cascade remove
      * @lazy
      */
@@ -89,7 +91,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the tp3businessviews
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView> $tp3businessview
+     * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview
      */
     public function getTp3Businessview()
     {
@@ -99,7 +101,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the contact
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView> $tp3businessview
+     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview
      * @return void
      */
     public function setTp3Businessview(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tp3businessview)
@@ -364,7 +366,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Image
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
      */
     protected $image = null;
 
@@ -377,7 +379,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Categories
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     * @var \TYPO3\CMS\Extbase\Domain\Model\Category
      */
     protected $categories;
 

@@ -256,9 +256,8 @@ tp3_app.businessview_initialize = function(businessviewJson){
 		if (businessviewJson.details.modules.panoAnimation) {
 			animateBusinessview();
 		}
-		$(businessviewCanvasSelector).on('click',$(businessviewCanvasSelector+' .nav.nav-sidebar').parents().first(),function(){$(businessviewCanvasSelector+' .nav.nav-sidebar').hide();
-			$(businessviewCanvasSelector+' .nav.nav-sidebar').show();});
-		$(businessviewCanvasSelector).on('click',$(businessviewCanvasSelector+' .nav.nav-sidebar').parents().first(),function(){$(businessviewCanvasSelector+' .nav.nav-sidebar').hide();$(businessviewCanvasSelector+' div#businessview-canvas .nav.nav-sidebar').show();});
+		$(businessviewCanvasSelector).on('click',$(businessviewCanvasSelector+' .nav.nav-sidebar').parents('.frame-container').first(),function(){$(businessviewCanvasSelector+' .nav.nav-sidebar').toggle();
+		});
 
 		if(businessviewJson.details.modules.contact){var contact=businessviewJson.details.modules.contact;if(contactBoxHasVisibleFields(contact.fields)){appendContactToBusinessview(contact.fields,contact.backgroundColor,contact.textColor,contact.align);}
 			$(businessviewCanvasSelector).on('click','div#businessview-contact-canvas div#businessview-show-contact-details',function(){$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-show-contact-details').hide();$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-contact-details').show();});$(businessviewCanvasSelector).on('click','div#businessview-contact-canvas div#businessview-contact-details .fa-times',function(){$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-contact-details').hide();$(businessviewCanvasSelector+' div#businessview-contact-canvas div#businessview-show-contact-details').show();});}

@@ -1,8 +1,8 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-    <f:form.hidden   name="panoramas[uid]" value="{panorama.uid}"  class="formvalue uid"  />
-    <f:form.hidden   name="panoramas[pid]" value="{panorama.pid}"  class="formvalue pid"  />
-    <tr id="pano_{panorama.uid}_{panorama.pid}" class="entry">
-       <td class="title">
+<f:form.hidden   name="panoramas[uid]" value="{panorama.uid}"  class="formvalue uid"  />
+<f:form.hidden   name="panoramas[pid]" value="{panorama.pid}"  class="formvalue pid"  />
+<tr id="pano_{panorama.uid}_{panorama.pid}" class="entry">
+    <td class="title">
         <f:if condition="{settings.editmode}">
             <f:then>
                 <f:form.textfield additionalAttributes=""  type="text" name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][title]"  value="{panorama.title}"  class="formvalue"  >
@@ -11,78 +11,62 @@
             <f:else >{panorama.title}</f:else>
         </f:if>
 
-         </td>
-        <td class="">
-            <button class="btn btn-secondary actions-view">
-                			{core:icon(identifier:'actions-view')}
-            </button>
+    </td>
+    <td class="">
+        <button class="btn btn-secondary actions-view">
+            {core:icon(identifier:'actions-view')}
+        </button>
+
+        <f:form.hidden   name="panoramas[pano_id]" value="{panorama.pano_id}"  class="formvalue pano_id"  />
+        <f:format.crop maxCharacters="10">{panorama.pano_id}{panorama.panoId}</f:format.crop>
+    </td>
+    <td >
+        <div class="heading">
             <f:if condition="{settings.editmode}">
                 <f:then>
-                    <f:form.textfield additionalAttributes=""  type="text" name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][pano_id]"  value="{panorama.pano_id}"  class="formvalue"  >
+                    <f:form.textfield additionalAttributes=""  type="text" name="panoramas[{panorama.uid}][heading]" value="{panorama.heading}"  class="formvalue"  >
                     </f:form.textfield>
                 </f:then>
-                <f:else >
-                    <f:if condition="{panorama.pano_id}">
-                        <f:then>
-                            <f:form.hidden   name="panoramas[pano_id]" value="{panorama.pano_id}"  class="formvalue pano_id"  />
-                            <f:format.crop maxCharacters="10">{panorama.pano_id}</f:format.crop>
-                        </f:then>
-                        <f:else >
-                                <f:form.hidden   name="panoramas[pano_id]" value="{panorama.panoId}"  class="formvalue pano_id"  />
-                                <f:format.crop maxCharacters="10">{panorama.panoId}</f:format.crop>
-                        </f:else>
-                    </f:if>
-                </f:else>
+                <f:else >{panorama.heading}</f:else>
+            </f:if>
+        </div>
+        <div class="pitch">
+            <f:if condition="{settings.editmode}">
+                <f:then>
+                    <f:form.textfield additionalAttributes=""  type="text"  name="panoramas[{panorama.uid}][pitch]" value="{panorama.pitch}"  class="formvalue"  >
+                    </f:form.textfield>
+                </f:then>
+                <f:else >{panorama.pitch}</f:else>
             </f:if>
 
-        </td>
-       <td >
-           <div class="heading">
+        </div>
+        <div class="zoom">
+            <f:if condition="{settings.editmode}">
+                <f:then>
+                    <f:form.textfield additionalAttributes=""  type="text"  name="panoramas[{panorama.uid}][zoom]"  value="{panorama.zoom}"  class="formvalue"  >
+                    </f:form.textfield>
+                </f:then>
+                <f:else >{panorama.zoom}</f:else>
+            </f:if>
+
+        </div>
+    </td>
+
+
+    <td class="position">
         <f:if condition="{settings.editmode}">
             <f:then>
-                <f:form.textfield additionalAttributes=""  type="text" name="panoramas[{panorama.uid}][heading]" value="{panorama.heading}"  class="formvalue"  >
+                <f:form.textfield additionalAttributes=""  type="text"  name="panoramas[{panorama.uid}][position]" value="{panorama.position}"  class="formvalue"  >
                 </f:form.textfield>
             </f:then>
-            <f:else >{panorama.heading}</f:else>
+            <f:else >{panorama.position}</f:else>
         </f:if>
-           </div>
-           <div class="pitch">
-               <f:if condition="{settings.editmode}">
-                   <f:then>
-                       <f:form.textfield additionalAttributes=""  type="text"  name="panoramas[{panorama.uid}][pitch]" value="{panorama.pitch}"  class="formvalue"  >
-                       </f:form.textfield>
-                   </f:then>
-                   <f:else >{panorama.pitch}</f:else>
-               </f:if>
+    </td>
+    <td>
+        <!-- {panorama.sorting} -->
+        <button disabled class="btn btn-secondary up">{core:icon(identifier:'actions-move-up')}</button><br>
+        <button disabled class="btn btn-secondary down">{core:icon(identifier:'actions-move-down')}</button>
 
-           </div>
-           <div class="zoom">
-               <f:if condition="{settings.editmode}">
-                   <f:then>
-                       <f:form.textfield additionalAttributes=""  type="text"  name="panoramas[{panorama.uid}][zoom]"  value="{panorama.zoom}"  class="formvalue"  >
-                       </f:form.textfield>
-                   </f:then>
-                   <f:else >{panorama.zoom}</f:else>
-               </f:if>
-
-           </div>
-        </td>
-
-
-        <td class="position">
-            <f:if condition="{settings.editmode}">
-                <f:then>
-                    <f:form.textfield additionalAttributes=""  type="text"  name="panoramas[{panorama.uid}][position]" value="{panorama.position}"  class="formvalue"  >
-                    </f:form.textfield>
-                </f:then>
-                <f:else >{panorama.position}</f:else>
-            </f:if>
-        </td>
-            <td>
-               <!-- {panorama.sorting} -->
-                <button disabled class="btn btn-secondary up">{core:icon(identifier:'actions-move-up')}</button><br>
-                <button disabled class="btn btn-secondary down">{core:icon(identifier:'actions-move-down')}</button>
-
-        </td>
-    </tr>
+    </td>
+</tr>
 </html>

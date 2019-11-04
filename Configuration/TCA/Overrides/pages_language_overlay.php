@@ -1,4 +1,5 @@
 <?php
+$llPrefix = 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang.xlf:';
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
     'pages_language_overlay',
@@ -45,7 +46,7 @@
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
     'pages_language_overlay',
-    'layout',
+    'editorial',
     '
     --linebreak--, tx_tp3businessview_onpage,
     --linebreak--, tx_tp3businessview_panorama,

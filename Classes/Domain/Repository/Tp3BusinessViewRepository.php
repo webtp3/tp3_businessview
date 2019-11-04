@@ -33,7 +33,7 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
         $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
 
-        $querySettings->setRespectStoragePage(false);
+        $querySettings->setRespectStoragePage(true);
 
         // ;
         // $querySettings->setOrderings($this->defaultOrderings);
