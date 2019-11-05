@@ -6,7 +6,7 @@
   "homepage": "https://web.tp3.de/manual/tp3-businessview.html",
     "require": {
         "php": ">=7.0 <7.3",
-         "typo3/cms-core": "^8.7|| ^9.5"
+         "typo3/cms-core": "^8.7|| ^9.5|| ^10.1"
     },
     "autoload": {
         "psr-4": {
