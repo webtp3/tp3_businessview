@@ -5,8 +5,8 @@
     "license": "GPL-2.0-or-later",
   "homepage": "https://web.tp3.de/manual/tp3-businessview.html",
     "require": {
-        "php": ">=7.0 <7.4",
-         "typo3/cms-core": "^8.7|| ^9.5|| ^10.1"
+        "php": ">=7.0 <7.5",
+         "typo3/cms-core": "^8.7|| ^9.5|| ^10"
     },
     "autoload": {
         "psr-4": {
