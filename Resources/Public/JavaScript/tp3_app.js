@@ -46,28 +46,30 @@ if(QueryString.businessviewId && QueryString.businessviewId != "") {
 
 }
 
-window.tp3_app=window.tp3_app||{};
 tp3_app.init = tp3_app.init || false;
-tp3_app.initialize= tp3_app.initialize || function(){
+window.tp3_app=window.tp3_app||{};
+tp3_app.initialize=function(){
 
 	if(tp3_app.init == true)return;
 	try{
-		if (($j('.tx-wecmap-map').length > 0 || businessviewJson.hasDetails) &&( google.maps != undefined && $j.type(google.maps) == "object")){
+		if ( businessviewJson.hasDetails &&  $j.type(google) == "object"){
 
-			google.maps.event.addDomListener(window,"load", function () {
-				if (  WECInit != undefined && $j.type(WECInit) == "function" ) {
-					if($j.type( createWecMap) == "function")WECInit();
-				}
+			if(google.maps != undefined){
+				google.maps.event.addDomListener(window,"load", function () {
+					if (  WECInit != undefined && $j.type(WECInit) == "function" ) {
+						if($j.type( createWecMap) == "function")WECInit();
+					}
 
-				tp3_app.init = true;
-				console.log(businessviewJson);
+					tp3_app.init = true;
+					console.log(businessviewJson);
 
-				if(businessviewJson.hasDetails && $j(businessviewCanvasSelector).length > 0){tp3_app.businessview_initialize(businessviewJson);}
-				else{console.log(businessviewJson.errorMessage);}
+					if(businessviewJson.hasDetails && $j(businessviewCanvasSelector).length > 0){tp3_app.businessview_initialize(businessviewJson);}
+					else{console.log(businessviewJson.errorMessage);}
 
-				//  if(gapi && $j.type(gapi) == "object")  gapi.plus.go();
-			});
-			if ( WecMap == undefined)  tp3_app.init = true;
+					//  if(gapi && $j.type(gapi) == "object")  gapi.plus.go();
+				});
+			}
+			// if ( WecMap == undefined)  tp3_app.init = true;
 
 
 		}
@@ -79,7 +81,7 @@ tp3_app.initialize= tp3_app.initialize || function(){
 		}
 		if($j.type(tp3_app.privacyPopup) == "funtion" && !tp3_app.getCookieValue(disableStr)) tp3_app.privacyPopup();
 		// #todo move to function list to call incl. callback
-		if($j.type(tp3_app.controls) == "function")tp3_app.controls();
+		// if($j.type(tp3_app.controls) == "function")tp3_app.controls();
 		if($j.type(tp3_app.parallax) == "function")tp3_app.parallax();
 		if($j.type(tp3_app.isotop) == "function")tp3_app.isotop();
 	}catch (e){
@@ -354,11 +356,12 @@ function animateBusinessview(to) {
 	if (panoAnimation.jumps && !panoJumpTimer) {
 		tp3_app.AnmationHandler.lastPano.id = panorama.getPano();
 		panoJumpTimer = window.setInterval(function () {
+			var links = links || "";
 			if (window.businessviewJson.details.panoramas.length > 1 && window.businessviewJson.details.type == "businessview") {
 				links = window.businessviewJson.details.panoramas;
 
 			}
-			else if (window.businessviewJson.details.panoramas.length > 1 && tp3_app.AnmationOptions.panoJumpsRandom) {
+			else if ( tp3_app.AnmationOptions.panoJumpsRandom) {
 				var glinks = panorama.getLinks();
 				if(glinks != undefined){
 					window.businessviewJson.details.type = "googleshow";

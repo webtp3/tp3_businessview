@@ -199,7 +199,9 @@ class Tp3BusinessViewController extends ActionController
                 'table' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'search_levels' => 1
             ];
-            $url = \TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl('web_list', $urlParameters);
+            $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+
+            $url = (string)$uriBuilder->buildUriFromRoute('web_list', $urlParameters);
             $this->redirectToURI($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/' . $url);
             exit;
         }

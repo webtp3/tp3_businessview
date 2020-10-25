@@ -236,8 +236,10 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         /* mm */
         if ($this->request->hasArgument('tp3businessview')) {
             $this->tp3businessview= $this->tp3BusinessViewRepository->findByUid(intval($this->request->getArgument('tp3businessview')['uid']), false);
-            $this->tp3businessview->getFirst()->addPanoramas($panoramas);
-            $this->tp3BusinessViewRepository->update($this->tp3businessview->getFirst());
+            if( $this->tp3businessview->getFirst() instanceof Tp3BusinessView){
+                $this->tp3businessview->getFirst()->addPanoramas($panoramas);
+                $this->tp3BusinessViewRepository->update($this->tp3businessview->getFirst());
+            }
         }
         $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->persistenceManager->persistAll();
@@ -296,11 +298,11 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         /* mm */
         if ($this->request->hasArgument('tp3businessview')) {
             $this->tp3businessview= $this->tp3BusinessViewRepository->findByUid($this->request->getArgument('tp3businessview')['uid'], false);
-           if( $this->tp3businessview->getFirst() instanceof Tp3BusinessView){
-               $this->tp3businessview->getFirst()->addPanoramas($panoramas);
-               $this->tp3BusinessViewRepository->update($this->tp3businessview->getFirst());
-               $this->persistenceManager->persistAll();
-           }
+            if( $this->tp3businessview->getFirst() instanceof Tp3BusinessView){
+                $this->tp3businessview->getFirst()->addPanoramas($panoramas);
+                $this->tp3BusinessViewRepository->update($this->tp3businessview->getFirst());
+                $this->persistenceManager->persistAll();
+            }
 
         }
 

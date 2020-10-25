@@ -57,7 +57,6 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
      * @cascade remove
-     * @lazy
      */
     protected $tp3businessview;
 

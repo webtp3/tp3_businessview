@@ -53,3 +53,15 @@ $llPrefix = 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang.xlf:'
     --linebreak--, tx_tp3businessview_injetionpoint,
     '
 );
+//$dokTypes = 1;
+//\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+//    'pages_language_overlay',
+//    '
+//    --div--;' . $llPrefix . 'pages.tabs.layout,
+//        --palette--;' . $llPrefix . 'pages.palettes.layout;tx_tp3businessview_onpage,
+//        --palette--;' . $llPrefix . 'pages.palettes.layout;tx_tp3businessview_panorama,
+//        --palette--;' . $llPrefix . 'pages.palettes.layout;tx_tp3businessview_injetionpoint,
+//    ',
+//    $dokTypes,
+//    'after:subtitle'
+//);

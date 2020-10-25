@@ -292,7 +292,7 @@ class ModuleController extends ActionController
             $this->panoramasRepository->setDefaultQuerySettings($querySettings);
             $this->tp3BusinessViewRepository->setDefaultQuerySettings($querySettings);
 
-            $querySettings->setRespectStoragePage(false);
+            $querySettings->setRespectStoragePage(true);
             $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
 
             $businessViews = $this->tp3BusinessViewRepository->findAll();
