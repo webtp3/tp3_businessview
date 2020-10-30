@@ -7,7 +7,7 @@
  */
 
 defined('TYPO3_MODE') || die('Access denied.');
-
+$_EXTKEY = 'tp3_businessview';
     //output thru hook
 
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3Businessview\Frontend\PageRenderer\Tp3PageRenderer::class . '->render';

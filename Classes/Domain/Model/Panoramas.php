@@ -70,7 +70,6 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * panoId
      *
      * @var string
-     * @validate NotEmpty
      */
     protected $panoId = '';
 
@@ -111,9 +110,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * contact
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView>
-     * @cascade remove
-     * @lazy
+     * @var \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
      */
     protected $tp3businessviews = null;
     /**
@@ -217,39 +214,39 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the uid
      *
-     * @return string $uid
+     * @return int $uid
      */
-    public function getUid()
+    public function getUid() : ?int
     {
         return $this->uid;
     }
     /**
      * sets the uid
      *
-     * @param string $uid
+     * @param int $uid
      */
-    public function setUid($uid)
+    public function setUid(int $uid) : void
     {
-        return $this->uid = $uid;
+        $this->uid = $uid;
     }
 
     /**
      * Returns the pid
      *
-     * @return string $pid
+     * @return int $pid
      */
-    public function getPid()
+    public function getPid() : ?int
     {
         return $this->pid;
     }
     /**
      * sets the pid
      *
-     * @param string $pid
+     * @param int $pid
      */
-    public function setPid($pid)
+    public function setPid(int $pid) : void
     {
-        return $this->pid = $pid;
+         $this->pid = $pid;
     }
 
     /**
@@ -336,7 +333,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the tp3businessviews
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView> $tp3businessview
+     * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview
      */
     public function getTp3Businessviews()
     {
@@ -346,7 +343,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the contact
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView> $tp3businessviews
+     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviews
      * @return void
      */
     public function setTp3Businessviews(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tp3businessviews)

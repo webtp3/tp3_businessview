@@ -114,16 +114,14 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * contact
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\BusinessAdress>
-     * @cascade remove
+     * @var \Tp3\Tp3Businessview\Domain\Model\BusinessAdress
      */
     protected $contact = null;
 
     /**
      * panoramas
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Panoramas>
-     * @cascade remove
+     * @var \Tp3\Tp3Businessview\Domain\Model\Panoramas
      */
     protected $panoramas = null;
     /**
@@ -352,7 +350,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas
      */
-    public function getPanoramas()
+    public function getPanoramas() : Panoramas
     {
         return $this->panoramas;
     }

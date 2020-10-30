@@ -65,7 +65,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-
+use TYPO3\CMS\Core\Utility\RootlineUtility;
 /**
  * ModuleController
  */
@@ -224,9 +224,11 @@ class ModuleController extends ActionController
             $this->conf = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
         }
         $this->pageUid = GeneralUtility::_GP('id');
+        $rootline = GeneralUtility::makeInstance(RootlineUtility::class, $this->pageUid);
+        $this->rootLine = $rootline->get();
 
-        $sysPageObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
-        $this->rootLine = $sysPageObj->getRootLine($this->pageUid);
+//        $sysPageObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
+//        $this->rootLine = $sysPageObj->getRootLine($this->pageUid);
     }
 
     /**

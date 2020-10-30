@@ -46,9 +46,9 @@ if(QueryString.businessviewId && QueryString.businessviewId != "") {
 
 }
 
-tp3_app.init = tp3_app.init || false;
 window.tp3_app=window.tp3_app||{};
-tp3_app.initialize=function(){
+tp3_app.init = tp3_app.init || false;
+tp3_app.initialize= tp3_app.initialize || function(){
 
 	if(tp3_app.init == true)return;
 	try{
