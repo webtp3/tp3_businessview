@@ -32,11 +32,13 @@ class Tp3PageRenderer implements SingletonInterface
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     public $businessAdressRepository = null;
     /**
      *
      * @var \Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository;
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     public $openHourRepository = null;
 
@@ -105,17 +107,23 @@ class Tp3PageRenderer implements SingletonInterface
                     array_push($panoramas_list, $panorama[0]);
                 } else {
                     $panolist = [];
+                   if( $businessView->getPanoramas() instanceof \Tp3\Tp3BusinessView\Domain\Model\Panoramas){
+                       $panolist[]=  $businessView->getPanoramas()->getUid();
+
+                   }
+                   else{
                     foreach ($businessView->getPanoramas() as $panoramas => $pano) {
                         $panolist[]=  $pano->getUid();
                         array_push($panoramas_list, $pano->getPropertiesArray());
                     }
+                   }
+
                     //  $panoramas_list = $this->panoramasRepository->findByList($panolist);
                     //find selcted
                     $panorama = $this->panoramasRepository->findByUid($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
                     $bw = $businessView->getPropertiesArray();
-                    foreach ($businessView->getContact() as $addresses => $address) {
-                        $addresslist[]=  $address->_getCleanProperties();
-                    }
+                        $addresslist[]=  $businessView->getContact()->getPropertiesArray();
+
                     if ($this->openHourRepository !== null) {
                         $openhours = $this->openHourRepository->findByAddress($addresslist[0]['uid']);
                         $formattedText = '';
@@ -153,8 +161,8 @@ class Tp3PageRenderer implements SingletonInterface
                     ($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['panoRotationFactor'] != '' ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['panoRotationFactor'] : 0.060) . ', panoJumpsRandom:' .
                     ($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['panoJumpsRandom'] != '' ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['panoJumpsRandom']  : true) . '};</script>';
 
-                $parameters['jsFooterInline'] .="<script>  $('" . ($GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] != '' ? $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] : '#content') . "').first().attr(\"id\",\"businessview-panorama-canvas\").wrapAll('<div id=\"businessview-canvas\" style=\"width:100%;height:100%;min-height:320px;\"></div>');</script>";
-                $parameters['jsFooterLibs'] .='<script defer async="async" src="typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js"></script>';
+                $parameters['jsFooterInline'] .="<script>  $('" . ($GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] != '' ? $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] : '#page-content .section') . "').first().attr(\"id\",\"businessview-panorama-canvas\").wrapAll('<div id=\"businessview-canvas\" style=\"width:100%;height:100%;min-height:320px;\"></div>');</script>";
+                $parameters['jsFooterLibs'] .='<script src="typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js"></script>';
                 if ($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['loadApi']== 'true' || $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['loadApi']== '1') {
                     #check if api is loaded
                     if($pos = $this->detectApi($parameters)) {

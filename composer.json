@@ -1,7 +1,6 @@
 {
     "name": "web-tp3/tp3businessview",
     "type": "typo3-cms-extension",
-	"version": "1.2.4",
     "description" : "google businessview für tp3 - 360° Panorama Designer für Ihren virtuellen Rundgang",
     "license": "GPL-2.0-or-later",
   "homepage": "https://web.tp3.de/manual/tp3-businessview.html",
@@ -35,7 +34,9 @@
   },
   "extra": {
     "typo3/cms": {
-      "extension-key": "tp3_businessview"
+			"extension-key": "tp3_businessview",
+			"cms-package-dir": "{$vendor-dir}/typo3/cms",
+			"web-dir": ".Build/Web"
     }
   },
   "config": {

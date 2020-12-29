@@ -1,5 +1,13 @@
 $ = $j = jQuery.noConflict();
+/*
+things to do
+ */
+document.addEventListener('DOMContentLoaded', function() {
 
+	tp3_app.initialize();
+
+
+});
 //	var docReady = $.Deferred();
 //	var facebookReady = $.Deferred();
 var businessviewCanvasSelector =  businessviewCanvasSelector || "#businessview-canvas",
@@ -48,9 +56,8 @@ if(QueryString.businessviewId && QueryString.businessviewId != "") {
 
 window.tp3_app=window.tp3_app||{};
 tp3_app.init = tp3_app.init || false;
-tp3_app.initialize= tp3_app.initialize || function(){
+tp3_app.initialize=function(){
 
-	if(tp3_app.init == true)return;
 	try{
 		if ( businessviewJson.hasDetails &&  $j.type(google) == "object"){
 

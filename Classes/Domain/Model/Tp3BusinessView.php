@@ -115,6 +115,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * contact
      *
      * @var \Tp3\Tp3Businessview\Domain\Model\BusinessAdress
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $contact = null;
 
@@ -122,6 +123,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * panoramas
      *
      * @var \Tp3\Tp3Businessview\Domain\Model\Panoramas
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $panoramas = null;
     /**
