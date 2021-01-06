@@ -60,6 +60,11 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var array
      */
     protected $propertiesArray = [];
+    /**
+     * pid
+     * @var int
+     */
+    public $pid = '';
 
     /**
      * panoId
@@ -226,7 +231,24 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->uid = $uid;
     }
 
-
+    /**
+     * Returns the pid
+     *
+     * @return int $pid
+     */
+    public function getPid() : ?int
+    {
+        return $this->pid;
+    }
+    /**
+     * sets the pid
+     *
+     * @param int $pid
+     */
+    public function setPid(int $pid) : void
+    {
+         $this->pid = $pid;
+    }
 
     /**
      * Sets the panoId
