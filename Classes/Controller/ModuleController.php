@@ -304,10 +304,19 @@ class ModuleController extends ActionController
                     $panolist = [];
                     $panoramas_list = [];
                     $addresslist =[];
+
+                    if( $businessView->getPanoramas() instanceof \Tp3\Tp3BusinessView\Domain\Model\Panoramas){
+                        $panolist[]=  $businessView->getPanoramas()->getUid();
+                        array_push($panoramas_list, $businessView->getPanoramas()->getPropertiesArray());
+
+                    }
+                    else{
                     foreach ($businessView->getPanoramas() as $panoramas => $pano) {
                         $panolist[]=  $pano->getUid();
                         array_push($panoramas_list, $pano->getPropertiesArray());
                     }
+                    }
+
                     if (count($panolist)>0) {
                         $panoramas_all = $this->panoramasRepository->findAll(); //findByPid($this->pageUid);
                         $bw = $businessView->getPropertiesArray();

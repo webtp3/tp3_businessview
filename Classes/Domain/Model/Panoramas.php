@@ -207,7 +207,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->panoId;
     }
-    
+
 
     /**
      * Sets the panoId

@@ -16,6 +16,7 @@ use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView;
 
 class Tp3PageRenderer implements SingletonInterface
 {
@@ -99,7 +100,8 @@ class Tp3PageRenderer implements SingletonInterface
                         return;
                     }
 
-                    $businessView = new \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView;
+                    $businessView = $this->objectManager->get( Tp3BusinessView::class);
+
                     $bw = $businessView->getPropertiesArray();
                     $bw['panoramas'] = [];
                     $panoramas= [];
