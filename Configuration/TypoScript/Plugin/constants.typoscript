@@ -15,7 +15,7 @@ plugin.tx_tp3businessview_tp3businessview {
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=google api key (FE) https://console.developers.google.com/apis/
     googleMapsJavaScriptApiKey = AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=load maps api from google in (FE)
-    loadApi= true
+    loadApi= 1
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay color
     color={$plugin.bootstrap_package.settings.less.brand-primary}
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay backgroundColor
@@ -32,32 +32,12 @@ plugin.tx_tp3businessview_tp3businessview {
     panoRotationTimer=30
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=panoRotationFactor in ° (default 0.015)
     panoRotationFactor=0.060
-    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=panoJumpsRandom random(trrue) or linear(false)
-    panoJumpsRandom=true
+    # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=panoJumpsRandom random(true) or linear(false)
+    panoJumpsRandom=false
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=FEControls show play pause in FE
     FEControls=true
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=storage
     storagePid ={$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
   }
 
-}
-
-module.tx_tp3businessview_web_tp3businessviewmodule {
-  view {
-    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Path to template root (BE)
-    templateRootPath = EXT:tp3_businessview/Resources/Private/Templates/BusinessView/
-    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Path to template partials (BE)
-    partialRootPath = EXT:tp3_businessview/Resources/Private/Partials/BusinessView/
-    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Path to template layouts (BE)
-    layoutRootPath = EXT:tp3_businessview/Resources/Private/Layouts/BusinessView/
-  }
-  persistence {
-    # cat=module.tx_tp3businessview_web_tp3businessviewmodule//a; type=string; label=Default storage PID
-    storagePid = {$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
-  }
-  settings{
-    # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Maps api key for (BE) https://console.developers.google.com/apis/
-    googleMapsJavaScriptApiKey = {$plugin.tx_tp3businessview_tp3businessview.settings.googleMapsJavaScriptApiKey}
-
-  }
 }

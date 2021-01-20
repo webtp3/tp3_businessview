@@ -65,7 +65,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-
+use TYPO3\CMS\Core\Utility\RootlineUtility;
 /**
  * ModuleController
  */
@@ -224,9 +224,11 @@ class ModuleController extends ActionController
             $this->conf = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
         }
         $this->pageUid = GeneralUtility::_GP('id');
+        $rootline = GeneralUtility::makeInstance(RootlineUtility::class, $this->pageUid);
+        $this->rootLine = $rootline->get();
 
-        $sysPageObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
-        $this->rootLine = $sysPageObj->getRootLine($this->pageUid);
+//        $sysPageObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
+//        $this->rootLine = $sysPageObj->getRootLine($this->pageUid);
     }
 
     /**
@@ -260,7 +262,7 @@ class ModuleController extends ActionController
              $publicResourcesPath.'Resources/Public/Css/Tp3App.css','stylesheet', 'all', "tp3businessview preview", $compress = false, false,  '', true,  '|'
          );*/
         $this->pageRenderer->addJsInlineCode('gapikey', 'window.apikey = "' . $this->settings['googleMapsJavaScriptApiKey'] . '";');
-        $this->pageRenderer->addJsFooterInlineCode('jfn', 'TYPO3.jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length; if(index<0){index=Math.max(0,lastIndex+ 1+ index)}this.append(element);if(index<lastIndex){this.children().eq(index).before(this.children().last())}return this;}');
+       // $this->pageRenderer->addJsInlineCode('jfninsertElementAtIndex', 'TYPO3.jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length; if(index<0){index=Math.max(0,lastIndex+ 1+ index)}this.append(element);if(index<lastIndex){this.children().eq(index).before(this.children().last())}return this;}');
 
         if (is_array($this->settings)) {
             $this->pageRenderer->addJsInlineCode('panoAnmation', 'window.AnmationOptions  = {  panoJumpTimer:' . $this->settings['panoJumpTimer'] . ', panoRotationTimer:' . $this->settings['panoRotationTimer'] . ', panoRotationFactor:' . $this->settings['panoRotationFactor'] . ', panoJumpsRandom:' . $this->settings['panoJumpsRandom'] . '};');
@@ -292,7 +294,7 @@ class ModuleController extends ActionController
             $this->panoramasRepository->setDefaultQuerySettings($querySettings);
             $this->tp3BusinessViewRepository->setDefaultQuerySettings($querySettings);
 
-            $querySettings->setRespectStoragePage(false);
+            $querySettings->setRespectStoragePage(true);
             $this->businessAdressRepository->setDefaultQuerySettings($querySettings);
 
             $businessViews = $this->tp3BusinessViewRepository->findAll();
@@ -302,10 +304,19 @@ class ModuleController extends ActionController
                     $panolist = [];
                     $panoramas_list = [];
                     $addresslist =[];
+
+                    if( $businessView->getPanoramas() instanceof \Tp3\Tp3BusinessView\Domain\Model\Panoramas){
+                        $panolist[]=  $businessView->getPanoramas()->getUid();
+                        array_push($panoramas_list, $businessView->getPanoramas()->getPropertiesArray());
+
+                    }
+                    else{
                     foreach ($businessView->getPanoramas() as $panoramas => $pano) {
                         $panolist[]=  $pano->getUid();
                         array_push($panoramas_list, $pano->getPropertiesArray());
                     }
+                    }
+
                     if (count($panolist)>0) {
                         $panoramas_all = $this->panoramasRepository->findAll(); //findByPid($this->pageUid);
                         $bw = $businessView->getPropertiesArray();
@@ -325,10 +336,10 @@ class ModuleController extends ActionController
                             }
                             if ($formattedText != '') {
                                 $bw['openingHours'] = [
-                                    'formattedText' => $formattedText,
-                                    'status'=>true,
-                                    'hours'=>$hoursArray,
-                                ];
+                                   'formattedText' => $formattedText,
+                                   'status'=>true,
+                                   'hours'=>$hoursArray,
+                               ];
                             }
 
                             /*

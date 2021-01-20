@@ -17,7 +17,7 @@ plugin.tx_tp3businessview_tp3businessview {
     #skipDefaultArguments = 1
     rewrittenPropertyMapper = 1
   }
-  settings{
+  settings {
     googleMapsJavaScriptApiKey = {$plugin.tx_tp3businessview_tp3businessview.settings.googleMapsJavaScriptApiKey}
     color={$plugin.tx_tp3businessview_tp3businessview.settings.color}
     backgroundColor={$plugin.tx_tp3businessview_tp3businessview.settings.backgroundColor}

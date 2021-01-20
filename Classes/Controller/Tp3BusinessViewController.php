@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * This file is part of the web-tp3/tp3businessview.
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Controller;
 
 /***************************************************************
@@ -36,25 +43,17 @@ namespace Tp3\Tp3Businessview\Controller;
  *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
  *
  ***/
-use Tp3\Tp3Businessview\Domain\Model\BusinessAdress;
-use Tp3\Tp3Businessview\Domain\Model\Panoramas;
-use TYPO3\CMS\Core\DataHandling\DataHandler;
-use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
+
+use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Localization\Locales;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
-use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
-use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
-use TYPO3\CMS\Core\DataHandling\DataHandler as DataHandlerCore;
-
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 
 /**
  * Tp3BusinessViewController
@@ -67,12 +66,10 @@ class Tp3BusinessViewController extends ActionController
      */
     protected $persistenceManager = null;
 
-
     /**
      * @var PageRenderer
      */
     protected $pageRenderer;
-
 
     /* @var $dataMapper \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper */
     protected $dataMapper;
@@ -83,49 +80,48 @@ class Tp3BusinessViewController extends ActionController
     /**
      *
      */
-    public  $panoramas = null;
+    public $panoramas = null;
     /**
      *
 
      */
-    public  $businessadress = null;
+    public $businessadress = null;
 
     /**
      * @var array
      */
-    protected $configuration = array(
-        'translations' => array(
-            'availableLocales' => array(),
-            'languageKeyToLocaleMapping' => array()
-        ),
-        'menuActions' => array(),
+    protected $configuration = [
+        'translations' => [
+            'availableLocales' => [],
+            'languageKeyToLocaleMapping' => []
+        ],
+        'menuActions' => [],
         'previewDomain' => null,
         'previewUrlTemplate' => '',
-        'viewSettings' => array()
-    );
+        'viewSettings' => []
+    ];
 
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
      */
-    public  $panoramasRepository = null;
+    public $panoramasRepository = null;
 
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
      */
-    public  $tp3BusinessViewRepository = null;
+    public $tp3BusinessViewRepository = null;
 
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
      */
-    public  $businessAdressRepository = null;
+    public $businessAdressRepository = null;
     /**
      * @var Locales
      */
     protected $localeService;
-
 
     protected function initializeAction()
     {
@@ -156,38 +152,33 @@ class Tp3BusinessViewController extends ActionController
         }
         if ($this->conf === null) {
             $this->conf = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-
         }
-
     }
-
 
     /**
      * action display
-     * 
+     *
      * @return void
      */
     public function displayAction()
     {
-
     }
 
     /**
      * action list
-     * 
+     *
      * @return void
      */
     public function listAction()
     {
-       /* $tp3BusinessViews = $this->tp3BusinessViewRepository->findAll();
-        $this->view->assign('tp3BusinessViews', $tp3BusinessViews);*/
-       //enable page injection instead of plugin
-        $Plugins = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Tp3\Tp3Businessview\Plugin\BusinessViewPlugin::class)->main($this->cObj,$this->conf);
+        /* $tp3BusinessViews = $this->tp3BusinessViewRepository->findAll();
+         $this->view->assign('tp3BusinessViews', $tp3BusinessViews);*/
+        //enable page injection instead of plugin
+        $Plugins = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Tp3\Tp3Businessview\Plugin\BusinessViewPlugin::class)->main($this->cObj, $this->conf);
 
         $GLOBALS['TSFE']->page['tx_tp3businessview_onpage'] = true;
-        $GLOBALS['TSFE']->page['tx_tp3businessview_panorama'] = $Plugins["panoramas"];
-        $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] = $Plugins["selector"];
-
+        $GLOBALS['TSFE']->page['tx_tp3businessview_panorama'] = $Plugins['panoramas'];
+        $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] = $Plugins['selector'];
     }
     /**
      * action index
@@ -196,34 +187,30 @@ class Tp3BusinessViewController extends ActionController
      */
     public function indexAction()
     {
-        $publicResourcesPath = ExtensionManagementUtility::extPath('tp3_businessview') . 'Resources/Public/';
+        if ($GLOBALS['BE_USER']->user['usergroup'] > 0 || $GLOBALS['BE_USER']->user['admin']) {
+            if (!isset($this->conf['persistence']['storagePid']) ||$this->conf['persistence']['storagePid']=='') {
+                $storage_id = $this->pageUid;
+            } else {
+                $storage_id = $this->conf['persistence']['storagePid'];
+            }
 
-        $this->pageRenderer->addCssFile(
-            $publicResourcesPath . 'Css/Backend/Tp3Backend.css'
-        );
-        $this->pageRenderer->addJsInlineCode("gapikey",'window.apikey = "'.$this->settings["googleMapsJavaScriptApiKey"].'";');
+            // Weiterleitung
+            $urlParameters = [
+                'id' => $storage_id,
+                'table' => 'tx_tp3businessview_domain_model_tp3businessview',
+                'search_levels' => 1
+            ];
+            $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
 
-        $panoramas = [];
-        $businessAdresses = [];
-
-        if ($this->panoramasRepository === null) {
-            $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
+            $url = (string)$uriBuilder->buildUriFromRoute('web_list', $urlParameters);
+            $this->redirectToURI($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/' . $url);
+            exit;
         }
-        if ($this->businessAdressRepository === null) {
-            $this->businessAdressRepository = $this->objectManager->get(BusinessAdressRepository::class);
-        }
-        $panoramas = $this->panoramasRepository->findAll();
-        $businessAdresses = $this->businessAdressRepository->findAll();
-
-
-        $this->view->assign('panoramas', $panoramas);
-        $this->view->assign('addresses', $businessAdresses);
-
     }
 
     /**
      * action show
-     * 
+     *
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3BusinessView
      * @return void
      */
@@ -239,10 +226,8 @@ class Tp3BusinessViewController extends ActionController
      */
     public function newAction()
     {
-     //   $this->redirect('index');
+        //   $this->redirect('index');
     }
-
-
 
     /**
      * action updateold
@@ -252,12 +237,10 @@ class Tp3BusinessViewController extends ActionController
      */
     public function updateAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
     {
-
         $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
         $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->tp3BusinessViewRepository->update($businessview);
         $this->persistenceManager->persistAll();
-
     }
 
     /**
@@ -272,10 +255,7 @@ class Tp3BusinessViewController extends ActionController
         $this->addFlashMessage('The object was created.', 'created', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->businessvierepository->add($businessview);
         $this->persistenceManager->persistAll();
-
     }
-
-
 
     public function saveSettingsAction()
     {
@@ -286,7 +266,6 @@ class Tp3BusinessViewController extends ActionController
         $lang = $this->getLanguageService();
 
         $extraTableRecords = [];
-
     }
     /**
      * Registers the Icons into the docheader
@@ -356,7 +335,7 @@ class Tp3BusinessViewController extends ActionController
         $shortcutButton = $buttonBar->makeShortcutButton()
             ->setModuleName($moduleName)
             ->setDisplayName($shortcutName)
-            ->setGetVariables(array('id' => (int)GeneralUtility::_GP('id')));
+            ->setGetVariables(['id' => (int)GeneralUtility::_GP('id')]);
         $buttonBar->addButton($shortcutButton);
     }
 

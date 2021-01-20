@@ -88,9 +88,33 @@ CREATE TABLE pages (
 	tx_tp3businessview_onpage tinyint(4) DEFAULT '0' NOT NULL,
 	tx_tp3businessview_panorama int(11) DEFAULT NULL,
 	tx_tp3businessview_injetionpoint varchar(255) DEFAULT '' NOT NULL,
+	tx_tp3businessview_businessview int(11) DEFAULT NULL,
 );
 
+#
+# Table structure for table 'pages'
+#
+CREATE TABLE pages_language_overlay (
+	tx_tp3businessview_onpage tinyint(4) DEFAULT '0' NOT NULL,
+	tx_tp3businessview_panorama int(11) DEFAULT NULL,
+	tx_tp3businessview_injetionpoint varchar(255) DEFAULT '' NOT NULL,
+);
 CREATE TABLE `tx_tp3businessview_domain_model_panoramas_mm` (
+  `uid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid_local` int(11) NOT NULL,
+  `uid_foreign` int(11) NOT NULL,
+  `sorting` int(11) DEFAULT NULL,
+  `sorting_foreign` int(11) DEFAULT NULL,
+  `tablenames` varchar(100) NOT NULL DEFAULT '',
+  `pid` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`uid`),
+  KEY `sorting` (`uid_local`,`sorting`),
+  KEY `sorting_foreign` (`uid_foreign`),
+  KEY `item` (`pid`,`uid_local`)
+);
+
+
+CREATE TABLE `tx_tp3businessview_domain_model_tp3businessview_mm` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
   `uid_local` int(11) NOT NULL,
   `uid_foreign` int(11) NOT NULL,

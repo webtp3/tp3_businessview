@@ -1,4 +1,7 @@
-config.tx_extbase{
+<?php
+declare(strict_types = 1);
+/*
+ * config.tx_extbase{
   persistence {
     classes {
       Tp3\Tp3Businessview\Domain\Model\Panoramas {
@@ -52,3 +55,20 @@ config.tx_extbase{
     }
   }
 }
+ */
+
+return [
+
+    \Tp3\Tp3Businessview\Domain\Model\BusinessAdress::class => [
+        'tableName' => 'tt_address',
+        'recordType' => \Tp3\Tp3Businessview\Domain\Model\BusinessAdress::class,
+        'properties' => [
+            'uid_foreign' => [
+                'fieldName' => 'tp3businessview'
+            ],
+            'cid' => [
+                'fieldName' => 'cid'
+            ],
+        ],
+    ],
+];

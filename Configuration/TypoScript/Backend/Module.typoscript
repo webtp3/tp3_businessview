@@ -4,7 +4,22 @@ module.tx_tp3businessview_web_tp3businessviewmodule{
   persistence {
     storagePid = {$module.tx_tp3businessview_web_tp3businessviewmodule.persistence.storagePid}
   }
-  settings < plugin.tx_tp3businessview_tp3businessview.settings
+  settings{
+    googleMapsJavaScriptApiKey = {$plugin.tx_tp3businessview_tp3businessview.settings.googleMapsJavaScriptApiKey}
+    editmode = {$plugin.tx_tp3businessview_web_tp3businessviewmodule.settings.editmode}
+    color={$plugin.tx_tp3businessview_tp3businessview.settings.color}
+    backgroundColor={$plugin.tx_tp3businessview_tp3businessview.settings.backgroundColor}
+    textColor={$plugin.tx_tp3businessview_tp3businessview.settings.textColor}
+    loadApi={$plugin.tx_tp3businessview_tp3businessview.settings.loadApi}
+    align={$plugin.tx_tp3businessview_tp3businessview.settings.align}
+    alignSocial={$plugin.tx_tp3businessview_tp3businessview.settings.alignSocial}
+    panoJumpTimer={$plugin.tx_tp3businessview_tp3businessview.settings.panoJumpTimer}
+    panoRotationTimer={$plugin.tx_tp3businessview_tp3businessview.settings.panoRotationTimer}
+    panoRotationFactor={$plugin.tx_tp3businessview_tp3businessview.settings.panoRotationFactor}
+    panoJumpsRandom={$plugin.tx_tp3businessview_tp3businessview.settings.panoJumpsRandom}
+    FEControls={$plugin.tx_tp3businessview_tp3businessview.settings.FEControls}
+    storagePid={$plugin.tx_tp3businessview_tp3businessview.settings.storagePid}
+  }
 
   view {
     templateRootPaths.0 = EXT:tp3_businessview/Resources/Private/Templates/Backend/
@@ -15,5 +30,6 @@ module.tx_tp3businessview_web_tp3businessviewmodule{
     layoutRootPaths.1 = {$module.tx_tp3businessview_web_tp3businessviewmodule.view.layoutRootPath}
   }
 }
-module.tx_tp3businessview < module.tx_tp3businessview_web_tp3businessviewmodule
+module.tx_tp3businessview_web_tp3businessviewbusinessadress < module.tx_tp3businessview_web_tp3businessviewmodule
+#module.tx_tp3businessview < module.tx_tp3businessview_web_tp3businessviewmodule
 
