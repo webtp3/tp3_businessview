@@ -732,7 +732,7 @@ div#businessview-canvasul#businessview-externalLinks-canvas li {
 }
 
 div#businessview-canvas .gm-iv-address {
-    height: 100% !important
+    max-height: 100%;
 }
 
 div#businessview-canvas .texticon-content {

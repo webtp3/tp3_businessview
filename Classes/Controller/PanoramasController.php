@@ -286,15 +286,21 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
             $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
         }
         if ($panoramas->getPid() == null) {
-            $panoramas->setPid($this->conf['persistence']['storagePid']);
+            $panoramas->setPid($panoramas->getPid());
+
         }
+        else{
+            $panoramas->setPid($this->conf['persistence']['storagePid']);
+
+        }
+            $panoramas->setTitle($panoramas->getTitle());
+
         if ($panoramas->getUid() == '') {
             $panoramas->setUid(null);
         }
 
         $this->panoramasRepository->add($panoramas);
 
-        $this->persistenceManager->persistAll();
         /* mm */
         if ($this->request->hasArgument('tp3businessview')) {
             $this->tp3businessview= $this->tp3BusinessViewRepository->findByUid($this->request->getArgument('tp3businessview')['uid'], false);
@@ -303,6 +309,10 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
                 $this->tp3BusinessViewRepository->update($this->tp3businessview->getFirst());
                 $this->persistenceManager->persistAll();
             }
+
+        }
+        else{
+            $this->persistenceManager->persistAll();
 
         }
 

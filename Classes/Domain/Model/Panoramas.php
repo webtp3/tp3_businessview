@@ -149,6 +149,18 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * sets the uid
+     *
+     * @param string $uid
+     */
+    public function setUid($uid)
+    {
+        $this->uid = $uid;
+    }
+
+
+
+    /**
      * Getter for sorting
      *
      * @return string sorting
@@ -306,7 +318,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviews
      * @return void
      */
-    public function setTp3Businessviews(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tp3businessviews)
+    public function setTp3Businessviews(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviews)
     {
         $this->tp3businessviews = $tp3businessviews;
     }

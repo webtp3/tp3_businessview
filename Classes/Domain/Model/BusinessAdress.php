@@ -102,7 +102,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview
      * @return void
      */
-    public function setTp3Businessview(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tp3businessview)
+    public function setTp3Businessview(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview)
     {
         $this->tp3businessview = $tp3businessview;
     }
@@ -972,7 +972,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param ObjectStorage<FileReference> $image
      */
-    public function setImage(ObjectStorage $image)
+    public function setImage(FileReference $image)
     {
         $this->image = $image;
     }
@@ -1012,7 +1012,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param ObjectStorage<Category> $categories
      */
-    public function setCategories(ObjectStorage $categories)
+    public function setCategories(Category $categories)
     {
         $this->categories = $categories;
     }

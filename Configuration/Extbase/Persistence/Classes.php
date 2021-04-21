@@ -56,19 +56,26 @@ declare(strict_types = 1);
   }
 }
  */
+if (class_exists(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress::class)) {
 
-return [
+    return [
 
-    \Tp3\Tp3Businessview\Domain\Model\BusinessAdress::class => [
-        'tableName' => 'tt_address',
-        'recordType' => \Tp3\Tp3Businessview\Domain\Model\BusinessAdress::class,
-        'properties' => [
-            'uid_foreign' => [
-                'fieldName' => 'tp3businessview'
-            ],
-            'cid' => [
-                'fieldName' => 'cid'
+        \Tp3\Tp3Businessview\Domain\Model\BusinessAdress::class => [
+            'tableName' => 'tt_address',
+            'properties' => [
+                'uid_foreign' => [
+                    'fieldName' => 'tp3businessview'
+                ],
+                'cid' => [
+                    'fieldName' => 'cid'
+                ],
             ],
         ],
-    ],
-];
+    ];
+}
+else{
+    return [
+
+
+    ];
+}

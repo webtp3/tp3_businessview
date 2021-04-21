@@ -46,8 +46,8 @@ $tmp_tp3_businessview_columns = [
                 'allowed' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'MM' => 'tx_tp3businessview_domain_model_tp3businessview_mm',
                 'enableMultiSelectFilterTextfield' => true,
-                'minitems' => 1,
-                'maxitems' => 10,
+                'minitems' => 0,
+                'maxitems' => 100,
                 'size' => 1,
 
         ]

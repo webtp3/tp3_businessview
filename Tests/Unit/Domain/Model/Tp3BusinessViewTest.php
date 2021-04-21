@@ -351,7 +351,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     public function setPanoramasForPanoramasSetsPanoramas()
     {
         $panoramasFixture = new \Tp3\Tp3Businessview\Domain\Model\Panoramas();
-        $this->subject->setPanoramas($panoramasFixture);
+        $this->subject->addPanoramas($panoramasFixture);
 
         self::assertAttributeEquals(
             $panoramasFixture,

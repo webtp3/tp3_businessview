@@ -1,7 +1,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <tr  id="address_{address.uid}_{address.pid}" class="entry">
    <td class="name">
-    <f:if condition="{settings.editmode}">
+    <f:if condition="{settings.editmode} > 0">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text" name="tt_address[{address.uid}][name]" value="{address.name}"  class="formvalue"  >
             </f:form.textfield>
@@ -12,7 +12,7 @@
 </td>
 
    <td class="place_id">
-    <f:if condition="{settings.editmode}">
+    <f:if condition="{settings.editmode} > 0">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text" name="tt_address[{address.uid}][cid]"  value="{address.cid}"  class="formvalue"  >
             </f:form.textfield>
@@ -23,7 +23,7 @@
 </td>
 
    <td class="geo">
-    <f:if condition="{settings.editmode}">
+    <f:if condition="{settings.editmode} > 0">
         <f:then>
             <f:form.textfield additionalAttributes=""  type="text"  name="tt_address[{address.uid}][latitude]"  value="{address.latitude}"  class="formvalue"  >
             </f:form.textfield>
