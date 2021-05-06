@@ -45,7 +45,8 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  ***/
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\FileReference;
-use \TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
  * BusinessAdress
  */
@@ -377,7 +378,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Categories
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\Category
+     * @var Category
      */
     protected $categories;
 

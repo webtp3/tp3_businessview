@@ -110,10 +110,10 @@ class PanoramasRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $query->matching(
             $query->equals('pid', $pid),
             $query->logicalAnd(
-                    $query->equals('hidden', 0),
-                    $query->equals('deleted', 0)
-                )
-            );
+                $query->equals('hidden', 0),
+                $query->equals('deleted', 0)
+            )
+        );
         return $query->execute();
     }
 }

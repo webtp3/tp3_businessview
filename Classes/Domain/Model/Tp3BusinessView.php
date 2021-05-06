@@ -355,13 +355,11 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getPanoramas()
     {
-        if($this->panoramas instanceof \Tp3\Tp3Businessview\Domain\Model\Panoramas ){
+        if ($this->panoramas instanceof \Tp3\Tp3Businessview\Domain\Model\Panoramas) {
             return [$this->panoramas];
-
+        } else {
+            return $this->panoramas;
         }
-        else{
-        return $this->panoramas;
-    }
     }
 
     /**
@@ -370,15 +368,13 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @return void
      *
      */
-    public function setPanoramas( $panoramas)
+    public function setPanoramas($panoramas)
     {
-        if($panoramas instanceof \Tp3\Tp3Businessview\Domain\Model\Panoramas ){
+        if ($panoramas instanceof \Tp3\Tp3Businessview\Domain\Model\Panoramas) {
             $this->panoramas[] = $panoramas;
-
+        } else {
+            $this->panoramas = $panoramas;
         }
-        else{
-        $this->panoramas = $panoramas;
-    }
     }
 
     /**

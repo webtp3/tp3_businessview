@@ -45,6 +45,7 @@ namespace Tp3\Tp3Businessview\Controller;
  ***/
 
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Page\PageRenderer;
@@ -53,7 +54,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\CMS\Backend\Routing\UriBuilder;
 
 /**
  * Tp3BusinessViewController

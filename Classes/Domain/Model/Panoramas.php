@@ -158,8 +158,6 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->uid = $uid;
     }
 
-
-
     /**
      * Getter for sorting
      *
@@ -219,7 +217,6 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->panoId;
     }
-
 
     /**
      * Sets the panoId

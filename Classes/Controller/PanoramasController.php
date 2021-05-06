@@ -25,7 +25,6 @@ use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
-use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\DataHandling\DataHandler as DataHandlerCore;
 
 use TYPO3\CMS\Core\Localization\Locales;
@@ -236,7 +235,7 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         /* mm */
         if ($this->request->hasArgument('tp3businessview')) {
             $this->tp3businessview= $this->tp3BusinessViewRepository->findByUid(intval($this->request->getArgument('tp3businessview')['uid']), false);
-            if( $this->tp3businessview->getFirst() instanceof Tp3BusinessView){
+            if ($this->tp3businessview->getFirst() instanceof Tp3BusinessView) {
                 $this->tp3businessview->getFirst()->addPanoramas($panoramas);
                 $this->tp3BusinessViewRepository->update($this->tp3businessview->getFirst());
             }
@@ -287,13 +286,10 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         }
         if ($panoramas->getPid() == null) {
             $panoramas->setPid($panoramas->getPid());
-
-        }
-        else{
+        } else {
             $panoramas->setPid($this->conf['persistence']['storagePid']);
-
         }
-            $panoramas->setTitle($panoramas->getTitle());
+        $panoramas->setTitle($panoramas->getTitle());
 
         if ($panoramas->getUid() == '') {
             $panoramas->setUid(null);
@@ -304,16 +300,13 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         /* mm */
         if ($this->request->hasArgument('tp3businessview')) {
             $this->tp3businessview= $this->tp3BusinessViewRepository->findByUid($this->request->getArgument('tp3businessview')['uid'], false);
-            if( $this->tp3businessview->getFirst() instanceof Tp3BusinessView){
+            if ($this->tp3businessview->getFirst() instanceof Tp3BusinessView) {
                 $this->tp3businessview->getFirst()->addPanoramas($panoramas);
                 $this->tp3BusinessViewRepository->update($this->tp3businessview->getFirst());
                 $this->persistenceManager->persistAll();
             }
-
-        }
-        else{
+        } else {
             $this->persistenceManager->persistAll();
-
         }
 
         $this->addFlashMessage('The object was created.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);

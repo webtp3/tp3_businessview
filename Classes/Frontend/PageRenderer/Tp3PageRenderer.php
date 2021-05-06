@@ -8,6 +8,7 @@
 
 namespace Tp3\Tp3Businessview\Frontend\PageRenderer;
 
+use Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView;
 use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
 use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
@@ -16,7 +17,6 @@ use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView;
 
 class Tp3PageRenderer implements SingletonInterface
 {
@@ -42,7 +42,6 @@ class Tp3PageRenderer implements SingletonInterface
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     public $openHourRepository = null;
-
 
     /**
      * @param array $parameters
@@ -100,7 +99,7 @@ class Tp3PageRenderer implements SingletonInterface
                         return;
                     }
 
-                    $businessView = $this->objectManager->get( Tp3BusinessView::class);
+                    $businessView = $this->objectManager->get(Tp3BusinessView::class);
 
                     $bw = $businessView->getPropertiesArray();
                     $bw['panoramas'] = [];
@@ -109,22 +108,20 @@ class Tp3PageRenderer implements SingletonInterface
                     array_push($panoramas_list, $panorama[0]);
                 } else {
                     $panolist = [];
-                   if( $businessView->getPanoramas() instanceof \Tp3\Tp3BusinessView\Domain\Model\Panoramas){
-                       $panolist[]=  $businessView->getPanoramas()->getUid();
-
-                   }
-                   else{
-                       foreach ($businessView->getPanoramas() as $panoramas => $pano) {
-                           $panolist[]=  $pano->getUid();
-                           array_push($panoramas_list, $pano->getPropertiesArray());
-                       }
-                   }
+                    if ($businessView->getPanoramas() instanceof \Tp3\Tp3BusinessView\Domain\Model\Panoramas) {
+                        $panolist[]=  $businessView->getPanoramas()->getUid();
+                    } else {
+                        foreach ($businessView->getPanoramas() as $panoramas => $pano) {
+                            $panolist[]=  $pano->getUid();
+                            array_push($panoramas_list, $pano->getPropertiesArray());
+                        }
+                    }
 
                     //  $panoramas_list = $this->panoramasRepository->findByList($panolist);
                     //find selcted
                     $panorama = $this->panoramasRepository->findByUid($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
                     $bw = $businessView->getPropertiesArray();
-                        $addresslist[]=  $businessView->getContact()->getPropertiesArray();
+                    $addresslist[]=  $businessView->getContact()->getPropertiesArray();
 
                     if ($this->openHourRepository !== null) {
                         $openhours = $this->openHourRepository->findByAddress($addresslist[0]['uid']);
@@ -150,7 +147,7 @@ class Tp3PageRenderer implements SingletonInterface
                     }
                     $bw['contact'] = $addresslist[0];
                     //$bw['panorama'] = $panoramas_list[0];
-                    $bw['panoramas'] = array_merge([],$panoramas_list);
+                    $bw['panoramas'] = array_merge([], $panoramas_list);
                     $bw['panorama'] = $panorama[0];
 
                     // Social Gallery
@@ -166,18 +163,15 @@ class Tp3PageRenderer implements SingletonInterface
                 $parameters['jsFooterInline'] .="<script>  $('" . ($GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] != '' ? $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] : '#page-content .section') . "').first().attr(\"id\",\"businessview-panorama-canvas\").wrapAll('<div id=\"businessview-canvas\" style=\"width:100%;height:100%;min-height:320px;\"></div>');</script>";
                 $parameters['jsFooterLibs'] .='<script src="typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js"></script>';
                 if ($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['loadApi']== 'true' || $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['loadApi']== '1') {
-                    #check if api is loaded
-                    if($pos = $this->detectApi($parameters)) {
-                           /*
-                            * libraries=places&callback=tp3_app.initialize&
-                            */
+                    //check if api is loaded
+                    if ($pos = $this->detectApi($parameters)) {
+                        /*
+                         * libraries=places&callback=tp3_app.initialize&
+                         */
                        //$matches #todo add tp3_app.initialize
-
-                   }
-                   else{
-                    $parameters['jsFooterLibs'] .='<script  src="//maps.googleapis.com/maps/api/js?key=' . $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['googleMapsJavaScriptApiKey'] . '&libraries=places&callback=tp3_app.initialize"></script>';
-
-                   }
+                    } else {
+                        $parameters['jsFooterLibs'] .='<script  src="//maps.googleapis.com/maps/api/js?key=' . $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['googleMapsJavaScriptApiKey'] . '&libraries=places&callback=tp3_app.initialize"></script>';
+                    }
                 }
 
                 $parameters['cssFiles'] .='<link rel="stylesheet" type="text/css" href="typo3conf/ext/tp3_businessview/Resources/Public/Css/Tp3App.css"></link>';
@@ -241,12 +235,12 @@ class Tp3PageRenderer implements SingletonInterface
         $pano_array = [];
         foreach ($panoramas as $panorama) {
             $pano_array[] =  [
-                'id'=>!is_null($panorama['pano_id'] ) ? $panorama['pano_id'] : $panorama['panoId'],
+                'id'=>!is_null($panorama['pano_id']) ? $panorama['pano_id'] : $panorama['panoId'],
                 'areas'=>[],
                 'infoPoints'=>[],
                 'pano' => [
                     'heading'=>$panorama['heading'],
-                    'panoId'=> !is_null($panorama['pano_id'] ) ? $panorama['pano_id'] : $panorama['panoId'],
+                    'panoId'=> !is_null($panorama['pano_id']) ? $panorama['pano_id'] : $panorama['panoId'],
                     'pitch'=>$panorama['pitch'],
                     'zoom'=>is_numeric($panorama['zoom']) ? $panorama['zoom'] : 0 ,
                 ],
@@ -332,28 +326,24 @@ class Tp3PageRenderer implements SingletonInterface
     {
         //https://maps.googleapis.com/maps/api/js
         $found  = strpos($parameters['jsFooterLibs'], 'maps.googleapis.com');
-        if($found){
-            $parameters["jsFooterLibs"] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters["jsFooterLibs"]);
+        if ($found) {
+            $parameters['jsFooterLibs'] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters['jsFooterLibs']);
             return $found;
-
         }
-        $found  = strpos($parameters["jsFooterFiles"], 'maps.googleapis.com');
-        if($found){
-            $parameters["jsFooterFiles"] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters["jsFooterFiles"]);
+        $found  = strpos($parameters['jsFooterFiles'], 'maps.googleapis.com');
+        if ($found) {
+            $parameters['jsFooterFiles'] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters['jsFooterFiles']);
             return $found;
-
         }
-        $found  = strpos($parameters["jsLibs"], 'maps.googleapis.com');
-        if($found){
-            $parameters["jsLibs"] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters["jsLibs"]);
+        $found  = strpos($parameters['jsLibs'], 'maps.googleapis.com');
+        if ($found) {
+            $parameters['jsLibs'] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters['jsLibs']);
             return $found;
-
         }
-        $found  = strpos($parameters["bodyContent"], 'maps.googleapis.com');
-        if($found){
-            $parameters["bodyContent"] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters["bodyContent"]);
+        $found  = strpos($parameters['bodyContent'], 'maps.googleapis.com');
+        if ($found) {
+            $parameters['bodyContent'] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters['bodyContent']);
             return $found;
-
         }
         return $found;
     }
