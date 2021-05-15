@@ -91,7 +91,7 @@ class Category extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $parentcategory;
 
     /**
-     * @var ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\FileReference>
+     * @var ObjectStorage<\TYPO3\CMS\Core\Resource\FileReference>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $images;
@@ -344,7 +344,7 @@ class Category extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * @return \Tp3\Tp3Businessview\Domain\Model\FileReference[]
+     * @return \TYPO3\CMS\Core\Resource\FileReference[]
      */
     public function getImages()
     {

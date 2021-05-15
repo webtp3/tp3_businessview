@@ -365,7 +365,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Image
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @var TYPO3\CMS\Core\Resource\FileReference
      */
     protected $image = null;
 
