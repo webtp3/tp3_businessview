@@ -91,7 +91,7 @@ class Category extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $parentcategory;
 
     /**
-     * @var ObjectStorage<\TYPO3\CMS\Core\Resource\FileReference>
+     * @var ObjectStorage<File>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $images;
@@ -344,7 +344,7 @@ class Category extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Core\Resource\FileReference[]
+     * @return File[]
      */
     public function getImages()
     {
@@ -354,9 +354,9 @@ class Category extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Add image
      *
-     * @param FileReference $image
+     * @param  File $image
      */
-    public function addImage(FileReference $image)
+    public function addImage( File $image)
     {
         $this->images->attach($image);
     }
@@ -364,9 +364,9 @@ class Category extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Remove image
      *
-     * @param FileReference $image
+     * @param  File $image
      */
-    public function removeImage(FileReference $image)
+    public function removeImage( File $image)
     {
         $this->images->detach($image);
     }
@@ -374,7 +374,7 @@ class Category extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Get the first image
      *
-     * @return FileReference|null
+     * @return  File|null
      */
     public function getFirstImage()
     {

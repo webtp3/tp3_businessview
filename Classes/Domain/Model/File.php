@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class File extends \TYPO3\CMS\Extbase\Domain\Model\AbstractFileFolder
 {
     /**
-     * @return \TYPO3\CMS\Core\Resource\File
+     * @return File
      */
     public function getOriginalResource()
     {

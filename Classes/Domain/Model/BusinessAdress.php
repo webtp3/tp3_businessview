@@ -43,8 +43,6 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
  *
  ***/
-use TYPO3\CMS\Core\Resource\File;
-use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -365,7 +363,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Image
-     * @var TYPO3\CMS\Core\Resource\FileReference
+     * @var File
      */
     protected $image = null;
 
@@ -941,9 +939,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a FileReference
      *
-     * @param FileReference $image
+     * @param  File $image
      */
-    public function addImage(FileReference $image)
+    public function addImage( File $image)
     {
         $this->image->attach($image);
     }
@@ -951,9 +949,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a FileReference
      *
-     * @param FileReference $imageToRemove The FileReference to be removed
+     * @param  File $imageToRemove The FileReference to be removed
      */
-    public function removeImage(FileReference $imageToRemove)
+    public function removeImage( File $imageToRemove)
     {
         $this->image->detach($imageToRemove);
     }
@@ -961,7 +959,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the images
      *
-     * @return ObjectStorage<FileReference>
+     * @return ObjectStorage< File>
      */
     public function getImage()
     {
@@ -971,9 +969,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the images
      *
-     * @param ObjectStorage<FileReference> $image
+     * @param ObjectStorage< File> $image
      */
-    public function setImage(FileReference $image)
+    public function setImage( File $image)
     {
         $this->image = $image;
     }
