@@ -22,4 +22,9 @@ return [
             ],
         ],
     ],
+    \Tp3\Tp3Businessview\Domain\Model\File::class => [
+        'tableName' => 'sys_file',
+        'recordType' => \Tp3\Tp3Businessview\Domain\Model\File::class,
+
+    ],
 ];
