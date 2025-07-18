@@ -23,13 +23,21 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
+        'hideTable' => true,
+        'security' => [
+            'ignoreWebMountRestriction' => true,
+            'ignoreRootLevelRestriction' => true,
+            'ignorePageTypeRestriction' => true,
+        ],
         'searchFields' => 'title,pano_id,heading,pitch,zoom',
         'iconfile' => 'EXT:tp3_businessview/Resources/Public/Icons/user_plugin_tp3businessview.svg',
         'typeicon_classes' => [
             'default' => 'ext-tp3_businessview-wizard-icon'
         ],
     ],
-
+    'interface' => [
+        'showRecordFieldList' => 'hidden, title, pano_id, heading, pitch, zoom, position, tp3businessviews,',
+    ],
     'types' => [
         '1' => ['showitem' => 'hidden, title, pano_id, heading, pitch, zoom, tp3businessviews, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],

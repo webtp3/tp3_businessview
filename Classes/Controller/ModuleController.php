@@ -219,7 +219,7 @@ class ModuleController extends ActionController
             return;
         }
 
-        if (TYPO3_MODE === 'BE') {
+        if (\TYPO3\CMS\Core\Http\ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             $this->registerDocheaderButtons();
         }
         //  $this->view->render();
@@ -350,10 +350,8 @@ class ModuleController extends ActionController
                 if (count($panolist)>0) {
                     $panoramas_all = $this->panoramasRepository->findAll(); //findByPid($this->pageUid);
                     $bw = $businessView->getPropertiesArray();
-                    if ($contact = $businessView->getContact()) {
-                        foreach ($contact as $addresses => $address) {
-                            $addresslist[]=  $address->_getCleanProperties();
-                        }
+                    foreach ($businessView->getContact() as $addresses => $address) {
+                        $addresslist[]=  $address->_getCleanProperties();
                     }
                     $bw['contact'] = $addresslist[0];
                     $businessAdresses[] = $this->businessAdressRepository->findAll();
@@ -385,7 +383,7 @@ class ModuleController extends ActionController
             }
         }
 
-        $this->view->assign('debugMode', false);
+        $this->view->assign('debugMode', $this->conf['debugMode']);
         $this->view->assign('conf', $this->conf);
         $this->view->assign('settings', $this->settings);
         $this->view->assign('panoramas', $panoramas_list);

@@ -7,7 +7,7 @@
  * LICENSE file that was distributed with this source code.
  */
 
-defined('TYPO3_MODE') || die('Access denied.');
+defined('TYPO3') || die('Access denied.');
 $_EXTKEY = 'tp3_businessview';
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -46,7 +46,7 @@ $_EXTKEY = 'tp3_businessview';
 	   }'
 );
 // Icons
-if (TYPO3_MODE === 'BE') {
+if (\TYPO3\CMS\Core\Http\ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
     $icons = [
         'ext-' . $_EXTKEY . '-wizard-icon' => 'user_plugin_tp3businessview.svg',
     ];
@@ -60,7 +60,7 @@ if (TYPO3_MODE === 'BE') {
     }
 }
 //output thru hook
-if (TYPO3_MODE === 'FE') {
+if (\TYPO3\CMS\Core\Http\ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
     if (class_exists(\Tp3\Tp3Businessview\Frontend\PageRenderer\Tp3PageRenderer::class)) {
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][] = \Tp3\Tp3Businessview\Frontend\PageRenderer\Tp3PageRenderer::class . '->render';
     }

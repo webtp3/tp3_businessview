@@ -93,7 +93,7 @@ class BusinessAdressController extends ActionController
             return;
         }
 
-        if (TYPO3_MODE === 'BE') {
+        if (\TYPO3\CMS\Core\Http\ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             $this->registerDocheaderButtons();
         }
         //  $this->view->render();

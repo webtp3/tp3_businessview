@@ -7,7 +7,7 @@
  * LICENSE file that was distributed with this source code.
  */
 
-defined('TYPO3_MODE') || die();
+defined('TYPO3') or die;
 
 $tmp_tp3_businessview_columns = [
 
@@ -46,6 +46,7 @@ $tmp_tp3_businessview_columns = [
                 'foreign_sortby' => 'sorting',
                 'allowed' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'MM' => 'tx_tp3businessview_domain_model_tp3businessview_mm',
+                'enableMultiSelectFilterTextfield' => true,
                 'minitems' => 0,
                 'maxitems' => 100,
                 'size' => 1,

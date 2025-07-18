@@ -243,7 +243,7 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->persistenceManager->persistAll();
 
-        if (TYPO3_MODE === 'BE') {
+        if (\TYPO3\CMS\Core\Http\ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             $this->redirect('index', 'Module');
         } else {
             $this->redirect('list', 'Tp3BusinessView');
@@ -311,7 +311,7 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
         $this->addFlashMessage('The object was created.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
 
-        if (TYPO3_MODE === 'BE') {
+        if (\TYPO3\CMS\Core\Http\ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             $this->redirect('index', 'Module');
         } else {
             $this->redirect('list', 'Tp3BusinessView');

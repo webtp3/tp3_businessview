@@ -7,13 +7,13 @@
  * LICENSE file that was distributed with this source code.
  */
 
-defined('TYPO3_MODE') || die();
+defined('TYPO3') or die;
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['tp3businessview_tp3businessview']='layout,select_key,pages,recursive';
 
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['tp3businessview_tp3businessview']='pi_flexform';
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    'tp3_businessView',
+    'tp3_businessview',
     'Tp3BusinessView',
     'Tp3 BusinessView',
     'EXT:tp3_businessview/Resources/Public/Icons/user_plugin_tp3businessview.svg'
