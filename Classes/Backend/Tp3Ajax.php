@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
 
-namespace  Tp3\Tp3Businessview\Backend;
+namespace Tp3\Tp3Businessview\Backend;
 
 /**
  * This file is part of the "news" Extension for TYPO3 CMS.

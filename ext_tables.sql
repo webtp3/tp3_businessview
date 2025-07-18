@@ -15,10 +15,10 @@ CREATE TABLE tx_tp3businessview_domain_model_tp3businessview (
 	social_gallery varchar(255) DEFAULT '' NOT NULL,
 	pano_options varchar(255) DEFAULT '' NOT NULL,
 	contact int(11) unsigned DEFAULT '0' NOT NULL,
-  description text DEFAULT NULL,
+    description text DEFAULT NULL,
 	panoramas int(11) unsigned DEFAULT '0' NOT NULL,
 
-  sorting int(11) DEFAULT '0' NOT NULL,
+    sorting int(11) DEFAULT '0' NOT NULL,
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE pages (
 	tx_tp3businessview_onpage tinyint(4) DEFAULT '0' NOT NULL,
 	tx_tp3businessview_panorama int(11) DEFAULT NULL,
 	tx_tp3businessview_injetionpoint varchar(255) DEFAULT '' NOT NULL,
-	tx_tp3businessview_businessview int(11) DEFAULT NULL,
+	tx_tp3businessview_businessview int(11) unsigned DEFAULT '0',
 );
 
 #

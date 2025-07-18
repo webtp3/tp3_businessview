@@ -1,7 +1,8 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -49,23 +50,24 @@ use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
 use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
 use Tp3\Tp3Businessview\Frontend\PageRenderer\Tp3PageRenderer;
+use Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\DataHandling\DataHandler as DataHandlerCore;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
-
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\CMS\Core\Utility\RootlineUtility;
+
 /**
  * ModuleController
  */
@@ -76,6 +78,11 @@ class ModuleController extends ActionController
      * @var IconFactory
      */
     protected $iconFactory;
+
+    /**
+     * @var conf
+     */
+    protected $conf;
 
     /**
      * @var PersistenceManager
@@ -132,7 +139,7 @@ class ModuleController extends ActionController
         'viewSettings' => []
     ];
 
-    /* @var $dataMapper \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper */
+    // @var $dataMapper \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper
     protected $dataMapper;
     /**
      *
@@ -147,28 +154,52 @@ class ModuleController extends ActionController
 
      */
     public $businessadress = null;
+
     /**
+     * tp3AdressRepository
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    public $panoramasRepository = null;
+    protected ?PanoramasRepository $panoramasRepository = null;
 
+    public function injectPanoramasRepository(PanoramasRepository $panoramasRepository)
+    {
+        $this->panoramasRepository = $panoramasRepository;
+    }
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
      */
-    public $tp3BusinessViewRepository = null;
+    protected ?Tp3BusinessViewRepository $tp3BusinessViewRepository = null;
 
+    public function injectTp3BusinessViewRepository(Tp3BusinessViewRepository $tp3BusinessViewRepository)
+    {
+        $this->tp3BusinessViewRepository = $tp3BusinessViewRepository;
+    }
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
      */
-    public $businessAdressRepository = null;
+    protected ?BusinessAdressRepository $businessAdressRepository = null;
+
+    public function injectBusinessAdressRepository(BusinessAdressRepository $businessAdressRepository)
+    {
+        $this->businessAdressRepository = $businessAdressRepository;
+    }
+
     /**
+     * openHourRepository
      *
-     * @var \Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository;
+     * @var \Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    public $openHourRepository = null;
+    protected ?OpenHourRepository $openHourRepository = null;
+
+    public function injectOpenHourRepository(OpenHourRepository $openHourRepository)
+    {
+        $this->openHourRepository = $openHourRepository;
+    }
     /**
      * @var Locales
      */
@@ -227,8 +258,8 @@ class ModuleController extends ActionController
         $rootline = GeneralUtility::makeInstance(RootlineUtility::class, $this->pageUid);
         $this->rootLine = $rootline->get();
 
-//        $sysPageObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
-//        $this->rootLine = $sysPageObj->getRootLine($this->pageUid);
+        //        $sysPageObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
+        //        $this->rootLine = $sysPageObj->getRootLine($this->pageUid);
     }
 
     /**
@@ -262,7 +293,7 @@ class ModuleController extends ActionController
              $publicResourcesPath.'Resources/Public/Css/Tp3App.css','stylesheet', 'all', "tp3businessview preview", $compress = false, false,  '', true,  '|'
          );*/
         $this->pageRenderer->addJsInlineCode('gapikey', 'window.apikey = "' . $this->settings['googleMapsJavaScriptApiKey'] . '";');
-       // $this->pageRenderer->addJsInlineCode('jfninsertElementAtIndex', 'TYPO3.jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length; if(index<0){index=Math.max(0,lastIndex+ 1+ index)}this.append(element);if(index<lastIndex){this.children().eq(index).before(this.children().last())}return this;}');
+        // $this->pageRenderer->addJsInlineCode('jfninsertElementAtIndex', 'TYPO3.jQuery.fn.insertElementAtIndex=function(element,index){var lastIndex=this.children().length; if(index<0){index=Math.max(0,lastIndex+ 1+ index)}this.append(element);if(index<lastIndex){this.children().eq(index).before(this.children().last())}return this;}');
 
         if (is_array($this->settings)) {
             $this->pageRenderer->addJsInlineCode('panoAnmation', 'window.AnmationOptions  = {  panoJumpTimer:' . $this->settings['panoJumpTimer'] . ', panoRotationTimer:' . $this->settings['panoRotationTimer'] . ', panoRotationFactor:' . $this->settings['panoRotationFactor'] . ', panoJumpsRandom:' . $this->settings['panoJumpsRandom'] . '};');
@@ -272,24 +303,24 @@ class ModuleController extends ActionController
             $businessViews = [];
 
             if ($this->tp3BusinessViewRepository === null) {
-                $this->tp3BusinessViewRepository = $this->objectManager->get(Tp3BusinessViewRepository::class);
+                $this->tp3BusinessViewRepository = GeneralUtility::makeInstance(\Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository::class);
             }
 
             if ($this->panoramasRepository === null) {
-                $this->panoramasRepository = $this->objectManager->get(PanoramasRepository::class);
+                $this->panoramasRepository = GeneralUtility::makeInstance(\Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository::class);
             }
             if ($this->businessAdressRepository === null) {
-                $this->businessAdressRepository = $this->objectManager->get(BusinessAdressRepository::class);
+                $this->businessAdressRepository = GeneralUtility::makeInstance(\Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository::class);
                 if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tp3_openhours')) {
                     if ($this->openHourRepository === null) {
-                        $this->openHourRepository = $this->objectManager->get(\Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository::class);
+                        $this->openHourRepository = GeneralUtility::makeInstance(\Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository::class);
                     }
                 }
             }
             if ($this->jsonRenderer === null) {
-                $this->jsonRenderer = $this->objectManager->get(Tp3PageRenderer::class);
+                $this->jsonRenderer = GeneralUtility::makeInstance(Tp3PageRenderer::class);
             }
-            $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+            $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
             $querySettings->setStoragePageIds([$this->conf['persistence']['storagePid'], $this->pageUid]);
             $this->panoramasRepository->setDefaultQuerySettings($querySettings);
             $this->tp3BusinessViewRepository->setDefaultQuerySettings($querySettings);
@@ -300,64 +331,61 @@ class ModuleController extends ActionController
             $businessViews = $this->tp3BusinessViewRepository->findAll();
             //    $businessView = $businessViews->getFirst();
             if ($businessViews->getFirst() instanceof \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView) {
-                foreach ($businessViews as $businessView) {
-                    $panolist = [];
-                    $panoramas_list = [];
-                    $addresslist =[];
+                //                foreach ($businessViews as $businessView) {
+                $businessView = $businessViews->getFirst();
+                $panolist = [];
+                $panoramas_list = [];
+                $addresslist =[];
 
-                    if( $businessView->getPanoramas() instanceof \Tp3\Tp3BusinessView\Domain\Model\Panoramas){
-                        $panolist[]=  $businessView->getPanoramas()->getUid();
-                        array_push($panoramas_list, $businessView->getPanoramas()->getPropertiesArray());
-
-                    }
-                    else{
+                if ($businessView->getPanoramas() instanceof \Tp3\Tp3BusinessView\Domain\Model\Panoramas) {
+                    $panolist[]=  $businessView->getPanoramas()->getUid();
+                    array_push($panoramas_list, $businessView->getPanoramas()->getPropertiesArray());
+                } else {
                     foreach ($businessView->getPanoramas() as $panoramas => $pano) {
                         $panolist[]=  $pano->getUid();
                         array_push($panoramas_list, $pano->getPropertiesArray());
                     }
-                    }
+                }
 
-                    if (count($panolist)>0) {
-                        $panoramas_all = $this->panoramasRepository->findAll(); //findByPid($this->pageUid);
-                        $bw = $businessView->getPropertiesArray();
-                        foreach ($businessView->getContact() as $addresses => $address) {
+                if (count($panolist)>0) {
+                    $panoramas_all = $this->panoramasRepository->findAll(); //findByPid($this->pageUid);
+                    $bw = $businessView->getPropertiesArray();
+                    if ($contact = $businessView->getContact()) {
+                        foreach ($contact as $addresses => $address) {
                             $addresslist[]=  $address->_getCleanProperties();
                         }
-                        $bw['contact'] = $addresslist[0];
-                        $businessAdresses[] = $this->businessAdressRepository->findAll();
-                        if ($this->openHourRepository !== null) {
-                            $openhours = $this->openHourRepository->findByAddress($businessView->getContact());
-                            $formattedText = '';
-                            $hoursArray = [];
-                            foreach ($openhours as $oh) {
-                                //$dateconv = \date("H:i",$oh->getOpenTime());
-                                $formattedText .= $oh->getDayName() . ' ' . \date('H:i', $oh->getOpenTime()) . '-' . \date('H:i', $oh->getCloseTime()) . '<br>';
-                                $hoursArray[] = [\date('H:i', $oh->getOpenTime()), \date('H:i', $oh->getCloseTime())];
-                            }
-                            if ($formattedText != '') {
-                                $bw['openingHours'] = [
-                                   'formattedText' => $formattedText,
-                                   'status'=>true,
-                                   'hours'=>$hoursArray,
-                               ];
-                            }
-
-                            /*
-                            *
-                            "openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
-
-                            */
-                        }
-                        $bw['panorama'] = $panoramas_list[0];
-                        $bw['panoramas'] = [$panoramas_list];
-                        // $bw['contact'] = $this->businessadressrepository->findByUid($businessView->getContact()->getFirst()->getUid())[0];
-                        $businessViewJson[$businessView->getUid()] = $this->jsonRenderer->JsonRenderer($bw, $panoramas_list, $this->settings);
                     }
+                    $bw['contact'] = $addresslist[0];
+                    $businessAdresses[] = $this->businessAdressRepository->findAll();
+                    if ($this->openHourRepository !== null) {
+                        $openhours = $this->openHourRepository->findByAddress($businessView->getContact());
+                        $formattedText = '';
+                        $hoursArray = [];
+                        foreach ($openhours as $oh) {
+                            //$dateconv = \date("H:i",$oh->getOpenTime());
+                            $formattedText .= $oh->getDayName() . ' ' . \date('H:i', $oh->getOpenTime()) . '-' . \date('H:i', $oh->getCloseTime()) . '<br>';
+                            $hoursArray[] = [\date('H:i', $oh->getOpenTime()), \date('H:i', $oh->getCloseTime())];
+                        }
+                        if ($formattedText != '') {
+                            $bw['openingHours'] = [
+                               'formattedText' => $formattedText,
+                               'status'=>true,
+                               'hours'=>$hoursArray,
+                               ];
+                        }
+
+                        // "openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
+                    }
+                    $bw['panorama'] = $panoramas_list[0];
+                    $bw['panoramas'] = [$panoramas_list];
+                    // $bw['contact'] = $this->businessadressrepository->findByUid($businessView->getContact()->getFirst()->getUid())[0];
+                    $businessViewJson[$businessView->getUid()] = $this->jsonRenderer->JsonRenderer($bw, $panoramas_list, $this->settings);
                 }
+                //                }
             }
         }
 
-        $this->view->assign('debugMode', $this->conf['debugMode']);
+        $this->view->assign('debugMode', false);
         $this->view->assign('conf', $this->conf);
         $this->view->assign('settings', $this->settings);
         $this->view->assign('panoramas', $panoramas_list);
@@ -402,7 +430,7 @@ class ModuleController extends ActionController
                 //  if($item['tx_tp3businessview_domain_model_panoramas']["uid"])
                 $pano = $this->dataMapper->map(Panoramas::class, [$item['tx_tp3businessview_domain_model_panoramas']]);
 
-                $panorama = $this->objectManager->get('TYPO3\CMS\Extbase\Property\PropertyMapper')
+                $panorama = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Property\PropertyMapper')
                     ->convert(
                         $pano[0],
                         Panoramas::class
@@ -455,7 +483,7 @@ class ModuleController extends ActionController
      */
     public function updateAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
     {
-        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
         $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->tp3BusinessViewRepository->update($businessview);
         $this->persistenceManager->persistAll();
@@ -469,7 +497,7 @@ class ModuleController extends ActionController
      */
     public function createAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
     {
-        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
         $this->addFlashMessage('The object was created.', 'created', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->businessvierepository->add($businessview);
         $this->persistenceManager->persistAll();

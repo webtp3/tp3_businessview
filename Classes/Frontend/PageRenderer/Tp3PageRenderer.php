@@ -1,13 +1,15 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
 
 namespace Tp3\Tp3Businessview\Frontend\PageRenderer;
 
+use Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView;
 use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
 use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
@@ -16,33 +18,63 @@ use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView;
 
 class Tp3PageRenderer implements SingletonInterface
 {
     /**
      *
-     * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
+     * @var int;
      */
-    public $Tp3BusinessViewRepository = null;
+    public $pageUid = 0;
+    /**
+     *
+     * @var ObjectManager::class;
+     */
+    public $objectManager = null;
+
+    /**
+     *
+     * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?Tp3BusinessViewRepository $Tp3BusinessViewRepository = null;
+
+    public function injectTp3BusinessViewRepository(Tp3BusinessViewRepository $Tp3BusinessViewRepository)
+    {
+        $this->Tp3BusinessViewRepository = $Tp3BusinessViewRepository;
+    }
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
      */
-    public $panoramasRepository = null;
+    protected ?PanoramasRepository $panoramasRepository = null;
+
+    public function injectPanoramasRepository(PanoramasRepository $panoramasRepositor)
+    {
+        $this->panoramasRepositor = $panoramasRepositor;
+    }
     /**
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    public $businessAdressRepository = null;
+    protected ?BusinessAdressRepository $businessAdressRepository = null;
+
+    public function injectBusinessAdressRepository(BusinessAdressRepository $businessAdressRepository)
+    {
+        $this->businessAdressRepository = $businessAdressRepository;
+    }
     /**
      *
      * @var \Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository;
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    public $openHourRepository = null;
+    protected ?\Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository  $openHourRepository = null;
 
+    public function injectOpenHourRepository(\Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository $openHourRepository)
+    {
+        $this->openHourRepository = $openHourRepository;
+    }
 
     /**
      * @param array $parameters
@@ -82,7 +114,7 @@ class Tp3PageRenderer implements SingletonInterface
                     }
                 }
             }
-            $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+            $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
             $querySettings->setStoragePageIds([ $config['plugin.']['tx_tp3businessview_tp3businessview.']['persistence.']['storagePid'], $this->pageUid]);
             $this->panoramasRepository->setDefaultQuerySettings($querySettings);
             $this->Tp3BusinessViewRepository->setDefaultQuerySettings($querySettings);
@@ -100,7 +132,7 @@ class Tp3PageRenderer implements SingletonInterface
                         return;
                     }
 
-                    $businessView = $this->objectManager->get( Tp3BusinessView::class);
+                    $businessView = GeneralUtility::makeInstance(Tp3BusinessView::class);
 
                     $bw = $businessView->getPropertiesArray();
                     $bw['panoramas'] = [];
@@ -109,22 +141,20 @@ class Tp3PageRenderer implements SingletonInterface
                     array_push($panoramas_list, $panorama[0]);
                 } else {
                     $panolist = [];
-                   if( $businessView->getPanoramas() instanceof \Tp3\Tp3BusinessView\Domain\Model\Panoramas){
-                       $panolist[]=  $businessView->getPanoramas()->getUid();
-
-                   }
-                   else{
-                       foreach ($businessView->getPanoramas() as $panoramas => $pano) {
-                           $panolist[]=  $pano->getUid();
-                           array_push($panoramas_list, $pano->getPropertiesArray());
-                       }
-                   }
+                    if ($businessView->getPanoramas() instanceof \Tp3\Tp3BusinessView\Domain\Model\Panoramas) {
+                        $panolist[]=  $businessView->getPanoramas()->getUid();
+                    } else {
+                        foreach ($businessView->getPanoramas() as $panoramas => $pano) {
+                            $panolist[]=  $pano->getUid();
+                            array_push($panoramas_list, $pano->getPropertiesArray());
+                        }
+                    }
 
                     //  $panoramas_list = $this->panoramasRepository->findByList($panolist);
                     //find selcted
                     $panorama = $this->panoramasRepository->findByUid($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
                     $bw = $businessView->getPropertiesArray();
-                        $addresslist[]=  $businessView->getContact()->getPropertiesArray();
+                    $addresslist[]=  $businessView->getContact() != null ? $businessView->getContact()->getPropertiesArray() : ['uid' => null];
 
                     if ($this->openHourRepository !== null) {
                         $openhours = $this->openHourRepository->findByAddress($addresslist[0]['uid']);
@@ -142,15 +172,11 @@ class Tp3PageRenderer implements SingletonInterface
                                 'hours'=>$hoursArray,
                             ];
                         }
-                        /*
-                        *
-                        "openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
-
-                        */
+                        // "openingHours":{"formattedText":"Montag: geschlossen<br>Di - Fr: 10:00 - 18:00 Uhr<br>Sa - So: 10:00 - 18:00 Uhr","status":true,"hours":[null,["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],[],[]]},
                     }
                     $bw['contact'] = $addresslist[0];
                     //$bw['panorama'] = $panoramas_list[0];
-                    $bw['panoramas'] = array_merge([],$panoramas_list);
+                    $bw['panoramas'] = array_merge([], $panoramas_list);
                     $bw['panorama'] = $panorama[0];
 
                     // Social Gallery
@@ -166,18 +192,25 @@ class Tp3PageRenderer implements SingletonInterface
                 $parameters['jsFooterInline'] .="<script>  $('" . ($GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] != '' ? $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] : '#page-content .section') . "').first().attr(\"id\",\"businessview-panorama-canvas\").wrapAll('<div id=\"businessview-canvas\" style=\"width:100%;height:100%;min-height:320px;\"></div>');</script>";
                 $parameters['jsFooterLibs'] .='<script src="typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js"></script>';
                 if ($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['loadApi']== 'true' || $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['loadApi']== '1') {
-                    #check if api is loaded
-                    if($pos = $this->detectApi($parameters)) {
-                           /*
-                            * libraries=places&callback=tp3_app.initialize&
-                            */
-                       //$matches #todo add tp3_app.initialize
+                    //check if api is loaded
+                    if ($pos = $this->detectApi($parameters)) {
+                        // libraries=places&callback=tp3_app.initialize&
+                        //$matches #todo add tp3_app.initialize
+                    } else {
+                        $cookiePreferences = null;
 
-                   }
-                   else{
-                    $parameters['jsFooterLibs'] .='<script  src="//maps.googleapis.com/maps/api/js?key=' . $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['googleMapsJavaScriptApiKey'] . '&libraries=places&callback=tp3_app.initialize"></script>';
+                        if (isset($_COOKIE['cookiePreferences'])) {
+                            $cookiePreferences = json_decode($_COOKIE['cookiePreferences'], true);
+                        }
 
-                   }
+                        if (isset($cookiePreferences['external'])) {
+                            $parameters['jsFooterLibs'] .='<script  defer src="https://maps.googleapis.com/maps/api/js?key=' . $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['googleMapsJavaScriptApiKey'] . '&callback=tp3_app.initialize"></script>';
+
+                        }
+                        //                        $parameters['jsFooterLibs'] .= '<script> (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({key: "' . $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['googleMapsJavaScriptApiKey'] .'" });</script>';
+
+                    }
+
                 }
 
                 $parameters['cssFiles'] .='<link rel="stylesheet" type="text/css" href="typo3conf/ext/tp3_businessview/Resources/Public/Css/Tp3App.css"></link>';
@@ -241,12 +274,12 @@ class Tp3PageRenderer implements SingletonInterface
         $pano_array = [];
         foreach ($panoramas as $panorama) {
             $pano_array[] =  [
-                'id'=>!is_null($panorama['pano_id'] ) ? $panorama['pano_id'] : $panorama['panoId'],
+                'id'=>array_key_exists('pano_id', $panorama) ? $panorama['pano_id'] : $panorama['panoId'],
                 'areas'=>[],
                 'infoPoints'=>[],
                 'pano' => [
                     'heading'=>$panorama['heading'],
-                    'panoId'=> !is_null($panorama['pano_id'] ) ? $panorama['pano_id'] : $panorama['panoId'],
+                    'panoId'=> array_key_exists('pano_id', $panorama) ? $panorama['pano_id'] : $panorama['panoId'],
                     'pitch'=>$panorama['pitch'],
                     'zoom'=>is_numeric($panorama['zoom']) ? $panorama['zoom'] : 0 ,
                 ],
@@ -260,50 +293,51 @@ class Tp3PageRenderer implements SingletonInterface
                 'areaOrder'=>[],
                 'editors'=>[],
                 'googleMapsJavaScriptApiKey'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['googleMapsJavaScriptApiKey'],
-                'legalNoticeUrl'=>'http://' . urlencode($businessview['external_links'] != '' ? $businessview['external_links'] : $businessview['externalLinks']),
-                'location'=>['formattedAddress'=>$businessview['contact']['address'] . ', ' . $businessview['contact']['zip'] . ' ' . $businessview['contact']['city'] . ',' . $businessview['contact']['country'], 'position'=>['latitude'=>$businessview['contact']['latitude'], 'longitude'=>$businessview['contact']['longitude']]],
-                'createdBy'=>['name'=>($businessview['created_by'] != '' ? $businessview['created_by'] : $businessview['createdBy']) . ',' . urlencode($businessview['external_links'] != '' ? $businessview['external_links'] : $businessview['externalLinks']), 'status'=>true],
+                'legalNoticeUrl'=>'http://' . urlencode(array_key_exists('external_links', $businessview) ? $businessview['external_links'] : $businessview['externalLinks']),
+//                'location'=>['formattedAddress'=>$businessview['contact']['address'] . ', ' . $businessview['contact']['zip'] . ' ' . $businessview['contact']['city'] . ',' . $businessview['contact']['country'], 'position'=>['latitude'=>$businessview['contact']['latitude'], 'longitude'=>$businessview['contact']['longitude']]],
+                'createdBy'=>['name'=>(array_key_exists('created_by', $businessview)  ? $businessview['created_by'] : $businessview['createdBy']) . ',' . urlencode(array_key_exists('external_links', $businessview) ? $businessview['external_links'] : $businessview['externalLinks']), 'status'=>true],
                 'modules'=>[
-                    'contact'=> ['fields'=>[
-                        'name'=>['value'=>$businessview['contact']['name'], 'visible'=>($businessview['contact']['name'] !='' ? true : false)],
-                        'street'=>['value'=>$businessview['contact']['address'], 'visible'=>($businessview['contact']['address'] !='' ? true : false)],
-                        'zip'=>['value'=>$businessview['contact']['zip'], 'visible'=>($businessview['contact']['zip'] !='' ? true : false)],
-                        'city'=>['value'=>$businessview['contact']['city'], 'visible'=>($businessview['contact']['city'] !='' ? true : false)],
-                        'phone'=>['value'=>$businessview['contact']['phone'], 'visible'=>($businessview['contact']['phone'] !='' ? true : false)],
-                        'email'=>['value'=>$businessview['contact']['email'], 'visible'=>($businessview['contact']['email'] !='' ? true : false)],
-                        'website'=>['value'=>$businessview['contact']['www'], 'visible'=>($businessview['contact']['www'] !='' ? true : false)],
-                    ],
-                        'color'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['color'] != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['color'] : $settings['color'],
-                        'backgroundColor'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['backgroundColor'] != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['backgroundColor'] : $settings['backgroundColor'],
-                        'textColor'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['textColor']  != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['textColor'] : $settings['textColor'],
-                        'align'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['align'] != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['align'] : $settings['align'],
-
-                    ],
+//                    'contact'=> ['fields'=>[
+//                        'name'=>['value'=>$businessview['contact']['name'], 'visible'=>($businessview['contact']['name'] !='' ? true : false)],
+//                        'street'=>['value'=>$businessview['contact']['address'], 'visible'=>($businessview['contact']['address'] !='' ? true : false)],
+//                        'zip'=>['value'=>$businessview['contact']['zip'], 'visible'=>($businessview['contact']['zip'] !='' ? true : false)],
+//                        'city'=>['value'=>$businessview['contact']['city'], 'visible'=>($businessview['contact']['city'] !='' ? true : false)],
+//                        'phone'=>['value'=>$businessview['contact']['phone'], 'visible'=>($businessview['contact']['phone'] !='' ? true : false)],
+//                        'email'=>['value'=>$businessview['contact']['email'], 'visible'=>($businessview['contact']['email'] !='' ? true : false)],
+//                        'website'=>['value'=>$businessview['contact']['www'], 'visible'=>($businessview['contact']['www'] !='' ? true : false)],
+//                    ],
+//                        'color'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['color'] != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['color'] : $settings['color'],
+//                        'backgroundColor'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['backgroundColor'] != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['backgroundColor'] : $settings['backgroundColor'],
+//                        'textColor'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['textColor']  != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['textColor'] : $settings['textColor'],
+//                        'align'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['align'] != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['align'] : $settings['align'],
+//
+//                    ],
                     'custom'=>[],
-                    'externalLinks'=> ['status'=>true, 'align'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['alignSocial'] != '' ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['alignSocial'] : 'left', 'links'=>[
-                        ['icon'=>'fa-twitter', 'url'=>'https://twitter.com/' . $businessview['contact']['twitter'] . '/', 'target'=>false, 'visible'=>($businessview['contact']['twitter'] !='' && ($businessview['social_gallery'] ||  $businessview['socialGallery'])? true : false)],
-                        ['icon'=>'fa-facebook', 'url'=>'https://www.facebook.com/' . $businessview['contact']['facebook'] . '', 'target'=>false, 'visible'=>($businessview['contact']['facebook'] !='' && ($businessview['social_gallery'] ||  $businessview['socialGallery']) ? true : false)],
-                        ['icon'=>'fa-google-plus', 'url'=>'https://plus.google.com/' . $businessview['contact']['googleplus'] . '/about', 'target'=>false, 'visible'=>($businessview['contact']['googleplus'] !='' && ($businessview['social_gallery'] ||  $businessview['socialGallery']) ? true : false)
-                        ]
-                    ]
-                    ],
+//                    'externalLinks'=> ['status'=>true, 'align'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['alignSocial'] != '' ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['alignSocial'] : 'left', 'links'=>[
+//                        ['icon'=>'fa-twitter', 'url'=>'https://twitter.com/' . $businessview['contact']['twitter'] . '/', 'target'=>false, 'visible'=>(array_key_exists('contact',$businessview) && array_key_exists('twitter',$businessview['contact']) && ($businessview['social_gallery'] ||  $businessview['socialGallery'])? true : false)],
+//                        ['icon'=>'fa-facebook', 'url'=>'https://www.facebook.com/' . $businessview['contact']['facebook'] . '', 'target'=>false, 'visible'=>($businessview['contact']['facebook'] !='' && ($businessview['social_gallery'] ||  $businessview['socialGallery']) ? true : false)],
+//                        ['icon'=>'fa-google-plus', 'url'=>'https://plus.google.com/' . $businessview['contact']['googleplus'] . '/about', 'target'=>false, 'visible'=>($businessview['contact']['googleplus'] !='' && ($businessview['social_gallery'] ||  $businessview['socialGallery']) ? true : false)
+//                        ]
+//                    ]
+//                    ],
                     'gallery'=>[],
                     'intro'=>[
-                        'headline'=>$businessview['name'], 'message'=> $businessview['description'] != null ? htmlentities($businessview['description']) : '',
+                        'headline'=>$businessview['name'],
+
                         'backgroundColor'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['backgroundColor'] != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['backgroundColor'] : $settings['backgroundColor'],
                         'textColor'=>$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['textColor']  != null ? $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['textColor'] : $settings['textColor'],
                         'status'=>$businessview['intro']
                     ],
-                    'openingHours'=> $businessview['openingHours'],
+                    'openingHours'=> array_key_exists('openingHours', $businessview)?$businessview['openingHours'] : '',
                     'opentable'=>[],
                     'panoAnimation'=>['jumps'=>$businessview['pano_animation']['jumps'] ? true : false , 'rotation'=>$businessview['pano_animation']['rotation'] ? true : false],
-                    'socialGallery'=> $businessview['social_gallery']
+                    'socialGallery'=> array_key_exists('social_gallery', $businessview)?$businessview['social_gallery'] : '',
 
                 ],
-                'name'=>$businessview['title'],
+//                'name'=> array_key_exists('title',$businessview['title']) ? $businessview['title'] : '#@todo',
                 'panoEntry'=>[
                     'heading'=>$businessview['panorama']['heading'],
-                    'panoId'=>empty($panorama['pano_id'])? $businessview['panorama']['pano_id'] : $businessview['panorama']['panoId'],
+                    'panoId'=> array_key_exists('pano_id', $businessview['panorama'])? $businessview['panorama']['pano_id'] : $businessview['panorama']['panoId'],
                     'pitch'=>$businessview['panorama']['pitch'],
                     'zoom'=>is_numeric($businessview['panorama']['zoom']) ? $businessview['panorama']['zoom'] : 0 ,
                 ],
@@ -330,30 +364,36 @@ class Tp3PageRenderer implements SingletonInterface
      */
     public function detectApi(&$parameters)
     {
+        // cookiePreferences
+        $cookiePreferences = null;
+
+        if (isset($_COOKIE['cookiePreferences'])) {
+            $cookiePreferences = json_decode($_COOKIE['cookiePreferences'], true);
+        }
+
+        if (!isset($cookiePreferences['external'])) {
+            return;
+        }
         //https://maps.googleapis.com/maps/api/js
         $found  = strpos($parameters['jsFooterLibs'], 'maps.googleapis.com');
-        if($found){
-            $parameters["jsFooterLibs"] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters["jsFooterLibs"]);
+        if ($found) {
+            $parameters['jsFooterLibs'] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters['jsFooterLibs']);
             return $found;
-
         }
-        $found  = strpos($parameters["jsFooterFiles"], 'maps.googleapis.com');
-        if($found){
-            $parameters["jsFooterFiles"] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters["jsFooterFiles"]);
+        $found  = strpos($parameters['jsFooterFiles'], 'maps.googleapis.com');
+        if ($found) {
+            $parameters['jsFooterFiles'] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters['jsFooterFiles']);
             return $found;
-
         }
-        $found  = strpos($parameters["jsLibs"], 'maps.googleapis.com');
-        if($found){
-            $parameters["jsLibs"] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters["jsLibs"]);
+        $found  = strpos($parameters['jsLibs'], 'maps.googleapis.com');
+        if ($found) {
+            $parameters['jsLibs'] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters['jsLibs']);
             return $found;
-
         }
-        $found  = strpos($parameters["bodyContent"], 'maps.googleapis.com');
-        if($found){
-            $parameters["bodyContent"] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters["bodyContent"]);
+        $found  = strpos($parameters['bodyContent'], 'maps.googleapis.com');
+        if ($found) {
+            $parameters['bodyContent'] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters['bodyContent']);
             return $found;
-
         }
         return $found;
     }

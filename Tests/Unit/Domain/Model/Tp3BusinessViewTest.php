@@ -1,7 +1,8 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -351,7 +352,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     public function setPanoramasForPanoramasSetsPanoramas()
     {
         $panoramasFixture = new \Tp3\Tp3Businessview\Domain\Model\Panoramas();
-        $this->subject->setPanoramas($panoramasFixture);
+        $this->subject->addPanoramas($panoramasFixture);
 
         self::assertAttributeEquals(
             $panoramasFixture,

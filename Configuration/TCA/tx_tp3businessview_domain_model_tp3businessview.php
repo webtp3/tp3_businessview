@@ -1,7 +1,8 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -17,7 +18,7 @@ return [
         'rootLevel' => -1,
         'sortby' => 'sorting',
         'languageField' => 'sys_language_uid',
-        'transOrigPointerField' => 'l10n_parent',
+
         'transOrigDiffSourceField' => 'l10n_diffsource',
         'delete' => 'deleted',
         'enablecolumns' => [
@@ -31,28 +32,16 @@ return [
             'default' => 'ext-tp3_businessview-wizard-icon'
         ],
     ],
-    'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, created_by, name, external_links, gallery, intro, description, pano_animation, social_gallery, pano_options, contact,  panoramas',
-    ],
+
     'types' => [
         '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, created_by, name, external_links, gallery, intro, description, pano_animation, social_gallery, pano_options, contact,  panoramas, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'special' => 'languages',
-                'items' => [
-                    [
-                        'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
-                        -1,
-                        'flags-multiple'
-                    ]
-                ],
-                'default' => 0,
+                'type' => 'language',
             ],
         ],
         'l10n_parent' => [
@@ -234,7 +223,6 @@ return [
                 'foreign_table' => 'tx_tp3businessview_domain_model_panoramas',
                 'foreign_sortby' => 'sorting',
             //    'foreign_table_where' => 'AND tx_tp3businessview_domain_model_tp3businessview.sys_language_uid IN (-1,0) ',
-                'enableMultiSelectFilterTextfield' => true,
                 'allowed' => 'tx_tp3businessview_domain_model_panoramas',
                 'MM' => 'tx_tp3businessview_domain_model_panoramas_mm',
           //      'MM_hasUidField' => true,

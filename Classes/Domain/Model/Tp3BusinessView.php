@@ -1,7 +1,8 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -126,6 +127,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $panoramas = null;
+
     /**
      * sorting
      *
@@ -350,23 +352,30 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the panoramas
      *
-     * @return \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas
+     * \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas
      */
-    public function getPanoramas() : Panoramas
+    public function getPanoramas()
     {
-        return $this->panoramas;
+        if ($this->panoramas instanceof \Tp3\Tp3Businessview\Domain\Model\Panoramas) {
+            return [$this->panoramas];
+        } else {
+            return $this->panoramas;
+        }
     }
 
     /**
      * Sets the panoramas
      *
-     * @param \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas
      * @return void
      *
      */
-    public function setPanoramas(\Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas)
+    public function setPanoramas($panoramas)
     {
-        $this->panoramas = $panoramas;
+        if ($panoramas instanceof \Tp3\Tp3Businessview\Domain\Model\Panoramas) {
+            $this->panoramas[] = $panoramas;
+        } else {
+            $this->panoramas = $panoramas;
+        }
     }
 
     /**
@@ -463,7 +472,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $panoOptions =    ['addressControl' => false,
             'disableDefaultUI' => false,
-            'panControl' => false,
+            'panControl' => true,
             'scaleControl' => false,
             'scrollwheel' => false,
             'zoomControl' => false,

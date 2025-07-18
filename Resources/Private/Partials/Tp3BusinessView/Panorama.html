@@ -3,7 +3,7 @@
     <f:form.hidden   name="panoramas[pid]" value="{panorama.pid}"  class="formvalue pid"  />
     <tr id="pano_{panorama.uid}_{panorama.pid}" class="entry">
        <td class="title">
-        <f:if condition="{settings.editmode}">
+        <f:if condition="{settings.editmode} > 0">
             <f:then>
                 <f:form.textfield additionalAttributes=""  type="text" name="tx_tp3businessview_domain_model_panoramas[{panorama.uid}][title]"  value="{panorama.title}"  class="formvalue"  >
                 </f:form.textfield>
@@ -25,7 +25,7 @@
         </td>
        <td >
            <div class="heading">
-        <f:if condition="{settings.editmode}">
+        <f:if condition="{settings.editmode} > 0">
             <f:then>
                 <f:form.textfield additionalAttributes=""  type="text" name="panoramas[{panorama.uid}][heading]" value="{panorama.heading}"  class="formvalue"  >
                 </f:form.textfield>
@@ -34,7 +34,7 @@
         </f:if>
            </div>
            <div class="pitch">
-               <f:if condition="{settings.editmode}">
+               <f:if condition="{settings.editmode} > 0">
                    <f:then>
                        <f:form.textfield additionalAttributes=""  type="text"  name="panoramas[{panorama.uid}][pitch]" value="{panorama.pitch}"  class="formvalue"  >
                        </f:form.textfield>
@@ -44,7 +44,7 @@
 
            </div>
            <div class="zoom">
-               <f:if condition="{settings.editmode}">
+               <f:if condition="{settings.editmode} > 0">
                    <f:then>
                        <f:form.textfield additionalAttributes=""  type="text"  name="panoramas[{panorama.uid}][zoom]"  value="{panorama.zoom}"  class="formvalue"  >
                        </f:form.textfield>
@@ -57,7 +57,7 @@
 
 
         <td class="position">
-            <f:if condition="{settings.editmode}">
+            <f:if condition="{settings.editmode} > 0">
                 <f:then>
                     <f:form.textfield additionalAttributes=""  type="text"  name="panoramas[{panorama.uid}][position]" value="{panorama.position}"  class="formvalue"  >
                     </f:form.textfield>

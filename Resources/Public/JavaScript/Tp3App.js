@@ -1,4 +1,4 @@
-define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libraries=places&sensor=true'], function ($) {
+define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libraries=places'], function ($) {
 	var Tp3App = Tp3App || {
 			init:function(){
 				if($.fn.insertElementAtIndex === "function"){
@@ -323,7 +323,8 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
 			zoomControl: true,
 			scaleControl: true,
 			rotateControl: true,
-			fullscreenControl: false
+			fullscreenControl: false,
+			disableDefaultUI:false,
 
 		});
 		var streetviewOverlay = new google['maps']['StreetViewCoverageLayer']();
@@ -897,7 +898,8 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
 	function initialize_CurrentPanoramaOverlays(panoId){var index=getPanoArrayPosition(panoId);setActionsInActive();setAreasInActive();setInfoPointsInActive();if(panoramaHasAreas(panoId)){setAreasActive(window.businessviewJson.details.panoramas[index].areas);}
 		if(panoramaHasActions(panoId)){setActionsActive(window.businessviewJson.details.panoramas[index].actions);}
 		if(panoramaHasInfoPoints(panoId)){appendInfoPointsToBusinessview();}}
-	function initialize_Panorama(panoEntry,panoOptions){createPanoramaCanvas();
+	function initialize_Panorama(panoEntry,panoOptions){
+		createPanoramaCanvas();
 		var playercontrols,show,go,panoramaOptions={pano:panoEntry.panoId,pov:{
 				heading:parseFloat(panoEntry.heading),pitch:parseFloat(panoEntry.pitch)},
 			zoom:parseFloat(panoEntry.zoom),
@@ -908,7 +910,11 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
 			scaleControl:panoOptions.scaleControl,
 			addressControl:panoOptions.addressControl,
 			visible:true,mode:setPanoramaMode()};
-		panorama=new google.maps.StreetViewPanorama(document.getElementById('businessview-panorama-canvas'),panoramaOptions);
+		const panorama = new google.maps.StreetViewPanorama(
+			document.getElementById("businessview-panorama-canvas"),
+			panoramaOptions
+	);
+
 		panorama.addListener('pano_changed', function () {
 			var panoCell = document.getElementById('pano-cell');
 			panoCell.value = panorama.getPano();

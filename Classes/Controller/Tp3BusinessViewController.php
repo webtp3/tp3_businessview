@@ -1,7 +1,8 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -45,6 +46,7 @@ namespace Tp3\Tp3Businessview\Controller;
  ***/
 
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Page\PageRenderer;
@@ -53,7 +55,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\CMS\Backend\Routing\UriBuilder;
 
 /**
  * Tp3BusinessViewController
@@ -71,12 +72,16 @@ class Tp3BusinessViewController extends ActionController
      */
     protected $pageRenderer;
 
-    /* @var $dataMapper \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper */
+    // @var $dataMapper \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper
     protected $dataMapper;
     /**
      *
      */
     public $cObj = null;
+    /**
+     *
+     */
+    public $conf = null;
     /**
      *
      */
@@ -237,7 +242,7 @@ class Tp3BusinessViewController extends ActionController
      */
     public function updateAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
     {
-        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
         $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->tp3BusinessViewRepository->update($businessview);
         $this->persistenceManager->persistAll();
@@ -251,7 +256,7 @@ class Tp3BusinessViewController extends ActionController
      */
     public function createAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
     {
-        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
         $this->addFlashMessage('The object was created.', 'created', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->businessvierepository->add($businessview);
         $this->persistenceManager->persistAll();
@@ -284,7 +289,7 @@ class Tp3BusinessViewController extends ActionController
         $extensionName = $currentRequest->getControllerExtensionName();
         $modulePrefix = strtolower('tx_' . $extensionName . '_' . $moduleName);
         $shortcutName = $this->getLanguageService()->sL(
-            'LLL:EXT:beuser/Resources/Private/Language/locallang.xml:backendUsers'
+            'LLL:EXT:beuser/Resources/Private/Language/locallang.xlf:backendUsers'
         );
         if ($currentRequest->getControllerName() === 'Module') {
             if ($currentRequest->getControllerActionName() === 'edit') {

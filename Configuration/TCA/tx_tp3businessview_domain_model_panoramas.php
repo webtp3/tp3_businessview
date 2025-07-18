@@ -1,7 +1,8 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -28,9 +29,7 @@ return [
             'default' => 'ext-tp3_businessview-wizard-icon'
         ],
     ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden, title, pano_id, heading, pitch, zoom, position, tp3businessviews,',
-    ],
+
     'types' => [
         '1' => ['showitem' => 'hidden, title, pano_id, heading, pitch, zoom, tp3businessviews, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],

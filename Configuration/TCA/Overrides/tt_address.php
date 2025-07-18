@@ -1,7 +1,8 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -45,9 +46,8 @@ $tmp_tp3_businessview_columns = [
                 'foreign_sortby' => 'sorting',
                 'allowed' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'MM' => 'tx_tp3businessview_domain_model_tp3businessview_mm',
-                'enableMultiSelectFilterTextfield' => true,
-                'minitems' => 1,
-                'maxitems' => 10,
+                'minitems' => 0,
+                'maxitems' => 100,
                 'size' => 1,
 
         ]

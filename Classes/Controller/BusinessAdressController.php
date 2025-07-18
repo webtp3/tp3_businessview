@@ -1,7 +1,8 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -18,6 +19,7 @@ namespace Tp3\Tp3Businessview\Controller;
  *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
  *
  ***/
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
@@ -25,14 +27,13 @@ use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
 
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\CMS\Backend\Routing\UriBuilder;
 
 /**
  * BusinessAdressController
@@ -190,9 +191,9 @@ class BusinessAdressController extends ActionController
      */
     public function createAction(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $adress)
     {
-        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
         if ($this->businessadressrepository === null) {
-            $this->businessadressrepository = $this->objectManager->get(BusinessAdressRepository::class);
+            $this->businessadressrepository = GeneralUtility::makeInstance(BusinessAdressRepository::class);
         }
         $this->addFlashMessage('The object was created.', 'created', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->businessadressrepository->add($adress);
@@ -207,9 +208,9 @@ class BusinessAdressController extends ActionController
      */
     public function updateAction(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $adress)
     {
-        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
         if ($this->businessadressrepository === null) {
-            $this->businessadressrepository = $this->objectManager->get(BusinessAdressRepository::class);
+            $this->businessadressrepository = GeneralUtility::makeInstance(BusinessAdressRepository::class);
         }
         $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->businessadressrepository->update($adress);

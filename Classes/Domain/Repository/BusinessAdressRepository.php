@@ -1,7 +1,8 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -18,6 +19,7 @@ namespace Tp3\Tp3Businessview\Domain\Repository;
  *  (c) 2017 Thomas Ruta <email@thomasruta.de>, R&P IT Consulting GmbH
  *
  ***/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -26,23 +28,23 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 class BusinessAdressRepository extends Repository
 {
 
-// Order by BE sorting
+    // Order by BE sorting
     protected $defaultOrderings = [
         'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
     ];
 
     public function initializeObject()
     {
-//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-//        // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
-//
-//
-//            $querySettings->setRespectStoragePage(false);
-//
-//        // ;
-//        // $querySettings->setOrderings($this->defaultOrderings);
-//        $querySettings->setIgnoreEnableFields(false);
-//        $this->setDefaultQuerySettings($querySettings);
+        //        $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        //        // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
+        //
+        //
+        //            $querySettings->setRespectStoragePage(false);
+        //
+        //        // ;
+        //        // $querySettings->setOrderings($this->defaultOrderings);
+        //        $querySettings->setIgnoreEnableFields(false);
+        //        $this->setDefaultQuerySettings($querySettings);
     }
     /**
      *
@@ -70,9 +72,9 @@ class BusinessAdressRepository extends Repository
      */
     public function findByUidArray($uid)
     {
-//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-//        $querySettings->setRespectStoragePage(false);
-//        $this->setDefaultQuerySettings($querySettings);
+        //        $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        //        $querySettings->setRespectStoragePage(false);
+        //        $this->setDefaultQuerySettings($querySettings);
         $query = $this->createQuery();
         $query->matching(
             $query->equals('uid', $uid),
@@ -91,9 +93,9 @@ class BusinessAdressRepository extends Repository
      */
     public function findByUid($uid)
     {
-//       $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-//        $querySettings->setRespectStoragePage(false);
-//        $this->setDefaultQuerySettings($querySettings);
+        //       $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        //        $querySettings->setRespectStoragePage(false);
+        //        $this->setDefaultQuerySettings($querySettings);
 
         $query = $this->createQuery();
         $query->matching(
@@ -113,9 +115,9 @@ class BusinessAdressRepository extends Repository
      */
     public function findByList($uids)
     {
-//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-//        $querySettings->setRespectStoragePage(false);
-//        $this->setDefaultQuerySettings($querySettings);
+        //        $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        //        $querySettings->setRespectStoragePage(false);
+        //        $this->setDefaultQuerySettings($querySettings);
 
         $query = $this->createQuery();
         $query->matching(
@@ -125,9 +127,9 @@ class BusinessAdressRepository extends Repository
                 $query->equals('deleted', 0)
             )
         );
-//        $queryParser = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser::class);
-//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getSQL());
-//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getParameters());
+        //        $queryParser = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser::class);
+        //        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getSQL());
+        //        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getParameters());
         return $query->execute(true);
     }
 }

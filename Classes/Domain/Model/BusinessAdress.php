@@ -1,7 +1,8 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -43,14 +44,28 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
  *
  ***/
-use TYPO3\CMS\Core\Resource\File;
-use TYPO3\CMS\Core\Resource\FileReference;
-use \TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Domain\Model\Category;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
  * BusinessAdress
  */
 class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+
+    /**
+     * Hidden
+     *
+     * @var bool
+     */
+    protected $hidden = false;
+
+    /**
+     * slug
+     * @var string
+     */
+    protected $slug;
 
     /**
      * Tp3BusinessView
@@ -102,7 +117,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview
      * @return void
      */
-    public function setTp3Businessview(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tp3businessview)
+    public function setTp3Businessview(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview)
     {
         $this->tp3businessview = $tp3businessview;
     }
@@ -195,10 +210,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->_getCleanProperties();
     }
-    /*
-     * copied stuff
-     *
-     */
+    // copied stuff
 
     /**
      * Gender
@@ -318,7 +330,25 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * LinkedIn
      * @var string
      */
-    protected $linkedIn;
+    protected $linkedin;
+
+    /**
+     * instagram
+     * @var string
+     */
+    protected $instagram;
+
+    /**
+     * Whatsapp
+     * @var string
+     */
+    protected $whatsapp;
+
+    /**
+     * Singal
+     * @var string
+     */
+    protected $signal;
 
     /**
      * Email
@@ -364,7 +394,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Image
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
     protected $image = null;
 
@@ -377,7 +407,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Categories
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\Category
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
      */
     protected $categories;
 
@@ -387,6 +417,27 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function __construct()
     {
         $this->image = new ObjectStorage();
+    }
+
+    /**
+     * sets the hidden attribute
+     *
+     * @param bool $hidden
+     * @return void
+     */
+    public function setHidden($hidden)
+    {
+        $this->hidden = $hidden;
+    }
+
+    /**
+     * returns the hidden attribute
+     *
+     * @return bool $hidden
+     */
+    public function getHidden()
+    {
+        return $this->hidden;
     }
 
     /**
@@ -650,6 +701,16 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * returns a cleaned version of the phone
+     *
+     * @return string
+     */
+    public function getCleanedPhone()
+    {
+        return $this->getCleanedNumber($this->phone);
+    }
+
+    /**
      * sets the fax attribute
      *
      * @param string $fax
@@ -667,6 +728,16 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getFax()
     {
         return $this->fax;
+    }
+
+    /**
+     * returns a cleaned version of the fax
+     *
+     * @return string
+     */
+    public function getCleanedFax()
+    {
+        return $this->getCleanedNumber($this->fax);
     }
 
     /**
@@ -690,6 +761,16 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * returns a cleaned version of the mobile
+     *
+     * @return string
+     */
+    public function getCleanedMobile()
+    {
+        return $this->getCleanedNumber($this->mobile);
+    }
+
+    /**
      * sets the www attribute
      *
      * @param string $www
@@ -707,6 +788,36 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getWww()
     {
         return $this->www;
+    }
+
+    public function getWwwSimplified()
+    {
+        $www = trim($this->www);
+        if (!$www) {
+            return '';
+        }
+        $parts = str_replace(['\\\\', '\\"'], ['\\', '"'], str_getcsv($www, ' '));
+        return $parts[0];
+    }
+
+    /**
+     * sets the slug attribute
+     *
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * returns the slug attribute
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -736,7 +847,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function setTwitter($twitter)
     {
-        if (substr($twitter, 0, 1) !== '@') {
+        if ($twitter[0] !== '@') {
             throw new \InvalidArgumentException('twitter name must start with @', 1357530444);
         }
 
@@ -760,7 +871,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function setFacebook($facebook)
     {
-        if (substr($facebook, 0, 1) !== '/') {
+        if ($facebook[0] !== '/') {
             throw new \InvalidArgumentException('Facebook name must start with /', 1357530471);
         }
 
@@ -778,13 +889,75 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * sets the instagram attribute
+     *
+     * @param string $instagram
+     */
+    public function setinstagram($instagram)
+    {
+
+        $this->instagram = $instagram;
+    }
+
+    /**
+     * returns the instagram attribute
+     *
+     * @return string
+     */
+    public function getinstagram()
+    {
+        return $this->instagram;
+    }
+
+    /**
+     * sets the Whatsapp attribute
+     *
+     * @param string $whatsaoo
+     */
+    public function setWhatsapp($whatsaoo)
+    {
+
+        $this->whatsapp = $whatsaoo;
+    }
+
+    /**
+     * returns the Whatsapp attribute
+     *
+     * @return string
+     */
+    public function getWhatsapp()
+    {
+        return $this->whatsapp;
+    }
+
+    /**
+     * sets the Signal attribute
+     *
+     * @param string $whatsaoo
+     */
+    public function setSignal($signal)
+    {
+
+        $this->signal = $signal;
+    }
+
+    /**
+     * returns the Signal attribute
+     *
+     * @return string
+     */
+    public function getSignal()
+    {
+        return $this->signal;
+    }
+    /**
      * sets the LinkedIn attribute
      *
-     * @param string $linkedIn
+     * @param string $linkedin
      */
-    public function setLinkedIn($linkedIn)
+    public function setLinkedin($linkedin)
     {
-        $this->linkedIn = $linkedIn;
+        $this->linkedin = $linkedin;
     }
 
     /**
@@ -792,9 +965,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getLinkedIn()
+    public function getLinkedin()
     {
-        return $this->linkedIn;
+        return $this->linkedin;
     }
 
     /**
@@ -960,11 +1133,28 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the images
      *
-     * @return ObjectStorage<FileReference>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Get first image
+     *
+     * @return FileReference|null
+     */
+    public function getFirstImage()
+    {
+        $images = $this->getImage();
+        if ($images) {
+            foreach ($images as $image) {
+                return $image;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -1015,5 +1205,40 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setCategories(ObjectStorage $categories)
     {
         $this->categories = $categories;
+    }
+
+    /**
+     * Get cleaned number of a given telephone, fax or mobile number.
+     * It removes all chars which are not possible to enter on your cell phone.
+     *
+     * @param string $number
+     * @return string
+     */
+    protected function getCleanedNumber(string $number)
+    {
+        $number = trim($number);
+
+        // Remove 0 on +49(0)221, but keep 0 on (0)221
+        if (strpos($number, '(0)') > 0) {
+            $number = str_replace('(0)', '', $number);
+        }
+
+        return preg_replace('/[^0-9#+*]/', '', $number);
+    }
+
+    /**
+     * Get full name including title, first, middle and last name
+     *
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        $list = [
+            $this->getTitle(),
+            $this->getFirstName(),
+            $this->getMiddleName(),
+            $this->getLastName(),
+        ];
+        return implode(' ', array_filter($list));
     }
 }
