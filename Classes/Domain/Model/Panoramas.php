@@ -198,7 +198,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $uid
      */
-    public function SetUid($uid)
+    public function setUid($uid)
     {
         return $this->uid = $uid;
     }
@@ -217,7 +217,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $pid
      */
-    public function SetPid($pid)
+    public function setPid($pid)
     {
         return $this->pid = $pid;
     }
