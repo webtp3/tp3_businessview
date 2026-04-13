@@ -7,14 +7,5 @@ services:
   Tp3\Tp3Businessview\:
     resource: '../Classes/*'
 
-#  Tp3\Tp3mods\Service\BrandingService:
-#    tags:
-#      - name: event.listener
-#        identifier: 'bk2k/bootstrap-package/set-backend-styling'
-#        event: TYPO3\CMS\Core\Package\Event\AfterPackageActivationEvent
-#
-#  Tp3\Tp3mods\Backend\ToolbarItem\VersionToolbarItem:
-#    tags:
-#      - name: event.listener
-#        identifier: 'bk2k/bootstrap-package/add-version-information'
-#        event: TYPO3\CMS\Backend\Backend\Event\SystemInformationToolbarCollectorEvent
+  Tp3\Tp3Businessview\Controller\ModuleController:
+    public: true

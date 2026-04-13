@@ -18,12 +18,12 @@ $EM_CONF['tp3_businessview'] = [
     'uploadfolder' => '0',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '1.4.0',
+    'version' => '2.0.0',
     'constraints' =>
         [
             'depends' =>
                 [
-                    'typo3' => '9.4.0-11.9.99',
+                    'typo3' => '13.0.0-15.0.0',
                 ],
             'conflicts' =>
                 [
