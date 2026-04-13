@@ -25,53 +25,50 @@ or search for the place on the map</div>
 
 </div><div id="businessview-panorama-canvas"></div></div>
 <div id="tp3businessview-floating-panel">
-    <f:form action="update" id="editform" controller="Panoramas" objectName="panoramas" object="{panorama}">
-    <f:form.hidden property="uid" class="formvalue" />
-    <f:form.hidden property="pid" class="formvalue" />
-        <f:form.select name="tp3businessview[uid]" multiple="false" options="{businessviews}" optionValueField="uid" optionLabelField="name" value="" errorClass="'f3-form-error'" class="form-control formvalue">
-        </f:form.select>
+    <form id="editform">
+    <input type="hidden" name="panoramas[uid]" class="formvalue" />
+    <input type="hidden" name="panoramas[pid]" class="formvalue" />
+        <select name="tp3businessview[uid]" class="form-control formvalue">
+            <f:for each="{businessviews}" as="businessview">
+                <option value="{businessview.uid}">{businessview.name}</option>
+            </f:for>
+        </select>
         <table class="panoviewer">
         <tr>
             <td><b>Titel</b></td>
             <td class="title">
-               <f:form.textfield additionalAttributes="" required="true"  type="text" property="title"  class="formvalue"  >
-            </f:form.textfield>
+               <input required="required" type="text" name="panoramas[title]" class="formvalue" />
             </td>
         </tr><tr>
-            <td><b>Position</b></td><td ><f:form.textfield additionalAttributes="" property="position" type="text" id="position-cell"  class="formvalue"  >
-        </f:form.textfield>
+            <td><b>Position</b></td><td ><input type="text" name="panoramas[position]" id="position-cell" class="formvalue" />
             </td>
         </tr>
         <tr>
             <td><b>POV Heading</b></td><td >
-            <f:form.textfield additionalAttributes="" property="heading" type="text" id="heading-cell"  class="formvalue"  >
-        </f:form.textfield>
+            <input type="text" name="panoramas[heading]" id="heading-cell" class="formvalue" />
         </td>
         </tr>
         <tr>
             <td><b>POV Pitch</b></td><td >
-            <f:form.textfield additionalAttributes="" property="pitch" type="text" id="pitch-cell"  class="formvalue"  >
-        </f:form.textfield>
+            <input type="text" name="panoramas[pitch]" id="pitch-cell" class="formvalue" />
         </td>
         </tr>
         <tr>
             <td><b>Pano ID</b></td><td >
-            <f:form.textfield additionalAttributes="" required="true" property="panoId" type="text" id="pano-cell"  class="formvalue"  >
-        </f:form.textfield>
+            <input required="required" type="text" name="panoramas[panoId]" id="pano-cell" class="formvalue" />
         </td>
         </tr>
         <tr>
             <td><b>Zoom</b></td><td >
-            <f:form.textfield additionalAttributes="" property="zoom" type="text" id="zoom-cell"  class="formvalue"  >
-            </f:form.textfield>
+            <input type="text" name="panoramas[zoom]" id="zoom-cell" class="formvalue" />
         </td>
         </tr>
 
     </table>
-        <f:form.submit name="submit" id="submitEditform" value="save" />
-        <f:form.submit name="submit" id="submitNewform" value="new" />
+        <input type="submit" name="submit" id="submitEditform" value="save" />
+        <input type="submit" name="submit" id="submitNewform" value="new" />
 
-    </f:form>
+    </form>
     <f:render partial="Tp3BusinessView/Controls" arguments="{settings:settings}" />
 
 </div>

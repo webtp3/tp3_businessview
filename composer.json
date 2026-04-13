@@ -1,13 +1,14 @@
 {
 	"name": "web-tp3/tp3-businessview",
 	"type": "typo3-cms-extension",
-	"version": "1.5.0",
 	"description" : "google businessview für tp3 - 360° Panorama Designer für Ihren virtuellen Rundgang",
 	"license": "GPL-2.0-or-later",
 	"homepage": "https://web.tp3.de/manual/tp3-businessview.html",
 	"require": {
-		"php": ">=7.0 <8.5",
-         "typo3/cms-core": "  ^11.5 || ^12.4 || ^13"
+		"php": ">=8.2 <8.5",
+         "typo3/cms-core": " ^13 ",
+		"web-tp3/tp3_openhours": "^4"
+
 	},
 	"autoload": {
 		"psr-4": {
@@ -15,22 +16,22 @@
 		}
 	},
 	"require-dev": {
+		"friendsofphp/php-cs-fixer": "*",
+		"typo3/testing-framework": "*",
 		"codeception/codeception": "^5.2",
 		"codeception/module-asserts": "^3.0",
-		"codeception/module-phpbrowser": "*",
+		"codeception/module-phpbrowser": "^3.0.1",
 		"codeception/module-webdriver": "^4.0",
 		"dbrekelmans/bdi": "^1.4",
 		"deployer/deployer": "^7.4",
 		"deployer/recipes": "*",
-		"friendsofphp/php-cs-fixer": "*",
 		"php-webdriver/webdriver": "^1.15",
 		"phpmd/phpmd": "*",
 		"phpstan/phpstan": "*",
 		"se/selenium-server-standalone": "*",
 		"typo3-console/composer-auto-commands": "*",
 		"typo3/cms-styleguide": "*",
-		"typo3/testing-framework": "*",
-		"web-tp3/chromedriver": "*"
+		"helhum/config-loader": "*"
 	},
 	"suggest": {
 		"web-tp3/tp3_openhours": "*"
@@ -55,14 +56,33 @@
 		"vendor-dir": ".Build/vendor",
 		"bin-dir": ".Build/bin",
 		"allow-plugins": {
-			"typo3/cms-composer-installers": true,
-			"typo3/class-alias-loader": true
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
 		}
 	},
 	"scripts": {
 
 		"post-autoload-dump": [
-			"@typo3-cms-scripts"
+			"[ -d .Build/Web/_assets ] || mkdir -p .Build/Web/typo3conf/ext/",
+			"[ -d .Build/Web/_assets ] || [ -L .Build/Web/typo3conf/ext/tp3_businessview ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/tp3_businessview"
+		],
+		"cgl": [
+			"php-cs-fixer --diff -v fix"
+		],
+		"cgl:ci": [
+			"php-cs-fixer --diff -v --dry-run fix"
+		],
+		"changelog": [
+			"extension-helper changelog:create"
+		],
+		"phpstan": [
+			"phpstan analyze --configuration Build/phpstan.neon"
+		],
+		"phpstan:baseline": [
+			"phpstan analyze --configuration ./phpstan.neon --generate-baseline Build/phpstan-baseline.neon"
+		],
+		"set-version": [
+			"extension-helper version:set"
 		],
 		"test:php:unit": [
 			"@php -v",
@@ -74,5 +94,4 @@
 		]
 
 	}
-
 }

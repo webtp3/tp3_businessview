@@ -66,15 +66,9 @@ class Tp3PageRenderer implements SingletonInterface
     }
     /**
      *
-     * @var \Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository;
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @var mixed
      */
-    protected ?\Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository  $openHourRepository = null;
-
-    public function injectOpenHourRepository(\Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository $openHourRepository)
-    {
-        $this->openHourRepository = $openHourRepository;
-    }
+    protected $openHourRepository = null;
 
     /**
      * @param array $parameters
@@ -108,10 +102,13 @@ class Tp3PageRenderer implements SingletonInterface
             }
             if ($this->businessAdressRepository === null) {
                 $this->businessAdressRepository = $this->objectManager->get(BusinessAdressRepository::class);
-                if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tp3_openhours')) {
-                    if ($this->openHourRepository === null) {
-                        $this->openHourRepository = $this->objectManager->get(\Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository::class);
-                    }
+            }
+
+            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tp3_openhours')
+                && class_exists(\Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository::class)
+            ) {
+                if ($this->openHourRepository === null) {
+                    $this->openHourRepository = $this->objectManager->get(\Tp3\Tp3Openhours\Domain\Repository\OpenHourRepository::class);
                 }
             }
             $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
@@ -132,7 +129,7 @@ class Tp3PageRenderer implements SingletonInterface
                         return;
                     }
 
-                    $businessView = GeneralUtility::makeInstance(Tp3BusinessView::class);
+                    //$businessView = GeneralUtility::makeInstance(Tp3BusinessView::class);
 
                     $bw = $businessView->getPropertiesArray();
                     $bw['panoramas'] = [];
@@ -156,7 +153,7 @@ class Tp3PageRenderer implements SingletonInterface
                     $bw = $businessView->getPropertiesArray();
                     $addresslist[]=  $businessView->getContact() != null ? $businessView->getContact()->getPropertiesArray() : ['uid' => null];
 
-                    if ($this->openHourRepository !== null) {
+                    if ($this->openHourRepository !== null && method_exists($this->openHourRepository, 'findByAddress')) {
                         $openhours = $this->openHourRepository->findByAddress($addresslist[0]['uid']);
                         $formattedText = '';
                         $hoursArray = [];
@@ -197,8 +194,20 @@ class Tp3PageRenderer implements SingletonInterface
                         // libraries=places&callback=tp3_app.initialize&
                         //$matches #todo add tp3_app.initialize
                     } else {
-                        $parameters['jsFooterLibs'] .='<script  src="//maps.googleapis.com/maps/api/js?key=' . $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['googleMapsJavaScriptApiKey'] . '&libraries=places&callback=tp3_app.initialize"></script>';
+                        $cookiePreferences = null;
+
+                        if (isset($_COOKIE['cookiePreferences'])) {
+                            $cookiePreferences = json_decode($_COOKIE['cookiePreferences'], true);
+                        }
+
+                        if (isset($cookiePreferences['external'])) {
+                            $parameters['jsFooterLibs'] .='<script  defer src="https://maps.googleapis.com/maps/api/js?key=' . $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['googleMapsJavaScriptApiKey'] . '&callback=tp3_app.initialize"></script>';
+
+                        }
+                        //                        $parameters['jsFooterLibs'] .= '<script> (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({key: "' . $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['googleMapsJavaScriptApiKey'] .'" });</script>';
+
                     }
+
                 }
 
                 $parameters['cssFiles'] .='<link rel="stylesheet" type="text/css" href="typo3conf/ext/tp3_businessview/Resources/Public/Css/Tp3App.css"></link>';
@@ -352,6 +361,16 @@ class Tp3PageRenderer implements SingletonInterface
      */
     public function detectApi(&$parameters)
     {
+        // cookiePreferences
+        $cookiePreferences = null;
+
+        if (isset($_COOKIE['cookiePreferences'])) {
+            $cookiePreferences = json_decode($_COOKIE['cookiePreferences'], true);
+        }
+
+        if (!isset($cookiePreferences['external'])) {
+            return;
+        }
         //https://maps.googleapis.com/maps/api/js
         $found  = strpos($parameters['jsFooterLibs'], 'maps.googleapis.com');
         if ($found) {

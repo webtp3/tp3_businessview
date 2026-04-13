@@ -7,72 +7,34 @@
  * LICENSE file that was distributed with this source code.
  */
 
-defined('TYPO3') || die('Access denied.');
+defined('TYPO3') or die();
 
 $extKey = 'tp3_businessview';
-if (class_exists('TYPO3\CMS\Core\Configuration\ExtensionConfiguration')) {
-    $extensionConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-        \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class
-    );
-    $tp3modsConfig = $extensionConfiguration->get('tp3mods');
-}
-if (\TYPO3\CMS\Core\Http\ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'Tp3.Tp3Businessview',
-        'web', // Make module a submodule of 'tools'
-        'Module', // Submodule key
-        '', // Position
-        [
-            \Tp3\Tp3Businessview\Controller\ModuleController::class => 'index,new,edit,create,update,delete',
-            \Tp3\Tp3Businessview\Controller\Tp3BusinessViewController::class => 'index,new,edit,create,update,delete',
-//                        'Panoramas' => 'index,new,edit,create,update,delete',
-//                        'BusinessAdress' => 'index,new,edit,create,update,delete',
-        ],
-        [
-            'access' => 'user,group',
-            'icon' => 'EXT:' . $extKey . '/Resources/Public/Icons/user_mod_tp3businessview.svg',
-            'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_tp3businessviewdesigner.xlf',
-        ]
-    );
-    //            if (!$tp3modsConfig['disableBeModuleBusinessAdress']) {
-    //                \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-    //                    'Tp3.Tp3Businessview',
-    //                    'web', // Make module a submodule of 'tools'
-    //                    'BusinessAdress', // Submodule key
-    //                    '', // Position
-    //                    [
-    //
-    //                        'BusinessAdress' => 'index,new,edit,create,update,delete',
-    //                    ],
-    //                    [
-    //                        'access' => 'user,group',
-    //                        'icon' => 'EXT:' . $extKey . '/Resources/Public/Icons/user_mod_tp3businessview.svg',
-    //                        'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_csh_tt_address.xlf',
-    //                    ]
-    //                );
-    //            }
-    //            if (!$tp3modsConfig['disableBeModuleBusinessView']) {
-    //                \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-    //                    'Tp3.Tp3Businessview',
-    //                    'web', // Make module a submodule of 'tools'
-    //                    'Tp3Businessview', // Submodule key
-    //                    '', // Position
-    //                    [
-    //
-    //                        'Tp3BusinessView' => 'index,new,edit,create,update,delete',
-    //                    ],
-    //                    [
-    //                        'access' => 'user,group',
-    //                        'icon' => 'EXT:' . $extKey . '/Resources/Public/Icons/user_mod_tp3businessview.svg',
-    //                        'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_tp3businessview.xlf',
-    //                    ]
-    //                );
-    //            }
-}
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_tp3businessview_domain_model_tp3businessview');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_tp3businessview_domain_model_tp3businessview', 'EXT:tx_tp3businessview_domain_model_tp3businessview/Resources/Private/Language/locallang_csh_tx_tp3businessview_domain_model_tp3businessview.xlf');
+//        if (TYPO3_MODE === 'BE') {
+//                \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+//                    'Tp3.Tp3Businessview',
+//                    'web', // Make module a submodule of 'tools'
+//                    'Module', // Submodule key
+//                    '', // Position
+//                    [
+//                        \Tp3\Tp3Businessview\Controller\ModuleController::class => 'index,new,edit,create,update,delete',
+//                        \Tp3\Tp3Businessview\Controller\Tp3BusinessViewController::class => 'index,new,edit,create,update,delete',
+////                        'Panoramas' => 'index,new,edit,create,update,delete',
+////                        'BusinessAdress' => 'index,new,edit,create,update,delete',
+//                    ],
+//                    [
+//                        'access' => 'user,group',
+//                        'icon' => 'EXT:' . $extKey . '/Resources/Public/Icons/user_mod_tp3businessview.svg',
+//                        'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_tp3businessviewdesigner.xlf',
+//                    ]
+//                );
+//
+//        }
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_tp3businessview_domain_model_panoramas');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_tp3businessview_domain_model_panoramas', 'EXT:tx_tp3businessview_domain_model_panoramas/Resources/Private/Language/locallang_csh_tx_tp3businessview_domain_model_panoramas.xlf');
+//        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_tp3businessview_domain_model_tp3businessview');
+//        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_tp3businessview_domain_model_tp3businessview', 'EXT:tx_tp3businessview_domain_model_tp3businessview/Resources/Private/Language/locallang_csh_tx_tp3businessview_domain_model_tp3businessview.xlf');
+//
+//        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_tp3businessview_domain_model_panoramas');
+//
+//        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_tp3businessview_domain_model_panoramas', 'EXT:tx_tp3businessview_domain_model_panoramas/Resources/Private/Language/locallang_csh_tx_tp3businessview_domain_model_panoramas.xlf');
