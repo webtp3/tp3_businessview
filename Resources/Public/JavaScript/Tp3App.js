@@ -64,11 +64,11 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
 
 					var bwId=  $(this).attr("id").split("_");
 					if($.type(bwId) == "array" && bwId.length > 1){
-						$('select[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][tp3businessviews]"] option').prop('selected', false);
+						$('select[name="tx_tp3businessview_web_tp3businessviewmodule[tp3businessview][uid]"] option').prop('selected', false);
 						$('#businessview-canvas').find('[id="businessview-contact-canvas"]').remove();
 						$('#businessview-canvas').find('[id="businessview-externalLinks-canvas"]').remove();
 						//$('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][tp3businessviews]"]').val(bwId[1]);
-						$('select[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][tp3businessviews]"] option[value="' + bwId[1] + '"]').prop('selected', true);
+						$('select[name="tx_tp3businessview_web_tp3businessviewmodule[tp3businessview][uid]"] option[value="' + bwId[1] + '"]').prop('selected', true);
 						$('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][uid]"]').val($(this).next('.panolist.bwlist').find('.entry').first().attr("id").split("_")[1]);
 						$('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][pid]"]').val($(this).attr("id").split("_")[2]);
 
@@ -98,7 +98,7 @@ define(['jquery','https://maps.google.com/maps/api/js?key='+window.apikey+'&libr
 					console.log(e);
 					$('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][uid]"]').val($(this).attr("id").split("_")[1]);
 					$('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][pid]"]').val($(this).attr("id").split("_")[2]);
-					$('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][pano_id]"]').val($.trim($(this).find('.pano_id').val()));
+					$('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][panoId]"]').val($.trim($(this).find('.pano_id').val()));
 					$('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][heading]"]').val($.trim($(this).find('.heading').text()));
 					$('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][pitch]"]').val($.trim($(this).find('.pitch').text()));
 					$('#editform').find('input[name="tx_tp3businessview_web_tp3businessviewmodule[panoramas][position]"]').val($.trim($(this).find('.position').text()));

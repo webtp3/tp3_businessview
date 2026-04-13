@@ -154,18 +154,13 @@ class PanoramasController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
             $this->dataMapper = GeneralUtility::makeInstance(DataMapper::class);
         }
 
-        if ($this->request->hasArgument('panoramas')) {
-            if (!($this->persistenceManager instanceof PersistenceManager)) {
-                $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
-            }
-            $pano_array = $this->request->getArgument('panoramas');
-            $this->request->SetArgument('panoramas', $pano_array);
-            if ($pano_array['tp3businessviews'] > 0) {
-                $this->request->SetArgument('tp3businessview', ['uid'=>$pano_array['tp3businessviews']]);
-                // mm relations
-                if (!($this->tp3BusinessViewRepository instanceof Tp3BusinessViewRepository)) {
-                    $this->tp3BusinessViewRepository = GeneralUtility::makeInstance(Tp3BusinessViewRepository::class);
-                }
+        if (!($this->persistenceManager instanceof PersistenceManager)) {
+            $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
+        }
+        if ($this->request->hasArgument('tp3businessview')) {
+            // mm relations
+            if (!($this->tp3BusinessViewRepository instanceof Tp3BusinessViewRepository)) {
+                $this->tp3BusinessViewRepository = GeneralUtility::makeInstance(Tp3BusinessViewRepository::class);
             }
         }
         if ($this->cObj === null) {
