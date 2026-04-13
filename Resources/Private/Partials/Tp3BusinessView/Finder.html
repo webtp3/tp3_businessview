@@ -25,44 +25,44 @@ or search for the place on the map</div>
 
 </div><div id="businessview-panorama-canvas"></div></div>
 <div id="tp3businessview-floating-panel">
-    <f:form action="update" id="editform" controller="Panoramas"  name="update" object="{panorama}" arguments="{panorama: panorama}">
-    <f:form.hidden   name="panoramas[uid]" value="{panorama.uid}"  class="formvalue"  />
-    <f:form.hidden   name="panoramas[pid]" value="{panorama.pid}"  class="formvalue"  />
-        <f:form.select name="panoramas[tp3businessviews]"  multiple="false" options="{businessviews}" optionValueField="uid" optionLabelField="name" value="" errorClass="'f3-form-error'" class="form-control formvalue">
+    <f:form action="update" id="editform" controller="Panoramas" objectName="panoramas" object="{panorama}">
+    <f:form.hidden property="uid" class="formvalue" />
+    <f:form.hidden property="pid" class="formvalue" />
+        <f:form.select name="tp3businessview[uid]" multiple="false" options="{businessviews}" optionValueField="uid" optionLabelField="name" value="" errorClass="'f3-form-error'" class="form-control formvalue">
         </f:form.select>
         <table class="panoviewer">
         <tr>
             <td><b>Titel</b></td>
             <td class="title">
-               <f:form.textfield additionalAttributes="" required="true"  type="text" name="panoramas[title]"  value="{panorama.title}"  class="formvalue"  >
+               <f:form.textfield additionalAttributes="" required="true"  type="text" property="title"  class="formvalue"  >
             </f:form.textfield>
             </td>
         </tr><tr>
-            <td><b>Position</b></td><td ><f:form.textfield additionalAttributes="" name="panoramas[position]"  type="text" id="position-cell" value="{panorama.position-cell}"  class="formvalue"  >
+            <td><b>Position</b></td><td ><f:form.textfield additionalAttributes="" property="position" type="text" id="position-cell"  class="formvalue"  >
         </f:form.textfield>
             </td>
         </tr>
         <tr>
             <td><b>POV Heading</b></td><td >
-            <f:form.textfield additionalAttributes="" name="panoramas[heading]"  type="text" id="heading-cell" value="{panorama.heading-cell}"  class="formvalue"  >
+            <f:form.textfield additionalAttributes="" property="heading" type="text" id="heading-cell"  class="formvalue"  >
         </f:form.textfield>
         </td>
         </tr>
         <tr>
             <td><b>POV Pitch</b></td><td >
-            <f:form.textfield additionalAttributes="" name="panoramas[pitch]"  type="text" id="pitch-cell" value="{panorama.pitch-cell}"  class="formvalue"  >
+            <f:form.textfield additionalAttributes="" property="pitch" type="text" id="pitch-cell"  class="formvalue"  >
         </f:form.textfield>
         </td>
         </tr>
         <tr>
             <td><b>Pano ID</b></td><td >
-            <f:form.textfield additionalAttributes="" required="true" name="panoramas[panoId]"  type="text" id="pano-cell"  value="{panorama.panoId}"  class="formvalue"  >
+            <f:form.textfield additionalAttributes="" required="true" property="panoId" type="text" id="pano-cell"  class="formvalue"  >
         </f:form.textfield>
         </td>
         </tr>
         <tr>
             <td><b>Zoom</b></td><td >
-            <f:form.textfield additionalAttributes="" name="panoramas[zoom]"  type="text" id="zoom-cell"  value="{panorama.zoom}"  class="formvalue"  >
+            <f:form.textfield additionalAttributes="" property="zoom" type="text" id="zoom-cell"  class="formvalue"  >
             </f:form.textfield>
         </td>
         </tr>
