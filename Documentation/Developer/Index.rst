@@ -34,3 +34,9 @@ Usage
 
    DebugMode can be anabled in the extension manager.
 
+
+* :ref:`extbase-editor-refactor-plan`
+
+.. _extbase-editor-refactor-plan:
+
+.. include:: ExtbaseEditorRefactorPlan.rst
