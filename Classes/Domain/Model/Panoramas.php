@@ -50,11 +50,6 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  */
 class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-    /**
-     * uid
-     * @var int
-     */
-    public $uid = '';
 
     /**
      * propertiesArray

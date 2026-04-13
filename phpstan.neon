@@ -1,0 +1,26 @@
+parameters:
+  # 2019-01-21 CAG JR: some config options / ideas which might help in the future, but not needed for now
+  #    includes:
+  #        - vendor/saschaegerer/phpstan-typo3/extension.neon
+  #    parameters:
+  #        bootstrap: %rootDir%/../../saschaegerer/phpstan-typo3/src/PhpstanTypo3Bootstrap.php
+  #    autoload_directories:
+  #        - %rootDir%/../../../public/typo3conf/ext/tmpl/Classes
+  #    autoload_files:
+  #- %rootDir%/../../../generated/routes/GeneratedRouteList.php
+  ignoreErrors:
+    - '#Constant TYPO3_MODE not found#'
+    - '#Undefined variable: \$_EXTKEY#'
+    - '#ObjectManagerInterface::get\(\) invoked with [\d]+ parameters, 1 required#'
+    - '#Call to an undefined method Prophecy\\Prophecy\\ObjectProphecy::.+#'
+    - '#Array \(mixed(\[\])+\) does not accept string#'
+    # TYPO3v7 support
+    - '#Access to an undefined property TYPO3\\CMS\\Core\\DataHandling\\DataHandler::\$stripslashes_values#'
+    # See https://github.com/dmitryd/typo3-realurl/issues/566
+    - '#Access to protected property \$rootPageId of class DmitryDulepov\\Realurl\\EncodeDecoderBase#'
+    - '#Parameter .+ expects .+, Prophecy\\.+\\.+Token given\.#'
+    - '#.+ does not accept PHPUnit\\Framework\\MockObject\\MockObject\.#'
+    - '#Parameter .+ expects .+, PHPUnit\\Framework\\MockObject\\MockObject given\.#'
+    - '#Class TYPO3\\CMS\\Scheduler\\Task\\TableGarbageCollectionTask not found\.#'
+    - '#Access to protected property .+TypoScriptFrontendController::\$sys_language_uid#'
+  reportUnmatchedIgnoredErrors: false
