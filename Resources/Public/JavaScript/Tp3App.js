@@ -107,10 +107,105 @@ const Tp3App = {
 		}
 	},
 
+	parsePosition(positionValue) {
+		if (!positionValue) {
+			return null;
+		}
+
+		if (typeof positionValue === 'object' && typeof positionValue.lat === 'number' && typeof positionValue.lng === 'number') {
+			return positionValue;
+		}
+
+		const normalized = String(positionValue).replace(/[()]/g, '');
+		const chunks = normalized.split(',');
+		if (chunks.length !== 2) {
+			return null;
+		}
+
+		const lat = parseFloat(chunks[0]);
+		const lng = parseFloat(chunks[1]);
+
+		if (Number.isNaN(lat) || Number.isNaN(lng)) {
+			return null;
+		}
+
+		return { lat, lng };
+	},
+
+	updateStatus(message, level = 'secondary') {
+		const statusNode = document.getElementById('tp3-editor-status');
+		if (!statusNode) {
+			return;
+		}
+
+		statusNode.className = `alert alert-${level} mt-2 mb-0`;
+		statusNode.textContent = message;
+	},
+
+	serializeCurrentPosition() {
+		if (!this.BusinessAdress) {
+			return '';
+		}
+
+		if (typeof this.BusinessAdress.toString === 'function' && typeof this.BusinessAdress.lat === 'function') {
+			return this.BusinessAdress.toString();
+		}
+
+		const lat = typeof this.BusinessAdress.lat === 'function' ? this.BusinessAdress.lat() : this.BusinessAdress.lat;
+		const lng = typeof this.BusinessAdress.lng === 'function' ? this.BusinessAdress.lng() : this.BusinessAdress.lng;
+
+		if (typeof lat === 'number' && typeof lng === 'number') {
+			return `(${lat}, ${lng})`;
+		}
+
+		return '';
+	},
+
+	updateDraft(patch = {}, markDirty = true) {
+		this.editorState.draft = Object.assign({}, this.editorState.draft, patch);
+		if (markDirty) {
+			this.editorState.isDirty = true;
+		}
+		this.renderEditorState();
+	},
+
+	renderEditorState() {
+		const draft = this.editorState.draft || {};
+		const uidField = document.querySelector('input[name="panoramas[uid]"]');
+		const headingCell = document.getElementById('heading-cell');
+		const pitchCell = document.getElementById('pitch-cell');
+		const zoomCell = document.getElementById('zoom-cell');
+		const positionCell = document.getElementById('position-cell');
+		const panoCell = document.getElementById('pano-cell');
+
+		if (uidField) {
+			uidField.value = this.editorState.selectedPanoramaUid ? String(this.editorState.selectedPanoramaUid) : '';
+		}
+		if (headingCell) headingCell.value = draft.heading ?? '';
+		if (pitchCell) pitchCell.value = draft.pitch ?? '';
+		if (zoomCell) zoomCell.value = draft.zoom ?? '';
+		if (positionCell) positionCell.value = draft.position ?? '';
+		if (panoCell) panoCell.value = draft.panoId ?? '';
+	},
+
+	resetDraftFromCurrentView() {
+		this.editorState.draft = {
+			heading: this.pov.heading ?? 0,
+			pitch: this.pov.pitch ?? 0,
+			zoom: this.pov.zoom ?? 1,
+			position: this.serializeCurrentPosition(),
+			panoId: this.panorama ? (this.panorama.getPano() || '') : '',
+		};
+		this.editorState.isDirty = false;
+		this.renderEditorState();
+	},
+
 	applyHandlers() {
 		const form = document.querySelector('#editform');
 		const submitEditform = document.querySelector('#submitEditform');
 		const submitNewform = document.querySelector('#submitNewform');
+		const discardChanges = document.querySelector('#discardChanges');
+		const businessViewSelect = form ? form.querySelector('select[name="tp3businessview[uid]"]') : null;
 
 		if (!form) {
 			return;
@@ -122,12 +217,16 @@ const Tp3App = {
 		this._businessViewClickHandlerBound = true;
 
 		const getSelectedBusinessViewUid = () => {
-			const businessViewSelect = form.querySelector('select[name="tp3businessview[uid]"]');
 			if (!businessViewSelect) {
 				return 0;
 			}
 
 			return parseInt(businessViewSelect.value, 10) || 0;
+		};
+
+		const setSelectedPanoramaUid = (uid) => {
+			this.editorState.selectedPanoramaUid = parseInt(uid, 10) || 0;
+			this.renderEditorState();
 		};
 
 		const sendForm = async (submitType) => {
@@ -137,11 +236,36 @@ const Tp3App = {
 			const businessViewUid = getSelectedBusinessViewUid();
 			if (businessViewUid > 0) {
 				formData.set('tp3businessview[uid]', String(businessViewUid));
+				this.editorState.selectedBusinessViewUid = businessViewUid;
 			} else {
 				formData.delete('tp3businessview[uid]');
 			}
 
+			const panoramaUid = this.editorState.selectedPanoramaUid || parseInt(formData.get('panoramas[uid]') || '0', 10);
+			if (submitType === 'update' && panoramaUid <= 0) {
+				this.updateStatus('Bitte zuerst ein Panorama auswählen.', 'warning');
+				return;
+			}
+			if (panoramaUid > 0) {
+				formData.set('panoramas[uid]', String(panoramaUid));
+			}
+
+			const headingValue = formData.get('tx_tp3businessview_module[panorama][heading]');
+			const pitchValue = formData.get('tx_tp3businessview_module[panorama][pitch]');
+			const zoomValue = formData.get('tx_tp3businessview_module[panorama][zoom]');
+			if (
+				Number.isNaN(parseFloat(String(headingValue ?? ''))) ||
+				Number.isNaN(parseFloat(String(pitchValue ?? ''))) ||
+				Number.isNaN(parseFloat(String(zoomValue ?? '')))
+			) {
+				this.updateStatus('Heading/Pitch/Zoom müssen numerisch sein.', 'warning');
+				return;
+			}
+
 			try {
+				this.updateStatus('Speichern läuft …', 'info');
+				if (submitEditform) submitEditform.disabled = true;
+				if (submitNewform) submitNewform.disabled = true;
 				const response = await fetch(form.action, {
 					method: 'POST',
 					credentials: 'same-origin',
@@ -157,12 +281,26 @@ const Tp3App = {
 				}
 
 				const data = await response.json();
+				if (!data || data.success !== true) {
+					throw new Error(data && data.message ? data.message : 'Unbekannter API-Fehler');
+				}
+
+				if (data.uid) {
+					setSelectedPanoramaUid(data.uid);
+				}
+
+				this.editorState.isDirty = false;
+				this.updateStatus('Gespeichert.', 'success');
 				console.log('Antwort vom Endpunkt:', data);
 			} catch (error) {
+				this.updateStatus(`Senden fehlgeschlagen: ${error.message}`, 'danger');
 				console.error('Senden an den Endpunkt fehlgeschlagen:', error);
+			} finally {
+				if (submitEditform) submitEditform.disabled = false;
+				if (submitNewform) submitNewform.disabled = false;
 			}
 		};
-		const loadBusinessView = async (uid , type) => {
+		const loadBusinessView = async (uid, type) => {
 			if (!form) {
 				return;
 			}
@@ -183,8 +321,39 @@ const Tp3App = {
 
 				const data = await response.json();
 				Tp3App.businessview_initialize(data);
+
+				if (type === 'pano' && data && data.businessview && data.businessview[0]) {
+					const record = data.businessview[0];
+					const heading = parseFloat(record.heading ?? '0') || 0;
+					const pitch = parseFloat(record.pitch ?? '0') || 0;
+					const zoom = parseFloat(record.zoom ?? '1') || 1;
+					const position = record.position || '';
+					const parsedPosition = this.parsePosition(position);
+					const panoId = record.panoId || record.pano_id || '';
+
+					this.pov = { heading, pitch, zoom };
+					if (parsedPosition) {
+						this.BusinessAdress = parsedPosition;
+					}
+
+					setSelectedPanoramaUid(record.uid || uid);
+					this.updateDraft({
+						heading,
+						pitch,
+						zoom,
+						position,
+						panoId,
+					}, false);
+					this.editorState.isDirty = false;
+				} else {
+					setSelectedPanoramaUid(0);
+					this.resetDraftFromCurrentView();
+				}
+
 				Tp3App.initPano(data);
+				this.updateStatus(type === 'pano' ? 'Panorama geladen.' : 'BusinessView geladen.', 'secondary');
 			} catch (error) {
+				this.updateStatus(`Laden fehlgeschlagen: ${error.message}`, 'danger');
 				console.error('Businessview laden fehlgeschlagen:', error);
 			}
 		};
@@ -219,15 +388,17 @@ const Tp3App = {
 					throw new Error(`HTTP ${response.status}`);
 				}
 
-				const data = await response.json();
-				console.log('Sortierung gespeichert:', data);
+					const data = await response.json();
+					console.log('Sortierung gespeichert:', data);
+					this.updateStatus('Sortierung gespeichert.', 'success');
 
-				// optional: Tabelle neu laden / DOM aktualisieren
-				window.location.reload();
-			} catch (error) {
-				console.error('Sortierung fehlgeschlagen:', error);
-			}
-		};
+					// optional: Tabelle neu laden / DOM aktualisieren
+					window.location.reload();
+				} catch (error) {
+					this.updateStatus(`Sortierung fehlgeschlagen: ${error.message}`, 'danger');
+					console.error('Sortierung fehlgeschlagen:', error);
+				}
+			};
 
 		if (submitEditform) {
 			submitEditform.addEventListener('click', (event) => {
@@ -236,16 +407,56 @@ const Tp3App = {
 			});
 		}
 
-		if (submitNewform) {
-			submitNewform.addEventListener('click', (event) => {
-				event.preventDefault();
-				sendForm('create');
-			});
-		}
+			if (submitNewform) {
+				submitNewform.addEventListener('click', (event) => {
+					event.preventDefault();
+					sendForm('create');
+				});
+			}
 
-		document.addEventListener('click', function (event) {
-			const button = event.target.closest('.actions-view');
-			if (!button) return;
+			if (discardChanges) {
+				discardChanges.addEventListener('click', () => {
+					this.resetDraftFromCurrentView();
+					this.updateStatus('Änderungen verworfen.', 'secondary');
+				});
+			}
+
+			if (businessViewSelect) {
+				this.editorState.selectedBusinessViewUid = getSelectedBusinessViewUid();
+				businessViewSelect.addEventListener('change', () => {
+					if (this.editorState.isDirty && !window.confirm('Ungespeicherte Änderungen verwerfen?')) {
+						businessViewSelect.value = String(this.editorState.selectedBusinessViewUid || 0);
+						return;
+					}
+
+					this.editorState.selectedBusinessViewUid = getSelectedBusinessViewUid();
+					this.editorState.selectedPanoramaUid = 0;
+					this.resetDraftFromCurrentView();
+					this.updateStatus('BusinessView gewechselt.', 'secondary');
+				});
+			}
+
+			['heading-cell', 'pitch-cell', 'zoom-cell', 'position-cell', 'pano-cell'].forEach((fieldId) => {
+				const field = document.getElementById(fieldId);
+				if (!field) {
+					return;
+				}
+
+				field.addEventListener('input', () => {
+					const patch = {};
+					if (fieldId === 'heading-cell') patch.heading = field.value;
+					if (fieldId === 'pitch-cell') patch.pitch = field.value;
+					if (fieldId === 'zoom-cell') patch.zoom = field.value;
+					if (fieldId === 'position-cell') patch.position = field.value;
+					if (fieldId === 'pano-cell') patch.panoId = field.value;
+					this.updateDraft(patch, true);
+					this.updateStatus('Ungespeicherte Änderungen.', 'warning');
+				});
+			});
+
+			document.addEventListener('click', function (event) {
+				const button = event.target.closest('.actions-view');
+				if (!button) return;
 
 			const type = button.getAttribute('data-view-type');
 			const uid = button.getAttribute('data-bv-uid');
@@ -254,14 +465,25 @@ const Tp3App = {
 			loadBusinessView(uid, type);
 		});
 
-		document.addEventListener('click', function (event) {
-			const button = event.target.closest('.pano-sort');
-			if (!button) return;
+			document.addEventListener('click', function (event) {
+				const button = event.target.closest('.pano-sort');
+				if (!button) return;
 
-			event.preventDefault();
-			sortPanorama(button);
-		});
-	},
+				event.preventDefault();
+				sortPanorama(button);
+			});
+
+			window.addEventListener('beforeunload', (event) => {
+				if (!this.editorState.isDirty) {
+					return;
+				}
+				event.preventDefault();
+				event.returnValue = '';
+			});
+
+			this.resetDraftFromCurrentView();
+			this.updateStatus('Editor bereit.', 'secondary');
+		},
 
 
 	bindPanoramaState(panoCanvas, panorama) {
@@ -429,6 +651,9 @@ const Tp3App = {
 			}
 
 			this.BusinessAdress = pano.getPosition();
+			this.updateDraft({
+				position: pano.getPosition() + '',
+			});
 		});
 
 		pano.addListener('pov_changed', () => {
@@ -443,6 +668,11 @@ const Tp3App = {
 				pitch: pov.pitch,
 				zoom: pano.getZoom(),
 			};
+			this.updateDraft({
+				heading: pov.heading,
+				pitch: pov.pitch,
+				zoom: pano.getZoom(),
+			});
 
 			if (headingCell) headingCell.value = pov.heading;
 			if (pitchCell) pitchCell.value = pov.pitch;
@@ -453,6 +683,9 @@ const Tp3App = {
 		if (panoCell) {
 			panoCell.value = data.location.pano || '';
 		}
+		this.updateDraft({
+			panoId: data.location.pano || '',
+		});
 
 		const positionCell = document.getElementById('position-cell');
 		if (positionCell) {
@@ -469,6 +702,7 @@ const Tp3App = {
 		if (zoomCell) zoomCell.value = pano.getZoom();
 
 		this.panorama = pano;
+		this.editorState.isDirty = false;
 	},
 
 	loadPanoramaForPlace(place) {
@@ -616,8 +850,20 @@ const Tp3App = {
 		panoJumpsRandom: true,
 	},
 
-	geocoder: null,
-	infowindow: null,
+		geocoder: null,
+		infowindow: null,
+		editorState: {
+			selectedBusinessViewUid: 0,
+			selectedPanoramaUid: 0,
+			draft: {
+				heading: 270,
+				pitch: 0,
+				zoom: 1,
+				position: '',
+				panoId: '',
+			},
+			isDirty: false,
+		},
 };
 
 window.Tp3App = Tp3App;

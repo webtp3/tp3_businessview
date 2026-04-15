@@ -198,6 +198,16 @@ div.bwentry {
     border: 0px solid #999;
 }
 
+#tp3businessview-floating-panel .btn {
+    margin-right: 6px;
+    margin-top: 6px;
+}
+
+#tp3-editor-status {
+    line-height: 1.4;
+    font-size: 12px;
+}
+
 .panoviewer {
 
     width: 100%;

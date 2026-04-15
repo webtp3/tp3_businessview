@@ -91,13 +91,19 @@ or search for the place on the map</div>
 				>
 			</div>
 
-			<button type="submit" id="submitEditform" class="btn btn-primary">
-				Speichern
-			</button>
-			<button type="submit" id="submitNewform" class="btn btn-primary">
-				neu
-			</button>
-    </form>
-    <f:render partial="Tp3BusinessView/Controls" arguments="{settings:settings}" />
+				<button type="submit" id="submitEditform" class="btn btn-primary">
+					Speichern
+				</button>
+				<button type="submit" id="submitNewform" class="btn btn-primary">
+					neu
+				</button>
+				<button type="button" id="discardChanges" class="btn btn-default">
+					Verwerfen
+				</button>
+				<div id="tp3-editor-status" class="alert alert-secondary mt-2 mb-0" role="status">
+					Bereit
+				</div>
+	    </form>
+	    <f:render partial="Tp3BusinessView/Controls" arguments="{settings:settings}" />
 
-</div>
+	</div>

@@ -16,10 +16,21 @@
 			</f:if>
 		</td>
 
-		<td class="">
-			<button class="btn btn-secondary actions-view pano" type="button" data-bv-uid="{panorama.uid}" data-view-type="pano">
-				{core:icon(identifier:'actions-view')}
-			</button>
+			<td class="">
+				<button
+					class="btn btn-secondary actions-view pano"
+					type="button"
+					data-bv-uid="{panorama.uid}"
+					data-view-type="pano"
+					data-pano-uid="{panorama.uid}"
+					data-pano-heading="{panorama.heading}"
+					data-pano-pitch="{panorama.pitch}"
+					data-pano-zoom="{panorama.zoom}"
+					data-pano-position="{panorama.position}"
+					data-pano-id="{panorama.panoId}"
+				>
+					{core:icon(identifier:'actions-view')}
+				</button>
 
 			<input type="hidden" name="panoramas[pano_id]" value="{panorama.pano_id}" class="formvalue pano_id" />
 			<f:format.crop maxCharacters="10">{panorama.pano_id}{panorama.panoId}</f:format.crop>
