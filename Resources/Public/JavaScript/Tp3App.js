@@ -250,102 +250,15 @@ const Tp3App = {
 
         Tp3App.panorama = panorama;
 
-        this.enablePanoDragAndSave(panoCanvas, panorama);
+        this.bindPanoramaState(panoCanvas, panorama);
       },
 
-      enablePanoDragAndSave(panoCanvas, panorama) {
-        const state = {
-          dragging: false,
-          startX: 0,
-          startY: 0,
-          originLeft: 0,
-          originTop: 0,
-        };
-
-        const wrapper = panoCanvas.parentElement;
-        if (!wrapper) {
-          return;
-        }
-
-        if (getComputedStyle(wrapper).position === 'static') {
-          wrapper.style.position = 'relative';
-        }
-
-        panoCanvas.style.position = 'absolute';
-        panoCanvas.style.cursor = 'move';
-
-        const getCurrentPosition = () => {
-          const left = parseInt(panoCanvas.style.left || '0', 10);
-          const top = parseInt(panoCanvas.style.top || '0', 10);
-
-          return {
-            left: Number.isNaN(left) ? 0 : left,
-            top: Number.isNaN(top) ? 0 : top,
-          };
-        };
-
-        const savePosition = () => {
-          const pos = getCurrentPosition();
-          const posInput = document.querySelector('input[name="panoramas[position]"]');
-          const xInput = document.querySelector('input[name="panoramas[pano_offset_x]"]');
-          const yInput = document.querySelector('input[name="panoramas[pano_offset_y]"]');
-
-          if (posInput) {
-            posInput.value = JSON.stringify(pos);
-          }
-          if (xInput) {
-            xInput.value = String(pos.left);
-          }
-          if (yInput) {
-            yInput.value = String(pos.top);
-          }
-        };
-
-        const onPointerDown = (event) => {
-          state.dragging = true;
-          state.startX = event.clientX;
-          state.startY = event.clientY;
-
-          const pos = getCurrentPosition();
-          state.originLeft = pos.left;
-          state.originTop = pos.top;
-
-          panoCanvas.style.userSelect = 'none';
-          panoCanvas.setPointerCapture(event.pointerId);
-        };
-
-        const onPointerMove = (event) => {
-          if (!state.dragging) {
-            return;
-          }
-
-          const deltaX = event.clientX - state.startX;
-          const deltaY = event.clientY - state.startY;
-
-          panoCanvas.style.left = `${state.originLeft + deltaX}px`;
-          panoCanvas.style.top = `${state.originTop + deltaY}px`;
-        };
-
-        const onPointerUp = (event) => {
-          if (!state.dragging) {
-            return;
-          }
-
-          state.dragging = false;
-          panoCanvas.style.userSelect = '';
-          savePosition();
-
-          try {
-            panoCanvas.releasePointerCapture(event.pointerId);
-          } catch (e) {
-            // ignore
-          }
-        };
-
-        panoCanvas.addEventListener('pointerdown', onPointerDown);
-        panoCanvas.addEventListener('pointermove', onPointerMove);
-        panoCanvas.addEventListener('pointerup', onPointerUp);
-        panoCanvas.addEventListener('pointercancel', onPointerUp);
+      bindPanoramaState(panoCanvas, panorama) {
+        panoCanvas.style.removeProperty('position');
+        panoCanvas.style.removeProperty('left');
+        panoCanvas.style.removeProperty('top');
+        panoCanvas.style.removeProperty('cursor');
+        panoCanvas.style.removeProperty('user-select');
 
         panorama.addListener('position_changed', () => {
           const positionCell = document.getElementById('position-cell');
@@ -373,7 +286,6 @@ const Tp3App = {
         });
 
         google.maps.event.trigger(panorama, 'resize');
-        savePosition();
       },
 	setAnimationOptions() {
 		if (typeof window.AnmationOptions === 'object') {
