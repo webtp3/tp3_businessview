@@ -258,56 +258,94 @@ class JsonResponseHandler extends ActionController
             default => $this->readAction($request),
         };
     }
-    public function createAction(ServerRequestInterface $request): ResponseInterface
-    {
-        $body = $request->getParsedBody();
 
-        $panoramaData = $body['tx_tp3businessview_module']['panorama'] ?? [];
-        $panoramaInput = $body['panoramas'] ?? [];
-        $businessViewUid = (int)($body['tp3businessview']['uid'] ?? 0);
+	protected function buildPanoramaFromRequest(ServerRequestInterface $request): array
+	{
+		$body = $request->getParsedBody();
 
-        $panorama = new \Tp3\Tp3Businessview\Domain\Model\Panoramas();
-        $panorama->setHeading((string)($panoramaData['heading'] ?? ''));
-        $panorama->setPosition((string)($panoramaData['position'] ?? ''));
-        $panorama->setPitch((string)($panoramaData['pitch'] ?? ''));
-        $panorama->setZoom((string)($panoramaData['zoom'] ?? ''));
-        $panorama->setPanoId((string)($panoramaData['panoId'] ?? ''));
+		return [
+			'panoramaData' => $body['tx_tp3businessview_module']['panorama'] ?? [],
+			'panoramaInput' => $body['panoramas'] ?? [],
+			'businessViewUid' => (int)($body['tp3businessview']['uid'] ?? 0),
+		];
+	}
 
-        if ($businessViewUid > 0) {
-            $businessView = $this->tp3BusinessViewRepository->findByUid($businessViewUid);
-            if ($businessView) {
-                $panorama->setTp3Businessviews($businessView);
-            }
-        }
+	public function createAction(ServerRequestInterface $request): ResponseInterface
+	{
+		$data = $this->buildPanoramaFromRequest($request);
+		$panoramaData = $data['panoramaData'];
+		$businessViewUid = $data['businessViewUid'];
 
-        $uid = (int)($panoramaInput['uid'] ?? 0);
+		$panorama = new \Tp3\Tp3Businessview\Domain\Model\Panoramas();
+		$panorama->setHeading((string)($panoramaData['heading'] ?? ''));
+		$panorama->setPosition((string)($panoramaData['position'] ?? ''));
+		$panorama->setPitch((string)($panoramaData['pitch'] ?? ''));
+		$panorama->setZoom((string)($panoramaData['zoom'] ?? ''));
+		$panorama->setPanoId((string)($panoramaData['panoId'] ?? ''));
 
-        if ($uid > 0) {
-            $existing = $this->panoramasRepository->findByUid($uid);
-            if ($existing) {
-                $existing->setHeading((string)($panoramaData['heading'] ?? ''));
-                $existing->setPosition((string)($panoramaData['position'] ?? ''));
-                $existing->setPitch((string)($panoramaData['pitch'] ?? ''));
-                $existing->setZoom((string)($panoramaData['zoom'] ?? ''));
-                $existing->setPanoId((string)($panoramaData['panoId'] ?? ''));
-
-                if ($businessViewUid > 0 && $businessView) {
-                    $existing->setTp3Businessviews($businessView);
-                }
-
-                $this->panoramasRepository->update($existing);
-            }
-        } else {
-            $this->panoramasRepository->add($panorama);
-        }
+		if ($businessViewUid > 0) {
+			$businessView = $this->tp3BusinessViewRepository->findByUid($businessViewUid)->getFirst();
+			if ($businessView) {
+				$panorama->addTp3Businessviews($businessView);
+			}
+		}
         $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
 
-        $this->persistenceManager->persistAll();
+		$this->panoramasRepository->add($panorama);
+		$this->persistenceManager->persistAll();
 
-        return new \TYPO3\CMS\Core\Http\JsonResponse([
-            'success' => true,
-        ]);
-    }
+		return new JsonResponse([
+			'success' => true,
+			'action' => 'create',
+			'uid' => $panorama->getUid(),
+		]);
+	}
+
+	public function updateAction(ServerRequestInterface $request): ResponseInterface
+	{
+		$data = $this->buildPanoramaFromRequest($request);
+		$panoramaData = $data['panoramaData'];
+		$panoramaInput = $data['panoramaInput'];
+		$businessViewUid = $data['businessViewUid'];
+
+		$uid = (int)($panoramaInput['uid'] ?? 0);
+		if ($uid <= 0) {
+			return new JsonResponse([
+				'success' => false,
+				'message' => 'Panorama UID fehlt',
+			], 400);
+		}
+
+		$existing = $this->panoramasRepository->findByUid($uid);
+		if (!$existing) {
+			return new JsonResponse([
+				'success' => false,
+				'message' => 'Panorama nicht gefunden',
+			], 404);
+		}
+
+		$existing->setHeading((string)($panoramaData['heading'] ?? ''));
+		$existing->setPosition((string)($panoramaData['position'] ?? ''));
+		$existing->setPitch((string)($panoramaData['pitch'] ?? ''));
+		$existing->setZoom((string)($panoramaData['zoom'] ?? ''));
+		$existing->setPanoId((string)($panoramaData['panoId'] ?? ''));
+
+		if ($businessViewUid > 0) {
+			$businessView = $this->tp3BusinessViewRepository->findByUid($businessViewUid);
+			if ($businessView) {
+				$existing->setTp3Businessviews($businessView);
+			}
+		}
+
+		$this->panoramasRepository->update($existing);
+		$this->persistenceManager->persistAll();
+
+		return new JsonResponse([
+			'success' => true,
+			'action' => 'update',
+			'uid' => $existing->getUid(),
+		]);
+	}
 
     /**
      * Normalize Extbase query results or arrays to plain arrays.

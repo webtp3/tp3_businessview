@@ -34,7 +34,44 @@ body > .tp3businessview {
     width: auto;
     float: right;
 }
+.tp3-direction-controls {
+	position: absolute;
+	right: 16px;
+	top: 16px;
+	z-index: 20;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
 
+.tp3-direction-controls__btn {
+	width: 44px;
+	height: 44px;
+	border: 0;
+	border-radius: 50%;
+	background: rgba(34, 34, 34, 0.9);
+	color: #fff;
+	font-size: 20px;
+	line-height: 44px;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.tp3-direction-controls__btn:hover {
+	background: rgba(68, 68, 68, 0.95);
+}
+div#businessview-canvas div#businessview-panorama-canvas {
+	height: 100%;
+	width: 100%;
+	pointer-events: auto;
+	z-index: 1;
+}
+.accordion-button{
+	width:100%;
+	padding: 0 11px 0 13px;
+	box-shadow: rgba(32, 32, 32, 0.7) 2px 2px 1px;
+	border-width: 1px;
+}
 #PanoPlayer {
     position: absolute;
     display: none;
