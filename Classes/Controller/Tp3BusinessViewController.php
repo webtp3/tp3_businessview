@@ -19,6 +19,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+use Psr\Http\Message\ResponseInterface;
 
 class Tp3BusinessViewController extends ActionController
 {
@@ -38,8 +39,14 @@ class Tp3BusinessViewController extends ActionController
 
         parent::initializeAction();
     }
+    protected function htmlResponse(?string $html = null): ResponseInterface
+    {
+        return $this->responseFactory->createResponse()
+            ->withHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream((string)($html ?? $this->view->render())));
+    }
 
-    public function indexAction(): void
+    public function indexAction(): ResponseInterface
     {
         $context = GeneralUtility::makeInstance(Context::class);
         $backendUser = $context->getPropertyFromAspect('backend.user', 'id');
@@ -57,6 +64,7 @@ class Tp3BusinessViewController extends ActionController
             $this->redirectToURI($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/' . $url);
             exit;
         }
+        return $this->htmlResponse($this->view->render());
     }
 
     public function createAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview): void

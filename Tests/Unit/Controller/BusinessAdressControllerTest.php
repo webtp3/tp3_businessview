@@ -18,9 +18,9 @@ class BusinessAdressControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @var \Tp3\Tp3Businessview\Controller\BusinessAdressController
      */
-    protected $subject = null;
+    protected ?\Tp3\Tp3Businessview\Controller\BusinessAdressController $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->subject = $this->getMockBuilder(\Tp3\Tp3Businessview\Controller\BusinessAdressController::class)
@@ -29,7 +29,7 @@ class BusinessAdressControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             ->getMock();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
     }
@@ -37,7 +37,7 @@ class BusinessAdressControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function listActionFetchesAllBusinessAdressesFromRepositoryAndAssignsThemToView()
+    public function listActionFetchesAllBusinessAdressesFromRepositoryAndAssignsThemToView(): void
     {
         $allBusinessAdresses = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
             ->disableOriginalConstructor()
@@ -60,7 +60,7 @@ class BusinessAdressControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function showActionAssignsTheGivenBusinessAdressToView()
+    public function showActionAssignsTheGivenBusinessAdressToView(): void
     {
         $businessAdress = new \Tp3\Tp3Businessview\Domain\Model\BusinessAdress();
 

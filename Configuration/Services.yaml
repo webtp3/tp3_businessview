@@ -9,3 +9,4 @@ services:
 
   Tp3\Tp3Businessview\Controller\ModuleController:
     public: true
+

@@ -2,91 +2,133 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    <h1>Tp3 BusinessView Designer (Streetview)</h1>
+	<div class="tp3-businessview panel">
+		<div class="row tp3-businessview-title">
+			<h1>Tp3 BusinessView Designer (Streetview)</h1>
+			<f:render partial="Tp3BusinessView/Finder" arguments="{_all}" />
+			<br>
+		</div>
+		<div class="row tp3-businessview-canvas">
+			<div class="recordlists">
+				<div class="accordion" id="businessviewAccordion">
+					<f:for each="{businessviews}" as="businessview" iteration="Iterator">
+						<div class="accordion-item mb-2">
+							<h2 class="accordion-header" id="heading-{businessview.uid}">
+								<button
+									class="accordion-button collapsed d-flex justify-content-between align-items-center"
+									type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#collapse-{businessview.uid}"
+									aria-expanded="false"
+									aria-controls="collapse-{businessview.uid}"
+								>
+									<span class="fw-semibold">
+										{businessview.name}
+									</span>
+
+									<span class="badge bg-secondary ms-3">
+										<f:if condition="{businessview.panoramas -> f:count()}">
+											<f:then>
+												{businessview.panoramas -> f:count()} Panoramas
+											</f:then>
+											<f:else>
+												0 Panoramas
+											</f:else>
+										</f:if>
+									</span>
+								</button>
+							</h2>
+
+							<div
+								id="collapse-{businessview.uid}"
+								class="accordion-collapse collapse"
+								aria-labelledby="heading-{businessview.uid}"
+								data-bs-parent="#businessviewAccordion"
+							>
+								<div class="accordion-body">
+									<div class="row g-3 mb-3">
+										<div class="col-12 col-md-4">
+											<div class="small text-muted">createdBy</div>
+											<div>{businessview.createdBy}</div>
+										</div>
+
+										<div class="col-12 col-md-4">
+											<div class="small text-muted">name</div>
+											<div>{businessview.name}</div>
+										</div>
+
+										<div class="col-12 col-md-4">
+											<div class="small text-muted">externalLinks</div>
+											<div>{businessview.externalLinks}</div>
+										</div>
+
+										<div class="col-12 col-md-4">
+											<div class="small text-muted">gallery / intro / socialGallery</div>
+											<div>
+												{businessview.gallery} / {businessview.intro} / {businessview.socialGallery}
+											</div>
+										</div>
+										<div class="col-12 col-md-4">
+											<div class="small text-muted">show</div>
+											<div>	<button class="btn btn-secondary actions-view bv" type="button" data-bv-uid="{businessview.uid}" data-view-type="bv">
+												{core:icon(identifier:'actions-view')}
+											</button>
+											</div>
+										</div>
+									</div>
+
+									<div class="row g-3 mb-3">
+										<div class="col-12 col-md-6">
+											<div class="small text-muted">panoAnimation</div>
+											<div>{businessview.panoAnimation}</div>
+										</div>
+
+										<div class="col-12 col-md-6">
+											<div class="small text-muted">panoOptions</div>
+											<div>{businessview.panoOptions}</div>
+										</div>
+									</div>
+
+									<h3 class="h5 mb-3">Panoramas</h3>
+
+									<div class="table-responsive">
+										<table class="table table-sm table-striped align-middle mb-0">
+											<thead>
+												<tr>
+													<th>Titel</th>
+													<th>Pano ID</th>
+													<th>POV Heading / Pitch / Zoom</th>
+													<th>Position</th>
+													<th>Sorting</th>
+												</tr>
+											</thead>
+											<tbody>
+												<f:for each="{businessview.panoramas}" as="panorama">
+													<f:render partial="Tp3BusinessView/Panorama" arguments="{panorama: panorama, settings: settings, businessview:businessview}" />
+												</f:for>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</f:for>
+				</div>
+			</div>
+
+			<div
+				id="tp3-businessview-app"
+				data-json-url="{jsonUrl}"
+				data-api-key="{googleMapsJavaScriptApiKey}"
+				data-pid="{id}"
+			></div>
+		</div>
+	</div>
 
 
-    <f:render partial="Tp3BusinessView/Finder" arguments="{businessviews:businessviews, panoramas:panoramas, settings:settings}" />
-    <br>
 
 
-    <div class="recordlists">
-        <f:if condition="{businessviews->f:count()} < 1}">
-            <f:then>
-                <f:render partial="Tp3BusinessView/Intro" arguments="{conf:conf}" />
 
-            </f:then>
-            <f:else>
-            <div class="businessviewlist clearfix">
-            <h2>Businessviews</h2>
-                <f:for each="{businessviews}" as="businessview" iteration="Iterator">
-                    <f:if condition="{Iterator.index} < 1">
-                        <f:then>
-                            <div class="head">
-                                <f:render partial="Tp3BusinessView/Labels" arguments="{properties:businessview.propertiesArray}" />
-                            </div>
-                        </f:then>
-                    </f:if>
-                    <div id="bw_{businessview.uid}_{businessview.pid}" class="bwentry">
-                        <f:render partial="Tp3BusinessView/Properties" arguments="{properties:businessview.propertiesArray}" />
 
-                    </div>
-                    <table id="bw_{Iterator.index}_{businessview.uid}" class="panolist bwlist">
-                        <tr>
-                            <td><b>Titel</b></td>
-                            <td><b>Pano ID</b></td>
-                            <td><b>POV Heading</b>/<b>POV Pitch</b>/<b>zoom</b></td>
-                            <td><b>Position</b></td>
-                            <td><b>Sorting</b></td>
-                        </tr>
-                    <f:for each="{businessview.panoramas}" as="panorama">
-                        <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama:panorama}" />
-                    </f:for>
-                    </table>
-                </f:for>
-            </div>
-            <h2>Panoramas</h2>
-            <table class="panolist">
-                <tr>
-                    <td><b>Titel</b></td>
-                    <td><b>Pano ID</b></td>
-                    <td><b>POV Heading</b>/<b>POV Pitch</b>/<b>zoom</b></td>
-                    <td><b>Position</b></td>
-                    <td><b>Sorting</b></td>
-                </tr>
-                <f:for each="{panoramas_all}" as="panorama">
-                    <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama:panorama}" />
-                </f:for>
-            </table><br>
-            <h2>Business </h2>
-            <table class="addresslist">
-                <tr> <td><b>name</b></td>
-                    <td><b>google place_id</b></td>
-                    <td><b>geo</b></td></tr>
-                <f:for each="{addresses}" as="addressest">
-                    <f:for each="{addressest}" as="address">
-                        <f:render partial="Tp3BusinessView/Address" arguments="{address:address}" />
-                    </f:for>
-                </f:for>
-            </table>
-
-        </f:else>
-        </f:if>
-
-        <script>
-            window.businessviewJsonsArray = window.businessviewJsonsArray || [];
-            <f:for each="{businessViewJson}" as="Json"  iteration="Iterator">
-
-                <f:if condition="{Iterator.index} < 1">
-                    <f:then>
-                        window.businessviewJson =  window.businessviewJson ||  <f:format.raw>{Json}</f:format.raw>;
-                    </f:then>
-                </f:if>
-
-                window.businessviewJsonsArray[{Iterator.index}]=<f:format.raw>{Json}</f:format.raw>;
-            </f:for>
-
-        </script>
-
-    </div>
 </f:section>
 </html>

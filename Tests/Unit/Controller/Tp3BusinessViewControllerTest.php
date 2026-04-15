@@ -18,9 +18,9 @@ class Tp3BusinessViewControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @var \Tp3\Tp3Businessview\Controller\Tp3BusinessViewController
      */
-    protected $subject = null;
+    protected ?\Tp3\Tp3Businessview\Controller\Tp3BusinessViewController $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->subject = $this->getMockBuilder(\Tp3\Tp3Businessview\Controller\Tp3BusinessViewController::class)
@@ -29,7 +29,7 @@ class Tp3BusinessViewControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             ->getMock();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
     }

@@ -14,12 +14,16 @@ $_EXTKEY = 'tp3_businessview';
     'Tp3Businessview',
     'Tp3businessview',
     [
+        \Tp3\Tp3Businessview\Backend\JsonResponseHandler::class => 'index,read,update,create, dispatch',
+
         \Tp3\Tp3Businessview\Controller\Tp3BusinessViewController::class => 'list,show,new,update,edit',
         \Tp3\Tp3Businessview\Controller\PanoramasController::class => 'index,new,edit,create,update,delete',
         \Tp3\Tp3Businessview\Controller\BusinessAdressController::class => 'index,new,edit,create,update,delete',
     ],
     // non-cacheable actions
     [
+        \Tp3\Tp3Businessview\Backend\JsonResponseHandler::class => 'update,create,dispatch',
+
         \Tp3\Tp3Businessview\Controller\Tp3BusinessViewController::class => 'createpano,create',
         \Tp3\Tp3Businessview\Controller\PanoramasController::class => 'create',
         \Tp3\Tp3Businessview\Controller\BusinessAdressController::class => 'create',

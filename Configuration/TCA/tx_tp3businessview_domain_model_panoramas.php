@@ -150,7 +150,7 @@ return [
                 'allowed' => 'tx_tp3businessview_domain_model_tp3businessview',
                 'MM' => 'tx_tp3businessview_domain_model_panoramas_mm',
                 'MM_opposite_field' => 'panoramas',
-                'minitems' => 1,
+                'minitems' => 0,
                 'maxitems' => 10,
                 'size' => 1,
             ],

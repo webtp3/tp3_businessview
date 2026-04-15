@@ -18,6 +18,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+use Psr\Http\Message\ResponseInterface;
 
 class PanoramasController extends ActionController
 {
@@ -37,11 +38,18 @@ class PanoramasController extends ActionController
 
         parent::initializeAction();
     }
-
-    public function listAction(): void
+    protected function htmlResponse(?string $html = null): ResponseInterface
+    {
+        return $this->responseFactory->createResponse()
+            ->withHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream((string)($html ?? $this->view->render())));
+    }
+    public function listAction(): ResponseInterface
     {
         $panoramas = $this->panoramasRepository->findAll();
         $this->view->assign('panoramas', $panoramas);
+        return $this->htmlResponse($this->view->render());
+
     }
 
     public function updateAction(\Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas): void

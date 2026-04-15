@@ -25,7 +25,12 @@ or search for the place on the map</div>
 
 </div><div id="businessview-panorama-canvas"></div></div>
 <div id="tp3businessview-floating-panel">
-    <form id="editform">
+
+    <form id="editform" method="post" action="{dispatcher}">
+			<input type="hidden" name="tx_tp3businessview_module[action]" value="create">
+			<input type="hidden" name="tx_tp3businessview_module[controller]" value="Module">
+
+
     <input type="hidden" name="panoramas[uid]" class="formvalue" />
     <input type="hidden" name="panoramas[pid]" class="formvalue" />
         <select name="tp3businessview[uid]" class="form-control formvalue">
@@ -33,41 +38,65 @@ or search for the place on the map</div>
                 <option value="{businessview.uid}">{businessview.name}</option>
             </f:for>
         </select>
-        <table class="panoviewer">
-        <tr>
-            <td><b>Titel</b></td>
-            <td class="title">
-               <input required="required" type="text" name="panoramas[title]" class="formvalue" />
-            </td>
-        </tr><tr>
-            <td><b>Position</b></td><td ><input type="text" name="panoramas[position]" id="position-cell" class="formvalue" />
-            </td>
-        </tr>
-        <tr>
-            <td><b>POV Heading</b></td><td >
-            <input type="text" name="panoramas[heading]" id="heading-cell" class="formvalue" />
-        </td>
-        </tr>
-        <tr>
-            <td><b>POV Pitch</b></td><td >
-            <input type="text" name="panoramas[pitch]" id="pitch-cell" class="formvalue" />
-        </td>
-        </tr>
-        <tr>
-            <td><b>Pano ID</b></td><td >
-            <input required="required" type="text" name="panoramas[panoId]" id="pano-cell" class="formvalue" />
-        </td>
-        </tr>
-        <tr>
-            <td><b>Zoom</b></td><td >
-            <input type="text" name="panoramas[zoom]" id="zoom-cell" class="formvalue" />
-        </td>
-        </tr>
+			<div class="form-group">
+				<label for="heading-cell">Heading</label>
+				<input
+					type="text"
+			    id="heading-cell"
+			    name="tx_tp3businessview_module[panorama][heading]"
+			    value="90"
+			    class="form-control"
+				>
+			</div>
+			<div class="form-group">
+				<label for="position-cell">Position</label>
+				<input
+					type="text"
+			    id="position-cell"
+			    name="tx_tp3businessview_module[panorama][position]"
+			    value="90"
+			    class="form-control"
+				>
+			</div>
+			<div class="form-group">
+				<label for="pitch-cell">Pitch</label>
+				<input
+					type="text"
+			    id="pitch-cell"
+			    name="tx_tp3businessview_module[panorama][pitch]"
+			    value="0"
+			    class="form-control"
+				>
+			</div>
 
-    </table>
-        <input type="submit" name="submit" id="submitEditform" value="save" />
-        <input type="submit" name="submit" id="submitNewform" value="new" />
+			<div class="form-group">
+				<label for="zoom-cell">Zoom</label>
+				<input
+					type="text"
+			    id="zoom-cell"
+			    name="tx_tp3businessview_module[panorama][zoom]"
+			    value="1"
+			    class="form-control"
+				>
+			</div>
 
+			<div class="form-group">
+				<label for="pano-cell">Pano</label>
+				<input
+					type="text"
+			    id="pano-cell"
+			    name="tx_tp3businessview_module[panorama][panoId]"
+			    value=""
+			    class="form-control"
+				>
+			</div>
+
+			<button type="submit" id="submitEditform" class="btn btn-primary">
+				Speichern
+			</button>
+			<button type="submit" id="submitNewform" class="btn btn-primary">
+				neu
+			</button>
     </form>
     <f:render partial="Tp3BusinessView/Controls" arguments="{settings:settings}" />
 

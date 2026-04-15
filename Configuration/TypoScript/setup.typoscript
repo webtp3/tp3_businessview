@@ -1,0 +1,2 @@
+@import 'EXT:tp3_businessview/Configuration/TypoScript/Plugin/Plugin.typoscript'
+@import 'EXT:tp3_businessview/Configuration/TypoScript/Backend/Module.typoscript'

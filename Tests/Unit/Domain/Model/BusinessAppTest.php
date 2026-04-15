@@ -18,15 +18,15 @@ class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @var \Tp3\Tp3Businessview\Domain\Model\BusinessApp
      */
-    protected $subject = null;
+    protected ?\Tp3\Tp3Businessview\Domain\Model\BusinessApp $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->subject = new \Tp3\Tp3Businessview\Domain\Model\BusinessApp();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
     }
@@ -34,7 +34,7 @@ class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getBusinessviewIdReturnsInitialValueForString()
+    public function getBusinessviewIdReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -45,7 +45,7 @@ class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setBusinessviewIdForStringSetsBusinessviewId()
+    public function setBusinessviewIdForStringSetsBusinessviewId(): void
     {
         $this->subject->setBusinessviewId('Conceived at T3CON10');
 
@@ -59,7 +59,7 @@ class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getGoogleMapsJavaScriptApiKeyReturnsInitialValueForString()
+    public function getGoogleMapsJavaScriptApiKeyReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -70,7 +70,7 @@ class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setGoogleMapsJavaScriptApiKeyForStringSetsGoogleMapsJavaScriptApiKey()
+    public function setGoogleMapsJavaScriptApiKeyForStringSetsGoogleMapsJavaScriptApiKey(): void
     {
         $this->subject->setGoogleMapsJavaScriptApiKey('Conceived at T3CON10');
 
@@ -84,7 +84,7 @@ class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getBusinessviewCanvasSelectorReturnsInitialValueForString()
+    public function getBusinessviewCanvasSelectorReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -95,7 +95,7 @@ class BusinessAppTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setBusinessviewCanvasSelectorForStringSetsBusinessviewCanvasSelector()
+    public function setBusinessviewCanvasSelectorForStringSetsBusinessviewCanvasSelector(): void
     {
         $this->subject->setBusinessviewCanvasSelector('Conceived at T3CON10');
 

@@ -18,15 +18,15 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @var \Tp3\Tp3Businessview\Domain\Model\Panoramas
      */
-    protected $subject = null;
+    protected ?\Tp3\Tp3Businessview\Domain\Model\Panoramas $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->subject = new \Tp3\Tp3Businessview\Domain\Model\Panoramas();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
     }
@@ -34,7 +34,7 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getPanoIdReturnsInitialValueForString()
+    public function getPanoIdReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -45,7 +45,7 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setPanoIdForStringSetsPanoId()
+    public function setPanoIdForStringSetsPanoId(): void
     {
         $this->subject->setPanoId('Conceived at T3CON10');
 
@@ -59,7 +59,7 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getHeadingReturnsInitialValueForString()
+    public function getHeadingReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -70,7 +70,7 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setHeadingForStringSetsHeading()
+    public function setHeadingForStringSetsHeading(): void
     {
         $this->subject->setHeading('Conceived at T3CON10');
 
@@ -84,7 +84,7 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getPitchReturnsInitialValueForString()
+    public function getPitchReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -95,7 +95,7 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setPitchForStringSetsPitch()
+    public function setPitchForStringSetsPitch(): void
     {
         $this->subject->setPitch('Conceived at T3CON10');
 
@@ -109,7 +109,7 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getZoomReturnsInitialValueForString()
+    public function getZoomReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -120,7 +120,7 @@ class PanoramasTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setZoomForStringSetsZoom()
+    public function setZoomForStringSetsZoom(): void
     {
         $this->subject->setZoom('Conceived at T3CON10');
 

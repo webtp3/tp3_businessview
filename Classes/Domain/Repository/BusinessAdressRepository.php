@@ -20,14 +20,11 @@ namespace Tp3\Tp3Businessview\Domain\Repository;
  *
  ***/
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-/**
- * The repository for Iplogs
- */
 class BusinessAdressRepository extends Repository
 {
-
     // Order by BE sorting
     protected $defaultOrderings = [
         'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
@@ -47,12 +44,10 @@ class BusinessAdressRepository extends Repository
         //        $this->setDefaultQuerySettings($querySettings);
     }
     /**
-     *
-     *
-     * @param array $uids
-     * @return array
+     * @param int $pid
+     * @return QueryResultInterface|\Tp3\Tp3Businessview\Domain\Model\BusinessAdress[]
      */
-    public function findByPid($pid = 0)
+    public function findByPid(int $pid = 0): QueryResultInterface|array
     {
         $query = $this->createQuery();
         $query->matching(
@@ -62,41 +57,16 @@ class BusinessAdressRepository extends Repository
                 $query->equals('deleted', 0)
             )
         );
-        return $query->execute();
-    }
-    /**
-     *
-     *
-     * @param int $uid
-     * @return array
-     */
-    public function findByUidArray($uid)
-    {
-        //        $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        //        $querySettings->setRespectStoragePage(false);
-        //        $this->setDefaultQuerySettings($querySettings);
-        $query = $this->createQuery();
-        $query->matching(
-            $query->equals('uid', $uid),
-            $query->logicalAnd(
-                $query->equals('hidden', 0),
-                $query->equals('deleted', 0)
-            )
-        );
-        return $query->execute(true);
-    }
-    /**
-     *
-     *
-     * @param int $uid
-     * @return \Tp3\Tp3Businessview\Domain\Model\BusinessAdress
-     */
-    public function findByUid($uid)
-    {
-        //       $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        //        $querySettings->setRespectStoragePage(false);
-        //        $this->setDefaultQuerySettings($querySettings);
 
+        return $query->execute();
+    }
+
+    /**
+     * @param int $uid
+     * @return QueryResultInterface|\Tp3\Tp3Businessview\Domain\Model\BusinessAdress[]
+     */
+    public function findByUidArray(int $uid): QueryResultInterface|array
+    {
         $query = $this->createQuery();
         $query->matching(
             $query->equals('uid', $uid),
@@ -105,20 +75,34 @@ class BusinessAdressRepository extends Repository
                 $query->equals('deleted', 0)
             )
         );
+
+        return $query->execute()->toArray();
+    }
+
+    /**
+     * @param int $uid
+     * @return QueryResultInterface|\Tp3\Tp3Businessview\Domain\Model\BusinessAdress[]
+     */
+    public function findByUid($uid): QueryResultInterface|array
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->equals('uid', $uid),
+            $query->logicalAnd(
+                $query->equals('hidden', 0),
+                $query->equals('deleted', 0)
+            )
+        );
+
         return $query->execute();
     }
+
     /**
-     *
-     *
      * @param array $uids
-     * @return array
+     * @return QueryResultInterface|\Tp3\Tp3Businessview\Domain\Model\BusinessAdress[]
      */
-    public function findByList($uids)
+    public function findByList(array $uids): QueryResultInterface|array
     {
-        //        $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        //        $querySettings->setRespectStoragePage(false);
-        //        $this->setDefaultQuerySettings($querySettings);
-
         $query = $this->createQuery();
         $query->matching(
             $query->in('uid', $uids),
@@ -127,9 +111,7 @@ class BusinessAdressRepository extends Repository
                 $query->equals('deleted', 0)
             )
         );
-        //        $queryParser = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser::class);
-        //        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getSQL());
-        //        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getParameters());
-        return $query->execute(true);
+
+        return $query->execute()->toArray();
     }
 }

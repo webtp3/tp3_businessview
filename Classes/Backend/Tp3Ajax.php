@@ -38,7 +38,7 @@ class Tp3Ajax extends TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
      * @param Response $response
      * @return Response
      */
-    public function create(ServerRequestInterface $request, Response $response)
+    public function create(ServerRequestInterface $request, Response $response): Response
     {
         try {
             $item = isset($request->getParsedBody()['item']) ? $request->getParsedBody()['item'] : $request->getQueryParams()['item'];
@@ -80,7 +80,7 @@ class Tp3Ajax extends TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
      * @return int
      * @throws Exception
      */
-    protected function getTagUid($title, $newsUid)
+    protected function getTagUid(string $title, int $newsUid): int
     {
         // Get configuration from EM
         $configuration = EmConfiguration::getSettings();
@@ -132,7 +132,7 @@ class Tp3Ajax extends TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
      * @param int $newsUid uid of current news record
      * @return int
      */
-    protected function getTagPidFromTsConfig($newsUid)
+    protected function getTagPidFromTsConfig(int $newsUid): int
     {
         $pid = 0;
 

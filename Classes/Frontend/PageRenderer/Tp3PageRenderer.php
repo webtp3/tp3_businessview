@@ -25,21 +25,20 @@ class Tp3PageRenderer implements SingletonInterface
      *
      * @var int;
      */
-    public $pageUid = 0;
+    public int $pageUid = 0;
     /**
      *
      * @var ObjectManager::class;
      */
-    public $objectManager = null;
+    public null $objectManager = null;
 
-    /**
+    /*
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?Tp3BusinessViewRepository $Tp3BusinessViewRepository = null;
 
-    public function injectTp3BusinessViewRepository(Tp3BusinessViewRepository $Tp3BusinessViewRepository)
+    public function injectTp3BusinessViewRepository(Tp3BusinessViewRepository $Tp3BusinessViewRepository): void
     {
         $this->Tp3BusinessViewRepository = $Tp3BusinessViewRepository;
     }
@@ -49,18 +48,17 @@ class Tp3PageRenderer implements SingletonInterface
      */
     protected ?PanoramasRepository $panoramasRepository = null;
 
-    public function injectPanoramasRepository(PanoramasRepository $panoramasRepositor)
+    public function injectPanoramasRepository(PanoramasRepository $panoramasRepositor): void
     {
         $this->panoramasRepositor = $panoramasRepositor;
     }
-    /**
+    /*
      *
      * @var \Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?BusinessAdressRepository $businessAdressRepository = null;
 
-    public function injectBusinessAdressRepository(BusinessAdressRepository $businessAdressRepository)
+    public function injectBusinessAdressRepository(BusinessAdressRepository $businessAdressRepository): void
     {
         $this->businessAdressRepository = $businessAdressRepository;
     }
@@ -68,17 +66,17 @@ class Tp3PageRenderer implements SingletonInterface
      *
      * @var mixed
      */
-    protected $openHourRepository = null;
+    protected mixed $openHourRepository = null;
 
     /**
      * @param array $parameters
      * @param PageRenderer $pageRenderer
      * @return string
      */
-    public function render($parameters, &$pageRenderer)
+    public function render(array $parameters, PageRenderer &$pageRenderer): string
     {
         if (!is_array($parameters)) {
-            return;
+            return '';
         }
         $config = isset($GLOBALS['TSFE']->tmpl->setup) ? $GLOBALS['TSFE']->tmpl->setup : [];
         if (is_array($config)
@@ -89,7 +87,7 @@ class Tp3PageRenderer implements SingletonInterface
             && $GLOBALS['TSFE']->cObj instanceof ContentObjectRenderer
         ) {
             if ($GLOBALS['TSFE']->page['tx_tp3businessview_onpage'] < 1) {
-                return;
+                return '';
             }
             if ($this->objectManager === null) {
                 $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
@@ -126,7 +124,7 @@ class Tp3PageRenderer implements SingletonInterface
                 if (!$businessView instanceof \Tp3\Tp3BusinessView\Domain\Model\Tp3BusinessView) {
                     $panorama = $this->panoramasRepository->findByUid($GLOBALS['TSFE']->page['tx_tp3businessview_panorama']);
                     if (!is_array($panorama) &&  count($panorama)< 1) {
-                        return;
+                        return '';
                     }
 
                     //$businessView = GeneralUtility::makeInstance(Tp3BusinessView::class);
@@ -190,39 +188,40 @@ class Tp3PageRenderer implements SingletonInterface
                 $parameters['jsFooterLibs'] .='<script src="typo3conf/ext/tp3_businessview/Resources/Public/JavaScript/tp3_app.js"></script>';
                 if ($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['loadApi']== 'true' || $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['loadApi']== '1') {
                     //check if api is loaded
-                    if ($pos = $this->detectApi($parameters)) {
-                        // libraries=places&callback=tp3_app.initialize&
-                        //$matches #todo add tp3_app.initialize
-                    } else {
-                        $cookiePreferences = null;
-
-                        if (isset($_COOKIE['cookiePreferences'])) {
-                            $cookiePreferences = json_decode($_COOKIE['cookiePreferences'], true);
-                        }
-
-                        if (isset($cookiePreferences['external'])) {
-                            $parameters['jsFooterLibs'] .='<script  defer src="https://maps.googleapis.com/maps/api/js?key=' . $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['googleMapsJavaScriptApiKey'] . '&callback=tp3_app.initialize"></script>';
-
-                        }
-                        //                        $parameters['jsFooterLibs'] .= '<script> (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({key: "' . $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['googleMapsJavaScriptApiKey'] .'" });</script>';
-
-                    }
+//                    if ($pos = $this->detectApi($parameters)) {
+//                        // libraries=places&callback=tp3_app.initialize&
+//                        //$matches #todo add tp3_app.initialize
+//                    } else {
+//                        $cookiePreferences = null;
+//
+//                        if (isset($_COOKIE['cookiePreferences'])) {
+//                            $cookiePreferences = json_decode($_COOKIE['cookiePreferences'], true);
+//                        }
+//
+//                        if (isset($cookiePreferences['external'])) {
+//                            $parameters['jsFooterLibs'] .='<script  defer src="https://maps.googleapis.com/maps/api/js?key=' . $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['googleMapsJavaScriptApiKey'] . '&callback=tp3_app.initialize"></script>';
+//
+//                        }
+//                        //                        $parameters['jsFooterLibs'] .= '<script> (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({key: "' . $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_tp3businessview.']['settings.']['googleMapsJavaScriptApiKey'] .'" });</script>';
+//
+//                    }
 
                 }
 
-                $parameters['cssFiles'] .='<link rel="stylesheet" type="text/css" href="typo3conf/ext/tp3_businessview/Resources/Public/Css/Tp3App.css"></link>';
+//                $parameters['cssFiles'] .='<link rel="stylesheet" type="text/css" href="typo3conf/ext/tp3_businessview/Resources/Public/Css/Tp3App.css"></link>';
             } catch (Exception $e) {
                 //   $message = $GLOBALS['LANG']->sL(self::LL_PATH . $e->getMessage());
                 //   throw new \RuntimeException($message);
             }
         }
+        return '';
     }
 
     /**
      * @param array $businessview
      * @return string
      */
-    public function JsonRenderer(array $businessview = [], array $panoramas = [], $settings = null)
+    public function JsonRenderer(array $businessview = [], array $panoramas = [], $settings = null): string
     {
         if (!is_array($settings)) {
             $settings = [
@@ -354,44 +353,5 @@ class Tp3PageRenderer implements SingletonInterface
         ]);//JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE
         return $json;
     }
-    /**
-     * @param array $parameters
-     * @param PageRenderer $pageRenderer
-     * @return string
-     */
-    public function detectApi(&$parameters)
-    {
-        // cookiePreferences
-        $cookiePreferences = null;
 
-        if (isset($_COOKIE['cookiePreferences'])) {
-            $cookiePreferences = json_decode($_COOKIE['cookiePreferences'], true);
-        }
-
-        if (!isset($cookiePreferences['external'])) {
-            return;
-        }
-        //https://maps.googleapis.com/maps/api/js
-        $found  = strpos($parameters['jsFooterLibs'], 'maps.googleapis.com');
-        if ($found) {
-            $parameters['jsFooterLibs'] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters['jsFooterLibs']);
-            return $found;
-        }
-        $found  = strpos($parameters['jsFooterFiles'], 'maps.googleapis.com');
-        if ($found) {
-            $parameters['jsFooterFiles'] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters['jsFooterFiles']);
-            return $found;
-        }
-        $found  = strpos($parameters['jsLibs'], 'maps.googleapis.com');
-        if ($found) {
-            $parameters['jsLibs'] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters['jsLibs']);
-            return $found;
-        }
-        $found  = strpos($parameters['bodyContent'], 'maps.googleapis.com');
-        if ($found) {
-            $parameters['bodyContent'] =   str_replace('//maps.googleapis.com/maps/api/js?', '//maps.googleapis.com/maps/api/js?libraries=places&callback=tp3_app.initialize&', $parameters['bodyContent']);
-            return $found;
-        }
-        return $found;
-    }
 }

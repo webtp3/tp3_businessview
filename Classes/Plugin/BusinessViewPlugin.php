@@ -25,22 +25,22 @@ namespace Tp3\Tp3Businessview\Plugin;
   */
 class BusinessViewPlugin extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
 {
-    public $prefixId      = 'tx_tp3businessview_tp3businessview';		// Same as class name
-    public $extKey        = 'tp3_businessview';	// The extension key.
-    public $pi_checkCHash = true;
+    public string $prefixId      = 'tx_tp3businessview_tp3businessview';		// Same as class name
+    public string $extKey        = 'tp3_businessview';	// The extension key.
+    public bool $pi_checkCHash = true;
 
     /**
      *
      * @var layout;
      */
-    public $layout;
+    public layout $layout;
 
     /**
      * action translate
      *
      * @return string
      */
-    private function gettranslation($key)
+    private function gettranslation($key): string
     {
         \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, $this->extKey);
     }
@@ -48,12 +48,12 @@ class BusinessViewPlugin extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      *
      * @var \TYPO3\CMS\Core\Page\PageRenderer;
      */
-    public $pageRenderer = null;
+    public ?\TYPO3\CMS\Core\Page\PageRenderer $pageRenderer = null;
     /**
      *
      * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
      */
-    public $cObjRenderer = null;
+    public ?\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $cObjRenderer = null;
 
     /**
      *
@@ -70,10 +70,10 @@ class BusinessViewPlugin extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      * The main method of the PlugIn
      *
      * @param	string		$content: The PlugIn content
-     * @param	array		$conf: The PlugIn configuration
+     * @param array|string $conf: The PlugIn configuration
      * @return	The content that is displayed on the website
      */
-    public function main($cObj = '', $conf = '')
+    public function main($cObj = '', array|string $conf = ''): array|The
     {
         $this->conf = $conf;
         $this->cObj = $cObj;

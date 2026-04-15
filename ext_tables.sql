@@ -26,11 +26,10 @@ CREATE TABLE tx_tp3businessview_domain_model_tp3businessview (
 	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	starttime int(11) unsigned DEFAULT '0' NOT NULL,
 	endtime int(11) unsigned DEFAULT '0' NOT NULL,
-
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
 	l10n_parent int(11) DEFAULT '0' NOT NULL,
 	l10n_diffsource mediumblob,
-
+	l10n_state text,
 	PRIMARY KEY (uid),
 	KEY parent (pid),
 	KEY language (l10n_parent,sys_language_uid)
@@ -74,7 +73,10 @@ CREATE TABLE tx_tp3businessview_domain_model_panoramas (
 	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	starttime int(11) unsigned DEFAULT '0' NOT NULL,
 	endtime int(11) unsigned DEFAULT '0' NOT NULL,
-
+	sys_language_uid int(11) DEFAULT '0' NOT NULL,
+	l10n_parent int(11) DEFAULT '0' NOT NULL,
+	l10n_diffsource mediumblob,
+	l10n_state text,
 	PRIMARY KEY (uid),
 	KEY parent (pid),
 
@@ -91,14 +93,6 @@ CREATE TABLE pages (
 	tx_tp3businessview_businessview int(11) unsigned DEFAULT '0',
 );
 
-#
-# Table structure for table 'pages'
-#
-CREATE TABLE pages_language_overlay (
-	tx_tp3businessview_onpage tinyint(4) DEFAULT '0' NOT NULL,
-	tx_tp3businessview_panorama int(11) DEFAULT NULL,
-	tx_tp3businessview_injetionpoint varchar(255) DEFAULT '' NOT NULL,
-);
 CREATE TABLE `tx_tp3businessview_domain_model_panoramas_mm` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
   `uid_local` int(11) NOT NULL,

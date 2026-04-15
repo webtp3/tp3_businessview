@@ -1,0 +1,2 @@
+@import 'EXT:tp3_businessview/Configuration/TypoScript/Plugin/constants.typoscript'
+@import 'EXT:tp3_businessview/Configuration/TypoScript/Backend/constants.typoscript'

@@ -20,6 +20,7 @@ namespace Tp3\Tp3Businessview\Domain\Repository;
  *
  ***/
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 class PanoramasRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
@@ -28,26 +29,25 @@ class PanoramasRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
     ];
 
-    public function initializeObject()
+    public function initializeObject(): void
     {
         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
         $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
 
-        $querySettings->setRespectStoragePage(true);
+        $querySettings->setRespectStoragePage(false);
 
         // ;
         // $querySettings->setOrderings($this->defaultOrderings);
         $querySettings->setIgnoreEnableFields(false);
         $this->setDefaultQuerySettings($querySettings);
     }
+
     /**
-     *
-     *
      * @param int $uid
-     * @return \Tp3\Tp3Businessview\Domain\Model\Panoramas
+     * @return QueryResultInterface|\Tp3\Tp3Businessview\Domain\Model\Panoramas[]
      */
-    public function findByUid($uid)
+    public function findByUid($uid, bool $asArray = false): QueryResultInterface|array
     {
         $query = $this->createQuery();
         $query->matching(
@@ -57,65 +57,43 @@ class PanoramasRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $query->equals('deleted', 0)
             )
         );
-        return $query->execute(true);
+
+        return $asArray ? $query->execute()->toArray() : $query->execute();
     }
 
     /**
-     *
-     *
-     * @param int $uid
-     * @return array
+     * @param int $pid
+     * @return QueryResultInterface|\Tp3\Tp3Businessview\Domain\Model\Panoramas[]
      */
-    public function findPanoramaFromBusinessView($uid)
-    {
-        $query = $this->createQuery();
-        $query->matching(
-            $query->equals('tp3businessviews.uid', $uid),
-            $query->logicalAnd(
-                $query->equals('hidden', 0),
-                $query->equals('deleted', 0)
-            )
-        );
-        return $query->execute(true);
-    }
-
-    /**
-     *
-     *
-     * @param array $uids
-     * @return array
-     */
-    public function findByList($uids)
-    {
-        if (is_array($uids)) {
-            $query = $this->createQuery();
-            $query->matching(
-                $query->in('uid', $uids),
-                $query->logicalAnd(
-                    $query->equals('hidden', 0),
-                    $query->equals('deleted', 0)
-                )
-            );
-            return $query->execute(true);
-        }
-        return false;
-    }
-    /**
-     *
-     *
-     * @param array $uids
-     * @return array
-     */
-    public function findByPid($pid = 0)
+    public function findByPid(int $pid = 0, bool $asArray = false): QueryResultInterface|array
     {
         $query = $this->createQuery();
         $query->matching(
             $query->equals('pid', $pid),
+//            $query->logicalAnd(
+//                $query->equals('hidden', 0),
+//                $query->equals('deleted', 0)
+//            )
+        );
+
+        return $asArray ? $query->execute()->toArray() : $query->execute();
+    }
+
+    /**
+     * @param array $uids
+     * @return QueryResultInterface|\Tp3\Tp3Businessview\Domain\Model\Panoramas[]
+     */
+    public function findByList(array $uids): QueryResultInterface|array
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->in('uid', $uids),
             $query->logicalAnd(
                 $query->equals('hidden', 0),
                 $query->equals('deleted', 0)
             )
         );
+
         return $query->execute();
     }
 }

@@ -20,27 +20,36 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use Psr\Http\Message\ResponseInterface;
 
 class BusinessAdressController extends ActionController
 {
+
+    /**
+     * @var IconFactory
+     */
     protected IconFactory $iconFactory;
+
+    /**
+     * @var PersistenceManager
+     */
     protected ?PersistenceManager $persistenceManager = null;
+    /**
+     * Backend Template Container.
+     * Takes care of outer "docheader" and other stuff this module is embedded in.
+     *
+     * @var class-string|null
+     */
     protected ?string $defaultViewObjectName = BackendTemplateView::class;
-    public ?array $rootLine = null;
-    public ?int $pageUid = null;
+
+    /**
+     * @var  rootLine
+     */
+    public ?rootLine $rootLine= null;
 
 
-    protected PageRenderer $pageRenderer;
 
-    protected function initializeView(ViewInterface $view): void
-    {
-        parent::initializeView($view);
 
-        if ($view instanceof BackendTemplateView) {
-            $this->view = $view;
-            $this->registerDocheaderButtons();
-        }
-    }
 
     protected function initializeAction(): void
     {
@@ -53,13 +62,15 @@ class BusinessAdressController extends ActionController
         $this->rootLine = $sysPageObj->getRootLine($this->pageUid);
     }
 
-    public function listAction(): void
+    public function listAction(): ResponseInterface
     {
         $businessAdresses = $this->businessAdressRepository->findAll();
         $this->view->assign('businessAdresses', $businessAdresses);
+        return $this->htmlResponse($this->view->render());
+
     }
 
-    public function indexAction(): void
+    public function indexAction(): ResponseInterface
     {
         $context = GeneralUtility::makeInstance(Context::class);
         $backendUser = $context->getPropertyFromAspect('backend.user', 'id');
@@ -75,6 +86,7 @@ class BusinessAdressController extends ActionController
 
         $businessAdresses = $this->businessAdressRepository->findAll();
         $this->view->assign('businessAdresses', $businessAdresses);
+        return $this->htmlResponse($this->view->render());
     }
 
     public function createAction(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $adress): void
@@ -100,6 +112,12 @@ class BusinessAdressController extends ActionController
             ->setModuleName($moduleName)
             ->setGetVariables(['id' => (int)GeneralUtility::_GP('id')]);
         $buttonBar->addButton($shortcutButton);
+    }
+    protected function htmlResponse(?string $html = null): ResponseInterface
+    {
+        return $this->responseFactory->createResponse()
+            ->withHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream((string)($html ?? $this->view->render())));
     }
 
     protected function getToken(bool $tokenOnly = false): string

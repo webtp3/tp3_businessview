@@ -13,7 +13,9 @@
     float: left;
     min-height: 300px;
 }
-
+body > .tp3businessview {
+	padding: 0 5px;
+}
 .tp3businessview-controls {
 
     background-color: #fff;

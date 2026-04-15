@@ -104,7 +104,7 @@ Overlay colors and text-colors can be set here too.
         }
         persistence {
           # cat=module.tx_tp3businessview_web_tp3businessviewmodule//a; type=string; label=Default storage PID
-          storagePid = {$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
+          storagePid = {$plugin.tx_tp3businessview_tp3businessview.settings.storagePid}
         }
         settings{
           # cat=module.tx_tp3businessview_web_tp3businessviewmodule/file; type=string; label=Maps api key for (BE) https://console.developers.google.com/apis/

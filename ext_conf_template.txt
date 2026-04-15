@@ -1,8 +1,24 @@
-# cat=General/120_features/10; type=boolean; label=LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:debugMode
+##############
+### PAGETS ###
+##############
+
+
+# cat=PageTS; type=string; label=LLL::EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:google_maps_javascript_apikey
+googleMapsJavaScriptApiKey = AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg
+
+# cat=PageTS; type=boolean; label=LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:debugMode
 debugMode = 0
-# cat=General type=boolean; label=LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:disableBeModuleBusinessAdress
+
+# cat=PageTS; type=boolean; label=LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:disableBeModuleBusinessAdress
 disableBeModuleBusinessAdress= 0
-# cat=General; type=boolean; label=LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:disableBeModuleBusinessView
+
+# cat=PageTS; type=boolean; label=LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:disableBeModuleBusinessView
 disableBeModuleBusinessView = 0
-# cat=General; type=boolean; label=LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:disableBeModuleDesigner
+
+# cat=PageTS; type=boolean; label=LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_db.xlf:disableBeModuleDesigner
 disableBeModuleDesigner = 0
+
+
+################
+### FEATURES ###
+################

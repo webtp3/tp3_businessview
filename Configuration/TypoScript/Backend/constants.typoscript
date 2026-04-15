@@ -9,7 +9,7 @@ module.tx_tp3businessview_web_tp3businessviewmodule {
   }
   persistence {
     # cat=module.tx_tp3businessview_web_tp3businessviewmodule//a; type=string; label=Default storage PID
-    storagePid = {$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
+    storagePid = 4
   }
   settings{
     # cat=module.tx_tp3businessview_web_tp3businessviewmodule/googleMapsJavaScriptApiKey; type=string; label=Maps api key for (BE) https://console.developers.google.com/apis/

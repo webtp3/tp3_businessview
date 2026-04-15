@@ -18,15 +18,15 @@ class BusinessAdressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @var \Tp3\Tp3Businessview\Domain\Model\BusinessAdress
      */
-    protected $subject = null;
+    protected ?\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->subject = new \Tp3\Tp3Businessview\Domain\Model\BusinessAdress();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
     }
@@ -34,7 +34,7 @@ class BusinessAdressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getCidReturnsInitialValueForString()
+    public function getCidReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -45,7 +45,7 @@ class BusinessAdressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setCidForStringSetsCid()
+    public function setCidForStringSetsCid(): void
     {
         $this->subject->setCid('Conceived at T3CON10');
 

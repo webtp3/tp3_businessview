@@ -20,22 +20,22 @@ namespace Tp3\Tp3Businessview\Domain\Repository;
  *
  ***/
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
     // Order by BE sorting
     protected $defaultOrderings = [
         'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
     ];
 
-    public function initializeObject()
+    public function initializeObject(): void
     {
         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
         $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
         // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
 
-        $querySettings->setRespectStoragePage(true);
+        $querySettings->setRespectStoragePage(false);
 
         // ;
         // $querySettings->setOrderings($this->defaultOrderings);
@@ -44,16 +44,12 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
     }
     /**
      *
-     *
-     * @param int $uid, bolean $asArray
-     * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
+    /**
+     * @param int $uid
+     * @return QueryResultInterface|\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView[]
      */
-    public function findByUid($uid, $asArray = true)
+    public function findByUid($uid, bool $asArray = false): QueryResultInterface|array
     {
-        //        $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        //        $querySettings->setRespectStoragePage(false);
-        //
-        //        $this->setDefaultQuerySettings($querySettings);
         $query = $this->createQuery();
         $query->matching(
             $query->equals('uid', $uid),
@@ -62,20 +58,16 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
                 $query->equals('deleted', 0)
             )
         );
-        return $query->execute($asArray);
+
+        return $asArray ? $query->execute()->toArray() : $query->execute();
     }
+
     /**
-     *
-     *
      * @param int $pid
-     * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
+     * @return QueryResultInterface|\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView[]
      */
-    public function findByPid($pid, $asArray = false)
+    public function findByPid(int $pid, bool $asArray = false): QueryResultInterface|array
     {
-        //        $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        //        $querySettings->setRespectStoragePage(false);
-        //
-        //        $this->setDefaultQuerySettings($querySettings);
         $query = $this->createQuery();
         $query->matching(
             $query->equals('pid', $pid),
@@ -84,20 +76,16 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
                 $query->equals('deleted', 0)
             )
         );
-        return $query->execute($asArray);
+
+        return $asArray ? $query->execute()->toArray() : $query->execute();
     }
+
     /**
-     *
-     *
      * @param int $uid
-     * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
+     * @return QueryResultInterface|\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView[]
      */
-    public function findByPanoramas($uid, $asArray = false)
+    public function findByPanoramas(int $uid, bool $asArray = false): QueryResultInterface|array
     {
-        //        $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        //        $querySettings->setRespectStoragePage(false);
-        //
-        //        $this->setDefaultQuerySettings($querySettings);
         $query = $this->createQuery();
         $query->matching(
             $query->equals('panoramas.uid', $uid),
@@ -106,6 +94,7 @@ class Tp3BusinessViewRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
                 $query->equals('deleted', 0)
             )
         );
-        return $query->execute($asArray);
+
+        return $asArray ? $query->execute()->toArray() : $query->execute();
     }
 }

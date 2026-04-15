@@ -18,15 +18,15 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @var \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
      */
-    protected $subject = null;
+    protected ?\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->subject = new \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
     }
@@ -34,7 +34,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getCreatedByReturnsInitialValueForString()
+    public function getCreatedByReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -45,7 +45,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setCreatedByForStringSetsCreatedBy()
+    public function setCreatedByForStringSetsCreatedBy(): void
     {
         $this->subject->setCreatedBy('Conceived at T3CON10');
 
@@ -59,7 +59,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getNameReturnsInitialValueForString()
+    public function getNameReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -70,7 +70,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setNameForStringSetsName()
+    public function setNameForStringSetsName(): void
     {
         $this->subject->setName('Conceived at T3CON10');
 
@@ -84,7 +84,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getExternalLinksReturnsInitialValueForString()
+    public function getExternalLinksReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -95,7 +95,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setExternalLinksForStringSetsExternalLinks()
+    public function setExternalLinksForStringSetsExternalLinks(): void
     {
         $this->subject->setExternalLinks('Conceived at T3CON10');
 
@@ -109,7 +109,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getGalleryReturnsInitialValueForString()
+    public function getGalleryReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -120,7 +120,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setGalleryForStringSetsGallery()
+    public function setGalleryForStringSetsGallery(): void
     {
         $this->subject->setGallery('Conceived at T3CON10');
 
@@ -134,7 +134,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getIntroReturnsInitialValueForString()
+    public function getIntroReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -145,7 +145,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setIntroForStringSetsIntro()
+    public function setIntroForStringSetsIntro(): void
     {
         $this->subject->setIntro('Conceived at T3CON10');
 
@@ -173,7 +173,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getSocialGalleryReturnsInitialValueForString()
+    public function getSocialGalleryReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -184,7 +184,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setSocialGalleryForStringSetsSocialGallery()
+    public function setSocialGalleryForStringSetsSocialGallery(): void
     {
         $this->subject->setSocialGallery('Conceived at T3CON10');
 
@@ -212,7 +212,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getContactReturnsInitialValueForBusinessAdress()
+    public function getContactReturnsInitialValueForBusinessAdress(): void
     {
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
@@ -224,7 +224,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setContactForObjectStorageContainingBusinessAdressSetsContact()
+    public function setContactForObjectStorageContainingBusinessAdressSetsContact(): void
     {
         $contact = new \Tp3\Tp3Businessview\Domain\Model\BusinessAdress();
         $objectStorageHoldingExactlyOneContact = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
@@ -241,7 +241,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function addContactToObjectStorageHoldingContact()
+    public function addContactToObjectStorageHoldingContact(): void
     {
         $contact = new \Tp3\Tp3Businessview\Domain\Model\BusinessAdress();
         $contactObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
@@ -258,7 +258,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function removeContactFromObjectStorageHoldingContact()
+    public function removeContactFromObjectStorageHoldingContact(): void
     {
         $contact = new \Tp3\Tp3Businessview\Domain\Model\BusinessAdress();
         $contactObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
@@ -275,7 +275,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getAppReturnsInitialValueForBusinessApp()
+    public function getAppReturnsInitialValueForBusinessApp(): void
     {
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
@@ -287,7 +287,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setAppForObjectStorageContainingBusinessAppSetsApp()
+    public function setAppForObjectStorageContainingBusinessAppSetsApp(): void
     {
         $app = new \Tp3\Tp3Businessview\Domain\Model\BusinessApp();
         $objectStorageHoldingExactlyOneApp = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
@@ -304,7 +304,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function addAppToObjectStorageHoldingApp()
+    public function addAppToObjectStorageHoldingApp(): void
     {
         $app = new \Tp3\Tp3Businessview\Domain\Model\BusinessApp();
         $appObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
@@ -321,7 +321,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function removeAppFromObjectStorageHoldingApp()
+    public function removeAppFromObjectStorageHoldingApp(): void
     {
         $app = new \Tp3\Tp3Businessview\Domain\Model\BusinessApp();
         $appObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
@@ -338,7 +338,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getPanoramasReturnsInitialValueForPanoramas()
+    public function getPanoramasReturnsInitialValueForPanoramas(): void
     {
         self::assertEquals(
             null,
@@ -349,7 +349,7 @@ class Tp3BusinessViewTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setPanoramasForPanoramasSetsPanoramas()
+    public function setPanoramasForPanoramasSetsPanoramas(): void
     {
         $panoramasFixture = new \Tp3\Tp3Businessview\Domain\Model\Panoramas();
         $this->subject->addPanoramas($panoramasFixture);

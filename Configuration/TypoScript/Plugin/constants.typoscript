@@ -9,7 +9,7 @@ plugin.tx_tp3businessview_tp3businessview {
   }
   persistence {
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=Default storage PID
-    storagePid =
+    storagePid = 4
   }
   settings{
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=string; label=google api key (FE) https://console.developers.google.com/apis/
@@ -17,11 +17,11 @@ plugin.tx_tp3businessview_tp3businessview {
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=load maps api from google in (FE)
     loadApi= 1
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay color
-    color={$plugin.bootstrap_package.settings.scss.primary}
+    color=var(--bs-primary)
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay backgroundColor
-    backgroundColor={$plugin.bootstrap_package.settings.scss.primary}
+    backgroundColor=var(--bs-primary)
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=colorpicker; label=overlay textColor
-    textColor={$plugin.bootstrap_package.settings.scss.default}
+    textColor=var(--bs-body-color)
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=select[right,left,center]; label=overlay align
     align=right
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=select[right,left,center]; label=overlay social links align
@@ -37,7 +37,7 @@ plugin.tx_tp3businessview_tp3businessview {
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=FEControls show play pause in FE
     FEControls=true
     # cat=plugin.tx_tp3businessview_tp3businessview//a; type=boolean; label=storage
-    storagePid ={$plugin.tx_tp3businessview_tp3businessview.persistence.storagePid}
+    storagePid = 4
   }
 
 }

@@ -72,20 +72,18 @@
         </f:else>
         </f:if>
 
-        <script>
+        <f:asset.script identifier="tp3-businessview-json">
             window.businessviewJsonsArray = window.businessviewJsonsArray || [];
-            <f:for each="{businessViewJson}" as="Json"  iteration="Iterator">
-
+            <f:for each="{businessViewJson}" as="Json" iteration="Iterator">
                 <f:if condition="{Iterator.index} < 1">
                     <f:then>
-                        window.businessviewJson =  window.businessviewJson || <f:format.raw>{Json}</f:format.raw>;
+                        window.businessviewJson = window.businessviewJson || <f:format.raw>{Json}</f:format.raw>;
                     </f:then>
                 </f:if>
 
-                window.businessviewJsonsArray[{Iterator.index}]=<f:format.raw>{Json}</f:format.raw>;
+                window.businessviewJsonsArray[{Iterator.index}] = <f:format.raw>{Json}</f:format.raw>;
             </f:for>
-
-        </script>
+        </f:asset.script>
 
     </div>
 </f:section>
