@@ -198,6 +198,16 @@ div.bwentry {
     border: 0px solid #999;
 }
 
+#tp3businessview-floating-panel .btn {
+    margin-right: 6px;
+    margin-top: 6px;
+}
+
+#tp3-editor-status {
+    line-height: 1.4;
+    font-size: 12px;
+}
+
 .panoviewer {
 
     width: 100%;
@@ -257,14 +267,24 @@ div#businessview-canvas {
     width: 50%;
 }
 
-div#businessview-canvas ul, div#businessview-canvas div {
-    z-index: 3;
-}
-
 div#businessview-canvas div#businessview-panorama-canvas {
     height: 100%;
     width: 100%;
     z-index: 1;
+}
+
+#businessview-panorama-canvas,
+#businessview-panorama-canvas .gm-style,
+#businessview-panorama-canvas .gm-style div {
+    pointer-events: auto !important;
+}
+
+#businessview-panorama-canvas .tp3-direction-controls {
+    pointer-events: none;
+}
+
+#businessview-panorama-canvas .tp3-direction-controls button {
+    pointer-events: auto;
 }
 
 div#businessview-canvas div#businessview-panorama-canvas img {

@@ -101,19 +101,20 @@ export function initBusinessViewRenderer({ $, Tp3App, window, document }) {
 			return;
 		}
 
-		const panorama = new google.maps.StreetViewPanorama(panoCanvas, {
-			position: Tp3App.BusinessAdress,
-			pov: {
-				heading: Tp3App.pov.heading,
-				pitch: Tp3App.pov.pitch,
-				zoom: Tp3App.pov.zoom
-			},
-			visible: true,
-			disableDefaultUI: false,
-			panControl: true,
-			zoomControl: true,
-			scrollwheel: true
-		});
+			const panorama = new google.maps.StreetViewPanorama(panoCanvas, {
+				position: Tp3App.BusinessAdress,
+				pov: {
+					heading: Tp3App.pov.heading,
+					pitch: Tp3App.pov.pitch,
+					zoom: Tp3App.pov.zoom
+				},
+				visible: true,
+				disableDefaultUI: false,
+				panControl: true,
+				zoomControl: true,
+				scrollwheel: true,
+				clickToGo: true
+			});
 		Tp3App.panorama = panorama;
 	};
 	Tp3App.toggleBusinessViewFullscreen = function () {
