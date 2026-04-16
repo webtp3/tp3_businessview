@@ -27,5 +27,27 @@
             </f:else>
         </f:if>
     </table>
+
+    <f:if condition="{selectedBusinessView}">
+        <f:asset.script identifier="tp3-businessview-fe-json">
+            window.businessviewJson = {
+                businessview: [{
+					uid: <f:format.raw>{selectedBusinessView.uid}</f:format.raw>,
+                    intro: <f:format.json value="{selectedBusinessView.intro}" />,
+                    description: <f:format.json value="{selectedBusinessView.description}" />,
+                    contact: {
+                        name: <f:format.json value="{selectedBusinessView.contact.name}" />,
+                        address: <f:format.json value="{selectedBusinessView.contact.address}" />,
+                        zip: <f:format.json value="{selectedBusinessView.contact.zip}" />,
+                        city: <f:format.json value="{selectedBusinessView.contact.city}" />,
+                        phone: <f:format.json value="{selectedBusinessView.contact.phone}" />,
+                        mobile: <f:format.json value="{selectedBusinessView.contact.mobile}" />,
+                        email: <f:format.json value="{selectedBusinessView.contact.email}" />,
+                        website: <f:format.json value="{selectedBusinessView.contact.www}" />
+                    }
+                }]
+            };
+        </f:asset.script>
+    </f:if>
 </f:section>
 </html>

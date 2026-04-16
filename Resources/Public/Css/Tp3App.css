@@ -1,7 +1,7 @@
 
 
 div#businessview-canvas {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: var(--bs-body-font-family);
     font-size: 14px;
     font-variant: normal;
     font-weight: normal;
@@ -14,18 +14,19 @@ div#businessview-canvas {
     width: 100%;
 }
 
-div#businessview-canvas ul, div#businessview-canvas div {
-    z-index: 3;
-}
+/*div#businessview-canvas ul, div#businessview-canvas div {*/
+/*    z-index: 3;*/
+/*}*/
 
-div#businessview-canvas div#businessview-panorama-canvas {
-    height: 100%;
-    width: 100%;
-}
+/*div#businessview-canvas div#businessview-panorama-canvas {*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*    z-index: 1;*/
+/*}*/
 
-div#businessview-canvas div#businessview-panorama-canvas img {
-    max-width: none;
-}
+/*div#businessview-canvas div#businessview-panorama-canvas img {*/
+/*    max-width: none;*/
+/*}*/
 
 div#businessview-canvas div#businessview-panorama-canvas figure img {
     max-width: 100%;
@@ -146,13 +147,16 @@ div#businessview-canvas ul#businessview-action-canvas li.large i {
 }
 
 div#businessview-canvas div#businessview-contact-canvas {
-    background: rgba(255, 255, 255, 0.8);
-    bottom: 10px;
-    color: #FFF;
+    background: var(--bs-primary);
+    bottom: 15px;
+    color: var(--bs-body-color);
     max-width: 280px;
     padding: 10px;
     position: absolute;
     z-index: 4;
+}
+div#businessview-canvas div#businessview-contact-canvas .fa {
+	padding-right: 5px;
 }
 
 div#businessview-canvas div#businessview-contact-canvas.left {
@@ -200,6 +204,7 @@ div#businessview-canvas div#businessview-contact-canvas p.name {
     display: inline-block;
     font-size: 16px;
     font-weight: 400;
+    white-space: nowrap;
 }
 
 div#businessview-canvas div#businessview-contact-canvas p.phone, div#businessview-canvas div#businessview-contact-canvas p.email, div#businessview-canvas div#businessview-contact-canvas p.website {
@@ -333,7 +338,8 @@ div#businessview-canvas div#businessview-intro-canvas {
     max-width: 400px;
     padding: 10px;
     position: absolute;
-    top: 60px;
+    top: 50%;
+	z-index: 10;
 }
 
 @media (max-width: 767px) {
@@ -736,7 +742,7 @@ div#businessview-canvas .gm-iv-address {
 }
 
 div#businessview-canvas .texticon-content {
-/ / text-shadow: 0 1 px 2 px #fff;
+// text-shadow: 0 1 px 2 px #fff;
     background: rgba(255, 255, 255, 0.7);
     padding: 3px;
     border-radius: 2px;
@@ -1418,15 +1424,9 @@ div#businessview-canvas div#businessview-infopoint-canvas .infoPoint .tooltip > 
     margin: 0px;
 }
 
-div#businessview-canvas div.fa-facebook, div#businessview-canvas div.fa-google-plus, div#businessview-canvas div.fa-twitter {
-    display: inline-block;
-    font: normal normal normal 22px/1 FontAwesome;
-    font-size: 22pt;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    margin-top: 10px;
-    padding: 5px 15px;
+#businessview-panorama-canvas main {
+
+    z-index: 4;
 }
 
 #businessview-panorama-canvas section .container * {

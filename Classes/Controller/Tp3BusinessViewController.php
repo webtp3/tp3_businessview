@@ -142,12 +142,14 @@ class Tp3BusinessViewController extends ActionController
     public function listAction(): ResponseInterface
     {
         $selectedBusinessViewUid = (int)($this->settings['businessview'] ?? 0);
+        $selectedBusinessView = null;
         $businessview = null;
         $panorama = $this->panoramasRepository->findAll();
         $address = $this->businessAdressRepository->findAll();
 
         if ($selectedBusinessViewUid > 0) {
-            $businessview = $this->tp3BusinessViewRepository->findByUid($selectedBusinessViewUid);
+            $selectedBusinessView = $this->tp3BusinessViewRepository->findByUid($selectedBusinessViewUid)->getFirst();
+            $businessview = $selectedBusinessView;
         }
 
         if ($businessview === null) {
@@ -164,6 +166,7 @@ class Tp3BusinessViewController extends ActionController
                 'address' => $address,
                 'googleMapsJavaScriptApiKey' => $this->extensionConfiguration->getGoogleMapsJavaScriptApiKey(),
                 'selectedBusinessViewUid' => $selectedBusinessViewUid,
+                'selectedBusinessView' => $selectedBusinessView,
             ]
         );
         return $this->htmlResponse($this->view->render());
