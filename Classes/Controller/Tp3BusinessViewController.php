@@ -1,447 +1,253 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
 
 namespace Tp3\Tp3Businessview\Controller;
 
-/***************************************************************
- *
- *  Copyright notice
- *
- *  (c) 2015 Thomas Ruta <support@r-p-it.de>, tp3
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
-/***
- *
- * This file is part of the "BusinsessView" Extension for TYPO3 CMS.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
- *
- ***/
-
+use Psr\Http\Message\ResponseInterface;
+use Tp3\Tp3Businessview\Database\QueryGenerator;
+use Tp3\Tp3Businessview\Domain\Model\Dto\Settings;
+use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
+use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
-use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3\CMS\Core\Imaging\Icon;
-use TYPO3\CMS\Core\Localization\Locales;
+use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
-use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
-/**
- * Tp3BusinessViewController
- */
 class Tp3BusinessViewController extends ActionController
 {
 
-    /**
+    protected array $settings = [];
+    protected RequestInterface $request;
+    protected \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder;
 
-     */
-    protected $persistenceManager = null;
+    protected ConfigurationManagerInterface $configurationManager;
+    protected IconFactory $iconFactory;
+    protected PageRenderer $pageRenderer;
 
-    /**
-     * @var PageRenderer
-     */
-    protected $pageRenderer;
-
-    /* @var $dataMapper \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper */
-    protected $dataMapper;
-    /**
-     *
-     */
-    public $cObj = null;
-    /**
-     *
-     */
-    public $panoramas = null;
-    /**
-     *
-
-     */
-    public $businessadress = null;
-
-    /**
-     * @var array
-     */
-    protected $configuration = [
-        'translations' => [
-            'availableLocales' => [],
-            'languageKeyToLocaleMapping' => []
-        ],
-        'menuActions' => [],
-        'previewDomain' => null,
-        'previewUrlTemplate' => '',
-        'viewSettings' => []
-    ];
-
-    /**
-     *
-     * @var \Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
-     */
-    public $panoramasRepository = null;
-
-    /**
-     *
-     * @var \Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
-     */
-    public $tp3BusinessViewRepository = null;
-
-    /**
-     *
-     * @var \Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
-     */
-    public $businessAdressRepository = null;
-    /**
-     * @var Locales
-     */
-    protected $localeService;
-
-    protected function initializeAction()
+    protected queryGenerator $queryGenerator;
+    protected Settings $extensionConfiguration;
+    public function injectIconFactory(IconFactory $iconFactory): void
     {
-        if (array_key_exists('tp3_businessview', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'])
-            && is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tp3_businessview'])
-        ) {
-            ArrayUtility::mergeRecursiveWithOverrule(
-                $this->configuration,
-                $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tp3_businessview']
-            );
-        }
-        //$this->cObj=  $this->configurationManager->getContentObject();
+        $this->iconFactory = $iconFactory;
+    }
 
+    public function injectPageRenderer(PageRenderer $pageRenderer): void
+    {
+        $this->pageRenderer = $pageRenderer;
+    }
+
+    public function __construct(
+        protected readonly Tp3BusinessViewRepository $tp3BusinessViewRepository,
+        protected readonly PanoramasRepository $panoramasRepository,
+        protected readonly BusinessAdressRepository $businessAdressRepository,
+    ) {
+        $this->isPhpSpreadsheetInstalled = class_exists(\PhpOffice\PhpSpreadsheet\IOFactory::class);
+    }
+
+    /**
+     * Injects the Configuration Manager and is initializing the framework settings
+     *
+     * @param ConfigurationManagerInterface $configurationManager Instance of the Configuration Manager
+     */
+    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
+    {
+        parent::injectConfigurationManager($configurationManager);
+        $this->configurationManager = $configurationManager;
+
+        // get the whole typoscript (_FRAMEWORK does not work anymore, don't know why)
+        $tsSettings = $this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT,
+            '',
+            ''
+        );
+
+        // correct the array to be in same shape like the _SETTINGS array
+        $tsSettings = $this->removeDots((array) ($tsSettings['plugin.']['tx_tp3businessview_tp3businessview.'] ?? []));
+        //@todo settings security
+        //        $originalSettings = $tsSettings['settings'];
+        // get original settings
+        // original means: what extbase does by munching flexform and TypoScript together, but leaving empty flexform-settings empty ...
+        $originalSettings = $this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+        );
+        $propertiesNotAllowedViaFlexForms = ['orderByAllowed'];
+        foreach ($propertiesNotAllowedViaFlexForms as $property) {
+            if (isset($tsSettings['settings'][$property])) {
+                $originalSettings[$property] = $tsSettings['settings'][$property];
+            }
+        }
+
+        // start override
+        if (isset($tsSettings['settings']['overrideFlexformSettingsIfEmpty'])) {
+            $typoScriptUtility = GeneralUtility::makeInstance(TypoScript::class);
+            $originalSettings = $typoScriptUtility->override($originalSettings, $tsSettings);
+        }
+        // Re-set global settings
+        $this->settings = $originalSettings;
+    }
+
+    protected function initializeAction(): void
+    {
         parent::initializeAction();
 
-        if (!($this->localeService instanceof Locales)) {
-            $this->localeService = GeneralUtility::makeInstance(Locales::class);
+        $this->queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
+        $this->extensionConfiguration = GeneralUtility::makeInstance(Settings::class);
+    }
+
+    public function indexAction(): ResponseInterface
+    {
+        $selectedBusinessViewUid = (int)($this->settings['businessview'] ?? 0);
+        $selectedBusinessView = null;
+        $businessview = null;
+        $panorama = $this->panoramasRepository->findAll();
+        $address = $this->businessAdressRepository->findAll();
+
+        if ($selectedBusinessViewUid > 0) {
+            $selectedBusinessView = $this->tp3BusinessViewRepository->findByUid($selectedBusinessViewUid)->getFirst();
+            $businessview = $selectedBusinessView;
         }
-        if (!($this->pageRenderer instanceof PageRenderer)) {
-            $this->pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+
+        if ($businessview === null) {
+            $businessview = $this->tp3BusinessViewRepository->findAll();
         }
 
-        if (!($this->dataMapper instanceof DataMapper)) {
-            $this->dataMapper = GeneralUtility::makeInstance(DataMapper::class);
-        }
-        if ($this->cObj === null) {
-            $this->cObj = $this->configurationManager->getContentObject();
-        }
-        if ($this->conf === null) {
-            $this->conf = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-        }
-    }
+        $this->pageRenderer->loadJavaScriptModule('@tp3/tp3-businessview/Tp3Bootstrap.js');
+        $this->pageRenderer->addCssFile('EXT:tp3_businessview/Resources/Public/Css/Tp3App.css');
 
-    /**
-     * action display
-     *
-     * @return void
-     */
-    public function displayAction()
-    {
-    }
-
-    /**
-     * action list
-     *
-     * @return void
-     */
-    public function listAction()
-    {
-        /* $tp3BusinessViews = $this->tp3BusinessViewRepository->findAll();
-         $this->view->assign('tp3BusinessViews', $tp3BusinessViews);*/
-        //enable page injection instead of plugin
-        $Plugins = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Tp3\Tp3Businessview\Plugin\BusinessViewPlugin::class)->main($this->cObj, $this->conf);
-
-        $GLOBALS['TSFE']->page['tx_tp3businessview_onpage'] = true;
-        $GLOBALS['TSFE']->page['tx_tp3businessview_panorama'] = $Plugins['panoramas'];
-        $GLOBALS['TSFE']->page['tx_tp3businessview_injetionpoint'] = $Plugins['selector'];
-    }
-    /**
-     * action index
-     *
-     * @return void
-     */
-    public function indexAction()
-    {
-        if ($GLOBALS['BE_USER']->user['usergroup'] > 0 || $GLOBALS['BE_USER']->user['admin']) {
-            if (!isset($this->conf['persistence']['storagePid']) ||$this->conf['persistence']['storagePid']=='') {
-                $storage_id = $this->pageUid;
-            } else {
-                $storage_id = $this->conf['persistence']['storagePid'];
-            }
-
-            // Weiterleitung
-            $urlParameters = [
-                'id' => $storage_id,
-                'table' => 'tx_tp3businessview_domain_model_tp3businessview',
-                'search_levels' => 1
-            ];
-            $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-
-            $url = (string)$uriBuilder->buildUriFromRoute('web_list', $urlParameters);
-            $this->redirectToURI($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/' . $url);
-            exit;
-        }
-    }
-
-    /**
-     * action show
-     *
-     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3BusinessView
-     * @return void
-     */
-    public function showAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3BusinessView)
-    {
-        $this->view->assign('tp3BusinessView', $tp3BusinessView);
-    }
-
-    /**
-     * action new
-     *
-     * @return void
-     */
-    public function newAction()
-    {
-        //   $this->redirect('index');
-    }
-
-    /**
-     * action updateold
-     *
-     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview
-     * @return void
-     */
-    public function updateAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
-    {
-        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
-        $this->addFlashMessage('The object was updated.', 'saved', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->tp3BusinessViewRepository->update($businessview);
-        $this->persistenceManager->persistAll();
-    }
-
-    /**
-     * action create
-     *
-     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView  $businessview
-     * @return void
-     */
-    public function createAction(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessview)
-    {
-        $this->persistenceManager = $this->objectManager->get(PersistenceManager::class);
-        $this->addFlashMessage('The object was created.', 'created', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->businessvierepository->add($businessview);
-        $this->persistenceManager->persistAll();
-    }
-
-    public function saveSettingsAction()
-    {
-        $tmp = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow('uid', 'pages', 'deleted=0 AND hidden=0 AND is_siteroot=1');
-        $pageId = (int)$tmp['uid'];
-
-        $languageId = (int)$this->request->getArgument('language');
-        $lang = $this->getLanguageService();
-
-        $extraTableRecords = [];
-    }
-    /**
-     * Registers the Icons into the docheader
-     *
-     * @return void
-     * @throws \InvalidArgumentException
-     */
-    protected function registerDocheaderButtons()
-    {
-        /** @var ButtonBar $buttonBar */
-        $buttonBar = $this->view->getModuleTemplate()->getDocHeaderComponent()->getButtonBar();
-        $currentRequest = $this->request;
-        $moduleName = $currentRequest->getPluginName();
-        $lang = $this->getLanguageService();
-
-        $extensionName = $currentRequest->getControllerExtensionName();
-        $modulePrefix = strtolower('tx_' . $extensionName . '_' . $moduleName);
-        $shortcutName = $this->getLanguageService()->sL(
-            'LLL:EXT:beuser/Resources/Private/Language/locallang.xml:backendUsers'
+        $this->view->assignMultiple(
+            [
+                'businessview' => $businessview,
+                'panorama' => $panorama,
+                'address' => $address,
+                'settings' => $this->settings,
+                'googleMapsJavaScriptApiKey' => $this->extensionConfiguration->getGoogleMapsJavaScriptApiKey(),
+                'selectedBusinessViewUid' => $selectedBusinessViewUid,
+                'selectedBusinessView' => $selectedBusinessView,
+            ]
         );
-        if ($currentRequest->getControllerName() === 'Module') {
-            if ($currentRequest->getControllerActionName() === 'edit') {
-                if ($currentRequest->hasArgument('returnUrl') &&
-                    $currentRequest->getArgument('returnUrl')) {
-                    // CLOSE button:
-                    $closeButton = $buttonBar->makeLinkButton()
-                        ->setHref(urldecode($currentRequest->getArgument('returnUrl')))
-                        ->setClasses('t3js-editform-close')
-                        ->setTitle($lang->sL('LLL:EXT:lang/locallang_core.xlf:rm.closeDoc'))
-                        ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon(
-                            'actions-document-close',
-                            Icon::SIZE_SMALL
-                        ));
-                    $buttonBar->addButton($closeButton, ButtonBar::BUTTON_POSITION_LEFT, 1);
-                }
+        return $this->htmlResponse($this->view->render());
+    }
 
-                // SAVE button:
-                $saveButton = $buttonBar->makeInputButton()
-                    ->setTitle($lang->sL('LLL:EXT:lang/locallang_core.xlf:rm.saveDoc'))
-                    ->setName($modulePrefix . '[submit]')
-                    ->setValue('Save')
-                    ->setForm('editYoastSettings')
-                    ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon(
-                        'actions-document-save',
-                        Icon::SIZE_SMALL
-                    ))
-                    ->setShowLabelText(true);
+    public function listAction(): ResponseInterface
+    {
+        $selectedBusinessViewUid = (int)($this->settings['businessview'] ?? 0);
+        $selectedBusinessView = null;
+        $businessview = null;
+        $panorama = $this->panoramasRepository->findAll();
+        $address = $this->businessAdressRepository->findAll();
 
-                $buttonBar->addButton($saveButton, ButtonBar::BUTTON_POSITION_LEFT, 2);
+        if ($selectedBusinessViewUid > 0) {
+            $selectedBusinessView = $this->tp3BusinessViewRepository->findByUid($selectedBusinessViewUid)->getFirst();
+            $businessview = $selectedBusinessView;
+        }
+
+        if ($businessview === null) {
+            $businessview = $this->tp3BusinessViewRepository->findAll();
+        }
+
+        $this->pageRenderer->loadJavaScriptModule('@tp3/tp3-businessview/Tp3Bootstrap.js');
+        $this->pageRenderer->addCssFile('EXT:tp3_businessview/Resources/Public/Css/Tp3App.css');
+
+        $this->view->assignMultiple(
+            [
+                'businessview' => $businessview,
+                'panorama' => $panorama,
+                'address' => $address,
+                'settings' => $this->settings,
+                'googleMapsJavaScriptApiKey' => $this->extensionConfiguration->getGoogleMapsJavaScriptApiKey(),
+                'selectedBusinessViewUid' => $selectedBusinessViewUid,
+                'selectedBusinessView' => $selectedBusinessView,
+            ]
+        );
+        return $this->htmlResponse($this->view->render());
+    }
+
+    /**
+     * Removes dots at the end of a configuration array
+     *
+     * @param array $settings the array to transformed
+     * @return array $settings the transformed array
+     */
+    protected function removeDots(array $settings): array
+    {
+        $conf = [];
+        foreach ($settings as $key => $value) {
+            $conf[$this->removeDotAtTheEnd($key)] = \is_array($value) ? $this->removeDots($value) : $value;
+        }
+        return $conf;
+    }
+
+    protected function getSettings(): array
+    {
+        return $this->settings;
+    }
+    /**
+     * Removes a dot in the end of a String
+     *
+     * @param string $string
+     */
+    protected function removeDotAtTheEnd($string): string
+    {
+        return preg_replace('/\.$/', '', (string) $string);
+    }
+
+    /**
+     * Retrieves subpages of given pageIds recursively until reached $this->settings['recursive']
+     *
+     * @return array an array with all pageIds
+     */
+    protected function getPidList(): array
+    {
+        $rootPIDs = explode(',', $this->settings['pages']);
+        $pidList = $rootPIDs;
+
+        // iterate through root-page ids and merge to array
+        foreach ($rootPIDs as $pid) {
+            // @extensionScannerIgnoreLine
+            $result = $this->queryGenerator->getTreeList($pid, (int) ($this->settings['recursive'] ?? 0));
+            if ($result) {
+                $subtreePids = explode(',', $result);
+                $pidList = array_merge($pidList, $subtreePids);
             }
-            if ($currentRequest->getControllerActionName() === 'settings') {
-                // SAVE button:
-                $saveButton = $buttonBar->makeInputButton()
-                    ->setTitle($lang->sL('LLL:EXT:lang/locallang_core.xlf:rm.saveDoc'))
-                    ->setName($modulePrefix . '[submit]')
-                    ->setValue('Save')
-                    ->setForm('editYoastSettings')
-                    ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon(
-                        'actions-document-save',
-                        Icon::SIZE_SMALL
-                    ))
-                    ->setShowLabelText(true);
-
-                $buttonBar->addButton($saveButton, ButtonBar::BUTTON_POSITION_LEFT, 2);
-            }
         }
-        $shortcutButton = $buttonBar->makeShortcutButton()
-            ->setModuleName($moduleName)
-            ->setDisplayName($shortcutName)
-            ->setGetVariables(['id' => (int)GeneralUtility::_GP('id')]);
-        $buttonBar->addButton($shortcutButton);
+        return $pidList;
     }
 
     /**
-     * Returns LanguageService
-     *
-     * @return \TYPO3\CMS\Lang\LanguageService
+     * @param QueryResultInterface|array $addresses
+     * @return ArrayPaginator|QueryResultPaginator
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
      */
-    public function getLanguageService()
+    protected function getPaginator($addresses): PaginatorInterface
     {
-        return $GLOBALS['LANG'];
-    }
-
-    /**
-     * Try to resolve a supported locale based on the user settings
-     * take the configured locale dependencies into account
-     * so if the TYPO3 interface is tailored for a specific dialect
-     * the local of a parent language might be used
-     *
-     * @return string|null
-     */
-    protected function getInterfaceLocale()
-    {
-        $locale = null;
-        $languageChain = null;
-
-        if ($GLOBALS['BE_USER'] instanceof BackendUserAuthentication
-            && is_array($GLOBALS['BE_USER']->uc)
-            && array_key_exists('lang', $GLOBALS['BE_USER']->uc)
-            && !empty($GLOBALS['BE_USER']->uc['lang'])
-        ) {
-            $languageChain = $this->localeService->getLocaleDependencies(
-                $GLOBALS['BE_USER']->uc['lang']
-            );
-
-            array_unshift($languageChain, $GLOBALS['BE_USER']->uc['lang']);
+        $currentPage = $this->request->hasArgument('currentPage') ? (int) $this->request->getArgument('currentPage') : 1;
+        $itemsPerPage = (int) ($this->settings['paginate']['itemsPerPage'] ?? 10);
+        if ($itemsPerPage === 0) {
+            $itemsPerPage = 10;
         }
 
-        // try to find a matching locale available for this plugins UI
-        // take configured locale dependencies into account
-        if ($languageChain !== null
-            && ($suitableLocales = array_intersect(
-                $languageChain,
-                $this->configuration['translations']['availableLocales']
-            )) !== false
-            && count($suitableLocales) > 0
-        ) {
-            $locale = array_shift($suitableLocales);
-        }
-
-        // if a locale couldn't be resolved try if an entry of the
-        // language dependency chain matches legacy mapping
-        if ($locale === null && $languageChain !== null
-            && ($suitableLanguageKeys = array_intersect(
-                $languageChain,
-                array_flip(
-                    $this->configuration['translations']['languageKeyToLocaleMapping']
-                )
-            )) !== false
-            && count($suitableLanguageKeys) > 0
-        ) {
-            $locale =
-                $this->configuration['translations']['languageKeyToLocaleMapping'][array_shift($suitableLanguageKeys)];
-        }
-
-        return $locale;
-    }
-
-    /**
-     * Get a CSRF token
-     *
-     * @param bool $tokenOnly Set it to TRUE to get only the token, otherwise including the &moduleToken= as prefix
-     * @return string
-     */
-    protected function getToken($tokenOnly = false)
-    {
-        $token = FormProtectionFactory::get()->generateToken('moduleCall', 'web_Tp3BusinessviewModule');
-        if ($tokenOnly) {
-            return $token;
+        if (is_array($addresses)) {
+            $paginator = new ArrayPaginator($addresses, $currentPage, $itemsPerPage);
+        } elseif ($addresses instanceof QueryResultInterface) {
+            $paginator = new QueryResultPaginator($addresses, $currentPage, $itemsPerPage);
         } else {
-            return '&moduleToken=' . $token;
+            throw new \RuntimeException(sprintf('Only array and query result interface allowed for pagination, given "%s"', get_class($addresses)), 1611168593);
         }
+        return $paginator;
     }
-    /**
-     * Returns the current BE user.
-     *
-     * @return \TYPO3\CMS\Core\Authentication\BackendUserAuthentication
-     */
-    public function getBackendUser()
+    protected function htmlResponse(?string $html = null): ResponseInterface
     {
-        return $GLOBALS['BE_USER'];
-    }
-    /**
-     * @return DatabaseConnection
-     */
-    protected function getDatabaseConnection()
-    {
-        return $GLOBALS['TYPO3_DB'];
-    }
-    /**
-     * Inject the DataMapper
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper $dataMapper
-     */
-    public function injectDataMapper(\TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper $dataMapper)
-    {
-        $this->dataMapper = $dataMapper;
+        return $this->responseFactory->createResponse()
+            ->withHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream((string)($html ?? $this->view->render())));
     }
 }

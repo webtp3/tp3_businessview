@@ -1,12 +1,15 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
 
 namespace Tp3\Tp3Businessview\Domain\Model;
+
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /***************************************************************
  *
@@ -49,101 +52,94 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  */
 class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-    /**
-     * uid
-     * @var int
-     */
-    public $uid = '';
 
     /**
      * propertiesArray
      * @var array
      */
-    protected $propertiesArray = [];
+    protected array $propertiesArray = [];
 
     /**
      * panoId
      *
      * @var string
      */
-    protected $panoId = '';
+    protected string $panoId = '';
 
     /**
      * heading
      *
      * @var string
      */
-    protected $heading = '';
+    protected string $heading = '';
 
     /**
      * title
      *
      * @var string
      */
-    protected $title = '';
+    protected string $title = '';
 
     /**
      * pitch
      *
      * @var string
      */
-    protected $pitch = '';
+    protected string $pitch = '';
 
     /**
      * zoom
      *
      * @var string
      */
-    protected $zoom = '';
+    protected string $zoom = '';
     /**
      * position
      *
      * @var string
      */
-    protected $position = '';
+    protected string $position = '';
 
     /**
-     * contact
+     * tp3businessviews
      *
-     * @var \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
-     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView>
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
-    protected $tp3businessviews = null;
+    protected ?ObjectStorage $tp3businessviews;
+
     /**
      * sorting
      *
      * @var string $sorting
      */
-    protected $sorting;
+    protected string $sorting = '';
 
     /**
      * __construct
      */
     public function __construct()
     {
-        //Do not remove the next line: It would break the functionality
         $this->initStorageObjects();
     }
 
     /**
      * Initializes all ObjectStorage properties
-     * Do not modify this method!
-     * It will be rewritten on each save in the extension builder
-     * You may modify the constructor of this class instead
      *
      * @return void
      */
-    protected function initStorageObjects()
+    protected function initStorageObjects(): void
     {
-        $this->tp3businessviews = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->tp3businessviews = $this->tp3businessviews ?? new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
+
     /**
      * Setter for sorting
      *
      * @param string $sorting
      * @return void
      */
-    public function setSorting($sorting)
+    public function setSorting(string $sorting): void
     {
         $this->sorting = $sorting;
     }
@@ -153,7 +149,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $uid
      */
-    public function setUid($uid)
+    public function setUid(string $uid): void
     {
         $this->uid = $uid;
     }
@@ -163,7 +159,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string sorting
      */
-    public function getSorting()
+    public function getSorting(): string
     {
         return $this->sorting;
     }
@@ -172,7 +168,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $title
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -183,7 +179,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $title
      * @return void
      */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -193,7 +189,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $position
      */
-    public function getPosition()
+    public function getPosition(): string
     {
         return $this->position;
     }
@@ -204,7 +200,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $position
      * @return void
      */
-    public function setPosition($position)
+    public function setPosition(string $position): void
     {
         $this->position = $position;
     }
@@ -213,7 +209,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $panoId
      */
-    public function getPanoId()
+    public function getPanoId(): string
     {
         return $this->panoId;
     }
@@ -224,7 +220,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $panoId
      * @return void
      */
-    public function setPanoId($panoId)
+    public function setPanoId(string $panoId): void
     {
         $this->panoId = $panoId;
     }
@@ -234,7 +230,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $heading
      */
-    public function getHeading()
+    public function getHeading(): string
     {
         return $this->heading;
     }
@@ -245,7 +241,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $heading
      * @return void
      */
-    public function setHeading($heading)
+    public function setHeading(string $heading): void
     {
         $this->heading = $heading;
     }
@@ -255,7 +251,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $pitch
      */
-    public function getPitch()
+    public function getPitch(): string
     {
         return $this->pitch;
     }
@@ -266,7 +262,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $pitch
      * @return void
      */
-    public function setPitch($pitch)
+    public function setPitch(string $pitch): void
     {
         $this->pitch = $pitch;
     }
@@ -276,7 +272,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $zoom
      */
-    public function getZoom()
+    public function getZoom(): string
     {
         return $this->zoom;
     }
@@ -287,14 +283,14 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $zoom
      * @return void
      */
-    public function setZoom($zoom)
+    public function setZoom(string $zoom): void
     {
         $this->zoom = $zoom;
     }
     /**
      * @return array
      */
-    public function getPropertiesArray()
+    public function getPropertiesArray(): array
     {
         return $this->_getCleanProperties();
     }
@@ -302,9 +298,9 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the tp3businessviews
      *
-     * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView>
      */
-    public function getTp3Businessviews()
+    public function getTp3Businessviews(): ?ObjectStorage
     {
         return $this->tp3businessviews;
     }
@@ -312,10 +308,10 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the contact
      *
-     * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviews
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView> $tp3businessviews
      * @return void
      */
-    public function setTp3Businessviews(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviews)
+    public function setTp3Businessviews(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tp3businessviews): void
     {
         $this->tp3businessviews = $tp3businessviews;
     }
@@ -326,7 +322,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviews
      * @return void
      */
-    public function addTp3Businessviews(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviews)
+    public function addTp3Businessviews(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviews): void
     {
         $this->tp3businessviews->attach($tp3businessviews);
     }
@@ -337,7 +333,7 @@ class Panoramas extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviewsToRemove The Tp3Businessview to be removed
      * @return void
      */
-    public function removeTp3Businessviews(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviewsToRemove)
+    public function removeTp3Businessviews(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviewsToRemove): void
     {
         $this->tp3businessviews->detach($tp3businessviewsToRemove);
     }

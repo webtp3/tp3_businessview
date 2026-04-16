@@ -1,12 +1,15 @@
 {
-	"name": "web-tp3/tp3_businessview",
+	"name": "web-tp3/tp3-businessview",
+	"minimum-stability": "dev",
 	"type": "typo3-cms-extension",
 	"description" : "google businessview für tp3 - 360° Panorama Designer für Ihren virtuellen Rundgang",
 	"license": "GPL-2.0-or-later",
 	"homepage": "https://web.tp3.de/manual/tp3-businessview/",
 	"require": {
-		"php": ">=7.0 <7.5",
-         "typo3/cms-core": " ^9.5|| ^10.4 || ^11"
+		"php": ">=8.2 <8.5",
+         "typo3/cms-core": " ^13 ",
+		"web-tp3/tp3_openhours": "^4"
+
 	},
 	"autoload": {
 		"psr-4": {
@@ -14,14 +17,27 @@
 		}
 	},
 	"require-dev": {
-		"friendsofphp/php-cs-fixer": "^2.0",
-		"web-tp3/cag_tests":"^1.2 || ^2",
-		"helhum/typo3-console": "^5 || ^6 || dev-master",
-		"typo3/testing-framework": "*"
+		"friendsofphp/php-cs-fixer": "*",
+		"typo3/testing-framework": "*",
+		"codeception/codeception": "^5.2",
+		"codeception/module-asserts": "^3.0",
+		"codeception/module-phpbrowser": "^3.0.1",
+		"codeception/module-webdriver": "^4.0",
+		"dbrekelmans/bdi": "^1.4",
+		"deployer/deployer": "^7.4",
+		"deployer/recipes": "*",
+		"php-webdriver/webdriver": "^1.15",
+		"phpmd/phpmd": "*",
+		"phpstan/phpstan": "*",
+		"se/selenium-server-standalone": "*",
+		"typo3-console/composer-auto-commands": "*",
+		"typo3/cms-styleguide": "*",
+		"helhum/config-loader": "*",
+		"bk2k/extension-helper": "^2.1"
 
 	},
 	"suggest": {
-		"web-tp3/tp3openhours": "*"
+		"web-tp3/tp3_openhours": "*"
 	},
 	"autoload-dev": {
 		"psr-4": {
@@ -41,12 +57,35 @@
 	},
 	"config": {
 		"vendor-dir": ".Build/vendor",
-		"bin-dir": ".Build/bin"
+		"bin-dir": ".Build/bin",
+		"allow-plugins": {
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
+		}
 	},
 	"scripts": {
 
 		"post-autoload-dump": [
-			"@typo3-cms-scripts"
+			"[ -d .Build/Web/_assets ] || mkdir -p .Build/Web/typo3conf/ext/",
+			"[ -d .Build/Web/_assets ] || [ -L .Build/Web/typo3conf/ext/tp3_businessview ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/tp3_businessview"
+		],
+		"cgl": [
+			"php-cs-fixer --diff -v fix"
+		],
+		"cgl:ci": [
+			"php-cs-fixer --diff -v --dry-run fix"
+		],
+		"changelog": [
+			"extension-helper changelog:create"
+		],
+		"phpstan": [
+			"phpstan analyze --configuration Build/phpstan.neon"
+		],
+		"phpstan:baseline": [
+			"phpstan analyze --configuration ./phpstan.neon --generate-baseline Build/phpstan-baseline.neon"
+		],
+		"set-version": [
+			"extension-helper version:set"
 		],
 		"test:php:unit": [
 			"@php -v",
@@ -58,5 +97,4 @@
 		]
 
 	}
-
 }

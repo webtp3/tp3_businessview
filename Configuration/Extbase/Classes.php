@@ -2,7 +2,8 @@
 declare(strict_types = 1);
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -20,10 +21,5 @@ return [
                 'fieldName' => 'cid'
             ],
         ],
-    ],
-    \Tp3\Tp3Businessview\Domain\Model\File::class => [
-        'tableName' => 'sys_file',
-        'recordType' => \Tp3\Tp3Businessview\Domain\Model\File::class,
-
     ],
 ];
