@@ -2,7 +2,30 @@
 <f:layout name="Default" />
 
 <f:section name="main">
+    <div
+        id="tp3-businessview-app"
+        data-api-key="{googleMapsJavaScriptApiKey}"
+    ></div>
 
-    <div id="tp3businessview-businessview-canvas" class="businessview"></div>
+    <div id="businessview-canvas" class="businessview">
+        <div id="businessview-panorama-canvas"></div>
+    </div>
+
+    <table class="panolist" style="display:none;">
+        <f:if condition="{selectedBusinessViewUid} > 0">
+            <f:then>
+                <f:for each="{businessview.panoramas}" as="panorama">
+                    <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama: panorama, settings: settings, businessview: businessview}" />
+                </f:for>
+            </f:then>
+            <f:else>
+                <f:for each="{businessview}" as="businessviewItem">
+                    <f:for each="{businessviewItem.panoramas}" as="panorama">
+                        <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama: panorama, settings: settings, businessview: businessviewItem}" />
+                    </f:for>
+                </f:for>
+            </f:else>
+        </f:if>
+    </table>
 </f:section>
 </html>
