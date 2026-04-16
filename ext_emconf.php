@@ -1,29 +1,28 @@
 <?php
 
 /*
- * This file is part of the package web-tp3/tp3-businessview.
- *
+ * This file is part of the web-tp3/tp3businessview.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
 
-$EM_CONF['tp3_businessview'] = [
+$EM_CONF[$_EXTKEY] = [
     'title' => 'tp3 BusinessView',
     'description' => 'google businessview für typo3 - 360° Panorama Designer für Ihren virtuellen Rundgang',
     'category' => 'plugin',
     'author' => 'Thomas Ruta',
     'author_email' => 'support@r-p-it.de',
-    'state' => 'beta',
+    'state' => 'stable',
     'internal' => '',
     'uploadfolder' => '0',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '3.0.2',
+    'version' => '1.3.6',
     'constraints' =>
         [
             'depends' =>
                 [
-                    'typo3' => '13.0.0-15.0.0',
+                    'typo3' => '9.4.0-11.9.99',
                 ],
             'conflicts' =>
                 [
