@@ -18,7 +18,7 @@ $EM_CONF['tp3_businessview'] = [
     'uploadfolder' => '0',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '3.0.2',
+    'version' => '3.0.5',
     'constraints' =>
         [
             'depends' =>

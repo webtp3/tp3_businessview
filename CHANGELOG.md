@@ -1,4 +1,39 @@
-# 3.0.2
+# 3.0.5
+
+## MISC
+
+- 3f0ef2ec8 merge updates 3
+- 0bfeec477 Revert "[add] static_info_tables repo  functions iso 2 and name [fix] bootstrap_grids -> slider missing after update :-( [add] .env.example with auto install mapping [fix] composer versions for updates"
+- a9412ba84 fix pack name
+- fda20674c Merge remote-tracking branch 'origin/master'
+- cf01bc160 fix businessview tca
+- e0145d17c [fix] backend js Module Runtime Error
+- 13c1097da - fix file stuff
+- e7f846602 fix businessview tca
+- 601c3f7dd [fix] backend js Module Runtime Error
+- 54310709a php-cs
+- 4a899fb92 Merge remote-tracking branch 'origin/master'
+- f25249165 - fix file stuff
+- 21c2629f4 - fix reflections TYPO3\CMS\Core\Resource\FileReferenc
+- 31134eab4 fix missing resources
+- 62bc5e3e8 fix businessview tca
+- ecb149ba3 [fix] backend js Module Runtime Error
+- 73b5f4dfe - fix file stuff
+- 5f3ec92fe - fix reflections TYPO3\CMS\Core\Resource\FileReferenc
+- 52ac6080b fix missing resources
+- 5a687b236 allow 11
+- b266430b9 fix businessview tca
+- dbce4656a Merge remote-tracking branch 'origin/master'
+- 69d49314b [fix] readme & set version 1.1.2
+- f4f7a0e7f [fix] backend js Module Runtime Error
+- df815424d [fix] backend js error fix
+- 5d7050389 [add] friendsofphp/php-cs-fixer [add] travis test
+
+## Contributors
+
+- tudy
+
+# 3.0.3
 
 ## MISC
 
@@ -50,6 +85,56 @@
 ## TASK
 
 - 9f17b3f5d [TASK] Merge projekt Updates
+
+## MISC
+
+- 73b5f4dfe - fix file stuff
+- 5f3ec92fe - fix reflections TYPO3\CMS\Core\Resource\FileReferenc
+- 52ac6080b fix missing resources
+- 5a687b236 allow 11
+- b266430b9 fix businessview tca
+- dbce4656a Merge remote-tracking branch 'origin/master'
+- 69d49314b [fix] readme & set version 1.1.2
+- f4f7a0e7f [fix] backend js Module Runtime Error
+- df815424d [fix] backend js error fix
+- 5d7050389 [add] friendsofphp/php-cs-fixer [add] travis test
+
+## Contributors
+
+- tudy
+
+# 1.3.5
+
+## MISC
+
+- 73b5f4dfe - fix file stuff
+- 5f3ec92fe - fix reflections TYPO3\CMS\Core\Resource\FileReferenc
+
+## Contributors
+
+- tudy
+
+# 1.3.4
+
+## MISC
+
+- 52ac6080b fix missing resources
+- 5a687b236 allow 11
+
+## Contributors
+
+- tudy
+
+# 1.3.3
+
+## MISC
+
+- b266430b9 fix businessview tca
+- dbce4656a Merge remote-tracking branch 'origin/master'
+- 69d49314b [fix] readme & set version 1.1.2
+- f4f7a0e7f [fix] backend js Module Runtime Error
+- df815424d [fix] backend js error fix
+- 5d7050389 [add] friendsofphp/php-cs-fixer [add] travis test
 
 ## Contributors
 
@@ -160,6 +245,51 @@
 
 - 8d9a7699a [fix] version setting 1.1.3 cleanup
 - dc8d40562 [fix] small css fixes for rollout 9.5
+- 69d49314b [fix] readme & set version 1.1.2
+- f4f7a0e7f [fix] backend js Module Runtime Error
+- 559bc3266 [fix] set version 1.1.0 [add] readme
+- 85ae1ce65 [fix] small css fixes for rollout 9.5
+- 8173797b5 dev tag 1.0.6
+- 05556d71d [fix] php 7.2 compart for 9
+- 3142614cd [fix] remove class debends tt_address for friendsoftypo3 ver
+- bc39470de [set] 1.0.5 to dev
+- 953705463 [fix] undefined constant error
+- 8adcc4130 set dev version 1.0.4 an 9 active
+- eb415794f [fix] remove version 9&7 on stable
+- d6b108280 [fix] css fix fe overlay
+- c23943b1d [fix] backend api key [fix] heatmap for address encoding [fix] module label backend
+- 0e2d8d97b [add] Backend Modules [fix] tt_address
+- 10a0c93d3 [fix] php > 7.0
+- 2732ecfb6 [fix] automated tested [fix] Beta bugs and more
+- 712e6ec00 set version 0.3.7
+- 3eeff0ab3 [add] fix backend calls [update] tt_address 4 quickfix Version 1 stabe coming soon
+
+## Contributors
+
+- tudy
+
+# 1.1.2
+
+## MISC
+
+- 69d49314b [fix] readme & set version 1.1.2
+- f4f7a0e7f [fix] backend js Module Runtime Error
+- 559bc3266 [fix] set version 1.1.0 [add] readme
+- 85ae1ce65 [fix] small css fixes for rollout 9.5
+- 8173797b5 dev tag 1.0.6
+- 05556d71d [fix] php 7.2 compart for 9
+- 3142614cd [fix] remove class debends tt_address for friendsoftypo3 ver
+- bc39470de [set] 1.0.5 to dev
+- 953705463 [fix] undefined constant error
+- 8adcc4130 set dev version 1.0.4 an 9 active
+- eb415794f [fix] remove version 9&7 on stable
+- d6b108280 [fix] css fix fe overlay
+- c23943b1d [fix] backend api key [fix] heatmap for address encoding [fix] module label backend
+- 0e2d8d97b [add] Backend Modules [fix] tt_address
+- 10a0c93d3 [fix] php > 7.0
+- 2732ecfb6 [fix] automated tested [fix] Beta bugs and more
+- 712e6ec00 set version 0.3.7
+- 3eeff0ab3 [add] fix backend calls [update] tt_address 4 quickfix Version 1 stabe coming soon
 
 ## Contributors
 
