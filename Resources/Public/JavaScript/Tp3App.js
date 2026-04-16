@@ -383,6 +383,25 @@ const Tp3App = {
 				this.AnmationOptions.panoJumpsRandom = String(settings.panoJumpsRandom) === '1';
 			}
 		};
+		const toAnimationToggle = (value, fallback = true) => {
+			if (value === undefined || value === null || value === '') {
+				return fallback;
+			}
+			if (value === true || value === 1) {
+				return true;
+			}
+			if (value === false || value === 0) {
+				return false;
+			}
+			const normalized = String(value).trim().toLowerCase();
+			if (['1', 'true', 'yes', 'on'].includes(normalized)) {
+				return true;
+			}
+			if (['0', 'false', 'no', 'off'].includes(normalized)) {
+				return false;
+			}
+			return fallback;
+		};
 
 		const applyVisualControlsToBusinessView = () => {
 			const settings = collectControlSettings();
@@ -435,9 +454,13 @@ const Tp3App = {
 			const startTourTimers = () => {
 				clearTourTimers();
 
+				const animationModule = window.businessviewJson?.details?.modules?.panoAnimation || {};
+				const jumpsEnabled = toAnimationToggle(animationModule.jumps, true);
+				const rotationEnabled = toAnimationToggle(animationModule.rotation, true);
+
 				const rotationFactor = Number(this.AnmationOptions.panoRotationFactor) || 0;
 				const rotationTimer = Math.max(1, Number(this.AnmationOptions.panoRotationTimer) || 0);
-				if (rotationFactor !== 0 && rotationTimer > 0) {
+				if (rotationEnabled && rotationFactor !== 0 && rotationTimer > 0) {
 					let lastHeading = null;
 					this._panoRotationIntervalId = window.setInterval(() => {
 						if (!this.panorama) {
@@ -462,7 +485,7 @@ const Tp3App = {
 
 			const jumpTimer = Math.max(1, Number(this.AnmationOptions.panoJumpTimer) || 0);
 			const panoButtons = getCurrentBusinessViewPanoButtons();
-			if (jumpTimer > 0 && panoButtons.length > 1) {
+			if (jumpsEnabled && jumpTimer > 0 && panoButtons.length > 1) {
 				this._panoJumpIntervalId = window.setInterval(() => {
 					const buttons = getCurrentBusinessViewPanoButtons();
 					if (buttons.length < 2) {
@@ -731,6 +754,7 @@ const Tp3App = {
 				}
 
 				Tp3App.initPano(data);
+				syncAnimationOptionsFromControls();
 				startTourTimers();
 				this.updateStatus(type === 'pano' ? 'Panorama geladen.' : 'BusinessView geladen.', 'secondary');
 			} catch (error) {
