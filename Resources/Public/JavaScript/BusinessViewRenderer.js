@@ -115,6 +115,9 @@ export function initBusinessViewRenderer({ $, Tp3App, window, document }) {
 			scrollwheel: true
 		});
 		Tp3App.panorama = panorama;
+		if (typeof Tp3App.bindPanoramaEvents === 'function') {
+			Tp3App.bindPanoramaEvents();
+		}
 	};
 	Tp3App.toggleBusinessViewFullscreen = function () {
 		const businessviewCanvas = document.getElementById('businessview-canvas');
