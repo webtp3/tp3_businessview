@@ -2,7 +2,52 @@
 <f:layout name="Default" />
 
 <f:section name="main">
+    <div
+        id="tp3-businessview-app"
+        data-api-key="{googleMapsJavaScriptApiKey}"
+    ></div>
 
-    <div id="tp3businessview-businessview-canvas" class="businessview"></div>
+    <div id="businessview-canvas" class="businessview">
+        <div id="businessview-panorama-canvas"></div>
+    </div>
+
+    <table class="panolist" style="display:none;">
+        <f:if condition="{selectedBusinessViewUid} > 0">
+            <f:then>
+                <f:for each="{businessview.panoramas}" as="panorama">
+                    <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama: panorama, settings: settings, businessview: businessview}" />
+                </f:for>
+            </f:then>
+            <f:else>
+                <f:for each="{businessview}" as="businessviewItem">
+                    <f:for each="{businessviewItem.panoramas}" as="panorama">
+                        <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama: panorama, settings: settings, businessview: businessviewItem}" />
+                    </f:for>
+                </f:for>
+            </f:else>
+        </f:if>
+    </table>
+
+    <f:if condition="{selectedBusinessView}">
+        <f:asset.script identifier="tp3-businessview-fe-json">
+            window.businessviewJson = {
+                businessview: [{
+                    uid: {selectedBusinessView.uid},
+                    intro: <f:format.json value="{selectedBusinessView.intro}" />,
+                    description: <f:format.json value="{selectedBusinessView.description}" />,
+                    contact: {
+                        name: <f:format.json value="{selectedBusinessView.contact.name}" />,
+                        address: <f:format.json value="{selectedBusinessView.contact.address}" />,
+                        zip: <f:format.json value="{selectedBusinessView.contact.zip}" />,
+                        city: <f:format.json value="{selectedBusinessView.contact.city}" />,
+                        phone: <f:format.json value="{selectedBusinessView.contact.phone}" />,
+                        mobile: <f:format.json value="{selectedBusinessView.contact.mobile}" />,
+                        email: <f:format.json value="{selectedBusinessView.contact.email}" />,
+                        website: <f:format.json value="{selectedBusinessView.contact.www}" />
+                    }
+                }]
+            };
+        </f:asset.script>
+    </f:if>
 </f:section>
 </html>

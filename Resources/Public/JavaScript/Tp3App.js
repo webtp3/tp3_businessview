@@ -99,6 +99,10 @@ const Tp3App = {
 		this.setAnimationOptions();
 		this.initPano();
 		this.initMap();
+
+		if (window.businessviewJson && typeof this.businessview_initialize === 'function') {
+			this.businessview_initialize(window.businessviewJson);
+		}
 	},
 
 	syncBusinessLocation(location, panoData) {
