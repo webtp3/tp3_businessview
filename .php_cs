@@ -18,7 +18,7 @@ if (PHP_SAPI !== 'cli') {
     die('This script supports command line usage only. Please check your command.');
 }
 $header = <<<EOF
-This file is part of the web-tp3/tp3businessview.
+This file is part of the web-tp3/tp3-businessview.
 For the full copyright and license information, please read the
 LICENSE file that was distributed with this source code.
 EOF;

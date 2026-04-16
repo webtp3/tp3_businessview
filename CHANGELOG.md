@@ -1,4 +1,21 @@
-# 2.0.2
+# 3.0.2
+
+## MISC
+
+- 54b00c80f settings for plugin
+- 75d05b125 css
+- 51772dfaf Merge remote-tracking branch 'github/codex/add-settings-for-rotationanimation-and-jumps' into develop
+- d2c7578b8 Respect pano animation toggles and resync timers on pano load
+- 3f8d74793 fix fe plugin
+- 720707fa0 Add FE BusinessView list rendering with Tp3App canvas
+- c3e004ee7 fix fe plugin
+- 7e226d92b hide pre Backemd
+
+## Contributors
+
+- tudy
+
+# 3.0.2
 
 ## TASK
 
@@ -7,7 +24,12 @@
 
 ## MISC
 
-- 98e6d9b0b aplpha animations
+- 200b0259a 3.0.2
+- e8fd14aa3 readme up
+- d43eda11e fix icons
+- a1990d271 dev stable
+- 84c3f9f2a alpha animations
+- a8530e6fc alpha animations
 - dfeb3a923 fix css player z-index adjustments
 - 2e12d2cfa cleanup typo
 - 799982c85 Merge remote-tracking branch 'github/codex/add-data-handling-for-panorama-transitions' into develop

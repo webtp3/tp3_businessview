@@ -240,9 +240,6 @@ const Tp3App = {
 		const appRoot = document.querySelector('#tp3-businessview-app');
 		const defaultPid = appRoot ? (parseInt(appRoot.dataset.pid || '0', 10) || 0) : 0;
 
-		if (!form) {
-			return;
-		}
 
 		if (this._businessViewClickHandlerBound) {
 			return;
@@ -304,7 +301,7 @@ const Tp3App = {
 		};
 
 		const collectControlSettings = () => {
-			if(window.businessviewJson || window.businessviewJson.settings){
+			if(window.businessviewJson && window.businessviewJson.settings){
 				return window.businessviewJson.settings;
 			}
 			const settings = {};
@@ -986,6 +983,15 @@ const Tp3App = {
 	setAnimationOptions() {
 		if (typeof window.AnmationOptions === 'object') {
 			this.AnmationOptions = Object.assign({}, this.AnmationOptions, window.AnmationOptions);
+		}else if (window.businessviewJson && window.businessviewJson.settings) {
+
+			this.AnmationOptions = {
+				panoRotationFactor: parseFloat(window.businessviewJson.settings.panoRotationFactor),
+				panoJumpTimer: parseFloat(window.businessviewJson.settings.panoJumpTimer),
+				panoJumpsRandom: String(window.businessviewJson.settings.panoJumpsRandom),
+				panoRotationTimer: parseFloat(window.businessviewJson.settings.panoRotationTimer)
+			};
+
 		}
 	},
 	initMap() {

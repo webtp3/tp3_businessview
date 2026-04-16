@@ -1,7 +1,8 @@
 <?php
 
 /*
- * This file is part of the web-tp3/tp3businessview.
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -356,7 +357,7 @@ class Category extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param  File $image
      */
-    public function addImage( File $image)
+    public function addImage(File $image)
     {
         $this->images->attach($image);
     }
@@ -366,7 +367,7 @@ class Category extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param  File $image
      */
-    public function removeImage( File $image)
+    public function removeImage(File $image)
     {
         $this->images->detach($image);
     }
