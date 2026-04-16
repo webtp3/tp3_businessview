@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the package tna/sitepack.
+ * This file is part of the package web-tp3/tp3-businessview.
  *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
@@ -13,7 +13,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Tp3\Sitepack\Frontend\PageRenderer\GoogleWebApp;
 use Tp3\Tp3Businessview\Backend\JsonResponseHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -38,28 +37,25 @@ class PageRequestMiddleware implements MiddlewareInterface
             || ($routing && $routing->getRoute()
                 === '4444');
 
-
         if (($BusinessviewRequested) && !$request->getAttribute('frontend.controller')) {
             // TSFE initialisieren
-//            $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
-//                \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::class,
-//                $GLOBALS['TYPO3_CONF_VARS'],
-//                0,
-//                0
-//            );
-//            $GLOBALS['TSFE']->connectToDB();
-//            $GLOBALS['TSFE']->initFEuser();
-//            $GLOBALS['TSFE']->determineId($request);
-//            $GLOBALS['TSFE']->initTemplate();
-//            $GLOBALS['TSFE']->getConfigArray();
-//            $request = $request->withAttribute('frontend.controller', $GLOBALS['TSFE']);
+            //            $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
+            //                \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::class,
+            //                $GLOBALS['TYPO3_CONF_VARS'],
+            //                0,
+            //                0
+            //            );
+            //            $GLOBALS['TSFE']->connectToDB();
+            //            $GLOBALS['TSFE']->initFEuser();
+            //            $GLOBALS['TSFE']->determineId($request);
+            //            $GLOBALS['TSFE']->initTemplate();
+            //            $GLOBALS['TSFE']->getConfigArray();
+            //            $request = $request->withAttribute('frontend.controller', $GLOBALS['TSFE']);
         }
 
-//        if ($BusinessviewRequested) {
-//            return GeneralUtility::makeInstance(JsonResponseHandler::class)->indexAction();
-//        }
-
-
+        //        if ($BusinessviewRequested) {
+        //            return GeneralUtility::makeInstance(JsonResponseHandler::class)->indexAction();
+        //        }
 
         return $handler->handle($request);
     }

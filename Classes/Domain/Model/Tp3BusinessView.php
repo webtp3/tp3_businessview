@@ -127,7 +127,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Panoramas>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
-    protected ?ObjectStorage  $panoramas = null;
+    protected ?ObjectStorage $panoramas = null;
 
     /**
      * sorting
@@ -363,7 +363,6 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             return $this->panoramas;
         }
     }
-
 
     /**
      * Sets the panoramas

@@ -26,7 +26,6 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['tp3businessv
     'EXT:tp3_businessview/Resources/Public/Icons/user_plugin_tp3businessview.svg'
 );
 
-
 // Add the flexforms to the TCA
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue('tp3businessview_tp3businessview', 'FILE:EXT:tp3_businessview/Configuration/FlexForms/flexform.xml');
 //\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tp3businessview_tp3businessview', 'EXT:tp3_businessview/Resources/Private/Language/locallang_tp3businessview.xlf');

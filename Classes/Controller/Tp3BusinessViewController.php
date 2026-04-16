@@ -9,17 +9,17 @@
 
 namespace Tp3\Tp3Businessview\Controller;
 
+use Psr\Http\Message\ResponseInterface;
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
-use Psr\Http\Message\ResponseInterface;
 
 class Tp3BusinessViewController extends ActionController
 {
@@ -29,7 +29,8 @@ class Tp3BusinessViewController extends ActionController
 
     public function __construct(
         protected readonly Tp3BusinessViewRepository $tp3BusinessViewRepository,
-    ) {}
+    ) {
+    }
 
     protected function initializeAction(): void
     {

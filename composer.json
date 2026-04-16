@@ -1,6 +1,6 @@
 {
 	"name": "web-tp3/tp3-businessview",
-	"version": "2.0.1",
+	"minimum-stability": "dev",
 	"type": "typo3-cms-extension",
 	"description" : "google businessview für tp3 - 360° Panorama Designer für Ihren virtuellen Rundgang",
 	"license": "GPL-2.0-or-later",
@@ -32,7 +32,9 @@
 		"se/selenium-server-standalone": "*",
 		"typo3-console/composer-auto-commands": "*",
 		"typo3/cms-styleguide": "*",
-		"helhum/config-loader": "*"
+		"helhum/config-loader": "*",
+		"bk2k/extension-helper": "^2.1"
+
 	},
 	"suggest": {
 		"web-tp3/tp3_openhours": "*"

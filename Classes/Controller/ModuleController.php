@@ -1,14 +1,23 @@
 <?php
 
+/*
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Controller;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Tp3\Tp3Businessview\Database\QueryGenerator;
+use Tp3\Tp3Businessview\Domain\Model\Dto\Settings;
 use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
 use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
 use TYPO3\CMS\Backend\Module\ModuleData;
+use TYPO3\CMS\Backend\Routing\UriBuilder as BackendUriBuilder;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -16,9 +25,6 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use Tp3\Tp3Businessview\Domain\Model\Dto\Settings;
-use TYPO3\CMS\Extbase\Mvc\Controller\MvcPropertyMappingConfigurationService;
-use TYPO3\CMS\Backend\Routing\UriBuilder as BackendUriBuilder;
 
 class ModuleController extends ActionController
 {
@@ -41,8 +47,6 @@ class ModuleController extends ActionController
     protected int $id;
     protected BackendUriBuilder $backendUriBuilder;
 
-
-
     public function injectModuleTemplateFactory(ModuleTemplateFactory $moduleTemplateFactory): void
     {
         $this->moduleTemplateFactory = $moduleTemplateFactory;
@@ -61,8 +65,8 @@ class ModuleController extends ActionController
     public function __construct(
         protected readonly Tp3BusinessViewRepository $tp3BusinessViewRepository,
         protected readonly PanoramasRepository $panoramasRepository,
-        protected readonly BusinessAdressRepository $businessAdressRepository,)
-    {
+        protected readonly BusinessAdressRepository $businessAdressRepository,
+    ) {
         $this->isPhpSpreadsheetInstalled = class_exists(\PhpOffice\PhpSpreadsheet\IOFactory::class);
     }
 
@@ -85,19 +89,19 @@ class ModuleController extends ActionController
 
         // correct the array to be in same shape like the _SETTINGS array
         $tsSettings = $this->removeDots((array) ($tsSettings['plugin.']['tx_tp3businessview_tp3businessview.'] ?? []));
-        #@todo settings security
+        //@todo settings security
         $originalSettings = $tsSettings['settings'];
         // get original settings
         // original means: what extbase does by munching flexform and TypoScript together, but leaving empty flexform-settings empty ...
-//        $originalSettings = $this->configurationManager->getConfiguration(
-//            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
-//        );
-//        $propertiesNotAllowedViaFlexForms = ['orderByAllowed'];
-//        foreach ($propertiesNotAllowedViaFlexForms as $property) {
-//            if (isset($tsSettings['settings'][$property])) {
-//                $originalSettings[$property] = $tsSettings['settings'][$property];
-//            }
-//        }
+        //        $originalSettings = $this->configurationManager->getConfiguration(
+        //            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+        //        );
+        //        $propertiesNotAllowedViaFlexForms = ['orderByAllowed'];
+        //        foreach ($propertiesNotAllowedViaFlexForms as $property) {
+        //            if (isset($tsSettings['settings'][$property])) {
+        //                $originalSettings[$property] = $tsSettings['settings'][$property];
+        //            }
+        //        }
 
         // start override
         if (isset($tsSettings['settings']['overrideFlexformSettingsIfEmpty'])) {
@@ -153,7 +157,7 @@ class ModuleController extends ActionController
             'googleMapsJavaScriptApiKey',
             (string)($this->extensionConfiguration->getGoogleMapsJavaScriptApiKey() ?? '')
         );
-        $pid = $this->settings["storagePid"];
+        $pid = $this->settings['storagePid'];
         $businessviews = $pid > 0
             ? $this->tp3BusinessViewRepository->findByPid($pid)
             : $this->tp3BusinessViewRepository->findAll();

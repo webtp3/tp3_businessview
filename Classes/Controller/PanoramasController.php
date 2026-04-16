@@ -9,16 +9,16 @@
 
 namespace Tp3\Tp3Businessview\Controller;
 
+use Psr\Http\Message\ResponseInterface;
 use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
-use Psr\Http\Message\ResponseInterface;
 
 class PanoramasController extends ActionController
 {
@@ -28,7 +28,8 @@ class PanoramasController extends ActionController
 
     public function __construct(
         protected readonly PanoramasRepository $panoramasRepository,
-    ) {}
+    ) {
+    }
 
     protected function initializeAction(): void
     {

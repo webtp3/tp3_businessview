@@ -1,8 +1,14 @@
 <?php
 
+/*
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Backend;
 
-use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
@@ -12,11 +18,11 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Http\JsonResponse;
 use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 class JsonResponseHandler extends ActionController
 {
@@ -26,7 +32,8 @@ class JsonResponseHandler extends ActionController
         protected readonly Tp3BusinessViewRepository $tp3BusinessViewRepository,
         protected readonly PanoramasRepository $panoramasRepository,
         protected readonly BusinessAdressRepository $businessAdressRepository,
-    ) {}
+    ) {
+    }
 
     /**
      * Injects the Configuration Manager and is initializing the framework settings
@@ -47,19 +54,19 @@ class JsonResponseHandler extends ActionController
 
         // correct the array to be in same shape like the _SETTINGS array
         $tsSettings = $this->removeDots((array) ($tsSettings['plugin.']['tx_tp3businessview_tp3businessview.'] ?? []));
-        #@todo settings security
+        //@todo settings security
         $originalSettings = $tsSettings['settings'];
         // get original settings
         // original means: what extbase does by munching flexform and TypoScript together, but leaving empty flexform-settings empty ...
-//        $originalSettings = $this->configurationManager->getConfiguration(
-//            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
-//        );
-//        $propertiesNotAllowedViaFlexForms = ['orderByAllowed'];
-//        foreach ($propertiesNotAllowedViaFlexForms as $property) {
-//            if (isset($tsSettings['settings'][$property])) {
-//                $originalSettings[$property] = $tsSettings['settings'][$property];
-//            }
-//        }
+        //        $originalSettings = $this->configurationManager->getConfiguration(
+        //            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+        //        );
+        //        $propertiesNotAllowedViaFlexForms = ['orderByAllowed'];
+        //        foreach ($propertiesNotAllowedViaFlexForms as $property) {
+        //            if (isset($tsSettings['settings'][$property])) {
+        //                $originalSettings[$property] = $tsSettings['settings'][$property];
+        //            }
+        //        }
 
         // start override
         if (isset($tsSettings['settings']['overrideFlexformSettingsIfEmpty'])) {
@@ -86,7 +93,7 @@ class JsonResponseHandler extends ActionController
         $queryParams = $request->getQueryParams();
 
         $currentModule = $request->getAttribute('module');
-//        $currentModuleIdentifier = $currentModule->getIdentifier();
+        //        $currentModuleIdentifier = $currentModule->getIdentifier();
         $pageUid = (int)($queryParams['id'] ?? 0);
         $pageRecord = BackendUtility::readPageAccess($pageUid, '1=1') ?: [];
 
@@ -197,55 +204,53 @@ class JsonResponseHandler extends ActionController
             'direction' => $direction,
         ]);
     }
-        public function readAction(ServerRequestInterface $request): ResponseInterface
-        {
-            $backendUser = $this->getBackendUser();
-            $languageService = $this->getLanguageService();
+    public function readAction(ServerRequestInterface $request): ResponseInterface
+    {
+        $backendUser = $this->getBackendUser();
+        $languageService = $this->getLanguageService();
 
-            $queryParams = $request->getQueryParams();
-            $uid = (int)($queryParams['uid'] ?? 0);
-            $pid = (int)($request->getParsedBody()['pid'] ?? $request->getQueryParams()['pid'] ?? 0);
+        $queryParams = $request->getQueryParams();
+        $uid = (int)($queryParams['uid'] ?? 0);
+        $pid = (int)($request->getParsedBody()['pid'] ?? $request->getQueryParams()['pid'] ?? 0);
 
-            if ($uid) {
-                $type = (string)($queryParams['type'] ?? '');
+        if ($uid) {
+            $type = (string)($queryParams['type'] ?? '');
 
-                if ($type === 'pano') {
-                    $record = $this->panoramasRepository->findByUid($uid);
-                } else {
-                    $record = $this->tp3BusinessViewRepository->findByUid($uid);
-                }
-
-                return new JsonResponse([
-                    'success' => true,
-                    'pid' => $pid,
-                    'type' => $type,
-                    'businessview' => $record ? $this->normalizeResult($record) : null,
-                ]);
+            if ($type === 'pano') {
+                $record = $this->panoramasRepository->findByUid($uid);
+            } else {
+                $record = $this->tp3BusinessViewRepository->findByUid($uid);
             }
 
-
-            $businessviews = $pid > 0
-            ? $this->tp3BusinessViewRepository->findByPid($pid)
-            : $this->tp3BusinessViewRepository->findAll();
-
-            $panoramas = $pid > 0
-            ? $this->panoramasRepository->findByPid($pid)
-            : $this->panoramasRepository->findAll();
-
-            $addresses = $pid > 0
-            ? $this->businessAdressRepository->findByPid($pid)
-            : $this->businessAdressRepository->findAll();
-            $response = new JsonResponse([
+            return new JsonResponse([
                 'success' => true,
                 'pid' => $pid,
-                'businessviews' => $this->normalizeResult($businessviews),
-                'panoramas' => $this->normalizeResult($panoramas),
-                'addresses' => $this->normalizeResult($addresses),
+                'type' => $type,
+                'businessview' => $record ? $this->normalizeResult($record) : null,
             ]);
-
-
-            return $response;
         }
+
+        $businessviews = $pid > 0
+        ? $this->tp3BusinessViewRepository->findByPid($pid)
+        : $this->tp3BusinessViewRepository->findAll();
+
+        $panoramas = $pid > 0
+        ? $this->panoramasRepository->findByPid($pid)
+        : $this->panoramasRepository->findAll();
+
+        $addresses = $pid > 0
+        ? $this->businessAdressRepository->findByPid($pid)
+        : $this->businessAdressRepository->findAll();
+        $response = new JsonResponse([
+            'success' => true,
+            'pid' => $pid,
+            'businessviews' => $this->normalizeResult($businessviews),
+            'panoramas' => $this->normalizeResult($panoramas),
+            'addresses' => $this->normalizeResult($addresses),
+        ]);
+
+        return $response;
+    }
     public function dispatchAction(ServerRequestInterface $request): ResponseInterface
     {
         $action = (string)($request->getParsedBody()['submitType'] ?? $request->getQueryParams()['submitType'] ?? 'read');
@@ -259,151 +264,151 @@ class JsonResponseHandler extends ActionController
         };
     }
 
-	protected function buildPanoramaFromRequest(ServerRequestInterface $request): array
-	{
-		$body = $request->getParsedBody();
+    protected function buildPanoramaFromRequest(ServerRequestInterface $request): array
+    {
+        $body = $request->getParsedBody();
 
-		return [
-			'panoramaData' => $body['tx_tp3businessview_module']['panorama'] ?? [],
-			'panoramaInput' => $body['panoramas'] ?? [],
-			'businessViewUid' => (int)($body['tp3businessview']['uid'] ?? 0),
-			'settings' => is_array($body['settings'] ?? null) ? $body['settings'] : [],
-		];
-	}
+        return [
+            'panoramaData' => $body['tx_tp3businessview_module']['panorama'] ?? [],
+            'panoramaInput' => $body['panoramas'] ?? [],
+            'businessViewUid' => (int)($body['tp3businessview']['uid'] ?? 0),
+            'settings' => is_array($body['settings'] ?? null) ? $body['settings'] : [],
+        ];
+    }
 
-	protected function mergeBusinessViewSettingsIntoDescription(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessView, array $settings): void
-	{
-		if ($settings === []) {
-			return;
-		}
+    protected function mergeBusinessViewSettingsIntoDescription(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessView, array $settings): void
+    {
+        if ($settings === []) {
+            return;
+        }
 
-		$allowedKeys = [
-			'color',
-			'backgroundColor',
-			'textColor',
-			'align',
-			'panoJumpTimer',
-			'panoJumpsRandom',
-			'panoRotationTimer',
-			'panoRotationFactor',
-		];
+        $allowedKeys = [
+            'color',
+            'backgroundColor',
+            'textColor',
+            'align',
+            'panoJumpTimer',
+            'panoJumpsRandom',
+            'panoRotationTimer',
+            'panoRotationFactor',
+        ];
 
-		$normalized = [];
-		foreach ($allowedKeys as $key) {
-			if (array_key_exists($key, $settings)) {
-				$normalized[$key] = (string)$settings[$key];
-			}
-		}
+        $normalized = [];
+        foreach ($allowedKeys as $key) {
+            if (array_key_exists($key, $settings)) {
+                $normalized[$key] = (string)$settings[$key];
+            }
+        }
 
-		if ($normalized === []) {
-			return;
-		}
+        if ($normalized === []) {
+            return;
+        }
 
-		$currentDescription = (string)($businessView->getDescription() ?? '');
-		$baseDescription = preg_replace('/\s*<!--tp3bv-settings:[A-Za-z0-9+\/=]+-->\s*/', '', $currentDescription) ?? '';
-		$settingsPayload = base64_encode((string)json_encode($normalized));
-		$businessView->setDescription(trim($baseDescription) . PHP_EOL . '<!--tp3bv-settings:' . $settingsPayload . '-->');
-	}
+        $currentDescription = (string)($businessView->getDescription() ?? '');
+        $baseDescription = preg_replace('/\s*<!--tp3bv-settings:[A-Za-z0-9+\/=]+-->\s*/', '', $currentDescription) ?? '';
+        $settingsPayload = base64_encode((string)json_encode($normalized));
+        $businessView->setDescription(trim($baseDescription) . PHP_EOL . '<!--tp3bv-settings:' . $settingsPayload . '-->');
+    }
 
-	public function createAction(ServerRequestInterface $request): ResponseInterface
-	{
-		$data = $this->buildPanoramaFromRequest($request);
-		$panoramaData = $data['panoramaData'];
-		$panoramaInput = $data['panoramaInput'];
-		$businessViewUid = $data['businessViewUid'];
-		$settings = $data['settings'];
+    public function createAction(ServerRequestInterface $request): ResponseInterface
+    {
+        $data = $this->buildPanoramaFromRequest($request);
+        $panoramaData = $data['panoramaData'];
+        $panoramaInput = $data['panoramaInput'];
+        $businessViewUid = $data['businessViewUid'];
+        $settings = $data['settings'];
 
-		$panorama = new \Tp3\Tp3Businessview\Domain\Model\Panoramas();
-		$panorama->setHeading((string)($panoramaData['heading'] ?? ''));
-		$panorama->setPosition((string)($panoramaData['position'] ?? ''));
-		$panorama->setPitch((string)($panoramaData['pitch'] ?? ''));
-		$panorama->setZoom((string)($panoramaData['zoom'] ?? ''));
-		$panorama->setPanoId((string)($panoramaData['panoId'] ?? ''));
+        $panorama = new \Tp3\Tp3Businessview\Domain\Model\Panoramas();
+        $panorama->setHeading((string)($panoramaData['heading'] ?? ''));
+        $panorama->setPosition((string)($panoramaData['position'] ?? ''));
+        $panorama->setPitch((string)($panoramaData['pitch'] ?? ''));
+        $panorama->setZoom((string)($panoramaData['zoom'] ?? ''));
+        $panorama->setPanoId((string)($panoramaData['panoId'] ?? ''));
 
-		$pid = (int)($panoramaInput['pid'] ?? 0);
-		if ($pid > 0) {
-			$panorama->_setProperty('pid', $pid);
-		}
+        $pid = (int)($panoramaInput['pid'] ?? 0);
+        if ($pid > 0) {
+            $panorama->_setProperty('pid', $pid);
+        }
 
-		$businessView = null;
-		if ($businessViewUid > 0) {
-			$businessView = $this->tp3BusinessViewRepository->findByUid($businessViewUid)->getFirst();
-			if ($businessView && $pid <= 0) {
-				$panorama->_setProperty('pid', (int)$businessView->_getProperty('pid'));
-			}
-		}
+        $businessView = null;
+        if ($businessViewUid > 0) {
+            $businessView = $this->tp3BusinessViewRepository->findByUid($businessViewUid)->getFirst();
+            if ($businessView && $pid <= 0) {
+                $panorama->_setProperty('pid', (int)$businessView->_getProperty('pid'));
+            }
+        }
         $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
 
-		$this->panoramasRepository->add($panorama);
-		$this->persistenceManager->persistAll();
+        $this->panoramasRepository->add($panorama);
+        $this->persistenceManager->persistAll();
 
-		if ($businessView) {
-			// Persist relation from BusinessView side (MM owner side)
-			$businessView->addPanoramas($panorama);
-			$this->mergeBusinessViewSettingsIntoDescription($businessView, $settings);
-			$this->tp3BusinessViewRepository->update($businessView);
-			$this->persistenceManager->persistAll();
-		}
+        if ($businessView) {
+            // Persist relation from BusinessView side (MM owner side)
+            $businessView->addPanoramas($panorama);
+            $this->mergeBusinessViewSettingsIntoDescription($businessView, $settings);
+            $this->tp3BusinessViewRepository->update($businessView);
+            $this->persistenceManager->persistAll();
+        }
 
-		return new JsonResponse([
-			'success' => true,
-			'action' => 'create',
-			'uid' => $panorama->getUid(),
-		]);
-	}
+        return new JsonResponse([
+            'success' => true,
+            'action' => 'create',
+            'uid' => $panorama->getUid(),
+        ]);
+    }
 
-	public function updateAction(ServerRequestInterface $request): ResponseInterface
-	{
-		$data = $this->buildPanoramaFromRequest($request);
-		$panoramaData = $data['panoramaData'];
-		$panoramaInput = $data['panoramaInput'];
-		$businessViewUid = $data['businessViewUid'];
-		$settings = $data['settings'];
+    public function updateAction(ServerRequestInterface $request): ResponseInterface
+    {
+        $data = $this->buildPanoramaFromRequest($request);
+        $panoramaData = $data['panoramaData'];
+        $panoramaInput = $data['panoramaInput'];
+        $businessViewUid = $data['businessViewUid'];
+        $settings = $data['settings'];
 
-		$uid = (int)($panoramaInput['uid'] ?? 0);
-		if ($uid <= 0) {
-			return new JsonResponse([
-				'success' => false,
-				'message' => 'Panorama UID fehlt',
-			], 400);
-		}
+        $uid = (int)($panoramaInput['uid'] ?? 0);
+        if ($uid <= 0) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => 'Panorama UID fehlt',
+            ], 400);
+        }
 
-		$existing = $this->panoramasRepository->findByUid($uid)->getFirst();
-		if (!$existing) {
-			return new JsonResponse([
-				'success' => false,
-				'message' => 'Panorama nicht gefunden',
-			], 404);
-		}
+        $existing = $this->panoramasRepository->findByUid($uid)->getFirst();
+        if (!$existing) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => 'Panorama nicht gefunden',
+            ], 404);
+        }
 
-		$existing->setHeading((string)($panoramaData['heading'] ?? ''));
-		$existing->setPosition((string)($panoramaData['position'] ?? ''));
-		$existing->setPitch((string)($panoramaData['pitch'] ?? ''));
-		$existing->setZoom((string)($panoramaData['zoom'] ?? ''));
-		$existing->setPanoId((string)($panoramaData['panoId'] ?? ''));
+        $existing->setHeading((string)($panoramaData['heading'] ?? ''));
+        $existing->setPosition((string)($panoramaData['position'] ?? ''));
+        $existing->setPitch((string)($panoramaData['pitch'] ?? ''));
+        $existing->setZoom((string)($panoramaData['zoom'] ?? ''));
+        $existing->setPanoId((string)($panoramaData['panoId'] ?? ''));
 
-		$businessView = null;
-		if ($businessViewUid > 0) {
-			$businessView = $this->tp3BusinessViewRepository->findByUid($businessViewUid)->getFirst();
-		}
+        $businessView = null;
+        if ($businessViewUid > 0) {
+            $businessView = $this->tp3BusinessViewRepository->findByUid($businessViewUid)->getFirst();
+        }
         $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
 
-		$this->panoramasRepository->update($existing);
-		$this->persistenceManager->persistAll();
+        $this->panoramasRepository->update($existing);
+        $this->persistenceManager->persistAll();
 
-		if ($businessView) {
-			$businessView->addPanoramas($existing);
-			$this->mergeBusinessViewSettingsIntoDescription($businessView, $settings);
-			$this->tp3BusinessViewRepository->update($businessView);
-			$this->persistenceManager->persistAll();
-		}
+        if ($businessView) {
+            $businessView->addPanoramas($existing);
+            $this->mergeBusinessViewSettingsIntoDescription($businessView, $settings);
+            $this->tp3BusinessViewRepository->update($businessView);
+            $this->persistenceManager->persistAll();
+        }
 
-		return new JsonResponse([
-			'success' => true,
-			'action' => 'update',
-			'uid' => $existing->getUid(),
-		]);
-	}
+        return new JsonResponse([
+            'success' => true,
+            'action' => 'update',
+            'uid' => $existing->getUid(),
+        ]);
+    }
 
     /**
      * Normalize Extbase query results or arrays to plain arrays.
@@ -500,12 +505,12 @@ class JsonResponseHandler extends ActionController
             ->withBody($this->streamFactory->createStream((string)($html ?? $this->view->render())));
     }
 
-    protected function JsonXResponse(    ?array $data = [], int $status = 200): ResponseInterface
+    protected function JsonXResponse(?array $data = [], int $status = 200): ResponseInterface
     {
 
         return $this->responseFactory->createResponse()
             ->withHeader('Content-Type', 'text/json; charset=utf-8')
-            ->withBody($this->streamFactory->createStream(json_encode($data ) ?? $this->view->render()));
+            ->withBody($this->streamFactory->createStream(json_encode($data) ?? $this->view->render()));
     }
     /**
      * Removes dots at the end of a configuration array

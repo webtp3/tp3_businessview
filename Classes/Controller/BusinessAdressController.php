@@ -9,18 +9,18 @@
 
 namespace Tp3\Tp3Businessview\Controller;
 
-use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use Psr\Http\Message\ResponseInterface;
 
 class BusinessAdressController extends ActionController
 {
@@ -46,10 +46,6 @@ class BusinessAdressController extends ActionController
      * @var  rootLine
      */
     public ?rootLine $rootLine= null;
-
-
-
-
 
     protected function initializeAction(): void
     {
