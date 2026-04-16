@@ -783,7 +783,7 @@ const Tp3App = {
 		});
 	},
 
-	syncPanoramaPanel(pano) {
+	syncPanoramaPanel(pano, markDirty = true) {
 		const positionCell = document.getElementById('position-cell');
 		const headingCell = document.getElementById('heading-cell');
 		const pitchCell = document.getElementById('pitch-cell');
@@ -796,26 +796,46 @@ const Tp3App = {
 
 		const position = pano.getPosition();
 		const pov = pano.getPov();
+		const patch = {
+			panoId: pano.getPano() || '',
+		};
 
 		if (positionCell && position) {
 			positionCell.value = position.toString();
+			patch.position = position.toString();
 		}
 
 		if (headingCell && pov) {
 			headingCell.value = pov.heading;
+			patch.heading = pov.heading;
 		}
 
 		if (pitchCell && pov) {
 			pitchCell.value = pov.pitch;
+			patch.pitch = pov.pitch;
 		}
 
 		if (zoomCell) {
 			zoomCell.value = pano.getZoom();
+			patch.zoom = pano.getZoom();
 		}
 
 		if (panoCell) {
-			panoCell.value = pano.getPano() || '';
+			panoCell.value = patch.panoId;
 		}
+
+		if (position) {
+			this.BusinessAdress = position;
+		}
+		if (pov) {
+			this.pov = {
+				heading: pov.heading,
+				pitch: pov.pitch,
+				zoom: pano.getZoom(),
+			};
+		}
+
+		this.updateDraft(patch, markDirty);
 	},
 
 
@@ -838,6 +858,12 @@ const Tp3App = {
 		this.panorama.addListener('zoom_changed', () => {
 			this.syncPanoramaPanel(this.panorama);
 		});
+
+		this.panorama.addListener('pano_changed', () => {
+			this.syncPanoramaPanel(this.panorama);
+		});
+
+		this.syncPanoramaPanel(this.panorama, false);
 	},
 
 	BusinessAdress: { lat: 49.9553939, lng: 8.1767639 },
