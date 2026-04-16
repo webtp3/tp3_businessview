@@ -267,19 +267,19 @@ div#businessview-canvas {
     width: 50%;
 }
 
-div#businessview-canvas ul, div#businessview-canvas div {
-    z-index: 3;
-}
+/*div#businessview-canvas ul, div#businessview-canvas div {*/
+/*    z-index: 3;*/
+/*}*/
 
-div#businessview-canvas div#businessview-panorama-canvas {
-    height: 100%;
-    width: 100%;
-    z-index: 1;
-}
+/*div#businessview-canvas div#businessview-panorama-canvas {*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*    z-index: 1;*/
+/*}*/
 
-div#businessview-canvas div#businessview-panorama-canvas img {
-    max-width: none;
-}
+/*div#businessview-canvas div#businessview-panorama-canvas img {*/
+/*    max-width: none;*/
+/*}*/
 
 div#businessview-canvas div#businessview-panorama-canvas figure img {
     max-width: 100%;
@@ -412,7 +412,7 @@ div#businessview-canvas div#businessview-contact-canvas {
     padding: 10px;
     position: absolute;
     right: 15px;
-    z-index: 3;
+    /*z-index: 3;*/
 }
 
 div#businessview-canvas div#businessview-contact-canvas.left {
