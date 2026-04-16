@@ -1,8 +1,7 @@
 <?php
 
 /*
- * This file is part of the package web-tp3/tp3-businessview.
- *
+ * This file is part of the web-tp3/tp3businessview.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
@@ -44,8 +43,6 @@ namespace Tp3\Tp3Businessview\Domain\Model;
  *  (c) 2018 Thomas Ruta <support@r-p-it.de>, tp3
  *
  ***/
-use TYPO3\CMS\Extbase\Domain\Model\Category;
-use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -55,58 +52,45 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
 
     /**
-     * Hidden
-     *
-     * @var bool
-     */
-    protected bool $hidden = false;
-
-    /**
-     * slug
-     * @var string
-     */
-    protected string $slug;
-
-    /**
      * Tp3BusinessView
      *
-     * @var ?\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
+     * @var \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView
      */
-    protected ?Tp3BusinessView $tp3businessview = null;
+    protected $tp3businessview;
 
     /**
      * cid
      *
      * @var string
      */
-    protected string $cid = '';
+    protected $cid = '';
 
     /**
      * googleplus
      *
      * @var string
      */
-    protected string $googleplus = '';
+    protected $googleplus = '';
 
     /**
      * propertiesArray
      *
      */
-    protected array $propertiesArray = [];
+    protected $propertiesArray = [];
 
     /**
      * sorting
      *
      * @var string $sorting
      */
-    protected string $sorting;
+    protected $sorting;
 
     /**
      * Returns the tp3businessviews
      *
-     * @return ?\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview
+     * @return \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview
      */
-    public function getTp3Businessview(): ?Tp3BusinessView
+    public function getTp3Businessview()
     {
         return $this->tp3businessview;
     }
@@ -117,7 +101,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview
      * @return void
      */
-    public function setTp3Businessview(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview): void
+    public function setTp3Businessview(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview)
     {
         $this->tp3businessview = $tp3businessview;
     }
@@ -128,7 +112,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview
      * @return void
      */
-    public function addTp3Businessview(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview): void
+    public function addTp3Businessview(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessview)
     {
         $this->tp3businessview->attach($tp3businessview);
     }
@@ -139,7 +123,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviewToRemove The Tp3Businessview to be removed
      * @return void
      */
-    public function removeTp3Businessview(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviewToRemove): void
+    public function removeTp3Businessview(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $tp3businessviewToRemove)
     {
         $this->tp3businessview->detach($tp3businessviewToRemove);
     }
@@ -149,7 +133,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $sorting
      * @return void
      */
-    public function setSorting(string $sorting): void
+    public function setSorting($sorting)
     {
         $this->sorting = $sorting;
     }
@@ -159,7 +143,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string sorting
      */
-    public function getSorting(): string
+    public function getSorting()
     {
         return $this->sorting;
     }
@@ -168,7 +152,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $cid
      */
-    public function getCid(): string
+    public function getCid()
     {
         return $this->cid;
     }
@@ -179,7 +163,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $cid
      * @return void
      */
-    public function setCid(string $cid): void
+    public function setCid($cid)
     {
         $this->cid = $cid;
     }
@@ -188,7 +172,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $googleplus
      */
-    public function getGoogleplus(): string
+    public function getGoogleplus()
     {
         return $this->googleplus;
     }
@@ -199,245 +183,209 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $googleplus
      * @return void
      */
-    public function setGoogleplus(string $googleplus): void
+    public function setGoogleplus($googleplus)
     {
         $this->googleplus = $googleplus;
     }
     /**
      * @return array
      */
-    public function getPropertiesArray(): array
+    public function getPropertiesArray()
     {
         return $this->_getCleanProperties();
     }
-    // copied stuff
+    /*
+     * copied stuff
+     *
+     */
 
     /**
      * Gender
      * @var string
      */
-    protected string $gender;
+    protected $gender;
 
     /**
      * Name
      * @var string
      */
-    protected string $name;
+    protected $name;
 
     /**
      * First Name
      * @var string
      */
-    protected string $firstName;
+    protected $firstName;
 
     /**
      * Middle Name
      * @var string
      */
-    protected string $middleName;
+    protected $middleName;
 
     /**
      * Last Name
      * @var string
      */
-    protected string $lastName;
+    protected $lastName;
 
     /**
      * Birthday
      * @var \DateTime
      */
-    protected \DateTime $birthday;
+    protected $birthday;
 
     /**
      * Title
      * @var string
      */
-    protected string $title;
+    protected $title;
 
     /**
      * Address
      * @var string
      */
-    protected string $address;
+    protected $address;
 
     /**
      * Latitude
      * @var string
      */
-    protected string $latitude;
+    protected $latitude;
 
     /**
      * Longitude
      * @var string
      */
-    protected string $longitude;
+    protected $longitude;
 
     /**
      * Building
      * @var string
      */
-    protected string $building;
+    protected $building;
 
     /**
      * Room
      * @var string
      */
-    protected string $room;
+    protected $room;
 
     /**
      * Phone
      * @var string
      */
-    protected string $phone;
+    protected $phone;
 
     /**
      * Fax
      * @var string
      */
-    protected string $fax;
+    protected $fax;
 
     /**
      * Mobile
      * @var string
      */
-    protected string $mobile;
+    protected $mobile;
 
     /**
      * www
      * @var string
      */
-    protected string $www;
+    protected $www;
 
     /**
      * Skype
      * @var string
      */
-    protected string $skype;
+    protected $skype;
 
     /**
      * twitter
      * @var string
      */
-    protected string $twitter;
+    protected $twitter;
 
     /**
      * Facebook
      * @var string
      */
-    protected string $facebook;
+    protected $facebook;
 
     /**
      * LinkedIn
      * @var string
      */
-    protected string $linkedin;
-
-    /**
-     * instagram
-     * @var string
-     */
-    protected string $instagram;
-
-    /**
-     * Whatsapp
-     * @var string
-     */
-    protected string $whatsapp;
-
-    /**
-     * Singal
-     * @var string
-     */
-    protected string $signal;
+    protected $linkedIn;
 
     /**
      * Email
      * @var string
      */
-    protected string $email;
+    protected $email;
 
     /**
      * Organization
      * @var string
      */
-    protected string $company;
+    protected $company;
 
     /**
      * Position
      * @var string
      */
-    protected string $position;
+    protected $position;
 
     /**
      * City
      * @var string
      */
-    protected string $city;
+    protected $city;
 
     /**
      * Zipcode
      * @var string
      */
-    protected string $zip;
+    protected $zip;
 
     /**
      * Region/State
      * @var string
      */
-    protected string $region;
+    protected $region;
 
     /**
      * Country
      * @var string
      */
-    protected string $country;
+    protected $country;
 
     /**
      * Image
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @var File
      */
-    protected ?ObjectStorage $image = null;
+    protected $image = null;
 
     /**
      * Description
      * @var string
      */
-    protected string $description;
+    protected $description;
 
     /**
      * Categories
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     * @var Category
      */
-    protected ?ObjectStorage $categories;
+    protected $categories;
 
     /**
      * __construct
      */
     public function __construct()
     {
-        $this->image = $this->image  ?? new ObjectStorage();
-    }
-
-    /**
-     * sets the hidden attribute
-     *
-     * @param bool $hidden
-     * @return void
-     */
-    public function setHidden(bool $hidden): void
-    {
-        $this->hidden = $hidden;
-    }
-
-    /**
-     * returns the hidden attribute
-     *
-     * @return bool $hidden
-     */
-    public function getHidden(): bool
-    {
-        return $this->hidden;
+        $this->image = new ObjectStorage();
     }
 
     /**
@@ -445,7 +393,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $gender
      */
-    public function setGender(string $gender): void
+    public function setGender($gender)
     {
         $this->gender = $gender;
     }
@@ -455,7 +403,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getGender(): string
+    public function getGender()
     {
         return $this->gender;
     }
@@ -465,7 +413,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $name
      */
-    public function setName(string $name): void
+    public function setName($name)
     {
         $this->name = $name;
     }
@@ -475,7 +423,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -485,7 +433,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $firstName
      */
-    public function setFirstName(string $firstName): void
+    public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
     }
@@ -495,7 +443,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getFirstName(): string
+    public function getFirstName()
     {
         return $this->firstName;
     }
@@ -505,7 +453,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $middleName
      */
-    public function setMiddleName(string $middleName): void
+    public function setMiddleName($middleName)
     {
         $this->middleName = $middleName;
     }
@@ -515,7 +463,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getMiddleName(): string
+    public function getMiddleName()
     {
         return $this->middleName;
     }
@@ -525,7 +473,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $lastName
      */
-    public function setLastName(string $lastName): void
+    public function setLastName($lastName)
     {
         $this->lastName = $lastName;
     }
@@ -535,7 +483,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getLastName(): string
+    public function getLastName()
     {
         return $this->lastName;
     }
@@ -545,7 +493,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param \DateTime $birthday
      */
-    public function setBirthday(\DateTime $birthday): void
+    public function setBirthday($birthday)
     {
         $this->birthday = $birthday;
     }
@@ -555,7 +503,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \DateTime
      */
-    public function getBirthday(): \DateTime
+    public function getBirthday()
     {
         return $this->birthday;
     }
@@ -565,7 +513,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $title
      */
-    public function setTitle(string $title): void
+    public function setTitle($title)
     {
         $this->title = $title;
     }
@@ -575,7 +523,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
@@ -585,7 +533,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $address
      */
-    public function setAddress(string $address): void
+    public function setAddress($address)
     {
         $this->address = $address;
     }
@@ -595,7 +543,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getAddress(): string
+    public function getAddress()
     {
         return $this->address;
     }
@@ -605,7 +553,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $latitude
      */
-    public function setLatitude(string $latitude): void
+    public function setLatitude($latitude)
     {
         $this->latitude = $latitude;
     }
@@ -615,7 +563,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getLatitude(): string
+    public function getLatitude()
     {
         return $this->latitude;
     }
@@ -625,7 +573,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $longitude
      */
-    public function setLongitude(string $longitude): void
+    public function setLongitude($longitude)
     {
         $this->longitude = $longitude;
     }
@@ -635,7 +583,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getLongitude(): string
+    public function getLongitude()
     {
         return $this->longitude;
     }
@@ -645,7 +593,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $building
      */
-    public function setBuilding(string $building): void
+    public function setBuilding($building)
     {
         $this->building = $building;
     }
@@ -655,7 +603,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getBuilding(): string
+    public function getBuilding()
     {
         return $this->building;
     }
@@ -665,7 +613,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $room
      */
-    public function setRoom(string $room): void
+    public function setRoom($room)
     {
         $this->room = $room;
     }
@@ -675,7 +623,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getRoom(): string
+    public function getRoom()
     {
         return $this->room;
     }
@@ -685,7 +633,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $phone
      */
-    public function setPhone(string $phone): void
+    public function setPhone($phone)
     {
         $this->phone = $phone;
     }
@@ -695,19 +643,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getPhone(): string
+    public function getPhone()
     {
         return $this->phone;
-    }
-
-    /**
-     * returns a cleaned version of the phone
-     *
-     * @return string
-     */
-    public function getCleanedPhone(): string
-    {
-        return $this->getCleanedNumber($this->phone);
     }
 
     /**
@@ -715,7 +653,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $fax
      */
-    public function setFax(string $fax): void
+    public function setFax($fax)
     {
         $this->fax = $fax;
     }
@@ -725,19 +663,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getFax(): string
+    public function getFax()
     {
         return $this->fax;
-    }
-
-    /**
-     * returns a cleaned version of the fax
-     *
-     * @return string
-     */
-    public function getCleanedFax(): string
-    {
-        return $this->getCleanedNumber($this->fax);
     }
 
     /**
@@ -745,7 +673,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $mobile
      */
-    public function setMobile(string $mobile): void
+    public function setMobile($mobile)
     {
         $this->mobile = $mobile;
     }
@@ -755,19 +683,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getMobile(): string
+    public function getMobile()
     {
         return $this->mobile;
-    }
-
-    /**
-     * returns a cleaned version of the mobile
-     *
-     * @return string
-     */
-    public function getCleanedMobile(): string
-    {
-        return $this->getCleanedNumber($this->mobile);
     }
 
     /**
@@ -775,7 +693,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $www
      */
-    public function setWww(string $www): void
+    public function setWww($www)
     {
         $this->www = $www;
     }
@@ -785,39 +703,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getWww(): string
+    public function getWww()
     {
         return $this->www;
-    }
-
-    public function getWwwSimplified()
-    {
-        $www = trim($this->www);
-        if (!$www) {
-            return '';
-        }
-        $parts = str_replace(['\\\\', '\\"'], ['\\', '"'], str_getcsv($www, ' '));
-        return $parts[0];
-    }
-
-    /**
-     * sets the slug attribute
-     *
-     * @param string $slug
-     */
-    public function setSlug(string $slug): void
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * returns the slug attribute
-     *
-     * @return string
-     */
-    public function getSlug(): string
-    {
-        return $this->slug;
     }
 
     /**
@@ -825,7 +713,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $skype
      */
-    public function setSkype(string $skype): void
+    public function setSkype($skype)
     {
         $this->skype = $skype;
     }
@@ -835,7 +723,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getSkype(): string
+    public function getSkype()
     {
         return $this->skype;
     }
@@ -845,9 +733,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $twitter
      */
-    public function setTwitter(string $twitter): void
+    public function setTwitter($twitter)
     {
-        if ($twitter[0] !== '@') {
+        if (substr($twitter, 0, 1) !== '@') {
             throw new \InvalidArgumentException('twitter name must start with @', 1357530444);
         }
 
@@ -859,7 +747,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getTwitter(): string
+    public function getTwitter()
     {
         return $this->twitter;
     }
@@ -869,9 +757,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $facebook
      */
-    public function setFacebook(string $facebook): void
+    public function setFacebook($facebook)
     {
-        if ($facebook[0] !== '/') {
+        if (substr($facebook, 0, 1) !== '/') {
             throw new \InvalidArgumentException('Facebook name must start with /', 1357530471);
         }
 
@@ -883,81 +771,19 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getFacebook(): string
+    public function getFacebook()
     {
         return $this->facebook;
     }
 
     /**
-     * sets the instagram attribute
-     *
-     * @param string $instagram
-     */
-    public function setinstagram(string $instagram): void
-    {
-
-        $this->instagram = $instagram;
-    }
-
-    /**
-     * returns the instagram attribute
-     *
-     * @return string
-     */
-    public function getinstagram(): string
-    {
-        return $this->instagram;
-    }
-
-    /**
-     * sets the Whatsapp attribute
-     *
-     * @param string $whatsaoo
-     */
-    public function setWhatsapp(string $whatsaoo): void
-    {
-
-        $this->whatsapp = $whatsaoo;
-    }
-
-    /**
-     * returns the Whatsapp attribute
-     *
-     * @return string
-     */
-    public function getWhatsapp(): string
-    {
-        return $this->whatsapp;
-    }
-
-    /**
-     * sets the Signal attribute
-     *
-     * @param string $signal
-     */
-    public function setSignal(string $signal): void
-    {
-
-        $this->signal = $signal;
-    }
-
-    /**
-     * returns the Signal attribute
-     *
-     * @return string
-     */
-    public function getSignal(): string
-    {
-        return $this->signal;
-    }
-    /**
      * sets the LinkedIn attribute
      *
-     * @param string $linkedin
+     * @param string $linkedIn
      */
-    public function setLinkedin(string $linkedin): void
+    public function setLinkedIn($linkedIn)
     {
-        $this->linkedin = $linkedin;
+        $this->linkedIn = $linkedIn;
     }
 
     /**
@@ -965,9 +791,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getLinkedin(): string
+    public function getLinkedIn()
     {
-        return $this->linkedin;
+        return $this->linkedIn;
     }
 
     /**
@@ -975,7 +801,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $email
      */
-    public function setEmail(string $email): void
+    public function setEmail($email)
     {
         $this->email = $email;
     }
@@ -985,7 +811,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail()
     {
         return $this->email;
     }
@@ -995,7 +821,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $company
      */
-    public function setCompany(string $company): void
+    public function setCompany($company)
     {
         $this->company = $company;
     }
@@ -1005,7 +831,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getCompany(): string
+    public function getCompany()
     {
         return $this->company;
     }
@@ -1015,7 +841,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $position
      */
-    public function setPosition(string $position): void
+    public function setPosition($position)
     {
         $this->position = $position;
     }
@@ -1025,7 +851,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getPosition(): string
+    public function getPosition()
     {
         return $this->position;
     }
@@ -1035,7 +861,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $city
      */
-    public function setCity(string $city): void
+    public function setCity($city)
     {
         $this->city = $city;
     }
@@ -1045,7 +871,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getCity(): string
+    public function getCity()
     {
         return $this->city;
     }
@@ -1055,7 +881,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $zip
      */
-    public function setZip(string $zip): void
+    public function setZip($zip)
     {
         $this->zip = $zip;
     }
@@ -1065,7 +891,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getZip(): string
+    public function getZip()
     {
         return $this->zip;
     }
@@ -1075,7 +901,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $region
      */
-    public function setRegion(string $region): void
+    public function setRegion($region)
     {
         $this->region = $region;
     }
@@ -1085,7 +911,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getRegion(): string
+    public function getRegion()
     {
         return $this->region;
     }
@@ -1095,7 +921,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $country
      */
-    public function setCountry(string $country): void
+    public function setCountry($country)
     {
         $this->country = $country;
     }
@@ -1105,7 +931,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getCountry(): string
+    public function getCountry()
     {
         return $this->country;
     }
@@ -1113,9 +939,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a FileReference
      *
-     * @param FileReference $image
+     * @param  File $image
      */
-    public function addImage(FileReference $image): void
+    public function addImage( File $image)
     {
         $this->image->attach($image);
     }
@@ -1123,9 +949,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a FileReference
      *
-     * @param FileReference $imageToRemove The FileReference to be removed
+     * @param  File $imageToRemove The FileReference to be removed
      */
-    public function removeImage(FileReference $imageToRemove): void
+    public function removeImage( File $imageToRemove)
     {
         $this->image->detach($imageToRemove);
     }
@@ -1133,36 +959,19 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the images
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @return ObjectStorage< File>
      */
-    public function getImage(): ?ObjectStorage
+    public function getImage()
     {
         return $this->image;
     }
 
     /**
-     * Get first image
-     *
-     * @return FileReference|null
-     */
-    public function getFirstImage(): ?FileReference
-    {
-        $images = $this->getImage();
-        if ($images) {
-            foreach ($images as $image) {
-                return $image;
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Sets the images
      *
-     * @param ObjectStorage<FileReference> $image
+     * @param ObjectStorage< File> $image
      */
-    public function setImage(ObjectStorage $image): void
+    public function setImage( File $image)
     {
         $this->image = $image;
     }
@@ -1172,7 +981,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $description
      */
-    public function setDescription(string $description): void
+    public function setDescription($description)
     {
         $this->description = $description;
     }
@@ -1182,7 +991,7 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
@@ -1190,9 +999,9 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * returns the categories
      *
-     * @return ?ObjectStorage<Category> $categories
+     * @return ObjectStorage<Category> $categories
      */
-    public function getCategories(): ?ObjectStorage
+    public function getCategories()
     {
         return $this->categories;
     }
@@ -1202,43 +1011,8 @@ class BusinessAdress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param ObjectStorage<Category> $categories
      */
-    public function setCategories(ObjectStorage $categories): void
+    public function setCategories(Category $categories)
     {
         $this->categories = $categories;
-    }
-
-    /**
-     * Get cleaned number of a given telephone, fax or mobile number.
-     * It removes all chars which are not possible to enter on your cell phone.
-     *
-     * @param string $number
-     * @return string
-     */
-    protected function getCleanedNumber(string $number): string
-    {
-        $number = trim($number);
-
-        // Remove 0 on +49(0)221, but keep 0 on (0)221
-        if (strpos($number, '(0)') > 0) {
-            $number = str_replace('(0)', '', $number);
-        }
-
-        return preg_replace('/[^0-9#+*]/', '', $number);
-    }
-
-    /**
-     * Get full name including title, first, middle and last name
-     *
-     * @return string
-     */
-    public function getFullName(): string
-    {
-        $list = [
-            $this->getTitle(),
-            $this->getFirstName(),
-            $this->getMiddleName(),
-            $this->getLastName(),
-        ];
-        return implode(' ', array_filter($list));
     }
 }

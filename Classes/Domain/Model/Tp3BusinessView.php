@@ -1,15 +1,12 @@
 <?php
 
 /*
- * This file is part of the package web-tp3/tp3-businessview.
- *
+ * This file is part of the web-tp3/tp3businessview.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
 
 namespace Tp3\Tp3Businessview\Domain\Model;
-
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /***************************************************************
  *
@@ -57,97 +54,98 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * propertiesArray
      *
      */
-    protected string $propertiesArray = '';
+    protected $propertiesArray = '';
     /**
      * createdBy
      *
      * @var string
      */
-    protected string $createdBy = '';
+    protected $createdBy = '';
 
     /**
      * name
      *
      * @var string
      */
-    protected string $name = '';
+    protected $name = '';
 
     /**
      * externalLinks
      *
      * @var string
      */
-    protected string $externalLinks = '';
+    protected $externalLinks = '';
 
     /**
      * gallery
      *
      * @var string
      */
-    protected string $gallery = '';
+    protected $gallery = '';
 
     /**
      * intro
      *
      * @var string
      */
-    protected string $intro = '';
+    protected $intro = '';
 
     /**
      * panoAnimation
      *
      * @var string
      */
-    protected ?string $panoAnimation = null;
+    protected $panoAnimation = null;
 
     /**
      * socialGallery
      *
      * @var bool
      */
-    protected string|bool $socialGallery = '';
+    protected $socialGallery = '';
 
     /**
      * panoOptions
      *
      * @var string
      */
-    protected ?string $panoOptions = null;
+    protected $panoOptions = null;
 
     /**
      * contact
      *
      * @var \Tp3\Tp3Businessview\Domain\Model\BusinessAdress
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected ?BusinessAdress $contact = null;
+    protected $contact = null;
 
     /**
      * panoramas
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Panoramas>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @var \Tp3\Tp3Businessview\Domain\Model\Panoramas
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected ?ObjectStorage $panoramas = null;
+    protected $panoramas = null;
 
     /**
      * sorting
      *
      * @var string $sorting
      */
-    protected string $sorting;
+    protected $sorting;
     /**
      * description
      *
      * @var string $description
      */
-    protected string $description;
+    protected $description;
     /**
      * Setter for sorting
      *
      * @param string $sorting
      * @return void
      */
-    public function setSorting(string $sorting): void
+    public function setSorting($sorting)
     {
         $this->sorting = $sorting;
     }
@@ -157,7 +155,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string sorting
      */
-    public function getSorting(): string
+    public function getSorting()
     {
         return $this->sorting;
     }
@@ -168,7 +166,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $description
      * @return void
      */
-    public function setDescription(string $description): void
+    public function setDescription($description)
     {
         $this->description = $description;
     }
@@ -178,7 +176,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string description
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
@@ -187,7 +185,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $createdBy
      */
-    public function getCreatedBy(): string
+    public function getCreatedBy()
     {
         return $this->createdBy;
     }
@@ -198,7 +196,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $createdBy
      * @return void
      */
-    public function setCreatedBy(string $createdBy): void
+    public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
     }
@@ -208,7 +206,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $name
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -219,7 +217,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $name
      * @return void
      */
-    public function setName(string $name): void
+    public function setName($name)
     {
         $this->name = $name;
     }
@@ -229,7 +227,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $externalLinks
      */
-    public function getExternalLinks(): string
+    public function getExternalLinks()
     {
         return $this->externalLinks;
     }
@@ -240,7 +238,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $externalLinks
      * @return void
      */
-    public function setExternalLinks(string $externalLinks): void
+    public function setExternalLinks($externalLinks)
     {
         $this->externalLinks = $externalLinks;
     }
@@ -250,7 +248,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $gallery
      */
-    public function getGallery(): string
+    public function getGallery()
     {
         return $this->gallery;
     }
@@ -261,7 +259,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $gallery
      * @return void
      */
-    public function setGallery(string $gallery): void
+    public function setGallery($gallery)
     {
         $this->gallery = $gallery;
     }
@@ -271,7 +269,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $intro
      */
-    public function getIntro(): string
+    public function getIntro()
     {
         return $this->intro;
     }
@@ -282,7 +280,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $intro
      * @return void
      */
-    public function setIntro(string $intro): void
+    public function setIntro($intro)
     {
         $this->intro = $intro;
     }
@@ -292,7 +290,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $panoAnimation
      */
-    public function getPanoAnimation(): ?string
+    public function getPanoAnimation()
     {
         return $this->panoAnimation;
     }
@@ -303,7 +301,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $panoAnimation
      * @return void
      */
-    public function setPanoAnimation(string $panoAnimation): void
+    public function setPanoAnimation($panoAnimation)
     {
         $this->panoAnimation = $panoAnimation;
     }
@@ -313,7 +311,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $socialGallery
      */
-    public function getSocialGallery(): bool|string
+    public function getSocialGallery()
     {
         return $this->socialGallery;
     }
@@ -324,7 +322,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $socialGallery
      * @return void
      */
-    public function setSocialGallery(string $socialGallery): void
+    public function setSocialGallery($socialGallery)
     {
         $this->socialGallery = $socialGallery;
     }
@@ -334,7 +332,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $panoOptions
      */
-    public function getPanoOptions(): ?string
+    public function getPanoOptions()
     {
         return $this->panoOptions;
     }
@@ -345,7 +343,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $panoOptions
      * @return void
      */
-    public function setPanoOptions(string $panoOptions): void
+    public function setPanoOptions($panoOptions)
     {
         $this->panoOptions = $panoOptions;
     }
@@ -353,9 +351,9 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the panoramas
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\DiTime\Domain\Model\TimeTable>
+     * \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas
      */
-    public function getPanoramas(): ?ObjectStorage
+    public function getPanoramas()
     {
         if ($this->panoramas instanceof \Tp3\Tp3Businessview\Domain\Model\Panoramas) {
             return [$this->panoramas];
@@ -367,10 +365,10 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the panoramas
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Panoramae> $panoramas
      * @return void
+     *
      */
-    public function setPanoramas($panoramas): void
+    public function setPanoramas($panoramas)
     {
         if ($panoramas instanceof \Tp3\Tp3Businessview\Domain\Model\Panoramas) {
             $this->panoramas[] = $panoramas;
@@ -382,10 +380,10 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a panoramas
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Tp3\Tp3Businessview\Domain\Model\Panoramas> $panoramas The BusinessAdress to be removed
+     * @param \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas The BusinessAdress to be removed
      * @return void
      */
-    public function removePanoramas(\Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas): void
+    public function removePanoramas(\Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas)
     {
         $this->panoramas->detach($panoramas);
     }
@@ -395,7 +393,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas
      * @return void
      */
-    public function addPanoramas(\Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas): void
+    public function addPanoramas(\Tp3\Tp3Businessview\Domain\Model\Panoramas $panoramas)
     {
         $this->panoramas->attach($panoramas);
     }
@@ -417,9 +415,32 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return void
      */
-    protected function initStorageObjects(): void
+    protected function initStorageObjects()
     {
-        $this->panoramas =  $this->panoramas ??  new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->contact = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->panoramas = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
+    /**
+     * Adds a BusinessAdress
+     *
+     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact
+     * @return void
+     */
+    public function addContact(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact)
+    {
+        $this->contact->attach($contact);
+    }
+
+    /**
+     * Removes a BusinessAdress
+     *
+     * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contactToRemove The BusinessAdress to be removed
+     * @return void
+     */
+    public function removeContact(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contactToRemove)
+    {
+        $this->contact->detach($contactToRemove);
     }
 
     /**
@@ -427,7 +448,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact
      */
-    public function getContact(): ?BusinessAdress
+    public function getContact()
     {
         return $this->contact;
     }
@@ -438,7 +459,7 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact
      * @return void
      */
-    public function setContact(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact): void
+    public function setContact(\Tp3\Tp3Businessview\Domain\Model\BusinessAdress $contact)
     {
         $this->contact = $contact;
     }
@@ -446,11 +467,11 @@ class Tp3BusinessView extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return array
      */
-    public function getPropertiesArray(): array
+    public function getPropertiesArray()
     {
         $panoOptions =    ['addressControl' => false,
             'disableDefaultUI' => false,
-            'panControl' => true,
+            'panControl' => false,
             'scaleControl' => false,
             'scrollwheel' => false,
             'zoomControl' => false,
