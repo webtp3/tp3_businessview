@@ -426,6 +426,7 @@ div#businessview-canvas div#businessview-contact-canvas {
     position: absolute;
     left: 15px;
     z-index: 3;
+	text-align: var(--tp3-businessview-align);
 }
 
 div#businessview-canvas div#businessview-contact-canvas.left {

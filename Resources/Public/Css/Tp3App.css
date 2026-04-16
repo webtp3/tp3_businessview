@@ -154,6 +154,7 @@ div#businessview-canvas div#businessview-contact-canvas {
     padding: 10px;
     position: absolute;
     z-index: 4;
+	text-align: var(--tp3-businessview-align);
 }
 div#businessview-canvas div#businessview-contact-canvas .fa {
 	padding-right: 5px;
