@@ -13,7 +13,7 @@
 ### Using Composer
 
 The recommended way to install the extension is by using (Composer)
-[1]. In your Composer based TYPO3 project root, just do `composer require web-tp3/tp3businessview`. 
+[1]. In your Composer based TYPO3 project root, just do `composer require web-tp3/tp3_businessview`. 
 [2]. Create a businessview record.
 [3]. Use the PanoDesigner to find your location or add an tt_address record with cid
 [4]. Use the PanoDesigner to design your Tp3BusinessView tour
@@ -33,11 +33,13 @@ Download and install the extension with the extension manager module.
 
 ### Versions and support
 
-| tp3businessview           | TYPO3      | PHP       | Support/Development                          |
-| --------------------------| ---------- | ----------|--------------------------------------------- |
-| 2.x                       | 9.5        | 7.2 - 7.3 | Bugfixes, Security Updates, Feature Updates, |
-|                           |            |           | POI Integration, VR Support                  |
-| 1.x                       | 8.7        | 7.0 - 7.2 | Bugfixes, Security Updates                   |
+| tp3businessview | TYPO3     | PHP       | Support/Development                              |
+|-----------------|-----------|-----------|--------------------------------------------------|
+| 3.x             | 13 - 14   | 8.2 - 8.4 | SM Loader Ajax Backend & Solid Tour & Animations | 
+| 2.x             | 9.5  - 10 | 7.2 - 7.3 | Bugfixes, Security Updates, Feature Updates,     |
+|                 |           |           | POI Integration, VR Support                      |
+| 1.x             | 8.7       | 7.0 - 7.2 | Bugfixes, Security Updates                       |
+|-----------------|-----------|-----------|--------------------------------------------------|
 
 ### Contribution
 
