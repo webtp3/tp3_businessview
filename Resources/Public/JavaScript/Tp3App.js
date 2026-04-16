@@ -634,50 +634,66 @@ const Tp3App = {
 			return;
 		}
 
-		panoCanvas.innerHTML = '';
-
-		const pano = new google.maps.StreetViewPanorama(panoCanvas, {
+		const panoramaOptions = {
 			position: data.location.latLng,
 			pano: data.location.pano,
 			pov: this.pov,
 			zoom: this.pov.zoom,
 			visible: true,
-		});
+			motionTracking: true,
+			motionTrackingControl: true,
+		};
+		const pano = this.panorama || new google.maps.StreetViewPanorama(panoCanvas, panoramaOptions);
 
-		pano.addListener('position_changed', () => {
-			const positionCell = document.getElementById('position-cell');
-			if (positionCell) {
-				positionCell.value = pano.getPosition() + '';
-			}
-
-			this.BusinessAdress = pano.getPosition();
-			this.updateDraft({
-				position: pano.getPosition() + '',
+		if (this.panorama) {
+			pano.setOptions({
+				pov: this.pov,
+				zoom: this.pov.zoom,
+				visible: true,
+				motionTracking: true,
+				motionTrackingControl: true,
 			});
-		});
+			pano.setPosition(data.location.latLng);
+			pano.setPano(data.location.pano);
+		}
 
-		pano.addListener('pov_changed', () => {
-			const headingCell = document.getElementById('heading-cell');
-			const pitchCell = document.getElementById('pitch-cell');
-			const zoomCell = document.getElementById('zoom-cell');
+		if (!this._panoramaPanelEventsBound) {
+			pano.addListener('position_changed', () => {
+				const positionCell = document.getElementById('position-cell');
+				if (positionCell) {
+					positionCell.value = pano.getPosition() + '';
+				}
 
-			const pov = pano.getPov();
-
-			this.pov = {
-				heading: pov.heading,
-				pitch: pov.pitch,
-				zoom: pano.getZoom(),
-			};
-			this.updateDraft({
-				heading: pov.heading,
-				pitch: pov.pitch,
-				zoom: pano.getZoom(),
+				this.BusinessAdress = pano.getPosition();
+				this.updateDraft({
+					position: pano.getPosition() + '',
+				});
 			});
 
-			if (headingCell) headingCell.value = pov.heading;
-			if (pitchCell) pitchCell.value = pov.pitch;
-			if (zoomCell) zoomCell.value = pano.getZoom();
-		});
+			pano.addListener('pov_changed', () => {
+				const headingCell = document.getElementById('heading-cell');
+				const pitchCell = document.getElementById('pitch-cell');
+				const zoomCell = document.getElementById('zoom-cell');
+
+				const pov = pano.getPov();
+
+				this.pov = {
+					heading: pov.heading,
+					pitch: pov.pitch,
+					zoom: pano.getZoom(),
+				};
+				this.updateDraft({
+					heading: pov.heading,
+					pitch: pov.pitch,
+					zoom: pano.getZoom(),
+				});
+
+				if (headingCell) headingCell.value = pov.heading;
+				if (pitchCell) pitchCell.value = pov.pitch;
+				if (zoomCell) zoomCell.value = pano.getZoom();
+			});
+			this._panoramaPanelEventsBound = true;
+		}
 
 		const panoCell = document.getElementById('pano-cell');
 		if (panoCell) {
@@ -702,6 +718,10 @@ const Tp3App = {
 		if (zoomCell) zoomCell.value = pano.getZoom();
 
 		this.panorama = pano;
+		if (!this._panoramaEventsBound) {
+			this.bindPanoramaEvents();
+			this._panoramaEventsBound = true;
+		}
 		this.editorState.isDirty = false;
 	},
 
