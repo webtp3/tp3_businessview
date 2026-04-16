@@ -16,14 +16,14 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['tp3businessv
     'tp3_businessview',
     'Tp3BusinessView',
     'Tp3 BusinessView',
-    'EXT:tp3_businessview/Resources/Public/Icons/user_plugin_tp3businessview.svg'
+    'EXT:tp3_businessview/Resources/Public/Icons/user_mod_tp3businessview.svg'
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
     'tp3_businessview',
     'JsonResponseHandler',
     'Tp3 JsonResponseHandler',
-    'EXT:tp3_businessview/Resources/Public/Icons/user_plugin_tp3businessview.svg'
+    'EXT:tp3_businessview/Resources/Public/Icons/user_mod_tp3businessview.svg'
 );
 
 // Add the flexforms to the TCA

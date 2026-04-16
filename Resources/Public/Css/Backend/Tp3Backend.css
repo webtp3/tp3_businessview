@@ -11,18 +11,23 @@
     height: 100%;
     width: 30%;
     float: left;
-    min-height: 300px;
+    min-height: 600px;
+
 }
 body > .tp3businessview {
 	padding: 0 5px;
 }
 #tp3-businessview-app > pre{
-    display:none;
-    position: absolute;
+	display:none;
+	position: absolute;
 }
 #tp3-businessview-app:hover > pre{
-    display:block;
-
+	display:block;
+	background: beige;
+}
+div#tp3-businessview-app {
+	height: 30px;
+	background: beige;
 }
 .tp3businessview-controls {
 
@@ -45,7 +50,7 @@ body > .tp3businessview {
 .tp3-direction-controls {
 	position: absolute;
 	right: 16px;
-	top: 16px;
+	top: 60px;
 	z-index: 20;
 	display: flex;
 	flex-direction: column;
@@ -164,7 +169,7 @@ div.bwentry {
     width: 50%;
     height: 100%;
     float: left;
-    min-height: 300px;
+    min-height: 600px;
 
 }
 
@@ -191,7 +196,7 @@ div.bwentry {
     width: 100%;
     height: 100%;
     float: left;
-    min-height: 300px;
+    min-height: 600px;
 
 }
 
@@ -413,14 +418,14 @@ div#businessview-canvas ul#businessview-action-canvas li.large i {
 }
 
 div#businessview-canvas div#businessview-contact-canvas {
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--bs-primary);
     bottom: 15px;
-    color: #FFF;
+    color: var(--bs-body-color);
     max-width: 280px;
     padding: 10px;
     position: absolute;
-    right: 15px;
-    /*z-index: 3;*/
+    left: 15px;
+    z-index: 3;
 }
 
 div#businessview-canvas div#businessview-contact-canvas.left {
@@ -607,7 +612,8 @@ div#businessview-canvas div#businessview-intro-canvas {
     max-width: 400px;
     padding: 10px;
     position: absolute;
-    top: 60px;
+    top: 50%;
+	z-index: 10;
 }
 
 @media (max-width: 767px) {

@@ -451,7 +451,18 @@ class JsonResponseHandler extends ActionController
                 try {
                     $value = $object->$method();
                     if (is_object($value)) {
-                        if (method_exists($value, 'getUid')) {
+                        if ($value instanceof \Tp3\Tp3Businessview\Domain\Model\BusinessAdress) {
+                            $data[$propertyName] = [
+                                'uid' => $value->getUid(),
+                                'name' => $value->getName(),
+                                'address' => $value->getAddress(),
+                                'zip' => $value->getZip(),
+                                'city' => $value->getCity(),
+                                'phone' => $value->getPhone(),
+                                'mobile' => $value->getMobile(),
+                                'email' => $value->getEmail(),
+                            ];
+                        } elseif (method_exists($value, 'getUid')) {
                             $data[$propertyName] = [
                                 'uid' => $value->getUid(),
                             ];

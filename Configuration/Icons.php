@@ -8,7 +8,7 @@
  */
 
 return [
-    'ext-tp3_businessview-wizard-icon' => [
+    'plugins_tp3businessview_tp3businessview' => [
         'provider' => \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
         'source' => 'EXT:tp3_businessview/Resources/Public/Icons/user_plugin_tp3businessview.svg',
     ],
