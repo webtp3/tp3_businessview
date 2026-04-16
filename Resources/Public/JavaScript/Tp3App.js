@@ -5,30 +5,43 @@ import { initGallery } from './Gallery.js';
 
 const Tp3App = {
 	async init() {
+		if (this._isInitializing) {
+			return this;
+		}
+		if (this._isInitialized) {
+			return this;
+		}
+
 		const googleMapsPlaceholder = document.querySelector('#tp3-businessview-app');
 		if (!googleMapsPlaceholder) {
 			return;
 		}
 
-		const apiKey = googleMapsPlaceholder.dataset.apiKey;
-		await loadGoogleMaps(apiKey);
+		this._isInitializing = true;
+		try {
+			const apiKey = googleMapsPlaceholder.dataset.apiKey;
+			await loadGoogleMaps(apiKey);
 
-		this.ensureJqueryHelpers();
+			this.ensureJqueryHelpers();
 
-		initBusinessViewRenderer({
-			$,
-			Tp3App: this,
-			window,
-			document,
-		});
+			initBusinessViewRenderer({
+				$,
+				Tp3App: this,
+				window,
+				document,
+			});
 
-		initGallery({
-			$,
-			window,
-			document,
-		});
+			initGallery({
+				$,
+				window,
+				document,
+			});
 
-		this.initAfterGoogleMapsLoaded();
+			this.initAfterGoogleMapsLoaded();
+			this._isInitialized = true;
+		} finally {
+			this._isInitializing = false;
+		}
 
 		return this;
 	},
@@ -172,15 +185,27 @@ const Tp3App = {
 	renderEditorState() {
 		const draft = this.editorState.draft || {};
 		const uidField = document.querySelector('input[name="panoramas[uid]"]');
+		const uidFieldModule = document.querySelector('input[name="tx_tp3businessview_module[panorama][uid]"]');
+		const pidField = document.querySelector('input[name="panoramas[pid]"]');
+		const pidFieldModule = document.querySelector('input[name="tx_tp3businessview_module[panorama][pid]"]');
+		const linkedBusinessViewField = document.querySelector('input[name="tx_tp3businessview_module[panorama][tp3businessviews]"]');
 		const headingCell = document.getElementById('heading-cell');
 		const pitchCell = document.getElementById('pitch-cell');
 		const zoomCell = document.getElementById('zoom-cell');
 		const positionCell = document.getElementById('position-cell');
 		const panoCell = document.getElementById('pano-cell');
 
+		const selectedPanoramaUid = this.editorState.selectedPanoramaUid ? String(this.editorState.selectedPanoramaUid) : '';
+		const selectedPanoramaPid = this.editorState.selectedPanoramaPid ? String(this.editorState.selectedPanoramaPid) : '';
+		const selectedBusinessViewUid = this.editorState.selectedBusinessViewUid ? String(this.editorState.selectedBusinessViewUid) : '';
+
 		if (uidField) {
-			uidField.value = this.editorState.selectedPanoramaUid ? String(this.editorState.selectedPanoramaUid) : '';
+			uidField.value = selectedPanoramaUid;
 		}
+		if (uidFieldModule) uidFieldModule.value = selectedPanoramaUid;
+		if (pidField) pidField.value = selectedPanoramaPid;
+		if (pidFieldModule) pidFieldModule.value = selectedPanoramaPid;
+		if (linkedBusinessViewField) linkedBusinessViewField.value = selectedBusinessViewUid;
 		if (headingCell) headingCell.value = draft.heading ?? '';
 		if (pitchCell) pitchCell.value = draft.pitch ?? '';
 		if (zoomCell) zoomCell.value = draft.zoom ?? '';
@@ -205,7 +230,11 @@ const Tp3App = {
 		const submitEditform = document.querySelector('#submitEditform');
 		const submitNewform = document.querySelector('#submitNewform');
 		const discardChanges = document.querySelector('#discardChanges');
+		const controlsToggleButton = document.getElementById('btn-controls');
+		const controlsPanel = document.querySelector('.tp3businessview-controls.tp3-panel');
 		const businessViewSelect = form ? form.querySelector('select[name="tp3businessview[uid]"]') : null;
+		const appRoot = document.querySelector('#tp3-businessview-app');
+		const defaultPid = appRoot ? (parseInt(appRoot.dataset.pid || '0', 10) || 0) : 0;
 
 		if (!form) {
 			return;
@@ -224,30 +253,347 @@ const Tp3App = {
 			return parseInt(businessViewSelect.value, 10) || 0;
 		};
 
-		const setSelectedPanoramaUid = (uid) => {
+		const setSelectedPanoramaUid = (uid, pid = defaultPid) => {
 			this.editorState.selectedPanoramaUid = parseInt(uid, 10) || 0;
+			this.editorState.selectedPanoramaPid = parseInt(pid, 10) || 0;
 			this.renderEditorState();
+		};
+
+		const setSelectedBusinessViewUid = (uid) => {
+			this.editorState.selectedBusinessViewUid = parseInt(uid, 10) || 0;
+			if (businessViewSelect && this.editorState.selectedBusinessViewUid > 0) {
+				businessViewSelect.value = String(this.editorState.selectedBusinessViewUid);
+			}
+			this.renderEditorState();
+		};
+
+		const findBusinessViewPanoramaTbody = (businessViewUid) => {
+			if (!businessViewUid) {
+				return null;
+			}
+
+			const businessViewButton = document.querySelector(`.actions-view.bv[data-bv-uid="${businessViewUid}"]`);
+			const businessViewItem = businessViewButton ? businessViewButton.closest('.accordion-item') : null;
+			if (businessViewItem) {
+				return businessViewItem.querySelector('tbody');
+			}
+
+			const panoButton = document.querySelector(`.actions-view.pano[data-businessview-uid="${businessViewUid}"]`);
+			if (panoButton) {
+				return panoButton.closest('tbody');
+			}
+
+			return null;
+		};
+
+		const shortPanoId = (value) => {
+			const text = String(value || '');
+			if (text.length <= 10) {
+				return text;
+			}
+			return `${text.slice(0, 10)}…`;
+		};
+
+		const getSettingKey = (inputName) => {
+			const match = String(inputName || '').match(/^settings\[([^\]]+)\]$/);
+			return match ? match[1] : '';
+		};
+
+		const collectControlSettings = () => {
+			const settings = {};
+			const fields = document.querySelectorAll('.tp3businessview-controls.tp3-panel [name^="settings["]');
+			fields.forEach((field) => {
+				const key = getSettingKey(field.name);
+				if (!key) {
+					return;
+				}
+
+				if (field.type === 'checkbox') {
+					settings[key] = field.checked ? '1' : '0';
+					return;
+				}
+
+				settings[key] = field.value;
+			});
+			return settings;
+		};
+
+		const appendControlSettingsToFormData = (formData) => {
+			const settings = collectControlSettings();
+			Object.entries(settings).forEach(([key, value]) => {
+				formData.set(`settings[${key}]`, String(value));
+			});
+		};
+
+		const decodeBusinessViewSettings = (descriptionValue) => {
+			const description = String(descriptionValue || '');
+			const match = description.match(/<!--tp3bv-settings:([A-Za-z0-9+/=]+)-->/);
+			if (!match || !match[1]) {
+				return null;
+			}
+
+			try {
+				const json = window.atob(match[1]);
+				const parsed = JSON.parse(json);
+				return parsed && typeof parsed === 'object' ? parsed : null;
+			} catch (error) {
+				console.warn('BusinessView-Settings konnten nicht dekodiert werden.', error);
+				return null;
+			}
+		};
+
+		const applyControlSettings = (settings) => {
+			if (!settings || typeof settings !== 'object') {
+				return;
+			}
+
+			const fields = document.querySelectorAll('.tp3businessview-controls.tp3-panel [name^="settings["]');
+			fields.forEach((field) => {
+				const key = getSettingKey(field.name);
+				if (!key || !Object.prototype.hasOwnProperty.call(settings, key)) {
+					return;
+				}
+
+				if (field.type === 'checkbox') {
+					const rawValue = String(settings[key] ?? '');
+					field.checked = rawValue === '1' || rawValue === 'true';
+					return;
+				}
+
+				field.value = String(settings[key] ?? '');
+			});
+		};
+
+		const syncAnimationOptionsFromControls = () => {
+			const settings = collectControlSettings();
+			if (Object.prototype.hasOwnProperty.call(settings, 'panoJumpTimer')) {
+				this.AnmationOptions.panoJumpTimer = parseFloat(settings.panoJumpTimer) || 0;
+			}
+			if (Object.prototype.hasOwnProperty.call(settings, 'panoRotationTimer')) {
+				this.AnmationOptions.panoRotationTimer = parseFloat(settings.panoRotationTimer) || 0;
+			}
+			if (Object.prototype.hasOwnProperty.call(settings, 'panoRotationFactor')) {
+				this.AnmationOptions.panoRotationFactor = parseFloat(settings.panoRotationFactor) || 0;
+			}
+			if (Object.prototype.hasOwnProperty.call(settings, 'panoJumpsRandom')) {
+				this.AnmationOptions.panoJumpsRandom = String(settings.panoJumpsRandom) === '1';
+			}
+		};
+
+		const applyVisualControlsToBusinessView = () => {
+			const settings = collectControlSettings();
+			const container = document.getElementById('businessview-canvas');
+			if (!container) {
+				return;
+			}
+
+			const color = String(settings.color ?? '').trim();
+			const backgroundColor = String(settings.backgroundColor ?? '').trim();
+			const textColor = String(settings.textColor ?? '').trim();
+			const align = String(settings.align ?? '').trim();
+
+			container.style.setProperty('--tp3-businessview-color', color);
+			container.style.setProperty('--tp3-businessview-background-color', backgroundColor);
+			container.style.setProperty('--tp3-businessview-text-color', textColor);
+			container.style.setProperty('--tp3-businessview-align', align);
+
+			['#businessview-contact-canvas', '#businessview-externalLinks-canvas'].forEach((selector) => {
+				const node = container.querySelector(selector);
+				if (!node) {
+					return;
+				}
+				if (color) node.style.color = color;
+				if (backgroundColor) node.style.backgroundColor = backgroundColor;
+				if (textColor) node.style.setProperty('--tp3-text-color', textColor);
+				if (align) node.style.textAlign = align;
+			});
+		};
+
+		const clearTourTimers = () => {
+			if (this._panoRotationIntervalId) {
+				window.clearInterval(this._panoRotationIntervalId);
+				this._panoRotationIntervalId = null;
+			}
+			if (this._panoJumpIntervalId) {
+				window.clearInterval(this._panoJumpIntervalId);
+				this._panoJumpIntervalId = null;
+			}
+		};
+
+		const getCurrentBusinessViewPanoButtons = () => {
+			const businessViewUid = this.editorState.selectedBusinessViewUid;
+			if (!businessViewUid) {
+				return [];
+			}
+			return Array.from(document.querySelectorAll(`.actions-view.pano[data-businessview-uid="${businessViewUid}"][data-bv-uid]`));
+		};
+
+			const startTourTimers = () => {
+				clearTourTimers();
+
+				const rotationFactor = Number(this.AnmationOptions.panoRotationFactor) || 0;
+				const rotationTimer = Math.max(1, Number(this.AnmationOptions.panoRotationTimer) || 0);
+				if (rotationFactor !== 0 && rotationTimer > 0) {
+					let lastHeading = null;
+					this._panoRotationIntervalId = window.setInterval(() => {
+						if (!this.panorama) {
+							return;
+						}
+						const pov = this.panorama.getPov() || { heading: 0, pitch: 0 };
+						if (typeof pov.heading !== 'number') {
+							return;
+						}
+						if (lastHeading === null || pov.heading === lastHeading) {
+							const nextPov = {
+								heading: pov.heading + rotationFactor,
+								pitch: pov.pitch,
+							};
+							this.panorama.setPov(nextPov);
+							lastHeading = nextPov.heading;
+						} else {
+							lastHeading = pov.heading;
+						}
+					}, rotationTimer);
+				}
+
+			const jumpTimer = Math.max(1, Number(this.AnmationOptions.panoJumpTimer) || 0);
+			const panoButtons = getCurrentBusinessViewPanoButtons();
+			if (jumpTimer > 0 && panoButtons.length > 1) {
+				this._panoJumpIntervalId = window.setInterval(() => {
+					const buttons = getCurrentBusinessViewPanoButtons();
+					if (buttons.length < 2) {
+						return;
+					}
+
+					const currentUid = this.editorState.selectedPanoramaUid;
+					const currentIndex = buttons.findIndex((btn) => parseInt(btn.getAttribute('data-bv-uid') || '0', 10) === currentUid);
+
+					let nextIndex = 0;
+					if (this.AnmationOptions.panoJumpsRandom) {
+						const candidates = buttons.map((_, index) => index).filter((index) => index !== currentIndex);
+						nextIndex = candidates[Math.floor(Math.random() * candidates.length)] ?? 0;
+					} else if (currentIndex >= 0) {
+						nextIndex = (currentIndex + 1) % buttons.length;
+					}
+
+					const nextButton = buttons[nextIndex];
+					if (!nextButton) {
+						return;
+					}
+
+					const nextUid = nextButton.getAttribute('data-bv-uid');
+					const nextBusinessViewUid = parseInt(nextButton.getAttribute('data-businessview-uid') || '0', 10) || 0;
+					if (!nextUid) {
+						return;
+					}
+
+					loadBusinessView(nextUid, 'pano', { businessViewUid: nextBusinessViewUid });
+				}, jumpTimer);
+			}
+		};
+
+		const applyControlsRuntimeEffects = () => {
+			syncAnimationOptionsFromControls();
+			applyVisualControlsToBusinessView();
+			startTourTimers();
+		};
+
+		const upsertPanoramaRow = ({ uid, pid, businessViewUid, heading, pitch, zoom, position, panoId }) => {
+			const targetTbody = findBusinessViewPanoramaTbody(businessViewUid);
+			if (!targetTbody) {
+				return false;
+			}
+
+			const rowId = `pano_${uid}_${pid}`;
+			let row = targetTbody.querySelector(`#${rowId}`);
+			if (!row) {
+				const lastRow = targetTbody.querySelector('tr.entry:last-of-type');
+				if (!lastRow) {
+					return false;
+				}
+				row = lastRow.cloneNode(true);
+				targetTbody.appendChild(row);
+			}
+
+			row.id = rowId;
+			row.classList.add('entry');
+
+			const panoActionButton = row.querySelector('.actions-view.pano');
+			if (panoActionButton) {
+				panoActionButton.setAttribute('data-bv-uid', String(uid));
+				panoActionButton.setAttribute('data-businessview-uid', String(businessViewUid));
+				panoActionButton.setAttribute('data-pano-uid', String(uid));
+				panoActionButton.setAttribute('data-pano-heading', String(heading));
+				panoActionButton.setAttribute('data-pano-pitch', String(pitch));
+				panoActionButton.setAttribute('data-pano-zoom', String(zoom));
+				panoActionButton.setAttribute('data-pano-position', String(position));
+				panoActionButton.setAttribute('data-pano-id', String(panoId));
+			}
+
+			const headingNode = row.querySelector('.heading');
+			const pitchNode = row.querySelector('.pitch');
+			const zoomNode = row.querySelector('.zoom');
+			const positionNode = row.querySelector('.position');
+			if (headingNode) headingNode.textContent = String(heading);
+			if (pitchNode) pitchNode.textContent = String(pitch);
+			if (zoomNode) zoomNode.textContent = String(zoom);
+			if (positionNode) positionNode.textContent = String(position);
+
+			const panoIdInput = row.querySelector('input.pano_id');
+			if (panoIdInput) {
+				panoIdInput.value = String(panoId);
+			}
+
+			const panoCell = row.querySelector('td:nth-child(2)');
+			if (panoCell) {
+				let previewNode = panoCell.querySelector('.pano-id-preview');
+				if (!previewNode) {
+					previewNode = document.createElement('span');
+					previewNode.className = 'pano-id-preview';
+					panoCell.appendChild(previewNode);
+				}
+				previewNode.textContent = shortPanoId(panoId);
+			}
+
+			row.querySelectorAll('.pano-sort').forEach((sortButton) => {
+				sortButton.setAttribute('data-pano-uid', String(uid));
+				sortButton.setAttribute('data-pid', String(pid));
+				sortButton.setAttribute('data-row-id', rowId);
+			});
+
+			return true;
 		};
 
 		const sendForm = async (submitType) => {
 			const formData = new FormData(form);
 			formData.set('submitType', submitType);
+			appendControlSettingsToFormData(formData);
 
 			const businessViewUid = getSelectedBusinessViewUid();
 			if (businessViewUid > 0) {
 				formData.set('tp3businessview[uid]', String(businessViewUid));
 				this.editorState.selectedBusinessViewUid = businessViewUid;
+				formData.set('tx_tp3businessview_module[panorama][tp3businessviews]', String(businessViewUid));
 			} else {
 				formData.delete('tp3businessview[uid]');
+				formData.set('tx_tp3businessview_module[panorama][tp3businessviews]', '');
 			}
 
-			const panoramaUid = this.editorState.selectedPanoramaUid || parseInt(formData.get('panoramas[uid]') || '0', 10);
+			const panoramaUid = this.editorState.selectedPanoramaUid
+				|| parseInt(formData.get('panoramas[uid]') || '0', 10)
+				|| parseInt(formData.get('tx_tp3businessview_module[panorama][uid]') || '0', 10);
 			if (submitType === 'update' && panoramaUid <= 0) {
 				this.updateStatus('Bitte zuerst ein Panorama auswählen.', 'warning');
 				return;
 			}
 			if (panoramaUid > 0) {
 				formData.set('panoramas[uid]', String(panoramaUid));
+				formData.set('tx_tp3businessview_module[panorama][uid]', String(panoramaUid));
+			}
+
+			if (this.editorState.selectedPanoramaPid > 0) {
+				formData.set('panoramas[pid]', String(this.editorState.selectedPanoramaPid));
+				formData.set('tx_tp3businessview_module[panorama][pid]', String(this.editorState.selectedPanoramaPid));
 			}
 
 			const headingValue = formData.get('tx_tp3businessview_module[panorama][heading]');
@@ -286,7 +632,19 @@ const Tp3App = {
 				}
 
 				if (data.uid) {
-					setSelectedPanoramaUid(data.uid);
+					const currentPid = this.editorState.selectedPanoramaPid || defaultPid || 0;
+					setSelectedPanoramaUid(data.uid, currentPid);
+
+					upsertPanoramaRow({
+						uid: parseInt(data.uid, 10) || 0,
+						pid: currentPid,
+						businessViewUid,
+						heading: this.editorState.draft.heading ?? '',
+						pitch: this.editorState.draft.pitch ?? '',
+						zoom: this.editorState.draft.zoom ?? '',
+						position: this.editorState.draft.position ?? '',
+						panoId: this.editorState.draft.panoId ?? '',
+					});
 				}
 
 				this.editorState.isDirty = false;
@@ -300,7 +658,7 @@ const Tp3App = {
 				if (submitNewform) submitNewform.disabled = false;
 			}
 		};
-		const loadBusinessView = async (uid, type) => {
+		const loadBusinessView = async (uid, type, options = {}) => {
 			if (!form) {
 				return;
 			}
@@ -322,6 +680,10 @@ const Tp3App = {
 				const data = await response.json();
 				Tp3App.businessview_initialize(data);
 
+				if (options.businessViewUid > 0) {
+					setSelectedBusinessViewUid(options.businessViewUid);
+				}
+
 				if (type === 'pano' && data && data.businessview && data.businessview[0]) {
 					const record = data.businessview[0];
 					const heading = parseFloat(record.heading ?? '0') || 0;
@@ -336,7 +698,7 @@ const Tp3App = {
 						this.BusinessAdress = parsedPosition;
 					}
 
-					setSelectedPanoramaUid(record.uid || uid);
+					setSelectedPanoramaUid(record.uid || uid, record.pid || 0);
 					this.updateDraft({
 						heading,
 						pitch,
@@ -345,12 +707,27 @@ const Tp3App = {
 						panoId,
 					}, false);
 					this.editorState.isDirty = false;
+					if (options.businessViewUid > 0) {
+						const settingsFromDescription = decodeBusinessViewSettings(record.description || '');
+						if (settingsFromDescription) {
+							applyControlSettings(settingsFromDescription);
+							applyControlsRuntimeEffects();
+						}
+					}
 				} else {
 					setSelectedPanoramaUid(0);
 					this.resetDraftFromCurrentView();
+					if (type === 'bv' && data && data.businessview && data.businessview[0]) {
+						const settingsFromDescription = decodeBusinessViewSettings(data.businessview[0].description || '');
+						if (settingsFromDescription) {
+							applyControlSettings(settingsFromDescription);
+							applyControlsRuntimeEffects();
+						}
+					}
 				}
 
 				Tp3App.initPano(data);
+				startTourTimers();
 				this.updateStatus(type === 'pano' ? 'Panorama geladen.' : 'BusinessView geladen.', 'secondary');
 			} catch (error) {
 				this.updateStatus(`Laden fehlgeschlagen: ${error.message}`, 'danger');
@@ -430,11 +807,50 @@ const Tp3App = {
 					}
 
 					this.editorState.selectedBusinessViewUid = getSelectedBusinessViewUid();
-					this.editorState.selectedPanoramaUid = 0;
-					this.resetDraftFromCurrentView();
-					this.updateStatus('BusinessView gewechselt.', 'secondary');
+						this.editorState.selectedPanoramaUid = 0;
+						this.editorState.selectedPanoramaPid = defaultPid;
+						this.resetDraftFromCurrentView();
+						this.updateStatus('BusinessView gewechselt.', 'secondary');
+						startTourTimers();
+					});
+				}
+
+			if (controlsPanel) {
+				controlsPanel.hidden = true;
+			}
+			if (controlsToggleButton && controlsPanel) {
+				controlsToggleButton.setAttribute('aria-expanded', 'false');
+				controlsToggleButton.addEventListener('click', () => {
+					controlsPanel.hidden = !controlsPanel.hidden;
+					controlsToggleButton.setAttribute('aria-expanded', controlsPanel.hidden ? 'false' : 'true');
 				});
 			}
+
+			const rotationFactorMinus = document.getElementById('btn-panoRotationFactor-minus');
+			const rotationFactorPlus = document.getElementById('btn-panoRotationFactor-plus');
+			const rotationFactorInput = document.querySelector('input[name="settings[panoRotationFactor]"]');
+			if (rotationFactorMinus && rotationFactorInput) {
+				rotationFactorMinus.addEventListener('click', () => {
+						const current = parseFloat(rotationFactorInput.value || '0') || 0;
+						const next = current + (current * -0.9);
+						rotationFactorInput.value = String(next);
+						applyControlsRuntimeEffects();
+					});
+				}
+				if (rotationFactorPlus && rotationFactorInput) {
+					rotationFactorPlus.addEventListener('click', () => {
+						const current = parseFloat(rotationFactorInput.value || '0') || 0;
+						const next = current + (current * 0.9);
+						rotationFactorInput.value = String(next);
+						applyControlsRuntimeEffects();
+					});
+				}
+				document.querySelectorAll('.tp3businessview-controls.tp3-panel [name^="settings["]').forEach((field) => {
+					field.addEventListener('change', () => {
+						applyControlsRuntimeEffects();
+					});
+				});
+				applyControlsRuntimeEffects();
 
 			['heading-cell', 'pitch-cell', 'zoom-cell', 'position-cell', 'pano-cell'].forEach((fieldId) => {
 				const field = document.getElementById(fieldId);
@@ -454,16 +870,17 @@ const Tp3App = {
 				});
 			});
 
-			document.addEventListener('click', function (event) {
+			document.addEventListener('click', (event) => {
 				const button = event.target.closest('.actions-view');
 				if (!button) return;
 
-			const type = button.getAttribute('data-view-type');
-			const uid = button.getAttribute('data-bv-uid');
-			if (!uid) return;
+				const type = button.getAttribute('data-view-type');
+				const uid = button.getAttribute('data-bv-uid');
+				if (!uid) return;
 
-			loadBusinessView(uid, type);
-		});
+				const businessViewUid = parseInt(button.getAttribute('data-businessview-uid') || '0', 10) || 0;
+				loadBusinessView(uid, type, { businessViewUid });
+			});
 
 			document.addEventListener('click', function (event) {
 				const button = event.target.closest('.pano-sort');
@@ -474,6 +891,7 @@ const Tp3App = {
 			});
 
 			window.addEventListener('beforeunload', (event) => {
+				clearTourTimers();
 				if (!this.editorState.isDirty) {
 					return;
 				}
@@ -481,6 +899,20 @@ const Tp3App = {
 				event.returnValue = '';
 			});
 
+			const firstPanoButton = document.querySelector('.actions-view.pano[data-bv-uid]');
+			if (firstPanoButton) {
+				const firstUid = firstPanoButton.getAttribute('data-bv-uid');
+				const firstBusinessViewUid = parseInt(firstPanoButton.getAttribute('data-businessview-uid') || '0', 10) || 0;
+				if (firstUid) {
+					loadBusinessView(firstUid, 'pano', { businessViewUid: firstBusinessViewUid });
+					this.updateStatus('Panorama wird geladen …', 'info');
+					return;
+				}
+			}
+
+			if (!this.editorState.selectedPanoramaPid && defaultPid > 0) {
+				this.editorState.selectedPanoramaPid = defaultPid;
+			}
 			this.resetDraftFromCurrentView();
 			this.updateStatus('Editor bereit.', 'secondary');
 		},
@@ -896,35 +1328,27 @@ const Tp3App = {
 		panoJumpsRandom: true,
 	},
 
-		geocoder: null,
-		infowindow: null,
-		editorState: {
-			selectedBusinessViewUid: 0,
-			selectedPanoramaUid: 0,
-			draft: {
-				heading: 270,
-				pitch: 0,
-				zoom: 1,
-				position: '',
-				panoId: '',
-			},
-			isDirty: false,
+	_isInitializing: false,
+	_isInitialized: false,
+	_panoRotationIntervalId: null,
+	_panoJumpIntervalId: null,
+	geocoder: null,
+	infowindow: null,
+	editorState: {
+		selectedBusinessViewUid: 0,
+		selectedPanoramaUid: 0,
+		selectedPanoramaPid: 0,
+		draft: {
+			heading: 270,
+			pitch: 0,
+			zoom: 1,
+			position: '',
+			panoId: '',
 		},
+		isDirty: false,
+	},
 };
 
 window.Tp3App = Tp3App;
 
-function boot() {
-	if (document.querySelector('#businessview-canvas, #map, #businessview-panorama-canvas, #tp3-businessview-app')) {
-		Tp3App.init();
-	}
-}
-
-if (document.readyState === 'loading') {
-	document.addEventListener('DOMContentLoaded', boot);
-} else {
-	boot();
-}
-
 export default Tp3App;
-export { boot };

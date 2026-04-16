@@ -30,18 +30,18 @@ class BusinessAdressRepository extends Repository
         'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
     ];
 
-    public function initializeObject()
+    public function initializeObject(): void
     {
-        //        $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        //        // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
-        //
-        //
-        //            $querySettings->setRespectStoragePage(false);
-        //
-        //        // ;
-        //        // $querySettings->setOrderings($this->defaultOrderings);
-        //        $querySettings->setIgnoreEnableFields(false);
-        //        $this->setDefaultQuerySettings($querySettings);
+        /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
+        $querySettings = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
+
+        $querySettings->setRespectStoragePage(false);
+
+        // ;
+        // $querySettings->setOrderings($this->defaultOrderings);
+        $querySettings->setIgnoreEnableFields(false);
+        $this->setDefaultQuerySettings($querySettings);
     }
     /**
      * @param int $pid

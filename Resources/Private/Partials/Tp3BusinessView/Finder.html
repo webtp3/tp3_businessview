@@ -30,9 +30,11 @@ or search for the place on the map</div>
 			<input type="hidden" name="tx_tp3businessview_module[action]" value="create">
 			<input type="hidden" name="tx_tp3businessview_module[controller]" value="Module">
 
-
-    <input type="hidden" name="panoramas[uid]" class="formvalue" />
-    <input type="hidden" name="panoramas[pid]" class="formvalue" />
+			<input type="hidden" name="tx_tp3businessview_module[panorama][tp3businessviews]" class="formvalue" />
+    <input type="hidden" name="tx_tp3businessview_module[panorama][uid]" class="formvalue" />
+    <input type="hidden" name="tx_tp3businessview_module[panorama][pid]" class="formvalue" />
+			<input type="hidden" name="panoramas[uid]" class="formvalue" />
+			<input type="hidden" name="panoramas[pid]" class="formvalue" />
         <select name="tp3businessview[uid]" class="form-control formvalue">
             <f:for each="{businessviews}" as="businessview">
                 <option value="{businessview.uid}">{businessview.name}</option>

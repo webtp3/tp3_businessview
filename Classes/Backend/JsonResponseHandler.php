@@ -267,14 +267,51 @@ class JsonResponseHandler extends ActionController
 			'panoramaData' => $body['tx_tp3businessview_module']['panorama'] ?? [],
 			'panoramaInput' => $body['panoramas'] ?? [],
 			'businessViewUid' => (int)($body['tp3businessview']['uid'] ?? 0),
+			'settings' => is_array($body['settings'] ?? null) ? $body['settings'] : [],
 		];
+	}
+
+	protected function mergeBusinessViewSettingsIntoDescription(\Tp3\Tp3Businessview\Domain\Model\Tp3BusinessView $businessView, array $settings): void
+	{
+		if ($settings === []) {
+			return;
+		}
+
+		$allowedKeys = [
+			'color',
+			'backgroundColor',
+			'textColor',
+			'align',
+			'panoJumpTimer',
+			'panoJumpsRandom',
+			'panoRotationTimer',
+			'panoRotationFactor',
+		];
+
+		$normalized = [];
+		foreach ($allowedKeys as $key) {
+			if (array_key_exists($key, $settings)) {
+				$normalized[$key] = (string)$settings[$key];
+			}
+		}
+
+		if ($normalized === []) {
+			return;
+		}
+
+		$currentDescription = (string)($businessView->getDescription() ?? '');
+		$baseDescription = preg_replace('/\s*<!--tp3bv-settings:[A-Za-z0-9+\/=]+-->\s*/', '', $currentDescription) ?? '';
+		$settingsPayload = base64_encode((string)json_encode($normalized));
+		$businessView->setDescription(trim($baseDescription) . PHP_EOL . '<!--tp3bv-settings:' . $settingsPayload . '-->');
 	}
 
 	public function createAction(ServerRequestInterface $request): ResponseInterface
 	{
 		$data = $this->buildPanoramaFromRequest($request);
 		$panoramaData = $data['panoramaData'];
+		$panoramaInput = $data['panoramaInput'];
 		$businessViewUid = $data['businessViewUid'];
+		$settings = $data['settings'];
 
 		$panorama = new \Tp3\Tp3Businessview\Domain\Model\Panoramas();
 		$panorama->setHeading((string)($panoramaData['heading'] ?? ''));
@@ -283,16 +320,30 @@ class JsonResponseHandler extends ActionController
 		$panorama->setZoom((string)($panoramaData['zoom'] ?? ''));
 		$panorama->setPanoId((string)($panoramaData['panoId'] ?? ''));
 
+		$pid = (int)($panoramaInput['pid'] ?? 0);
+		if ($pid > 0) {
+			$panorama->_setProperty('pid', $pid);
+		}
+
+		$businessView = null;
 		if ($businessViewUid > 0) {
 			$businessView = $this->tp3BusinessViewRepository->findByUid($businessViewUid)->getFirst();
-			if ($businessView) {
-				$panorama->addTp3Businessviews($businessView);
+			if ($businessView && $pid <= 0) {
+				$panorama->_setProperty('pid', (int)$businessView->_getProperty('pid'));
 			}
 		}
         $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
 
 		$this->panoramasRepository->add($panorama);
 		$this->persistenceManager->persistAll();
+
+		if ($businessView) {
+			// Persist relation from BusinessView side (MM owner side)
+			$businessView->addPanoramas($panorama);
+			$this->mergeBusinessViewSettingsIntoDescription($businessView, $settings);
+			$this->tp3BusinessViewRepository->update($businessView);
+			$this->persistenceManager->persistAll();
+		}
 
 		return new JsonResponse([
 			'success' => true,
@@ -307,6 +358,7 @@ class JsonResponseHandler extends ActionController
 		$panoramaData = $data['panoramaData'];
 		$panoramaInput = $data['panoramaInput'];
 		$businessViewUid = $data['businessViewUid'];
+		$settings = $data['settings'];
 
 		$uid = (int)($panoramaInput['uid'] ?? 0);
 		if ($uid <= 0) {
@@ -316,7 +368,7 @@ class JsonResponseHandler extends ActionController
 			], 400);
 		}
 
-		$existing = $this->panoramasRepository->findByUid($uid);
+		$existing = $this->panoramasRepository->findByUid($uid)->getFirst();
 		if (!$existing) {
 			return new JsonResponse([
 				'success' => false,
@@ -330,15 +382,21 @@ class JsonResponseHandler extends ActionController
 		$existing->setZoom((string)($panoramaData['zoom'] ?? ''));
 		$existing->setPanoId((string)($panoramaData['panoId'] ?? ''));
 
+		$businessView = null;
 		if ($businessViewUid > 0) {
-			$businessView = $this->tp3BusinessViewRepository->findByUid($businessViewUid);
-			if ($businessView) {
-				$existing->setTp3Businessviews($businessView);
-			}
+			$businessView = $this->tp3BusinessViewRepository->findByUid($businessViewUid)->getFirst();
 		}
+        $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
 
 		$this->panoramasRepository->update($existing);
 		$this->persistenceManager->persistAll();
+
+		if ($businessView) {
+			$businessView->addPanoramas($existing);
+			$this->mergeBusinessViewSettingsIntoDescription($businessView, $settings);
+			$this->tp3BusinessViewRepository->update($businessView);
+			$this->persistenceManager->persistAll();
+		}
 
 		return new JsonResponse([
 			'success' => true,

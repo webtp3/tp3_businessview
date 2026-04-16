@@ -109,7 +109,7 @@ div#businessview-canvas div#businessview-panorama-canvas {
 #links_table,
 #infowindow-content {
 
-    display: none;
+    /*display: none;*/
 }
 
 img.icon {
