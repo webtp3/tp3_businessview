@@ -71,26 +71,26 @@ const Tp3App = {
 	initAfterGoogleMapsLoaded() {
 		console.log('Tp3App init');
 
-		if (
-			$('.panolist tr.entry').length > 0 &&
-			$.trim($('.panolist tr.entry').first().find('.position').text()) !== ''
-		) {
-			try {
-				const arr = $.trim($('.panolist tr.entry').first().find('.position').text())
-					.substring(1, $.trim($('.panolist tr.entry').first().find('.position').text()).length - 1)
-					.split(',');
-
-				this.setBusinessAdress(
-					arr[0],
-					arr[1],
-					$.trim($('.panolist tr.entry').first().find('.heading').text()),
-					$.trim($('.panolist tr.entry').first().find('.pitch').text()),
-					$.trim($('.panolist tr.entry').first().find('.zoom').text()),
-				);
-			} catch (e) {
-				console.log(e);
-			}
-		}
+		// if (
+		// 	$('.panolist tr.entry').length > 0 &&
+		// 	$.trim($('.panolist tr.entry').first().find('.position').text()) !== ''
+		// ) {
+		// 	try {
+		// 		const arr = $.trim($('.panolist tr.entry').first().find('.position').text())
+		// 			.substring(1, $.trim($('.panolist tr.entry').first().find('.position').text()).length - 1)
+		// 			.split(',');
+		//
+		// 		this.setBusinessAdress(
+		// 			arr[0],
+		// 			arr[1],
+		// 			$.trim($('.panolist tr.entry').first().find('.heading').text()),
+		// 			$.trim($('.panolist tr.entry').first().find('.pitch').text()),
+		// 			$.trim($('.panolist tr.entry').first().find('.zoom').text()),
+		// 		);
+		// 	} catch (e) {
+		// 		console.log(e);
+		// 	}
+		// }
 
 		this.geocoder = new google.maps.Geocoder();
 		this.infowindow = new google.maps.InfoWindow();
@@ -304,6 +304,9 @@ const Tp3App = {
 		};
 
 		const collectControlSettings = () => {
+			if(window.businessviewJson || window.businessviewJson.settings){
+				return window.businessviewJson.settings;
+			}
 			const settings = {};
 			const fields = document.querySelectorAll('.tp3businessview-controls.tp3-panel [name^="settings["]');
 			fields.forEach((field) => {

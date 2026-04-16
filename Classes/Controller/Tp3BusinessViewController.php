@@ -120,22 +120,35 @@ class Tp3BusinessViewController extends ActionController
 
     public function indexAction(): ResponseInterface
     {
-        $context = GeneralUtility::makeInstance(Context::class);
-        $backendUser = $context->getPropertyFromAspect('backend.user', 'id');
+        $selectedBusinessViewUid = (int)($this->settings['businessview'] ?? 0);
+        $selectedBusinessView = null;
+        $businessview = null;
+        $panorama = $this->panoramasRepository->findAll();
+        $address = $this->businessAdressRepository->findAll();
 
-        if ($backendUser) {
-            $storage_id = $this->conf['persistence']['storagePid'] ?? $this->pageUid;
-            $urlParameters = [
-                'id' => $storage_id,
-                'table' => 'tx_tp3businessview_domain_model_tp3businessview',
-                'search_levels' => 1
-            ];
-            $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-
-            $url = (string)$uriBuilder->buildUriFromRoute('web_list', $urlParameters);
-            $this->redirectToURI($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/' . $url);
-            exit;
+        if ($selectedBusinessViewUid > 0) {
+            $selectedBusinessView = $this->tp3BusinessViewRepository->findByUid($selectedBusinessViewUid)->getFirst();
+            $businessview = $selectedBusinessView;
         }
+
+        if ($businessview === null) {
+            $businessview = $this->tp3BusinessViewRepository->findAll();
+        }
+
+        $this->pageRenderer->loadJavaScriptModule('@tp3/tp3-businessview/Tp3Bootstrap.js');
+        $this->pageRenderer->addCssFile('EXT:tp3_businessview/Resources/Public/Css/Tp3App.css');
+
+        $this->view->assignMultiple(
+            [
+                'businessview' => $businessview,
+                'panorama' => $panorama,
+                'address' => $address,
+                'settings' => $this->settings,
+                'googleMapsJavaScriptApiKey' => $this->extensionConfiguration->getGoogleMapsJavaScriptApiKey(),
+                'selectedBusinessViewUid' => $selectedBusinessViewUid,
+                'selectedBusinessView' => $selectedBusinessView,
+            ]
+        );
         return $this->htmlResponse($this->view->render());
     }
 
@@ -164,6 +177,7 @@ class Tp3BusinessViewController extends ActionController
                 'businessview' => $businessview,
                 'panorama' => $panorama,
                 'address' => $address,
+                'settings' => $this->settings,
                 'googleMapsJavaScriptApiKey' => $this->extensionConfiguration->getGoogleMapsJavaScriptApiKey(),
                 'selectedBusinessViewUid' => $selectedBusinessViewUid,
                 'selectedBusinessView' => $selectedBusinessView,

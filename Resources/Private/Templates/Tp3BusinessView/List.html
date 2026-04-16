@@ -45,7 +45,19 @@
                         email: <f:format.json value="{selectedBusinessView.contact.email}" />,
                         website: <f:format.json value="{selectedBusinessView.contact.www}" />
                     }
-                }]
+                }],
+					settings: {
+					panoRotationFactor: <f:format.json>{settings.panoRotationFactor}</f:format.json>,
+					color: <f:format.json>{settings.color}</f:format.json>,
+					backgroundColor: <f:format.json>{settings.backgroundColor}</f:format.json>,
+					textColor: <f:format.json>{settings.textColor}</f:format.json>,
+					align: <f:format.json>{settings.align}</f:format.json>,
+					panoJumpTimer: <f:format.json>{settings.panoJumpTimer}</f:format.json>,
+					panoJumpsRandom: <f:format.json>{settings.panoJumpsRandom}</f:format.json>,
+					panoRotationTimer: <f:format.json>{settings.panoRotationTimer}</f:format.json>,
+					panoRotationFactor: <f:format.json>{settings.panoRotationFactor}</f:format.json>,
+
+					}
             };
         </f:asset.script>
     </f:if>
