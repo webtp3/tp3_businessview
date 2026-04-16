@@ -17,8 +17,102 @@ export function initBusinessViewRenderer({ $, Tp3App, window, document }) {
 			// nur Layout / Höhe / Breite
 		}
 
+		function getModulePositionIndex(moduleName) {
+			if (moduleName === 'contact') {
+				return 0;
+			}
+			if (moduleName === 'navigation') {
+				return 1;
+			}
+			return -1;
+		}
+
+		function contactBoxHasVisibleFields(fields) {
+			if (!fields || typeof fields !== 'object') {
+				return false;
+			}
+
+			return Object.keys(fields).some((key) => {
+				const field = fields[key];
+				return field && field.visible;
+			});
+		}
+
+		function getColorStyle(backgroundColor, textColor) {
+			if (!backgroundColor && !textColor) {
+				return '';
+			}
+			const css = [];
+			if (backgroundColor) {
+				css.push(`background-color: ${backgroundColor}`);
+			}
+			if (textColor) {
+				css.push(`color: ${textColor}`);
+			}
+			return css.length > 0 ? ` style="${css.join('; ')};"` : '';
+		}
+
 		function appendContactToBusinessview() {
-			// nur Contact-Overlay
+			const contact = businessviewJson?.details?.modules?.contact;
+			$(`${canvasSelector} #businessview-contact-canvas`).remove();
+			if (!contact || !contact.fields || !contactBoxHasVisibleFields(contact.fields)) {
+				return;
+			}
+
+			const fields = contact.fields;
+			const alignClass = contact.align || '';
+			let html = '';
+			html += `<div id="businessview-contact-canvas" class="${alignClass}"${getColorStyle(contact.backgroundColor, contact.textColor)}>`;
+			html += '<div id="businessview-show-contact-details">Kontakt</div>';
+			html += '<div id="businessview-contact-details">';
+			html += '<div class="fa fa-times"></div>';
+			if (fields.name?.visible && fields.name?.value) {
+				html += `<p class="name">${fields.name.value}</p>`;
+			}
+			if (
+				(fields.street?.visible && fields.street?.value) ||
+				(fields.zip?.visible && fields.zip?.value) ||
+				(fields.city?.visible && fields.city?.value)
+			) {
+				html += '<p class="address">';
+				if (fields.street?.visible && fields.street?.value) {
+					html += `${fields.street.value}<br>`;
+				}
+				if (fields.zip?.visible && fields.zip?.value) {
+					html += `${fields.zip.value} `;
+				}
+				if (fields.city?.visible && fields.city?.value) {
+					html += fields.city.value;
+				}
+				html += '</p>';
+			}
+			if (fields.phone?.visible && fields.phone?.value) {
+				html += `<p class="phone"><div class="fa fa-phone"></div>${fields.phone.value}</p>`;
+			}
+			if (fields.email?.visible && fields.email?.value) {
+				html += `<p class="email"><div class="fa fa-envelope"></div><a href="mailto:${fields.email.value}">${fields.email.value}</a></p>`;
+			}
+			if (fields.website?.visible && fields.website?.value) {
+				html += `<p class="website"><div class="fa fa-globe"></div><a href="${fields.website.value}" target="_blank">${fields.website.value}</a></p>`;
+			}
+			html += '</div>';
+			html += '</div>';
+
+			$(canvasSelector).insertElementAtIndex(html, getModulePositionIndex('contact'));
+
+			$(canvasSelector)
+				.off('click.tp3-contact-show')
+				.on('click.tp3-contact-show', 'div#businessview-contact-canvas div#businessview-show-contact-details', function () {
+					$(`${canvasSelector} div#businessview-contact-canvas div#businessview-show-contact-details`).hide();
+					$(`${canvasSelector} div#businessview-contact-canvas div#businessview-contact-details`).show();
+				});
+
+			$(canvasSelector)
+				.off('click.tp3-contact-hide')
+				.on('click.tp3-contact-hide', 'div#businessview-contact-canvas div#businessview-contact-details .fa-times', function () {
+					$(`${canvasSelector} div#businessview-contact-canvas div#businessview-contact-details`).hide();
+					$(`${canvasSelector} div#businessview-contact-canvas div#businessview-show-contact-details`).show();
+				});
 		}
 
 		function appendNavigationToBusinessview() {
