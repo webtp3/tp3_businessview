@@ -16,6 +16,14 @@
 body > .tp3businessview {
 	padding: 0 5px;
 }
+#tp3-businessview-app > pre{
+    display:none;
+    position: absolute;
+}
+#tp3-businessview-app:hover > pre{
+    display:block;
+
+}
 .tp3businessview-controls {
 
     background-color: #fff;
