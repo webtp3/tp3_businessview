@@ -8,9 +8,12 @@
  */
 
 return [
-    'ext-tp3_businessview-wizard-icon' =>  [
+    'ext-tp3_businessview-wizard-icon' => [
         'provider' => \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        'source' => 'EXT:sitepack/Resources/Public/Icons/user_plugin_tp3businessview.svg',
-    ]
-
+        'source' => 'EXT:tp3_businessview/Resources/Public/Icons/user_plugin_tp3businessview.svg',
+    ],
+    'ext-tp3_businessview-module-icon' => [
+        'provider' => \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+        'source' => 'EXT:tp3_businessview/Resources/Public/Icons/user_mod_tp3businessview.svg',
+    ],
 ];

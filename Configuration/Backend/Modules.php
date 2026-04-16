@@ -14,7 +14,7 @@ return [
         'parent' => 'web',
         'position' => ['after' => 'list'],
         'access' => 'user,group',
-        'iconIdentifier' => 'module-web_list',
+        'iconIdentifier' => 'ext-tp3_businessview-module-icon',
         'labels' => 'LLL:EXT:tp3_businessview/Resources/Private/Language/locallang_tp3businessviewdesigner.xlf',
         'routes' => [
             '_default' => [
