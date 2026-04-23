@@ -15,12 +15,23 @@ use Tp3\Tp3Businessview\Domain\Model\Dto\Settings;
 use Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository;
 use Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository;
 use Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Service\FlexFormService;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Mvc\View\GenericViewResolver;
+use TYPO3\CMS\Extbase\Mvc\View\JsonView;
+use TYPO3\CMS\Extbase\Mvc\View\ViewResolverInterface;
 
 class Tp3BusinessViewController extends ActionController
 {
@@ -45,7 +56,10 @@ class Tp3BusinessViewController extends ActionController
         $this->pageRenderer = $pageRenderer;
     }
 
+
+
     public function __construct(
+
         protected readonly Tp3BusinessViewRepository $tp3BusinessViewRepository,
         protected readonly PanoramasRepository $panoramasRepository,
         protected readonly BusinessAdressRepository $businessAdressRepository,
@@ -73,18 +87,18 @@ class Tp3BusinessViewController extends ActionController
         // correct the array to be in same shape like the _SETTINGS array
         $tsSettings = $this->removeDots((array) ($tsSettings['plugin.']['tx_tp3businessview_tp3businessview.'] ?? []));
         //@todo settings security
-        //        $originalSettings = $tsSettings['settings'];
+//        $originalSettings = $tsSettings['settings'];
         // get original settings
         // original means: what extbase does by munching flexform and TypoScript together, but leaving empty flexform-settings empty ...
-        $originalSettings = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
-        );
-        $propertiesNotAllowedViaFlexForms = ['orderByAllowed'];
-        foreach ($propertiesNotAllowedViaFlexForms as $property) {
-            if (isset($tsSettings['settings'][$property])) {
-                $originalSettings[$property] = $tsSettings['settings'][$property];
-            }
-        }
+                $originalSettings = $this->configurationManager->getConfiguration(
+                    ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+                );
+                $propertiesNotAllowedViaFlexForms = ['orderByAllowed'];
+                foreach ($propertiesNotAllowedViaFlexForms as $property) {
+                    if (isset($tsSettings['settings'][$property])) {
+                        $originalSettings[$property] = $tsSettings['settings'][$property];
+                    }
+                }
 
         // start override
         if (isset($tsSettings['settings']['overrideFlexformSettingsIfEmpty'])) {
@@ -102,6 +116,7 @@ class Tp3BusinessViewController extends ActionController
         $this->queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
         $this->extensionConfiguration = GeneralUtility::makeInstance(Settings::class);
     }
+
 
     public function indexAction(): ResponseInterface
     {
@@ -121,6 +136,8 @@ class Tp3BusinessViewController extends ActionController
         }
 
         $this->pageRenderer->loadJavaScriptModule('@tp3/tp3-businessview/Tp3Bootstrap.js');
+        $this->pageRenderer->loadJavaScriptModule('@tp3/tp3-businessview/Tp3Json.js');
+
         $this->pageRenderer->addCssFile('EXT:tp3_businessview/Resources/Public/Css/Tp3App.css');
 
         $this->view->assignMultiple(
@@ -155,6 +172,7 @@ class Tp3BusinessViewController extends ActionController
         }
 
         $this->pageRenderer->loadJavaScriptModule('@tp3/tp3-businessview/Tp3Bootstrap.js');
+        $this->pageRenderer->loadJavaScriptModule('@tp3/tp3-businessview/Tp3Json.js');
         $this->pageRenderer->addCssFile('EXT:tp3_businessview/Resources/Public/Css/Tp3App.css');
 
         $this->view->assignMultiple(
@@ -170,6 +188,10 @@ class Tp3BusinessViewController extends ActionController
         );
         return $this->htmlResponse($this->view->render());
     }
+
+
+
+
 
     /**
      * Removes dots at the end of a configuration array

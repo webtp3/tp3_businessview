@@ -154,7 +154,30 @@ div#businessview-canvas div#businessview-contact-canvas {
     padding: 10px;
     position: absolute;
     z-index: 4;
-	text-align: var(--tp3-businessview-align);
+	text-align: center;
+}
+
+div#businessview-canvas.tp3-align-left div#businessview-contact-canvas {
+	background: var(--bs-primary);
+	bottom: 15px;
+	color: var(--bs-body-color);
+	max-width: 280px;
+	padding: 10px;
+	position: absolute;
+	z-index: 4;
+	text-align: left;
+	left: 10px;
+}
+div#businessview-canvas.tp3-align-right div#businessview-contact-canvas {
+	background: var(--bs-primary);
+	bottom: 15px;
+	color: var(--bs-body-color);
+	max-width: 280px;
+	padding: 10px;
+	position: absolute;
+	z-index: 4;
+	text-align: right;
+	right: 10px;
 }
 div#businessview-canvas div#businessview-contact-canvas .fa {
 	padding-right: 5px;

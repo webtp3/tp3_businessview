@@ -1,0 +1,61 @@
+<html
+	xmlns:bw="http://typo3.org/ns/Tp3/Tp3Businessview/ViewHelpers"
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{data.tx_tp3businessview_onpage} == 1">
+	<f:variable name="injectionPoint" value="{data.tx_tp3businessview_injetionpoint}" />
+	<f:variable name="businessviewUid" value="{data.tx_tp3businessview_businessview}" />
+	<f:variable name="panoramaUid" value="{data.tx_tp3businessview_panorama}" />
+
+	<f:if condition="{businessviewUid} > 0">
+		<f:then>
+			<f:variable name="business" value="{bw:businessview(uid: businessviewUid, model: 'businessview')}" />
+		</f:then>
+		<f:else>
+			<f:variable name="business" value="{bw:businessview(uid: panoramaUid, model: 'panorama')}" />
+		</f:else>
+	</f:if>
+
+
+	<f:asset.script identifier="tp3-businessview-config">
+		window.businessviewJson = {
+		mountPoint: <f:format.json value="{injectionPoint}" />,
+		apiKey: <f:format.json value="{settings.googleMapsJavaScriptApiKey}" />,
+		businessview: [{
+		uid: <f:format.json value="{business.uid}" />,
+		intro: <f:format.json value="{business.intro}" />,
+		description: <f:format.json value="{business.description}" />,
+		contact: {
+		name: <f:format.json value="{business.contact.name}" />,
+		address: <f:format.json value="{business.contact.address}" />,
+		zip: <f:format.json value="{business.contact.zip}" />,
+		city: <f:format.json value="{business.contact.city}" />,
+		phone: <f:format.json value="{business.contact.phone}" />,
+		mobile: <f:format.json value="{business.contact.mobile}" />,
+		email: <f:format.json value="{business.contact.email}" />,
+		website: <f:format.json value="{business.contact.www}" />
+		}
+		}],
+		settings: {
+		panoRotationFactor: <f:format.json value="{settings.panoRotationFactor}" />,
+		color: <f:format.json value="{settings.color}" />,
+		backgroundColor: <f:format.json value="{settings.backgroundColor}" />,
+		textColor: <f:format.json value="{settings.textColor}" />,
+		align: <f:format.json value="{settings.align}" />,
+		panoJumpTimer: <f:format.json value="{settings.panoJumpTimer}" />,
+		panoJumpsRandom: <f:format.json value="{settings.panoJumpsRandom}" />,
+		panoRotationTimer: <f:format.json value="{settings.panoRotationTimer}" />
+		}
+		};
+	</f:asset.script>
+
+	<f:asset.module identifier="@tp3/tp3-businessview/Tp3Bootstrap.js"  />
+	<f:asset.module identifier="@tp3/tp3-businessview/Tp3Json.js"  />
+
+	<div
+		id="tp3-businessview-app"
+		data-json-url="https://test.localdev.tp3.de/de/tp3Businessview/fejson"
+		data-api-key="AIzaSyAeFL1mw0cUjDZ5kSM7nTQiXgLTDZGJUwg"
+		data-pid="{data.uid}"
+	></div>
+</f:if>
+</html>

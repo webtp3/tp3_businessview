@@ -10,3 +10,10 @@ services:
   Tp3\Tp3Businessview\Controller\ModuleController:
     public: true
 
+#  Tp3\Tp3Businessview\Frontend\JsonFeHandler:
+#    arguments:
+#      $tp3BusinessViewRepository: '@Tp3\Tp3Businessview\Domain\Repository\Tp3BusinessViewRepository'
+#      $panoramasRepository: '@Tp3\Tp3Businessview\Domain\Repository\PanoramasRepository'
+#      $businessAdressRepository: '@Tp3\Tp3Businessview\Domain\Repository\BusinessAdressRepository'
+
+

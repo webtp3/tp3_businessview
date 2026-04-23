@@ -49,37 +49,37 @@
                 ]
             ]
         ],
-//        'tx_tp3businessview_businessview' => [
-//            'label' => 'Businessview',
-//            'exclude' => true,
-//            'config' => [
-//                'type' => 'select',
-//                'renderType' => 'selectSingle',
-//                'foreign_table' => 'tx_tp3businessview_domain_model_tp3businessview',
-//                'minitems' => 0,
-//                'maxitems' => 1,
-//                'items' => [
-//                          [ 0 => ''],
-//                ],
-//                'appearance' => [
-//                    'collapseAll' => false,
-//                    'levelLinksPosition' => 'top',
-//                    'useSortable' => true,
-//                    'showSynchronizationLink' => true,
-//                    'showAllLocalizationLink' => true,
-//                    'showPossibleLocalizationRecords' => false,
-//                    'showRemovedLocalizationRecords' => false,
-//                    'expandSingle' => true,
-//                    'enabledControls' => [
-//                        'localize' => false,
-//                    ]
-//                ],
-//                'behaviour' => [
-//                    'mode' => 'select',
-//                    'localizeChildrenAtParentLocalization' => true,
-//                ]
-//            ]
-//        ],
+        'tx_tp3businessview_businessview' => [
+            'label' => 'Businessview',
+            'exclude' => true,
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_tp3businessview_domain_model_tp3businessview',
+                'minitems' => 0,
+                'maxitems' => 1,
+                'items' => [
+                          [ 0 => ''],
+                ],
+                'appearance' => [
+                    'collapseAll' => false,
+                    'levelLinksPosition' => 'top',
+                    'useSortable' => true,
+                    'showSynchronizationLink' => true,
+                    'showAllLocalizationLink' => true,
+                    'showPossibleLocalizationRecords' => false,
+                    'showRemovedLocalizationRecords' => false,
+                    'expandSingle' => true,
+                    'enabledControls' => [
+                        'localize' => false,
+                    ]
+                ],
+                'behaviour' => [
+                    'mode' => 'select',
+                    'localizeChildrenAtParentLocalization' => true,
+                ]
+            ]
+        ],
         'tx_tp3businessview_injetionpoint' => [
             'label' => 'Businessview  css selector',
             'exclude' => true,
@@ -96,7 +96,8 @@
     'pages',
     'layout',
     '
-    --linebreak--, tx_tp3businessview_onpage,
+    --linebreak--, tx_tp3businessview_onpage,    
+    --linebreak--, tx_tp3businessview_businessview,
     --linebreak--, tx_tp3businessview_panorama,
     --linebreak--, tx_tp3businessview_injetionpoint,
     '

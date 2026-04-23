@@ -2,37 +2,31 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    <div
-        id="tp3-businessview-app"
+	<f:variable name="injectionPoint" value="{data.tx_tp3businessview_injetionpoint}" />
+	<f:variable name="baseUrl" value="{f:uri.page(pageUid: data.uid, absolute: 1)}" />
+	<f:variable name="jsonUrl" value="{baseUrl}tp3Businessview/fejson?businessview={selectedBusinessView.uid}" />
+
+	<div
+
+	    id="tp3-businessview-app"
         data-api-key="{googleMapsJavaScriptApiKey}"
+			data-injectionPoint="{settings.selector}"
+	    data-json-url="{jsonUrl}"
+	    data-pid="{data.uid}"
+	    data-bv-uid="{selectedBusinessView.uid}"
     ></div>
 
     <div id="businessview-canvas" class="businessview">
         <div id="businessview-panorama-canvas"></div>
     </div>
 
-    <table class="panolist" style="display:none;">
-        <f:if condition="{selectedBusinessViewUid} > 0">
-            <f:then>
-                <f:for each="{businessview.panoramas}" as="panorama">
-                    <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama: panorama, settings: settings, businessview: businessview}" />
-                </f:for>
-            </f:then>
-            <f:else>
-                <f:for each="{businessview}" as="businessviewItem">
-                    <f:for each="{businessviewItem.panoramas}" as="panorama">
-                        <f:render partial="Tp3BusinessView/Panorama" arguments="{panorama: panorama, settings: settings, businessview: businessviewItem}" />
-                    </f:for>
-                </f:for>
-            </f:else>
-        </f:if>
-    </table>
+
 
     <f:if condition="{selectedBusinessView}">
         <f:asset.script identifier="tp3-businessview-fe-json">
             window.businessviewJson = {
                 businessview: [{
-					uid: <f:format.raw>{selectedBusinessView.uid}</f:format.raw>,
+								uid: <f:format.raw>{selectedBusinessView.uid}</f:format.raw>,
                     intro: <f:format.json value="{selectedBusinessView.intro}" />,
                     description: <f:format.json value="{selectedBusinessView.description}" />,
                     contact: {

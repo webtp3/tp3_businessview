@@ -19,6 +19,8 @@ const Tp3App = {
 
 		this._isInitializing = true;
 		try {
+			const injectionPoint = googleMapsPlaceholder.dataset.injectionpoint || '#businessview-canvas';
+			this.injectionPoint = injectionPoint
 			const apiKey = googleMapsPlaceholder.dataset.apiKey;
 			await loadGoogleMaps(apiKey);
 
@@ -239,6 +241,9 @@ const Tp3App = {
 		const businessViewSelect = form ? form.querySelector('select[name="tp3businessview[uid]"]') : null;
 		const appRoot = document.querySelector('#tp3-businessview-app');
 		const defaultPid = appRoot ? (parseInt(appRoot.dataset.pid || '0', 10) || 0) : 0;
+		const frontendJsonUrl = (appRoot && appRoot.dataset && appRoot.dataset.jsonUrl)
+			? appRoot.dataset.jsonUrl
+			: (window.tp3BusinessViewJsonUrl || '');
 
 
 		if (this._businessViewClickHandlerBound) {
@@ -266,6 +271,117 @@ const Tp3App = {
 				businessViewSelect.value = String(this.editorState.selectedBusinessViewUid);
 			}
 			this.renderEditorState();
+		};
+
+		const mergeFrontendResponseIntoWindowJson = (data) => {
+			if (!data || typeof data !== 'object') {
+				return;
+			}
+
+			const currentJson = window.businessviewJson && typeof window.businessviewJson === 'object'
+				? window.businessviewJson
+				: {};
+			const mergedJson = Object.assign({}, currentJson, data);
+			const currentSettings = currentJson.settings && typeof currentJson.settings === 'object' && !Array.isArray(currentJson.settings)
+				? currentJson.settings
+				: {};
+			const incomingSettings = data.settings && typeof data.settings === 'object' && !Array.isArray(data.settings)
+				? data.settings
+				: {};
+			const hasIncomingSettings = Object.keys(incomingSettings).length > 0;
+
+			mergedJson.settings = hasIncomingSettings
+				? Object.assign({}, currentSettings, incomingSettings)
+				: currentSettings;
+
+			window.businessviewJson = mergedJson;
+		};
+
+		const buildFrontendReadUrl = (uid, type) => {
+			if (!frontendJsonUrl) {
+				return '';
+			}
+
+			const url = new URL(frontendJsonUrl, window.location.origin);
+			if (defaultPid > 0) {
+				url.searchParams.set('pid', String(defaultPid));
+			}
+			if (type === 'pano') {
+				url.searchParams.set('panorama', String(uid));
+			} else if (type === 'bv') {
+				url.searchParams.set('businessview', String(uid));
+			}
+			return url.toString();
+		};
+
+		const findPanoramaByUid = (uid) => {
+			const targetUid = parseInt(uid, 10) || 0;
+			if (!targetUid) {
+				return null;
+			}
+
+			const panoramas = Array.isArray(window.businessviewJson?.panoramas)
+				? window.businessviewJson.panoramas
+				: [];
+			for (const panorama of panoramas) {
+				if ((parseInt(panorama?.uid, 10) || 0) === targetUid) {
+					return panorama;
+				}
+			}
+			return null;
+		};
+
+		const applyLoadedPanorama = (record, fallbackUid = 0) => {
+			if (!record || typeof record !== 'object') {
+				return;
+			}
+
+			const heading = parseFloat(record.heading ?? '0') || 0;
+			const pitch = parseFloat(record.pitch ?? '0') || 0;
+			const zoom = parseFloat(record.zoom ?? '1') || 1;
+			const position = record.position || '';
+			const parsedPosition = this.parsePosition(position);
+			const panoId = record.panoId || record.pano_id || '';
+			const panoramaUid = parseInt(record.uid, 10) || parseInt(fallbackUid, 10) || 0;
+			const panoramaPid = parseInt(record.pid, 10) || defaultPid || 0;
+			const businessViewUid = parseInt(record.businessViewUid || record.businessview || record.businessviewUid || '0', 10) || 0;
+
+			this.pov = { heading, pitch, zoom };
+			if (parsedPosition) {
+				this.BusinessAdress = parsedPosition;
+			}
+
+			if (businessViewUid > 0) {
+				setSelectedBusinessViewUid(businessViewUid);
+			}
+			setSelectedPanoramaUid(panoramaUid, panoramaPid);
+			this.updateDraft({
+				heading,
+				pitch,
+				zoom,
+				position,
+				panoId,
+			}, false);
+			this.editorState.isDirty = false;
+		};
+
+		const applyPanoramaFromCache = (uid, businessViewUid = 0) => {
+			const cachedPanorama = findPanoramaByUid(uid);
+			if (!cachedPanorama) {
+				return false;
+			}
+
+			applyLoadedPanorama(cachedPanorama, uid);
+			if (businessViewUid > 0) {
+				setSelectedBusinessViewUid(businessViewUid);
+			}
+
+			Tp3App.businessview_initialize(window.businessviewJson || {});
+			Tp3App.initPano(window.businessviewJson || {});
+			syncAnimationOptionsFromControls();
+			startTourTimers();
+			this.updateStatus('Panorama geladen.', 'secondary');
+			return true;
 		};
 
 		const findBusinessViewPanoramaTbody = (businessViewUid) => {
@@ -403,6 +519,30 @@ const Tp3App = {
 			return fallback;
 		};
 
+		const parseDurationMs = (value, fallbackMs = 0) => {
+			if (value === undefined || value === null) {
+				return fallbackMs;
+			}
+
+			const raw = String(value).trim().toLowerCase();
+			if (raw === '') {
+				return fallbackMs;
+			}
+
+			if (raw.endsWith('ms')) {
+				const parsedMs = parseFloat(raw.slice(0, -2));
+				return Number.isFinite(parsedMs) ? Math.max(0, parsedMs) : fallbackMs;
+			}
+
+			if (raw.endsWith('s')) {
+				const parsedSeconds = parseFloat(raw.slice(0, -1));
+				return Number.isFinite(parsedSeconds) ? Math.max(0, parsedSeconds * 1000) : fallbackMs;
+			}
+
+			const parsed = parseFloat(raw);
+			return Number.isFinite(parsed) ? Math.max(0, parsed) : fallbackMs;
+		};
+
 		const applyVisualControlsToBusinessView = () => {
 			const settings = collectControlSettings();
 			const container = document.getElementById('businessview-canvas');
@@ -414,7 +554,7 @@ const Tp3App = {
 			const backgroundColor = String(settings.backgroundColor ?? '').trim();
 			const textColor = String(settings.textColor ?? '').trim();
 			const align = String(settings.align ?? '').trim();
-
+			container.classList.add('tp3-align-'+align);
 			container.style.setProperty('--tp3-businessview-color', color);
 			container.style.setProperty('--tp3-businessview-background-color', backgroundColor);
 			container.style.setProperty('--tp3-businessview-text-color', textColor);
@@ -451,6 +591,14 @@ const Tp3App = {
 			return Array.from(document.querySelectorAll(`.actions-view.pano[data-businessview-uid="${businessViewUid}"][data-bv-uid]`));
 		};
 
+		const getCurrentBusinessViewPanoramasFromResponse = () => {
+			if (!Array.isArray(window.businessviewJson?.panoramas)) {
+				return [];
+			}
+
+			return window.businessviewJson.panoramas;
+		};
+
 			const startTourTimers = () => {
 				clearTourTimers();
 
@@ -483,10 +631,35 @@ const Tp3App = {
 					}, rotationTimer);
 				}
 
-			const jumpTimer = Math.max(1, Number(this.AnmationOptions.panoJumpTimer) || 0);
+			const jumpTimer = parseDurationMs(this.AnmationOptions.panoJumpTimer, 0);
 			const panoButtons = getCurrentBusinessViewPanoButtons();
-			if (jumpsEnabled && jumpTimer > 0 && panoButtons.length > 1) {
+			const panoramasFromResponse = getCurrentBusinessViewPanoramasFromResponse();
+			if (jumpsEnabled && jumpTimer > 0 && (panoButtons.length > 1 || panoramasFromResponse.length > 1)) {
 				this._panoJumpIntervalId = window.setInterval(() => {
+					const responsePanoramas = getCurrentBusinessViewPanoramasFromResponse();
+					if (responsePanoramas.length > 1) {
+						const currentUid = this.editorState.selectedPanoramaUid;
+						const currentIndex = responsePanoramas.findIndex((panorama) => (parseInt(panorama?.uid, 10) || 0) === currentUid);
+
+						let nextIndex = 0;
+						if (this.AnmationOptions.panoJumpsRandom) {
+							const candidates = responsePanoramas.map((_, index) => index).filter((index) => index !== currentIndex);
+							nextIndex = candidates[Math.floor(Math.random() * candidates.length)] ?? 0;
+						} else if (currentIndex >= 0) {
+							nextIndex = (currentIndex + 1) % responsePanoramas.length;
+						}
+
+						const nextPanorama = responsePanoramas[nextIndex];
+						const nextUid = parseInt(nextPanorama?.uid, 10) || 0;
+						const nextBusinessViewUid = parseInt(nextPanorama?.businessViewUid || '0', 10) || this.editorState.selectedBusinessViewUid;
+						if (!nextUid) {
+							return;
+						}
+
+						loadBusinessView(nextUid, 'pano', { businessViewUid: nextBusinessViewUid });
+						return;
+					}
+
 					const buttons = getCurrentBusinessViewPanoButtons();
 					if (buttons.length < 2) {
 						return;
@@ -686,12 +859,24 @@ const Tp3App = {
 			}
 		};
 		const loadBusinessView = async (uid, type, options = {}) => {
-			if (!form) {
-				return;
+			if (type === 'pano') {
+				const businessViewUid = parseInt(options.businessViewUid || '0', 10) || 0;
+				if (applyPanoramaFromCache(uid, businessViewUid)) {
+					return;
+				}
 			}
 
 			try {
-				const response = await fetch(`${form.action}&submitType=read&type=${encodeURIComponent(type)}&uid=${encodeURIComponent(uid)}`, {
+				const backendReadUrl = form
+					? `${form.action}&submitType=read&type=${encodeURIComponent(type)}&uid=${encodeURIComponent(uid)}`
+					: '';
+				const frontendReadUrl = buildFrontendReadUrl(uid, type);
+				const targetUrl = backendReadUrl || frontendReadUrl;
+				if (!targetUrl) {
+					throw new Error('Kein Read-Endpunkt konfiguriert');
+				}
+
+				const response = await fetch(targetUrl, {
 					method: 'GET',
 					credentials: 'same-origin',
 					headers: {
@@ -705,37 +890,27 @@ const Tp3App = {
 				}
 
 				const data = await response.json();
+				mergeFrontendResponseIntoWindowJson(data);
 				Tp3App.businessview_initialize(data);
 
 				if (options.businessViewUid > 0) {
 					setSelectedBusinessViewUid(options.businessViewUid);
 				}
 
-				if (type === 'pano' && data && data.businessview && data.businessview[0]) {
-					const record = data.businessview[0];
-					const heading = parseFloat(record.heading ?? '0') || 0;
-					const pitch = parseFloat(record.pitch ?? '0') || 0;
-					const zoom = parseFloat(record.zoom ?? '1') || 1;
-					const position = record.position || '';
-					const parsedPosition = this.parsePosition(position);
-					const panoId = record.panoId || record.pano_id || '';
-
-					this.pov = { heading, pitch, zoom };
-					if (parsedPosition) {
-						this.BusinessAdress = parsedPosition;
+				if (type === 'pano') {
+					const fallbackPanoramaFromLegacyResponse = data && data.businessview && data.businessview[0]
+						? data.businessview[0]
+						: null;
+					const selectedPanorama = (data && data.selectedPanorama)
+						? data.selectedPanorama
+						: (findPanoramaByUid(uid) || fallbackPanoramaFromLegacyResponse);
+					if (selectedPanorama) {
+						applyLoadedPanorama(selectedPanorama, uid);
 					}
 
-					setSelectedPanoramaUid(record.uid || uid, record.pid || 0);
-					this.updateDraft({
-						heading,
-						pitch,
-						zoom,
-						position,
-						panoId,
-					}, false);
-					this.editorState.isDirty = false;
-					if (options.businessViewUid > 0) {
-						const settingsFromDescription = decodeBusinessViewSettings(record.description || '');
+					const selectedBusinessView = data && data.businessview && data.businessview[0] ? data.businessview[0] : null;
+					if (selectedBusinessView) {
+						const settingsFromDescription = decodeBusinessViewSettings(selectedBusinessView.description || '');
 						if (settingsFromDescription) {
 							applyControlSettings(settingsFromDescription);
 							applyControlsRuntimeEffects();
@@ -907,6 +1082,30 @@ const Tp3App = {
 				if (!uid) return;
 
 				const businessViewUid = parseInt(button.getAttribute('data-businessview-uid') || '0', 10) || 0;
+				if (type === 'pano') {
+					const cachedRecord = {
+						uid,
+						pid: defaultPid,
+						heading: button.getAttribute('data-pano-heading') || '',
+						pitch: button.getAttribute('data-pano-pitch') || '',
+						zoom: button.getAttribute('data-pano-zoom') || '',
+						position: button.getAttribute('data-pano-position') || '',
+						panoId: button.getAttribute('data-pano-id') || '',
+						businessViewUid,
+					};
+					if (cachedRecord.position || cachedRecord.panoId) {
+						applyLoadedPanorama(cachedRecord, uid);
+						Tp3App.initPano(window.businessviewJson || {});
+						syncAnimationOptionsFromControls();
+						startTourTimers();
+						this.updateStatus('Panorama geladen.', 'secondary');
+						return;
+					}
+
+					if (applyPanoramaFromCache(uid, businessViewUid)) {
+						return;
+					}
+				}
 				loadBusinessView(uid, type, { businessViewUid });
 			});
 
@@ -920,11 +1119,32 @@ const Tp3App = {
 
 			window.addEventListener('beforeunload', (event) => {
 				clearTourTimers();
-				if (!this.editorState.isDirty) {
+				if (typeof TYPO3 === 'undefined' || !this.editorState.isDirty) {
 					return;
 				}
 				event.preventDefault();
 				event.returnValue = '';
+			});
+
+			document.addEventListener('tp3businessview:json-ready', (event) => {
+				const payload = event && event.detail ? event.detail : null;
+				if (!payload) {
+					return;
+				}
+
+				mergeFrontendResponseIntoWindowJson(payload);
+				const firstBusinessView = payload.businessview && payload.businessview[0] ? payload.businessview[0] : null;
+				if (firstBusinessView && firstBusinessView.uid) {
+					setSelectedBusinessViewUid(firstBusinessView.uid);
+				}
+
+				const selectedPanorama = payload.selectedPanorama
+					|| (Array.isArray(payload.panoramas) && payload.panoramas.length > 0 ? payload.panoramas[0] : null);
+				if (selectedPanorama && selectedPanorama.uid) {
+					loadBusinessView(selectedPanorama.uid, 'pano', {
+						businessViewUid: parseInt(selectedPanorama.businessViewUid || firstBusinessView?.uid || '0', 10) || 0,
+					});
+				}
 			});
 
 			const firstPanoButton = document.querySelector('.actions-view.pano[data-bv-uid]');
@@ -936,6 +1156,17 @@ const Tp3App = {
 					this.updateStatus('Panorama wird geladen …', 'info');
 					return;
 				}
+			}
+
+			const selectedPanoramaFromJson = window.businessviewJson && window.businessviewJson.selectedPanorama
+				? window.businessviewJson.selectedPanorama
+				: null;
+			if (selectedPanoramaFromJson && selectedPanoramaFromJson.uid) {
+				loadBusinessView(selectedPanoramaFromJson.uid, 'pano', {
+					businessViewUid: parseInt(selectedPanoramaFromJson.businessViewUid || '0', 10) || 0,
+				});
+				this.updateStatus('Panorama wird geladen …', 'info');
+				return;
 			}
 
 			if (!this.editorState.selectedPanoramaPid && defaultPid > 0) {

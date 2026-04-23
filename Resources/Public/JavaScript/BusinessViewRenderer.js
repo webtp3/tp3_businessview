@@ -1,6 +1,6 @@
 export function initBusinessViewRenderer({ $, Tp3App, window, document }) {
 	Tp3App.businessview_initialize = Tp3App.businessview_initialize || function (businessviewJson) {
-		const canvasSelector = '#businessview-canvas';
+		const canvasSelector = this.injectionPoint ;
 
 		if (!businessviewJson) {
 			return;
@@ -130,7 +130,7 @@ export function initBusinessViewRenderer({ $, Tp3App, window, document }) {
 
 		function appendContactToBusinessview() {
 			const contact = modules.contact;
-			// $(`${canvasSelector} #businessview-contact-canvas`).remove();
+			$(`${canvasSelector} #businessview-contact-canvas`).remove();
 			if (!contact || !contact.fields || !contactBoxHasVisibleFields(contact.fields)) {
 				return;
 			}
@@ -299,9 +299,12 @@ export function initBusinessViewRenderer({ $, Tp3App, window, document }) {
 	Tp3App.initPano = Tp3App.initPano || function (businessviewJson) {
 
 
-		const panoCanvas = document.getElementById('businessview-panorama-canvas');
+		let panoCanvas = document.getElementById('businessview-panorama-canvas');
 		if (!panoCanvas) {
-			return;
+			const html = `<div id="businessview-panorama-canvas"></div>`;
+			$(this.injectionPoint).append(html);
+			panoCanvas = document.getElementById('businessview-panorama-canvas');
+
 		}
 
 		const panorama = new google.maps.StreetViewPanorama(panoCanvas, {

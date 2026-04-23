@@ -1,5 +1,5 @@
 import Tp3App from './Tp3App.js';
-
+console.log("Tp3Bootstrap");
 function boot() {
     const rootElement = document.querySelector('#tp3-businessview-app');
     if (!rootElement) {
@@ -10,8 +10,8 @@ function boot() {
     if (jsonUrl) {
         window.tp3BusinessViewJsonUrl = jsonUrl;
     }
-
-    Tp3App.init();
+	const injectionPoint = rootElement.dataset.injectionpoint || '';
+	Tp3App.init();
 }
 
 if (document.readyState === 'loading') {
