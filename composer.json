@@ -1,100 +1,98 @@
 {
-	"name": "web-tp3/tp3-businessview",
-	"version": "3.0.7",
-	"type": "typo3-cms-extension",
-	"description" : "google businessview für tp3 - 360° Panorama Designer für Ihren virtuellen Rundgang",
-	"license": "GPL-2.0-or-later",
-	"homepage": "https://web.tp3.de/manual/tp3-businessview/",
-	"require": {
-		"php": ">=8.2 <8.5",
-         "typo3/cms-core": " ^13 ",
-		"web-tp3/tp3_openhours": "^4"
-
-	},
-	"autoload": {
-		"psr-4": {
-			"Tp3\\Tp3Businessview\\": "Classes"
-		}
-	},
-	"require-dev": {
-		"friendsofphp/php-cs-fixer": "*",
-		"typo3/testing-framework": "*",
-		"codeception/codeception": "^5.2",
-		"codeception/module-asserts": "^3.0",
-		"codeception/module-phpbrowser": "^3.0.1",
-		"codeception/module-webdriver": "^4.0",
-		"dbrekelmans/bdi": "^1.4",
-		"deployer/deployer": "^7.4",
-		"deployer/recipes": "*",
-		"php-webdriver/webdriver": "^1.15",
-		"phpmd/phpmd": "*",
-		"phpstan/phpstan": "*",
-		"se/selenium-server-standalone": "*",
-		"typo3-console/composer-auto-commands": "*",
-		"typo3/cms-styleguide": "*",
-		"helhum/config-loader": "*",
-		"bk2k/extension-helper": "^2.1"
-
-	},
-	"suggest": {
-		"web-tp3/tp3_openhours": "*"
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Tp3\\Tp3Businessview\\Tests\\": "Tests"
-		}
-	},
-	"replace": {
-		"typo3-ter/tp3_businessview": "self.version",
-		"web-tp3/tp3businessview": "self.version"
-	},
-	"extra": {
-		"typo3/cms": {
-			"extension-key": "tp3_businessview",
-			"cms-package-dir": "{$vendor-dir}/typo3/cms",
-			"web-dir": ".Build/Web"
-		}
-	},
-	"config": {
-		"vendor-dir": ".Build/vendor",
-		"bin-dir": ".Build/bin",
-		"allow-plugins": {
-			"typo3/class-alias-loader": true,
-			"typo3/cms-composer-installers": true
-		}
-	},
-	"scripts": {
-
-		"post-autoload-dump": [
-			"[ -d .Build/Web/_assets ] || mkdir -p .Build/Web/typo3conf/ext/",
-			"[ -d .Build/Web/_assets ] || [ -L .Build/Web/typo3conf/ext/tp3_businessview ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/tp3_businessview"
-		],
-		"cgl": [
-			"php-cs-fixer --diff -v fix"
-		],
-		"cgl:ci": [
-			"php-cs-fixer --diff -v --dry-run fix"
-		],
-		"changelog": [
-			"extension-helper changelog:create"
-		],
-		"phpstan": [
-			"phpstan analyze --configuration Build/phpstan.neon"
-		],
-		"phpstan:baseline": [
-			"phpstan analyze --configuration ./phpstan.neon --generate-baseline Build/phpstan-baseline.neon"
-		],
-		"set-version": [
-			"extension-helper version:set"
-		],
-		"test:php:unit": [
-			"@php -v",
-			"@php bin/phpunit -c Tests/Build/UnitTests.xml"
-		],
-		"test:php:func": [
-			"@php -v",
-			"@php bin/phpunit -c Tests/Build/FunctionalTests.xml"
-		]
-
-	}
+    "name": "web-tp3/tp3-businessview",
+    "type": "typo3-cms-extension",
+    "description": "google businessview für tp3 - 360° Panorama Designer für Ihren virtuellen Rundgang",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://web.tp3.de/manual/tp3-businessview/",
+    "require": {
+        "php": ">=8.2 <8.5",
+        "typo3/cms-core": " ^13 ",
+        "web-tp3/tp3_openhours": "^4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tp3\\Tp3Businessview\\": "Classes"
+        }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "*",
+        "typo3/testing-framework": "*",
+        "codeception/codeception": "^5.2",
+        "codeception/module-asserts": "^3.0",
+        "codeception/module-phpbrowser": "^3.0.1",
+        "codeception/module-webdriver": "^4.0",
+        "dbrekelmans/bdi": "^1.4",
+        "deployer/deployer": "^7.4",
+        "deployer/recipes": "*",
+        "php-webdriver/webdriver": "^1.15",
+        "phpmd/phpmd": "*",
+        "phpstan/phpstan": "*",
+        "se/selenium-server-standalone": "*",
+        "typo3-console/composer-auto-commands": "*",
+        "typo3/cms-styleguide": "*",
+        "helhum/config-loader": "*",
+        "bk2k/extension-helper": "^2.1"
+    },
+    "suggest": {
+        "web-tp3/tp3_openhours": "*"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tp3\\Tp3Businessview\\Tests\\": "Tests"
+        }
+    },
+    "replace": {
+        "typo3-ter/tp3_businessview": "self.version",
+        "web-tp3/tp3businessview": "self.version"
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "tp3_businessview",
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/Web"
+        },
+        "branch-alias": {
+            "dev-develop": "3.0.x-dev"
+        }
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin",
+        "allow-plugins": {
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "[ -d .Build/Web/_assets ] || mkdir -p .Build/Web/typo3conf/ext/",
+            "[ -d .Build/Web/_assets ] || [ -L .Build/Web/typo3conf/ext/tp3_businessview ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/tp3_businessview"
+        ],
+        "cgl": [
+            "php-cs-fixer --diff -v fix"
+        ],
+        "cgl:ci": [
+            "php-cs-fixer --diff -v --dry-run fix"
+        ],
+        "changelog": [
+            "extension-helper changelog:create"
+        ],
+        "phpstan": [
+            "phpstan analyze --configuration Build/phpstan.neon"
+        ],
+        "phpstan:baseline": [
+            "phpstan analyze --configuration ./phpstan.neon --generate-baseline Build/phpstan-baseline.neon"
+        ],
+        "set-version": [
+            "extension-helper version:set"
+        ],
+        "test:php:unit": [
+            "@php -v",
+            "@php bin/phpunit -c Tests/Build/UnitTests.xml"
+        ],
+        "test:php:func": [
+            "@php -v",
+            "@php bin/phpunit -c Tests/Build/FunctionalTests.xml"
+        ]
+    }
 }

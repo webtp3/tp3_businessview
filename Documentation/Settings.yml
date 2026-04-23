@@ -11,7 +11,7 @@ conf.py:
   copyright: 2018
   project: tp3 Businessview
   version: 0.1
-  release: 0.1.0
+  release: 3.0.7
   latex_documents:
   - - Index
     - tp3_businessview.tex

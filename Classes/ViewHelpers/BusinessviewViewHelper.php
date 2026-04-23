@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the package tna/sitepack.
+ * This file is part of the package web-tp3/tp3-businessview.
  *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
@@ -62,9 +62,9 @@ class BusinessviewViewHelper extends AbstractViewHelper
         /**
          * default query for sys_category table
          */
-        if($model === 'businessview'){
+        if ($model === 'businessview') {
             $table = 'tx_tp3businessview_domain_model_tp3businessview';
-        }else{
+        } else {
             $table = 'tx_tp3businessview_domain_model_panoramas';
         }
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
@@ -75,7 +75,7 @@ class BusinessviewViewHelper extends AbstractViewHelper
         $queryBuilder->select('*');
         $queryBuilder->from($table);
         $queryBuilder->where(
-            $queryBuilder->expr()->eq($table.'.uid', $queryBuilder->createNamedParameter($uid, ParameterType::INTEGER))
+            $queryBuilder->expr()->eq($table . '.uid', $queryBuilder->createNamedParameter($uid, ParameterType::INTEGER))
         );
 
         $result = $queryBuilder->executeQuery();
@@ -91,14 +91,14 @@ class BusinessviewViewHelper extends AbstractViewHelper
             $addressData = $res[0];
 
             // Get image files if they exist
-//            if (!empty($addressData['image'])) {
-//                $fileRepository = GeneralUtility::makeInstance(FileRepository::class);
-//                $fileObjects = $fileRepository->findByRelation('tt_address', 'image', $uid);
-//
-//                if (!empty($fileObjects)) {
-//                    $addressData['image'] = $fileObjects;
-//                }
-//            }
+            //            if (!empty($addressData['image'])) {
+            //                $fileRepository = GeneralUtility::makeInstance(FileRepository::class);
+            //                $fileObjects = $fileRepository->findByRelation('tt_address', 'image', $uid);
+            //
+            //                if (!empty($fileObjects)) {
+            //                    $addressData['image'] = $fileObjects;
+            //                }
+            //            }
 
             return $addressData;
         } else {

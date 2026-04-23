@@ -2,6 +2,13 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the package web-tp3/tp3-businessview.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace Tp3\Tp3Businessview\Frontend;
 
 use Doctrine\DBAL\ParameterType;
@@ -23,7 +30,8 @@ final class JsonFeHandler
 
     public function __construct(
         private readonly ConnectionPool $connectionPool,
-    ) {}
+    ) {
+    }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
@@ -155,9 +163,9 @@ final class JsonFeHandler
             $selectedPanorama = $panoramaRows[0];
         }
 
-            foreach ($panoramaRows as $row){
-                $panoramas[] = $this->normalizePanoramaRow($row);
-            }
+        foreach ($panoramaRows as $row) {
+            $panoramas[] = $this->normalizePanoramaRow($row);
+        }
         return new JsonResponse([
             'success' => true,
             'businessview' => [
