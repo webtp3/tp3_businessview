@@ -233,55 +233,146 @@ export function initBusinessViewRenderer({ $, Tp3App, window, document }) {
 				return;
 			}
 
-			if (document.getElementById('businessview-direction-controls')) {
-				return;
+			let controls = document.getElementById('businessview-direction-controls');
+			if (!controls) {
+				controls = document.createElement('div');
+				controls.id = 'businessview-direction-controls';
+				controls.className = 'tp3-direction-controls';
+				controls.innerHTML = [
+					'<button type="button" class="tp3-direction-controls__btn tp3-direction-controls__btn--ccw" aria-label="Gegen den Uhrzeigersinn drehen" title="Gegen den Uhrzeigersinn drehen">⟲</button>',
+					'<button type="button" class="tp3-direction-controls__btn tp3-direction-controls__btn--reset" aria-label="Ansicht zurücksetzen" title="Ansicht zurücksetzen">⇧</button>',
+					'<button type="button" class="tp3-direction-controls__btn tp3-direction-controls__btn--cw" aria-label="Im Uhrzeigersinn drehen" title="Im Uhrzeigersinn drehen">⟳</button>',
+					'<button type="button" class="tp3-direction-controls__btn tp3-direction-controls__btn--next-pano" aria-label="Zum nächsten Panorama" title="Zum nächsten Panorama">P+</button>',
+					'<button type="button" class="tp3-direction-controls__btn tp3-direction-controls__btn--next-bv" aria-label="Zum nächsten BusinessView" title="Zum nächsten BusinessView">BV+</button>'
+				].join('');
+				panoCanvas.appendChild(controls);
 			}
 
-			const controls = document.createElement('div');
-			controls.id = 'businessview-direction-controls';
-			controls.className = 'tp3-direction-controls';
-			controls.innerHTML = [
-				'<button type="button" class="tp3-direction-controls__btn tp3-direction-controls__btn--ccw" aria-label="Gegen den Uhrzeigersinn drehen" title="Gegen den Uhrzeigersinn drehen">⟲</button>',
-				'<button type="button" class="tp3-direction-controls__btn tp3-direction-controls__btn--reset" aria-label="Ansicht zurücksetzen" title="Ansicht zurücksetzen">⇧</button>',
-				'<button type="button" class="tp3-direction-controls__btn tp3-direction-controls__btn--cw" aria-label="Im Uhrzeigersinn drehen" title="Im Uhrzeigersinn drehen">⟳</button>'
-			].join('');
-
-			panoCanvas.appendChild(controls);
-
 			const step = 15;
-
-			controls.addEventListener('click', function (event) {
-				const target = event.target.closest('button');
-				if (!target || !Tp3App.panorama) {
+			const getPanoramas = () => {
+				return Array.isArray(window.businessviewJson?.panoramas) ? window.businessviewJson.panoramas : [];
+			};
+			const getDistinctBusinessViewUids = () => {
+				const uids = [];
+				getPanoramas().forEach((panorama) => {
+					const uid = parseInt(panorama?.businessViewUid || panorama?.businessviewUid || panorama?.businessview || '0', 10) || 0;
+					if (uid > 0 && !uids.includes(uid)) {
+						uids.push(uid);
+					}
+				});
+				return uids;
+			};
+			const getCurrentPanoramaUid = () => {
+				return parseInt(Tp3App.editorState?.selectedPanoramaUid || window.businessviewJson?.selectedPanorama?.uid || '0', 10) || 0;
+			};
+			const getCurrentBusinessViewUid = () => {
+				return parseInt(
+					Tp3App.editorState?.selectedBusinessViewUid
+					|| window.businessviewJson?.selectedPanorama?.businessViewUid
+					|| window.businessviewJson?.businessview?.[0]?.uid
+					|| '0',
+					10
+				) || 0;
+			};
+			const loadPanorama = (panorama) => {
+				if (!panorama) {
 					return;
 				}
-
-				const pov = Tp3App.panorama.getPov() || { heading: 0, pitch: 0, zoom: 1 };
-
-				if (target.classList.contains('tp3-direction-controls__btn--ccw')) {
-					Tp3App.panorama.setPov({
-						heading: pov.heading - step,
-						pitch: pov.pitch,
-						zoom: pov.zoom
-					});
+				const uid = parseInt(panorama.uid || '0', 10) || 0;
+				const businessViewUid = parseInt(panorama.businessViewUid || panorama.businessviewUid || panorama.businessview || '0', 10) || 0;
+				if (uid <= 0 || typeof Tp3App.loadBusinessView !== 'function') {
+					return;
 				}
-
-				if (target.classList.contains('tp3-direction-controls__btn--cw')) {
-					Tp3App.panorama.setPov({
-						heading: pov.heading + step,
-						pitch: pov.pitch,
-						zoom: pov.zoom
-					});
+				Tp3App.loadBusinessView(uid, 'pano', { businessViewUid });
+			};
+			const updateNavigationButtonsState = () => {
+				const panoramas = getPanoramas();
+				const businessViewUids = getDistinctBusinessViewUids();
+				const nextPanoButton = controls.querySelector('.tp3-direction-controls__btn--next-pano');
+				const nextBusinessViewButton = controls.querySelector('.tp3-direction-controls__btn--next-bv');
+				if (nextPanoButton) {
+					nextPanoButton.disabled = panoramas.length < 2;
 				}
-
-				if (target.classList.contains('tp3-direction-controls__btn--reset')) {
-					Tp3App.panorama.setPov({
-						heading: 0,
-						pitch: 0,
-						zoom: pov.zoom
-					});
+				if (nextBusinessViewButton) {
+					nextBusinessViewButton.disabled = businessViewUids.length < 2;
 				}
-			});
+			};
+
+			if (!controls.dataset.tp3Bound) {
+				controls.addEventListener('click', function (event) {
+					const target = event.target.closest('button');
+					if (!target) {
+						return;
+					}
+
+					if (target.classList.contains('tp3-direction-controls__btn--next-pano')) {
+						const panoramas = getPanoramas();
+						if (panoramas.length < 2) {
+							return;
+						}
+
+						const currentUid = getCurrentPanoramaUid();
+						const currentIndex = panoramas.findIndex((panorama) => (parseInt(panorama?.uid || '0', 10) || 0) === currentUid);
+						const nextIndex = currentIndex >= 0 ? (currentIndex + 1) % panoramas.length : 0;
+						loadPanorama(panoramas[nextIndex]);
+						return;
+					}
+
+					if (target.classList.contains('tp3-direction-controls__btn--next-bv')) {
+						const panoramas = getPanoramas();
+						const businessViewUids = getDistinctBusinessViewUids();
+						if (panoramas.length < 1 || businessViewUids.length < 2) {
+							return;
+						}
+
+						const currentBusinessViewUid = getCurrentBusinessViewUid();
+						const currentBusinessViewIndex = businessViewUids.indexOf(currentBusinessViewUid);
+						const nextBusinessViewIndex = currentBusinessViewIndex >= 0
+							? (currentBusinessViewIndex + 1) % businessViewUids.length
+							: 0;
+						const nextBusinessViewUid = businessViewUids[nextBusinessViewIndex];
+						const nextPanorama = panoramas.find((panorama) => {
+							const panoramaBusinessViewUid = parseInt(panorama?.businessViewUid || panorama?.businessviewUid || panorama?.businessview || '0', 10) || 0;
+							return panoramaBusinessViewUid === nextBusinessViewUid;
+						});
+						loadPanorama(nextPanorama);
+						return;
+					}
+
+					if (!Tp3App.panorama) {
+						return;
+					}
+
+					const pov = Tp3App.panorama.getPov() || { heading: 0, pitch: 0, zoom: 1 };
+
+					if (target.classList.contains('tp3-direction-controls__btn--ccw')) {
+						Tp3App.panorama.setPov({
+							heading: pov.heading - step,
+							pitch: pov.pitch,
+							zoom: pov.zoom
+						});
+					}
+
+					if (target.classList.contains('tp3-direction-controls__btn--cw')) {
+						Tp3App.panorama.setPov({
+							heading: pov.heading + step,
+							pitch: pov.pitch,
+							zoom: pov.zoom
+						});
+					}
+
+					if (target.classList.contains('tp3-direction-controls__btn--reset')) {
+						Tp3App.panorama.setPov({
+							heading: 0,
+							pitch: 0,
+							zoom: pov.zoom
+						});
+					}
+				});
+				controls.dataset.tp3Bound = '1';
+			}
+
+			updateNavigationButtonsState();
 		}
 
 		createPanoramaCanvas();

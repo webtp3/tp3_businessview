@@ -937,6 +937,7 @@ const Tp3App = {
 				console.error('Businessview laden fehlgeschlagen:', error);
 			}
 		};
+		this.loadBusinessView = loadBusinessView;
 
 		const sortPanorama = async (button) => {
 			const uid = button.getAttribute('data-pano-uid');
